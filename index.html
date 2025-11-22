@@ -16,6 +16,7 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-XXXXXX');</script>
     <!-- End Google Tag Manager -->
+    <!-- ⚠️ IMPORTANTE: Substitua GTM-XXXXXX pelo seu ID real do Google Tag Manager -->
     
     <!-- Facebook Pixel Code -->
     <script>
@@ -29,7 +30,6 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '502759528362336');
     fbq('track', 'PageView');
-    // Evento FormStart será disparado via JavaScript quando usuário clicar em "Começar"
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"
@@ -43,512 +43,23 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-98EL5GXG5F');
-      // Evento form_start será disparado via JavaScript
     </script>
     
     <!-- ============================================ -->
     <!-- PIXELS DE RASTREAMENTO - FIM -->
     <!-- ============================================ -->
     
-    <!-- Preconnect -->
+    <!-- Preconnect otimizado -->
     <link rel="preconnect" href="https://advanx.com.br" crossorigin>
     <link rel="preconnect" href="https://n8n.advfunnel.com.br">
-    <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="preconnect" href="https://connect.facebook.net">
-    <link rel="dns-prefetch" href="https://advanx.com.br">
-    <link rel="dns-prefetch" href="https://n8n.advfunnel.com.br">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://connect.facebook.net">
     
-    <!-- Preload -->
+    <!-- Preload crítico -->
     <link rel="preload" as="image" href="https://advanx.com.br/wp-content/uploads/2025/10/back-2.webp" fetchpriority="high">
     <link rel="preload" as="image" href="https://advanx.com.br/wp-content/uploads/2025/06/v3-png-e1750448442622.png" fetchpriority="high">
     
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #ff7a01;
-            --primary-dark: #e66d00;
-            --bg-dark: #0a0a0a;
-            --bg-card: #1a1a1a;
-            --text: #ffffff;
-            --text-secondary: #a0a0a0;
-            --border: rgba(255, 122, 1, 0.2);
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://advanx.com.br/wp-content/uploads/2025/10/back-2.webp');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            z-index: -2;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.92), rgba(45, 45, 45, 0.92));
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .container {
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 10px 20px 20px 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .logo-container {
-            text-align: center;
-            padding: 12px 0 8px 0;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container:hover {
-            transform: scale(1.05);
-        }
-
-        .logo-container img {
-            max-width: 120px;
-            height: auto;
-            filter: drop-shadow(0 0 20px rgba(255, 122, 1, 0.3));
-        }
-
-        .progress-container {
-            margin: 20px 0 25px 0;
-            padding: 0 10px;
-        }
-
-        .progress-text {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), #ffaa00);
-            border-radius: 10px;
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 20px rgba(255, 122, 1, 0.5);
-        }
-
-        .card {
-            background: var(--bg-card);
-            border-radius: 24px;
-            padding: 50px 40px;
-            border: 1px solid var(--border);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(255, 122, 1, 0.08) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        .question-title {
-            font-size: 28px;
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 35px;
-            color: var(--text);
-            position: relative;
-        }
-
-        .subtitle {
-            font-size: 17px;
-            color: #e0e0e0;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .input-group {
-            margin-bottom: 25px;
-        }
-
-        .input-label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"] {
-            width: 100%;
-            padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: var(--text);
-            font-size: 16px;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="tel"]:focus {
-            border-color: var(--primary);
-            background: rgba(255, 122, 1, 0.05);
-            box-shadow: 0 0 0 3px rgba(255, 122, 1, 0.1);
-        }
-
-        .option-btn {
-            width: 100%;
-            padding: 18px 24px;
-            margin-bottom: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: var(--text);
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .option-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 122, 1, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .option-btn:hover {
-            border-color: var(--primary);
-            background: rgba(255, 122, 1, 0.08);
-            transform: translateX(5px);
-        }
-
-        .option-btn:hover::before {
-            left: 100%;
-        }
-
-        .option-btn.selected {
-            background: rgba(255, 122, 1, 0.15);
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(255, 122, 1, 0.2);
-        }
-
-        .btn-primary {
-            width: 100%;
-            padding: 18px 32px;
-            background: linear-gradient(135deg, var(--primary), #ffaa00);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 17px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 122, 1, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn-primary:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(255, 122, 1, 0.4);
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .btn-back,
-        .btn-next {
-            flex: 1;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-back {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 14px;
-            padding: 12px 16px;
-            max-width: 120px;
-        }
-
-        .btn-back:hover {
-            background: rgba(255, 255, 255, 0.03);
-            color: rgba(255, 255, 255, 0.7);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-next {
-            background: linear-gradient(135deg, var(--primary), #ffaa00);
-            border: none;
-            color: white;
-            box-shadow: 0 8px 20px rgba(255, 122, 1, 0.3);
-        }
-
-        .btn-next:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(255, 122, 1, 0.4);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .error-message {
-            color: #ff4444;
-            font-size: 14px;
-            margin-top: 8px;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        .phone-hint {
-            display: none;
-            margin-top: 8px;
-            padding: 12px;
-            background: rgba(255, 122, 1, 0.1);
-            border-left: 3px solid var(--primary);
-            border-radius: 6px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .phone-hint.show {
-            display: block;
-        }
-
-        .final-message {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .final-message h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .final-message p {
-            font-size: 18px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        /* Mobile Optimizations */
-        @media (max-width: 768px) {
-            body::before {
-                background-attachment: scroll;
-                background-size: cover;
-                will-change: auto;
-            }
-
-            body::after {
-                background: rgba(26, 26, 26, 0.95); /* Gradiente simples no mobile */
-            }
-
-            .container {
-                padding: 8px 15px 15px 15px;
-            }
-
-            .card {
-                padding: 35px 25px;
-                border-radius: 20px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra mais leve */
-            }
-
-            .card::before {
-                display: none; /* Remove gradiente decorativo */
-            }
-
-            .question-title {
-                font-size: 24px;
-                margin-bottom: 25px;
-            }
-
-            .option-btn,
-            .btn-primary {
-                padding: 16px 20px;
-                font-size: 15px;
-            }
-
-            .option-btn {
-                transition: none; /* Remove transitions */
-            }
-
-            .btn-primary {
-                transition: none;
-                box-shadow: 0 5px 15px rgba(255, 122, 1, 0.25);
-            }
-
-            .logo-container {
-                padding: 10px 0 6px 0;
-                transition: none;
-            }
-
-            .logo-container img {
-                max-width: 100px;
-                filter: none; /* Remove drop-shadow no mobile */
-            }
-
-            .progress-fill {
-                box-shadow: none; /* Remove sombra da barra */
-            }
-
-            /* Remove hover effects on mobile */
-            .logo-container:hover,
-            .option-btn:hover,
-            .btn-back:hover,
-            .btn-next:hover,
-            .btn-primary:hover {
-                transform: none;
-            }
-
-            .option-btn::before {
-                display: none;
-            }
-
-            .btn-primary::before {
-                display: none;
-            }
-
-            input[type="text"]:focus,
-            input[type="email"]:focus,
-            input[type="tel"]:focus {
-                box-shadow: none; /* Remove box-shadow no focus */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .question-title {
-                font-size: 20px;
-            }
-
-            .subtitle {
-                font-size: 15px;
-            }
-
-            .card {
-                padding: 30px 20px;
-                border-radius: 16px;
-            }
-
-            .logo-container {
-                padding: 8px 0 5px 0;
-            }
-
-            .logo-container img {
-                max-width: 90px;
-            }
-
-            .progress-container {
-                margin: 15px 0 20px 0;
-            }
-
-            .progress-bar {
-                height: 4px; /* Barra mais fina */
-            }
-        }
-
-        /* Desktop enhancements */
-        @media (min-width: 1024px) {
-            .card {
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-                will-change: transform;
-            }
-
-            .option-btn,
-            .btn-primary,
-            .btn-next {
-                will-change: transform;
-            }
-        }
-    </style>
+    <style>*{margin:0;padding:0;box-sizing:border-box}:root{--primary:#ff7a01;--primary-dark:#e66d00;--bg-dark:#0a0a0a;--bg-card:#1a1a1a;--text:#fff;--text-secondary:#a0a0a0;--border:rgba(255,122,1,.2)}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg-dark);color:var(--text);min-height:100vh;overflow-x:hidden;position:relative}body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url('https://advanx.com.br/wp-content/uploads/2025/10/back-2.webp');background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;z-index:-2}body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(26,26,26,.92),rgba(45,45,45,.92));z-index:-1;pointer-events:none}.container{max-width:680px;margin:0 auto;padding:10px 20px 20px;position:relative;z-index:1}.logo-container{text-align:center;padding:12px 0 8px;cursor:pointer;transition:transform .3s ease}.logo-container:hover{transform:scale(1.05)}.logo-container img{max-width:120px;height:auto;filter:drop-shadow(0 0 20px rgba(255,122,1,.3))}.progress-container{margin:20px 0 25px;padding:0 10px}.progress-text{display:flex;justify-content:space-between;margin-bottom:12px;font-size:14px;color:var(--text-secondary)}.progress-bar{width:100%;height:6px;background:rgba(255,255,255,.05);border-radius:10px;overflow:hidden;position:relative}.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),#ffaa00);border-radius:10px;transition:width .6s cubic-bezier(.4,0,.2,1);box-shadow:0 0 20px rgba(255,122,1,.5)}.card{background:var(--bg-card);border-radius:24px;padding:50px 40px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.5);position:relative;overflow:hidden}.card::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at top right,rgba(255,122,1,.08) 0%,transparent 60%);pointer-events:none}.question-title{font-size:28px;font-weight:700;line-height:1.4;margin-bottom:35px;color:var(--text);position:relative}.subtitle{font-size:17px;color:#e0e0e0;margin-bottom:20px;line-height:1.6}.input-group{margin-bottom:25px}.input-label{display:block;margin-bottom:10px;font-size:14px;color:var(--text-secondary);font-weight:500}input[type=text],input[type=email],input[type=tel]{width:100%;padding:16px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:var(--text);font-size:16px;transition:all .3s ease;outline:0}input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus{border-color:var(--primary);background:rgba(255,122,1,.05);box-shadow:0 0 0 3px rgba(255,122,1,.1)}.option-btn{width:100%;padding:18px 24px;margin-bottom:15px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:var(--text);font-size:16px;font-weight:500;cursor:pointer;transition:all .3s ease;text-align:left;position:relative;overflow:hidden}.option-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,122,1,.1),transparent);transition:left .5s ease}.option-btn:hover{border-color:var(--primary);background:rgba(255,122,1,.08);transform:translateX(5px)}.option-btn:hover::before{left:100%}.option-btn.selected{background:rgba(255,122,1,.15);border-color:var(--primary);box-shadow:0 0 20px rgba(255,122,1,.2)}.btn-primary{width:100%;padding:18px 32px;background:linear-gradient(135deg,var(--primary),#ffaa00);border:none;border-radius:12px;color:#fff;font-size:17px;font-weight:700;cursor:pointer;transition:all .3s ease;box-shadow:0 10px 30px rgba(255,122,1,.3);position:relative;overflow:hidden}.btn-primary::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,.2);transform:translate(-50%,-50%);transition:width .6s,height .6s}.btn-primary:hover::before{width:300px;height:300px}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 15px 40px rgba(255,122,1,.4)}.btn-primary:disabled{opacity:.5;cursor:not-allowed}.nav-buttons{display:flex;gap:15px;margin-top:30px}.btn-back,.btn-next{flex:1;padding:16px;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:8px}.btn-back{background:0 0;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:14px;padding:12px 16px;max-width:120px}.btn-back:hover{background:rgba(255,255,255,.03);color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.2)}.btn-next{background:linear-gradient(135deg,var(--primary),#ffaa00);border:none;color:#fff;box-shadow:0 8px 20px rgba(255,122,1,.3)}.btn-next:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,122,1,.4)}.hidden{display:none!important}.error-message{color:#ff4444;font-size:14px;margin-top:8px;display:none}.error-message.show{display:block}.phone-hint{display:none;margin-top:8px;padding:12px;background:rgba(255,122,1,.1);border-left:3px solid var(--primary);border-radius:6px;font-size:14px;color:var(--text-secondary)}.phone-hint.show{display:block}.final-message{text-align:center;padding:40px 20px}.final-message h2{font-size:32px;margin-bottom:20px;color:var(--primary)}.final-message p{font-size:18px;color:var(--text-secondary);line-height:1.6;margin-bottom:15px}.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center;padding:20px}.modal-overlay.show{display:flex}.modal-content{background:var(--bg-card);border-radius:20px;padding:40px 30px;max-width:520px;width:100%;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.7);position:relative}.modal-icon{width:50px;height:50px;background:0 0;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:40px}.modal-title{font-size:22px;font-weight:700;color:var(--text);margin-bottom:20px;text-align:center;line-height:1.3}.modal-text{font-size:16px;color:var(--text-secondary);line-height:1.6;margin-bottom:15px;text-align:center}.confirmation-box{background:rgba(255,122,1,.12);border:2px solid var(--primary);border-radius:16px;padding:18px;margin-bottom:25px;display:flex;align-items:flex-start;gap:12px}.warning-icon{font-size:24px;flex-shrink:0}.confirmation-text{flex:1;font-size:15px;color:var(--text);line-height:1.5;font-weight:500}.checkbox-container{display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:20px;padding:12px;border-radius:8px}.checkbox-container input[type=checkbox]{width:20px;height:20px;cursor:pointer;accent-color:var(--primary);flex-shrink:0}.checkbox-label{flex:1;font-size:14px;color:#e0e0e0;line-height:1.4;user-select:none}@media (max-width:768px){body::before{background-attachment:scroll;background-size:cover;will-change:auto}body::after{background:rgba(26,26,26,.95)}.container{padding:8px 15px 15px}.card{padding:35px 25px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.3)}.card::before{display:none}.question-title{font-size:24px;margin-bottom:25px}.option-btn,.btn-primary{padding:16px 20px;font-size:15px}.option-btn{transition:none}.btn-primary{transition:none;box-shadow:0 5px 15px rgba(255,122,1,.25)}.logo-container{padding:10px 0 6px;transition:none}.logo-container img{max-width:100px;filter:none}.progress-fill{box-shadow:none}.logo-container:hover,.option-btn:hover,.btn-back:hover,.btn-next:hover,.btn-primary:hover{transform:none}.option-btn::before{display:none}.btn-primary::before{display:none}input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus{box-shadow:none}.modal-content{padding:30px 25px;margin:20px}.modal-title{font-size:20px}.modal-text,.confirmation-text{font-size:14px}.modal-icon{width:45px;height:45px;font-size:32px}.checkbox-container:hover{background:0 0}}@media (max-width:480px){.question-title{font-size:20px}.subtitle{font-size:15px}.card{padding:30px 20px;border-radius:16px}.logo-container{padding:8px 0 5px}.logo-container img{max-width:90px}.progress-container{margin:15px 0 20px}.progress-bar{height:4px}.modal-content{padding:25px 20px}.modal-icon{width:40px;height:40px;font-size:28px;margin-bottom:15px}.modal-title{font-size:18px}}@media (min-width:1024px){.card{box-shadow:0 20px 60px rgba(0,0,0,.5);will-change:transform}.option-btn,.btn-primary,.btn-next{will-change:transform}}</style>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -558,7 +69,7 @@
 
     <div class="container">
         <div class="logo-container" onclick="checkAdminAccess()">
-            <img src="https://res.cloudinary.com/dmf4bqbdd/image/upload/v1763770769/v3-png-e1759865866929.png_bbs0um.webp" 
+            <img src="https://advanx.com.br/wp-content/uploads/2025/06/v3-png-e1750448442622.png" 
                  alt="Advanx Logo" 
                  loading="eager" 
                  fetchpriority="high"
@@ -667,20 +178,54 @@
                 <div class="error-message" id="error6">Por favor, selecione uma opção.</div>
                 <button class="btn-back" onclick="prevStep()" style="margin-top: 15px; width: auto; padding: 12px 20px; font-size: 14px; opacity: 0.6;">← Voltar</button>
             </div>
+
+            <!-- Step 7 - Investimento -->
+            <div class="step hidden" id="step7">
+                <h2 class="question-title">Você consegue fazer o investimento mínimo de R$2.500,00 mensais para ter uma máquina de atração, qualificação e fechamento de clientes?</h2>
+                <button class="option-btn" onclick="handleInvestmentChoice(this, 'Sim, consigo investir')">Sim, consigo investir</button>
+                <button class="option-btn" onclick="handleInvestmentChoice(this, 'Não consigo investir')">Não consigo investir</button>
+                <div class="error-message" id="error7">Por favor, selecione uma opção.</div>
+                <button class="btn-back" onclick="prevStep()" style="margin-top: 15px; width: auto; padding: 12px 20px; font-size: 14px; opacity: 0.6;">← Voltar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal-overlay" id="confirmationModal">
+        <div class="modal-content">
+            <div class="modal-icon">⚠️</div>
+            <h2 class="modal-title">Importante: Precisa agendar o seu horário.</h2>
+            
+            <p class="modal-text">Reserve o melhor dia e horário para sua agenda.</p>
+            <p class="modal-text">Nossa equipe vai reservar até 1h do dia para você.</p>
+            <p class="modal-text">Durante esse tempo vamos te mostrar como automatizamos da captação do cliente até o seu operacional, com garantia de resultado!</p>
+            
+            <div class="confirmation-box">
+                <span class="warning-icon">⚠️</span>
+                <span class="confirmation-text">Agende apenas se você for comparecer e quiser começar a ter resultados de verdade!</span>
+            </div>
+
+            <label class="checkbox-container">
+                <input type="checkbox" id="attendanceConfirmation" onchange="toggleContinueButton()">
+                <span class="checkbox-label">Vou comparecer à reunião</span>
+            </label>
+
+            <button class="btn-primary" id="confirmButton" onclick="redirectToSchedule()" disabled>Continuar →</button>
         </div>
     </div>
 
     <script>
         let currentStep = 0;
-        const totalSteps = 6;
+        const totalSteps = 8;
         let formData = {};
         let formStarted = false;
         let config = {
             webhook: 'https://n8n.advfunnel.com.br/webhook/processo-comercial-inteligente',
-            redirectUrl: 'https://advanx.com.br/calendario-advanx/'
+            redirectUrl: 'https://advanx.com.br/calendario-advanx/',
+            whatsappGroupUrl: 'https://advanx.com.br/grupomdc'
         };
 
-        // Captura UTMs ao carregar
+        // Captura UTMs
         function captureUTMs() {
             const urlParams = new URLSearchParams(window.location.search);
             const utms = {
@@ -703,35 +248,36 @@
 
         captureUTMs();
 
-        // Função especial para iniciar o formulário e disparar eventos
+        // Tracking helper
+        function trackEvent(eventName, eventData = {}) {
+            // Facebook Pixel
+            if (typeof fbq !== 'undefined') {
+                fbq('track', eventName, eventData);
+            }
+            
+            // Google Analytics 4
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, eventData);
+            }
+            
+            // Google Tag Manager
+            if (typeof window.dataLayer !== 'undefined') {
+                window.dataLayer.push({
+                    'event': eventName,
+                    ...eventData
+                });
+            }
+        }
+
         function startForm() {
             if (!formStarted) {
                 formStarted = true;
                 
-                // Dispara eventos de início de formulário
-                // Facebook Pixel - ViewContent indica que usuário começou a interagir
-                if (typeof fbq !== 'undefined') {
-                    fbq('trackCustom', 'FormStarted', {
-                        form_name: 'Qualificação Advanx',
-                        form_type: 'lead_qualification'
-                    });
-                }
-                
-                // Google Analytics 4
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'form_start', {
-                        'event_category': 'engagement',
-                        'event_label': 'Formulário Qualificação'
-                    });
-                }
-                
-                // Google Tag Manager dataLayer
-                if (typeof window.dataLayer !== 'undefined') {
-                    window.dataLayer.push({
-                        'event': 'form_start',
-                        'formName': 'Qualificação Advanx'
-                    });
-                }
+                // Evento de início do formulário
+                trackEvent('FormStarted', {
+                    form_name: 'Qualificação Advanx',
+                    form_type: 'lead_qualification'
+                });
             }
             
             nextStep();
@@ -739,7 +285,7 @@
 
         function updateProgress() {
             const percent = Math.round((currentStep / totalSteps) * 100);
-            const stepNames = ['Início', 'Nome', 'WhatsApp', 'Email', 'Área', 'Equipe', 'Faturamento'];
+            const stepNames = ['Início', 'Nome', 'WhatsApp', 'Email', 'Área', 'Equipe', 'Faturamento', 'Investimento'];
             document.getElementById('currentStep').textContent = stepNames[currentStep] || 'Etapa ' + currentStep;
             document.getElementById('progressPercent').textContent = `${percent}%`;
             document.getElementById('progressFill').style.width = `${percent}%`;
@@ -749,7 +295,13 @@
             document.querySelectorAll('.step').forEach(el => el.classList.add('hidden'));
             document.getElementById(`step${step}`).classList.remove('hidden');
             updateProgress();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Scroll otimizado para mobile
+            if (window.innerWidth <= 768) {
+                window.scrollTo(0, 0);
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         }
 
         function nextStep() {
@@ -831,6 +383,14 @@
                 return true;
             }
 
+            if (step === 7) {
+                if (!formData.investimento) {
+                    document.getElementById('error7').classList.add('show');
+                    return false;
+                }
+                return true;
+            }
+
             return true;
         }
 
@@ -845,6 +405,69 @@
             setTimeout(() => {
                 nextStep();
             }, 300);
+        }
+
+        function handleInvestmentChoice(button, value) {
+            const parent = button.parentElement;
+            parent.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            button.classList.add('selected');
+            formData.investimento = value;
+
+            setTimeout(() => {
+                if (value === 'Não consigo investir') {
+                    // Track desqualificação
+                    trackEvent('LeadDisqualified', {
+                        reason: 'budget_insufficient',
+                        ...formData
+                    });
+                    showNotQualifiedMessage();
+                } else {
+                    // Track qualificação
+                    trackEvent('LeadQualified', {
+                        ...formData
+                    });
+                    showConfirmationModal();
+                }
+            }, 300);
+        }
+
+        function showNotQualifiedMessage() {
+            document.getElementById('formCard').innerHTML = `
+                <div class="final-message">
+                    <h2>Obrigado pelo seu interesse!</h2>
+                    <p class="subtitle">Entendemos que no momento não é ideal para ter a ajuda da nossa equipe.</p>
+                    <p class="subtitle" style="margin-top: 25px;">Mas não se preocupe! Você pode participar do nosso grupo no WhatsApp para receber conteúdos exclusivos e dicas valiosas.</p>
+                    <a href="${config.whatsappGroupUrl}" target="_blank" class="btn-primary" style="display: inline-block; text-decoration: none; margin-top: 30px;">Participar do Grupo →</a>
+                </div>
+            `;
+        }
+
+        function showConfirmationModal() {
+            document.getElementById('confirmationModal').classList.add('show');
+        }
+
+        function toggleContinueButton() {
+            const checkbox = document.getElementById('attendanceConfirmation');
+            const button = document.getElementById('confirmButton');
+            button.disabled = !checkbox.checked;
+        }
+
+        async function redirectToSchedule() {
+            try {
+                await fetch(config.webhook, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+            } catch (error) {
+                console.error('Erro ao enviar:', error);
+            }
+
+            window.location.href = config.redirectUrl;
         }
 
         async function submitForm() {
@@ -915,7 +538,7 @@
         }
 
         function showAdminPanel() {
-            alert('Painel administrativo em desenvolvimento.\n\nConfiguração atual:\n- Webhook: ' + config.webhook + '\n- Redirect: ' + config.redirectUrl + '\n\nFuncionalidades de edição serão implementadas na próxima versão.');
+            alert('Painel administrativo em desenvolvimento.\n\nConfiguração atual:\n- Webhook: ' + config.webhook + '\n- Redirect: ' + config.redirectUrl + '\n- Grupo WhatsApp: ' + config.whatsappGroupUrl + '\n\nFuncionalidades de edição serão implementadas na próxima versão.');
         }
 
         updateProgress();
