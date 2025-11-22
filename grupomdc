@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="0;url=https://chat.whatsapp.com/CUeZa5sPn812T1ULAc5aUq">
+    <title>Redirecionando...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #25D366;
+            color: white;
+        }
+        .container {
+            text-align: center;
+        }
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="loader"></div>
+        <h2>Redirecionando para o WhatsApp...</h2>
+        <p>Se não for redirecionado automaticamente, <a href="https://chat.whatsapp.com/CUeZa5sPn812T1ULAc5aUq" style="color: white; text-decoration: underline;">clique aqui</a></p>
+    </div>
+    
+    <script>
+        // Redirecionamento JavaScript como backup
+        window.location.href = "https://chat.whatsapp.com/CUeZa5sPn812T1ULAc5aUq";
+    </script>
+</body>
+</html>
