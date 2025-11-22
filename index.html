@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultoria para Advogados - Advanx</title>
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://advanx.com.br">
+    <link rel="dns-prefetch" href="https://n8n.advfunnel.com.br">
+    
+    <!-- Preload -->
+    <link rel="preload" as="image" href="https://advanx.com.br/wp-content/uploads/2025/10/back-2.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="https://advanx.com.br/wp-content/uploads/2025/06/v3-png-e1750448442622.png" fetchpriority="high">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff7a01;
+            --primary-dark: #e66d00;
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border: rgba(255, 122, 1, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://advanx.com.br/wp-content/uploads/2025/10/back-2.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.92), rgba(45, 45, 45, 0.92));
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 10px 20px 20px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-container {
+            text-align: center;
+            padding: 12px 0 8px 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-container img {
+            max-width: 120px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(255, 122, 1, 0.3));
+        }
+
+        .progress-container {
+            margin: 20px 0 25px 0;
+            padding: 0 10px;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #ffaa00);
+            border-radius: 10px;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(255, 122, 1, 0.5);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 50px 40px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(255, 122, 1, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-title {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 35px;
+            color: var(--text);
+            position: relative;
+        }
+
+        .subtitle {
+            font-size: 17px;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus {
+            border-color: var(--primary);
+            background: rgba(255, 122, 1, 0.05);
+            box-shadow: 0 0 0 3px rgba(255, 122, 1, 0.1);
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 18px 24px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 122, 1, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            background: rgba(255, 122, 1, 0.08);
+            transform: translateX(5px);
+        }
+
+        .option-btn:hover::before {
+            left: 100%;
+        }
+
+        .option-btn.selected {
+            background: rgba(255, 122, 1, 0.15);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 122, 1, 0.2);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 18px 32px;
+            background: linear-gradient(135deg, var(--primary), #ffaa00);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 122, 1, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(255, 122, 1, 0.4);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-back,
+        .btn-next {
+            flex: 1;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            padding: 12px 16px;
+            max-width: 120px;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.7);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, var(--primary), #ffaa00);
+            border: none;
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 122, 1, 0.3);
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 122, 1, 0.4);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+
+        .phone-hint {
+            display: none;
+            margin-top: 8px;
+            padding: 12px;
+            background: rgba(255, 122, 1, 0.1);
+            border-left: 3px solid var(--primary);
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            animation: slideDown 0.3s ease;
+        }
+
+        .phone-hint.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .final-message {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .final-message h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .final-message p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .password-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 8px 15px 15px 15px;
+            }
+
+            .card {
+                padding: 35px 25px;
+                border-radius: 20px;
+            }
+
+            .question-title {
+                font-size: 24px;
+                margin-bottom: 25px;
+            }
+
+            .option-btn,
+            .btn-primary {
+                padding: 16px 20px;
+                font-size: 15px;
+            }
+
+            .logo-container {
+                padding: 10px 0 6px 0;
+            }
+
+            .logo-container img {
+                max-width: 100px;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .question-title {
+                font-size: 20px;
+            }
+
+            .card {
+                padding: 30px 20px;
+            }
+
+            .logo-container {
+                padding: 8px 0 5px 0;
+            }
+
+            .logo-container img {
+                max-width: 90px;
+            }
+
+            .progress-container {
+                margin: 15px 0 20px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container" onclick="checkAdminAccess()">
+            <img src="https://advanx.com.br/wp-content/uploads/2025/06/v3-png-e1750448442622.png" alt="Advanx Logo" loading="eager" fetchpriority="high">
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-text">
+                <span id="currentStep">Início</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="card" id="formCard">
+            <!-- Step 0 - Abertura -->
+            <div class="step" id="step0">
+                <h1 class="question-title">Vamos te mostrar como ter um escritório lucrativo, previsível e eficiente.</h1>
+                <p class="subtitle">Atraindo clientes com IA, Reduzindo em até 80% seu custo operacional sem perder qualidade com IA Generativa Jurídica.</p>
+                <p class="subtitle" style="color: #c5c5c5; font-size: 16px;">Preencha apenas se você estiver disposto a acelerar seu crescimento.</p>
+                <button class="btn-primary" onclick="nextStep()">Começar →</button>
+            </div>
+
+            <!-- Step 1 - Nome -->
+            <div class="step hidden" id="step1">
+                <h2 class="question-title">Digite seu Nome Completo:</h2>
+                <div class="input-group">
+                    <input type="text" id="nome" placeholder="Ex: João Silva" autocomplete="name">
+                    <div class="error-message" id="error1">Por favor, digite seu nome completo.</div>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-back" onclick="prevStep()">← Voltar</button>
+                    <button class="btn-next" onclick="nextStep()">Continuar →</button>
+                </div>
+            </div>
+
+            <!-- Step 2 - WhatsApp -->
+            <div class="step hidden" id="step2">
+                <h2 class="question-title">Qual seu número de celular/WhatsApp?</h2>
+                <p class="subtitle" style="margin-bottom: 20px; font-size: 15px;">Obs.: Não coloque o do seu escritório</p>
+                <div class="input-group">
+                    <input type="tel" id="whatsapp" placeholder="(11) 99999-9999" maxlength="15" autocomplete="tel" inputmode="numeric">
+                    <div class="phone-hint" id="phoneHint">
+                        ✓ Por favor, confira se o número está correto: <strong id="phoneDisplay"></strong>
+                    </div>
+                    <div class="error-message" id="error2">Por favor, digite um número válido.</div>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-back" onclick="prevStep()">← Voltar</button>
+                    <button class="btn-next" onclick="nextStep()">Continuar →</button>
+                </div>
+            </div>
+
+            <!-- Step 3 - Email -->
+            <div class="step hidden" id="step3">
+                <h2 class="question-title">Digite seu melhor e-mail:</h2>
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="seuemail@exemplo.com" autocomplete="email" inputmode="email">
+                    <div class="error-message" id="error3">Por favor, digite um e-mail válido.</div>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-back" onclick="prevStep()">← Voltar</button>
+                    <button class="btn-next" onclick="nextStep()">Continuar →</button>
+                </div>
+            </div>
+
+            <!-- Step 4 - Área de Atuação -->
+            <div class="step hidden" id="step4">
+                <h2 class="question-title">Qual é a área de atuação do seu escritório?</h2>
+                <button class="option-btn" onclick="selectOption(this, 'area_atuacao', 'PREVIDENCIÁRIO')">PREVIDENCIÁRIO</button>
+                <button class="option-btn" onclick="selectOption(this, 'area_atuacao', 'BANCÁRIO')">BANCÁRIO</button>
+                <button class="option-btn" onclick="selectOption(this, 'area_atuacao', 'CONSUMIDOR')">CONSUMIDOR</button>
+                <button class="option-btn" onclick="selectOption(this, 'area_atuacao', 'TRABALHISTA')">TRABALHISTA</button>
+                <button class="option-btn" onclick="selectOption(this, 'area_atuacao', 'FAMÍLIA')">FAMÍLIA</button>
+                <button class="option-btn" onclick="selectOption(this, 'area_atuacao', 'CRIMINAL')">CRIMINAL</button>
+                <button class="option-btn" onclick="selectOption(this, 'area_atuacao', 'TRIBUTÁRIO')">TRIBUTÁRIO</button>
+                <button class="option-btn" onclick="selectOption(this, 'area_atuacao', 'EMPRESARIAL')">EMPRESARIAL</button>
+                <button class="option-btn" onclick="selectOption(this, 'area_atuacao', 'OUTROS')">OUTROS</button>
+                <div class="error-message" id="error4">Por favor, selecione uma área.</div>
+                <button class="btn-back" onclick="prevStep()" style="margin-top: 15px; width: auto; padding: 12px 20px; font-size: 14px; opacity: 0.6;">← Voltar</button>
+            </div>
+
+            <!-- Step 5 - Funcionários -->
+            <div class="step hidden" id="step5">
+                <h2 class="question-title">Quantos funcionários você tem no seu escritório?</h2>
+                <button class="option-btn" onclick="selectOption(this, 'funcionarios', 'Apenas eu')">Apenas eu</button>
+                <button class="option-btn" onclick="selectOption(this, 'funcionarios', '1 a 3 advogados')">1 a 3 advogados</button>
+                <button class="option-btn" onclick="selectOption(this, 'funcionarios', '3 a 6 advogados')">3 a 6 advogados</button>
+                <button class="option-btn" onclick="selectOption(this, 'funcionarios', 'Acima de 6 advogados')">Acima de 6 advogados</button>
+                <div class="error-message" id="error5">Por favor, selecione uma opção.</div>
+                <button class="btn-back" onclick="prevStep()" style="margin-top: 15px; width: auto; padding: 12px 20px; font-size: 14px; opacity: 0.6;">← Voltar</button>
+            </div>
+
+            <!-- Step 6 - Faturamento -->
+            <div class="step hidden" id="step6">
+                <h2 class="question-title">Qual a média de faturamento mensal?</h2>
+                <button class="option-btn" onclick="selectOption(this, 'faturamento', '0 a 5 mil reais')">0 a 5 mil reais</button>
+                <button class="option-btn" onclick="selectOption(this, 'faturamento', '5 a 10 mil reais')">5 a 10 mil reais</button>
+                <button class="option-btn" onclick="selectOption(this, 'faturamento', '10 a 20 mil reais')">10 a 20 mil reais</button>
+                <button class="option-btn" onclick="selectOption(this, 'faturamento', '20 a 50 mil reais')">20 a 50 mil reais</button>
+                <button class="option-btn" onclick="selectOption(this, 'faturamento', '50 a 100 mil reais')">50 a 100 mil reais</button>
+                <button class="option-btn" onclick="selectOption(this, 'faturamento', 'Mais de 100 mil reais')">Mais de 100 mil reais</button>
+                <div class="error-message" id="error6">Por favor, selecione uma opção.</div>
+                <button class="btn-back" onclick="prevStep()" style="margin-top: 15px; width: auto; padding: 12px 20px; font-size: 14px; opacity: 0.6;">← Voltar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const totalSteps = 6;
+        let formData = {};
+        let config = {
+            webhook: 'https://n8n.advfunnel.com.br/webhook/processo-comercial-inteligente',
+            redirectUrl: 'https://advanx.com.br/calendario-advanx/'
+        };
+
+        // Captura UTMs ao carregar
+        function captureUTMs() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const utms = {
+                utm_source: urlParams.get('utm_source') || '',
+                utm_medium: urlParams.get('utm_medium') || '',
+                utm_campaign: urlParams.get('utm_campaign') || '',
+                utm_term: urlParams.get('utm_term') || '',
+                utm_content: urlParams.get('utm_content') || '',
+                gclid: urlParams.get('gclid') || '',
+                fbclid: urlParams.get('fbclid') || '',
+                url_completa: window.location.href
+            };
+            
+            Object.keys(utms).forEach(key => {
+                if (utms[key]) {
+                    formData[key] = utms[key];
+                }
+            });
+        }
+
+        captureUTMs();
+
+        function updateProgress() {
+            const percent = Math.round((currentStep / totalSteps) * 100);
+            const stepNames = ['Início', 'Nome', 'WhatsApp', 'Email', 'Área', 'Equipe', 'Faturamento'];
+            document.getElementById('currentStep').textContent = stepNames[currentStep] || 'Etapa ' + currentStep;
+            document.getElementById('progressPercent').textContent = `${percent}%`;
+            document.getElementById('progressFill').style.width = `${percent}%`;
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`step${step}`).classList.remove('hidden');
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                currentStep++;
+                if (currentStep > totalSteps) {
+                    submitForm();
+                } else {
+                    showStep(currentStep);
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function validateStep(step) {
+            const errorEl = document.getElementById(`error${step}`);
+            if (errorEl) errorEl.classList.remove('show');
+
+            if (step === 0) return true;
+
+            if (step === 1) {
+                const nome = document.getElementById('nome').value.trim();
+                if (nome.length < 3) {
+                    document.getElementById('error1').classList.add('show');
+                    return false;
+                }
+                formData.nome = nome;
+                return true;
+            }
+
+            if (step === 2) {
+                const whatsapp = document.getElementById('whatsapp').value.trim();
+                const cleanPhone = whatsapp.replace(/\D/g, '');
+                if (cleanPhone.length < 10) {
+                    document.getElementById('error2').classList.add('show');
+                    return false;
+                }
+                formData.whatsapp = '+55' + cleanPhone;
+                return true;
+            }
+
+            if (step === 3) {
+                const email = document.getElementById('email').value.trim();
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    document.getElementById('error3').classList.add('show');
+                    return false;
+                }
+                formData.email = email;
+                return true;
+            }
+
+            if (step === 4) {
+                if (!formData.area_atuacao) {
+                    document.getElementById('error4').classList.add('show');
+                    return false;
+                }
+                return true;
+            }
+
+            if (step === 5) {
+                if (!formData.funcionarios) {
+                    document.getElementById('error5').classList.add('show');
+                    return false;
+                }
+                return true;
+            }
+
+            if (step === 6) {
+                if (!formData.faturamento) {
+                    document.getElementById('error6').classList.add('show');
+                    return false;
+                }
+                return true;
+            }
+
+            return true;
+        }
+
+        function selectOption(button, field, value) {
+            const parent = button.parentElement;
+            parent.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            button.classList.add('selected');
+            formData[field] = value;
+
+            // Auto avança no último step
+            if (field === 'faturamento') {
+                setTimeout(() => {
+                    nextStep();
+                }, 300);
+            } else {
+                setTimeout(() => {
+                    nextStep();
+                }, 300);
+            }
+        }
+
+        async function submitForm() {
+            try {
+                await fetch(config.webhook, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                // Redireciona para agendamento
+                if (config.redirectUrl) {
+                    window.location.href = config.redirectUrl;
+                } else {
+                    showFinalMessage();
+                }
+            } catch (error) {
+                console.error('Erro ao enviar:', error);
+                showFinalMessage();
+            }
+        }
+
+        function showFinalMessage() {
+            document.getElementById('formCard').innerHTML = `
+                <div class="final-message">
+                    <h2>Falta pouco para transformar sua advocacia</h2>
+                    <p class="subtitle">Conheça o futuro dos advogados de alta performance.</p>
+                    <a href="https://advanx.com.br/calendario-advanx/" class="btn-primary" style="display: inline-block; text-decoration: none; margin-top: 20px;">Agendar Consultoria →</a>
+                </div>
+            `;
+        }
+
+        // Formatação de telefone
+        document.addEventListener('DOMContentLoaded', function() {
+            const whatsappInput = document.getElementById('whatsapp');
+            if (whatsappInput) {
+                whatsappInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 11) value = value.slice(0, 11);
+                    
+                    if (value.length >= 11) {
+                        value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+                    } else if (value.length >= 7) {
+                        value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+                    } else if (value.length >= 3) {
+                        value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+                    }
+                    
+                    e.target.value = value;
+
+                    // Mostra mensagem de verificação quando completar 11 dígitos
+                    const cleanPhone = value.replace(/\D/g, '');
+                    if (cleanPhone.length === 11) {
+                        document.getElementById('phoneHint').classList.add('show');
+                        document.getElementById('phoneDisplay').textContent = value;
+                    } else {
+                        document.getElementById('phoneHint').classList.remove('show');
+                    }
+                });
+            }
+        });
+
+        function checkAdminAccess() {
+            const password = prompt('Digite a senha de administrador:');
+            if (password === '2112') {
+                showAdminPanel();
+            }
+        }
+
+        function showAdminPanel() {
+            alert('Painel administrativo em desenvolvimento.\n\nConfiguração atual:\n- Webhook: ' + config.webhook + '\n- Redirect: ' + config.redirectUrl + '\n\nFuncionalidades de edição serão implementadas na próxima versão.');
+        }
+
+        // Inicialização
+        updateProgress();
+    </script>
+</body>
+</html>
