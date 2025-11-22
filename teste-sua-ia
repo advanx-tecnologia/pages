@@ -1,0 +1,46 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html, body {
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    .iframe-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    .iframe-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+    }
+    
+    /* Fix para mobile */
+    @supports (-webkit-touch-callout: none) {
+        .iframe-container {
+            height: -webkit-fill-available;
+        }
+    }
+</style>
+
+<div class="iframe-container">
+    <iframe 
+        src="https://n8n.advfunnel.com.br/webhook/7d051075-9c48-4990-9484-e1cb060e8d24" 
+        frameborder="0"
+        allowfullscreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        loading="eager"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+    ></iframe>
+</div>
