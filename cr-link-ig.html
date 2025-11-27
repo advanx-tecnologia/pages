@@ -646,12 +646,15 @@
             initGA4();
         }, 2000);
 
-        // Webhook (com proteção contra duplicação)
+        // Webhook (apenas para CAPI - quando token configurado)
         let webhookSent = false;
         
         async function sendToWebhook(eventType, eventId, additionalData = {}) {
             const webhookUrl = localStorage.getItem('webhook_url');
-            if (!webhookUrl) return;
+            const metaApiToken = localStorage.getItem('meta_api_token');
+            
+            // Só envia webhook se tiver token CAPI configurado
+            if (!webhookUrl || !metaApiToken) return;
 
             // Previne envio duplicado do mesmo evento
             if (webhookSent && eventType === 'page_view') return;
@@ -675,7 +678,7 @@
                 // Dados para Meta CAPI
                 meta_capi: {
                     pixel_id: localStorage.getItem('fb_pixel_id') || '1200902931915045',
-                    access_token: localStorage.getItem('meta_api_token'),
+                    access_token: metaApiToken,
                     event_name: eventType === 'page_view' ? 'PageView' : 'Contact',
                     event_source_url: window.location.href,
                     user_agent: userAgent,
@@ -708,7 +711,7 @@
             return null;
         }
 
-        // Envia page_view apenas 1x
+        // Envia page_view apenas 1x (só se token configurado)
         let pageViewSent = false;
         setTimeout(() => {
             if (!pageViewSent) {
