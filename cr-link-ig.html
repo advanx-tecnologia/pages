@@ -454,6 +454,14 @@
             <h2>⚙️ Painel Administrativo</h2>
             
             <div class="admin-group">
+                <label>Link do WhatsApp</label>
+                <input type="text" id="whatsappUrl" placeholder="https://wa.me/5571999997950?text=...">
+                <small style="color: rgba(244, 228, 190, 0.6); font-size: 12px; display: block; margin-top: 5px;">
+                    URL completa do WhatsApp com mensagem personalizada
+                </small>
+            </div>
+
+            <div class="admin-group">
                 <label>Webhook URL</label>
                 <input type="text" id="webhookUrl" placeholder="https://seu-webhook.com/endpoint">
             </div>
@@ -562,11 +570,26 @@
                 if (referrer.includes('instagram.com')) {
                     source = 'instagram';
                     medium = 'organic';
-                } else if (referrer.includes('facebook.com')) {
+                } else if (referrer.includes('facebook.com') || referrer.includes('fb.com')) {
                     source = 'facebook';
                     medium = 'organic';
-                } else if (referrer.includes('google.com')) {
+                } else if (referrer.includes('tiktok.com')) {
+                    source = 'tiktok';
+                    medium = 'organic';
+                } else if (referrer.includes('google.com') || referrer.includes('google.')) {
                     source = 'google';
+                    medium = 'organic';
+                } else if (referrer.includes('youtube.com')) {
+                    source = 'youtube';
+                    medium = 'organic';
+                } else if (referrer.includes('twitter.com') || referrer.includes('t.co')) {
+                    source = 'twitter';
+                    medium = 'organic';
+                } else if (referrer.includes('linkedin.com')) {
+                    source = 'linkedin';
+                    medium = 'organic';
+                } else if (referrer.includes('pinterest.com')) {
+                    source = 'pinterest';
                     medium = 'organic';
                 } else {
                     source = 'referral';
@@ -807,6 +830,7 @@
         }
 
         function loadAdminSettings() {
+            document.getElementById('whatsappUrl').value = localStorage.getItem('whatsapp_url') || 'https://wa.me/5571999997950?text=Quero%20falar%20com%20uma%20especialista%20em%20joias%20da%20Carlos%20Rodeiro!';
             document.getElementById('webhookUrl').value = localStorage.getItem('webhook_url') || '';
             document.getElementById('fbPixelId').value = localStorage.getItem('fb_pixel_id') || '1200902931915045';
             document.getElementById('metaApiToken').value = localStorage.getItem('meta_api_token') || '';
