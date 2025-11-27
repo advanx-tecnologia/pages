@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0A0A0A">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Preconnect para recursos externos -->
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+    <link rel="preconnect" href="https://www.facebook.com" crossorigin>
+    <link rel="preconnect" href="https://lhbwfbquxkutcyqazpnw.supabase.co" crossorigin>
+    <link rel="dns-prefetch" href="https://connect.facebook.net">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    <!-- Preload da logo (recurso crítico) -->
+    <link rel="preload" as="image" href="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/cr logo png.webp">
+    
+    <title>Carlos Rodeiro Joalheria</title>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        
+        const fbPixelId = localStorage.getItem('fb_pixel_id') || '1200902931915045';
+        fbq('init', fbPixelId);
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=1200902931915045&ev=PageView&noscript=1"
+    /></noscript>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BE;
+            --gold-dark: #B8941E;
+            --dark-bg: #0A0A0A;
+            --dark-card: #1A1A1A;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1a1410 100%);
+            color: var(--gold-light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+            }
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInScale 1.2s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .logo {
+            width: 180px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .logo:hover {
+            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.5));
+            transform: scale(1.05);
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 30px auto;
+            animation: expandWidth 1.5s ease-out;
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0;
+            }
+            to {
+                width: 60px;
+            }
+        }
+
+        .content-card {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .message {
+            text-align: center;
+            margin-bottom: 35px;
+            line-height: 1.8;
+            font-size: 18px;
+            color: var(--gold-light);
+            animation: fadeIn 1s ease-out 0.6s backwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .message .highlight {
+            color: var(--gold);
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .cta-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            animation: fadeIn 1s ease-out 0.75s backwards;
+        }
+
+        .whatsapp-btn {
+            display: block;
+            width: 100%;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+            color: var(--dark-bg);
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            animation: fadeInUp 1s ease-out 0.9s backwards;
+            letter-spacing: 0.5px;
+        }
+
+        .whatsapp-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .whatsapp-btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+        }
+
+        .whatsapp-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-text {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .whatsapp-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 13px;
+            color: rgba(244, 228, 190, 0.5);
+            animation: fadeIn 1s ease-out 1.2s backwards;
+        }
+
+        .shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+            50%, 100% {
+                left: 100%;
+            }
+        }
+
+        /* Admin Modal */
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .admin-modal.active {
+            display: flex;
+        }
+
+        .admin-content {
+            background: var(--dark-card);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .admin-content h2 {
+            color: var(--gold);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .admin-group {
+            margin-bottom: 25px;
+        }
+
+        .admin-group label {
+            display: block;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .admin-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: var(--gold-light);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .admin-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .admin-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .admin-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .admin-btn.save {
+            background: var(--gold);
+            color: var(--dark-bg);
+        }
+
+        .admin-btn.save:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .admin-btn.cancel {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+
+        .admin-btn.cancel:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .admin-info {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 3px solid var(--gold);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 13px;
+            color: var(--gold-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .content-card {
+                padding: 30px 25px;
+            }
+
+            .logo {
+                width: 150px;
+            }
+
+            .message {
+                font-size: 16px;
+            }
+
+            .cta-title {
+                font-size: 18px;
+            }
+
+            .whatsapp-btn {
+                font-size: 16px;
+                padding: 16px 25px;
+            }
+
+            .footer {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Admin Modal -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-content">
+            <h2>⚙️ Painel Administrativo</h2>
+            
+            <div class="admin-group">
+                <label>Webhook URL</label>
+                <input type="text" id="webhookUrl" placeholder="https://seu-webhook.com/endpoint">
+            </div>
+
+            <div class="admin-group">
+                <label>Facebook Pixel ID</label>
+                <input type="text" id="fbPixelId" placeholder="1200902931915045">
+            </div>
+
+            <div class="admin-group">
+                <label>Google Tag Manager ID</label>
+                <input type="text" id="gtmId" placeholder="GTM-XXXXXXX">
+            </div>
+
+            <div class="admin-group">
+                <label>Google Analytics 4 ID</label>
+                <input type="text" id="ga4Id" placeholder="G-XXXXXXXXXX">
+            </div>
+
+            <div class="admin-info">
+                💡 <strong>Dica:</strong> Os dados serão salvos localmente no navegador. Para resetar, limpe o localStorage ou deixe os campos vazios.
+            </div>
+
+            <div class="admin-buttons">
+                <button class="admin-btn cancel" onclick="closeAdminModal()">Cancelar</button>
+                <button class="admin-btn save" onclick="saveAdminSettings()">Salvar Configurações</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/cr logo png.webp" 
+                 alt="Carlos Rodeiro Logo" 
+                 class="logo"
+                 width="180"
+                 height="180"
+                 decoding="async">
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Content Card -->
+        <div class="content-card">
+            <div class="message">
+                <span class="highlight">Joias que Vestiram Madonna, Princesas de Mônaco e as Maiores Estrelas</span><br><br>
+                Criador da icônica <span class="highlight">Pulseira do Bonfim</span>. Peças exclusivas que unem design contemporâneo e cultura baiana há mais de <span class="highlight">40 anos</span>.
+            </div>
+
+            <div class="cta-title">Agende sua visita exclusiva</div>
+
+            <a href="https://wa.me/5571999997950?text=Quero%20falar%20com%20uma%20especialista%20em%20joias%20da%20Carlos%20Rodeiro!" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+                <div class="shine"></div>
+                <span class="btn-text">
+                    <svg class="whatsapp-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                    Fale com uma especialista em joias
+                </span>
+            </a>
+        </div>
+
+        <div class="footer">
+            Carlos Rodeiro Joalheria, by: Advanx Digital &copy; 2026
+        </div>
+    </div>
+
+    <script>
+        // Detecção de origem do tráfego
+        function detectTrafficSource() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const referrer = document.referrer;
+            
+            const utmSource = urlParams.get('utm_source');
+            const utmMedium = urlParams.get('utm_medium');
+            const utmCampaign = urlParams.get('utm_campaign');
+            
+            let source = 'direct';
+            let medium = 'none';
+            let campaign = 'none';
+            let isPaid = false;
+            
+            if (utmSource) {
+                source = utmSource;
+                medium = utmMedium || 'unknown';
+                campaign = utmCampaign || 'unknown';
+                
+                if (utmMedium && (
+                    utmMedium.includes('cpc') || 
+                    utmMedium.includes('ppc') || 
+                    utmMedium.includes('paid') ||
+                    utmMedium.includes('ads')
+                )) {
+                    isPaid = true;
+                }
+            } else if (referrer) {
+                if (referrer.includes('instagram.com')) {
+                    source = 'instagram';
+                    medium = 'organic';
+                } else if (referrer.includes('facebook.com')) {
+                    source = 'facebook';
+                    medium = 'organic';
+                } else if (referrer.includes('google.com')) {
+                    source = 'google';
+                    medium = 'organic';
+                } else {
+                    source = 'referral';
+                    medium = 'referral';
+                }
+            }
+            
+            return {
+                source,
+                medium,
+                campaign,
+                isPaid,
+                referrer: referrer || 'none',
+                userAgent: navigator.userAgent,
+                timestamp: new Date().toISOString(),
+                url: window.location.href
+            };
+        }
+
+        const trafficData = detectTrafficSource();
+        sessionStorage.setItem('traffic_data', JSON.stringify(trafficData));
+
+        // Facebook Pixel - ViewContent (deferred)
+        setTimeout(() => {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'ViewContent', {
+                    content_name: 'Carlos Rodeiro - Link Tree',
+                    content_category: 'Joalheria Luxo',
+                    traffic_source: trafficData.source,
+                    traffic_medium: trafficData.medium,
+                    is_paid: trafficData.isPaid
+                });
+            }
+        }, 1000);
+
+        // Google Tag Manager
+        function initGTM() {
+            const gtmId = localStorage.getItem('gtm_id');
+            if (gtmId) {
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer',gtmId);
+            }
+        }
+
+        // Google Analytics 4
+        function initGA4() {
+            const ga4Id = localStorage.getItem('ga4_id');
+            if (ga4Id) {
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', ga4Id, {
+                    'traffic_source': trafficData.source,
+                    'traffic_medium': trafficData.medium,
+                    'is_paid_traffic': trafficData.isPaid
+                });
+                
+                const gaScript = document.createElement('script');
+                gaScript.async = true;
+                gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
+                document.head.appendChild(gaScript);
+            }
+        }
+
+        setTimeout(() => {
+            initGTM();
+            initGA4();
+        }, 2000);
+
+        // Webhook
+        async function sendToWebhook(eventType, additionalData = {}) {
+            const webhookUrl = localStorage.getItem('webhook_url');
+            if (!webhookUrl) return;
+
+            const payload = {
+                event: eventType,
+                timestamp: new Date().toISOString(),
+                traffic_data: trafficData,
+                page_data: {
+                    title: document.title,
+                    url: window.location.href,
+                    referrer: document.referrer
+                },
+                ...additionalData
+            };
+
+            try {
+                if ('sendBeacon' in navigator) {
+                    navigator.sendBeacon(webhookUrl, JSON.stringify(payload));
+                } else {
+                    await fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(payload),
+                        keepalive: true
+                    });
+                }
+            } catch (error) {
+                console.error('Erro ao enviar webhook:', error);
+            }
+        }
+
+        setTimeout(() => sendToWebhook('page_view'), 1500);
+
+        // Tracking WhatsApp
+        function trackWhatsAppClick(e) {
+            e.preventDefault();
+            const whatsappUrl = this.href;
+            
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Contact', {
+                    content_name: 'WhatsApp Click',
+                    traffic_source: trafficData.source,
+                    traffic_medium: trafficData.medium,
+                    is_paid: trafficData.isPaid
+                });
+            }
+
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'generate_lead', {
+                    event_category: 'engagement',
+                    event_label: 'WhatsApp Button',
+                    traffic_source: trafficData.source
+                });
+            }
+
+            sendToWebhook('contact_click', {
+                button: 'whatsapp',
+                destination: whatsappUrl
+            });
+
+            setTimeout(() => window.open(whatsappUrl, '_blank'), 250);
+        }
+
+        // Sistema Admin
+        let logoClickCount = 0;
+        let logoClickTimer = null;
+
+        function handleLogoClick() {
+            logoClickCount++;
+            
+            if (logoClickTimer) clearTimeout(logoClickTimer);
+            
+            if (logoClickCount === 3) {
+                openAdminModal();
+                logoClickCount = 0;
+            } else {
+                logoClickTimer = setTimeout(() => logoClickCount = 0, 2000);
+            }
+        }
+
+        function openAdminModal() {
+            const password = prompt('🔐 Digite a senha de administrador:');
+            
+            if (password === 'crjoalheria25') {
+                document.getElementById('adminModal').classList.add('active');
+                loadAdminSettings();
+            } else if (password !== null) {
+                alert('❌ Senha incorreta!');
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('active');
+        }
+
+        function loadAdminSettings() {
+            document.getElementById('webhookUrl').value = localStorage.getItem('webhook_url') || '';
+            document.getElementById('fbPixelId').value = localStorage.getItem('fb_pixel_id') || '1200902931915045';
+            document.getElementById('gtmId').value = localStorage.getItem('gtm_id') || '';
+            document.getElementById('ga4Id').value = localStorage.getItem('ga4_id') || '';
+        }
+
+        function saveAdminSettings() {
+            const webhookUrl = document.getElementById('webhookUrl').value.trim();
+            const fbPixelId = document.getElementById('fbPixelId').value.trim();
+            const gtmId = document.getElementById('gtmId').value.trim();
+            const ga4Id = document.getElementById('ga4Id').value.trim();
+
+            if (webhookUrl) localStorage.setItem('webhook_url', webhookUrl);
+            else localStorage.removeItem('webhook_url');
+
+            if (fbPixelId) localStorage.setItem('fb_pixel_id', fbPixelId);
+            else localStorage.removeItem('fb_pixel_id');
+
+            if (gtmId) localStorage.setItem('gtm_id', gtmId);
+            else localStorage.removeItem('gtm_id');
+
+            if (ga4Id) localStorage.setItem('ga4_id', ga4Id);
+            else localStorage.removeItem('ga4_id');
+
+            alert('✅ Configurações salvas com sucesso!\n\n⚠️ Recarregue a página para aplicar as alterações nos trackers.');
+            closeAdminModal();
+        }
+
+        // Particles (lazy)
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+            
+            const particleCount = window.innerWidth < 768 ? 15 : 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            const whatsappBtn = document.querySelector('.whatsapp-btn');
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('click', trackWhatsAppClick);
+            }
+
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.addEventListener('click', handleLogoClick);
+            }
+
+            const modal = document.getElementById('adminModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) closeAdminModal();
+                });
+            }
+
+            setTimeout(createParticles, 2000);
+        });
+    </script>
+</body>
+</html>
