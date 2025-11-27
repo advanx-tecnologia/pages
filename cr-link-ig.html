@@ -724,7 +724,18 @@
         // Tracking WhatsApp
         function trackWhatsAppClick(e) {
             e.preventDefault();
-            const whatsappUrl = this.href;
+            let whatsappUrl = this.href;
+            
+            // Adiciona UTMs baseados na origem do tráfego
+            const utmParams = new URLSearchParams();
+            utmParams.append('utm_source', trafficData.source);
+            utmParams.append('utm_medium', trafficData.medium);
+            utmParams.append('utm_campaign', trafficData.campaign !== 'none' ? trafficData.campaign : 'cr_linktree');
+            utmParams.append('utm_content', 'whatsapp_button');
+            
+            // Adiciona os UTMs na URL do WhatsApp
+            const separator = whatsappUrl.includes('?') ? '&' : '?';
+            whatsappUrl = whatsappUrl + separator + utmParams.toString();
             
             // Gera event_id único UMA VEZ para deduplicação
             const contactEventId = 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
@@ -751,7 +762,13 @@
             // Webhook com o MESMO event_id do Pixel
             sendToWebhook('contact_click', contactEventId, {
                 button: 'whatsapp',
-                destination: whatsappUrl
+                destination: whatsappUrl,
+                utm_params: {
+                    utm_source: trafficData.source,
+                    utm_medium: trafficData.medium,
+                    utm_campaign: trafficData.campaign !== 'none' ? trafficData.campaign : 'cr_linktree',
+                    utm_content: 'whatsapp_button'
+                }
             });
 
             setTimeout(() => window.open(whatsappUrl, '_blank'), 250);
