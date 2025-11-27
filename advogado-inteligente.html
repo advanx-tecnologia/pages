@@ -5,17 +5,52 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <title>Consultoria para Advogados - Advanx</title>
     
-    <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="preconnect" href="https://connect.facebook.net">
-    <link rel="dns-prefetch" href="https://n8n.advfunnel.com.br">
+    <!-- Critical Preconnections -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+    <link rel="preconnect" href="https://n8n.advfunnel.com.br" crossorigin>
+    <link rel="preconnect" href="https://lhbwfbquxkutcyqazpnw.supabase.co" crossorigin>
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://connect.facebook.net">
+    
+    <!-- Preload Critical Assets -->
     <link rel="preload" as="image" href="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/v3%20png.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="https://advanx.com.br/wp-content/uploads/2025/10/back-2.webp" fetchpriority="low">
     
-    <style>*{margin:0;padding:0;box-sizing:border-box}:root{--primary:#ff7a01;--bg-dark:#0a0a0a;--bg-card:#1a1a1a;--text:#fff;--text-secondary:#a0a0a0;--border:rgba(255,122,1,.2)}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg-dark);color:var(--text);min-height:100vh;overflow-x:hidden}body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:#0a0a0a;z-index:-2}body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(26,26,26,.92),rgba(45,45,45,.92));z-index:-1}.bg-loaded body::before{background-image:url('https://advanx.com.br/wp-content/uploads/2025/10/back-2.webp');background-size:cover;background-position:center}.container{max-width:680px;margin:0 auto;padding:10px 20px 20px}.logo-container{text-align:center;padding:12px 0 8px}.logo-container img{max-width:120px;height:auto}.progress-container{margin:20px 0 25px;padding:0 10px}.progress-text{display:flex;justify-content:flex-end;margin-bottom:12px;font-size:14px;color:var(--text-secondary)}.progress-bar{width:100%;height:6px;background:rgba(255,255,255,.05);border-radius:10px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),#ffaa00);border-radius:10px;transition:width .6s ease}.card{background:var(--bg-card);border-radius:24px;padding:50px 40px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.5)}.question-title{font-size:28px;font-weight:700;line-height:1.4;margin-bottom:35px;color:var(--text)}.subtitle{font-size:17px;color:#e0e0e0;margin-bottom:20px;line-height:1.6}.input-group{margin-bottom:25px}input[type=text],input[type=email],input[type=tel]{width:100%;padding:16px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:var(--text);font-size:16px;outline:0}input:focus{border-color:var(--primary);background:rgba(255,122,1,.05)}.option-btn{width:100%;padding:18px 24px;margin-bottom:15px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:var(--text);font-size:16px;font-weight:500;cursor:pointer;text-align:left}.option-btn.selected{background:rgba(255,122,1,.15);border-color:var(--primary)}.btn-primary{width:100%;padding:18px 32px;background:linear-gradient(135deg,var(--primary),#ffaa00);border:none;border-radius:12px;color:#fff;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 10px 30px rgba(255,122,1,.3)}.btn-primary:disabled{opacity:.5;cursor:not-allowed}.nav-buttons{display:flex;gap:15px;margin-top:30px}.btn-back{flex:1;max-width:120px;padding:12px 16px;background:0 0;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:14px;border-radius:12px;cursor:pointer}.btn-next{flex:1;padding:16px;background:linear-gradient(135deg,var(--primary),#ffaa00);border:none;color:#fff;font-size:16px;font-weight:600;border-radius:12px;cursor:pointer;box-shadow:0 8px 20px rgba(255,122,1,.3)}.hidden{display:none!important}.error-message{color:#ff4444;font-size:14px;margin-top:8px;display:none}.error-message.show{display:block}.phone-hint{display:none;margin-top:12px;padding:14px 16px;background:rgba(16,185,129,.15);border-left:3px solid #10b981;border-radius:8px;font-size:15px;color:#10b981;font-weight:500}.phone-hint.show{display:block}.phone-hint strong{color:#fff;font-size:16px}.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center;padding:20px}.modal-overlay.show{display:flex}.modal-content{background:var(--bg-card);border-radius:20px;padding:40px 30px;max-width:520px;width:100%;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.7)}.modal-icon{width:50px;height:50px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:40px}.modal-title{font-size:22px;font-weight:700;color:var(--text);margin-bottom:20px;text-align:center;line-height:1.3}.modal-text{font-size:16px;color:var(--text-secondary);line-height:1.6;margin-bottom:15px;text-align:center}.confirmation-box{background:rgba(255,122,1,.12);border:2px solid var(--primary);border-radius:16px;padding:18px;margin-bottom:25px;display:flex;align-items:flex-start;gap:12px}.warning-icon{font-size:24px}.confirmation-text{flex:1;font-size:15px;color:var(--text);line-height:1.5;font-weight:500}.checkbox-container{display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:20px;padding:12px;border-radius:8px}.checkbox-container input{width:20px;height:20px;cursor:pointer;accent-color:var(--primary)}.checkbox-label{flex:1;font-size:14px;color:#e0e0e0;line-height:1.4}.loading-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:2000;align-items:center;justify-content:center}.loading-overlay.show{display:flex}.spinner{border:4px solid rgba(255,255,255,.1);border-top:4px solid var(--primary);border-radius:50%;width:50px;height:50px;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media (max-width:768px){.container{padding:8px 15px 15px}.card{padding:35px 25px;border-radius:20px}.question-title{font-size:24px;margin-bottom:25px}.option-btn,.btn-primary{padding:16px 20px;font-size:15px}.logo-container img{max-width:100px}.modal-content{padding:30px 25px;margin:20px}.modal-title{font-size:20px}.modal-text,.confirmation-text{font-size:14px}}@media (max-width:480px){.question-title{font-size:20px}.subtitle{font-size:15px}.card{padding:30px 20px;border-radius:16px}.logo-container img{max-width:90px}.progress-container{margin:15px 0 20px}.progress-bar{height:4px}.modal-content{padding:25px 20px}.modal-icon{width:40px;height:40px;font-size:28px;margin-bottom:15px}.modal-title{font-size:18px}}</style>
+    <!-- Inline Critical CSS -->
+    <style>*{margin:0;padding:0;box-sizing:border-box}:root{--primary:#ff7a01;--bg-dark:#0a0a0a;--bg-card:#1a1a1a;--text:#fff;--text-secondary:#a0a0a0;--border:rgba(255,122,1,.2)}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg-dark);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:#0a0a0a;z-index:-2}body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(26,26,26,.92),rgba(45,45,45,.92));z-index:-1}.bg-loaded body::before{background-image:url('https://advanx.com.br/wp-content/uploads/2025/10/back-2.webp');background-size:cover;background-position:center;background-repeat:no-repeat}.container{max-width:680px;margin:0 auto;padding:10px 20px 20px}.logo-container{text-align:center;padding:12px 0 8px}.logo-container img{max-width:120px;height:auto;display:inline-block}.progress-container{margin:20px 0 25px;padding:0 10px}.progress-text{display:flex;justify-content:flex-end;margin-bottom:12px;font-size:14px;color:var(--text-secondary)}.progress-bar{width:100%;height:6px;background:rgba(255,255,255,.05);border-radius:10px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),#ffaa00);border-radius:10px;transition:width .6s ease;will-change:width}.card{background:var(--bg-card);border-radius:24px;padding:50px 40px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.5)}.question-title{font-size:28px;font-weight:700;line-height:1.4;margin-bottom:35px;color:var(--text)}.subtitle{font-size:17px;color:#e0e0e0;margin-bottom:20px;line-height:1.6}.input-group{margin-bottom:25px}input[type=text],input[type=email],input[type=tel]{width:100%;padding:16px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:var(--text);font-size:16px;outline:0;transition:border-color .3s,background .3s;-webkit-appearance:none;appearance:none}input:focus{border-color:var(--primary);background:rgba(255,122,1,.05)}.option-btn{width:100%;padding:18px 24px;margin-bottom:15px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:var(--text);font-size:16px;font-weight:500;cursor:pointer;text-align:left;transition:all .3s;-webkit-tap-highlight-color:transparent}.option-btn:active{transform:scale(.98)}.option-btn.selected{background:rgba(255,122,1,.15);border-color:var(--primary)}.btn-primary{width:100%;padding:18px 32px;background:linear-gradient(135deg,var(--primary),#ffaa00);border:none;border-radius:12px;color:#fff;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 10px 30px rgba(255,122,1,.3);transition:transform .2s,box-shadow .2s;-webkit-tap-highlight-color:transparent}.btn-primary:active{transform:scale(.98)}.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}.nav-buttons{display:flex;gap:15px;margin-top:30px}.btn-back{flex:1;max-width:120px;padding:12px 16px;background:0 0;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:14px;border-radius:12px;cursor:pointer;transition:all .3s;-webkit-tap-highlight-color:transparent}.btn-back:active{background:rgba(255,255,255,.05)}.btn-next{flex:1;padding:16px;background:linear-gradient(135deg,var(--primary),#ffaa00);border:none;color:#fff;font-size:16px;font-weight:600;border-radius:12px;cursor:pointer;box-shadow:0 8px 20px rgba(255,122,1,.3);transition:transform .2s;-webkit-tap-highlight-color:transparent}.btn-next:active{transform:scale(.98)}.hidden{display:none!important}.error-message{color:#ff4444;font-size:14px;margin-top:8px;display:none}.error-message.show{display:block}.phone-hint{display:none;margin-top:12px;padding:14px 16px;background:rgba(16,185,129,.15);border-left:3px solid #10b981;border-radius:8px;font-size:15px;color:#10b981;font-weight:500}.phone-hint.show{display:block}.phone-hint strong{color:#fff;font-size:16px}.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}.modal-overlay.show{display:flex}.modal-content{background:var(--bg-card);border-radius:20px;padding:40px 30px;max-width:520px;width:100%;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.7);animation:modalSlideIn .3s ease-out}@keyframes modalSlideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.modal-icon{width:50px;height:50px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:40px}.modal-title{font-size:22px;font-weight:700;color:var(--text);margin-bottom:20px;text-align:center;line-height:1.3}.modal-text{font-size:16px;color:var(--text-secondary);line-height:1.6;margin-bottom:15px;text-align:center}.confirmation-box{background:rgba(255,122,1,.12);border:2px solid var(--primary);border-radius:16px;padding:18px;margin-bottom:25px;display:flex;align-items:flex-start;gap:12px}.warning-icon{font-size:24px;flex-shrink:0}.confirmation-text{flex:1;font-size:15px;color:var(--text);line-height:1.5;font-weight:500}.checkbox-container{display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:20px;padding:12px;border-radius:8px;-webkit-tap-highlight-color:transparent}.checkbox-container input{width:20px;height:20px;cursor:pointer;accent-color:var(--primary);flex-shrink:0}.checkbox-label{flex:1;font-size:14px;color:#e0e0e0;line-height:1.4}.loading-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:2000;align-items:center;justify-content:center;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}.loading-overlay.show{display:flex}.spinner{border:4px solid rgba(255,255,255,.1);border-top:4px solid var(--primary);border-radius:50%;width:50px;height:50px;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media (max-width:768px){.container{padding:8px 15px 15px}.card{padding:35px 25px;border-radius:20px}.question-title{font-size:24px;margin-bottom:25px}.option-btn,.btn-primary{padding:16px 20px;font-size:15px}.logo-container img{max-width:100px}.modal-content{padding:30px 25px;margin:20px}.modal-title{font-size:20px}.modal-text,.confirmation-text{font-size:14px}.progress-container{margin:15px 0 20px}}@media (max-width:480px){.question-title{font-size:20px;margin-bottom:20px}.subtitle{font-size:15px}.card{padding:30px 20px;border-radius:16px}.logo-container img{max-width:90px}.logo-container{padding:10px 0 6px}.progress-bar{height:5px}.modal-content{padding:25px 20px}.modal-icon{width:40px;height:40px;font-size:28px;margin-bottom:15px}.modal-title{font-size:18px}.option-btn{padding:14px 18px;font-size:14px;margin-bottom:12px}.btn-primary{padding:16px 24px;font-size:16px}.nav-buttons{gap:12px;margin-top:25px}.btn-back{padding:10px 14px;font-size:13px}.btn-next{padding:14px}input[type=text],input[type=email],input[type=tel]{padding:14px 18px;font-size:15px}}</style>
     
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXX');</script>
-    <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','502759528362336');fbq('track','PageView');</script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-98EL5GXG5F');</script>
+    <!-- Google Tag Manager - Async -->
+    <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.defer=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXX');
+    </script>
+    
+    <!-- Facebook Pixel - Async -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.defer=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)
+    }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','502759528362336');fbq('track','PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" 
+    src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/></noscript>
+    
+    <!-- Google Analytics 4 - Async -->
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+    <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());gtag('config','G-98EL5GXG5F');
+    </script>
 </head>
 <body>
     <div class="container">
@@ -143,7 +178,363 @@
     </div>
 
     <script>
-let currentStep=0,totalSteps=7,formData={},webhookSent=false;const config={webhook:'https://n8n.advfunnel.com.br/webhook/processo-comercial-inteligente',redirectUrl:'https://advanx.com.br/agenda/'};function captureUTMs(){const e=new URLSearchParams(window.location.search),t={utm_source:e.get('utm_source')||'',utm_medium:e.get('utm_medium')||'',utm_campaign:e.get('utm_campaign')||'',utm_term:e.get('utm_term')||'',utm_content:e.get('utm_content')||'',gclid:e.get('gclid')||'',fbclid:e.get('fbclid')||'',url_completa:window.location.href,timestamp:new Date().toISOString()};Object.keys(t).forEach(e=>{t[e]&&(formData[e]=t[e])})}captureUTMs();function trackEvent(e,t={}){const o={...formData,...t,step:currentStep,event_name:e};'undefined'!=typeof fbq&&fbq('track',e,o),'undefined'!=typeof gtag&&gtag('event',e,o),'undefined'!=typeof window.dataLayer&&window.dataLayer.push({event:e,...o})}function startForm(){trackEvent('FormStarted'),nextStep()}function updateProgress(){const e=Math.round(currentStep/totalSteps*100);document.getElementById('progressPercent').textContent=`${e}%`,document.getElementById('progressFill').style.width=`${e}%`}function showStep(e){document.querySelectorAll('.step').forEach(e=>e.classList.add('hidden')),document.getElementById(`step${e}`).classList.remove('hidden'),updateProgress(),window.scrollTo({top:0,behavior:'smooth'})}function nextStep(){if(!validateStep(currentStep))return;const e=['FormStarted','NameEntered','PhoneEntered','EmailEntered','AreaSelected','TeamSizeSelected','RevenueSelected'];currentStep>0&&currentStep<e.length&&trackEvent(e[currentStep]),currentStep++,currentStep>totalSteps?submitForm():showStep(currentStep)}function prevStep(){currentStep>0&&(currentStep--,showStep(currentStep))}function validateStep(e){const t=document.getElementById(`error${e}`);if(t&&t.classList.remove('show'),0===e)return!0;if(1===e){const e=document.getElementById('nome').value.trim();if(e.length<3)return document.getElementById('error1').classList.add('show'),!1;formData.nome=e}else if(2===e){const e=document.getElementById('whatsapp').value.trim(),t=e.replace(/\D/g,'');if(11!==t.length)return document.getElementById('error2').classList.add('show'),!1;formData.whatsapp='+55'+t}else if(3===e){const e=document.getElementById('email').value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))return document.getElementById('error3').classList.add('show'),!1;formData.email=e}else{if(4===e){if(!formData.area_atuacao)return document.getElementById('error4').classList.add('show'),!1}else if(5===e){if(!formData.funcionarios)return document.getElementById('error5').classList.add('show'),!1}else if(6===e&&!formData.faturamento)return document.getElementById('error6').classList.add('show'),!1}return!0}function selectOption(e,t,o){const n=e.parentElement;n.querySelectorAll('.option-btn').forEach(e=>e.classList.remove('selected')),e.classList.add('selected'),formData[t]=o,setTimeout(()=>nextStep(),300)}function selectOptionAndShowModal(e,t,o){const n=e.parentElement;n.querySelectorAll('.option-btn').forEach(e=>e.classList.remove('selected')),e.classList.add('selected'),formData[t]=o,trackEvent('Lead'),setTimeout(()=>showConfirmationModal(),300)}function showConfirmationModal(){document.getElementById('confirmationModal').classList.add('show')}function toggleContinueButton(){const e=document.getElementById('attendanceConfirmation'),t=document.getElementById('confirmButton');t.disabled=!e.checked,e.checked&&trackEvent('ConfirmationChecked')}async function sendToWebhook(){if(webhookSent)return!0;try{const e=await fetch(config.webhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(formData)});if(!e.ok)throw new Error(`HTTP ${e.status}`);return webhookSent=!0,trackEvent('WebhookSuccess'),!0}catch(e){return console.error('Webhook error:',e),trackEvent('WebhookError',{error:e.message}),!1}}async function redirectToSchedule(){document.getElementById('loadingOverlay').classList.add('show');const e=await sendToWebhook();document.getElementById('loadingOverlay').classList.remove('show'),window.location.href=config.redirectUrl}async function submitForm(){document.getElementById('loadingOverlay').classList.add('show'),await sendToWebhook(),window.location.href=config.redirectUrl}document.addEventListener('DOMContentLoaded',function(){const e=document.getElementById('whatsapp');e&&e.addEventListener('input',function(e){let t=e.target.value.replace(/\D/g,'');t.length>11&&(t=t.slice(0,11)),t.length>=11?t=t.replace(/^(\d{2})(\d{1})(\d{4})(\d{4})$/,'($1) $2 $3-$4'):t.length>=7?t=t.replace(/^(\d{2})(\d{1})(\d{4})(\d{0,4})/,'($1) $2 $3-$4'):t.length>=3?t=t.replace(/^(\d{2})(\d{1})(\d{0,4})/,'($1) $2 $3'):t.length>=2&&(t=t.replace(/^(\d{2})/,'($1) ')),e.target.value=t;const o=t.replace(/\D/g,'');11===o.length?(document.getElementById('phoneHint').classList.add('show'),document.getElementById('phoneDisplay').textContent=t):document.getElementById('phoneHint').classList.remove('show')});const t=new Image;t.onload=()=>document.body.classList.add('bg-loaded'),t.src='https://advanx.com.br/wp-content/uploads/2025/10/back-2.webp'});updateProgress();
+let currentStep = 0;
+let totalSteps = 7;
+let formData = {};
+let webhookSent = false;
+
+const config = {
+    webhook: 'https://n8n.advfunnel.com.br/webhook/processo-comercial-inteligente',
+    redirectUrl: 'https://advanx.com.br/agenda/'
+};
+
+// Função para extrair informações detalhadas das UTMs
+function captureUTMs() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Captura UTMs básicas
+    const utmData = {
+        utm_source: urlParams.get('utm_source') || '',
+        utm_medium: urlParams.get('utm_medium') || '',
+        utm_campaign: urlParams.get('utm_campaign') || '',
+        utm_term: urlParams.get('utm_term') || '',
+        utm_content: urlParams.get('utm_content') || '',
+        gclid: urlParams.get('gclid') || '',
+        fbclid: urlParams.get('fbclid') || '',
+        url_completa: window.location.href,
+        timestamp: new Date().toISOString()
+    };
+    
+    // Extração detalhada para Facebook/Instagram Ads
+    // Formato comum: utm_campaign contém o nome da campanha
+    // utm_content ou utm_term podem conter conjunto/anúncio
+    if (utmData.utm_source === 'ig') {
+        utmData.fonte = 'Instagram Ads';
+        utmData.nome_campanha = utmData.utm_campaign || 'Não informado';
+        utmData.nome_conjunto = utmData.utm_term || utmData.utm_content || 'Não informado';
+        utmData.nome_anuncio = utmData.utm_content || 'Não informado';
+    }
+    else if (utmData.utm_source === 'fb') {
+        utmData.fonte = 'Facebook Ads';
+        utmData.nome_campanha = utmData.utm_campaign || 'Não informado';
+        utmData.nome_conjunto = utmData.utm_term || utmData.utm_content || 'Não informado';
+        utmData.nome_anuncio = utmData.utm_content || 'Não informado';
+    }
+    else if (utmData.utm_source === 'facebook' || utmData.utm_source === 'instagram' || utmData.fbclid) {
+        utmData.fonte = 'Facebook Ads';
+        utmData.nome_campanha = utmData.utm_campaign || 'Não informado';
+        utmData.nome_conjunto = utmData.utm_term || utmData.utm_content || 'Não informado';
+        utmData.nome_anuncio = utmData.utm_content || 'Não informado';
+    }
+    
+    // Extração detalhada para Google Ads
+    else if (utmData.utm_source === 'google' || utmData.gclid) {
+        utmData.fonte = 'Google Ads';
+        utmData.nome_campanha = utmData.utm_campaign || 'Não informado';
+        utmData.nome_conjunto = utmData.utm_term || 'Não informado'; // Termo de pesquisa/grupo de anúncios
+        utmData.nome_anuncio = utmData.utm_content || 'Não informado';
+    }
+    
+    // Outras fontes
+    else if (utmData.utm_source) {
+        utmData.fonte = utmData.utm_source.charAt(0).toUpperCase() + utmData.utm_source.slice(1);
+        utmData.nome_campanha = utmData.utm_campaign || 'Não informado';
+        utmData.nome_conjunto = utmData.utm_term || utmData.utm_content || 'Não informado';
+        utmData.nome_anuncio = utmData.utm_content || 'Não informado';
+    }
+    
+    // Tráfego direto ou orgânico
+    else {
+        utmData.fonte = 'Tráfego Direto/Orgânico';
+        utmData.nome_campanha = 'Não se aplica';
+        utmData.nome_conjunto = 'Não se aplica';
+        utmData.nome_anuncio = 'Não se aplica';
+    }
+    
+    // Adiciona ao formData apenas valores não vazios
+    Object.keys(utmData).forEach(key => {
+        if (utmData[key]) {
+            formData[key] = utmData[key];
+        }
+    });
+}
+
+// Inicializa captura de UTMs
+captureUTMs();
+
+// Tracking de eventos (Facebook Pixel e Google Analytics)
+function trackEvent(eventName, additionalData = {}) {
+    const eventData = {
+        ...formData,
+        ...additionalData,
+        step: currentStep,
+        event_name: eventName
+    };
+    
+    // Facebook Pixel
+    if (typeof fbq !== 'undefined') {
+        fbq('track', eventName, eventData);
+    }
+    
+    // Google Analytics 4
+    if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, eventData);
+    }
+    
+    // Google Tag Manager
+    if (typeof window.dataLayer !== 'undefined') {
+        window.dataLayer.push({
+            event: eventName,
+            ...eventData
+        });
+    }
+}
+
+function startForm() {
+    trackEvent('FormStarted');
+    nextStep();
+}
+
+function updateProgress() {
+    const percent = Math.round((currentStep / totalSteps) * 100);
+    document.getElementById('progressPercent').textContent = `${percent}%`;
+    document.getElementById('progressFill').style.width = `${percent}%`;
+}
+
+function showStep(step) {
+    document.querySelectorAll('.step').forEach(s => s.classList.add('hidden'));
+    document.getElementById(`step${step}`).classList.remove('hidden');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextStep() {
+    if (!validateStep(currentStep)) return;
+    
+    const eventNames = [
+        'FormStarted',
+        'NameEntered',
+        'PhoneEntered',
+        'EmailEntered',
+        'AreaSelected',
+        'TeamSizeSelected',
+        'RevenueSelected'
+    ];
+    
+    if (currentStep > 0 && currentStep < eventNames.length) {
+        trackEvent(eventNames[currentStep]);
+    }
+    
+    currentStep++;
+    
+    if (currentStep > totalSteps) {
+        submitForm();
+    } else {
+        showStep(currentStep);
+    }
+}
+
+function prevStep() {
+    if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+    }
+}
+
+function validateStep(step) {
+    const errorElement = document.getElementById(`error${step}`);
+    if (errorElement) errorElement.classList.remove('show');
+    
+    if (step === 0) return true;
+    
+    if (step === 1) {
+        const nome = document.getElementById('nome').value.trim();
+        if (nome.length < 3) {
+            document.getElementById('error1').classList.add('show');
+            return false;
+        }
+        formData.nome = nome;
+    }
+    else if (step === 2) {
+        const whatsapp = document.getElementById('whatsapp').value.trim();
+        const digitsOnly = whatsapp.replace(/\D/g, '');
+        if (digitsOnly.length !== 11) {
+            document.getElementById('error2').classList.add('show');
+            return false;
+        }
+        formData.whatsapp = '+55' + digitsOnly;
+    }
+    else if (step === 3) {
+        const email = document.getElementById('email').value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            document.getElementById('error3').classList.add('show');
+            return false;
+        }
+        formData.email = email;
+    }
+    else if (step === 4) {
+        if (!formData.area_atuacao) {
+            document.getElementById('error4').classList.add('show');
+            return false;
+        }
+    }
+    else if (step === 5) {
+        if (!formData.funcionarios) {
+            document.getElementById('error5').classList.add('show');
+            return false;
+        }
+    }
+    else if (step === 6) {
+        if (!formData.faturamento) {
+            document.getElementById('error6').classList.add('show');
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+function selectOption(btn, field, value) {
+    const container = btn.parentElement;
+    container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    formData[field] = value;
+    setTimeout(() => nextStep(), 300);
+}
+
+function selectOptionAndShowModal(btn, field, value) {
+    const container = btn.parentElement;
+    container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    formData[field] = value;
+    
+    // Dispara evento de Lead apenas para tracking (NÃO envia webhook aqui)
+    trackEvent('Lead');
+    
+    setTimeout(() => showConfirmationModal(), 300);
+}
+
+function showConfirmationModal() {
+    document.getElementById('confirmationModal').classList.add('show');
+}
+
+function toggleContinueButton() {
+    const checkbox = document.getElementById('attendanceConfirmation');
+    const button = document.getElementById('confirmButton');
+    button.disabled = !checkbox.checked;
+    
+    if (checkbox.checked) {
+        trackEvent('ConfirmationChecked');
+    }
+}
+
+// Função que envia APENAS UMA VEZ para o webhook
+async function sendToWebhook() {
+    // Previne envios duplicados
+    if (webhookSent) {
+        console.log('Webhook já foi enviado anteriormente');
+        return true;
+    }
+    
+    try {
+        console.log('Enviando dados para webhook:', formData);
+        
+        const response = await fetch(config.webhook, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        webhookSent = true; // Marca como enviado
+        trackEvent('WebhookSuccess');
+        console.log('Webhook enviado com sucesso');
+        return true;
+        
+    } catch (error) {
+        console.error('Erro ao enviar webhook:', error);
+        trackEvent('WebhookError', { error: error.message });
+        return false;
+    }
+}
+
+// Função chamada quando usuário confirma presença - AQUI envia o webhook
+async function redirectToSchedule() {
+    document.getElementById('loadingOverlay').classList.add('show');
+    
+    // ENVIA O WEBHOOK APENAS AQUI, após confirmação
+    const webhookSuccess = await sendToWebhook();
+    
+    document.getElementById('loadingOverlay').classList.remove('show');
+    
+    // Redireciona independente do resultado (para não travar o usuário)
+    window.location.href = config.redirectUrl;
+}
+
+async function submitForm() {
+    document.getElementById('loadingOverlay').classList.add('show');
+    await sendToWebhook();
+    window.location.href = config.redirectUrl;
+}
+
+// Máscara de telefone e carregamento otimizado da imagem de fundo
+document.addEventListener('DOMContentLoaded', function() {
+    const whatsappInput = document.getElementById('whatsapp');
+    
+    if (whatsappInput) {
+        whatsappInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 11) {
+                value = value.slice(0, 11);
+            }
+            
+            if (value.length >= 11) {
+                value = value.replace(/^(\d{2})(\d{1})(\d{4})(\d{4})$/, '($1) $2 $3-$4');
+            } else if (value.length >= 7) {
+                value = value.replace(/^(\d{2})(\d{1})(\d{4})(\d{0,4})/, '($1) $2 $3-$4');
+            } else if (value.length >= 3) {
+                value = value.replace(/^(\d{2})(\d{1})(\d{0,4})/, '($1) $2 $3');
+            } else if (value.length >= 2) {
+                value = value.replace(/^(\d{2})/, '($1) ');
+            }
+            
+            e.target.value = value;
+            
+            const digitsOnly = value.replace(/\D/g, '');
+            if (digitsOnly.length === 11) {
+                document.getElementById('phoneHint').classList.add('show');
+                document.getElementById('phoneDisplay').textContent = value;
+            } else {
+                document.getElementById('phoneHint').classList.remove('show');
+            }
+        });
+    }
+    
+    // Carregamento lazy da imagem de fundo usando requestIdleCallback
+    function loadBackgroundImage() {
+        const bgImage = new Image();
+        bgImage.onload = function() {
+            document.body.classList.add('bg-loaded');
+        };
+        // Preload da imagem já garante cache, aqui só ativamos
+        bgImage.src = 'https://advanx.com.br/wp-content/uploads/2025/10/back-2.webp';
+    }
+    
+    // Usa requestIdleCallback se disponível, senão usa setTimeout
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadBackgroundImage);
+    } else {
+        setTimeout(loadBackgroundImage, 1);
+    }
+});
+
+updateProgress();
     </script>
 </body>
 </html>
