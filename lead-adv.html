@@ -9,11 +9,11 @@
     <link rel="preconnect" href="https://app.cal.com" crossorigin>
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
-    <link rel="dns-prefetch" href="https://app.cal.com">
+    <link rel="preconnect" href="https://lhbwfbquxkutcyqazpnw.supabase.co" crossorigin>
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     
     <!-- Preload imagens críticas -->
-    <link rel="preload" as="image" href="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/v3%20png.webp">
+    <link rel="preload" as="image" href="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/v3%20png.webp" fetchpriority="high">
     <link rel="preload" as="image" href="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/jessica.webp">
     
     <!-- Google Tag Manager -->
@@ -22,7 +22,6 @@
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-XXXXXX');</script>
-    <!-- End Google Tag Manager -->
     
     <!-- Facebook Pixel Code -->
     <script>
@@ -40,7 +39,6 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"
     /></noscript>
-    <!-- End Facebook Pixel Code -->
     
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
@@ -50,7 +48,6 @@
     gtag('js', new Date());
     gtag('config', 'G-98EL5GXG5F');
     </script>
-    <!-- End Google Analytics 4 -->
     
     <style>
         * {
@@ -82,7 +79,6 @@
         .logo img {
             height: 50px;
             width: auto;
-            will-change: auto;
         }
 
         .messages {
@@ -97,15 +93,13 @@
             opacity: 0;
             transform: translateY(20px);
             animation: slideUp 0.6s ease forwards;
-            will-change: opacity, transform;
+            contain: layout style paint;
         }
 
         .message:nth-child(1) { animation-delay: 0.5s; }
         .message:nth-child(2) { animation-delay: 2.5s; }
         .message:nth-child(3) { animation-delay: 4.5s; }
         .message:nth-child(4) { animation-delay: 6.5s; }
-        .message:nth-child(5) { animation-delay: 8.5s; }
-        .message:nth-child(6) { animation-delay: 10.5s; }
 
         .avatar {
             flex-shrink: 0;
@@ -113,11 +107,12 @@
             height: 46px;
             border-radius: 50%;
             background-image: url('https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/jessica.webp');
-            background-size: cover;
-            background-position: center;
+            background-size: 140%;
+            background-position: center 30%;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08),
                         0 4px 16px rgba(0, 0, 0, 0.04);
             border: 2.5px solid #ffffff;
+            content-visibility: auto;
         }
 
         .message-content {
@@ -161,8 +156,6 @@
         .message:nth-child(2) .timestamp { animation-delay: 3.0s; }
         .message:nth-child(3) .timestamp { animation-delay: 5.0s; }
         .message:nth-child(4) .timestamp { animation-delay: 7.0s; }
-        .message:nth-child(5) .timestamp { animation-delay: 9.0s; }
-        .message:nth-child(6) .timestamp { animation-delay: 11.0s; }
 
         .checkmark {
             display: inline-block;
@@ -177,7 +170,7 @@
             text-align: center;
             opacity: 0;
             animation: fadeIn 0.8s ease forwards;
-            animation-delay: 12s;
+            animation-delay: 8s;
         }
 
         .btn-agendar {
@@ -194,6 +187,19 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
             -webkit-tap-highlight-color: transparent;
+            animation: pulse-elegant 2s ease-in-out infinite;
+            animation-delay: 9s;
+        }
+
+        @keyframes pulse-elegant {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 8px 24px rgba(255, 122, 1, 0.3);
+            }
+            50% {
+                transform: scale(1.03);
+                box-shadow: 0 12px 32px rgba(255, 122, 1, 0.45);
+            }
         }
 
         .btn-agendar:hover {
@@ -313,27 +319,7 @@
                 <div class="avatar"></div>
                 <div class="message-content">
                     <div class="bubble">
-                        <p>Já transformamos 400+ escritórios em 21 estados, gerando R$ 5M+ em novos contratos.</p>
-                    </div>
-                    <div class="timestamp">Agora <span class="checkmark">✓</span></div>
-                </div>
-            </div>
-
-            <div class="message">
-                <div class="avatar"></div>
-                <div class="message-content">
-                    <div class="bubble">
                         <p>Nosso compromisso: você começa a <strong>fechar contratos em até 41 dias</strong>.</p>
-                    </div>
-                    <div class="timestamp">Agora <span class="checkmark">✓</span></div>
-                </div>
-            </div>
-
-            <div class="message">
-                <div class="avatar"></div>
-                <div class="message-content">
-                    <div class="bubble">
-                        <p>Toque no botão e escolha o melhor dia e horário para conhecer nossa metodologia.</p>
                     </div>
                     <div class="timestamp">Agora <span class="checkmark">✓</span></div>
                 </div>
