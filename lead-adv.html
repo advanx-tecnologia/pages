@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanx - Consultoria </title>
+    <title>Advanx - Consultoria Jurídica</title>
     
     <!-- Preconnect para performance -->
     <link rel="preconnect" href="https://app.cal.com" crossorigin>
@@ -171,6 +171,41 @@
             font-weight: 600;
         }
 
+        /* Botão de Agendamento */
+        .cta-container {
+            margin-top: 40px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            animation-delay: 12s;
+        }
+
+        .btn-agendar {
+            background: linear-gradient(135deg, #ff7a01, #ff9a33);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(255, 122, 1, 0.3);
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-agendar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(255, 122, 1, 0.4);
+        }
+
+        .btn-agendar:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 16px rgba(255, 122, 1, 0.3);
+        }
+
         @keyframes fadeIn {
             to {
                 opacity: 1;
@@ -223,6 +258,11 @@
 
             .messages {
                 gap: 20px;
+            }
+
+            .btn-agendar {
+                font-size: 16px;
+                padding: 18px 40px;
             }
         }
     </style>
@@ -299,15 +339,30 @@
                 </div>
             </div>
         </div>
+
+        <!-- Botão de Agendamento -->
+        <div class="cta-container">
+            <button 
+                class="btn-agendar" 
+                data-cal-link="advanx/agenda"
+                data-cal-namespace="agenda"
+                data-cal-config='{"layout":"month_view"}'>
+                AGENDAR APRESENTAÇÃO
+            </button>
+        </div>
     </div>
 
-    <!-- Cal floating-popup embed code begins -->
+    <!-- Cal element-click embed code begins -->
     <script type="text/javascript">
       (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
     Cal("init", "agenda", {origin:"https://app.cal.com"});
-      Cal.ns.agenda("floatingButton", {"calLink":"advanx/agenda","config":{"layout":"month_view"},"buttonText":"Reserve seu horário","buttonPosition":"bottom-right"}); 
+      
+      // Important: Please add the following attributes to the element that should trigger the calendar to open upon clicking.
+      // `data-cal-link="advanx/agenda"`
+      // data-cal-namespace="agenda"
+      // `data-cal-config='{"layout":"month_view"}'`
       Cal.ns.agenda("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#ff7a01"},"dark":{"cal-brand":"#ff7a01"}},"hideEventTypeDetails":false,"layout":"month_view"});
       </script>
-      <!-- Cal floating-popup embed code ends -->
+      <!-- Cal element-click embed code ends -->
 </body>
 </html>
