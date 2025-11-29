@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanx - Consultoria Jurídica</title>
+    
+    <!-- Cal.com Embed -->
+    <script type="module">
+        import Cal from 'https://cdn.jsdelivr.net/npm/@calcom/embed-react@latest/dist/index.js';
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+            min-height: 100vh;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .messages {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .message {
+            display: flex;
+            gap: 14px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        .message:nth-child(1) { animation-delay: 0.5s; }
+        .message:nth-child(2) { animation-delay: 2.5s; }
+        .message:nth-child(3) { animation-delay: 4.5s; }
+        .message:nth-child(4) { animation-delay: 6.5s; }
+        .message:nth-child(5) { animation-delay: 8.5s; }
+        .message:nth-child(6) { animation-delay: 10.5s; }
+
+        .avatar {
+            flex-shrink: 0;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background-image: url('https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/jessica.webp');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08),
+                        0 4px 16px rgba(0, 0, 0, 0.04);
+            border: 2.5px solid #ffffff;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .bubble {
+            background: #ffffff;
+            padding: 18px 22px;
+            border-radius: 18px;
+            border-top-left-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 
+                        0 4px 16px rgba(0, 0, 0, 0.04),
+                        0 8px 24px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .bubble p {
+            color: #1e293b;
+            font-size: 16px;
+            line-height: 1.65;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        .timestamp {
+            text-align: right;
+            margin-top: 6px;
+            padding-right: 4px;
+            font-size: 11px;
+            color: #94a3b8;
+            opacity: 0;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .message:nth-child(1) .timestamp { animation-delay: 1.0s; }
+        .message:nth-child(2) .timestamp { animation-delay: 3.0s; }
+        .message:nth-child(3) .timestamp { animation-delay: 5.0s; }
+        .message:nth-child(4) .timestamp { animation-delay: 7.0s; }
+        .message:nth-child(5) .timestamp { animation-delay: 9.0s; }
+        .message:nth-child(6) .timestamp { animation-delay: 11.0s; }
+
+        .checkmark {
+            display: inline-block;
+            margin-left: 4px;
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 20px 16px;
+            }
+
+            .logo {
+                margin-bottom: 40px;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .avatar {
+                width: 42px;
+                height: 42px;
+            }
+
+            .bubble {
+                padding: 16px 18px;
+            }
+
+            .bubble p {
+                font-size: 15px;
+            }
+
+            .messages {
+                gap: 20px;
+                margin-bottom: 40px;
+            }
+
+            .calendar-section {
+                padding: 24px 20px;
+                border-radius: 20px;
+            }
+
+            .calendar-title h2 {
+                font-size: 24px;
+            }
+
+            .calendar-title p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/v3%20png.webp" alt="Advanx">
+        </div>
+
+        <div class="messages">
+            <div class="message">
+                <div class="avatar"></div>
+                <div class="message-content">
+                    <div class="bubble">
+                        <p>Cansado de ver advogados mais novos com menos repertório fechando mais clientes que você?</p>
+                    </div>
+                    <div class="timestamp">Agora <span class="checkmark">✓</span></div>
+                </div>
+            </div>
+
+            <div class="message">
+                <div class="avatar"></div>
+                <div class="message-content">
+                    <div class="bubble">
+                        <p>A maioria dos escritórios está perdendo clientes qualificados por não ter um sistema profissional de captação.</p>
+                    </div>
+                    <div class="timestamp">Agora <span class="checkmark">✓</span></div>
+                </div>
+            </div>
+
+            <div class="message">
+                <div class="avatar"></div>
+                <div class="message-content">
+                    <div class="bubble">
+                        <p>Nós entregamos uma equipe completa: tráfego pago, CRM inteligente, automação com IA e time comercial treinado.</p>
+                    </div>
+                    <div class="timestamp">Agora <span class="checkmark">✓</span></div>
+                </div>
+            </div>
+
+            <div class="message">
+                <div class="avatar"></div>
+                <div class="message-content">
+                    <div class="bubble">
+                        <p>Já transformamos 400+ escritórios em 21 estados, gerando R$ 5M+ em novos contratos.</p>
+                    </div>
+                    <div class="timestamp">Agora <span class="checkmark">✓</span></div>
+                </div>
+            </div>
+
+            <div class="message">
+                <div class="avatar"></div>
+                <div class="message-content">
+                    <div class="bubble">
+                        <p>Nosso compromisso: você começa a <strong>fechar contratos em até 41 dias</strong>. Investimento mínimo mensal de <strong>R$3.000,00</strong></p>
+                    </div>
+                    <div class="timestamp">Agora <span class="checkmark">✓</span></div>
+                </div>
+            </div>
+
+            <div class="message">
+                <div class="avatar"></div>
+                <div class="message-content">
+                    <div class="bubble">
+                        <p>Toque no botão e escolha o melhor dia e horário para conhecer nossa metodologia.</p>
+                    </div>
+                    <div class="timestamp">Agora <span class="checkmark">✓</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cal floating-popup embed code begins -->
+    <script type="text/javascript">
+      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", "agenda", {origin:"https://app.cal.com"});
+      Cal.ns.agenda("floatingButton", {"calLink":"advanx/agenda","config":{"layout":"month_view"},"buttonText":"Reserve seu horário","buttonPosition":"bottom-right"}); 
+      Cal.ns.agenda("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#ff7a01"},"dark":{"cal-brand":"#ff7a01"}},"hideEventTypeDetails":false,"layout":"month_view"});
+      </script>
+      <!-- Cal floating-popup embed code ends -->
+</body>
+</html>
