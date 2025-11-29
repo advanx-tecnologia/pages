@@ -26,7 +26,13 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '502759528362336');
     fbq('track', 'PageView');
-    fbq('track', 'Schedule'); // Evento de Agendamento
+    
+    // Dispara Lead apenas uma vez por usuário
+    if (!localStorage.getItem('fb_lead_tracked')) {
+        fbq('track', 'Lead');
+        localStorage.setItem('fb_lead_tracked', 'true');
+        localStorage.setItem('fb_lead_date', new Date().toISOString());
+    }
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"
@@ -41,11 +47,15 @@
       gtag('js', new Date());
       gtag('config', 'G-98EL5GXG5F');
       
-      // Evento de agendamento
-      gtag('event', 'schedule_appointment', {
-        'event_category': 'engagement',
-        'event_label': 'Página de Obrigado'
-      });
+      // Evento de agendamento - dispara apenas uma vez
+      if (!localStorage.getItem('ga_schedule_tracked')) {
+          gtag('event', 'schedule_appointment', {
+            'event_category': 'engagement',
+            'event_label': 'Página de Obrigado'
+          });
+          localStorage.setItem('ga_schedule_tracked', 'true');
+          localStorage.setItem('ga_schedule_date', new Date().toISOString());
+      }
     </script>
     
     <!-- Preconnect para recursos críticos -->
