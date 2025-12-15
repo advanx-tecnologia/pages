@@ -468,7 +468,7 @@
 <!-- CONFIGURAÇÃO -->
 <script>
 var CONFIG = {
-    WEBHOOK_URL: 'https://n8n.advfunnel.com.br/webhook/processo-comercial-inteligente',
+    WEBHOOK_URL: 'https://n8n.advfunnel.com.br/webhook/ae9eb62b-ec81-4503-b07e-e1aa97244577/:lead-adv-v1',
     META_PIXEL_ID: '502759528362336',
     META_PIXEL_ACTIVE: true,
     GA4_ID: 'G-98EL5GXG5F',
