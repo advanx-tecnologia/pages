@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanx - Diagnóstico IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 24px 80px 24px;
+        }
+        
+        /* ============================================
+           PROGRESS BAR
+           ============================================ */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #0a0a0a;
+            z-index: 1000;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff7a01 0%, #ff9a3c 100%);
+            width: 0%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* ============================================
+           LOGO
+           ============================================ */
+        .logo-wrapper {
+            text-align: center;
+            padding: 48px 0 32px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: auto;
+            display: inline-block;
+        }
+        
+        /* ============================================
+           STEP INFO
+           ============================================ */
+        .step-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666666;
+        }
+        
+        .step-info span {
+            color: #ff7a01;
+            font-weight: 700;
+        }
+        
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        h1 {
+            font-size: 32px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+        
+        h2 {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+        
+        h3 {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+        
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #cccccc;
+        }
+        
+        .text-large {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .orange {
+            color: #ff7a01;
+        }
+        
+        .gray {
+            color: #999999;
+        }
+        
+        /* ============================================
+           BADGE
+           ============================================ */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #ff7a01 0%, #ff9a3c 100%);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin-bottom: 24px;
+        }
+        
+        /* ============================================
+           BOXES
+           ============================================ */
+        .feature-box {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature-box:hover {
+            border-color: #262626;
+            transform: translateY(-2px);
+        }
+        
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #ff7a01 0%, #ff9a3c 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 16px;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, rgba(255, 122, 1, 0.08) 0%, rgba(255, 154, 60, 0.08) 100%);
+            border: 1px solid rgba(255, 122, 1, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+        
+        /* ============================================
+           FORMS
+           ============================================ */
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+        
+        .form-label .emoji {
+            font-size: 18px;
+        }
+        
+        input,
+        textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background: #0a0a0a;
+            border: 2px solid #1a1a1a;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+        
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #ff7a01;
+            background: rgba(255, 122, 1, 0.03);
+        }
+        
+        input.validated {
+            border-color: #ff7a01;
+            background: rgba(255, 122, 1, 0.05);
+        }
+        
+        input.invalid {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.05);
+        }
+        
+        .error-message {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #ef4444;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .success-message {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        textarea {
+            resize: none;
+            line-height: 1.6;
+        }
+        
+        .input-hint {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #666666;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .char-counter {
+            text-align: right;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* ============================================
+           BUTTON
+           ============================================ */
+        .btn {
+            width: 100%;
+            padding: 18px 32px;
+            background: linear-gradient(135deg, #ff7a01 0%, #ff9a3c 100%);
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 32px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(255, 122, 1, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(255, 122, 1, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 12px rgba(255, 122, 1, 0);
+            }
+        }
+        
+        /* ============================================
+           CARDS
+           ============================================ */
+        .revenue-card {
+            background: #0a0a0a;
+            border: 2px solid #1a1a1a;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .revenue-card:hover {
+            border-color: #262626;
+            transform: translateX(4px);
+        }
+        
+        .revenue-card.selected {
+            border-color: #ff7a01;
+            background: rgba(255, 122, 1, 0.08);
+        }
+        
+        .revenue-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .revenue-card-subtitle {
+            font-size: 14px;
+            color: #999999;
+        }
+        
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .success-icon {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .instagram-icon {
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #ff7a01 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+        }
+        
+        /* ============================================
+           UTILITIES
+           ============================================ */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-1 { margin-top: 8px; }
+        .mt-2 { margin-top: 16px; }
+        .mt-3 { margin-top: 24px; }
+        .mt-4 { margin-top: 32px; }
+        
+        .mb-1 { margin-bottom: 8px; }
+        .mb-2 { margin-bottom: 16px; }
+        .mb-3 { margin-bottom: 24px; }
+        .mb-4 { margin-bottom: 32px; }
+        
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px 60px 16px;
+            }
+            
+            .logo-wrapper {
+                padding: 32px 0 24px;
+            }
+            
+            .logo {
+                width: 70px;
+            }
+            
+            h1 {
+                font-size: 26px;
+                margin-bottom: 20px;
+            }
+            
+            h2 {
+                font-size: 26px;
+                margin-bottom: 12px;
+            }
+            
+            .feature-box {
+                padding: 24px;
+            }
+            
+            .btn {
+                padding: 16px 28px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- CONFIGURAÇÃO -->
+<script>
+var CONFIG = {
+    WEBHOOK_URL: 'https://n8n.advfunnel.com.br/webhook/processo-comercial-inteligente',
+    META_PIXEL_ID: '502759528362336',
+    META_PIXEL_ACTIVE: true,
+    GA4_ID: 'G-98EL5GXG5F',
+    GA4_ACTIVE: true,
+    GOOGLE_ADS_ID: '',
+    GOOGLE_ADS_LABEL: '',
+    GOOGLE_ADS_ACTIVE: false,
+    TIKTOK_PIXEL_ID: '',
+    TIKTOK_PIXEL_ACTIVE: false,
+    GROUP_LINK: 'https://advanx.com.br/grupomdc'
+};
+</script>
+
+<!-- Progress Bar -->
+<div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+    <!-- Logo -->
+    <div class="logo-wrapper">
+        <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/v3 png.webp" alt="Advanx" class="logo">
+    </div>
+    
+    <!-- Step Info -->
+    <div class="step-info" id="stepInfo"></div>
+    
+    <!-- App Content -->
+    <div id="app" class="fade-in"></div>
+</div>
+
+<script>
+// ============================================
+// STATE
+// ============================================
+var currentStep = 0;
+var formData = {
+    full_name: '', email: '', whatsapp: '', instagram: '',
+    business_structure: '', revenue: '', ddd: '', city: '', state_code: ''
+};
+var eventsTracked = {};
+var utmParams = {};
+
+// ============================================
+// CAPTURE UTMs
+// ============================================
+(function() {
+    var params = new URLSearchParams(window.location.search);
+    utmParams.utm_source = params.get('utm_source') || '';
+    utmParams.utm_medium = params.get('utm_medium') || '';
+    utmParams.utm_campaign = params.get('utm_campaign') || '';
+    utmParams.utm_content = params.get('utm_content') || '';
+    utmParams.utm_term = params.get('utm_term') || '';
+})();
+
+// ============================================
+// DDD MAPPING
+// ============================================
+var dddMap = {
+    '11': 'São Paulo,SP', '21': 'Rio de Janeiro,RJ', '31': 'Belo Horizonte,MG',
+    '41': 'Curitiba,PR', '48': 'Florianópolis,SC', '51': 'Porto Alegre,RS',
+    '61': 'Brasília,DF', '71': 'Salvador,BA', '81': 'Recife,PE', '85': 'Fortaleza,CE'
+};
+
+// ============================================
+// HELPERS
+// ============================================
+function formatPhone(value) {
+    var numbers = value.replace(/\D/g, '');
+    if (numbers.length <= 2) return '(' + numbers;
+    if (numbers.length <= 7) return '(' + numbers.slice(0, 2) + ') ' + numbers.slice(2);
+    return '(' + numbers.slice(0, 2) + ') ' + numbers.slice(2, 7) + '-' + numbers.slice(7, 11);
+}
+
+function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// ============================================
+// PIXELS
+// ============================================
+function initPixels() {
+    if (CONFIG.META_PIXEL_ACTIVE && CONFIG.META_PIXEL_ID) {
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', CONFIG.META_PIXEL_ID);
+        fbq('track', 'PageView');
+    }
+    
+    if (CONFIG.GA4_ACTIVE && CONFIG.GA4_ID) {
+        var script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + CONFIG.GA4_ID;
+        script.async = true;
+        document.head.appendChild(script);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', CONFIG.GA4_ID);
+    }
+}
+
+function trackEvent(eventName, eventData) {
+    var key = eventName + '_' + currentStep;
+    if (eventsTracked[key]) return;
+    eventsTracked[key] = true;
+    
+    if (window.fbq && CONFIG.META_PIXEL_ACTIVE) fbq('track', eventName, eventData || {});
+    if (window.gtag && CONFIG.GA4_ACTIVE) gtag('event', eventName.toLowerCase(), eventData || {});
+    if (eventName === 'Lead' && window.gtag && CONFIG.GOOGLE_ADS_ACTIVE && CONFIG.GOOGLE_ADS_LABEL) {
+        gtag('event', 'conversion', {'send_to': CONFIG.GOOGLE_ADS_ID + '/' + CONFIG.GOOGLE_ADS_LABEL});
+    }
+    
+    console.log('✓ Event:', eventName, eventData || {});
+}
+
+function sendWebhook() {
+    if (!CONFIG.WEBHOOK_URL || CONFIG.WEBHOOK_URL.indexOf('seu-webhook') > -1) {
+        console.log('⚠️ Webhook não configurado');
+        return;
+    }
+    
+    var payload = {};
+    for (var key in formData) payload[key] = formData[key];
+    for (var key in utmParams) payload[key] = utmParams[key];
+    
+    fetch(CONFIG.WEBHOOK_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    }).then(function() {
+        console.log('✓ Webhook enviado');
+    }).catch(function(err) {
+        console.error('✗ Erro webhook:', err);
+    });
+}
+
+// ============================================
+// UI UPDATES
+// ============================================
+function updateUI() {
+    var bar = document.getElementById('progressBar');
+    var info = document.getElementById('stepInfo');
+    
+    if (currentStep === 0) {
+        bar.style.width = '0%';
+        info.innerHTML = '';
+    } else {
+        var percent = (currentStep / 5) * 100;
+        bar.style.width = percent + '%';
+        info.innerHTML = '<div>Etapa <span>' + currentStep + '</span> de 5</div><div><span>' + Math.round(percent) + '%</span> completo</div>';
+    }
+}
+
+function nextStep() {
+    if (currentStep < 5) {
+        currentStep++;
+        renderStep();
+    }
+}
+
+// ============================================
+// RENDER STEPS
+// ============================================
+function renderStep() {
+    var app = document.getElementById('app');
+    app.innerHTML = '';
+    app.classList.remove('fade-in');
+    setTimeout(function() { app.classList.add('fade-in'); }, 10);
+    
+    if (currentStep === 0) renderLanding();
+    if (currentStep === 1) renderStep1();
+    if (currentStep === 2) renderStep2();
+    if (currentStep === 3) renderStep3();
+    if (currentStep === 4) renderStep4();
+    if (currentStep === 5) renderStep5();
+    
+    updateUI();
+    if (currentStep > 0) trackEvent('PageView', {page_path: '/step-' + currentStep});
+}
+
+function renderLanding() {
+    document.getElementById('app').innerHTML =
+        '<div class="text-center">' +
+        '<div class="badge">✨ Estratégia Exclusiva</div>' +
+        '<h1>Descubra como advogados estão usando IA para atrair <span class="orange">8 clientes por dia</span>, qualificados direto no WhatsApp</h1>' +
+        '<p class="text-large mb-4"><strong class="orange">Com garantia de contrato fechado em até 41 dias!</strong><br>Dentro do código de ética</p>' +
+        '<div class="feature-box"><div class="feature-icon">🎯</div><h3>Marketing Inteligente</h3><p>Atraia clientes qualificados sem gastar com tráfego pago</p></div>' +
+        '<div class="feature-box"><div class="feature-icon">⚡</div><h3>Funil com IA</h3><p>Automação completa do primeiro contato ao fechamento</p></div>' +
+        '<div class="feature-box"><div class="feature-icon">✨</div><h3>Alta Margem</h3><p>Escale seu escritório sem aumentar custos operacionais</p></div>' +
+        '<button class="btn btn-pulse" onclick="nextStep()">Começar Diagnóstico Gratuito →</button>' +
+        '</div>';
+}
+
+function renderStep1() {
+    document.getElementById('app').innerHTML =
+        '<div class="text-center mb-4"><h2>Vamos começar! 🚀</h2><p class="gray">Preencha seus dados para garantir sua vaga</p></div>' +
+        '<div class="form-group"><label class="form-label"><span class="emoji">👤</span> Qual é o seu nome completo?</label><input type="text" id="inputName" placeholder="Digite seu nome completo" value="' + formData.full_name + '"><div id="nameError" class="error-message" style="display:none">⚠️ Digite seu nome completo</div></div>' +
+        '<div class="form-group"><label class="form-label"><span class="emoji">✉️</span> Qual o seu melhor email?</label><input type="email" id="inputEmail" placeholder="seu@email.com" value="' + formData.email + '"><div id="emailError" class="error-message" style="display:none">⚠️ Digite um email válido</div></div>' +
+        '<div class="form-group"><label class="form-label"><span class="emoji">📱</span> Qual o seu WhatsApp?</label><input type="tel" id="inputPhone" placeholder="(00) 00000-0000" maxlength="15" value="' + formData.whatsapp + '"><div id="phoneError" class="error-message" style="display:none">⚠️ Digite WhatsApp com DDD (11 dígitos)</div><div id="location" class="input-hint" style="display:none"></div><div id="phoneConfirm" class="success-message" style="display:none">✓ Confirme se este número está correto antes de continuar</div></div>' +
+        '<button class="btn" onclick="validateStep1()">Continuar para próxima etapa</button>';
+    
+    setTimeout(function() {
+        var nameInput = document.getElementById('inputName');
+        var emailInput = document.getElementById('inputEmail');
+        var phoneInput = document.getElementById('inputPhone');
+        var nameError = document.getElementById('nameError');
+        var emailError = document.getElementById('emailError');
+        var phoneError = document.getElementById('phoneError');
+        var phoneConfirm = document.getElementById('phoneConfirm');
+        var location = document.getElementById('location');
+        
+        nameInput.addEventListener('input', function(e) {
+            formData.full_name = e.target.value;
+            var isValid = e.target.value.length >= 3;
+            e.target.classList.remove('validated', 'invalid');
+            nameError.style.display = 'none';
+            
+            if (e.target.value.length > 0) {
+                if (isValid) {
+                    e.target.classList.add('validated');
+                } else {
+                    e.target.classList.add('invalid');
+                    nameError.style.display = 'flex';
+                }
+            }
+        });
+        
+        emailInput.addEventListener('input', function(e) {
+            formData.email = e.target.value;
+            var isValid = validateEmail(e.target.value);
+            e.target.classList.remove('validated', 'invalid');
+            emailError.style.display = 'none';
+            
+            if (e.target.value.length > 0) {
+                if (isValid) {
+                    e.target.classList.add('validated');
+                } else {
+                    e.target.classList.add('invalid');
+                    emailError.style.display = 'flex';
+                }
+            }
+        });
+        
+        phoneInput.addEventListener('input', function(e) {
+            e.target.value = formatPhone(e.target.value);
+            formData.whatsapp = e.target.value;
+            
+            var numbers = e.target.value.replace(/\D/g, '');
+            var isValid = numbers.length === 11;
+            e.target.classList.remove('validated', 'invalid');
+            phoneError.style.display = 'none';
+            location.style.display = 'none';
+            phoneConfirm.style.display = 'none';
+            
+            if (numbers.length >= 2) {
+                var ddd = numbers.slice(0, 2);
+                formData.ddd = ddd;
+                if (dddMap[ddd]) {
+                    var parts = dddMap[ddd].split(',');
+                    formData.city = parts[0];
+                    formData.state_code = parts[1];
+                    location.innerHTML = '📍 ' + parts[0] + ', ' + parts[1];
+                    location.style.display = 'flex';
+                }
+            }
+            
+            if (numbers.length > 0) {
+                if (isValid) {
+                    e.target.classList.add('validated');
+                    phoneConfirm.style.display = 'flex';
+                } else if (numbers.length >= 10) {
+                    e.target.classList.add('invalid');
+                    phoneError.style.display = 'flex';
+                }
+            }
+        });
+    }, 100);
+}
+
+function renderStep2() {
+    var firstName = formData.full_name.split(' ')[0];
+    var location = formData.city || 'sua região';
+    
+    document.getElementById('app').innerHTML =
+        '<div class="text-center">' +
+        '<div class="instagram-icon">📱</div>' +
+        '<h2>' + firstName + ', direto de ' + location + ',<br>vamos ativar o <span class="orange">poder máximo da IA!</span></h2>' +
+        '<div class="info-box mt-3 mb-3"><p><strong>⚡ Personalização inteligente</strong><br>Com seu Instagram, nossa IA vai analisar seu perfil e criar estratégias personalizadas de captação de clientes.</p></div>' +
+        '<div class="form-group"><label class="form-label">Seu @ do Instagram</label><input type="text" id="inputIG" placeholder="@seu_instagram" value="' + formData.instagram + '" style="text-align:center;font-size:18px"></div>' +
+        '<button class="btn" onclick="validateStep2()">✨ Continuar para análise</button>' +
+        '</div>';
+    
+    setTimeout(function() {
+        document.getElementById('inputIG').addEventListener('input', function(e) {
+            var value = e.target.value.replace(/[^a-zA-Z0-9._@]/g, '');
+            if (value && value[0] !== '@') value = '@' + value;
+            e.target.value = value;
+            formData.instagram = value.replace('@', '');
+        });
+    }, 100);
+}
+
+function renderStep3() {
+    document.getElementById('app').innerHTML =
+        '<div class="text-center mb-4"><h2>Conte sobre sua <span class="orange">estrutura atual</span></h2><p class="gray">Quanto mais detalhes, melhor será o diagnóstico</p></div>' +
+        '<div class="info-box mb-3"><p class="gray mb-1"><strong class="orange">💡 Por exemplo:</strong></p><p style="color:#ccc">"Tenho um escritório há 5 anos, já atendi 3.000 clientes, especializado em direito trabalhista, equipe de 15 pessoas. Quero resolver o problema de qualificação de clientes e aumentar o faturamento sem contratar mais gente."</p></div>' +
+        '<div class="form-group"><textarea id="inputBiz" rows="6" placeholder="Descreva aqui sua estrutura, desafios e objetivos...">' + formData.business_structure + '</textarea><div class="char-counter"><span id="counter" style="color:#666">0</span><span style="color:#666"> / 20 caracteres mínimos</span></div></div>' +
+        '<button class="btn" id="btnStep3" disabled onclick="validateStep3()">Continuar para faturamento</button>';
+    
+    setTimeout(function() {
+        document.getElementById('inputBiz').addEventListener('input', function(e) {
+            formData.business_structure = e.target.value;
+            var len = e.target.value.trim().length;
+            var counter = document.getElementById('counter');
+            counter.textContent = len;
+            counter.style.color = len >= 20 ? '#10b981' : (len > 0 ? '#ff7a01' : '#666');
+            document.getElementById('btnStep3').disabled = len < 20;
+            e.target.classList.toggle('validated', len >= 20);
+        });
+    }, 100);
+}
+
+function renderStep4() {
+    var firstName = formData.full_name.split(' ')[0];
+    var options = [
+        {value: '0-5k', label: 'Até 5 mil'},
+        {value: '5-10k', label: '5 a 10 mil'},
+        {value: '10-20k', label: '10 a 20 mil'},
+        {value: '20-50k', label: '20 a 50 mil'},
+        {value: '50-100k', label: '50 a 100 mil'},
+        {value: '100k+', label: 'Acima de 100 mil'}
+    ];
+    
+    var html = '<div class="text-center mb-4"><h2>' + firstName + ', qual o seu <span class="orange">faturamento médio mensal?</span></h2><p class="gray">Selecione a faixa que melhor representa seu momento atual</p></div>';
+    
+    for (var i = 0; i < options.length; i++) {
+        var opt = options[i];
+        var activeClass = formData.revenue === opt.value ? ' selected' : '';
+        html += '<div class="revenue-card' + activeClass + '" onclick="selectRevenue(\'' + opt.value + '\')">' +
+            '<div class="revenue-card-title">' + opt.label + '</div>' +
+            '<div class="revenue-card-subtitle">reais por mês</div></div>';
+    }
+    
+    html += '<button class="btn" id="btnStep4" onclick="generateLead()" ' + (formData.revenue ? '' : 'disabled') + '>✨ Gerar Diagnóstico Completo</button>';
+    document.getElementById('app').innerHTML = html;
+}
+
+function renderStep5() {
+    var firstName = formData.full_name.split(' ')[0];
+    
+    document.getElementById('app').innerHTML =
+        '<div class="text-center">' +
+        '<div class="success-icon">✅</div>' +
+        '<h1 style="font-size:36px">Diagnóstico Completo,<br>' + firstName + '!</h1>' +
+        '<p class="text-large gray mb-4">Análise personalizada em processamento</p>' +
+        '<div class="info-box" style="background:linear-gradient(135deg, rgba(255, 122, 1, 0.12) 0%, rgba(255, 154, 60, 0.12) 100%);border-color:rgba(255, 122, 1, 0.3)">' +
+        '<div style="font-size:48px;margin-bottom:16px;text-align:center">📱</div>' +
+        '<h3 class="text-center mb-2">Resultado será enviado no WhatsApp</h3>' +
+        '<p class="text-center mb-3">Em <strong class="orange">alguns minutos</strong> você receberá:</p>' +
+        '<p class="mb-1">✓ Análise completa do seu perfil e estrutura atual</p>' +
+        '<p class="mb-1">✓ Principais gargalos que estão travando seu crescimento</p>' +
+        '<p class="mb-1">✓ Oportunidades de crescimento personalizadas</p>' +
+        '<p>✓ Plano de ação específico para sua realidade</p></div>' +
+        '<div class="feature-box mt-3">' +
+        '<h3 class="text-center mb-2">🎯 Enquanto isso...</h3>' +
+        '<p class="text-center mb-3">Entre no nosso <strong class="orange">Grupo Estratégico</strong> e conheça nossa metodologia única de captação e fechamento com IA</p>' +
+        '<a href="' + CONFIG.GROUP_LINK + '" target="_blank" class="btn btn-pulse" style="text-decoration:none;display:block">Entrar no Grupo Estratégico →</a>' +
+        '</div></div>';
+}
+
+// ============================================
+// VALIDATIONS
+// ============================================
+function validateStep1() {
+    var nameInput = document.getElementById('inputName');
+    var emailInput = document.getElementById('inputEmail');
+    var phoneInput = document.getElementById('inputPhone');
+    var nameError = document.getElementById('nameError');
+    var emailError = document.getElementById('emailError');
+    var phoneError = document.getElementById('phoneError');
+    
+    var hasError = false;
+    
+    // Validar nome
+    if (!formData.full_name || formData.full_name.length < 3) {
+        nameInput.classList.add('invalid');
+        nameError.style.display = 'flex';
+        nameInput.focus();
+        hasError = true;
+    }
+    
+    // Validar email
+    if (!validateEmail(formData.email)) {
+        emailInput.classList.add('invalid');
+        emailError.style.display = 'flex';
+        if (!hasError) emailInput.focus();
+        hasError = true;
+    }
+    
+    // Validar telefone
+    if (formData.whatsapp.replace(/\D/g, '').length !== 11) {
+        phoneInput.classList.add('invalid');
+        phoneError.style.display = 'flex';
+        if (!hasError) phoneInput.focus();
+        hasError = true;
+    }
+    
+    if (hasError) {
+        return;
+    }
+    
+    nextStep();
+}
+
+function validateStep2() {
+    if (!formData.instagram) {
+        alert('Por favor, informe seu Instagram');
+        return;
+    }
+    nextStep();
+}
+
+function validateStep3() {
+    if (formData.business_structure.trim().length < 20) {
+        alert('Por favor, descreva sua estrutura com mais detalhes (mínimo 20 caracteres)');
+        return;
+    }
+    nextStep();
+}
+
+function selectRevenue(value) {
+    formData.revenue = value;
+    var cards = document.querySelectorAll('.revenue-card');
+    for (var i = 0; i < cards.length; i++) {
+        cards[i].classList.remove('selected');
+    }
+    event.target.closest('.revenue-card').classList.add('selected');
+    document.getElementById('btnStep4').disabled = false;
+}
+
+function generateLead() {
+    trackEvent('Lead', {
+        content_name: 'Diagnóstico Completo',
+        revenue: formData.revenue,
+        value: 0,
+        currency: 'BRL'
+    });
+    sendWebhook();
+    nextStep();
+}
+
+// ============================================
+// INIT
+// ============================================
+initPixels();
+renderStep();
+</script>
+
+</body>
+</html>
