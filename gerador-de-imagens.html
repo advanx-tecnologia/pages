@@ -86,108 +86,39 @@
             background: #1f2937;
         }
 
-        .aspect-ratios {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-        }
-
-        .ratio-option {
-            position: relative;
-        }
-
-        .ratio-option input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-        }
-
-        .ratio-label {
-            display: block;
-            padding: 16px 12px;
+        select {
+            width: 100%;
+            padding: 14px;
             background: #1a1f2e;
             border: 2px solid #2d3748;
-            border-radius: 10px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            color: #e1e4e8;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-align: center;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23ff7a01' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
         }
 
-        .ratio-option input[type="radio"]:checked + .ratio-label {
-            background: linear-gradient(135deg, #ff7a01 0%, #ff9d42 100%);
+        select:hover {
             border-color: #ff7a01;
-            color: white;
-            box-shadow: 0 4px 12px rgba(255, 122, 1, 0.4);
-            transform: translateY(-2px);
         }
 
-        .ratio-label:hover {
+        select:focus {
+            outline: none;
             border-color: #ff7a01;
-            transform: translateY(-2px);
+            box-shadow: 0 0 0 4px rgba(255, 122, 1, 0.1);
+            background-color: #1f2937;
         }
 
-        .ratio-name {
-            font-weight: 700;
-            font-size: 18px;
-            display: block;
-            margin-bottom: 4px;
-            color: #e1e4e8;
-        }
-
-        .ratio-option input[type="radio"]:checked + .ratio-label .ratio-name {
-            color: white;
-        }
-
-        .ratio-platform {
-            font-size: 11px;
-            opacity: 0.8;
-            color: #8b92a4;
-            line-height: 1.3;
-        }
-
-        .ratio-option input[type="radio"]:checked + .ratio-label .ratio-platform {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .resolution-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .resolution-option {
-            position: relative;
-        }
-
-        .resolution-option input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-        }
-
-        .resolution-label {
-            display: block;
-            padding: 18px;
+        select option {
             background: #1a1f2e;
-            border: 2px solid #2d3748;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            font-weight: 700;
-            font-size: 18px;
             color: #e1e4e8;
-        }
-
-        .resolution-option input[type="radio"]:checked + .resolution-label {
-            background: linear-gradient(135deg, #ff7a01 0%, #ff9d42 100%);
-            border-color: #ff7a01;
-            color: white;
-            box-shadow: 0 4px 12px rgba(255, 122, 1, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .resolution-label:hover {
-            border-color: #ff7a01;
-            transform: translateY(-2px);
+            padding: 10px;
         }
 
         .btn-submit {
@@ -355,20 +286,8 @@
                 font-size: 26px;
             }
 
-            .aspect-ratios {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .ratio-label {
-                padding: 12px 8px;
-            }
-
-            .ratio-name {
-                font-size: 16px;
-            }
-
-            .ratio-platform {
-                font-size: 10px;
+            .result-actions {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -383,36 +302,6 @@
 
             .subtitle {
                 font-size: 13px;
-            }
-
-            .aspect-ratios {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
-
-            .ratio-label {
-                padding: 10px 6px;
-            }
-
-            .ratio-name {
-                font-size: 15px;
-            }
-
-            .ratio-platform {
-                font-size: 9px;
-            }
-
-            .resolution-options {
-                gap: 8px;
-            }
-
-            .resolution-label {
-                padding: 14px;
-                font-size: 16px;
-            }
-
-            .result-actions {
-                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -434,114 +323,37 @@
             </div>
 
             <div class="form-group">
-                <label>📐 Formato (Aspect Ratio)</label>
-                <div class="aspect-ratios">
-                    <div class="ratio-option">
-                        <input type="radio" id="ratio_1_1" name="aspectRatio" value="1:1" checked>
-                        <label for="ratio_1_1" class="ratio-label">
-                            <span class="ratio-name">1:1</span>
-                            <span class="ratio-platform">Instagram<br>Facebook</span>
-                        </label>
-                    </div>
-
-                    <div class="ratio-option">
-                        <input type="radio" id="ratio_2_3" name="aspectRatio" value="2:3">
-                        <label for="ratio_2_3" class="ratio-label">
-                            <span class="ratio-name">2:3</span>
-                            <span class="ratio-platform">Pinterest<br>Portrait</span>
-                        </label>
-                    </div>
-
-                    <div class="ratio-option">
-                        <input type="radio" id="ratio_3_2" name="aspectRatio" value="3:2">
-                        <label for="ratio_3_2" class="ratio-label">
-                            <span class="ratio-name">3:2</span>
-                            <span class="ratio-platform">Facebook<br>Cover</span>
-                        </label>
-                    </div>
-
-                    <div class="ratio-option">
-                        <input type="radio" id="ratio_3_4" name="aspectRatio" value="3:4">
-                        <label for="ratio_3_4" class="ratio-label">
-                            <span class="ratio-name">3:4</span>
-                            <span class="ratio-platform">Stories<br>Vertical</span>
-                        </label>
-                    </div>
-
-                    <div class="ratio-option">
-                        <input type="radio" id="ratio_4_3" name="aspectRatio" value="4:3">
-                        <label for="ratio_4_3" class="ratio-label">
-                            <span class="ratio-name">4:3</span>
-                            <span class="ratio-platform">Apresentação<br>Clássico</span>
-                        </label>
-                    </div>
-
-                    <div class="ratio-option">
-                        <input type="radio" id="ratio_4_5" name="aspectRatio" value="4:5">
-                        <label for="ratio_4_5" class="ratio-label">
-                            <span class="ratio-name">4:5</span>
-                            <span class="ratio-platform">Instagram<br>Feed Tall</span>
-                        </label>
-                    </div>
-
-                    <div class="ratio-option">
-                        <input type="radio" id="ratio_5_4" name="aspectRatio" value="5:4">
-                        <label for="ratio_5_4" class="ratio-label">
-                            <span class="ratio-name">5:4</span>
-                            <span class="ratio-platform">Twitter<br>Card</span>
-                        </label>
-                    </div>
-
-                    <div class="ratio-option">
-                        <input type="radio" id="ratio_9_16" name="aspectRatio" value="9:16">
-                        <label for="ratio_9_16" class="ratio-label">
-                            <span class="ratio-name">9:16</span>
-                            <span class="ratio-platform">Reels<br>TikTok</span>
-                        </label>
-                    </div>
-
-                    <div class="ratio-option">
-                        <input type="radio" id="ratio_16_9" name="aspectRatio" value="16:9">
-                        <label for="ratio_16_9" class="ratio-label">
-                            <span class="ratio-name">16:9</span>
-                            <span class="ratio-platform">YouTube<br>Widescreen</span>
-                        </label>
-                    </div>
-
-                    <div class="ratio-option">
-                        <input type="radio" id="ratio_21_9" name="aspectRatio" value="21:9">
-                        <label for="ratio_21_9" class="ratio-label">
-                            <span class="ratio-name">21:9</span>
-                            <span class="ratio-platform">Ultrawide<br>Cinematic</span>
-                        </label>
-                    </div>
-
-                    <div class="ratio-option">
-                        <input type="radio" id="ratio_auto" name="aspectRatio" value="auto">
-                        <label for="ratio_auto" class="ratio-label">
-                            <span class="ratio-name">AUTO</span>
-                            <span class="ratio-platform">Automático<br>IA Decide</span>
-                        </label>
-                    </div>
-                </div>
+                <label for="formatSelect">📐 Formato</label>
+                <select id="formatSelect" name="format" required>
+                    <option value="1:1">1:1 - Instagram / Facebook</option>
+                    <option value="2:3">2:3 - Pinterest / Portrait</option>
+                    <option value="3:2">3:2 - Facebook Cover</option>
+                    <option value="3:4">3:4 - Stories / Vertical</option>
+                    <option value="4:3">4:3 - Apresentação / Clássico</option>
+                    <option value="4:5">4:5 - Instagram Feed Tall</option>
+                    <option value="5:4">5:4 - Twitter Card</option>
+                    <option value="9:16">9:16 - Reels / TikTok</option>
+                    <option value="16:9" selected>16:9 - YouTube / Widescreen</option>
+                    <option value="21:9">21:9 - Ultrawide / Cinematic</option>
+                    <option value="auto">AUTO - Automático (IA Decide)</option>
+                </select>
             </div>
 
             <div class="form-group">
-                <label>🎯 Resolução</label>
-                <div class="resolution-options">
-                    <div class="resolution-option">
-                        <input type="radio" id="res_1k" name="resolution" value="1K" checked>
-                        <label for="res_1k" class="resolution-label">1K</label>
-                    </div>
-                    <div class="resolution-option">
-                        <input type="radio" id="res_2k" name="resolution" value="2K">
-                        <label for="res_2k" class="resolution-label">2K</label>
-                    </div>
-                    <div class="resolution-option">
-                        <input type="radio" id="res_4k" name="resolution" value="4K">
-                        <label for="res_4k" class="resolution-label">4K</label>
-                    </div>
-                </div>
+                <label for="styleSelect">🎭 Estilo</label>
+                <select id="styleSelect" name="style" required>
+                    <option value="normal" selected>Normal</option>
+                    <option value="realismo">Realismo</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="resolutionSelect">🎯 Resolução</label>
+                <select id="resolutionSelect" name="resolution" required>
+                    <option value="1K" selected>1K - Rápido</option>
+                    <option value="2K">2K - Padrão</option>
+                    <option value="4K">4K - Alta Qualidade</option>
+                </select>
             </div>
 
             <button type="submit" class="btn-submit" id="submitBtn">
@@ -555,7 +367,8 @@
             <h3 class="result-title">🎉 Imagem Gerado com Sucesso!</h3>
             <img id="resultImage" class="image-preview" alt="Imagem gerado">
             <div class="image-info">
-                <strong>Formato:</strong> <span id="infoRatio"></span> | 
+                <strong>Formato:</strong> <span id="infoFormat"></span> | 
+                <strong>Estilo:</strong> <span id="infoStyle"></span> | 
                 <strong>Resolução:</strong> <span id="infoResolution"></span>
             </div>
             <div class="result-actions">
@@ -587,8 +400,9 @@
             // Coletar dados do formulário
             const formData = {
                 prompt: document.getElementById('promptText').value,
-                aspectRatio: document.querySelector('input[name="aspectRatio"]:checked').value,
-                resolution: document.querySelector('input[name="resolution"]:checked').value,
+                aspectRatio: document.getElementById('formatSelect').value,
+                style: document.getElementById('styleSelect').value,
+                resolution: document.getElementById('resolutionSelect').value,
                 timestamp: new Date().toISOString()
             };
 
@@ -614,8 +428,7 @@
                     const result = await response.json();
                     console.log('Resposta do webhook:', result);
 
-                    // Extrair URL da imagem (ajuste conforme sua resposta do n8n)
-                    // Opções: result.imageUrl, result.url, result.image, result.data.url, etc.
+                    // Extrair URL da imagem
                     const imageUrl = result.imageUrl || result.url || result.image || result.data?.url || result.data?.imageUrl;
 
                     if (imageUrl) {
@@ -646,7 +459,8 @@
             resultImage.src = imageUrl;
             
             // Preencher informações
-            document.getElementById('infoRatio').textContent = currentFormData.aspectRatio;
+            document.getElementById('infoFormat').textContent = currentFormData.aspectRatio;
+            document.getElementById('infoStyle').textContent = currentFormData.style.charAt(0).toUpperCase() + currentFormData.style.slice(1);
             document.getElementById('infoResolution').textContent = currentFormData.resolution;
             
             // Mostrar container de resultado
@@ -675,7 +489,7 @@
                 
                 // Nome do arquivo baseado nas configurações
                 const timestamp = new Date().toISOString().split('T')[0];
-                const fileName = `Imagem_${currentFormData.aspectRatio.replace(':', 'x')}_${currentFormData.resolution}_${timestamp}.png`;
+                const fileName = `Imagem_${currentFormData.aspectRatio.replace(':', 'x')}_${currentFormData.style}_${currentFormData.resolution}_${timestamp}.png`;
                 a.download = fileName;
                 
                 document.body.appendChild(a);
