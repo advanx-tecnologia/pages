@@ -179,18 +179,6 @@
             border: 2px solid rgba(255, 122, 1, 0.3);
         }
 
-        .debug-info {
-            margin-top: 15px;
-            padding: 12px;
-            background: #1a1f2e;
-            border-radius: 8px;
-            font-size: 12px;
-            color: #8b92a4;
-            font-family: monospace;
-            white-space: pre-wrap;
-            word-break: break-all;
-        }
-
         .result-container {
             margin-top: 40px;
             padding: 30px;
@@ -374,7 +362,6 @@
         </form>
 
         <div id="statusMessage" class="status-message"></div>
-        <div id="debugInfo" class="debug-info" style="display: none;"></div>
 
         <div id="resultContainer" class="result-container">
             <h3 class="result-title">🎉 Imagem Gerada com Sucesso!</h3>
@@ -399,7 +386,6 @@
         const form = document.getElementById('bannerForm');
         const submitBtn = document.getElementById('submitBtn');
         const statusMessage = document.getElementById('statusMessage');
-        const debugInfo = document.getElementById('debugInfo');
         const resultContainer = document.getElementById('resultContainer');
         const resultImage = document.getElementById('resultImage');
         const btnDownload = document.getElementById('btnDownload');
@@ -431,10 +417,6 @@
             showStatus('loading', '⏳ Gerando sua imagem... isso pode levar alguns segundos');
             submitBtn.disabled = true;
 
-            // Mostrar dados enviados
-            debugInfo.textContent = `📤 Dados enviados:\n${JSON.stringify(formData, null, 2)}`;
-            debugInfo.style.display = 'block';
-
             try {
                 console.log('🌐 Fazendo requisição para o webhook...');
                 
@@ -442,61 +424,88 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json'
+                        'Accept': 'application/json, text/plain'
                     },
                     body: JSON.stringify(formData)
                 });
 
                 console.log('📥 Status da resposta:', response.status);
-                console.log('📥 Headers da resposta:', Object.fromEntries(response.headers.entries()));
+                console.log('📥 Content-Type:', response.headers.get('Content-Type'));
+
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP ${response.status}`);
+                }
 
                 const responseText = await response.text();
-                console.log('📥 Resposta bruta:', responseText);
+                console.log('📥 Resposta recebida (primeiros 200 chars):', responseText.substring(0, 200));
 
-                debugInfo.textContent += `\n\n📥 Resposta (status ${response.status}):\n${responseText}`;
+                let imageUrl = null;
 
-                if (response.ok) {
-                    let result;
+                // TENTATIVA 1: Verificar se é uma URL pura (string)
+                if (responseText.startsWith('http://') || responseText.startsWith('https://')) {
+                    console.log('✅ Detectado: Resposta é uma URL pura (string)');
+                    imageUrl = responseText.trim();
+                } 
+                // TENTATIVA 2: Tentar parsear como JSON
+                else {
                     try {
-                        result = JSON.parse(responseText);
-                    } catch (e) {
-                        console.error('❌ Erro ao parsear JSON:', e);
-                        throw new Error('Resposta inválida do servidor');
+                        const result = JSON.parse(responseText);
+                        console.log('✅ Detectado: Resposta é JSON');
+                        console.log('📦 JSON parseado:', result);
+
+                        // Procurar URL no JSON em múltiplos locais
+                        const possiblePaths = [
+                            result.imageUrl,
+                            result.url,
+                            result.image,
+                            result.imageURL,
+                            result.image_url,
+                            result.URL,
+                            result.file_url,
+                            result.publicUrl,
+                            result.data?.url,
+                            result.data?.imageUrl,
+                            result.data?.URL,
+                            result.output?.url,
+                            result.output?.imageUrl,
+                            result.result?.url
+                        ];
+
+                        imageUrl = possiblePaths.find(path => 
+                            path && 
+                            typeof path === 'string' && 
+                            (path.startsWith('http://') || path.startsWith('https://'))
+                        );
+
+                        if (!imageUrl) {
+                            console.error('❌ URL não encontrada no JSON');
+                            console.error('📦 Estrutura recebida:', result);
+                            throw new Error('URL da imagem não encontrada na resposta JSON');
+                        }
+                    } catch (parseError) {
+                        console.error('❌ Erro ao parsear JSON:', parseError);
+                        console.error('📥 Resposta completa:', responseText);
+                        throw new Error('Resposta inválida: não é URL nem JSON válido');
                     }
-
-                    console.log('✅ Resposta parseada:', result);
-
-                    // Tentar múltiplas formas de extrair a URL da imagem
-                    const imageUrl = result.imageUrl || 
-                                   result.url || 
-                                   result.image || 
-                                   result.data?.url || 
-                                   result.data?.imageUrl ||
-                                   result.output?.url ||
-                                   result.output?.imageUrl;
-
-                    console.log('🖼️ URL da imagem encontrada:', imageUrl);
-
-                    if (imageUrl) {
-                        currentImageUrl = imageUrl;
-                        displayResult(imageUrl);
-                        showStatus('success', '✅ Imagem gerada com sucesso!');
-                        
-                        setTimeout(() => {
-                            statusMessage.style.display = 'none';
-                        }, 3000);
-                    } else {
-                        console.error('❌ URL da imagem não encontrada. Resposta completa:', result);
-                        debugInfo.textContent += '\n\n❌ URL da imagem não encontrada na resposta';
-                        throw new Error('URL da imagem não encontrada na resposta do servidor');
-                    }
-                } else {
-                    throw new Error(`Erro HTTP ${response.status}: ${responseText}`);
                 }
+
+                console.log('🖼️ URL final extraída:', imageUrl);
+
+                if (imageUrl && (imageUrl.startsWith('http://') || imageUrl.startsWith('https://'))) {
+                    currentImageUrl = imageUrl;
+                    displayResult(imageUrl);
+                    showStatus('success', '✅ Imagem gerada com sucesso!');
+                    
+                    setTimeout(() => {
+                        statusMessage.style.display = 'none';
+                    }, 3000);
+                } else {
+                    throw new Error('URL da imagem inválida');
+                }
+
             } catch (error) {
                 console.error('❌ Erro completo:', error);
                 showStatus('error', `❌ Erro: ${error.message}`);
-                debugInfo.textContent += `\n\n❌ Erro: ${error.message}`;
             } finally {
                 submitBtn.disabled = false;
             }
@@ -509,7 +518,10 @@
             resultImage.src = imageUrl;
             resultImage.onerror = () => {
                 console.error('❌ Erro ao carregar imagem:', imageUrl);
-                showStatus('error', '❌ Erro ao carregar a imagem. Verifique a URL.');
+                showStatus('error', '❌ Erro ao carregar a imagem. Verifique se a URL é válida.');
+            };
+            resultImage.onload = () => {
+                console.log('✅ Imagem carregada com sucesso!');
             };
             
             // Preencher informações
@@ -563,7 +575,6 @@
             form.reset();
             resultContainer.classList.remove('show');
             statusMessage.style.display = 'none';
-            debugInfo.style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
             document.getElementById('promptText').focus();
         });
