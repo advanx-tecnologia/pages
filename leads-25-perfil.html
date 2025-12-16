@@ -588,7 +588,7 @@
                 <h3 class="admin-section-title">🔗 URLs e Webhook</h3>
                 <div class="admin-field">
                     <label class="admin-label">Webhook URL (n8n)</label>
-                    <input type="text" id="adminWebhook" placeholder="https://n8n.advfunnel.com.br/webhook/...">
+                    <input type="text" id="adminWebhook" placeholder="https://n8n.advfunnel.com.br/webhook/processo-comercial-inteligente">
                 </div>
                 <div class="admin-field">
                     <label class="admin-label">URL de Redirecionamento</label>
@@ -896,23 +896,27 @@
             });
         }
 
-        // Tracking de eventos
+        // Tracking de eventos - APENAS PageView e Lead
         function trackEvent(eventName, data = {}) {
+            if (eventName !== 'PageView' && eventName !== 'Lead') return;
+            
             const eventData = {
-                ...formData,
-                ...data,
-                step: currentStep,
-                event_name: eventName
+                content_name: document.title,
+                content_category: 'processo-seletivo',
+                ...data
             };
             
+            // Facebook Pixel
             if (typeof fbq !== 'undefined') {
                 fbq('track', eventName, eventData);
             }
             
+            // Google Analytics
             if (typeof gtag !== 'undefined') {
                 gtag('event', eventName, eventData);
             }
             
+            // GTM DataLayer
             if (typeof window.dataLayer !== 'undefined') {
                 window.dataLayer.push({
                     event: eventName,
@@ -922,7 +926,6 @@
         }
 
         function startForm() {
-            trackEvent('FormStarted');
             nextStep();
         }
 
@@ -941,21 +944,6 @@
 
         function nextStep() {
             if (!validateStep(currentStep)) return;
-            
-            const eventNames = [
-                'FormStarted',
-                'QualificationAccepted',
-                'NameEntered',
-                'PhoneEntered',
-                'EmailEntered',
-                'InstagramEntered',
-                'StructureDescribed',
-                'RevenueSelected'
-            ];
-            
-            if (currentStep > 0 && currentStep < eventNames.length) {
-                trackEvent(eventNames[currentStep]);
-            }
             
             currentStep++;
             showStep(currentStep);
@@ -1036,7 +1024,6 @@
         }
 
         function handleRejection() {
-            trackEvent('FormRejected', { reason: 'not_ready' });
             alert('Obrigado pelo seu tempo. Quando estiver pronto, volte e preencha o formulário!');
             window.location.href = 'https://advanx.com.br';
         }
@@ -1046,7 +1033,13 @@
             parent.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
             formData[key] = value;
-            trackEvent('Lead');
+            
+            // Dispara evento Lead
+            trackEvent('Lead', {
+                value: formData.faturamento,
+                currency: 'BRL'
+            });
+            
             setTimeout(() => submitAndRedirect(), 400);
         }
 
@@ -1055,7 +1048,7 @@
             if (webhookSent) return true;
             
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
             
             try {
                 const response = await fetch(config.webhook, {
@@ -1074,13 +1067,10 @@
                 }
                 
                 webhookSent = true;
-                trackEvent('WebhookSuccess');
                 return true;
             } catch (error) {
                 clearTimeout(timeoutId);
                 console.error('Webhook error:', error);
-                trackEvent('WebhookError', { error: error.message });
-                // Mesmo com erro, redireciona
                 return true;
             }
         }
@@ -1129,7 +1119,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadConfig();
             
-            // Máscara de telefone otimizada
+            // Máscara de telefone
             const whatsappInput = document.getElementById('whatsapp');
             if (whatsappInput) {
                 whatsappInput.addEventListener('input', formatPhone);
@@ -1148,16 +1138,10 @@
         updateProgress();
     </script>
 
-    <!-- GTM/Pixels carregados de forma async -->
+    <!-- Facebook Pixel e Tracking -->
     <script>
-        // Carrega tracking de forma async após página carregar
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(loadTracking);
-        } else {
-            setTimeout(loadTracking, 1000);
-        }
-
-        function loadTracking() {
+        // Carrega tracking no window.load para evitar alerta amarelo
+        window.addEventListener('load', function() {
             loadConfig();
             
             // Facebook Pixel
@@ -1170,8 +1154,16 @@
                 t.src=v;s=b.getElementsByTagName(e)[0];
                 s.parentNode.insertBefore(t,s)}(window, document,'script',
                 'https://connect.facebook.net/en_US/fbevents.js');
+                
                 fbq('init', config.fbPixelId);
-                fbq('track', 'PageView');
+                
+                // PageView com parâmetros para evitar alerta amarelo
+                fbq('track', 'PageView', {
+                    content_name: document.title,
+                    content_category: 'processo-seletivo',
+                    page_title: document.title,
+                    page_url: window.location.href
+                });
             }
 
             // Google Analytics
@@ -1195,7 +1187,7 @@
                 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                 })(window,document,'script','dataLayer',config.gtmId);
             }
-        }
+        });
     </script>
 </body>
 </html>
