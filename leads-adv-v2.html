@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congresso IA - Advanx | Evento Exclusivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* ============================================
+           ANIMATED BACKGROUND
+           ============================================ */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: radial-gradient(ellipse at top, #0a0a1f 0%, #000000 50%);
+        }
+        
+        .bg-gradient-1 {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255, 122, 1, 0.15) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .bg-gradient-2 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 154, 60, 0.12) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            border-radius: 50%;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+        
+        .bg-gradient-3 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 122, 1, 0.1) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            animation: pulse-glow 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+        }
+        
+        /* Grid Pattern */
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 122, 1, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 122, 1, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+        }
+        
+        @keyframes grid-move {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+        
+        /* Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(135deg, #ff7a01, #ff9a3c);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 122, 1, 0.5);
+            animation: float-particle 15s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 12s;
+        }
+        
+        .particle:nth-child(2) {
+            top: 40%;
+            left: 80%;
+            animation-delay: 2s;
+            animation-duration: 14s;
+        }
+        
+        .particle:nth-child(3) {
+            top: 60%;
+            left: 30%;
+            animation-delay: 4s;
+            animation-duration: 16s;
+        }
+        
+        .particle:nth-child(4) {
+            top: 80%;
+            left: 70%;
+            animation-delay: 1s;
+            animation-duration: 13s;
+        }
+        
+        .particle:nth-child(5) {
+            top: 30%;
+            left: 50%;
+            animation-delay: 3s;
+            animation-duration: 15s;
+        }
+        
+        .particle:nth-child(6) {
+            top: 70%;
+            left: 20%;
+            animation-delay: 5s;
+            animation-duration: 17s;
+        }
+        
+        .particle:nth-child(7) {
+            top: 50%;
+            left: 90%;
+            animation-delay: 2.5s;
+            animation-duration: 14.5s;
+        }
+        
+        .particle:nth-child(8) {
+            top: 90%;
+            left: 40%;
+            animation-delay: 4.5s;
+            animation-duration: 16.5s;
+        }
+        
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* ============================================
+           LOGO
+           ============================================ */
+        .logo-wrapper {
+            text-align: center;
+            margin-bottom: 48px;
+            animation: fade-in-down 1s ease-out;
+        }
+        
+        .logo {
+            width: 120px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(255, 122, 1, 0.3));
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        /* ============================================
+           CONTENT SECTIONS
+           ============================================ */
+        .content-section {
+            width: 100%;
+            opacity: 0;
+            animation: fade-in-up 0.8s ease-out forwards;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .content-section.hidden {
+            display: none;
+        }
+        
+        /* ============================================
+           BADGE
+           ============================================ */
+        .event-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, rgba(255, 122, 1, 0.12) 0%, rgba(255, 154, 60, 0.12) 100%);
+            border: 1px solid rgba(255, 122, 1, 0.25);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin: 0 auto 32px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 16px rgba(255, 122, 1, 0.08);
+        }
+        
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1); }
+            50% { box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3); }
+        }
+        
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1.25;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ffffff;
+            letter-spacing: -0.01em;
+            animation: fade-in-up 1s ease-out 0.2s forwards;
+            opacity: 0;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-highlight {
+            background: linear-gradient(135deg, #ff7a01 0%, #ff9a3c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            margin-bottom: 48px;
+            animation: fade-in-up 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+        
+        .highlight {
+            color: #3b82f6;
+            font-weight: 700;
+        }
+        
+        /* ============================================
+           COUNTDOWN
+           ============================================ */
+        .countdown-wrapper {
+            margin-top: 16px;
+            padding-bottom: 40px;
+            animation: fade-in-up 1s ease-out 1s forwards;
+            opacity: 0;
+        }
+        
+        .countdown-label {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 12px;
+        }
+        
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .countdown-item {
+            background: linear-gradient(135deg, rgba(255, 122, 1, 0.05) 0%, rgba(255, 154, 60, 0.05) 100%);
+            border: 1px solid rgba(255, 122, 1, 0.15);
+            border-radius: 14px;
+            padding: 16px 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .countdown-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 122, 1, 0.08), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .countdown-item:hover::before {
+            left: 100%;
+        }
+        
+        .countdown-item:hover {
+            border-color: rgba(255, 122, 1, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .countdown-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, #ff7a01 0%, #ff9a3c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 6px;
+        }
+        
+        .countdown-unit {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .event-date {
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 12px;
+        }
+        
+        .event-date strong {
+            color: #ff7a01;
+            font-weight: 700;
+        }
+        
+        /* ============================================
+           BENEFITS & FEATURES
+           ============================================ */
+        .benefits-wrapper {
+            margin: 24px 0;
+            animation: fade-in-up 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+        
+        .benefit-item {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        
+        .benefit-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .highlight-text {
+            color: #ff7a01;
+            font-weight: 700;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 32px 0 40px;
+            animation: fade-in-up 1s ease-out 0.8s forwards;
+            opacity: 0;
+        }
+        
+        .feature-item {
+            background: linear-gradient(135deg, rgba(255, 122, 1, 0.05) 0%, rgba(255, 154, 60, 0.05) 100%);
+            border: 1px solid rgba(255, 122, 1, 0.15);
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .feature-item:hover {
+            border-color: rgba(255, 122, 1, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 122, 1, 0.15);
+        }
+        
+        .feature-emoji {
+            font-size: 28px;
+            display: block;
+        }
+        
+        .feature-item span:last-child {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.3;
+        }
+        
+        /* ============================================
+           FORM
+           ============================================ */
+        .form-card {
+            background: rgba(10, 10, 31, 0.6);
+            border: 1px solid rgba(255, 122, 1, 0.15);
+            border-radius: 20px;
+            padding: 20px 18px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+            animation: fade-in-up 1s ease-out 0.8s forwards;
+            opacity: 0;
+        }
+        
+        .form-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 14px;
+            color: #ffffff;
+        }
+        
+        .form-group {
+            margin-bottom: 4px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 122, 1, 0.15);
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .form-input:focus {
+            border-color: #ff7a01;
+            background: rgba(255, 122, 1, 0.03);
+            box-shadow: 0 0 0 4px rgba(255, 122, 1, 0.08);
+            transform: translateY(-2px);
+        }
+        
+        .form-input.valid {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        .form-input.invalid {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.05);
+        }
+        
+        .input-message {
+            margin-top: 4px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .input-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .input-message.success {
+            color: #10b981;
+        }
+        
+        .input-message.error {
+            color: #ef4444;
+        }
+        
+        .input-message.info {
+            color: #3b82f6;
+        }
+        
+        /* ============================================
+           BUTTON
+           ============================================ */
+        .btn-primary {
+            width: 100%;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #ff7a01 0%, #ff9a3c 100%);
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(255, 122, 1, 0.3);
+            margin-top: 0px;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 36px rgba(255, 122, 1, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* ============================================
+           SUCCESS STATE
+           ============================================ */
+        .success-card {
+            background: rgba(10, 10, 31, 0.5);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 24px;
+            padding: 48px 40px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .success-icon-wrapper {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #10b981;
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
+            animation: scale-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .success-profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .success-icon {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 32px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
+            animation: scale-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes scale-in {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .success-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+        
+        .success-message {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        
+        .success-message strong {
+            color: #ff7a01;
+            font-weight: 700;
+        }
+        
+        .event-info-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 122, 1, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .event-info-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 8px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .event-info-icon {
+            font-size: 24px;
+        }
+        
+        .event-info-text {
+            font-size: 16px;
+        }
+        
+        .instruction-box {
+            background: linear-gradient(135deg, rgba(255, 122, 1, 0.06) 0%, rgba(255, 154, 60, 0.06) 100%);
+            border: 1px solid rgba(255, 122, 1, 0.15);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+        
+        .instruction-box h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .instruction-box p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        
+        .instruction-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .whatsapp-alert {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: rgba(255, 122, 1, 0.1);
+            border-left: 3px solid #ff7a01;
+            border-radius: 8px;
+            color: #ffffff !important;
+            font-size: 15px;
+        }
+        
+        .whatsapp-alert strong {
+            color: #ff7a01;
+        }
+        
+        .whatsapp-btn {
+            width: 100%;
+            padding: 20px 32px;
+            background: linear-gradient(135deg, #25d366 0%, #20ba5a 100%);
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+            text-decoration: none;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 36px rgba(37, 211, 102, 0.4);
+        }
+        
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fade-in-down {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes text-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(255, 122, 1, 0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 20px rgba(255, 122, 1, 0.6));
+            }
+        }
+        
+        @keyframes float-particle {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(20px, -20px) scale(1.2);
+                opacity: 0.6;
+            }
+        }
+        
+        @keyframes neon-pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 122, 1, 0.3),
+                            0 0 40px rgba(255, 122, 1, 0.2),
+                            inset 0 0 20px rgba(255, 122, 1, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(255, 122, 1, 0.5),
+                            0 0 60px rgba(255, 122, 1, 0.3),
+                            inset 0 0 30px rgba(255, 122, 1, 0.2);
+            }
+        }
+        
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px 50px 16px;
+            }
+            
+            .hero-title {
+                font-size: 26px;
+                line-height: 1.3;
+            }
+            
+            .benefit-item {
+                font-size: 15px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin: 24px 0 32px;
+            }
+            
+            .feature-item {
+                padding: 14px 12px;
+            }
+            
+            .feature-emoji {
+                font-size: 24px;
+            }
+            
+            .feature-item span:last-child {
+                font-size: 13px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .countdown {
+                gap: 8px;
+            }
+            
+            .countdown-item {
+                padding: 14px 8px;
+                border-radius: 12px;
+            }
+            
+            .countdown-value {
+                font-size: 28px;
+            }
+            
+            .countdown-unit {
+                font-size: 10px;
+            }
+            
+            .countdown-label {
+                font-size: 12px;
+                margin-bottom: 12px;
+            }
+            
+            .event-date {
+                font-size: 12px;
+            }
+            
+            .form-card {
+                padding: 18px 16px;
+                border-radius: 18px;
+            }
+            
+            .form-title {
+                font-size: 17px;
+                margin-bottom: 12px;
+            }
+            
+            .form-group {
+                margin-bottom: 3px;
+            }
+            
+            .form-input {
+                padding: 12px 14px;
+                font-size: 15px;
+            }
+            
+            .btn-primary {
+                padding: 13px 28px;
+                font-size: 16px;
+                margin-top: 0px;
+            }
+            
+            .countdown-wrapper {
+                margin-top: 14px;
+                padding-bottom: 30px;
+            }
+            
+            .countdown-label {
+                margin-bottom: 10px;
+            }
+            
+            .input-message {
+                margin-top: 3px;
+                font-size: 12px;
+            }
+            
+            .event-badge {
+                padding: 10px 20px;
+                font-size: 13px;
+                margin-bottom: 24px;
+            }
+            
+            .success-card {
+                padding: 32px 24px;
+            }
+            
+            .success-icon-wrapper {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
+            }
+            
+            .success-title {
+                font-size: 26px;
+            }
+            
+            .success-message {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            
+            .event-info-box {
+                padding: 16px;
+                margin-bottom: 20px;
+            }
+            
+            .event-info-item {
+                font-size: 14px;
+                padding: 6px 0;
+            }
+            
+            .event-info-icon {
+                font-size: 20px;
+            }
+            
+            .event-info-text {
+                font-size: 14px;
+            }
+            
+            .instruction-box {
+                padding: 24px 20px;
+                margin-bottom: 24px;
+            }
+            
+            .instruction-box h3 {
+                font-size: 18px;
+            }
+            
+            .instruction-box p {
+                font-size: 14px;
+            }
+            
+            .whatsapp-alert {
+                font-size: 14px;
+                padding: 10px 14px;
+                margin-top: 14px;
+            }
+            
+            .whatsapp-btn {
+                font-size: 16px;
+                padding: 16px 28px;
+            }
+        }
+            
+            .success-card {
+                padding: 40px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- CONFIGURAÇÃO -->
+<script>
+var CONFIG = {
+    WEBHOOK_URL: 'https://n8n.advfunnel.com.br/webhook/ae9eb62b-ec81-4503-b07e-e1aa97244577/:lead-adv-v1',
+    META_PIXEL_ID: '502759528362336',
+    META_PIXEL_ACTIVE: true,
+    GA4_ID: 'G-98EL5GXG5F',
+    GA4_ACTIVE: true,
+    GOOGLE_ADS_ID: '',
+    GOOGLE_ADS_LABEL: '',
+    GOOGLE_ADS_ACTIVE: false,
+    GROUP_LINK: 'https://advanx.com.br/grupomdc'
+};
+</script>
+
+<!-- Animated Background -->
+<div class="animated-bg">
+    <div class="grid-pattern"></div>
+    <div class="bg-gradient-1"></div>
+    <div class="bg-gradient-2"></div>
+    <div class="bg-gradient-3"></div>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+    <!-- Logo -->
+    <div class="logo-wrapper">
+        <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/v3 png.webp" alt="Advanx" class="logo">
+    </div>
+    
+    <!-- Form Section -->
+    <div class="content-section active" id="formSection">
+        <div style="text-align: center;">
+            <div class="event-badge">
+                <span>🤖</span>
+                <span>Evento Exclusivo</span>
+            </div>
+        </div>
+        
+        <h1 class="hero-title">Descubra como advogados estão usando <span class="hero-highlight">IA</span> para atrair <span class="hero-highlight">8 clientes por dia</span>, qualificados direto no <span class="hero-highlight">WhatsApp</span></h1>
+        
+        <div class="benefits-wrapper">
+            <p class="benefit-item highlight-text">✓ Com garantia de resultados em até 41 dias!</p>
+            <p class="benefit-item">✓ Dentro do código de ética</p>
+            <p class="benefit-item">✓ Investindo em média R$33 por dia</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-item">
+                <span class="feature-emoji">🚫</span>
+                <span>Sem atender clientes curiosos</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-emoji">💰</span>
+                <span>Sem briga por preços</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-emoji">⭐</span>
+                <span>Seja referência e autoridade</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-emoji">✅</span>
+                <span>Clientes prontos para fechar contrato!</span>
+            </div>
+        </div>
+        
+        <!-- Form -->
+        <div class="form-card">
+            <h2 class="form-title">Receba seu ingresso ao entrar no grupo do WhatsApp</h2>
+            
+            <form id="eventForm">
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="fullName" 
+                        class="form-input" 
+                        placeholder="Nome Completo"
+                        required
+                    >
+                    <div class="input-message error" id="nameError">
+                        ⚠️ Por favor, digite seu nome completo
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="form-input" 
+                        placeholder="Digite Seu Email"
+                        required
+                    >
+                    <div class="input-message error" id="emailError">
+                        ⚠️ Por favor, digite um email válido
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <input 
+                        type="tel" 
+                        id="whatsapp" 
+                        class="form-input" 
+                        placeholder="Digite seu Whatsapp"
+                        maxlength="15"
+                        required
+                    >
+                    <div class="input-message error" id="phoneError">
+                        ⚠️ Digite um WhatsApp válido com DDD (11 dígitos)
+                    </div>
+                    <div class="input-message success" id="phoneSuccess">
+                        ✓ Perfeito! Confirme se este número está correto antes de continuar
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    <span>Quero Participar →</span>
+                </button>
+            </form>
+            
+            <!-- Countdown -->
+            <div class="countdown-wrapper">
+                <div class="countdown-label">O Evento Começa em:</div>
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="days">00</span>
+                        <span class="countdown-unit">Dias</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="hours">00</span>
+                        <span class="countdown-unit">Horas</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="minutes">00</span>
+                        <span class="countdown-unit">Min</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="seconds">00</span>
+                        <span class="countdown-unit">Seg</span>
+                    </div>
+                </div>
+                <div class="event-date">
+                    <strong>Sábado às 20h</strong> (Horário de Brasília)
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Section -->
+    <div class="content-section hidden" id="successSection">
+        <div class="success-card">
+            <div class="success-icon-wrapper">
+                <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto redonda.webp" alt="Advanx" class="success-profile-img">
+            </div>
+            
+            <h2 class="success-title">Inscrição Confirmada!</h2>
+            
+            <p class="success-message">
+                Falta <strong id="timeRemaining">X dias e Y horas</strong> para o evento começar
+            </p>
+            
+            <div class="event-info-box">
+                <div class="event-info-item">
+                    <span class="event-info-icon">📅</span>
+                    <span class="event-info-text" id="eventDateFull">Sábado, XX de dezembro</span>
+                </div>
+                <div class="event-info-item">
+                    <span class="event-info-icon">🕐</span>
+                    <span class="event-info-text">20h (Horário de Brasília)</span>
+                </div>
+            </div>
+            
+            <div class="instruction-box">
+                <h3>📱 Próximo Passo</h3>
+                <p><strong>Clique no botão verde abaixo</strong> e entre no grupo do WhatsApp</p>
+                <p>Este é um grupo silencioso onde será enviado o link do congresso + alguns materiais importantes.</p>
+                <p class="whatsapp-alert">⚠️ <strong>Fique atento ao WhatsApp!</strong> Nossa equipe entrará em contato com você.</p>
+            </div>
+            
+            <a href="" id="whatsappLink" class="whatsapp-btn" target="_blank">
+                <span style="font-size: 24px;">💬</span>
+                <span>Participar Grupo Congresso</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+// ============================================
+// STATE & UTILITIES
+// ============================================
+let formData = {
+    full_name: '',
+    email: '',
+    whatsapp: '',
+    ddd: '',
+    city: '',
+    state_code: ''
+};
+
+let leadTracked = false;
+const utmParams = {};
+
+// Capture UTMs
+(function() {
+    const params = new URLSearchParams(window.location.search);
+    utmParams.utm_source = params.get('utm_source') || '';
+    utmParams.utm_medium = params.get('utm_medium') || '';
+    utmParams.utm_campaign = params.get('utm_campaign') || '';
+    utmParams.utm_content = params.get('utm_content') || '';
+    utmParams.utm_term = params.get('utm_term') || '';
+})();
+
+// DDD Mapping
+const dddMap = {
+    '11': 'São Paulo,SP', '12': 'São José dos Campos,SP', '13': 'Santos,SP',
+    '14': 'Bauru,SP', '15': 'Sorocaba,SP', '16': 'Ribeirão Preto,SP',
+    '17': 'São José do Rio Preto,SP', '18': 'Presidente Prudente,SP', '19': 'Campinas,SP',
+    '21': 'Rio de Janeiro,RJ', '22': 'Campos dos Goytacazes,RJ', '24': 'Volta Redonda,RJ',
+    '27': 'Vitória,ES', '28': 'Cachoeiro de Itapemirim,ES',
+    '31': 'Belo Horizonte,MG', '32': 'Juiz de Fora,MG', '33': 'Governador Valadares,MG',
+    '34': 'Uberlândia,MG', '35': 'Poços de Caldas,MG', '37': 'Divinópolis,MG', '38': 'Montes Claros,MG',
+    '41': 'Curitiba,PR', '42': 'Ponta Grossa,PR', '43': 'Londrina,PR',
+    '44': 'Maringá,PR', '45': 'Foz do Iguaçu,PR', '46': 'Francisco Beltrão,PR',
+    '47': 'Joinville,SC', '48': 'Florianópolis,SC', '49': 'Chapecó,SC',
+    '51': 'Porto Alegre,RS', '53': 'Pelotas,RS', '54': 'Caxias do Sul,RS', '55': 'Santa Maria,RS',
+    '61': 'Brasília,DF',
+    '62': 'Goiânia,GO', '64': 'Rio Verde,GO',
+    '63': 'Palmas,TO',
+    '65': 'Cuiabá,MT', '66': 'Rondonópolis,MT',
+    '67': 'Campo Grande,MS',
+    '68': 'Rio Branco,AC',
+    '69': 'Porto Velho,RO',
+    '71': 'Salvador,BA', '73': 'Ilhéus,BA', '74': 'Juazeiro,BA', '75': 'Feira de Santana,BA', '77': 'Barreiras,BA',
+    '79': 'Aracaju,SE',
+    '81': 'Recife,PE', '87': 'Petrolina,PE',
+    '82': 'Maceió,AL',
+    '83': 'João Pessoa,PB',
+    '84': 'Natal,RN',
+    '85': 'Fortaleza,CE', '88': 'Juazeiro do Norte,CE',
+    '86': 'Teresina,PI',
+    '89': 'Picos,PI',
+    '91': 'Belém,PA', '93': 'Santarém,PA', '94': 'Marabá,PA',
+    '92': 'Manaus,AM', '97': 'Coari,AM',
+    '95': 'Boa Vista,RR',
+    '96': 'Macapá,AP',
+    '98': 'São Luís,MA', '99': 'Imperatriz,MA'
+};
+
+// Format Phone
+function formatPhone(value) {
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length <= 2) return `(${numbers}`;
+    if (numbers.length <= 7) return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
+    return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
+}
+
+// Validate Email
+function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// ============================================
+// PIXELS
+// ============================================
+function initPixels() {
+    if (CONFIG.META_PIXEL_ACTIVE && CONFIG.META_PIXEL_ID) {
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', CONFIG.META_PIXEL_ID);
+        fbq('track', 'PageView');
+    }
+    
+    if (CONFIG.GA4_ACTIVE && CONFIG.GA4_ID) {
+        const script = document.createElement('script');
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${CONFIG.GA4_ID}`;
+        script.async = true;
+        document.head.appendChild(script);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', CONFIG.GA4_ID);
+    }
+}
+
+function trackLead() {
+    if (leadTracked) return;
+    leadTracked = true;
+    
+    if (window.fbq && CONFIG.META_PIXEL_ACTIVE) {
+        fbq('track', 'Lead', {
+            content_name: 'Congresso IA',
+            value: 0,
+            currency: 'BRL'
+        });
+    }
+    
+    if (window.gtag && CONFIG.GA4_ACTIVE) {
+        gtag('event', 'generate_lead', {
+            event_category: 'engagement',
+            event_label: 'Congresso IA'
+        });
+    }
+    
+    if (window.gtag && CONFIG.GOOGLE_ADS_ACTIVE && CONFIG.GOOGLE_ADS_LABEL) {
+        gtag('event', 'conversion', {
+            'send_to': `${CONFIG.GOOGLE_ADS_ID}/${CONFIG.GOOGLE_ADS_LABEL}`
+        });
+    }
+    
+    console.log('✓ Lead Event Tracked');
+}
+
+function sendWebhook() {
+    if (!CONFIG.WEBHOOK_URL || CONFIG.WEBHOOK_URL.includes('seu-webhook')) {
+        console.log('⚠️ Webhook não configurado');
+        return;
+    }
+    
+    // Formatar telefone sem caracteres especiais (apenas números)
+    const phoneNumbers = formData.whatsapp.replace(/\D/g, '');
+    
+    const payload = {
+        full_name: formData.full_name,
+        email: formData.email,
+        whatsapp: phoneNumbers, // Apenas números
+        ddd: formData.ddd,
+        city: formData.city,
+        state_code: formData.state_code,
+        ...utmParams
+    };
+    
+    fetch(CONFIG.WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(() => console.log('✓ Webhook enviado'))
+    .catch(err => console.error('✗ Erro webhook:', err));
+}
+
+// ============================================
+// COUNTDOWN
+// ============================================
+function getNextSaturday() {
+    const now = new Date();
+    const today = now.getDay(); // 0 = Sunday, 6 = Saturday
+    
+    let daysUntilSaturday;
+    if (today === 6) { // Today is Saturday
+        const currentHour = now.getHours();
+        if (currentHour >= 20) {
+            // Event already passed today, next week
+            daysUntilSaturday = 7;
+        } else {
+            // Event is today
+            daysUntilSaturday = 0;
+        }
+    } else if (today === 0) { // Sunday
+        daysUntilSaturday = 6;
+    } else {
+        daysUntilSaturday = 6 - today;
+    }
+    
+    const nextSaturday = new Date(now);
+    nextSaturday.setDate(now.getDate() + daysUntilSaturday);
+    nextSaturday.setHours(20, 0, 0, 0); // 8 PM
+    
+    return nextSaturday;
+}
+
+function updateCountdown() {
+    const now = new Date();
+    const eventDate = getNextSaturday();
+    const diff = eventDate - now;
+    
+    if (diff <= 0) {
+        document.getElementById('days').textContent = '00';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        return;
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+}
+
+// ============================================
+// FORM VALIDATION
+// ============================================
+const form = document.getElementById('eventForm');
+const fullNameInput = document.getElementById('fullName');
+const emailInput = document.getElementById('email');
+const whatsappInput = document.getElementById('whatsapp');
+
+// Name validation
+fullNameInput.addEventListener('input', (e) => {
+    formData.full_name = e.target.value;
+    const nameError = document.getElementById('nameError');
+    
+    if (e.target.value.length >= 3) {
+        e.target.classList.remove('invalid');
+        e.target.classList.add('valid');
+        nameError.classList.remove('show');
+    } else if (e.target.value.length > 0) {
+        e.target.classList.remove('valid');
+        e.target.classList.add('invalid');
+        nameError.classList.add('show');
+    } else {
+        e.target.classList.remove('valid', 'invalid');
+        nameError.classList.remove('show');
+    }
+});
+
+// Email validation
+emailInput.addEventListener('input', (e) => {
+    formData.email = e.target.value;
+    const emailError = document.getElementById('emailError');
+    
+    if (validateEmail(e.target.value)) {
+        e.target.classList.remove('invalid');
+        e.target.classList.add('valid');
+        emailError.classList.remove('show');
+    } else if (e.target.value.length > 0) {
+        e.target.classList.remove('valid');
+        e.target.classList.add('invalid');
+        emailError.classList.add('show');
+    } else {
+        e.target.classList.remove('valid', 'invalid');
+        emailError.classList.remove('show');
+    }
+});
+
+// Phone validation
+whatsappInput.addEventListener('input', (e) => {
+    e.target.value = formatPhone(e.target.value);
+    formData.whatsapp = e.target.value;
+    
+    const numbers = e.target.value.replace(/\D/g, '');
+    const phoneError = document.getElementById('phoneError');
+    const phoneSuccess = document.getElementById('phoneSuccess');
+    
+    // Extract DDD and location
+    if (numbers.length >= 2) {
+        const ddd = numbers.slice(0, 2);
+        formData.ddd = ddd;
+        if (dddMap[ddd]) {
+            const [city, state] = dddMap[ddd].split(',');
+            formData.city = city;
+            formData.state_code = state;
+        }
+    }
+    
+    // Validation
+    if (numbers.length === 11) {
+        e.target.classList.remove('invalid');
+        e.target.classList.add('valid');
+        phoneError.classList.remove('show');
+        phoneSuccess.classList.add('show');
+    } else if (numbers.length >= 10) {
+        e.target.classList.remove('valid');
+        e.target.classList.add('invalid');
+        phoneError.classList.add('show');
+        phoneSuccess.classList.remove('show');
+    } else {
+        e.target.classList.remove('valid', 'invalid');
+        phoneError.classList.remove('show');
+        phoneSuccess.classList.remove('show');
+    }
+});
+
+// Form submission
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Final validation
+    const nameValid = formData.full_name.length >= 3;
+    const emailValid = validateEmail(formData.email);
+    const phoneValid = formData.whatsapp.replace(/\D/g, '').length === 11;
+    
+    if (!nameValid) {
+        fullNameInput.classList.add('invalid');
+        document.getElementById('nameError').classList.add('show');
+        fullNameInput.focus();
+        return;
+    }
+    
+    if (!emailValid) {
+        emailInput.classList.add('invalid');
+        document.getElementById('emailError').classList.add('show');
+        emailInput.focus();
+        return;
+    }
+    
+    if (!phoneValid) {
+        whatsappInput.classList.add('invalid');
+        document.getElementById('phoneError').classList.add('show');
+        whatsappInput.focus();
+        return;
+    }
+    
+    // Track lead and send webhook
+    trackLead();
+    sendWebhook();
+    
+    // Show success section
+    showSuccessSection();
+});
+
+// ============================================
+// SUCCESS SECTION
+// ============================================
+function showSuccessSection() {
+    document.getElementById('formSection').classList.remove('active');
+    document.getElementById('formSection').classList.add('hidden');
+    document.getElementById('successSection').classList.remove('hidden');
+    document.getElementById('successSection').classList.add('active');
+    
+    // Update WhatsApp link
+    document.getElementById('whatsappLink').href = CONFIG.GROUP_LINK;
+    
+    // Update time remaining
+    updateTimeRemaining();
+    
+    // Update event date
+    updateEventDate();
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Marcar como já preenchido no localStorage
+    localStorage.setItem('evento_ia_inscrito', 'true');
+}
+
+function updateTimeRemaining() {
+    const now = new Date();
+    const eventDate = getNextSaturday();
+    const diff = eventDate - now;
+    
+    if (diff <= 0) {
+        document.getElementById('timeRemaining').textContent = 'poucos minutos';
+        return;
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    
+    let timeText = '';
+    if (days > 0) {
+        timeText = `${days} ${days === 1 ? 'dia' : 'dias'}`;
+        if (hours > 0) {
+            timeText += ` e ${hours} ${hours === 1 ? 'hora' : 'horas'}`;
+        }
+    } else if (hours > 0) {
+        timeText = `${hours} ${hours === 1 ? 'hora' : 'horas'}`;
+    } else {
+        timeText = 'menos de 1 hora';
+    }
+    
+    document.getElementById('timeRemaining').textContent = timeText;
+}
+
+function updateEventDate() {
+    const eventDate = getNextSaturday();
+    const months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 
+                    'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+    
+    const day = eventDate.getDate();
+    const month = months[eventDate.getMonth()];
+    
+    document.getElementById('eventDateFull').textContent = `Sábado, ${day} de ${month}`;
+}
+
+function checkAlreadyRegistered() {
+    // Verifica se já preencheu o formulário
+    const isRegistered = localStorage.getItem('evento_ia_inscrito');
+    
+    if (isRegistered === 'true') {
+        // Já preencheu, mostrar página de sucesso direto
+        showSuccessSection();
+        return true;
+    }
+    
+    return false;
+}
+
+// ============================================
+// INIT
+// ============================================
+initPixels();
+
+// Verificar se já está inscrito
+if (!checkAlreadyRegistered()) {
+    // Não está inscrito, mostrar formulário normalmente
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+} else {
+    // Já está inscrito, já mostrou página de sucesso
+    console.log('✓ Usuário já inscrito - mostrando página de sucesso');
+}
+</script>
+
+</body>
+</html>
