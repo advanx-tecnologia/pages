@@ -299,6 +299,43 @@
             margin-top: 32px;
         }
         
+        /* ============================================
+           VIDEO PLAYER
+           ============================================ */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 32px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(255, 122, 1, 0.2);
+            border: 2px solid rgba(255, 122, 1, 0.2);
+            background: rgba(10, 10, 31, 0.4);
+            backdrop-filter: blur(20px);
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-wrapper iframe,
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-wrapper video {
+            background: #000;
+        }
+        
         .feature-box {
             background: rgba(10, 10, 31, 0.4);
             border: 1px solid rgba(255, 122, 1, 0.12);
@@ -792,7 +829,9 @@ var CONFIG = {
     GOOGLE_ADS_ACTIVE: false,
     TIKTOK_PIXEL_ID: '',
     TIKTOK_PIXEL_ACTIVE: false,
-    GROUP_LINK: 'https://advanx.com.br/grupomdc'
+    GROUP_LINK: 'https://advanx.com.br/grupomdc',
+    WHATSAPP_LINK: 'https://wa.me/message/XHWLRXQDDGJ4I1',
+    VIDEO_URL: ''
 };
 </script>
 
@@ -991,10 +1030,14 @@ function updateUI() {
         bar.style.width = '0%';
         info.innerHTML = '';
         info.style.display = 'none';
+    } else if (currentStep === 5) {
+        // Página final - não mostra step info
+        bar.style.width = '100%';
+        info.style.display = 'none';
     } else {
-        var percent = (currentStep / 5) * 100;
+        var percent = (currentStep / 4) * 100; // 4 etapas apenas
         bar.style.width = percent + '%';
-        info.innerHTML = '<div>Etapa <span>' + currentStep + '</span> de 5</div><div><span>' + Math.round(percent) + '%</span> completo</div>';
+        info.innerHTML = '<div>Etapa <span>' + currentStep + '</span> de 4</div><div><span>' + Math.round(percent) + '%</span> completo</div>';
         info.style.display = 'flex';
     }
 }
@@ -1027,12 +1070,60 @@ function renderStep() {
     if (currentStep > 0) trackEvent('PageView', {page_path: '/step-' + currentStep});
 }
 
+// ============================================
+// FUNÇÕES DE VÍDEO
+// ============================================
+function getVideoHTML() {
+    if (!CONFIG.VIDEO_URL || CONFIG.VIDEO_URL === '') return '';
+    
+    var videoHTML = '';
+    
+    // YouTube
+    if (CONFIG.VIDEO_URL.startsWith('youtube:')) {
+        var videoId = CONFIG.VIDEO_URL.replace('youtube:', '');
+        videoHTML = '<div class="video-container">' +
+            '<div class="video-wrapper">' +
+            '<iframe src="https://www.youtube.com/embed/' + videoId + '?rel=0&modestbranding=1&controls=1&showinfo=0" ' +
+            'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
+            'allowfullscreen></iframe>' +
+            '</div></div>';
+    }
+    // Vimeo
+    else if (CONFIG.VIDEO_URL.startsWith('vimeo:')) {
+        var videoId = CONFIG.VIDEO_URL.replace('vimeo:', '');
+        videoHTML = '<div class="video-container">' +
+            '<div class="video-wrapper">' +
+            '<iframe src="https://player.vimeo.com/video/' + videoId + '?title=0&byline=0&portrait=0" ' +
+            'allow="autoplay; fullscreen; picture-in-picture" ' +
+            'allowfullscreen></iframe>' +
+            '</div></div>';
+    }
+    // URL direta (MP4)
+    else if (CONFIG.VIDEO_URL.startsWith('http')) {
+        videoHTML = '<div class="video-container">' +
+            '<div class="video-wrapper">' +
+            '<video controls controlsList="nodownload noplaybackrate" disablePictureInPicture>' +
+            '<source src="' + CONFIG.VIDEO_URL + '" type="video/mp4">' +
+            'Seu navegador não suporta vídeos HTML5.' +
+            '</video>' +
+            '</div></div>';
+    }
+    
+    return videoHTML;
+}
+
+// ============================================
+// RENDER STEPS
+// ============================================
 function renderLanding() {
+    var videoHTML = getVideoHTML();
+    
     document.getElementById('app').innerHTML =
         '<div class="text-center">' +
         '<div class="badge">✨ Estratégia Exclusiva</div>' +
         '<h1>Descubra como advogados estão usando <span class="orange">IA</span> para atrair <span class="orange">8 clientes por dia</span>, qualificados direto no <span class="orange">WhatsApp</span></h1>' +
         '<p class="text-large mb-4"><strong class="orange">Com garantia de resultados em até 41 dias!</strong><br>Dentro do código de ética</p>' +
+        videoHTML +
         '<div class="feature-grid">' +
         '<div class="feature-box"><div class="feature-icon">🎯</div><h3>Marketing Inteligente</h3><p>Atraia clientes qualificados, investindo R$33,00 dia</p></div>' +
         '<div class="feature-box"><div class="feature-icon">⚡</div><h3>Funil com IA</h3><p>Automação completa do primeiro contato ao fechamento</p></div>' +
@@ -1207,20 +1298,13 @@ function renderStep5() {
         '<div class="text-center">' +
         '<div class="success-icon">✅</div>' +
         '<h1 style="font-size:36px">Diagnóstico Completo,<br>' + firstName + '!</h1>' +
-        '<p class="text-large gray mb-4">Análise personalizada em processamento</p>' +
+        '<p class="text-large gray mb-4">Seus dados foram enviados com sucesso</p>' +
         '<div class="info-box" style="background:linear-gradient(135deg, rgba(255, 122, 1, 0.12) 0%, rgba(255, 154, 60, 0.12) 100%);border-color:rgba(255, 122, 1, 0.3)">' +
-        '<div style="font-size:48px;margin-bottom:16px;text-align:center">📱</div>' +
-        '<h3 class="text-center mb-2">Resultado será enviado no WhatsApp</h3>' +
-        '<p class="text-center mb-3">Em <strong class="orange">alguns minutos</strong> você receberá:</p>' +
-        '<p class="mb-1">✓ Análise completa do seu perfil e estrutura atual</p>' +
-        '<p class="mb-1">✓ Principais gargalos que estão travando seu crescimento</p>' +
-        '<p class="mb-1">✓ Oportunidades de crescimento personalizadas</p>' +
-        '<p>✓ Plano de ação específico para sua realidade</p></div>' +
-        '<div class="feature-box mt-3">' +
-        '<h3 class="text-center mb-2">🎯 Enquanto isso...</h3>' +
-        '<p class="text-center mb-3">Entre no nosso <strong class="orange">Grupo Estratégico</strong> e conheça nossa metodologia única de captação e fechamento com IA</p>' +
-        '<a href="' + CONFIG.GROUP_LINK + '" target="_blank" class="btn btn-pulse" style="text-decoration:none;display:block"><span>Entrar no Grupo Estratégico →</span></a>' +
-        '</div></div>';
+        '<div style="font-size:48px;margin-bottom:16px;text-align:center">💬</div>' +
+        '<h3 class="text-center mb-2">Toque no botão para conversar com um especialista da nossa equipe e receba o seu diagnóstico.</h3>' +
+        '</div>' +
+        '<a href="' + CONFIG.WHATSAPP_LINK + '" target="_blank" class="btn" style="text-decoration:none;display:flex;margin-top:24px;background:linear-gradient(135deg, #25d366 0%, #20ba5a 100%);box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3)"><span style="font-size:24px;margin-right:8px">💬</span><span>Falar com Especialista</span></a>' +
+        '</div>';
 }
 
 // ============================================
