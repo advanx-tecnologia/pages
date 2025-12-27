@@ -54,14 +54,6 @@
             margin-bottom: 24px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #b8b8c8;
-        }
-
         input {
             width: 100%;
             padding: 14px 16px;
@@ -81,7 +73,8 @@
         }
 
         input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 400;
         }
 
         .error {
@@ -218,33 +211,28 @@
         <form id="registerForm">
             <div class="form-row">
                 <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" required>
+                    <input type="text" id="nome" name="nome" placeholder="Nome" required>
                     <div class="error" id="nomeError">Por favor, insira seu nome</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
                     <div class="error" id="emailError">Por favor, insira um email válido</div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="senha">Senha</label>
-                <input type="password" id="senha" name="senha" required minlength="6">
+                <input type="password" id="senha" name="senha" placeholder="Senha" required minlength="6">
                 <div class="error" id="senhaError">A senha deve ter no mínimo 6 caracteres</div>
             </div>
 
             <div class="form-group">
-                <label for="confirmeSenha">Confirme a senha</label>
-                <input type="password" id="confirmeSenha" name="confirmeSenha" required>
+                <input type="password" id="confirmeSenha" name="confirmeSenha" placeholder="Confirme a senha" required>
                 <div class="error" id="confirmeSenhaError">As senhas não coincidem</div>
             </div>
 
             <div class="form-group">
-                <label for="empresa">Nome da empresa</label>
-                <input type="text" id="empresa" name="empresa" required>
+                <input type="text" id="empresa" name="empresa" placeholder="Nome da empresa" required>
                 <div class="error" id="empresaError">Por favor, insira o nome da empresa</div>
             </div>
 
