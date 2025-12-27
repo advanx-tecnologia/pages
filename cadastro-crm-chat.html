@@ -215,7 +215,7 @@
             <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/v3 png.webp" alt="Logo">
         </div>
 
-        <form id="registerForm">
+        <form id="registerForm" method="POST" action="https://n8n.advfunnel.com.br/webhook/40a64dd4-b203-40b8-af6e-0ec5e27247c2/:cria-conta-chatwoot">
             <div class="form-row">
                 <div class="form-group">
                     <input type="text" id="nome" name="nome" placeholder="Nome" required>
@@ -235,7 +235,7 @@
             </div>
 
             <div class="form-group">
-                <input type="password" id="confirmeSenha" name="confirmeSenha" placeholder="Confirme a senha" required>
+                <input type="password" id="confirmeSenha" placeholder="Confirme a senha" required>
                 <div class="error" id="confirmeSenhaError">As senhas não coincidem</div>
             </div>
 
@@ -254,6 +254,8 @@
             ✓ Conta criada com sucesso!
             <div class="countdown">Redirecionando em <span id="countdown">5</span>s...</div>
         </div>
+        
+        <iframe name="hiddenFrame" id="hiddenFrame" style="display:none;"></iframe>
     </div>
 
     <script>
@@ -361,7 +363,7 @@
             // Validar todos os campos
             let isValid = true;
             inputs.forEach(input => {
-                if (!validateField(input)) {
+                if (input.id !== 'confirmeSenha' && !validateField(input)) {
                     isValid = false;
                 }
             });
@@ -373,54 +375,37 @@
 
             if (!isValid) return;
 
-            // Preparar dados
-            const formData = {
-                nome: document.getElementById('nome').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                senha: document.getElementById('senha').value,
-                empresa: document.getElementById('empresa').value.trim()
-            };
-
-            // Enviar para webhook
+            // Enviar via iframe (evita CORS)
             submitBtn.disabled = true;
             submitBtn.classList.add('loading');
 
-            try {
-                const response = await fetch('https://n8n.advfunnel.com.br/webhook/40a64dd4-b203-40b8-af6e-0ec5e27247c2/:cria-conta-chatwoot', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
+            // Definir target para iframe
+            form.setAttribute('target', 'hiddenFrame');
+            
+            // Submeter formulário
+            form.submit();
 
-                if (response.ok) {
-                    successMessage.classList.add('active');
-                    form.reset();
-                    
-                    // Contagem regressiva de 5 segundos
-                    let countdown = 5;
-                    const countdownElement = document.getElementById('countdown');
-                    
-                    const timer = setInterval(() => {
-                        countdown--;
-                        countdownElement.textContent = countdown;
-                        
-                        if (countdown <= 0) {
-                            clearInterval(timer);
-                            window.location.href = 'https://chat.advfunnel.com.br';
-                        }
-                    }, 1000);
-                } else {
-                    alert('Erro ao criar conta. Tente novamente.');
-                }
-            } catch (error) {
-                console.error('Erro:', error);
-                alert('Erro ao conectar com o servidor. Verifique sua conexão.');
-            } finally {
+            // Aguardar 1 segundo e mostrar sucesso
+            setTimeout(() => {
                 submitBtn.disabled = false;
                 submitBtn.classList.remove('loading');
-            }
+                successMessage.classList.add('active');
+                form.reset();
+                
+                // Contagem regressiva de 5 segundos
+                let countdown = 5;
+                const countdownElement = document.getElementById('countdown');
+                
+                const timer = setInterval(() => {
+                    countdown--;
+                    countdownElement.textContent = countdown;
+                    
+                    if (countdown <= 0) {
+                        clearInterval(timer);
+                        window.location.href = 'https://chat.advfunnel.com.br';
+                    }
+                }, 1000);
+            }, 1000);
         });
     </script>
 </body>
