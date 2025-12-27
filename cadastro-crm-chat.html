@@ -88,6 +88,13 @@
             display: block;
         }
 
+        .password-hint {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
         input.invalid {
             border-color: #ff4757;
         }
@@ -223,6 +230,7 @@
 
             <div class="form-group">
                 <input type="password" id="senha" name="senha" placeholder="Senha" required minlength="6">
+                <div class="password-hint">Mínimo 6 caracteres: letra maiúscula, minúscula, número e caractere especial</div>
                 <div class="error" id="senhaError">A senha deve ter no mínimo 6 caracteres</div>
             </div>
 
@@ -291,6 +299,14 @@
 
             if (input.id === 'senha' && input.value.length < 6) {
                 input.classList.add('invalid');
+                errorElement.textContent = 'A senha deve ter no mínimo 6 caracteres';
+                errorElement.classList.add('active');
+                return false;
+            }
+
+            if (input.id === 'senha' && !isValidPassword(input.value)) {
+                input.classList.add('invalid');
+                errorElement.textContent = 'A senha deve conter maiúscula, minúscula, número e caractere especial';
                 errorElement.classList.add('active');
                 return false;
             }
@@ -318,6 +334,25 @@
 
         function isValidEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function isValidPassword(password) {
+            // Verifica se tem pelo menos 6 caracteres
+            if (password.length < 6) return false;
+            
+            // Verifica se tem letra maiúscula
+            if (!/[A-Z]/.test(password)) return false;
+            
+            // Verifica se tem letra minúscula
+            if (!/[a-z]/.test(password)) return false;
+            
+            // Verifica se tem número
+            if (!/[0-9]/.test(password)) return false;
+            
+            // Verifica se tem caractere especial
+            if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) return false;
+            
+            return true;
         }
 
         form.addEventListener('submit', async (e) => {
