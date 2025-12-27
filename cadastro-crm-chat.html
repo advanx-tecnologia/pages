@@ -35,23 +35,19 @@
 
         .logo {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .logo img {
-            max-width: 180px;
+            max-width: 120px;
             height: auto;
         }
 
-        h1 {
-            font-size: 28px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 32px;
-            background: linear-gradient(135deg, #ffffff 0%, #ff7a01 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
         .form-group {
@@ -167,10 +163,18 @@
             border-radius: 12px;
             text-align: center;
             margin-top: 20px;
+            font-size: 15px;
         }
 
         .success-message.active {
             display: block;
+        }
+
+        .countdown {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 8px;
+            color: #ff7a01;
         }
 
         @media (max-width: 480px) {
@@ -178,12 +182,13 @@
                 padding: 32px 24px;
             }
 
-            h1 {
-                font-size: 24px;
+            .logo img {
+                max-width: 100px;
             }
 
-            .logo img {
-                max-width: 150px;
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
             }
         }
 
@@ -210,36 +215,36 @@
             <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/v3 png.webp" alt="Logo">
         </div>
 
-        <h1>Crie sua conta</h1>
-
         <form id="registerForm">
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
-                <div class="error" id="nomeError">Por favor, insira seu nome</div>
-            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" required>
+                    <div class="error" id="nomeError">Por favor, insira seu nome</div>
+                </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
-                <div class="error" id="emailError">Por favor, insira um email válido</div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error" id="emailError">Por favor, insira um email válido</div>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="senha">Senha</label>
-                <input type="password" id="senha" name="senha" placeholder="Mínimo 6 caracteres" required minlength="6">
+                <input type="password" id="senha" name="senha" required minlength="6">
                 <div class="error" id="senhaError">A senha deve ter no mínimo 6 caracteres</div>
             </div>
 
             <div class="form-group">
                 <label for="confirmeSenha">Confirme a senha</label>
-                <input type="password" id="confirmeSenha" name="confirmeSenha" placeholder="Digite a senha novamente" required>
+                <input type="password" id="confirmeSenha" name="confirmeSenha" required>
                 <div class="error" id="confirmeSenhaError">As senhas não coincidem</div>
             </div>
 
             <div class="form-group">
                 <label for="empresa">Nome da empresa</label>
-                <input type="text" id="empresa" name="empresa" placeholder="Nome da sua empresa" required>
+                <input type="text" id="empresa" name="empresa" required>
                 <div class="error" id="empresaError">Por favor, insira o nome da empresa</div>
             </div>
 
@@ -251,6 +256,7 @@
 
         <div class="success-message" id="successMessage">
             ✓ Conta criada com sucesso!
+            <div class="countdown">Redirecionando em <span id="countdown">5</span>s...</div>
         </div>
     </div>
 
@@ -369,10 +375,19 @@
                     successMessage.classList.add('active');
                     form.reset();
                     
-                    // Redirecionar ou executar ação após sucesso (opcional)
-                    setTimeout(() => {
-                        // window.location.href = '/dashboard'; // Descomente para redirecionar
-                    }, 2000);
+                    // Contagem regressiva de 5 segundos
+                    let countdown = 5;
+                    const countdownElement = document.getElementById('countdown');
+                    
+                    const timer = setInterval(() => {
+                        countdown--;
+                        countdownElement.textContent = countdown;
+                        
+                        if (countdown <= 0) {
+                            clearInterval(timer);
+                            window.location.href = 'https://chat.advfunnel.com.br';
+                        }
+                    }, 1000);
                 } else {
                     alert('Erro ao criar conta. Tente novamente.');
                 }
