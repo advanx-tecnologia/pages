@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanx IA - Configuração do Assistente</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes typing {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes gentlePulse {
+      0%, 100% { 
+        box-shadow: 0 0 20px rgba(255, 122, 1, 0.4), 0 0 40px rgba(255, 122, 1, 0.2);
+      }
+      50% { 
+        box-shadow: 0 0 25px rgba(255, 122, 1, 0.6), 0 0 50px rgba(255, 122, 1, 0.3);
+      }
+    }
+
+    .animate-fadeIn {
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .typing-indicator span {
+      animation: typing 1.4s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    button[type="submit"] {
+      animation: gentlePulse 3s ease-in-out infinite;
+      transition: all 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      transform: scale(1.05);
+    }
+
+    button[type="submit"]:active {
+      transform: scale(0.95);
+    }
+
+    .chat-scroll {
+      scroll-behavior: smooth;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+    }
+
+    .message-ia {
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .message-user {
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    /* Backdrop blur support */
+    @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+      .backdrop-blur-xl {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .backdrop-blur-md {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+    }
+
+    /* Esconder scrollbar mas manter funcionalidade */
+    .chat-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-container::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+    }
+
+    .chat-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 122, 1, 0.3);
+      border-radius: 10px;
+    }
+
+    .chat-container::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 122, 1, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-950 via-gray-900 to-black min-h-screen">
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/v3%20png.webp" alt="Advanx IA" class="h-16 mx-auto mb-4">
+      <p class="text-gray-400 text-sm max-w-2xl mx-auto">Advanx IA, mais de 20 soluções sob medida para te ajudar a aumentar receita, reduzir custos e potencializar seus resultados.</p>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="overflow-hidden relative flex flex-col" style="height: 80vh;">
+      <!-- Chat Messages -->
+      <div id="chatContainer" class="chat-container flex-1 overflow-y-auto p-6" style="padding-bottom: 180px;">
+        <div id="messagesArea" class="space-y-4">
+          <!-- Mensagens serão adicionadas aqui via JavaScript -->
+        </div>
+      </div>
+      
+      <!-- Input Area - Fixo no bottom -->
+      <div id="inputArea" class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-[#0f1419] via-[#0f1419] to-transparent pt-8">
+        <!-- Input será adicionado dinamicamente -->
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-6 text-gray-500 text-sm">
+      Powered by <span class="text-[#ff7a01] font-semibold">Advanx</span> AI Solutions
+    </div>
+  </div>
+
+  <script>
+    // Configuração do fluxo de conversa
+    const conversationFlow = [
+      {
+        question: "Olá! Sou o assistente da Advanx IA. Vou criar um plano 100% adaptado ao seu cenário com IA. Qual é o nome da sua empresa?",
+        field: "nomeEmpresa",
+        type: "text",
+        required: true,
+        validate: (value) => value.trim().length > 0
+      },
+      {
+        question: "Ótimo! Agora me conta, qual é o segmento de atuação da {nomeEmpresa}?",
+        field: "segmento",
+        type: "text",
+        required: true,
+        placeholder: "Ex: Direito Bancário, E-commerce, Consultoria...",
+        validate: (value) => value.trim().length > 0
+      },
+      {
+        question: "Perfeito! Preciso do seu CPF ou CNPJ para prosseguir:",
+        field: "cpfCnpj",
+        type: "text",
+        required: true,
+        placeholder: "000.000.000-00 ou 00.000.000/0000-00",
+        validate: (value) => validarCPFouCNPJ(value)
+      },
+      {
+        question: "Me passa o melhor telefone para contato?",
+        field: "telefone",
+        type: "tel",
+        required: true,
+        placeholder: "(00) 00000-0000",
+        validate: (value) => {
+          const numeros = value.replace(/\D/g, '');
+          return numeros.length === 10 || numeros.length === 11;
+        }
+      },
+      {
+        question: "E qual é o seu e-mail?",
+        field: "email",
+        type: "email",
+        required: true,
+        placeholder: "seuemail@exemplo.com",
+        validate: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+      },
+      {
+        question: "Qual é o seu endereço? Me passa o CEP:",
+        field: "endereco",
+        type: "address",
+        required: false,
+        placeholder: "00000-000"
+      },
+      {
+        question: "Show! Agora vamos configurar a sua IA. O que você deseja que a IA faça? Pode detalhar as tarefas e objetivos principais:",
+        field: "objetivoIA",
+        type: "textarea",
+        required: false,
+        placeholder: "Ex: Atender leads, qualificar clientes, agendar reuniões, tirar dúvidas sobre serviços..."
+      },
+      {
+        question: "Qual é o horário de atendimento da sua empresa? E a IA deve atuar fora do horário comercial?",
+        field: "horarioAtuacao",
+        type: "textarea",
+        required: false,
+        placeholder: "Ex: Segunda a sexta, 9h às 18h. A IA pode atuar 24/7 ou apenas no horário comercial..."
+      },
+      {
+        question: "Em que momento a IA deve parar de atuar ou transferir para um humano?",
+        field: "condicaoParada",
+        type: "textarea",
+        required: false,
+        placeholder: "Ex: Quando o cliente pedir atendente humano, reclamações complexas, após 3 tentativas..."
+      },
+      {
+        question: "E qual é o seu script comercial? Deixe seus diferenciais competitivos logo abaixo. Caso não tenha script, deixe seus diferenciais e informações sobre a empresa:",
+        field: "scriptComercial",
+        type: "textarea",
+        required: false,
+        placeholder: "Descreva seu script comercial, principais serviços, diferenciais..."
+      },
+      {
+        question: "Já tem uma cadência de follow-ups, com a quantidade de dias e mensagens que devem ser seguidas? Caso não tenha, deixe em branco.",
+        field: "followUps",
+        type: "textarea",
+        required: false,
+        placeholder: "Ex: Dia 1 - mensagem de boas-vindas, Dia 3 - lembrete sobre proposta, Dia 7 - última tentativa..."
+      },
+      {
+        question: "Qual tonalidade a IA deve usar nas conversas?",
+        field: "tonalidadeIA",
+        type: "select",
+        required: false,
+        options: [
+          { value: "profissional", label: "Profissional" },
+          { value: "amigavel", label: "Amigável" },
+          { value: "formal", label: "Formal" },
+          { value: "descontraido", label: "Descontraído" }
+        ]
+      },
+      {
+        question: "Deseja usar emojis moderadamente na comunicação?",
+        field: "usarEmojis",
+        type: "select",
+        required: false,
+        options: [
+          { value: "sim", label: "Sim" },
+          { value: "nao", label: "Não" }
+        ]
+      },
+      {
+        question: "Tem um link de planilha do Google Sheets ou Excel Online onde quer registrar os leads?",
+        field: "linkPlanilhaLeads",
+        type: "url",
+        required: false,
+        placeholder: "https://docs.google.com/spreadsheets/..."
+      },
+      {
+        question: "Me passa o link do seu site:",
+        field: "site",
+        type: "url",
+        required: false,
+        placeholder: "https://www.seusite.com"
+      },
+      {
+        question: "Qual é o seu Instagram?",
+        field: "instagram",
+        type: "text",
+        required: false,
+        placeholder: "@seuperfil"
+      },
+      {
+        question: "Tem Facebook? Me passa o link:",
+        field: "facebook",
+        type: "text",
+        required: false,
+        placeholder: "facebook.com/suapagina"
+      },
+      {
+        question: "LinkedIn da empresa:",
+        field: "linkedin",
+        type: "text",
+        required: false,
+        placeholder: "linkedin.com/company/suaempresa"
+      },
+      {
+        question: "Tem TikTok?",
+        field: "tiktok",
+        type: "text",
+        required: false,
+        placeholder: "@seuperfil"
+      },
+      {
+        question: "YouTube:",
+        field: "youtube",
+        type: "text",
+        required: false,
+        placeholder: "youtube.com/@seucanal"
+      }
+    ];
+
+    let currentStep = 0;
+    let formData = {};
+    let chatContainer, messagesArea, inputArea;
+
+    // Funções de validação de CPF e CNPJ
+    function formatarTelefone(valor) {
+      const numeros = valor.replace(/\D/g, '');
+      
+      if (numeros.length <= 10) {
+        // Telefone fixo: (00) 0000-0000
+        return numeros
+          .replace(/(\d{2})(\d)/, '($1) $2')
+          .replace(/(\d{4})(\d)/, '$1-$2')
+          .slice(0, 14);
+      } else {
+        // Celular: (00) 00000-0000
+        return numeros
+          .slice(0, 11)
+          .replace(/(\d{2})(\d)/, '($1) $2')
+          .replace(/(\d{5})(\d)/, '$1-$2');
+      }
+    }
+
+    function formatarCPFCNPJ(valor) {
+      const numeros = valor.replace(/\D/g, '');
+      
+      if (numeros.length <= 11) {
+        // Formatar como CPF: 000.000.000-00
+        return numeros
+          .replace(/(\d{3})(\d)/, '$1.$2')
+          .replace(/(\d{3})(\d)/, '$1.$2')
+          .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+      } else {
+        // Formatar como CNPJ: 00.000.000/0000-00
+        return numeros
+          .slice(0, 14)
+          .replace(/(\d{2})(\d)/, '$1.$2')
+          .replace(/(\d{3})(\d)/, '$1.$2')
+          .replace(/(\d{3})(\d)/, '$1/$2')
+          .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+      }
+    }
+
+    function validarCPF(cpf) {
+      cpf = cpf.replace(/[^\d]/g, '');
+      
+      if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+        return false;
+      }
+      
+      let soma = 0;
+      let resto;
+      
+      for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+      }
+      
+      resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(cpf.substring(9, 10))) return false;
+      
+      soma = 0;
+      for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+      }
+      
+      resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(cpf.substring(10, 11))) return false;
+      
+      return true;
+    }
+
+    function validarCNPJ(cnpj) {
+      cnpj = cnpj.replace(/[^\d]/g, '');
+      
+      if (cnpj.length !== 14 || /^(\d)\1{13}$/.test(cnpj)) {
+        return false;
+      }
+      
+      let tamanho = cnpj.length - 2;
+      let numeros = cnpj.substring(0, tamanho);
+      let digitos = cnpj.substring(tamanho);
+      let soma = 0;
+      let pos = tamanho - 7;
+      
+      for (let i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2) pos = 9;
+      }
+      
+      let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+      if (resultado != digitos.charAt(0)) return false;
+      
+      tamanho = tamanho + 1;
+      numeros = cnpj.substring(0, tamanho);
+      soma = 0;
+      pos = tamanho - 7;
+      
+      for (let i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2) pos = 9;
+      }
+      
+      resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+      if (resultado != digitos.charAt(1)) return false;
+      
+      return true;
+    }
+
+    function validarCPFouCNPJ(valor) {
+      const numeros = valor.replace(/[^\d]/g, '');
+      
+      if (numeros.length === 11) {
+        return validarCPF(numeros);
+      } else if (numeros.length === 14) {
+        return validarCNPJ(numeros);
+      }
+      
+      return false;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      chatContainer = document.getElementById('chatContainer');
+      messagesArea = document.getElementById('messagesArea');
+      inputArea = document.getElementById('inputArea');
+      startConversation();
+    });
+
+    function startConversation() {
+      showNextQuestion();
+    }
+
+    function showNextQuestion() {
+      if (currentStep >= conversationFlow.length) {
+        showSummary();
+        return;
+      }
+
+      const step = conversationFlow[currentStep];
+      
+      // Remover avatar da mensagem anterior ANTES de mostrar nova pergunta
+      const previousMessages = messagesArea.querySelectorAll('.message-ia img');
+      previousMessages.forEach(img => {
+        const messageDiv = img.closest('.message-ia');
+        const textContent = messageDiv.querySelector('p').innerHTML;
+        messageDiv.innerHTML = `
+          <div class="max-w-2xl py-2" style="margin-left: 52px;">
+            <p class="text-white text-sm leading-relaxed">${textContent}</p>
+          </div>
+        `;
+      });
+      
+      // Mostrar indicador de digitação
+      showTypingIndicator();
+
+      // Após 1 segundo, mostrar a pergunta
+      setTimeout(() => {
+        hideTypingIndicator();
+        addIAMessage(replaceVariables(step.question), true); // Avatar apenas na pergunta atual
+        setTimeout(() => {
+          showInput(step);
+        }, 300);
+      }, 1000);
+    }
+
+    function replaceVariables(text) {
+      return text.replace(/\{(\w+)\}/g, (match, variable) => {
+        return formData[variable] || match;
+      });
+    }
+
+    function showTypingIndicator() {
+      const typing = document.createElement('div');
+      typing.id = 'typingIndicator';
+      typing.className = 'flex items-start gap-3 animate-fadeIn';
+      typing.innerHTML = `
+        <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" alt="IA" class="flex-shrink-0 w-10 h-10 rounded-full object-cover">
+        <div class="bg-gray-800 rounded-2xl rounded-tl-none px-6 py-3">
+          <div class="typing-indicator flex gap-1">
+            <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+            <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+            <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+          </div>
+        </div>
+      `;
+      messagesArea.appendChild(typing);
+      scrollToBottom();
+    }
+
+    function hideTypingIndicator() {
+      const typing = document.getElementById('typingIndicator');
+      if (typing) typing.remove();
+    }
+
+    function addIAMessage(message, showAvatar = false) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'flex items-start gap-3 message-ia';
+      
+      if (showAvatar) {
+        messageDiv.innerHTML = `
+          <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" alt="IA" class="flex-shrink-0 w-10 h-10 rounded-full object-cover">
+          <div class="max-w-2xl py-2">
+            <p class="text-white text-sm leading-relaxed">${message}</p>
+          </div>
+        `;
+      } else {
+        messageDiv.innerHTML = `
+          <div class="max-w-2xl py-2" style="margin-left: 52px;">
+            <p class="text-white text-sm leading-relaxed">${message}</p>
+          </div>
+        `;
+      }
+      
+      messagesArea.appendChild(messageDiv);
+      scrollToBottom();
+    }
+
+    function addUserMessage(message) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'flex items-start gap-3 justify-end message-user';
+      messageDiv.innerHTML = `
+        <div class="bg-white rounded-2xl rounded-tr-none px-6 py-4 max-w-2xl">
+          <p class="text-gray-900 text-sm leading-relaxed">${message}</p>
+        </div>
+      `;
+      messagesArea.appendChild(messageDiv);
+      scrollToBottom();
+    }
+
+    function showInput(step) {
+      inputArea.innerHTML = '';
+
+      if (step.type === 'composite') {
+        showCompositeInput(step);
+      } else if (step.type === 'multiselect') {
+        showMultiSelectInput(step);
+      } else if (step.type === 'multitext') {
+        showMultiTextInput(step);
+      } else if (step.type === 'address') {
+        showAddressInput(step);
+      } else {
+        showSimpleInput(step);
+      }
+    }
+
+    function showSimpleInput(step) {
+      const container = document.createElement('div');
+      container.className = 'flex gap-3 items-end';
+
+      let inputHTML = '';
+      
+      if (step.type === 'textarea') {
+        inputHTML = `
+          <div class="flex-1 relative">
+            <textarea 
+              id="userInput" 
+              rows="1"
+              placeholder="${step.placeholder || 'Digite aqui...'}"
+              class="w-full bg-gray-800/20 rounded-3xl px-6 py-4 pr-16 text-white placeholder-gray-400 focus:outline-none transition-all resize-none"
+              style="min-height: 56px; max-height: 250px;"
+              oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"
+              ${step.required ? 'required' : ''}
+            ></textarea>
+            <button type="submit" class="absolute right-2 bottom-2 w-12 h-12 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 shadow-orange-500/30 hover:shadow-orange-600/40 text-white rounded-full transition-all flex items-center justify-center">
+              <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+              </svg>
+            </button>
+          </div>
+        `;
+      } else if (step.type === 'select') {
+        inputHTML = `
+          <div class="flex-1 relative">
+            <select 
+              id="userInput"
+              class="w-full bg-gray-800/20 rounded-full px-6 py-4 pr-16 text-white focus:outline-none  transition-all appearance-none"
+              ${step.required ? 'required' : ''}
+            >
+              <option value="">Selecione uma opção</option>
+              ${step.options.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('')}
+            </select>
+            <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 shadow-orange-500/30 hover:shadow-orange-600/40 text-white rounded-full transition-all flex items-center justify-center">
+              <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+              </svg>
+            </button>
+          </div>
+        `;
+      } else {
+        let onInputHandler = '';
+        let maxLength = '';
+        
+        if (step.field === 'cpfCnpj') {
+          onInputHandler = 'oninput="this.value = formatarCPFCNPJ(this.value)"';
+          maxLength = 'maxlength="18"';
+        } else if (step.field === 'telefone') {
+          onInputHandler = 'oninput="this.value = formatarTelefone(this.value)"';
+          maxLength = 'maxlength="15"';
+        }
+        
+        inputHTML = `
+          <div class="flex-1 relative">
+            <input 
+              type="${step.type}" 
+              id="userInput" 
+              placeholder="${step.placeholder || 'Digite aqui o seu nome...'}"
+              class="w-full bg-gray-800/20 rounded-full px-6 py-4 pr-16 text-white placeholder-gray-400 focus:outline-none  transition-all"
+              ${step.required ? 'required' : ''}
+              ${maxLength}
+              ${onInputHandler}
+            />
+            <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 shadow-orange-500/30 hover:shadow-orange-600/40 text-white rounded-full transition-all flex items-center justify-center">
+              <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+              </svg>
+            </button>
+          </div>
+        `;
+      }
+
+      const form = document.createElement('form');
+      form.className = 'w-full';
+      form.onsubmit = (e) => handleSubmit(e, step);
+      form.innerHTML = inputHTML;
+
+      container.appendChild(form);
+
+      if (!step.required) {
+        const skipBtn = document.createElement('button');
+        skipBtn.type = 'button';
+        skipBtn.onclick = skipQuestion;
+        skipBtn.className = 'text-gray-400 hover:text-gray-300 text-sm underline ml-2 whitespace-nowrap';
+        skipBtn.textContent = 'Pular';
+        container.appendChild(skipBtn);
+      }
+
+      inputArea.innerHTML = '';
+      inputArea.appendChild(container);
+      document.getElementById('userInput').focus();
+    }
+
+    function showCompositeInput(step) {
+      const container = document.createElement('div');
+      container.className = 'space-y-3';
+
+      step.subfields.forEach(subfield => {
+        if (subfield.type === 'multiselect') {
+          const label = document.createElement('div');
+          label.className = 'text-white text-sm mb-2 font-semibold';
+          label.textContent = subfield.label;
+          container.appendChild(label);
+
+          const grid = document.createElement('div');
+          grid.className = 'grid grid-cols-2 md:grid-cols-4 gap-2 mb-3';
+          grid.id = 'diasSemana';
+          
+          subfield.options.forEach(dia => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = dia;
+            btn.className = 'px-4 py-3 bg-transparent hover:bg-gray-700/50 text-white rounded-2xl font-semibold text-sm transition-all';
+            btn.onclick = function() {
+              if (this.classList.contains('bg-[#ff7a01]')) {
+                this.className = 'px-4 py-3 bg-transparent hover:bg-gray-700/50 text-white rounded-2xl font-semibold text-sm transition-all';
+              } else {
+                this.className = 'px-4 py-3 bg-[#ff7a01] text-white rounded-2xl font-semibold text-sm transition-all shadow-xl';
+              }
+            };
+            grid.appendChild(btn);
+          });
+          
+          container.appendChild(grid);
+        } else {
+          const input = document.createElement('input');
+          input.type = subfield.type;
+          input.id = subfield.field;
+          input.placeholder = subfield.label;
+          input.className = 'w-full bg-gray-800/20 rounded-full px-6 py-4 text-white placeholder-gray-400 focus:outline-none  transition-all';
+          container.appendChild(input);
+        }
+      });
+
+      const btnContainer = document.createElement('div');
+      btnContainer.className = 'flex gap-3 mt-4 items-center';
+      btnContainer.innerHTML = `
+        <button type="button" onclick="handleCompositeSubmit()" class="flex-1 px-6 py-4 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 shadow-orange-500/30 hover:shadow-orange-600/40 text-white rounded-full font-semibold transition-all">
+          Continuar
+        </button>
+        <button type="button" onclick="skipQuestion()" class="text-gray-400 hover:text-gray-300 text-sm underline whitespace-nowrap">
+          Pular
+        </button>
+      `;
+      container.appendChild(btnContainer);
+
+      inputArea.appendChild(container);
+    }
+
+    function showAddressInput(step) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'w-full max-w-2xl mx-auto mt-4';
+      
+      const container = document.createElement('div');
+      container.className = 'space-y-2';
+
+      // Campo CEP
+      const cepDiv = document.createElement('div');
+      cepDiv.className = 'relative';
+      cepDiv.innerHTML = `
+        <input 
+          type="text" 
+          id="cepInput" 
+          placeholder="CEP: 00000-000" 
+          maxlength="9"
+          class="w-full bg-gray-800/20 rounded-full px-5 py-3 pr-16 text-white placeholder-gray-400 focus:outline-none transition-all text-sm"
+        >
+        <div id="cepLoading" class="hidden absolute right-4 top-1/2 -translate-y-1/2">
+          <div class="w-5 h-5 border-2 border-[#ff7a01] border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      `;
+      container.appendChild(cepDiv);
+      
+      // Logradouro
+      const logradouroInput = document.createElement('input');
+      logradouroInput.type = 'text';
+      logradouroInput.id = 'logradouro';
+      logradouroInput.placeholder = 'Logradouro';
+      logradouroInput.className = 'w-full bg-gray-800/20 rounded-full px-5 py-3 text-white placeholder-gray-400 focus:outline-none transition-all text-sm';
+      container.appendChild(logradouroInput);
+      
+      // Número e Complemento em linha
+      const numeroCompDiv = document.createElement('div');
+      numeroCompDiv.className = 'grid grid-cols-3 gap-2';
+      
+      const numeroInput = document.createElement('input');
+      numeroInput.type = 'text';
+      numeroInput.id = 'numero';
+      numeroInput.placeholder = 'Número';
+      numeroInput.className = 'bg-gray-800/20 rounded-full px-5 py-3 text-white placeholder-gray-400 focus:outline-none transition-all text-sm';
+      
+      const complementoInput = document.createElement('input');
+      complementoInput.type = 'text';
+      complementoInput.id = 'complemento';
+      complementoInput.placeholder = 'Complemento';
+      complementoInput.className = 'col-span-2 bg-gray-800/20 rounded-full px-5 py-3 text-white placeholder-gray-400 focus:outline-none transition-all text-sm';
+      
+      numeroCompDiv.appendChild(numeroInput);
+      numeroCompDiv.appendChild(complementoInput);
+      container.appendChild(numeroCompDiv);
+      
+      // Bairro
+      const bairroInput = document.createElement('input');
+      bairroInput.type = 'text';
+      bairroInput.id = 'bairro';
+      bairroInput.placeholder = 'Bairro';
+      bairroInput.className = 'w-full bg-gray-800/20 rounded-full px-5 py-3 text-white placeholder-gray-400 focus:outline-none transition-all text-sm';
+      container.appendChild(bairroInput);
+      
+      // Cidade e Estado em linha
+      const cidadeEstadoDiv = document.createElement('div');
+      cidadeEstadoDiv.className = 'grid grid-cols-4 gap-2';
+      
+      const cidadeInput = document.createElement('input');
+      cidadeInput.type = 'text';
+      cidadeInput.id = 'cidade';
+      cidadeInput.placeholder = 'Cidade';
+      cidadeInput.className = 'col-span-3 bg-gray-800/20 rounded-full px-5 py-3 text-white placeholder-gray-400 focus:outline-none transition-all text-sm';
+      
+      const estadoInput = document.createElement('input');
+      estadoInput.type = 'text';
+      estadoInput.id = 'estado';
+      estadoInput.placeholder = 'UF';
+      estadoInput.maxLength = 2;
+      estadoInput.className = 'bg-gray-800/20 rounded-full px-5 py-3 text-white placeholder-gray-400 focus:outline-none transition-all text-sm uppercase text-center';
+      
+      cidadeEstadoDiv.appendChild(cidadeInput);
+      cidadeEstadoDiv.appendChild(estadoInput);
+      container.appendChild(cidadeEstadoDiv);
+      
+      // Checkbox
+      const checkboxDiv = document.createElement('label');
+      checkboxDiv.className = 'flex items-center gap-3 px-5 py-3 bg-gray-800/10 rounded-full cursor-pointer hover:bg-gray-800/20 transition-all mt-2';
+      checkboxDiv.innerHTML = `
+        <input type="checkbox" id="usarEndereco" class="w-4 h-4 rounded accent-[#ff7a01]">
+        <span class="text-white text-xs">Endereço deve ser usado pela IA</span>
+      `;
+      container.appendChild(checkboxDiv);
+
+      // Botões
+      const btnContainer = document.createElement('div');
+      btnContainer.className = 'flex gap-3 items-center mt-3';
+      btnContainer.innerHTML = `
+        <button type="button" onclick="handleAddressSubmit()" class="flex-1 px-6 py-3.5 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 shadow-orange-500/30 hover:shadow-orange-600/40 text-white rounded-full font-semibold transition-all text-sm">
+          Continuar
+        </button>
+        <button type="button" onclick="skipQuestion()" class="text-gray-400 hover:text-gray-300 text-xs underline whitespace-nowrap">
+          Pular
+        </button>
+      `;
+      container.appendChild(btnContainer);
+
+      wrapper.appendChild(container);
+      inputArea.innerHTML = '';
+      inputArea.appendChild(wrapper);
+      
+      // Forçar scroll para o final após renderizar
+      setTimeout(() => {
+        scrollToBottom();
+      }, 100);
+      
+      // Adicionar evento ao CEP input
+      const cepInput = document.getElementById('cepInput');
+      cepInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 5) {
+          value = value.slice(0, 5) + '-' + value.slice(5, 8);
+        }
+        e.target.value = value;
+        
+        // Buscar CEP quando tiver 8 dígitos
+        if (value.replace(/\D/g, '').length === 8) {
+          buscarCEP(value.replace(/\D/g, ''));
+        }
+      });
+      
+      cepInput.focus();
+    }
+
+    async function buscarCEP(cep) {
+      document.getElementById('cepLoading').classList.remove('hidden');
+      
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await response.json();
+        
+        document.getElementById('cepLoading').classList.add('hidden');
+        
+        if (!data.erro) {
+          // Apenas preencher os campos que vieram da API
+          if (data.logradouro) document.getElementById('logradouro').value = data.logradouro;
+          if (data.bairro) document.getElementById('bairro').value = data.bairro;
+          if (data.localidade) document.getElementById('cidade').value = data.localidade;
+          if (data.uf) document.getElementById('estado').value = data.uf;
+          
+          // Focar no campo número
+          setTimeout(() => {
+            document.getElementById('numero').focus();
+          }, 100);
+        }
+      } catch (error) {
+        document.getElementById('cepLoading').classList.add('hidden');
+        console.error('Erro ao buscar CEP:', error);
+      }
+    }
+
+    function handleAddressSubmit() {
+      const cep = document.getElementById('cepInput').value;
+      
+      if (!cep || cep.replace(/\D/g, '').length !== 8) {
+        document.getElementById('cepInput').style.border = '2px solid #ef4444';
+        setTimeout(() => {
+          document.getElementById('cepInput').style.border = '';
+        }, 2000);
+        return;
+      }
+      
+      const logradouro = document.getElementById('logradouro').value;
+      const numero = document.getElementById('numero').value;
+      const complemento = document.getElementById('complemento').value;
+      const bairro = document.getElementById('bairro').value;
+      const cidade = document.getElementById('cidade').value;
+      const estado = document.getElementById('estado').value;
+      const usarEndereco = document.getElementById('usarEndereco').checked;
+
+      const enderecoCompleto = {
+        cep,
+        logradouro,
+        numero,
+        complemento,
+        bairro,
+        cidade,
+        estado,
+        usarEnderecoIA: usarEndereco
+      };
+
+      formData['endereco'] = enderecoCompleto;
+      
+      // Mostrar resumo do endereço na conversa
+      const enderecoTexto = `CEP: ${cep}${logradouro ? '\n' + logradouro : ''}${numero ? ', ' + numero : ''}${complemento ? ' - ' + complemento : ''}${bairro ? '\n' + bairro : ''}${cidade ? ' - ' + cidade + '/' + estado : ''}`;
+      addUserMessage(enderecoTexto);
+
+      currentStep++;
+      inputArea.innerHTML = '';
+      showNextQuestion();
+    }
+
+    function showMultiTextInput(step) {
+      const container = document.createElement('div');
+      container.id = 'multiTextContainer';
+      container.className = 'space-y-3';
+
+      const textarea = document.createElement('textarea');
+      textarea.rows = 2;
+      textarea.placeholder = step.placeholder;
+      textarea.className = 'w-full bg-transparent rounded-2xl px-6 py-4 text-white placeholder-gray-400 focus:outline-none  transition-all resize-none multitext-input';
+      container.appendChild(textarea);
+
+      const btnContainer = document.createElement('div');
+      btnContainer.className = 'flex gap-3 items-center';
+      btnContainer.innerHTML = `
+        <button type="button" onclick="addMultiTextInput('${step.placeholder}')" class="px-4 py-2 text-[#ff7a01] hover:text-orange-600 text-sm font-semibold transition-all">
+          + Adicionar outro
+        </button>
+        <button type="button" onclick="handleMultiTextSubmit()" class="flex-1 px-6 py-4 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 shadow-orange-500/30 hover:shadow-orange-600/40 text-white rounded-full font-semibold transition-all">
+          Continuar
+        </button>
+        <button type="button" onclick="skipQuestion()" class="text-gray-400 hover:text-gray-300 text-sm underline whitespace-nowrap">
+          Pular
+        </button>
+      `;
+      container.appendChild(btnContainer);
+
+      inputArea.appendChild(container);
+    }
+
+    function addMultiTextInput(placeholder) {
+      const container = document.getElementById('multiTextContainer');
+      const btnContainer = container.lastElementChild;
+
+      const textarea = document.createElement('textarea');
+      textarea.rows = 2;
+      textarea.placeholder = placeholder;
+      textarea.className = 'w-full bg-transparent rounded-2xl px-6 py-4 text-white placeholder-gray-400 focus:outline-none  transition-all resize-none multitext-input';
+      
+      container.insertBefore(textarea, btnContainer);
+    }
+
+    function handleSubmit(e, step) {
+      e.preventDefault();
+      const input = document.getElementById('userInput');
+      const value = input.value.trim();
+
+      if (step.required && step.validate && !step.validate(value)) {
+        input.style.border = '2px solid #ef4444';
+        
+        // Adicionar mensagem de erro específica
+        let errorMessage = 'Campo inválido';
+        if (step.field === 'cpfCnpj') {
+          errorMessage = 'CPF ou CNPJ inválido. Verifique os dados e tente novamente.';
+        } else if (step.field === 'telefone') {
+          errorMessage = 'Telefone inválido. Digite um número com DDD (10 ou 11 dígitos).';
+        } else if (step.field === 'email') {
+          errorMessage = 'E-mail inválido. Verifique o formato.';
+        }
+        
+        const errorDiv = document.createElement('div');
+        errorDiv.id = 'errorMessage';
+        errorDiv.className = 'text-red-500 text-sm mt-2 animate-fadeIn';
+        errorDiv.textContent = errorMessage;
+        
+        const container = input.closest('.flex-1');
+        if (!document.getElementById('errorMessage')) {
+          container.appendChild(errorDiv);
+        }
+        
+        // Remover erro após 3 segundos
+        setTimeout(() => {
+          input.style.border = '';
+          const error = document.getElementById('errorMessage');
+          if (error) error.remove();
+        }, 3000);
+        
+        return;
+      }
+
+      if (value) {
+        formData[step.field] = value;
+        addUserMessage(value);
+      }
+
+      currentStep++;
+      inputArea.innerHTML = '';
+      showNextQuestion();
+    }
+
+    function handleCompositeSubmit() {
+      const step = conversationFlow[currentStep];
+      const compositeData = {};
+      
+      step.subfields.forEach(subfield => {
+        if (subfield.type === 'multiselect') {
+          const buttons = document.querySelectorAll('#diasSemana button');
+          const selected = Array.from(buttons)
+            .filter(btn => btn.classList.contains('bg-[#ff7a01]'))
+            .map(btn => btn.textContent);
+          compositeData[subfield.field] = selected;
+          
+          if (selected.length > 0) {
+            addUserMessage(`Dias: ${selected.join(', ')}`);
+          }
+        } else {
+          const input = document.getElementById(subfield.field);
+          if (input && input.value) {
+            compositeData[subfield.field] = input.value;
+            addUserMessage(`${subfield.label}: ${input.value}`);
+          }
+        }
+      });
+
+      formData[step.field] = compositeData;
+      currentStep++;
+      inputArea.innerHTML = '';
+      showNextQuestion();
+    }
+
+    function handleMultiTextSubmit() {
+      const step = conversationFlow[currentStep];
+      const inputs = document.querySelectorAll('.multitext-input');
+      const values = Array.from(inputs).map(input => input.value.trim()).filter(v => v);
+
+      if (values.length > 0) {
+        formData[step.field] = values;
+        addUserMessage(`${values.length} follow-up(s) configurado(s)`);
+      }
+
+      currentStep++;
+      inputArea.innerHTML = '';
+      showNextQuestion();
+    }
+
+    function skipQuestion() {
+      addUserMessage('Pular');
+      currentStep++;
+      inputArea.innerHTML = '';
+      showNextQuestion();
+    }
+
+    function showSummary() {
+      showTypingIndicator();
+      
+      setTimeout(() => {
+        hideTypingIndicator();
+        addIAMessage("Perfeito! Recebi todas as informações. Deixa eu processar tudo aqui...", true);
+        
+        setTimeout(() => {
+          showTypingIndicator();
+          
+          setTimeout(async () => {
+            hideTypingIndicator();
+            
+            // Enviar dados
+            const success = await sendData();
+            
+            if (success) {
+              addIAMessage("Pronto! Sua configuração foi enviada com sucesso! Em breve nossa equipe entrará em contato para implementar sua IA personalizada. Obrigado por escolher a Advanx!", true);
+            } else {
+              addIAMessage("Ops! Houve um problema ao enviar os dados. Pode tentar novamente? Se o erro persistir, entre em contato conosco.", true);
+            }
+            
+            inputArea.innerHTML = '';
+          }, 2000);
+        }, 1500);
+      }, 1000);
+    }
+
+    async function sendData() {
+      try {
+        console.log('Dados sendo enviados ao webhook:', formData);
+        
+        const response = await fetch('https://n8n.advfunnel.com.br/webhook/d30efe95-c0cd-430b-8888-43f2b1381037/lead', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+
+        console.log('Resposta do webhook:', response.status);
+        return response.ok;
+      } catch (error) {
+        console.error('Erro ao enviar:', error);
+        return false;
+      }
+    }
+
+    function scrollToBottom() {
+      setTimeout(() => {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }, 50);
+      setTimeout(() => {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }, 200);
+    }
+  </script>
+</body>
+</html>
