@@ -115,7 +115,7 @@
         validate: (value) => value.trim().length > 0
       },
       {
-        question: "Descreva em poucas palavras seu modelo de negócio, Exemplo: tenho um escritório com 10 anos de mercado, 22 colaboradores, especializado na área X, com 300 clientes ativos e meu problema é...",
+        question: "Descreva em poucas palavras seu modelo de negócio:<br><span style='font-size: 11px; color: #9ca3af;'>Exemplo: tenho um escritório com 10 anos de mercado, 22 colaboradores, especializado na área X, com 300 clientes ativos/atendidos e eu quero resolver x e meu problema é...</span>",
         field: "modeloNegocio",
         type: "textarea",
         required: true,
@@ -247,7 +247,10 @@
       setTimeout(() => {
         hideTypingIndicator();
         addIAMessage(replaceVariables(step.question), true);
-        setTimeout(() => showInput(step), 300);
+        setTimeout(() => {
+          showInput(step);
+          scrollToBottom();
+        }, 400);
       }, 1000);
     }
 
@@ -325,11 +328,16 @@
           button.textContent = option.label;
           button.onclick = () => handleFaturamentoSelect(option.value, option.label);
           grid.appendChild(button);
-          setTimeout(() => { button.style.opacity = '1'; button.style.transition = 'opacity 0.3s ease-in'; }, 50);
+          setTimeout(() => { 
+            button.style.opacity = '1'; 
+            button.style.transition = 'opacity 0.3s ease-in';
+            scrollToBottom();
+          }, 50);
         }, index * 150);
       });
       container.appendChild(grid);
       inputArea.appendChild(container);
+      scrollToBottom();
     }
 
     function handleFaturamentoSelect(value, label) {
@@ -360,6 +368,7 @@
       `;
       container.appendChild(button);
       inputArea.appendChild(container);
+      scrollToBottom();
       sendData();
     }
 
@@ -381,14 +390,11 @@
         </div>
       `;
       wrapper.appendChild(form);
-      if (step.field === 'modeloNegocio') {
-        const helperText = document.createElement('p');
-        helperText.className = 'text-gray-400 text-xs px-2';
-        helperText.textContent = '..';
-        wrapper.appendChild(helperText);
-      }
       inputArea.appendChild(wrapper);
-      setTimeout(() => document.getElementById('userInput').focus(), 100);
+      setTimeout(() => {
+        document.getElementById('userInput').focus();
+        scrollToBottom();
+      }, 100);
     }
 
     function showSimpleInput(step) {
@@ -412,7 +418,10 @@
         </div>
       `;
       inputArea.appendChild(form);
-      setTimeout(() => document.getElementById('userInput').focus(), 100);
+      setTimeout(() => {
+        document.getElementById('userInput').focus();
+        scrollToBottom();
+      }, 100);
     }
 
     function handleSubmit(e, step) {
@@ -464,8 +473,18 @@
     }
 
     function scrollToBottom() {
-      setTimeout(() => chatContainer.scrollTop = chatContainer.scrollHeight, 50);
-      setTimeout(() => chatContainer.scrollTop = chatContainer.scrollHeight, 200);
+      setTimeout(() => {
+        chatContainer.scrollTo({
+          top: chatContainer.scrollHeight,
+          behavior: 'smooth'
+        });
+      }, 100);
+      setTimeout(() => {
+        chatContainer.scrollTo({
+          top: chatContainer.scrollHeight,
+          behavior: 'smooth'
+        });
+      }, 300);
     }
   </script>
 
