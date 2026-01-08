@@ -6,13 +6,6 @@
   <title>Advanx IA - Plano Personalizado</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    @keyframes gentlePulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-    }
-    .animate-gentle-pulse {
-      animation: gentlePulse 3s ease-in-out infinite;
-    }
     @keyframes typing {
       0%, 100% { opacity: 0.3; }
       50% { opacity: 1; }
@@ -20,42 +13,67 @@
     .typing-indicator span:nth-child(1) { animation: typing 1.4s infinite; }
     .typing-indicator span:nth-child(2) { animation: typing 1.4s infinite 0.2s; }
     .typing-indicator span:nth-child(3) { animation: typing 1.4s infinite 0.4s; }
+    
     body {
-      background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+      background-image: url('https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/back%202.webp');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
     }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 20, 25, 0.85);
+      z-index: -1;
+    }
+    
     .chat-container::-webkit-scrollbar { width: 6px; }
     .chat-container::-webkit-scrollbar-track { background: transparent; }
     .chat-container::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
+    
+    .neon-button {
+      box-shadow: 0 0 10px rgba(255, 122, 1, 0.5), 0 0 20px rgba(255, 122, 1, 0.3);
+      transition: all 0.3s ease;
+    }
+    .neon-button:hover {
+      box-shadow: 0 0 15px rgba(255, 122, 1, 0.7), 0 0 30px rgba(255, 122, 1, 0.5);
+      transform: scale(1.02);
+    }
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
-  <div class="w-full max-w-4xl">
-    <!-- Header -->
-    <div class="text-center mb-6">
-      <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/back%2.webp" alt="Advanx IA" class="h-16 mx-auto mb-4">
-      <p class="text-gray-300 text-sm">Advanx IA, mais de 20 soluções sob medida para te ajudar a aumentar receita, reduzir custos e potencializar seus resultados.</p>
-    </div>
+<body class="min-h-screen flex flex-col">
+  <!-- Header -->
+  <div class="text-center py-6 px-6">
+    <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/v3%20png.webp" alt="Advanx IA" class="h-16 mx-auto mb-4">
+    <p class="text-gray-300 text-sm leading-relaxed max-w-md mx-auto">Advanx IA, mais de 20 soluções sob medida para te ajudar a aumentar receita, reduzir custos e potencializar seus resultados.</p>
+  </div>
 
-    <!-- Chat Container -->
-    <div class="overflow-hidden relative flex flex-col" style="height: 80vh;">
-      <!-- Chat Messages -->
-      <div id="chatContainer" class="chat-container flex-1 overflow-y-auto p-6" style="padding-bottom: 180px;">
-        <div id="messagesArea" class="space-y-4">
-          <!-- Mensagens serão adicionadas aqui via JavaScript -->
-        </div>
-      </div>
-      
-      <!-- Input Area - Fixo no bottom -->
-      <div id="inputArea" class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-[#0f1419] via-[#0f1419] to-transparent pt-8">
-        <!-- Input será adicionado dinamicamente -->
+  <!-- Chat Container -->
+  <div class="flex-1 relative overflow-hidden">
+    <div id="chatContainer" class="chat-container h-full overflow-y-auto px-6 py-6 pb-32">
+      <div id="messagesArea" class="space-y-4 max-w-2xl mx-auto">
+        <!-- Mensagens aqui -->
       </div>
     </div>
-
-    <!-- Footer -->
-    <div class="text-center mt-6 text-sm text-gray-500">
-      Powered by <span class="text-[#ff7a01] font-semibold">Advanx</span> AI Solutions
+    
+    <!-- Input Area -->
+    <div id="inputArea" class="fixed bottom-0 left-0 right-0 py-4 px-6 bg-[#0f1419]/95">
+      <div class="max-w-2xl mx-auto">
+        <!-- Input dinâmico -->
+      </div>
     </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="text-center py-3 text-xs text-gray-500">
+    Powered by <span class="text-[#ff7a01] font-semibold">Advanx</span> AI Solutions
   </div>
 
   <script>
@@ -80,7 +98,7 @@
         }
       },
       {
-        question: "", // Será preenchido dinamicamente com IA baseado no DDD
+        question: "",
         field: "email",
         type: "email",
         required: true,
@@ -92,19 +110,20 @@
         question: "Qual seu Instagram ou site para gerarmos uma análise?",
         field: "instagramOuSite",
         type: "text",
-        required: false,
-        placeholder: "@seuinstagram ou www.seusite.com.br"
+        required: true,
+        placeholder: "@seuinstagram ou www.seusite.com.br",
+        validate: (value) => value.trim().length > 0
       },
       {
         question: "Descreva em poucas palavras seu modelo de negócio:",
         field: "modeloNegocio",
         type: "textarea",
         required: true,
-        placeholder: "Exemplo: tenho um escritório com 10 anos de mercado, 22 colaboradores, especializado na área X, com 300 clientes ativos e quero ajuda para resolver...",
+        placeholder: "Digite aqui...",
         validate: (value) => value.trim().length > 20
       },
       {
-        question: "", // Será preenchido dinamicamente com IA baseado no modelo de negócio
+        question: "",
         field: "faturamento",
         type: "faturamento_grid",
         required: true,
@@ -119,7 +138,7 @@
         ]
       },
       {
-        question: "", // Será preenchido dinamicamente com IA baseado no faturamento
+        question: "",
         field: "finalizacao",
         type: "whatsapp_button",
         dynamicQuestion: true
@@ -130,116 +149,44 @@
     let formData = {};
     let chatContainer, messagesArea, inputArea;
 
-    // Função de formatação de telefone
     function formatarTelefone(valor) {
       const numeros = valor.replace(/\D/g, '');
-      
       if (numeros.length <= 10) {
-        return numeros
-          .replace(/(\d{2})(\d)/, '($1) $2')
-          .replace(/(\d{4})(\d)/, '$1-$2')
-          .slice(0, 14);
+        return numeros.replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{4})(\d)/, '$1-$2').slice(0, 14);
       } else {
-        return numeros
-          .slice(0, 11)
-          .replace(/(\d{2})(\d)/, '($1) $2')
-          .replace(/(\d{5})(\d)/, '$1-$2');
+        return numeros.slice(0, 11).replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2');
       }
     }
 
-    // Função para extrair DDD
     function extrairDDD(telefone) {
       const numeros = telefone.replace(/\D/g, '');
       return numeros.slice(0, 2);
     }
 
-    // Função para gerar pergunta com IA baseada no DDD
     function gerarPerguntaDDD(ddd, nome) {
-      // Mapa de DDDs e cidades
       const cidadesPorDDD = {
         '11': 'São Paulo, coração do empreendedorismo brasileiro',
-        '12': 'Vale do Paraíba, região estratégica entre SP e RJ',
-        '13': 'Baixada Santista, portal para o mundo',
-        '14': 'Bauru e região, centro do interior paulista',
-        '15': 'Sorocaba, hub industrial e tecnológico',
-        '16': 'Ribeirão Preto, agronegócio e inovação',
-        '17': 'São José do Rio Preto, polo regional do noroeste paulista',
-        '18': 'Presidente Prudente, oeste paulista empreendedor',
-        '19': 'Campinas, vale do silício brasileiro',
         '21': 'Rio de Janeiro, cidade maravilhosa e polo de inovação',
-        '22': 'Norte Fluminense, energia e crescimento',
-        '24': 'Região serrana do RJ, qualidade de vida e tecnologia',
-        '27': 'Espírito Santo, estado em ascensão tecnológica',
-        '28': 'Norte capixaba, desenvolvimento e inovação',
+        '71': 'Salvador, terra da cultura e tecnologia crescente',
+        '85': 'Fortaleza, hub tech do Nordeste',
+        '81': 'Recife, o Porto Digital e polo de startups',
         '31': 'Belo Horizonte, forte ecossistema de inovação',
-        '32': 'Juiz de Fora, pólo educacional e tech de Minas',
-        '33': 'Governador Valadares, nordeste mineiro empreendedor',
-        '34': 'Uberlândia, triângulo mineiro e hub logístico',
-        '35': 'Poços de Caldas, sul de Minas inovador',
-        '37': 'Divinópolis, centro-oeste mineiro em crescimento',
-        '38': 'Montes Claros, norte de Minas em expansão',
         '41': 'Curitiba, cidade modelo em gestão e tecnologia',
-        '42': 'Ponta Grossa, campos gerais paranaense',
-        '43': 'Londrina, norte do Paraná empreendedor',
-        '44': 'Maringá, qualidade de vida e inovação',
-        '45': 'Foz do Iguaçu, fronteira e oportunidades',
-        '46': 'Francisco Beltrão e Pato Branco, sudoeste paranaense',
+        '51': 'Porto Alegre, sul empreendedor e inovador',
         '47': 'Região de Joinville e Blumenau, vale europeu da tecnologia',
         '48': 'Florianópolis, ilha da magia e do empreendedorismo tech',
-        '49': 'Chapecó, terra da inovação no Sul de SC! O ecossistema tech da região é um dos mais fortes do Brasil',
-        '51': 'Porto Alegre, sul empreendedor e inovador',
-        '53': 'Pelotas e região sul gaúcha',
-        '54': 'Caxias do Sul, serra gaúcha e polo industrial',
-        '55': 'Santa Maria, centro do RS',
-        '61': 'Brasília, capital federal e centro de decisões',
-        '62': 'Goiânia, centro-oeste em expansão',
-        '63': 'Tocantins, novo estado cheio de oportunidades',
-        '64': 'Goiás interior, crescimento do agronegócio tech',
-        '65': 'Cuiabá, porta de entrada do centro-oeste',
-        '66': 'Rondonópolis e região, MT',
-        '67': 'Campo Grande, coração do MS',
-        '68': 'Acre, amazônia empreendedora',
-        '69': 'Rondônia, desenvolvimento do norte',
-        '71': 'Salvador, terra da cultura e tecnologia crescente',
-        '73': 'Sul da Bahia, costa do cacau inovadora',
-        '74': 'Interior da Bahia, sertão empreendedor',
-        '75': 'Feira de Santana, portal do sertão baiano',
-        '77': 'Oeste baiano, agronegócio e tecnologia',
-        '79': 'Sergipe, menor estado com grandes ideias',
-        '81': 'Recife, o Porto Digital e polo de startups',
-        '82': 'Alagoas, litoral nordestino promissor',
-        '83': 'Paraíba, onde o sol nasce primeiro',
-        '84': 'Rio Grande do Norte, potiguar inovador',
-        '85': 'Fortaleza, hub tech do Nordeste',
-        '86': 'Teresina, meio-norte brasileiro em crescimento',
-        '87': 'Picos e região, PI',
-        '88': 'Juazeiro do Norte, Cariri cearense',
-        '89': 'Picos e região sul do Piauí',
-        '91': 'Belém, portal da Amazônia',
-        '92': 'Manaus, Zona Franca e tecnologia',
-        '93': 'Santarém e oeste do Pará',
-        '94': 'Marabá e sudeste paraense',
-        '95': 'Roraima, extremo norte brasileiro',
-        '96': 'Amapá, amazônia atlântica',
-        '97': 'Amazonas interior',
-        '98': 'São Luís, capital do Maranhão',
-        '99': 'Interior do Maranhão'
+        '49': 'Chapecó, terra da inovação no Sul de SC!'
       };
-
       const mensagemCidade = cidadesPorDDD[ddd] || 'Sua região tem grande potencial para tecnologia e inovação';
-      
       return `${mensagemCidade}! Para eu te enviar um material exclusivo, me passa seu melhor e-mail, por favor.`;
     }
 
-    // Função para gerar análise do negócio
     function gerarAnaliseNegocio(nome, modeloNegocio) {
       return `${nome}, pelo que você descreveu sobre o seu negócio somado ao que você já tem hoje, existem oportunidades claras para usar IA para organizar melhor a operação e aumentar resultados. Por sinal, qual é o seu faturamento médio mensal?`;
     }
 
-    // Função para gerar mensagem final baseada no faturamento
     function gerarMensagemFinal(nome, faturamento, modeloNegocio) {
       const faixaFaturamento = getFaixaFaturamento(faturamento);
-      
       if (faixaFaturamento < 20) {
         return `${nome}, pelo seu cenário atual é a hora de aplicar IA prática na sua operação para acelerar o crescimento de clientes e gerar mais receita. Outras implementações pelo seu estado atual ainda não fazem sentido, pois o faturamento ainda precisa crescer - nosso foco agora é monetizar para ter fôlego! A Keila da Advanx vai te explicar no WhatsApp como nossas soluções podem te ajudar.`;
       } else {
@@ -248,40 +195,21 @@
     }
 
     function getFaixaFaturamento(value) {
-      const ranges = {
-        "0-5k": 2.5,
-        "5-10k": 7.5,
-        "10-20k": 15,
-        "20-50k": 35,
-        "50-100k": 75,
-        "100k+": 150
-      };
+      const ranges = { "0-5k": 2.5, "5-10k": 7.5, "10-20k": 15, "20-50k": 35, "50-100k": 75, "100k+": 150 };
       return ranges[value] || 0;
     }
 
-    // Eventos de tracking
     function trackEvent(eventName, params = {}) {
       console.log('Event:', eventName, params);
-      
-      // Meta Pixel
-      if (typeof fbq !== 'undefined') {
-        fbq('track', eventName, params);
-      }
-      
-      // Google Analytics 4
-      if (typeof gtag !== 'undefined') {
-        gtag('event', eventName, params);
-      }
+      if (typeof fbq !== 'undefined') fbq('track', eventName, params);
+      if (typeof gtag !== 'undefined') gtag('event', eventName, params);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
       chatContainer = document.getElementById('chatContainer');
       messagesArea = document.getElementById('messagesArea');
-      inputArea = document.getElementById('inputArea');
-      
-      // Track PageView
+      inputArea = document.getElementById('inputArea').querySelector('.max-w-2xl');
       trackEvent('PageView');
-      
       startConversation();
     });
 
@@ -290,30 +218,21 @@
     }
 
     function showNextQuestion() {
-      if (currentStep >= conversationFlow.length) {
-        return;
-      }
-
+      if (currentStep >= conversationFlow.length) return;
+      
       const step = conversationFlow[currentStep];
       
-      // Remover avatar da mensagem anterior
       const previousMessages = messagesArea.querySelectorAll('.message-ia img');
       previousMessages.forEach(img => {
         const messageDiv = img.closest('.message-ia');
         const textContent = messageDiv.querySelector('p').innerHTML;
-        messageDiv.innerHTML = `
-          <div class="max-w-2xl py-2" style="margin-left: 52px;">
-            <p class="text-white text-sm leading-relaxed">${textContent}</p>
-          </div>
-        `;
+        messageDiv.innerHTML = `<div class="py-2" style="margin-left: 52px;"><p class="text-white text-sm leading-relaxed">${textContent}</p></div>`;
       });
       
       showTypingIndicator();
 
-      // Se for pergunta dinâmica, gerar conteúdo
       if (step.dynamicQuestion) {
         let question = '';
-        
         if (step.field === 'email') {
           const ddd = extrairDDD(formData.telefone);
           question = gerarPerguntaDDD(ddd, formData.nome);
@@ -322,23 +241,18 @@
         } else if (step.field === 'finalizacao') {
           question = gerarMensagemFinal(formData.nome, formData.faturamento, formData.modeloNegocio);
         }
-        
         conversationFlow[currentStep].question = question;
       }
 
       setTimeout(() => {
         hideTypingIndicator();
         addIAMessage(replaceVariables(step.question), true);
-        setTimeout(() => {
-          showInput(step);
-        }, 300);
+        setTimeout(() => showInput(step), 300);
       }, 1000);
     }
 
     function replaceVariables(text) {
-      return text.replace(/\{(\w+)\}/g, (match, variable) => {
-        return formData[variable] || match;
-      });
+      return text.replace(/\{(\w+)\}/g, (match, variable) => formData[variable] || match);
     }
 
     function showTypingIndicator() {
@@ -346,7 +260,7 @@
       typing.id = 'typingIndicator';
       typing.className = 'flex items-start gap-3';
       typing.innerHTML = `
-        <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" alt="IA" class="w-10 h-10 rounded-full">
+        <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" class="w-10 h-10 rounded-full flex-shrink-0">
         <div class="bg-gray-800/30 rounded-2xl px-6 py-4">
           <div class="typing-indicator flex gap-1">
             <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
@@ -367,41 +281,28 @@
     function addIAMessage(message, showAvatar = false) {
       const messageDiv = document.createElement('div');
       messageDiv.className = 'flex items-start gap-3 message-ia';
-      
       if (showAvatar) {
         messageDiv.innerHTML = `
-          <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" alt="IA" class="flex-shrink-0 w-10 h-10 rounded-full object-cover">
-          <div class="max-w-2xl py-2">
-            <p class="text-white text-sm leading-relaxed">${message}</p>
-          </div>
+          <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" class="flex-shrink-0 w-10 h-10 rounded-full">
+          <div class="py-2 flex-1"><p class="text-white text-sm leading-relaxed">${message}</p></div>
         `;
       } else {
-        messageDiv.innerHTML = `
-          <div class="max-w-2xl py-2" style="margin-left: 52px;">
-            <p class="text-white text-sm leading-relaxed">${message}</p>
-          </div>
-        `;
+        messageDiv.innerHTML = `<div class="py-2 flex-1" style="margin-left: 52px;"><p class="text-white text-sm leading-relaxed">${message}</p></div>`;
       }
-      
       messagesArea.appendChild(messageDiv);
       scrollToBottom();
     }
 
     function addUserMessage(message) {
       const messageDiv = document.createElement('div');
-      messageDiv.className = 'flex items-start gap-3 justify-end message-user';
-      messageDiv.innerHTML = `
-        <div class="bg-white rounded-2xl rounded-tr-none px-6 py-4 max-w-2xl">
-          <p class="text-gray-900 text-sm leading-relaxed">${message}</p>
-        </div>
-      `;
+      messageDiv.className = 'flex justify-end message-user';
+      messageDiv.innerHTML = `<div class="bg-white rounded-2xl rounded-tr-none px-6 py-4 max-w-[80%]"><p class="text-gray-900 text-sm">${message}</p></div>`;
       messagesArea.appendChild(messageDiv);
       scrollToBottom();
     }
 
     function showInput(step) {
       inputArea.innerHTML = '';
-
       if (step.type === 'faturamento_grid') {
         showFaturamentoGrid(step);
       } else if (step.type === 'whatsapp_button') {
@@ -415,19 +316,18 @@
 
     function showFaturamentoGrid(step) {
       const container = document.createElement('div');
-      container.className = 'max-w-2xl mx-auto';
-      
       const grid = document.createElement('div');
-      grid.className = 'grid grid-cols-2 gap-3';
-      
-      step.options.forEach(option => {
-        const button = document.createElement('button');
-        button.className = 'px-6 py-4 bg-gray-800/20 hover:bg-[#ff7a01] text-white rounded-xl transition-all text-sm font-medium';
-        button.textContent = option.label;
-        button.onclick = () => handleFaturamentoSelect(option.value, option.label);
-        grid.appendChild(button);
+      grid.className = 'grid grid-cols-2 gap-2';
+      step.options.forEach((option, index) => {
+        setTimeout(() => {
+          const button = document.createElement('button');
+          button.className = 'px-4 py-3 bg-gray-800/20 hover:bg-[#ff7a01] text-white rounded-xl transition-all text-sm font-medium opacity-0';
+          button.textContent = option.label;
+          button.onclick = () => handleFaturamentoSelect(option.value, option.label);
+          grid.appendChild(button);
+          setTimeout(() => { button.style.opacity = '1'; button.style.transition = 'opacity 0.3s ease-in'; }, 50);
+        }, index * 150);
       });
-      
       container.appendChild(grid);
       inputArea.appendChild(container);
     }
@@ -435,24 +335,11 @@
     function handleFaturamentoSelect(value, label) {
       formData.faturamento = value;
       addUserMessage(label);
-      
-      // Track evento Lead
-      trackEvent('Lead', {
-        faturamento: value,
-        nome: formData.nome,
-        telefone: formData.telefone
-      });
-      
-      // Track Lead_Qualificado se faturamento >= 20k
+      trackEvent('Lead', { faturamento: value, nome: formData.nome, telefone: formData.telefone });
       const faixas = ['20-50k', '50-100k', '100k+'];
       if (faixas.includes(value)) {
-        trackEvent('Lead_Qualificado', {
-          faturamento: value,
-          nome: formData.nome,
-          telefone: formData.telefone
-        });
+        trackEvent('Lead_Qualificado', { faturamento: value, nome: formData.nome, telefone: formData.telefone });
       }
-      
       currentStep++;
       inputArea.innerHTML = '';
       showNextQuestion();
@@ -460,113 +347,71 @@
 
     function showWhatsAppButton(step) {
       const container = document.createElement('div');
-      container.className = 'max-w-2xl mx-auto text-center';
-      
+      container.className = 'text-center';
       const button = document.createElement('a');
       button.href = 'https://wa.me/5571982470873?text=Olá%20Keila,%20vim%20do%20formulário%20da%20Advanx%20IA!';
       button.target = '_blank';
-      button.className = 'inline-block px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full font-semibold transition-all text-base shadow-lg';
+      button.className = 'inline-flex items-center gap-2 px-6 py-4 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 text-white rounded-full font-semibold text-sm neon-button';
       button.innerHTML = `
-        <svg class="w-6 h-6 inline mr-2" fill="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
         </svg>
-        TOQUE AQUI para falar com a Keila
+        <span>Falar com a Keila</span>
       `;
-      
       container.appendChild(button);
       inputArea.appendChild(container);
-      
-      // Enviar dados ao webhook
       sendData();
     }
 
     function showTextareaInput(step) {
-      const container = document.createElement('div');
-      container.className = 'flex gap-3 items-end max-w-2xl mx-auto';
-
+      const wrapper = document.createElement('div');
+      wrapper.className = 'flex flex-col gap-2';
       const form = document.createElement('form');
+      form.className = 'flex gap-2 items-end';
       form.onsubmit = (e) => handleSubmit(e, step);
-      
+      const placeholder = step.field === 'modeloNegocio' ? 'Digite aqui...' : (step.placeholder || 'Digite aqui...');
       form.innerHTML = `
         <div class="flex-1 relative">
-          <textarea 
-            id="userInput" 
-            rows="1"
-            placeholder="${step.placeholder || 'Digite aqui...'}"
-            class="w-full bg-gray-800/20 rounded-3xl px-6 py-4 pr-16 text-white placeholder-gray-400 focus:outline-none transition-all resize-none"
-            style="min-height: 56px; max-height: 250px;"
-            oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"
-            ${step.required ? 'required' : ''}
-          ></textarea>
-          <button type="submit" class="absolute right-2 bottom-2 w-12 h-12 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 shadow-orange-500/30 hover:shadow-orange-600/40 text-white rounded-full transition-all flex items-center justify-center">
+          <textarea id="userInput" rows="1" placeholder="${placeholder}" class="w-full bg-gray-800/30 rounded-3xl px-6 py-4 pr-16 text-white placeholder-gray-400 focus:outline-none resize-none border border-gray-700/30" style="min-height: 56px; max-height: 250px;" oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'" ${step.required ? 'required' : ''}></textarea>
+          <button type="submit" class="absolute right-2 bottom-2 w-12 h-12 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 text-white rounded-full flex items-center justify-center neon-button">
             <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
             </svg>
           </button>
         </div>
       `;
-
-      if (!step.required) {
-        const skipBtn = document.createElement('button');
-        skipBtn.type = 'button';
-        skipBtn.className = 'text-gray-400 hover:text-gray-300 text-sm underline whitespace-nowrap';
-        skipBtn.textContent = 'Pular';
-        skipBtn.onclick = skipQuestion;
-        form.appendChild(skipBtn);
+      wrapper.appendChild(form);
+      if (step.field === 'modeloNegocio') {
+        const helperText = document.createElement('p');
+        helperText.className = 'text-gray-400 text-xs px-2';
+        helperText.textContent = 'Exemplo: tenho um escritório com 10 anos de mercado, 22 colaboradores, especializado na área X, com 300 clientes ativos...';
+        wrapper.appendChild(helperText);
       }
-
-      container.appendChild(form);
-      inputArea.appendChild(container);
-      
+      inputArea.appendChild(wrapper);
       setTimeout(() => document.getElementById('userInput').focus(), 100);
     }
 
     function showSimpleInput(step) {
-      const container = document.createElement('div');
-      container.className = 'flex gap-3 items-end max-w-2xl mx-auto';
-
+      const form = document.createElement('form');
+      form.className = 'flex gap-2 items-center';
+      form.onsubmit = (e) => handleSubmit(e, step);
       let onInputHandler = '';
       let maxLength = '';
-      
       if (step.field === 'telefone') {
         onInputHandler = 'oninput="this.value = formatarTelefone(this.value)"';
         maxLength = 'maxlength="15"';
       }
-
-      const form = document.createElement('form');
-      form.onsubmit = (e) => handleSubmit(e, step);
-      
       form.innerHTML = `
         <div class="flex-1 relative">
-          <input 
-            type="${step.type}" 
-            id="userInput" 
-            placeholder="${step.placeholder || 'Digite aqui...'}"
-            class="w-full bg-gray-800/20 rounded-full px-6 py-4 pr-16 text-white placeholder-gray-400 focus:outline-none transition-all"
-            ${step.required ? 'required' : ''}
-            ${maxLength}
-            ${onInputHandler}
-          />
-          <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 shadow-orange-500/30 hover:shadow-orange-600/40 text-white rounded-full transition-all flex items-center justify-center">
+          <input type="${step.type}" id="userInput" placeholder="${step.placeholder || 'Digite aqui...'}" class="w-full bg-gray-800/30 rounded-full px-6 py-4 pr-16 text-white placeholder-gray-400 focus:outline-none border border-gray-700/30" ${step.required ? 'required' : ''} ${maxLength} ${onInputHandler} />
+          <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 text-white rounded-full flex items-center justify-center neon-button">
             <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
             </svg>
           </button>
         </div>
       `;
-
-      if (!step.required) {
-        const skipBtn = document.createElement('button');
-        skipBtn.type = 'button';
-        skipBtn.className = 'text-gray-400 hover:text-gray-300 text-sm underline whitespace-nowrap';
-        skipBtn.textContent = 'Pular';
-        skipBtn.onclick = skipQuestion;
-        form.appendChild(skipBtn);
-      }
-
-      container.appendChild(form);
-      inputArea.appendChild(container);
-      
+      inputArea.appendChild(form);
       setTimeout(() => document.getElementById('userInput').focus(), 100);
     }
 
@@ -574,116 +419,66 @@
       e.preventDefault();
       const input = document.getElementById('userInput');
       const value = input.value.trim();
-
       if (step.required && step.validate && !step.validate(value)) {
         input.style.border = '2px solid #ef4444';
-        
-        let errorMessage = 'Campo inválido';
-        if (step.field === 'telefone') {
-          errorMessage = 'Telefone inválido. Digite um número com DDD (10 ou 11 dígitos).';
-        } else if (step.field === 'email') {
-          errorMessage = 'E-mail inválido. Verifique o formato.';
-        } else if (step.field === 'modeloNegocio') {
-          errorMessage = 'Por favor, descreva melhor seu modelo de negócio (mínimo 20 caracteres).';
-        }
-        
-        const errorDiv = document.createElement('div');
-        errorDiv.id = 'errorMessage';
-        errorDiv.className = 'text-red-500 text-sm mt-2';
-        errorDiv.textContent = errorMessage;
-        
-        const container = input.closest('.flex-1');
-        if (!document.getElementById('errorMessage')) {
-          container.appendChild(errorDiv);
-        }
-        
-        setTimeout(() => {
-          input.style.border = '';
-          const error = document.getElementById('errorMessage');
-          if (error) error.remove();
-        }, 3000);
-        
+        setTimeout(() => input.style.border = '1px solid rgba(55, 65, 81, 0.3)', 2000);
         return;
       }
-
       if (value) {
         formData[step.field] = value;
         addUserMessage(value);
-        
-        // Track ViewContent na primeira resposta
-        if (currentStep === 0) {
-          trackEvent('ViewContent', {
-            content_name: 'Formulario_Advanx_Iniciado',
-            nome: value
-          });
-        }
+        if (currentStep === 0) trackEvent('ViewContent', { content_name: 'Formulario_Advanx_Iniciado', nome: value });
       }
-
       currentStep++;
       inputArea.innerHTML = '';
       showNextQuestion();
     }
 
-    function skipQuestion() {
-      currentStep++;
-      inputArea.innerHTML = '';
-      showNextQuestion();
+    function getUTMParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        utm_source: urlParams.get('utm_source') || '',
+        utm_medium: urlParams.get('utm_medium') || '',
+        utm_campaign: urlParams.get('utm_campaign') || '',
+        utm_term: urlParams.get('utm_term') || '',
+        utm_content: urlParams.get('utm_content') || ''
+      };
     }
 
     async function sendData() {
       try {
-        console.log('Dados sendo enviados ao webhook:', formData);
-        
-        const response = await fetch('https://n8n.advfunnel.com.br/webhook/d30efe95-c0cd-430b-8888-43f2b1381037/lead', {
+        const utms = getUTMParams();
+        const dataToSend = { ...formData, ...utms };
+        console.log('Enviando:', dataToSend);
+        const response = await fetch('https://n8n.advfunnel.com.br/webhook/ae9eb62b-ec81-4503-b07e-e1aa97244577/:lead-adv-v1', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData)
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dataToSend)
         });
-
-        console.log('Resposta do webhook:', response.status);
+        console.log('Resposta:', response.status);
         return response.ok;
       } catch (error) {
-        console.error('Erro ao enviar:', error);
+        console.error('Erro:', error);
         return false;
       }
     }
 
     function scrollToBottom() {
-      setTimeout(() => {
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-      }, 50);
-      setTimeout(() => {
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-      }, 200);
+      setTimeout(() => chatContainer.scrollTop = chatContainer.scrollHeight, 50);
+      setTimeout(() => chatContainer.scrollTop = chatContainer.scrollHeight, 200);
     }
   </script>
 
-  <!-- Meta Pixel Code -->
-  <!-- INSTRUÇÃO: Substitua 'SEU_PIXEL_ID' pelo ID do seu Pixel do Facebook/Meta -->
-  <!-- Exemplo: fbq('init', '1234567890123456'); -->
   <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'SEU_PIXEL_ID'); // <- CONFIGURE AQUI O SEU PIXEL ID
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '502759528362336');
   </script>
-
-  <!-- Google Analytics 4 -->
-  <!-- INSTRUÇÃO: Substitua 'SEU_GA4_ID' pelo ID do seu Google Analytics 4 -->
-  <!-- Exemplo: gtag('config', 'G-XXXXXXXXXX'); -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=SEU_GA4_ID"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'SEU_GA4_ID'); // <- CONFIGURE AQUI O SEU GA4 ID
+    gtag('config', 'G-98EL5GXG5F');
   </script>
 </body>
 </html>
