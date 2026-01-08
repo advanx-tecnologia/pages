@@ -115,7 +115,7 @@
         validate: (value) => value.trim().length > 0
       },
       {
-        question: "Descreva em poucas palavras seu modelo de negócio:",
+        question: "Descreva em poucas palavras seu modelo de negócio, Exemplo: tenho um escritório com 10 anos de mercado, 22 colaboradores, especializado na área X, com 300 clientes ativos e meu problema é...",
         field: "modeloNegocio",
         type: "textarea",
         required: true,
@@ -384,7 +384,7 @@
       if (step.field === 'modeloNegocio') {
         const helperText = document.createElement('p');
         helperText.className = 'text-gray-400 text-xs px-2';
-        helperText.textContent = 'Exemplo: tenho um escritório com 10 anos de mercado, 22 colaboradores, especializado na área X, com 300 clientes ativos...';
+        helperText.textContent = '..';
         wrapper.appendChild(helperText);
       }
       inputArea.appendChild(wrapper);
