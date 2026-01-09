@@ -18,6 +18,119 @@
             padding: 20px;
         }
 
+        /* Tela de Login */
+        #loginScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        #loginScreen.hidden {
+            display: none;
+        }
+
+        .login-box {
+            background: #1a1a1a;
+            border: 2px solid #10b981;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
+            text-align: center;
+        }
+
+        .login-box h1 {
+            color: #10b981;
+            margin-bottom: 10px;
+            font-size: 2em;
+            border: none;
+            padding: 0;
+        }
+
+        .login-box p {
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 15px;
+            background: #0a0a0a;
+            border: 2px solid #3a3a3a;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .login-error {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        #mainContent {
+            display: none;
+        }
+
+        #mainContent.show {
+            display: block;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -238,6 +351,12 @@
             background: rgba(220, 38, 38, 0.1);
             border-color: #dc2626;
             color: #dc2626;
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: #f59e0b;
+            color: #f59e0b;
         }
 
         .stats {
@@ -462,9 +581,44 @@
             padding: 60px 20px;
             color: #b0b0b0;
         }
+
+        .sanitized-name {
+            background: #1a2e1a;
+            border: 1px solid #10b981;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .sanitized-name strong {
+            color: #10b981;
+        }
     </style>
 </head>
 <body>
+    <!-- Tela de Login -->
+    <div id="loginScreen">
+        <div class="login-box">
+            <h1>🔒 Acesso Restrito</h1>
+            <p>Gerenciador de Mídia - Supabase</p>
+            <form class="login-form" onsubmit="checkPassword(event)">
+                <input 
+                    type="password" 
+                    id="passwordInput" 
+                    class="login-input" 
+                    placeholder="Digite a senha"
+                    autocomplete="off"
+                    required
+                >
+                <button type="submit" class="login-btn">🔓 Entrar</button>
+                <div id="loginError" class="login-error">❌ Senha incorreta! Tente novamente.</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div id="mainContent">
     <div class="container">
         <h1>🎬 Gerenciador de Mídia - Supabase</h1>
 
@@ -534,6 +688,9 @@
                         <div class="form-group">
                             <label for="uploadNome">Nome *</label>
                             <input type="text" id="uploadNome" placeholder="ex: logo-empresa" required>
+                            <div id="sanitizedNamePreview" class="sanitized-name" style="display: none;">
+                                <strong>Nome salvo:</strong> <span id="sanitizedNameText"></span>
+                            </div>
                         </div>
                     </div>
 
@@ -619,6 +776,9 @@
                         <div class="form-group">
                             <label for="videoNome">Nome *</label>
                             <input type="text" id="videoNome" placeholder="ex: apresentacao-produto" required>
+                            <div id="videoSanitizedNamePreview" class="sanitized-name" style="display: none;">
+                                <strong>Nome salvo:</strong> <span id="videoSanitizedNameText"></span>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -657,7 +817,7 @@
                 </div>
             </div>
 
-            <!-- URL Externa (mantido) -->
+            <!-- URL Externa -->
             <div id="urlTab" class="tab-content">
                 <form id="imageForm">
                     <div class="form-group">
@@ -724,6 +884,56 @@
         let selectedVideo = null;
         let uploadedVideoUrl = '';
 
+        // ============================================
+        // FUNÇÃO DE HIGIENIZAÇÃO DE NOMES (NOVA)
+        // ============================================
+        
+        /**
+         * Higieniza o nome do arquivo para evitar problemas de URL
+         * - Converte para minúsculas
+         * - Remove acentos
+         * - Substitui espaços e caracteres especiais por hifens
+         * - Remove múltiplos hifens consecutivos
+         * - Remove hifens no início e fim
+         */
+        function sanitizeFileName(fileName) {
+            // Separa nome e extensão
+            const parts = fileName.split('.');
+            const extension = parts.length > 1 ? parts.pop() : '';
+            let name = parts.join('.');
+
+            // Converte para minúsculas
+            name = name.toLowerCase();
+
+            // Remove acentos
+            const accentsMap = {
+                'á': 'a', 'à': 'a', 'ã': 'a', 'â': 'a', 'ä': 'a',
+                'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e',
+                'í': 'i', 'ì': 'i', 'î': 'i', 'ï': 'i',
+                'ó': 'o', 'ò': 'o', 'õ': 'o', 'ô': 'o', 'ö': 'o',
+                'ú': 'u', 'ù': 'u', 'û': 'u', 'ü': 'u',
+                'ç': 'c', 'ñ': 'n'
+            };
+            
+            name = name.replace(/[áàãâäéèêëíìîïóòõôöúùûüçñ]/g, match => accentsMap[match] || match);
+
+            // Substitui espaços e caracteres especiais por hifens
+            name = name.replace(/[^a-z0-9]+/g, '-');
+
+            // Remove múltiplos hifens consecutivos
+            name = name.replace(/-+/g, '-');
+
+            // Remove hifens no início e fim
+            name = name.replace(/^-|-$/g, '');
+
+            // Retorna nome + extensão
+            return extension ? `${name}.${extension.toLowerCase()}` : name;
+        }
+
+        // ============================================
+        // FUNÇÕES DE NAVEGAÇÃO
+        // ============================================
+
         function switchMainTab(tab) {
             document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.section .tab-content').forEach(c => c.classList.remove('active'));
@@ -757,7 +967,7 @@
         }
 
         // ============================================
-        // UPLOAD DE IMAGEM (código original mantido)
+        // UPLOAD DE IMAGEM
         // ============================================
         
         const dropZone = document.getElementById('dropZone');
@@ -810,19 +1020,45 @@
             };
             reader.readAsDataURL(file);
 
+            // Sugere nome sanitizado
             const fileName = file.name.split('.')[0];
             document.getElementById('uploadNome').value = fileName;
+            updateSanitizedNamePreview();
         }
 
-        document.getElementById('convertWebp').addEventListener('change', processPreview);
+        // Atualiza preview do nome sanitizado conforme usuário digita
+        document.getElementById('uploadNome').addEventListener('input', updateSanitizedNamePreview);
+
+        function updateSanitizedNamePreview() {
+            const nome = document.getElementById('uploadNome').value;
+            if (!nome) {
+                document.getElementById('sanitizedNamePreview').style.display = 'none';
+                return;
+            }
+
+            const convertWebp = document.getElementById('convertWebp').checked;
+            const extension = convertWebp ? 'webp' : (selectedFile ? selectedFile.name.split('.').pop() : 'jpg');
+            const sanitized = sanitizeFileName(`${nome}.${extension}`);
+            
+            document.getElementById('sanitizedNameText').textContent = sanitized;
+            document.getElementById('sanitizedNamePreview').style.display = 'block';
+        }
+
+        document.getElementById('convertWebp').addEventListener('change', () => {
+            processPreview();
+            updateSanitizedNamePreview();
+        });
+
         document.getElementById('quality').addEventListener('input', function() {
             document.getElementById('qualityValue').textContent = this.value + '%';
             processPreview();
         });
+
         document.getElementById('resizeImage').addEventListener('change', function() {
             document.getElementById('resizeOptions').style.display = this.checked ? 'block' : 'none';
             processPreview();
         });
+
         document.getElementById('maxWidth').addEventListener('input', processPreview);
         document.getElementById('maxHeight').addEventListener('input', processPreview);
 
@@ -918,8 +1154,11 @@
                     maxHeight
                 });
 
+                // Aplica sanitização no nome do arquivo
                 const extension = convertWebp ? 'webp' : selectedFile.name.split('.').pop();
-                const fileName = `${tipo}/${nome}.${extension}`;
+                const rawFileName = `${nome}.${extension}`;
+                const sanitizedName = sanitizeFileName(rawFileName);
+                const fileName = `${tipo}/${sanitizedName}`;
 
                 document.getElementById('uploadProgress').style.display = 'block';
                 document.getElementById('uploadProgressFill').style.width = '50%';
@@ -952,7 +1191,7 @@
                     },
                     body: JSON.stringify({
                         tipo,
-                        nome,
+                        nome: sanitizedName.split('.')[0], // Salva sem extensão
                         url: publicUrl,
                         descricao: descricao || null
                     })
@@ -960,7 +1199,7 @@
 
                 document.getElementById('uploadProgressFill').style.width = '100%';
 
-                showAlert('Upload realizado com sucesso!', 'success');
+                showAlert(`Upload realizado! Arquivo salvo como: ${sanitizedName}`, 'success');
                 cancelUpload();
                 loadImages();
 
@@ -980,10 +1219,11 @@
             fileInput.value = '';
             document.getElementById('uploadNome').value = '';
             document.getElementById('uploadDescricao').value = '';
+            document.getElementById('sanitizedNamePreview').style.display = 'none';
         }
 
         // ============================================
-        // UPLOAD DE VÍDEO (NOVO)
+        // UPLOAD DE VÍDEO
         // ============================================
         
         const videoDropZone = document.getElementById('videoDropZone');
@@ -1018,7 +1258,7 @@
 
         function handleVideoFile(file) {
             // Validação de tamanho (500MB max)
-            const maxSize = 500 * 1024 * 1024; // 500MB em bytes
+            const maxSize = 500 * 1024 * 1024;
             if (file.size > maxSize) {
                 showAlert('Vídeo muito grande! Tamanho máximo: 500MB', 'error');
                 return;
@@ -1046,12 +1286,30 @@
             document.getElementById('videoFileSize').textContent = formatFileSize(file.size);
             document.getElementById('videoFileType').textContent = file.type;
 
-            // Sugerir nome
+            // Sugere nome sanitizado
             const fileName = file.name.split('.')[0];
             document.getElementById('videoNome').value = fileName;
+            updateVideoSanitizedNamePreview();
 
             // Ocultar URL display
             document.getElementById('videoUrlDisplay').classList.remove('show');
+        }
+
+        // Atualiza preview do nome sanitizado conforme usuário digita
+        document.getElementById('videoNome').addEventListener('input', updateVideoSanitizedNamePreview);
+
+        function updateVideoSanitizedNamePreview() {
+            const nome = document.getElementById('videoNome').value;
+            if (!nome) {
+                document.getElementById('videoSanitizedNamePreview').style.display = 'none';
+                return;
+            }
+
+            const extension = selectedVideo ? selectedVideo.name.split('.').pop() : 'mp4';
+            const sanitized = sanitizeFileName(`${nome}.${extension}`);
+            
+            document.getElementById('videoSanitizedNameText').textContent = sanitized;
+            document.getElementById('videoSanitizedNamePreview').style.display = 'block';
         }
 
         function formatFileSize(bytes) {
@@ -1059,6 +1317,13 @@
             if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
             return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
         }
+
+        /**
+         * CONFIGURAÇÃO DA EDGE FUNCTION
+         * Após fazer deploy da Edge Function, a URL será:
+         * https://SEU_PROJETO.supabase.co/functions/v1/optimize-video
+         */
+        const EDGE_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/optimize-video`;
 
         async function uploadVideo() {
             const nome = document.getElementById('videoNome').value;
@@ -1072,61 +1337,106 @@
 
             const uploadBtn = document.getElementById('videoUploadBtn');
             uploadBtn.disabled = true;
-            uploadBtn.textContent = 'Fazendo Upload...';
+            uploadBtn.textContent = '🎬 Otimizando vídeo...';
 
             try {
-                const extension = selectedVideo.name.split('.').pop();
-                const fileName = `videos/${nome}.${extension}`;
+                // Aplica sanitização no nome (sem extensão, será .mp4 após otimização)
+                const sanitizedName = sanitizeFileName(nome);
 
                 document.getElementById('videoUploadProgress').style.display = 'block';
-                document.getElementById('videoUploadProgressFill').style.width = '30%';
+                document.getElementById('videoUploadProgressFill').style.width = '10%';
 
-                // Upload para Supabase Storage
-                const uploadResponse = await fetch(`${SUPABASE_URL}/storage/v1/object/images/${fileName}`, {
+                showAlert('🚀 Iniciando otimização com FFmpeg (H.264, CRF 28, faststart)...', 'success');
+
+                // Prepara FormData com vídeo e metadados
+                const formData = new FormData();
+                formData.append('video', selectedVideo);
+                formData.append('nome', sanitizedName);
+                formData.append('categoria', categoria);
+                formData.append('descricao', descricao);
+
+                document.getElementById('videoUploadProgressFill').style.width = '30%';
+                uploadBtn.textContent = '⚙️ Processando (pode levar alguns minutos)...';
+
+                // Envia para Edge Function (FFmpeg vai otimizar)
+                const response = await fetch(EDGE_FUNCTION_URL, {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Content-Type': selectedVideo.type
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
                     },
-                    body: selectedVideo
+                    body: formData
                 });
 
-                if (!uploadResponse.ok) {
-                    const error = await uploadResponse.json();
-                    throw new Error(error.message || 'Erro no upload');
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Erro na otimização');
                 }
 
-                document.getElementById('videoUploadProgressFill').style.width = '70%';
+                document.getElementById('videoUploadProgressFill').style.width = '80%';
+                uploadBtn.textContent = '📦 Salvando vídeo otimizado...';
 
-                // URL pública do vídeo
-                uploadedVideoUrl = `${SUPABASE_URL}/storage/v1/object/public/images/${fileName}`;
-
-                // Salvar metadados no banco (opcional - você pode criar uma tabela "videos")
-                // await fetch(`${SUPABASE_URL}/rest/v1/videos`, { ... });
+                // Resposta com vídeo otimizado
+                const result = await response.json();
+                
+                if (!result.success) {
+                    throw new Error(result.error || 'Erro desconhecido');
+                }
 
                 document.getElementById('videoUploadProgressFill').style.width = '100%';
+
+                // URL do vídeo otimizado (já encoded)
+                uploadedVideoUrl = result.url;
+
+                // Exibe estatísticas de otimização
+                const stats = result.stats;
+                const statsHTML = `
+<div style="background: #1a2e1a; border: 1px solid #10b981; border-radius: 8px; padding: 15px; margin-top: 15px;">
+    <h4 style="color: #10b981; margin-bottom: 10px;">✅ Otimização Concluída!</h4>
+    <div style="color: #e0e0e0; font-size: 13px; line-height: 1.6;">
+        <strong>📊 Estatísticas:</strong><br>
+        • Original: ${formatFileSize(stats.originalSize)}<br>
+        • Otimizado: ${formatFileSize(stats.optimizedSize)}<br>
+        • Redução: ${stats.reduction}<br>
+        • Codec: ${stats.codec}<br>
+        • Container: ${stats.container}<br><br>
+        <strong>🚀 Otimizações aplicadas:</strong><br>
+        • H.264 (máxima compatibilidade)<br>
+        • faststart (streaming instantâneo)<br>
+        • CRF 28 (arquivo leve)<br>
+        • AAC 128k (áudio otimizado)
+    </div>
+</div>
+                `;
+
+                // Adiciona estatísticas na página
+                const statsDiv = document.createElement('div');
+                statsDiv.innerHTML = statsHTML;
+                document.getElementById('videoUrlDisplay').appendChild(statsDiv);
 
                 // Mostrar URL para copiar
                 document.getElementById('videoUrlText').textContent = uploadedVideoUrl;
                 document.getElementById('videoUrlDisplay').classList.add('show');
 
-                showAlert('Upload do vídeo concluído!', 'success');
-                uploadBtn.textContent = 'Upload Concluído ✓';
+                showAlert(`Vídeo otimizado com sucesso! Redução de ${stats.reduction}`, 'success');
+                uploadBtn.textContent = '✓ Concluído';
 
                 loadVideos();
 
             } catch (error) {
-                showAlert(`Erro: ${error.message}`, 'error');
+                showAlert(`❌ Erro: ${error.message}`, 'error');
                 uploadBtn.disabled = false;
                 uploadBtn.textContent = 'Fazer Upload do Vídeo';
             } finally {
-                document.getElementById('videoUploadProgress').style.display = 'none';
+                setTimeout(() => {
+                    document.getElementById('videoUploadProgress').style.display = 'none';
+                }, 1000);
             }
         }
 
         function copyVideoUrl() {
-            navigator.clipboard.writeText(uploadedVideoUrl).then(() => {
-                showAlert('URL copiada! Cole no campo VIDEO_URL do formulário', 'success');
+            const encodedUrl = encodeURI(uploadedVideoUrl);
+            navigator.clipboard.writeText(encodedUrl).then(() => {
+                showAlert('URL copiada (encoded)! Cole no campo VIDEO_URL do formulário', 'success');
             });
         }
 
@@ -1141,6 +1451,7 @@
             document.getElementById('videoUrlDisplay').classList.remove('show');
             document.getElementById('videoUploadBtn').textContent = 'Fazer Upload do Vídeo';
             document.getElementById('videoUploadBtn').disabled = false;
+            document.getElementById('videoSanitizedNamePreview').style.display = 'none';
         }
 
         // ============================================
@@ -1188,7 +1499,6 @@
 
         async function loadVideos() {
             try {
-                // Lista arquivos do bucket "images" com prefixo "videos/"
                 const response = await fetch(`${SUPABASE_URL}/storage/v1/object/list/images?prefix=videos/`, {
                     headers: {
                         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
@@ -1297,11 +1607,18 @@
             }
         }
 
+        /**
+         * Copia URL com encoding adequado para garantir funcionamento
+         * em HTML mesmo com arquivos antigos que tenham espaços
+         */
         function copyUrl(url) {
-            navigator.clipboard.writeText(url).then(() => showAlert('URL copiada!', 'success'));
+            const encodedUrl = encodeURI(url);
+            navigator.clipboard.writeText(encodedUrl).then(() => {
+                showAlert('URL copiada (encoded)! Pronta para uso no código', 'success');
+            });
         }
 
-        // URL Externa (mantido)
+        // URL Externa
         document.getElementById('imageForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
@@ -1330,6 +1647,65 @@
         // Carregar ao iniciar
         loadImages();
         loadVideos();
+
+        // ============================================
+        // SISTEMA DE LOGIN COM SENHA
+        // ============================================
+        
+        const CORRECT_PASSWORD = '2112';
+        
+        function checkPassword(event) {
+            event.preventDefault();
+            
+            const passwordInput = document.getElementById('passwordInput');
+            const enteredPassword = passwordInput.value;
+            const loginError = document.getElementById('loginError');
+            
+            if (enteredPassword === CORRECT_PASSWORD) {
+                // Senha correta - libera acesso
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('mainContent').classList.add('show');
+                
+                // Salva no sessionStorage para manter login durante a sessão
+                sessionStorage.setItem('authenticated', 'true');
+                
+                // Mostra alerta de boas-vindas
+                setTimeout(() => {
+                    showAlert('✅ Acesso liberado! Bem-vindo ao gerenciador de mídia.', 'success');
+                }, 500);
+            } else {
+                // Senha incorreta - mostra erro
+                loginError.classList.add('show');
+                passwordInput.value = '';
+                passwordInput.focus();
+                
+                // Remove erro após 3 segundos
+                setTimeout(() => {
+                    loginError.classList.remove('show');
+                }, 3000);
+            }
+        }
+        
+        // Verifica se já está autenticado ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
+            
+            if (isAuthenticated) {
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('mainContent').classList.add('show');
+            } else {
+                // Foca no campo de senha
+                document.getElementById('passwordInput').focus();
+            }
+        });
+        
+        // Permite Enter para enviar
+        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkPassword(e);
+            }
+        });
     </script>
+    </div> <!-- Fecha #mainContent -->
 </body>
 </html>
