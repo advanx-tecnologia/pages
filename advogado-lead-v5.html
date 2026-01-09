@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanx IA - Plano Personalizado</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes typing {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    .typing-indicator span:nth-child(1) { animation: typing 1.4s infinite; }
+    .typing-indicator span:nth-child(2) { animation: typing 1.4s infinite 0.2s; }
+    .typing-indicator span:nth-child(3) { animation: typing 1.4s infinite 0.4s; }
+    
+    body {
+      background-image: url('https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/back%202.webp');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 20, 25, 0.85);
+      z-index: -1;
+    }
+    
+    .chat-container::-webkit-scrollbar { width: 6px; }
+    .chat-container::-webkit-scrollbar-track { background: transparent; }
+    .chat-container::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
+    
+    .neon-button {
+      box-shadow: 0 0 10px rgba(255, 122, 1, 0.5), 0 0 20px rgba(255, 122, 1, 0.3);
+      transition: all 0.3s ease;
+    }
+    .neon-button:hover {
+      box-shadow: 0 0 15px rgba(255, 122, 1, 0.7), 0 0 30px rgba(255, 122, 1, 0.5);
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Header -->
+  <div class="text-center py-6 px-6">
+    <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/v3%20png.webp" alt="Advanx IA" class="h-16 mx-auto mb-4">
+    <p class="text-gray-300 text-sm leading-relaxed max-w-md mx-auto">Advanx IA, mais de 20 soluções sob medida para te ajudar a aumentar receita, reduzir custos e potencializar seus resultados.</p>
+  </div>
+
+  <!-- Chat Container -->
+  <div class="flex-1 relative overflow-hidden">
+    <div id="chatContainer" class="chat-container h-full overflow-y-auto px-6 py-6 pb-24">
+      <div id="messagesArea" class="space-y-4 max-w-2xl mx-auto">
+        <!-- Mensagens aqui -->
+      </div>
+    </div>
+    
+    <!-- Input Area -->
+    <div id="inputArea" class="fixed bottom-0 left-0 right-0 py-4 px-6 bg-[#0f1419]/95">
+      <div class="max-w-2xl mx-auto">
+        <!-- Input dinâmico -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="text-center py-3 text-xs text-gray-500">
+    Powered by <span class="text-[#ff7a01] font-semibold">Advanx</span> AI Solutions
+  </div>
+
+  <script>
+    const conversationFlow = [
+      {
+        question: "Tudo bem? Sou o assistente da Advanx IA. Vou criar um Plano 100% Personalizado de IA pra você! Focado em aumentar receita, reduzir custos e multiplicar sua margem. As respostas são cruciais para gerar uma boa análise e te direcionar melhor, temos mais de 30 soluções prontas para aplicar na sua operação.<br><br>Agora para começar, meu nome é Rafael Batista e o seu?",
+        field: "nome",
+        type: "text",
+        required: true,
+        placeholder: "Digite seu nome completo",
+        validate: (value) => value.trim().length > 0
+      },
+      {
+        question: "Muito prazer, {nome}! Qual é o seu WhatsApp?",
+        field: "telefone",
+        type: "tel",
+        required: true,
+        placeholder: "(00) 00000-0000",
+        validate: (value) => {
+          const numeros = value.replace(/\D/g, '');
+          return numeros.length === 10 || numeros.length === 11;
+        }
+      },
+      {
+        question: "",
+        field: "email",
+        type: "email",
+        required: true,
+        placeholder: "seuemail@exemplo.com",
+        validate: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+        dynamicQuestion: true
+      },
+      {
+        question: "Qual seu Instagram ou site para gerarmos uma análise?",
+        field: "instagramOuSite",
+        type: "text",
+        required: true,
+        placeholder: "@seuinstagram ou www.seusite.com.br",
+        validate: (value) => value.trim().length > 0
+      },
+      {
+        question: "Descreva em poucas palavras seu modelo de negócio:<br><span style='font-size: 11px; color: #9ca3af;'>Exemplo: tenho um escritório com 10 anos de mercado, 22 colaboradores, especializado na área X, com 300 clientes ativos/atendidos e eu quero resolver x e meu problema é...</span>",
+        field: "modeloNegocio",
+        type: "textarea",
+        required: true,
+        placeholder: "Digite aqui...",
+        validate: (value) => value.trim().length > 20
+      },
+      {
+        question: "",
+        field: "faturamento",
+        type: "faturamento_grid",
+        required: true,
+        dynamicQuestion: true,
+        options: [
+          { value: "0-5k", label: "0 a 5 mil reais" },
+          { value: "5-10k", label: "5 a 10 mil reais" },
+          { value: "10-20k", label: "10 a 20 mil reais" },
+          { value: "20-50k", label: "20 a 50 mil reais" },
+          { value: "50-100k", label: "50 a 100 mil reais" },
+          { value: "100k+", label: "+de 100 mil reais" }
+        ]
+      },
+      {
+        question: "",
+        field: "finalizacao",
+        type: "whatsapp_button",
+        dynamicQuestion: true
+      }
+    ];
+
+    let currentStep = 0;
+    let formData = {};
+    let chatContainer, messagesArea, inputArea;
+
+    function formatarTelefone(valor) {
+      const numeros = valor.replace(/\D/g, '');
+      if (numeros.length <= 10) {
+        return numeros.replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{4})(\d)/, '$1-$2').slice(0, 14);
+      } else {
+        return numeros.slice(0, 11).replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2');
+      }
+    }
+
+    function extrairDDD(telefone) {
+      const numeros = telefone.replace(/\D/g, '');
+      return numeros.slice(0, 2);
+    }
+
+    function gerarPerguntaDDD(ddd, nome) {
+      const cidadesPorDDD = {
+        '11': 'São Paulo, coração do empreendedorismo brasileiro',
+        '21': 'Rio de Janeiro, cidade maravilhosa e polo de inovação',
+        '71': 'Salvador, terra da cultura e tecnologia crescente',
+        '85': 'Fortaleza, hub tech do Nordeste',
+        '81': 'Recife, o Porto Digital e polo de startups',
+        '31': 'Belo Horizonte, forte ecossistema de inovação',
+        '41': 'Curitiba, cidade modelo em gestão e tecnologia',
+        '51': 'Porto Alegre, sul empreendedor e inovador',
+        '47': 'Região de Joinville e Blumenau, vale europeu da tecnologia',
+        '48': 'Florianópolis, ilha da magia e do empreendedorismo tech',
+        '49': 'Chapecó, terra da inovação no Sul de SC!'
+      };
+      const mensagemCidade = cidadesPorDDD[ddd] || 'Sua região tem grande potencial para tecnologia e inovação';
+      return `${mensagemCidade}! Para eu te enviar um material exclusivo, me passa seu melhor e-mail, por favor.`;
+    }
+
+    function gerarAnaliseNegocio(nome, modeloNegocio) {
+      return `${nome}, pelo que você descreveu sobre o seu negócio somado ao que você já tem hoje, existem oportunidades claras para usar IA para organizar melhor a operação e aumentar resultados. Por sinal, qual é o seu faturamento médio mensal?`;
+    }
+
+    function gerarMensagemFinal(nome, faturamento, modeloNegocio) {
+      const faixaFaturamento = getFaixaFaturamento(faturamento);
+      if (faixaFaturamento < 20) {
+        return `${nome}, pelo seu cenário atual é a hora de aplicar IA prática na sua operação para acelerar o crescimento de clientes e gerar mais receita. Outras implementações pelo seu estado atual ainda não fazem sentido, pois o faturamento ainda precisa crescer - nosso foco agora é monetizar para ter fôlego! A Keila da Advanx vai te explicar no WhatsApp como nossas soluções podem te ajudar.`;
+      } else {
+        return `${nome}, com seu faturamento atual, é o momento perfeito para implementar IA de forma estratégica! Podemos trabalhar em captação de novos clientes, gestão inteligente da operação e otimização com IA para gerar economia e aumentar sua eficiência. A Keila da Advanx vai te explicar no WhatsApp todo o potencial que podemos desbloquear no seu negócio.`;
+      }
+    }
+
+    function getFaixaFaturamento(value) {
+      const ranges = { "0-5k": 2.5, "5-10k": 7.5, "10-20k": 15, "20-50k": 35, "50-100k": 75, "100k+": 150 };
+      return ranges[value] || 0;
+    }
+
+    function trackEvent(eventName, params = {}) {
+      console.log('Event:', eventName, params);
+      if (typeof fbq !== 'undefined') fbq('track', eventName, params);
+      if (typeof gtag !== 'undefined') gtag('event', eventName, params);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      chatContainer = document.getElementById('chatContainer');
+      messagesArea = document.getElementById('messagesArea');
+      inputArea = document.getElementById('inputArea').querySelector('.max-w-2xl');
+      trackEvent('PageView');
+      startConversation();
+    });
+
+    function startConversation() {
+      showNextQuestion();
+    }
+
+    function showNextQuestion() {
+      if (currentStep >= conversationFlow.length) return;
+      
+      const step = conversationFlow[currentStep];
+      
+      const previousMessages = messagesArea.querySelectorAll('.message-ia img');
+      previousMessages.forEach(img => {
+        const messageDiv = img.closest('.message-ia');
+        const textContent = messageDiv.querySelector('p').innerHTML;
+        messageDiv.innerHTML = `<div class="py-2" style="margin-left: 52px;"><p class="text-white text-sm leading-relaxed">${textContent}</p></div>`;
+      });
+      
+      showTypingIndicator();
+
+      if (step.dynamicQuestion) {
+        let question = '';
+        if (step.field === 'email') {
+          const ddd = extrairDDD(formData.telefone);
+          question = gerarPerguntaDDD(ddd, formData.nome);
+        } else if (step.field === 'faturamento') {
+          question = gerarAnaliseNegocio(formData.nome, formData.modeloNegocio);
+        } else if (step.field === 'finalizacao') {
+          question = gerarMensagemFinal(formData.nome, formData.faturamento, formData.modeloNegocio);
+        }
+        conversationFlow[currentStep].question = question;
+      }
+
+      setTimeout(() => {
+        hideTypingIndicator();
+        addIAMessage(replaceVariables(step.question), true);
+        setTimeout(() => {
+          showInput(step);
+          setTimeout(scrollToBottom, 100);
+          setTimeout(scrollToBottom, 300);
+          setTimeout(scrollToBottom, 600);
+        }, 400);
+      }, 1000);
+    }
+
+    function replaceVariables(text) {
+      return text.replace(/\{(\w+)\}/g, (match, variable) => formData[variable] || match);
+    }
+
+    function showTypingIndicator() {
+      const typing = document.createElement('div');
+      typing.id = 'typingIndicator';
+      typing.className = 'flex items-start gap-3';
+      typing.innerHTML = `
+        <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" class="w-10 h-10 rounded-full flex-shrink-0">
+        <div class="bg-gray-800/30 rounded-2xl px-6 py-4">
+          <div class="typing-indicator flex gap-1">
+            <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+            <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+            <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+          </div>
+        </div>
+      `;
+      messagesArea.appendChild(typing);
+      scrollToBottom();
+    }
+
+    function hideTypingIndicator() {
+      const typing = document.getElementById('typingIndicator');
+      if (typing) typing.remove();
+    }
+
+    function addIAMessage(message, showAvatar = false) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'flex items-start gap-3 message-ia';
+      if (showAvatar) {
+        messageDiv.innerHTML = `
+          <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" class="flex-shrink-0 w-10 h-10 rounded-full">
+          <div class="py-2 flex-1"><p class="text-white text-sm leading-relaxed">${message}</p></div>
+        `;
+      } else {
+        messageDiv.innerHTML = `<div class="py-2 flex-1" style="margin-left: 52px;"><p class="text-white text-sm leading-relaxed">${message}</p></div>`;
+      }
+      messagesArea.appendChild(messageDiv);
+      scrollToBottom();
+      setTimeout(scrollToBottom, 100);
+      setTimeout(scrollToBottom, 300);
+    }
+
+    function addUserMessage(message) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'flex justify-end message-user';
+      messageDiv.innerHTML = `<div class="bg-white rounded-2xl rounded-tr-none px-6 py-4 max-w-[80%]"><p class="text-gray-900 text-sm">${message}</p></div>`;
+      messagesArea.appendChild(messageDiv);
+      scrollToBottom();
+      setTimeout(scrollToBottom, 100);
+      setTimeout(scrollToBottom, 300);
+    }
+
+    function showInput(step) {
+      inputArea.innerHTML = '';
+      if (step.type === 'faturamento_grid') {
+        showFaturamentoGrid(step);
+      } else if (step.type === 'whatsapp_button') {
+        showWhatsAppButton(step);
+      } else if (step.type === 'textarea') {
+        showTextareaInput(step);
+      } else {
+        showSimpleInput(step);
+      }
+    }
+
+    function showFaturamentoGrid(step) {
+      const container = document.createElement('div');
+      const grid = document.createElement('div');
+      grid.className = 'grid grid-cols-2 gap-2';
+      step.options.forEach((option, index) => {
+        setTimeout(() => {
+          const button = document.createElement('button');
+          button.className = 'px-4 py-3 bg-gray-800/20 hover:bg-[#ff7a01] text-white rounded-xl transition-all text-sm font-medium opacity-0';
+          button.textContent = option.label;
+          button.onclick = () => handleFaturamentoSelect(option.value, option.label);
+          grid.appendChild(button);
+          setTimeout(() => { 
+            button.style.opacity = '1'; 
+            button.style.transition = 'opacity 0.3s ease-in';
+          }, 50);
+        }, index * 150);
+      });
+      container.appendChild(grid);
+      inputArea.appendChild(container);
+      setTimeout(scrollToBottom, 200);
+      setTimeout(scrollToBottom, 500);
+      setTimeout(scrollToBottom, 1000);
+    }
+
+    function handleFaturamentoSelect(value, label) {
+      formData.faturamento = value;
+      addUserMessage(label);
+      trackEvent('Lead', { faturamento: value, nome: formData.nome, telefone: formData.telefone });
+      const faixas = ['20-50k', '50-100k', '100k+'];
+      if (faixas.includes(value)) {
+        trackEvent('Lead_Qualificado', { faturamento: value, nome: formData.nome, telefone: formData.telefone });
+      }
+      currentStep++;
+      inputArea.innerHTML = '';
+      setTimeout(() => {
+        showNextQuestion();
+      }, 300);
+    }
+
+    function showWhatsAppButton(step) {
+      const container = document.createElement('div');
+      container.className = 'text-center';
+      const button = document.createElement('a');
+      button.href = 'https://wa.me/5571982470873?text=Olá%20Keila,%20vim%20do%20formulário%20da%20Advanx%20IA!';
+      button.target = '_blank';
+      button.className = 'inline-flex items-center gap-2 px-6 py-4 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 text-white rounded-full font-semibold text-sm neon-button';
+      button.innerHTML = `
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        <span>Falar com a Keila</span>
+      `;
+      container.appendChild(button);
+      inputArea.appendChild(container);
+      scrollToBottom();
+      sendData();
+    }
+
+    function showTextareaInput(step) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'flex flex-col gap-2';
+      const form = document.createElement('form');
+      form.className = 'flex gap-2 items-end';
+      form.onsubmit = (e) => handleSubmit(e, step);
+      const placeholder = step.field === 'modeloNegocio' ? 'Digite aqui...' : (step.placeholder || 'Digite aqui...');
+      form.innerHTML = `
+        <div class="flex-1 relative">
+          <textarea id="userInput" rows="1" placeholder="${placeholder}" class="w-full bg-gray-800/30 rounded-3xl px-6 py-4 pr-16 text-white placeholder-gray-400 focus:outline-none resize-none border border-gray-700/30" style="min-height: 56px; max-height: 250px;" oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'" ${step.required ? 'required' : ''}></textarea>
+          <button type="submit" class="absolute right-2 bottom-2 w-12 h-12 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 text-white rounded-full flex items-center justify-center neon-button">
+            <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+          </button>
+        </div>
+      `;
+      wrapper.appendChild(form);
+      inputArea.appendChild(wrapper);
+      setTimeout(() => {
+        document.getElementById('userInput').focus();
+        scrollToBottom();
+      }, 100);
+    }
+
+    function showSimpleInput(step) {
+      const form = document.createElement('form');
+      form.className = 'flex gap-2 items-center';
+      form.onsubmit = (e) => handleSubmit(e, step);
+      let onInputHandler = '';
+      let maxLength = '';
+      if (step.field === 'telefone') {
+        onInputHandler = 'oninput="this.value = formatarTelefone(this.value)"';
+        maxLength = 'maxlength="15"';
+      }
+      form.innerHTML = `
+        <div class="flex-1 relative">
+          <input type="${step.type}" id="userInput" placeholder="${step.placeholder || 'Digite aqui...'}" class="w-full bg-gray-800/30 rounded-full px-6 py-4 pr-16 text-white placeholder-gray-400 focus:outline-none border border-gray-700/30" ${step.required ? 'required' : ''} ${maxLength} ${onInputHandler} />
+          <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 text-white rounded-full flex items-center justify-center neon-button">
+            <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+          </button>
+        </div>
+      `;
+      inputArea.appendChild(form);
+      setTimeout(() => {
+        document.getElementById('userInput').focus();
+        scrollToBottom();
+      }, 100);
+    }
+
+    function handleSubmit(e, step) {
+      e.preventDefault();
+      const input = document.getElementById('userInput');
+      const value = input.value.trim();
+      if (step.required && step.validate && !step.validate(value)) {
+        input.style.border = '2px solid #ef4444';
+        setTimeout(() => input.style.border = '1px solid rgba(55, 65, 81, 0.3)', 2000);
+        return;
+      }
+      if (value) {
+        formData[step.field] = value;
+        addUserMessage(value);
+        if (currentStep === 0) trackEvent('ViewContent', { content_name: 'Formulario_Advanx_Iniciado', nome: value });
+      }
+      currentStep++;
+      inputArea.innerHTML = '';
+      setTimeout(() => {
+        showNextQuestion();
+      }, 300);
+    }
+
+    function getUTMParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        utm_source: urlParams.get('utm_source') || '',
+        utm_medium: urlParams.get('utm_medium') || '',
+        utm_campaign: urlParams.get('utm_campaign') || '',
+        utm_term: urlParams.get('utm_term') || '',
+        utm_content: urlParams.get('utm_content') || ''
+      };
+    }
+
+    async function sendData() {
+      try {
+        const utms = getUTMParams();
+        const dataToSend = { ...formData, ...utms };
+        console.log('Enviando:', dataToSend);
+        const response = await fetch('https://n8n.advfunnel.com.br/webhook/ae9eb62b-ec81-4503-b07e-e1aa97244577/:lead-adv-v1', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dataToSend)
+        });
+        console.log('Resposta:', response.status);
+        return response.ok;
+      } catch (error) {
+        console.error('Erro:', error);
+        return false;
+      }
+    }
+
+    function scrollToBottom() {
+      requestAnimationFrame(() => {
+        const allMessages = document.querySelectorAll('.message-ia, .message-user');
+        const lastMessage = allMessages[allMessages.length - 1];
+        if (lastMessage) {
+          lastMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    }
+  </script>
+
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '502759528362336');
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-98EL5GXG5F');
+  </script>
+</body>
+</html>
