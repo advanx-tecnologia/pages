@@ -14,6 +14,12 @@
     .typing-indicator span:nth-child(2) { animation: typing 1.4s infinite 0.2s; }
     .typing-indicator span:nth-child(3) { animation: typing 1.4s infinite 0.4s; }
     
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+    
     body {
       background-image: url('https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/back%202.webp');
       background-size: cover;
@@ -52,7 +58,6 @@
   <!-- Header -->
   <div class="text-center py-6 px-6">
     <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/v3%20png.webp" alt="Advanx IA" class="h-16 mx-auto mb-4">
-    <p class="text-gray-300 text-sm leading-relaxed max-w-md mx-auto">Advanx IA”</p>
   </div>
 
   <!-- Chat Container -->
@@ -79,7 +84,7 @@
   <script>
     const conversationFlow = [
       {
-        question: "Opa, Tudo bem? Sou o assistente da Advanx IA, Implemento canais de prospecção inteligente com ética que geram novos clientes, qualificam e reativa oportunidades perdidas. Vou criar um Plano Personalizado Focado em aumentar receita, reduzir custos e multiplicar sua margem. Temos mais de 30 soluções para aplicar na sua operação.<br><br>Agora para começar, meu nome é Rafael Batista e o seu?",
+        question: "Opa, tudo certo? Sou o assistente da Advanx IA, Implemento canais de prospecção inteligente com ética que geram novos clientes, qualificam e reativa oportunidades perdidas.<br><br>Vou criar um Plano Personalizado Focado em aumentar receita, reduzir custos e multiplicar sua margem.<br><br>Temos mais de 30 soluções para aplicar na sua operação.<br><br>Agora para começar, meu nome é Rafael Batista e o seu?",
         field: "nome",
         type: "text",
         required: true,
@@ -155,6 +160,29 @@
         return numeros.replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{4})(\d)/, '$1-$2').slice(0, 14);
       } else {
         return numeros.slice(0, 11).replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2');
+      }
+    }
+
+    function verificarTelefoneCompleto(valor) {
+      const numeros = valor.replace(/\D/g, '');
+      const aviso = document.getElementById('telefoneAviso');
+      
+      if (numeros.length === 10 || numeros.length === 11) {
+        // Telefone completo - mostra aviso
+        if (aviso) {
+          aviso.classList.remove('hidden');
+          aviso.classList.add('animate-fade-in');
+          
+          // Remove depois de 3 segundos
+          setTimeout(() => {
+            aviso.classList.add('hidden');
+          }, 3000);
+        }
+      } else {
+        // Esconde aviso se ainda está digitando
+        if (aviso) {
+          aviso.classList.add('hidden');
+        }
       }
     }
 
@@ -409,15 +437,25 @@
 
     function showSimpleInput(step) {
       const form = document.createElement('form');
-      form.className = 'flex gap-2 items-center';
+      form.className = 'flex gap-2 items-center relative';
       form.onsubmit = (e) => handleSubmit(e, step);
       let onInputHandler = '';
       let maxLength = '';
       if (step.field === 'telefone') {
-        onInputHandler = 'oninput="this.value = formatarTelefone(this.value)"';
+        onInputHandler = 'oninput="this.value = formatarTelefone(this.value); verificarTelefoneCompleto(this.value)"';
         maxLength = 'maxlength="15"';
       }
+      
+      const avisoHtml = step.field === 'telefone' ? `
+        <div id="telefoneAviso" class="hidden absolute -top-16 left-0 right-0 flex justify-center">
+          <div class="bg-green-600/95 text-white text-xs px-4 py-2 rounded-lg shadow-lg">
+            ✓ Confira se seu telefone está correto
+          </div>
+        </div>
+      ` : '';
+      
       form.innerHTML = `
+        ${avisoHtml}
         <div class="flex-1 relative">
           <input type="${step.type}" id="userInput" placeholder="${step.placeholder || 'Digite aqui...'}" class="w-full bg-gray-800/30 rounded-full px-6 py-4 pr-16 text-white placeholder-gray-400 focus:outline-none border border-gray-700/30" ${step.required ? 'required' : ''} ${maxLength} ${onInputHandler} />
           <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-r from-orange-500 via-[#ff7a01] to-orange-600 hover:from-orange-600 hover:via-orange-700 hover:to-orange-800 text-white rounded-full flex items-center justify-center neon-button">
@@ -444,7 +482,6 @@
         return;
       }
       if (value) {
-        // Salva o valor original para exibição
         formData[step.field] = value;
         
         // Se for telefone, formata para envio ao webhook (apenas números com 55)
@@ -454,30 +491,13 @@
         }
         
         addUserMessage(value);
-        
-        // Adiciona mensagem de validação sutil após telefone
-        if (step.field === 'telefone') {
-          setTimeout(() => {
-            const validationDiv = document.createElement('div');
-            validationDiv.className = 'flex justify-center';
-            validationDiv.innerHTML = `
-              <div class="text-xs text-gray-400 italic px-4 py-2">
-                ✓ Por favor, verifique se seu telefone está correto
-              </div>
-            `;
-            messagesArea.appendChild(validationDiv);
-            setTimeout(scrollToBottom, 100);
-            setTimeout(scrollToBottom, 300);
-          }, 500);
-        }
-        
         if (currentStep === 0) trackEvent('ViewContent', { content_name: 'Formulario_Advanx_Iniciado', nome: value });
       }
       currentStep++;
       inputArea.innerHTML = '';
       setTimeout(() => {
         showNextQuestion();
-      }, step.field === 'telefone' ? 1500 : 300);
+      }, 300);
     }
 
     function getUTMParams() {
