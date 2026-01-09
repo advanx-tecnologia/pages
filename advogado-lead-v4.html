@@ -57,7 +57,7 @@
 
   <!-- Chat Container -->
   <div class="flex-1 relative overflow-hidden">
-    <div id="chatContainer" class="chat-container h-full overflow-y-auto px-6 py-6 pb-32">
+    <div id="chatContainer" class="chat-container h-full overflow-y-auto px-6 py-6 pb-24">
       <div id="messagesArea" class="space-y-4 max-w-2xl mx-auto">
         <!-- Mensagens aqui -->
       </div>
@@ -79,7 +79,7 @@
   <script>
     const conversationFlow = [
       {
-        question: "Tudo bem? Sou o assistente do Advanx IA. Vou criar um Plano 100% Personalizado de IA pra você! Focado em aumentar receita, reduzir custos e multiplicar sua margem. As respostas são cruciais para gerar uma boa análise e te direcionar melhor, temos mais de 30 soluções prontas para aplicar na sua operação.<br><br>Agora para começar, meu nome é Rafael Batista e o seu?",
+        question: "Tudo bem? Sou o assistente da Advanx IA. Vou criar um Plano 100% Personalizado de IA pra você! Focado em aumentar receita, reduzir custos e multiplicar sua margem. As respostas são cruciais para gerar uma boa análise e te direcionar melhor, temos mais de 30 soluções prontas para aplicar na sua operação.<br><br>Agora para começar, meu nome é Rafael Batista e o seu?",
         field: "nome",
         type: "text",
         required: true,
@@ -249,7 +249,9 @@
         addIAMessage(replaceVariables(step.question), true);
         setTimeout(() => {
           showInput(step);
-          scrollToBottom();
+          setTimeout(scrollToBottom, 100);
+          setTimeout(scrollToBottom, 300);
+          setTimeout(scrollToBottom, 600);
         }, 400);
       }, 1000);
     }
@@ -294,6 +296,8 @@
       }
       messagesArea.appendChild(messageDiv);
       scrollToBottom();
+      setTimeout(scrollToBottom, 100);
+      setTimeout(scrollToBottom, 300);
     }
 
     function addUserMessage(message) {
@@ -302,6 +306,8 @@
       messageDiv.innerHTML = `<div class="bg-white rounded-2xl rounded-tr-none px-6 py-4 max-w-[80%]"><p class="text-gray-900 text-sm">${message}</p></div>`;
       messagesArea.appendChild(messageDiv);
       scrollToBottom();
+      setTimeout(scrollToBottom, 100);
+      setTimeout(scrollToBottom, 300);
     }
 
     function showInput(step) {
@@ -331,26 +337,30 @@
           setTimeout(() => { 
             button.style.opacity = '1'; 
             button.style.transition = 'opacity 0.3s ease-in';
-            scrollToBottom();
           }, 50);
         }, index * 150);
       });
       container.appendChild(grid);
       inputArea.appendChild(container);
-      scrollToBottom();
+      setTimeout(scrollToBottom, 200);
+      setTimeout(scrollToBottom, 500);
+      setTimeout(scrollToBottom, 1000);
     }
 
     function handleFaturamentoSelect(value, label) {
       formData.faturamento = value;
       addUserMessage(label);
-      trackEvent('Lead', { faturamento: value, nome: formData.nome, telefone: formData.telefone });
+      const telefoneFormatado = formData.telefone_webhook || formData.telefone;
+      trackEvent('Lead', { faturamento: value, nome: formData.nome, telefone: telefoneFormatado });
       const faixas = ['20-50k', '50-100k', '100k+'];
       if (faixas.includes(value)) {
-        trackEvent('Lead_Qualificado', { faturamento: value, nome: formData.nome, telefone: formData.telefone });
+        trackEvent('Lead_Qualificado', { faturamento: value, nome: formData.nome, telefone: telefoneFormatado });
       }
       currentStep++;
       inputArea.innerHTML = '';
-      showNextQuestion();
+      setTimeout(() => {
+        showNextQuestion();
+      }, 300);
     }
 
     function showWhatsAppButton(step) {
@@ -434,13 +444,40 @@
         return;
       }
       if (value) {
+        // Salva o valor original para exibição
         formData[step.field] = value;
+        
+        // Se for telefone, formata para envio ao webhook (apenas números com 55)
+        if (step.field === 'telefone') {
+          const numerosApenas = value.replace(/\D/g, '');
+          formData.telefone_webhook = '55' + numerosApenas;
+        }
+        
         addUserMessage(value);
+        
+        // Adiciona mensagem de validação sutil após telefone
+        if (step.field === 'telefone') {
+          setTimeout(() => {
+            const validationDiv = document.createElement('div');
+            validationDiv.className = 'flex justify-center';
+            validationDiv.innerHTML = `
+              <div class="text-xs text-gray-400 italic px-4 py-2">
+                ✓ Por favor, verifique se seu telefone está correto
+              </div>
+            `;
+            messagesArea.appendChild(validationDiv);
+            setTimeout(scrollToBottom, 100);
+            setTimeout(scrollToBottom, 300);
+          }, 500);
+        }
+        
         if (currentStep === 0) trackEvent('ViewContent', { content_name: 'Formulario_Advanx_Iniciado', nome: value });
       }
       currentStep++;
       inputArea.innerHTML = '';
-      showNextQuestion();
+      setTimeout(() => {
+        showNextQuestion();
+      }, step.field === 'telefone' ? 1500 : 300);
     }
 
     function getUTMParams() {
@@ -457,7 +494,15 @@
     async function sendData() {
       try {
         const utms = getUTMParams();
-        const dataToSend = { ...formData, ...utms };
+        // Cria cópia dos dados e substitui telefone pelo formato webhook
+        const dataToSend = { 
+          ...formData, 
+          ...utms,
+          telefone: formData.telefone_webhook || formData.telefone
+        };
+        // Remove telefone_webhook da estrutura final
+        delete dataToSend.telefone_webhook;
+        
         console.log('Enviando:', dataToSend);
         const response = await fetch('https://n8n.advfunnel.com.br/webhook/ae9eb62b-ec81-4503-b07e-e1aa97244577/:lead-adv-v1', {
           method: 'POST',
@@ -473,18 +518,13 @@
     }
 
     function scrollToBottom() {
-      setTimeout(() => {
-        chatContainer.scrollTo({
-          top: chatContainer.scrollHeight,
-          behavior: 'smooth'
-        });
-      }, 100);
-      setTimeout(() => {
-        chatContainer.scrollTo({
-          top: chatContainer.scrollHeight,
-          behavior: 'smooth'
-        });
-      }, 300);
+      requestAnimationFrame(() => {
+        const allMessages = document.querySelectorAll('.message-ia, .message-user');
+        const lastMessage = allMessages[allMessages.length - 1];
+        if (lastMessage) {
+          lastMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
     }
   </script>
 
