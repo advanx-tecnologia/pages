@@ -767,10 +767,10 @@
 
             <div id="alertContainer"></div>
 
-            <div class="section">
+            <div class="section" id="sectionAddMedia">
                 <h2>➕ Adicionar Nova Mídia</h2>
                 
-                <div class="tabs">
+                <div class="tabs" id="tabsAddMedia">
                     <button class="tab active" data-tab="upload">📤 Upload de Imagem</button>
                     <button class="tab" data-tab="video">🎥 Upload de Vídeo (Direto)</button>
                     <button class="tab" data-tab="url">🔗 URL Externa</button>
@@ -978,10 +978,10 @@
                 </div>
             </div>
 
-            <div class="section">
+            <div class="section" id="sectionManageMedia">
                 <h2>📂 Gerenciar Mídia</h2>
                 
-                <div class="tabs">
+                <div class="tabs" id="tabsManageMedia">
                     <button class="tab active" data-media-tab="images">🖼️ Imagens</button>
                     <button class="tab" data-media-tab="videos">🎥 Vídeos</button>
                 </div>
@@ -1098,30 +1098,37 @@ function sanitizeFileName(fileName) {
 // ============================================
 
 function switchMainTab(tab) {
-    document.querySelectorAll('.section:first-of-type .tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.section:first-of-type .tab-content').forEach(c => c.classList.remove('active'));
+    // Remove active de TODAS as tabs da seção "Adicionar Nova Mídia"
+    const section = document.getElementById('sectionAddMedia');
+    section.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     
-    const tabBtn = document.querySelector(`[data-tab="${tab}"]`);
+    // Adiciona active na tab clicada
+    const tabBtn = section.querySelector(`[data-tab="${tab}"]`);
     if (tabBtn) tabBtn.classList.add('active');
     
+    // Adiciona active no content correspondente
     const tabContent = document.getElementById(`${tab}Tab`);
     if (tabContent) tabContent.classList.add('active');
+    
+    console.log(`✅ Mudou para tab: ${tab}`);
 }
 
 function switchMediaTab(tab) {
-    const tabs = document.querySelectorAll('.section:last-of-type .tab');
-    const contents = document.querySelectorAll('.section:last-of-type .tab-content');
+    // Remove active de TODAS as tabs da seção "Gerenciar Mídia"
+    const section = document.getElementById('sectionManageMedia');
+    section.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     
-    tabs.forEach(t => t.classList.remove('active'));
-    contents.forEach(c => c.classList.remove('active'));
+    // Adiciona active na tab clicada
+    const tabBtn = section.querySelector(`[data-media-tab="${tab}"]`);
+    if (tabBtn) tabBtn.classList.add('active');
     
-    if (tab === 'images') {
-        tabs[0].classList.add('active');
-        document.getElementById('imagesMediaTab').classList.add('active');
-    } else {
-        tabs[1].classList.add('active');
-        document.getElementById('videosMediaTab').classList.add('active');
-    }
+    // Adiciona active no content correspondente
+    const tabContent = document.getElementById(`${tab}MediaTab`);
+    if (tabContent) tabContent.classList.add('active');
+    
+    console.log(`✅ Mudou para tab de mídia: ${tab}`);
 }
 
 // ============================================
@@ -1461,10 +1468,18 @@ async function uploadVideo() {
         document.getElementById('videoUrlText').textContent = uploadedVideoUrl;
         document.getElementById('videoUrlDisplay').classList.add('show');
 
-        showAlert(`✅ Vídeo enviado com sucesso!`, 'success');
+        showAlert(`✅ Vídeo enviado com sucesso! Veja na aba "Vídeos" abaixo.`, 'success');
         uploadBtn.textContent = '✓ Concluído';
 
+        // Recarrega lista de vídeos
         loadVideos();
+        
+        // Muda automaticamente para a tab de vídeos após 2 segundos
+        setTimeout(() => {
+            switchMediaTab('videos');
+            // Scroll suave até a seção de gerenciar mídia
+            document.getElementById('sectionManageMedia').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 2000);
 
     } catch (error) {
         showAlert(`❌ Erro: ${error.message}`, 'error');
@@ -1841,19 +1856,25 @@ window.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') checkPassword();
     });
 
-    // Event Listeners - Tabs da seção "Adicionar Nova Mídia" (primeira section)
-    const mainTabsSection = document.querySelectorAll('.section')[0];
-    if (mainTabsSection) {
-        mainTabsSection.querySelectorAll('[data-tab]').forEach(tab => {
-            tab.addEventListener('click', () => switchMainTab(tab.dataset.tab));
+    // Event Listeners - Tabs da seção "Adicionar Nova Mídia"
+    const sectionAddMedia = document.getElementById('sectionAddMedia');
+    if (sectionAddMedia) {
+        sectionAddMedia.querySelectorAll('[data-tab]').forEach(tab => {
+            tab.addEventListener('click', () => {
+                console.log(`🖱️ Clicou na tab: ${tab.dataset.tab}`);
+                switchMainTab(tab.dataset.tab);
+            });
         });
     }
 
-    // Event Listeners - Tabs da seção "Gerenciar Mídia" (segunda section)
-    const mediaTabsSection = document.querySelectorAll('.section')[1];
-    if (mediaTabsSection) {
-        mediaTabsSection.querySelectorAll('[data-media-tab]').forEach(tab => {
-            tab.addEventListener('click', () => switchMediaTab(tab.dataset.mediaTab));
+    // Event Listeners - Tabs da seção "Gerenciar Mídia"
+    const sectionManageMedia = document.getElementById('sectionManageMedia');
+    if (sectionManageMedia) {
+        sectionManageMedia.querySelectorAll('[data-media-tab]').forEach(tab => {
+            tab.addEventListener('click', () => {
+                console.log(`🖱️ Clicou na tab de mídia: ${tab.dataset.mediaTab}`);
+                switchMediaTab(tab.dataset.mediaTab);
+            });
         });
     }
 
