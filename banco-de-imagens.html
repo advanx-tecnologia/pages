@@ -869,14 +869,14 @@
                 <!-- Upload de Vídeo DIRETO (SEM OTIMIZAÇÃO) -->
                 <div id="videoTab" class="tab-content">
                     <div class="alert alert-warning">
-                        ⚠️ <strong>Upload Direto:</strong> Vídeos serão enviados sem otimização. Para melhor performance, otimize antes de fazer upload (H.264, CRF 28).
+                        ⚠️ <strong>Upload Direto (até 500MB):</strong> Vídeos serão enviados sem otimização. Para melhor performance, otimize antes de fazer upload (H.264, CRF 28).
                     </div>
 
                     <div class="file-upload-area" id="videoDropZone">
                         <input type="file" id="videoInput" accept="video/mp4,video/webm,video/quicktime" style="display: none;">
                         <p style="font-size: 48px; margin-bottom: 10px;">🎥</p>
                         <p style="color: #e0e0e0; margin-bottom: 5px;">Clique ou arraste um vídeo</p>
-                        <p style="font-size: 12px; color: #b0b0b0;">MP4, WebM, MOV até 100MB</p>
+                        <p style="font-size: 12px; color: #b0b0b0;">MP4, WebM, MOV até 500MB</p>
                     </div>
 
                     <div id="videoUploadOptions" style="display: none;">
@@ -1360,10 +1360,10 @@ function cancelUpload() {
 // ============================================
 
 function handleVideoFile(file) {
-    // Limite de 100MB para upload direto
-    const maxSize = 100 * 1024 * 1024;
+    // Limite de 500MB para upload direto
+    const maxSize = 500 * 1024 * 1024; // 500MB
     if (file.size > maxSize) {
-        showAlert('Vídeo muito grande! Tamanho máximo: 100MB. Otimize o vídeo antes.', 'error');
+        showAlert('Vídeo muito grande! Tamanho máximo: 500MB. Otimize o vídeo antes.', 'error');
         return;
     }
 
