@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Mídia - Supabase</title>
+    <title>Gerenciador de Mídia - DEBUG</title>
     
     <style>
         * {
@@ -17,6 +17,40 @@
             background: #0a0a0a;
             color: #e0e0e0;
             padding: 20px;
+        }
+
+        /* DEBUG BOX */
+        #debugBox {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1a1a1a;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            padding: 15px;
+            max-width: 400px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 99999;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .debug-log {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 3px solid #10b981;
+            background: #0a0a0a;
+        }
+
+        .debug-error {
+            border-left-color: #dc2626;
+            color: #dc2626;
+        }
+
+        .debug-success {
+            border-left-color: #10b981;
+            color: #10b981;
         }
 
         #loginScreen {
@@ -55,18 +89,6 @@
             padding: 0;
         }
 
-        .login-box p {
-            color: #b0b0b0;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
         .login-input {
             width: 100%;
             padding: 15px;
@@ -76,14 +98,7 @@
             color: #e0e0e0;
             font-size: 16px;
             text-align: center;
-            letter-spacing: 2px;
-            transition: all 0.3s;
-        }
-
-        .login-input:focus {
-            outline: none;
-            border-color: #10b981;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+            margin: 20px 0;
         }
 
         .login-btn {
@@ -96,31 +111,6 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .login-btn:hover {
-            background: #059669;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-        }
-
-        .login-error {
-            color: #dc2626;
-            font-size: 14px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .login-error.show {
-            display: block;
-            animation: shake 0.5s;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
         }
 
         #mainContent {
@@ -152,18 +142,11 @@
             border: 1px solid #2a2a2a;
         }
 
-        .section h2 {
-            color: #10b981;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-        }
-
         .tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
             border-bottom: 2px solid #2a2a2a;
-            flex-wrap: wrap;
         }
 
         .tab {
@@ -173,11 +156,6 @@
             cursor: pointer;
             border: none;
             border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .tab:hover {
-            color: #e0e0e0;
         }
 
         .tab.active {
@@ -193,145 +171,17 @@
             display: block;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #b0b0b0;
-            font-weight: 500;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            background: #0a0a0a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #10b981;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        button {
-            background: #10b981;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        button:hover {
-            background: #059669;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
-
-        button:disabled {
-            background: #4a4a4a;
-            cursor: not-allowed;
-            transform: none;
-        }
-
         .file-upload-area {
             border: 2px dashed #3a3a3a;
             border-radius: 8px;
             padding: 40px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
             background: #0a0a0a;
         }
 
         .file-upload-area:hover {
             border-color: #10b981;
-            background: #0f0f0f;
-        }
-
-        .file-upload-area.dragover {
-            border-color: #10b981;
-            background: #1a2e1a;
-        }
-
-        .preview-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .preview-box {
-            background: #0a0a0a;
-            border: 1px solid #3a3a3a;
-            border-radius: 8px;
-            padding: 15px;
-        }
-
-        .preview-box h3 {
-            color: #b0b0b0;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .preview-box img, .preview-box video {
-            width: 100%;
-            border-radius: 6px;
-            max-height: 300px;
-            object-fit: contain;
-        }
-
-        .preview-info {
-            margin-top: 10px;
-            font-size: 12px;
-            color: #b0b0b0;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
-        }
-
-        .slider-group {
-            margin-top: 10px;
-        }
-
-        .slider-group input[type="range"] {
-            width: 100%;
-        }
-
-        .slider-value {
-            color: #10b981;
-            font-weight: bold;
-            margin-left: 10px;
         }
 
         .alert {
@@ -353,83 +203,24 @@
             color: #dc2626;
         }
 
-        .alert-warning {
-            background: rgba(245, 158, 11, 0.1);
-            border-color: #f59e0b;
-            color: #f59e0b;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .stat-card {
-            background: #0a0a0a;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #3a3a3a;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #10b981;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: #b0b0b0;
-            font-size: 0.9em;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: #2a2a2a;
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .progress-fill {
-            height: 100%;
+        button {
             background: #10b981;
-            transition: width 0.3s;
-        }
-
-        .url-display {
-            background: #0a0a0a;
-            border: 1px solid #10b981;
+            color: white;
+            padding: 12px 24px;
+            border: none;
             border-radius: 6px;
-            padding: 15px;
-            margin-top: 20px;
-            display: none;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
         }
 
-        .url-display.show {
-            display: block;
-        }
-
-        .url-text {
-            color: #10b981;
-            font-family: monospace;
-            font-size: 13px;
-            word-break: break-all;
-            margin-bottom: 10px;
-        }
-
-        .copy-btn {
+        button:hover {
             background: #059669;
-            padding: 8px 16px;
-            font-size: 14px;
         }
 
-        .copy-btn:hover {
-            background: #047857;
+        button:disabled {
+            background: #4a4a4a;
+            cursor: not-allowed;
         }
 
         .video-preview {
@@ -437,1488 +228,346 @@
             max-height: 400px;
             border-radius: 8px;
             background: #000;
-        }
-
-        .file-info {
-            background: #0a0a0a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            padding: 12px;
-            margin-top: 15px;
-        }
-
-        .file-info-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #2a2a2a;
-        }
-
-        .file-info-item:last-child {
-            border-bottom: none;
-        }
-
-        .file-info-label {
-            color: #b0b0b0;
-            font-size: 13px;
-        }
-
-        .file-info-value {
-            color: #e0e0e0;
-            font-weight: 600;
-            font-size: 13px;
-        }
-
-        .image-preview, .video-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
             margin-top: 20px;
         }
 
-        .preview-item {
-            position: relative;
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
             background: #0a0a0a;
             border: 1px solid #3a3a3a;
-            border-radius: 8px;
-            padding: 10px;
-            transition: all 0.3s;
-        }
-
-        .preview-item:hover {
-            border-color: #10b981;
-            transform: translateY(-2px);
-        }
-
-        .preview-item img, .preview-item video {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
             border-radius: 6px;
-            margin-bottom: 10px;
-        }
-
-        .preview-info-item {
-            font-size: 12px;
-            color: #b0b0b0;
-        }
-
-        .preview-info-item strong {
             color: #e0e0e0;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            background: #10b981;
-            color: white;
-            border-radius: 4px;
-            font-size: 11px;
-            margin-top: 5px;
-        }
-
-        .badge.logo {
-            background: #f59e0b;
-        }
-
-        .badge.depoimento {
-            background: #10b981;
-        }
-
-        .badge.outro {
-            background: #8b5cf6;
-        }
-
-        .badge.video {
-            background: #ef4444;
-        }
-
-        .delete-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #dc2626;
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 16px;
-            opacity: 0;
-            transition: all 0.3s;
-        }
-
-        .preview-item:hover .delete-btn {
-            opacity: 1;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #b0b0b0;
-        }
-
-        .spinner {
-            border: 3px solid #3a3a3a;
-            border-top: 3px solid #10b981;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: #b0b0b0;
-        }
-
-        .sanitized-name {
-            background: #1a2e1a;
-            border: 1px solid #10b981;
-            border-radius: 4px;
-            padding: 8px 12px;
+            font-size: 14px;
             margin-top: 10px;
-            font-size: 12px;
-        }
-
-        .sanitized-name strong {
-            color: #10b981;
-        }
-
-        .code-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .code-modal.show {
-            display: flex;
-        }
-
-        .code-modal-content {
-            background: #1a1a1a;
-            border: 2px solid #10b981;
-            border-radius: 12px;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 30px;
-        }
-
-        .code-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #2a2a2a;
-        }
-
-        .code-modal-title {
-            color: #10b981;
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        .code-modal-close {
-            background: #dc2626;
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .code-modal-close:hover {
-            background: #b91c1c;
-            transform: rotate(90deg);
-        }
-
-        .code-display {
-            background: #0a0a0a;
-            border: 1px solid #3a3a3a;
-            border-radius: 8px;
-            padding: 20px;
-            color: #10b981;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            margin-bottom: 20px;
-        }
-
-        .code-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .code-copy-btn {
-            flex: 1;
-            min-width: 200px;
-            padding: 15px 20px;
-            background: #10b981;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .code-copy-btn:hover {
-            background: #059669;
-            transform: translateY(-2px);
-        }
-
-        .code-instructions {
-            background: rgba(16, 185, 129, 0.1);
-            border-left: 4px solid #10b981;
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-
-        .code-instructions h4 {
-            color: #10b981;
-            margin-bottom: 10px;
-        }
-
-        .code-instructions ol {
-            margin-left: 20px;
-            color: #b0b0b0;
-            line-height: 1.8;
-        }
-
-        .code-instructions li {
-            margin-bottom: 8px;
         }
     </style>
 </head>
 <body>
-    <!-- Tela de Login -->
+    <!-- DEBUG BOX -->
+    <div id="debugBox">
+        <div style="color: #10b981; font-weight: bold; margin-bottom: 10px;">🐛 DEBUG LOG</div>
+        <div id="debugLogs"></div>
+    </div>
+
+    <!-- Login -->
     <div id="loginScreen">
         <div class="login-box">
-            <h1>🔒 Acesso Restrito</h1>
-            <p>Gerenciador de Mídia - Supabase</p>
-            <div class="login-form">
-                <input 
-                    type="password" 
-                    id="passwordInput" 
-                    class="login-input" 
-                    placeholder="Digite a senha"
-                    autocomplete="off"
-                    required
-                >
-                <button type="button" class="login-btn" id="loginBtn">🔓 Entrar</button>
-                <div id="loginError" class="login-error">❌ Senha incorreta! Tente novamente.</div>
-            </div>
+            <h1>🔒 Acesso</h1>
+            <input 
+                type="password" 
+                id="passwordInput" 
+                class="login-input" 
+                placeholder="Senha: 2112"
+            >
+            <button class="login-btn" id="loginBtn">Entrar</button>
         </div>
     </div>
 
-    <!-- Conteúdo Principal -->
+    <!-- Conteúdo -->
     <div id="mainContent">
         <div class="container">
-            <h1>🎬 Gerenciador de Mídia - Supabase</h1>
-
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-number" id="totalImages">0</div>
-                    <div class="stat-label">Total de Imagens</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="totalVideos">0</div>
-                    <div class="stat-label">Total de Vídeos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="totalLogos">0</div>
-                    <div class="stat-label">Logos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="totalDepoimentos">0</div>
-                    <div class="stat-label">Depoimentos</div>
-                </div>
-            </div>
+            <h1>🎬 Gerenciador - MODO DEBUG</h1>
 
             <div id="alertContainer"></div>
 
             <div class="section">
-                <h2>➕ Adicionar Nova Mídia</h2>
+                <h2>Upload de Vídeo (Debug)</h2>
                 
                 <div class="tabs">
-                    <button class="tab active" data-tab="upload">📤 Upload de Imagem</button>
-                    <button class="tab" data-tab="video">🎥 Upload de Vídeo (Direto)</button>
-                    <button class="tab" data-tab="url">🔗 URL Externa</button>
+                    <button class="tab active" data-tab="video">🎥 Teste Upload</button>
                 </div>
 
-                <!-- Upload de Imagem -->
-                <div id="uploadTab" class="tab-content active">
-                    <div class="file-upload-area" id="dropZone">
-                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
-                        <p style="font-size: 48px; margin-bottom: 10px;">📁</p>
-                        <p style="color: #e0e0e0; margin-bottom: 5px;">Clique ou arraste uma imagem</p>
-                        <p style="font-size: 12px; color: #b0b0b0;">PNG, JPG, WEBP até 10MB</p>
-                    </div>
-
-                    <div id="uploadOptions" style="display: none;">
-                        <div class="preview-container">
-                            <div class="preview-box">
-                                <h3>Original</h3>
-                                <img id="originalPreview" src="" alt="Original">
-                                <div class="preview-info" id="originalInfo"></div>
-                            </div>
-                            <div class="preview-box">
-                                <h3>Preview Final</h3>
-                                <img id="processedPreview" src="" alt="Processado">
-                                <div class="preview-info" id="processedInfo"></div>
-                            </div>
-                        </div>
-
-                        <div class="options-grid">
-                            <div class="form-group">
-                                <label for="uploadTipo">Tipo *</label>
-                                <select id="uploadTipo" required>
-                                    <option value="logo">Logo</option>
-                                    <option value="depoimento">Depoimento</option>
-                                    <option value="outro">Outro</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="uploadNome">Nome *</label>
-                                <input type="text" id="uploadNome" placeholder="ex: logo-empresa" required>
-                                <div id="sanitizedNamePreview" class="sanitized-name" style="display: none;">
-                                    <strong>Nome salvo:</strong> <span id="sanitizedNameText"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="uploadDescricao">Descrição</label>
-                            <textarea id="uploadDescricao" placeholder="Descrição opcional"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="convertWebp" checked>
-                                <label for="convertWebp" style="margin: 0;">Converter para WebP (recomendado)</label>
-                            </div>
-                        </div>
-
-                        <div class="slider-group">
-                            <label>Qualidade: <span class="slider-value" id="qualityValue">85%</span></label>
-                            <input type="range" id="quality" min="10" max="100" value="85">
-                        </div>
-
-                        <div class="form-group">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="resizeImage">
-                                <label for="resizeImage" style="margin: 0;">Redimensionar imagem</label>
-                            </div>
-                        </div>
-
-                        <div id="resizeOptions" style="display: none; margin-top: 10px;">
-                            <div class="options-grid">
-                                <div class="form-group">
-                                    <label for="maxWidth">Largura Máxima (px)</label>
-                                    <input type="number" id="maxWidth" value="1920" min="100">
-                                </div>
-                                <div class="form-group">
-                                    <label for="maxHeight">Altura Máxima (px)</label>
-                                    <input type="number" id="maxHeight" value="1080" min="100">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="progress-bar" id="uploadProgress" style="display: none;">
-                            <div class="progress-fill" id="uploadProgressFill"></div>
-                        </div>
-
-                        <div style="margin-top: 20px; display: flex; gap: 10px;">
-                            <button id="uploadBtn">Fazer Upload</button>
-                            <button id="cancelUploadBtn" style="background: #dc2626;">Cancelar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Upload de Vídeo DIRETO (SEM OTIMIZAÇÃO) -->
-                <div id="videoTab" class="tab-content">
-                    <div class="alert alert-warning">
-                        ⚠️ <strong>Upload Direto:</strong> Vídeos serão enviados sem otimização. Para melhor performance, otimize antes de fazer upload (H.264, CRF 28).
-                    </div>
-
+                <div id="videoTab" class="tab-content active">
                     <div class="file-upload-area" id="videoDropZone">
-                        <input type="file" id="videoInput" accept="video/mp4,video/webm,video/quicktime" style="display: none;">
-                        <p style="font-size: 48px; margin-bottom: 10px;">🎥</p>
-                        <p style="color: #e0e0e0; margin-bottom: 5px;">Clique ou arraste um vídeo</p>
-                        <p style="font-size: 12px; color: #b0b0b0;">MP4, WebM, MOV até 100MB</p>
+                        <input type="file" id="videoInput" accept="video/*" style="display: none;">
+                        <p style="font-size: 48px;">🎥</p>
+                        <p style="color: #e0e0e0;">Clique ou arraste um vídeo</p>
+                        <p style="font-size: 12px; color: #b0b0b0;">MP4, WebM, MOV</p>
                     </div>
 
-                    <div id="videoUploadOptions" style="display: none;">
-                        <div class="preview-box">
-                            <h3>Preview do Vídeo</h3>
-                            <video id="videoPreview" class="video-preview" controls></video>
+                    <div id="videoUploadOptions" style="display: none; margin-top: 20px;">
+                        <video id="videoPreview" class="video-preview" controls></video>
+                        
+                        <div style="margin-top: 20px;">
+                            <p>Nome: <span id="videoFileName"></span></p>
+                            <p>Tamanho: <span id="videoFileSize"></span></p>
+                            <p>Tipo: <span id="videoFileType"></span></p>
                         </div>
 
-                        <div class="file-info">
-                            <div class="file-info-item">
-                                <span class="file-info-label">Nome do arquivo:</span>
-                                <span class="file-info-value" id="videoFileName"></span>
-                            </div>
-                            <div class="file-info-item">
-                                <span class="file-info-label">Tamanho:</span>
-                                <span class="file-info-value" id="videoFileSize"></span>
-                            </div>
-                            <div class="file-info-item">
-                                <span class="file-info-label">Tipo:</span>
-                                <span class="file-info-value" id="videoFileType"></span>
-                            </div>
-                        </div>
+                        <input type="text" id="videoNome" placeholder="Nome do vídeo">
 
-                        <div class="options-grid">
-                            <div class="form-group">
-                                <label for="videoNome">Nome *</label>
-                                <input type="text" id="videoNome" placeholder="ex: apresentacao-produto" required>
-                                <div id="videoSanitizedNamePreview" class="sanitized-name" style="display: none;">
-                                    <strong>Nome salvo:</strong> <span id="videoSanitizedNameText"></span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="videoCategoria">Categoria</label>
-                                <select id="videoCategoria">
-                                    <option value="apresentacao">Apresentação</option>
-                                    <option value="tutorial">Tutorial</option>
-                                    <option value="depoimento">Depoimento</option>
-                                    <option value="outro">Outro</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="videoDescricao">Descrição</label>
-                            <textarea id="videoDescricao" placeholder="Descrição opcional do vídeo"></textarea>
-                        </div>
-
-                        <div class="progress-bar" id="videoUploadProgress" style="display: none;">
-                            <div class="progress-fill" id="videoUploadProgressFill"></div>
-                        </div>
-
-                        <div class="url-display" id="videoUrlDisplay">
-                            <h3 style="color: #10b981; margin-bottom: 10px;">✅ Upload Concluído!</h3>
-                            <p style="color: #b0b0b0; margin-bottom: 10px; font-size: 13px;">
-                                Cole esta URL no campo VIDEO_URL do formulário:
-                            </p>
-                            <div class="url-text" id="videoUrlText"></div>
-                            <button class="copy-btn" id="copyVideoUrlBtn">📋 Copiar URL</button>
-                        </div>
-
-                        <div style="margin-top: 20px; display: flex; gap: 10px;">
-                            <button id="videoUploadBtn">Fazer Upload do Vídeo</button>
-                            <button id="cancelVideoUploadBtn" style="background: #dc2626;">Cancelar</button>
+                        <div style="margin-top: 20px;">
+                            <button id="videoUploadBtn">Fazer Upload</button>
+                            <button id="cancelVideoBtn" style="background: #dc2626; margin-left: 10px;">Cancelar</button>
                         </div>
                     </div>
                 </div>
-
-                <!-- URL Externa -->
-                <div id="urlTab" class="tab-content">
-                    <div>
-                        <div class="form-group">
-                            <label for="tipo">Tipo *</label>
-                            <select id="tipo" required>
-                                <option value="">Selecione...</option>
-                                <option value="logo">Logo</option>
-                                <option value="depoimento">Depoimento</option>
-                                <option value="outro">Outro</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="nome">Nome *</label>
-                            <input type="text" id="nome" placeholder="ex: advfunnel-black" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="url">URL da Imagem *</label>
-                            <input type="url" id="url" placeholder="https://..." required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="descricao">Descrição</label>
-                            <textarea id="descricao" placeholder="Descrição opcional da imagem"></textarea>
-                        </div>
-
-                        <button id="submitImageBtn">Adicionar Imagem</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>📂 Gerenciar Mídia</h2>
-                
-                <div class="tabs">
-                    <button class="tab active" data-media-tab="images">🖼️ Imagens</button>
-                    <button class="tab" data-media-tab="videos">🎥 Vídeos</button>
-                </div>
-
-                <div id="imagesMediaTab" class="tab-content active">
-                    <div id="imagesContainer" class="loading">
-                        <div class="spinner"></div>
-                        <p>Carregando imagens...</p>
-                    </div>
-                </div>
-
-                <div id="videosMediaTab" class="tab-content">
-                    <div id="videosContainer" class="loading">
-                        <div class="spinner"></div>
-                        <p>Carregando vídeos...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Código -->
-    <div class="code-modal" id="codeModal">
-        <div class="code-modal-content">
-            <div class="code-modal-header">
-                <h3 class="code-modal-title">📋 Código Pronto para VSL/Landing Page</h3>
-                <button class="code-modal-close" id="closeModalBtn">×</button>
-            </div>
-
-            <div class="code-instructions">
-                <h4>📖 Como usar:</h4>
-                <ol>
-                    <li>Clique no botão "Copiar Código" abaixo</li>
-                    <li>Cole no HTML da sua Landing Page, VSL ou Página de Vendas</li>
-                    <li>Pronto! O vídeo já vem com proteções contra download</li>
-                </ol>
-            </div>
-
-            <div class="code-display" id="codeDisplay"></div>
-
-            <div class="code-actions">
-                <button class="code-copy-btn" id="copyCodeBtn">
-                    📋 Copiar Código Completo
-                </button>
-                <button class="code-copy-btn" id="copyUrlModalBtn" style="background: #6366f1;">
-                    🔗 Copiar Apenas URL
-                </button>
-            </div>
-
-            <div style="margin-top: 20px; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
-                <p style="color: #b0b0b0; font-size: 13px; line-height: 1.6;">
-                    <strong style="color: #10b981;">✅ Proteções incluídas:</strong><br>
-                    • Download bloqueado<br>
-                    • Clique direito desabilitado<br>
-                    • Watermark discreto<br>
-                    • Responsivo (mobile + desktop)<br>
-                    • Pronto para conversão em VSL
-                </p>
             </div>
         </div>
     </div>
 
     <script>
-// ============================================
-// CONFIGURAÇÕES SUPABASE
-// ============================================
+        // ============================================
+        // SISTEMA DE DEBUG
+        // ============================================
 
-const SUPABASE_URL = 'https://lhbwfbquxkutcyqazpnw.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10';
-const CORRECT_PASSWORD = '2112';
+        function addDebugLog(message, type = 'info') {
+            const debugLogs = document.getElementById('debugLogs');
+            const log = document.createElement('div');
+            log.className = `debug-log ${type === 'error' ? 'debug-error' : type === 'success' ? 'debug-success' : ''}`;
+            log.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            debugLogs.appendChild(log);
+            debugLogs.scrollTop = debugLogs.scrollHeight;
+            console.log(`[DEBUG] ${message}`);
+        }
 
-// ============================================
-// VARIÁVEIS GLOBAIS
-// ============================================
+        // ============================================
+        // CONFIGURAÇÕES
+        // ============================================
 
-let allImages = [];
-let allVideos = [];
-let selectedFile = null;
-let selectedVideo = null;
-let uploadedVideoUrl = '';
-let currentEmbedCode = '';
-let currentVideoUrl = '';
+        const SUPABASE_URL = 'https://lhbwfbquxkutcyqazpnw.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10';
+        const CORRECT_PASSWORD = '2112';
 
-// ============================================
-// FUNÇÃO DE HIGIENIZAÇÃO DE NOMES
-// ============================================
+        let selectedVideo = null;
 
-function sanitizeFileName(fileName) {
-    const parts = fileName.split('.');
-    const extension = parts.length > 1 ? parts.pop() : '';
-    let name = parts.join('.');
+        addDebugLog('Script carregado', 'success');
 
-    name = name.toLowerCase();
+        // ============================================
+        // LOGIN
+        // ============================================
 
-    const accentsMap = {
-        'á': 'a', 'à': 'a', 'ã': 'a', 'â': 'a', 'ä': 'a',
-        'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e',
-        'í': 'i', 'ì': 'i', 'î': 'i', 'ï': 'i',
-        'ó': 'o', 'ò': 'o', 'õ': 'o', 'ô': 'o', 'ö': 'o',
-        'ú': 'u', 'ù': 'u', 'û': 'u', 'ü': 'u',
-        'ç': 'c', 'ñ': 'n'
-    };
-    
-    name = name.replace(/[áàãâäéèêëíìîïóòõôöúùûüçñ]/g, match => accentsMap[match] || match);
-    name = name.replace(/[^a-z0-9]+/g, '-');
-    name = name.replace(/-+/g, '-');
-    name = name.replace(/^-|-$/g, '');
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            addDebugLog(`Tentando login com senha: ${password}`);
+            
+            if (password === CORRECT_PASSWORD) {
+                addDebugLog('Login aceito!', 'success');
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('mainContent').classList.add('show');
+                sessionStorage.setItem('authenticated', 'true');
+            } else {
+                addDebugLog('Senha incorreta!', 'error');
+                alert('Senha incorreta!');
+            }
+        }
 
-    return extension ? `${name}.${extension.toLowerCase()}` : name;
-}
+        // ============================================
+        // UPLOAD DE VÍDEO
+        // ============================================
 
-// ============================================
-// FUNÇÕES DE NAVEGAÇÃO
-// ============================================
-
-function switchMainTab(tab) {
-    document.querySelectorAll('.section:first-of-type .tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.section:first-of-type .tab-content').forEach(c => c.classList.remove('active'));
-    
-    const tabBtn = document.querySelector(`[data-tab="${tab}"]`);
-    if (tabBtn) tabBtn.classList.add('active');
-    
-    const tabContent = document.getElementById(`${tab}Tab`);
-    if (tabContent) tabContent.classList.add('active');
-}
-
-function switchMediaTab(tab) {
-    const tabs = document.querySelectorAll('.section:last-of-type .tab');
-    const contents = document.querySelectorAll('.section:last-of-type .tab-content');
-    
-    tabs.forEach(t => t.classList.remove('active'));
-    contents.forEach(c => c.classList.remove('active'));
-    
-    if (tab === 'images') {
-        tabs[0].classList.add('active');
-        document.getElementById('imagesMediaTab').classList.add('active');
-    } else {
-        tabs[1].classList.add('active');
-        document.getElementById('videosMediaTab').classList.add('active');
-    }
-}
-
-// ============================================
-// SISTEMA DE LOGIN
-// ============================================
-
-function checkPassword() {
-    const passwordInput = document.getElementById('passwordInput');
-    const enteredPassword = passwordInput.value;
-    const loginError = document.getElementById('loginError');
-    
-    if (enteredPassword === CORRECT_PASSWORD) {
-        document.getElementById('loginScreen').classList.add('hidden');
-        document.getElementById('mainContent').classList.add('show');
-        sessionStorage.setItem('authenticated', 'true');
-        
-        setTimeout(() => {
-            showAlert('✅ Acesso liberado! Bem-vindo ao gerenciador de mídia.', 'success');
-        }, 500);
-    } else {
-        loginError.classList.add('show');
-        passwordInput.value = '';
-        passwordInput.focus();
-        
-        setTimeout(() => {
-            loginError.classList.remove('show');
-        }, 3000);
-    }
-}
-
-// ============================================
-// UPLOAD DE IMAGEM (MANTÉM IGUAL)
-// ============================================
-
-function handleFile(file) {
-    selectedFile = file;
-    
-    document.getElementById('dropZone').style.display = 'none';
-    document.getElementById('uploadOptions').style.display = 'block';
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        const img = document.getElementById('originalPreview');
-        img.src = e.target.result;
-        
-        document.getElementById('originalInfo').innerHTML = `
-            Tamanho: ${(file.size / 1024).toFixed(2)} KB<br>
-            Formato: ${file.type}
-        `;
-
-        processPreview();
-    };
-    reader.readAsDataURL(file);
-
-    const fileName = file.name.split('.')[0];
-    document.getElementById('uploadNome').value = fileName;
-    updateSanitizedNamePreview();
-}
-
-function updateSanitizedNamePreview() {
-    const nome = document.getElementById('uploadNome').value;
-    if (!nome) {
-        document.getElementById('sanitizedNamePreview').style.display = 'none';
-        return;
-    }
-
-    const convertWebp = document.getElementById('convertWebp').checked;
-    const extension = convertWebp ? 'webp' : (selectedFile ? selectedFile.name.split('.').pop() : 'jpg');
-    const sanitized = sanitizeFileName(`${nome}.${extension}`);
-    
-    document.getElementById('sanitizedNameText').textContent = sanitized;
-    document.getElementById('sanitizedNamePreview').style.display = 'block';
-}
-
-async function processPreview() {
-    if (!selectedFile) return;
-
-    const convertWebp = document.getElementById('convertWebp').checked;
-    const quality = document.getElementById('quality').value / 100;
-    const resize = document.getElementById('resizeImage').checked;
-    const maxWidth = parseInt(document.getElementById('maxWidth').value);
-    const maxHeight = parseInt(document.getElementById('maxHeight').value);
-
-    const processedBlob = await processImage(selectedFile, {
-        convertWebp,
-        quality,
-        resize,
-        maxWidth,
-        maxHeight
-    });
-
-    const url = URL.createObjectURL(processedBlob);
-    document.getElementById('processedPreview').src = url;
-    document.getElementById('processedInfo').innerHTML = `
-        Tamanho: ${(processedBlob.size / 1024).toFixed(2)} KB<br>
-        Formato: ${processedBlob.type}<br>
-        Redução: ${(((selectedFile.size - processedBlob.size) / selectedFile.size) * 100).toFixed(1)}%
-    `;
-}
-
-async function processImage(file, options) {
-    return new Promise((resolve) => {
-        const img = new Image();
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-            img.src = e.target.result;
-        };
-
-        img.onload = () => {
-            let width = img.width;
-            let height = img.height;
-
-            if (options.resize) {
-                const ratio = Math.min(options.maxWidth / width, options.maxHeight / height);
-                if (ratio < 1) {
-                    width *= ratio;
-                    height *= ratio;
-                }
+        function handleVideoFile(file) {
+            addDebugLog(`handleVideoFile chamada! Arquivo: ${file.name}`, 'success');
+            
+            // Validação
+            const maxSize = 100 * 1024 * 1024; // 100MB
+            addDebugLog(`Tamanho do arquivo: ${(file.size / 1024 / 1024).toFixed(2)}MB`);
+            
+            if (file.size > maxSize) {
+                addDebugLog('Arquivo muito grande!', 'error');
+                alert('Vídeo muito grande! Max 100MB');
+                return;
             }
 
-            const canvas = document.createElement('canvas');
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-
-            const mimeType = options.convertWebp ? 'image/webp' : file.type;
-            canvas.toBlob((blob) => {
-                resolve(blob);
-            }, mimeType, options.quality);
-        };
-
-        reader.readAsDataURL(file);
-    });
-}
-
-async function processAndUpload() {
-    const tipo = document.getElementById('uploadTipo').value;
-    const nome = document.getElementById('uploadNome').value;
-    const descricao = document.getElementById('uploadDescricao').value;
-
-    if (!nome) {
-        showAlert('Digite um nome para a imagem', 'error');
-        return;
-    }
-
-    const uploadBtn = document.getElementById('uploadBtn');
-    uploadBtn.disabled = true;
-    uploadBtn.textContent = 'Processando...';
-
-    try {
-        const convertWebp = document.getElementById('convertWebp').checked;
-        const quality = document.getElementById('quality').value / 100;
-        const resize = document.getElementById('resizeImage').checked;
-        const maxWidth = parseInt(document.getElementById('maxWidth').value);
-        const maxHeight = parseInt(document.getElementById('maxHeight').value);
-
-        const processedBlob = await processImage(selectedFile, {
-            convertWebp,
-            quality,
-            resize,
-            maxWidth,
-            maxHeight
-        });
-
-        const extension = convertWebp ? 'webp' : selectedFile.name.split('.').pop();
-        const rawFileName = `${nome}.${extension}`;
-        const sanitizedName = sanitizeFileName(rawFileName);
-        const fileName = `${tipo}/${sanitizedName}`;
-
-        document.getElementById('uploadProgress').style.display = 'block';
-        document.getElementById('uploadProgressFill').style.width = '50%';
-
-        const uploadResponse = await fetch(`${SUPABASE_URL}/storage/v1/object/images/${fileName}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Content-Type': processedBlob.type
-            },
-            body: processedBlob
-        });
-
-        if (!uploadResponse.ok) {
-            const error = await uploadResponse.json();
-            throw new Error(error.message || 'Erro no upload');
-        }
-
-        document.getElementById('uploadProgressFill').style.width = '75%';
-
-        const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/images/${fileName}`;
-        
-        await fetch(`${SUPABASE_URL}/rest/v1/images`, {
-            method: 'POST',
-            headers: {
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Content-Type': 'application/json',
-                'Prefer': 'return=representation'
-            },
-            body: JSON.stringify({
-                tipo,
-                nome: sanitizedName.split('.')[0],
-                url: publicUrl,
-                descricao: descricao || null
-            })
-        });
-
-        document.getElementById('uploadProgressFill').style.width = '100%';
-
-        showAlert(`Upload realizado! Arquivo salvo como: ${sanitizedName}`, 'success');
-        cancelUpload();
-        loadImages();
-
-    } catch (error) {
-        showAlert(`Erro: ${error.message}`, 'error');
-    } finally {
-        uploadBtn.disabled = false;
-        uploadBtn.textContent = 'Fazer Upload';
-        document.getElementById('uploadProgress').style.display = 'none';
-    }
-}
-
-function cancelUpload() {
-    selectedFile = null;
-    document.getElementById('dropZone').style.display = 'block';
-    document.getElementById('uploadOptions').style.display = 'none';
-    document.getElementById('fileInput').value = '';
-    document.getElementById('uploadNome').value = '';
-    document.getElementById('uploadDescricao').value = '';
-    document.getElementById('sanitizedNamePreview').style.display = 'none';
-}
-
-// ============================================
-// UPLOAD DE VÍDEO DIRETO (SEM EDGE FUNCTION)
-// ============================================
-
-function handleVideoFile(file) {
-    // Limite de 100MB para upload direto
-    const maxSize = 100 * 1024 * 1024;
-    if (file.size > maxSize) {
-        showAlert('Vídeo muito grande! Tamanho máximo: 100MB. Otimize o vídeo antes.', 'error');
-        return;
-    }
-
-    const validTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
-    if (!validTypes.includes(file.type)) {
-        showAlert('Formato não suportado! Use MP4, WebM ou MOV', 'error');
-        return;
-    }
-
-    selectedVideo = file;
-    
-    document.getElementById('videoDropZone').style.display = 'none';
-    document.getElementById('videoUploadOptions').style.display = 'block';
-
-    const videoPreview = document.getElementById('videoPreview');
-    const videoUrl = URL.createObjectURL(file);
-    videoPreview.src = videoUrl;
-
-    document.getElementById('videoFileName').textContent = file.name;
-    document.getElementById('videoFileSize').textContent = formatFileSize(file.size);
-    document.getElementById('videoFileType').textContent = file.type;
-
-    const fileName = file.name.split('.')[0];
-    document.getElementById('videoNome').value = fileName;
-    updateVideoSanitizedNamePreview();
-
-    document.getElementById('videoUrlDisplay').classList.remove('show');
-}
-
-function updateVideoSanitizedNamePreview() {
-    const nome = document.getElementById('videoNome').value;
-    if (!nome) {
-        document.getElementById('videoSanitizedNamePreview').style.display = 'none';
-        return;
-    }
-
-    const extension = selectedVideo ? selectedVideo.name.split('.').pop() : 'mp4';
-    const sanitized = sanitizeFileName(`${nome}.${extension}`);
-    
-    document.getElementById('videoSanitizedNameText').textContent = sanitized;
-    document.getElementById('videoSanitizedNamePreview').style.display = 'block';
-}
-
-function formatFileSize(bytes) {
-    if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
-    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
-}
-
-// UPLOAD DIRETO SEM OTIMIZAÇÃO
-async function uploadVideo() {
-    const nome = document.getElementById('videoNome').value;
-    const categoria = document.getElementById('videoCategoria').value;
-    const descricao = document.getElementById('videoDescricao').value;
-
-    if (!nome) {
-        showAlert('Digite um nome para o vídeo', 'error');
-        return;
-    }
-
-    const uploadBtn = document.getElementById('videoUploadBtn');
-    uploadBtn.disabled = true;
-    uploadBtn.textContent = '📤 Fazendo upload...';
-
-    try {
-        const sanitizedName = sanitizeFileName(nome + '.' + selectedVideo.name.split('.').pop());
-        const fileName = `videos/${sanitizedName}`;
-
-        document.getElementById('videoUploadProgress').style.display = 'block';
-        document.getElementById('videoUploadProgressFill').style.width = '10%';
-
-        // Upload direto para o Supabase Storage
-        const uploadResponse = await fetch(`${SUPABASE_URL}/storage/v1/object/images/${fileName}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Content-Type': selectedVideo.type
-            },
-            body: selectedVideo
-        });
-
-        document.getElementById('videoUploadProgressFill').style.width = '90%';
-
-        if (!uploadResponse.ok) {
-            const error = await uploadResponse.json();
-            throw new Error(error.message || 'Erro no upload');
-        }
-
-        document.getElementById('videoUploadProgressFill').style.width = '100%';
-
-        // URL público do vídeo
-        uploadedVideoUrl = `${SUPABASE_URL}/storage/v1/object/public/images/${fileName}`;
-
-        // Mostra URL
-        document.getElementById('videoUrlText').textContent = uploadedVideoUrl;
-        document.getElementById('videoUrlDisplay').classList.add('show');
-
-        showAlert(`✅ Vídeo enviado com sucesso!`, 'success');
-        uploadBtn.textContent = '✓ Concluído';
-
-        loadVideos();
-
-    } catch (error) {
-        showAlert(`❌ Erro: ${error.message}`, 'error');
-        uploadBtn.disabled = false;
-        uploadBtn.textContent = 'Fazer Upload do Vídeo';
-    } finally {
-        setTimeout(() => {
-            document.getElementById('videoUploadProgress').style.display = 'none';
-        }, 1000);
-    }
-}
-
-function copyVideoUrl() {
-    const encodedUrl = encodeURI(uploadedVideoUrl);
-    navigator.clipboard.writeText(encodedUrl).then(() => {
-        showAlert('URL copiada! Cole no campo VIDEO_URL do formulário', 'success');
-    });
-}
-
-function cancelVideoUpload() {
-    selectedVideo = null;
-    uploadedVideoUrl = '';
-    document.getElementById('videoDropZone').style.display = 'block';
-    document.getElementById('videoUploadOptions').style.display = 'none';
-    document.getElementById('videoInput').value = '';
-    document.getElementById('videoNome').value = '';
-    document.getElementById('videoDescricao').value = '';
-    document.getElementById('videoUrlDisplay').classList.remove('show');
-    document.getElementById('videoUploadBtn').textContent = 'Fazer Upload do Vídeo';
-    document.getElementById('videoUploadBtn').disabled = false;
-    document.getElementById('videoSanitizedNamePreview').style.display = 'none';
-}
-
-// ============================================
-// FUNÇÕES GERAIS
-// ============================================
-
-async function supabaseRequest(endpoint, method = 'GET', body = null) {
-    const headers = {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=representation'
-    };
-
-    const options = { method, headers };
-    if (body) options.body = JSON.stringify(body);
-
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, options);
-    if (!response.ok) throw new Error(`Erro ${response.status}`);
-    return response.json();
-}
-
-function showAlert(message, type = 'success') {
-    const alert = document.createElement('div');
-    alert.className = `alert alert-${type}`;
-    alert.textContent = message;
-    document.getElementById('alertContainer').appendChild(alert);
-    setTimeout(() => alert.remove(), 5000);
-}
-
-async function loadImages() {
-    try {
-        const data = await supabaseRequest('images?select=*&order=created_at.desc');
-        allImages = data || [];
-        displayImages(allImages);
-        updateStats();
-    } catch (error) {
-        document.getElementById('imagesContainer').innerHTML = `
-            <div class="no-results">
-                <p style="color: #dc2626;">Erro: ${error.message}</p>
-            </div>
-        `;
-    }
-}
-
-async function loadVideos() {
-    const container = document.getElementById('videosContainer');
-    
-    try {
-        console.log('🔍 Iniciando busca de vídeos...');
-        
-        const listUrl = `${SUPABASE_URL}/storage/v1/object/list/images`;
-        
-        console.log('📡 URL de busca:', listUrl);
-        
-        const response = await fetch(listUrl, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                prefix: 'videos/',
-                limit: 100,
-                offset: 0,
-                sortBy: {
-                    column: 'name',
-                    order: 'desc'
-                }
-            })
-        });
-
-        console.log('📥 Status da resposta:', response.status);
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error('❌ Erro na resposta:', errorText);
-            throw new Error(`Erro ${response.status}: ${errorText}`);
-        }
-
-        const files = await response.json();
-        console.log('📦 Arquivos recebidos:', files);
-        
-        allVideos = files.filter(f => {
-            if (!f.name || f.name.endsWith('/')) return false;
-            const extension = f.name.split('.').pop().toLowerCase();
-            return ['mp4', 'webm', 'mov', 'avi', 'mkv'].includes(extension);
-        });
-        
-        console.log('✅ Vídeos filtrados:', allVideos.length);
-        
-        if (allVideos.length === 0) {
-            container.innerHTML = `
-                <div class="no-results">
-                    <p>📹 Nenhum vídeo encontrado na pasta "videos/"</p>
-                    <p style="font-size: 12px; color: #b0b0b0; margin-top: 10px;">
-                        Faça upload de vídeos pela aba "Upload de Vídeo"
-                    </p>
-                </div>
-            `;
-        } else {
-            displayVideos(allVideos);
-        }
-        
-        updateStats();
-
-    } catch (error) {
-        console.error('❌ Erro completo:', error);
-        
-        container.innerHTML = `
-            <div class="no-results">
-                <p style="color: #dc2626; margin-bottom: 15px;">❌ Erro ao carregar vídeos</p>
-                <div style="background: #1a1a1a; padding: 15px; border-radius: 8px; text-align: left;">
-                    <p style="color: #f59e0b; font-size: 13px; margin-bottom: 10px;">
-                        <strong>Detalhes do erro:</strong>
-                    </p>
-                    <code style="color: #dc2626; font-size: 12px; display: block; word-wrap: break-word;">
-                        ${error.message}
-                    </code>
-                    <p style="color: #b0b0b0; font-size: 12px; margin-top: 15px; line-height: 1.6;">
-                        <strong>Possíveis causas:</strong><br>
-                        1. Configuração de CORS no Supabase<br>
-                        2. Bucket "images" ou pasta "videos/" não existe<br>
-                        3. Permissões de RLS (Row Level Security)<br>
-                        4. Acesso bloqueado pelo domínio
-                    </p>
-                </div>
-                <button onclick="loadVideos()" style="margin-top: 15px; background: #10b981; border: none; padding: 12px 24px; border-radius: 6px; color: white; cursor: pointer;">
-                    🔄 Tentar Novamente
-                </button>
-            </div>
-        `;
-    }
-}
-
-function displayImages(images) {
-    const container = document.getElementById('imagesContainer');
-    
-    if (!images || images.length === 0) {
-        container.innerHTML = '<div class="no-results"><p>Nenhuma imagem encontrada.</p></div>';
-        return;
-    }
-
-    container.className = 'image-preview';
-    container.innerHTML = images.map(img => `
-        <div class="preview-item">
-            <button class="delete-btn" onclick="deleteImage('${img.id}')">×</button>
-            <img src="${img.url}" alt="${img.nome}" loading="lazy">
-            <div class="preview-info-item">
-                <strong>${img.nome}</strong>
-                ${img.descricao ? `<p>${img.descricao}</p>` : ''}
-                <span class="badge ${img.tipo}">${img.tipo}</span>
-                <button class="copy-btn" onclick="copyUrl('${img.url}')">Copiar URL</button>
-            </div>
-        </div>
-    `).join('');
-}
-
-function displayVideos(videos) {
-    const container = document.getElementById('videosContainer');
-    
-    if (!videos || videos.length === 0) {
-        container.innerHTML = '<div class="no-results"><p>Nenhum vídeo encontrado.</p></div>';
-        return;
-    }
-
-    container.className = 'video-list';
-    container.innerHTML = videos.map(video => {
-        const url = `${SUPABASE_URL}/storage/v1/object/public/images/videos/${video.name}`;
-        const videoName = video.name.replace(/\.(mp4|webm|mov|avi|mkv)$/i, '');
-        const fileSize = video.metadata?.size || 0;
-        
-        return `
-            <div class="preview-item">
-                <button class="delete-btn" onclick="deleteVideo('videos/${video.name}')">×</button>
-                <video src="${url}" controls preload="metadata"></video>
-                <div class="preview-info-item">
-                    <strong>${videoName}</strong>
-                    <p>${formatFileSize(fileSize)}</p>
-                    <span class="badge video">vídeo</span>
-                    <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
-                        <button class="copy-btn" onclick="copyDirectUrl('${url}')">📋 URL Direta</button>
-                        <button class="copy-btn" style="background: #8b5cf6;" onclick="copyEmbedCode('${url}', '${videoName}')">🎯 Código VSL</button>
-                    </div>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-function updateStats() {
-    document.getElementById('totalImages').textContent = allImages.length;
-    document.getElementById('totalVideos').textContent = allVideos.length;
-    document.getElementById('totalLogos').textContent = allImages.filter(img => img.tipo === 'logo').length;
-    document.getElementById('totalDepoimentos').textContent = allImages.filter(img => img.tipo === 'depoimento').length;
-}
-
-async function deleteImage(id) {
-    if (!confirm('Tem certeza?')) return;
-    try {
-        await supabaseRequest(`images?id=eq.${id}`, 'DELETE');
-        showAlert('Imagem deletada!', 'success');
-        loadImages();
-    } catch (error) {
-        showAlert(`Erro: ${error.message}`, 'error');
-    }
-}
-
-async function deleteVideo(path) {
-    if (!confirm('Tem certeza?')) return;
-    try {
-        const response = await fetch(`${SUPABASE_URL}/storage/v1/object/images/${path}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+            addDebugLog(`Tipo do arquivo: ${file.type}`);
+            const validTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
+            if (!validTypes.includes(file.type)) {
+                addDebugLog('Tipo não suportado!', 'error');
+                alert('Formato não suportado!');
+                return;
             }
+
+            selectedVideo = file;
+            addDebugLog('Vídeo aceito! Mostrando preview...', 'success');
+            
+            // Esconder dropzone
+            document.getElementById('videoDropZone').style.display = 'none';
+            document.getElementById('videoUploadOptions').style.display = 'block';
+
+            // Preview
+            const videoPreview = document.getElementById('videoPreview');
+            const videoUrl = URL.createObjectURL(file);
+            videoPreview.src = videoUrl;
+            addDebugLog('Preview carregado', 'success');
+
+            // Info
+            document.getElementById('videoFileName').textContent = file.name;
+            document.getElementById('videoFileSize').textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+            document.getElementById('videoFileType').textContent = file.type;
+
+            // Sugere nome
+            const fileName = file.name.split('.')[0];
+            document.getElementById('videoNome').value = fileName;
+        }
+
+        async function uploadVideo() {
+            addDebugLog('Iniciando upload...', 'success');
+            
+            if (!selectedVideo) {
+                addDebugLog('Nenhum vídeo selecionado!', 'error');
+                alert('Nenhum vídeo selecionado!');
+                return;
+            }
+
+            const nome = document.getElementById('videoNome').value;
+            if (!nome) {
+                addDebugLog('Nome vazio!', 'error');
+                alert('Digite um nome!');
+                return;
+            }
+
+            const uploadBtn = document.getElementById('videoUploadBtn');
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = 'Fazendo upload...';
+
+            try {
+                addDebugLog(`Nome do vídeo: ${nome}`);
+                const fileName = `videos/${nome}.${selectedVideo.name.split('.').pop()}`;
+                addDebugLog(`Path completo: ${fileName}`);
+
+                const uploadUrl = `${SUPABASE_URL}/storage/v1/object/images/${fileName}`;
+                addDebugLog(`URL de upload: ${uploadUrl}`);
+
+                addDebugLog('Enviando para Supabase...');
+                const uploadResponse = await fetch(uploadUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': selectedVideo.type
+                    },
+                    body: selectedVideo
+                });
+
+                addDebugLog(`Status da resposta: ${uploadResponse.status}`);
+
+                if (!uploadResponse.ok) {
+                    const error = await uploadResponse.json();
+                    addDebugLog(`Erro: ${JSON.stringify(error)}`, 'error');
+                    throw new Error(error.message || 'Erro no upload');
+                }
+
+                const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/images/${fileName}`;
+                addDebugLog(`Upload concluído! URL: ${publicUrl}`, 'success');
+
+                alert('✅ Vídeo enviado com sucesso!\n\n' + publicUrl);
+
+                uploadBtn.textContent = '✓ Concluído';
+
+            } catch (error) {
+                addDebugLog(`ERRO: ${error.message}`, 'error');
+                alert('❌ Erro: ' + error.message);
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Fazer Upload';
+            }
+        }
+
+        function cancelVideoUpload() {
+            addDebugLog('Upload cancelado');
+            selectedVideo = null;
+            document.getElementById('videoDropZone').style.display = 'block';
+            document.getElementById('videoUploadOptions').style.display = 'none';
+            document.getElementById('videoInput').value = '';
+            document.getElementById('videoNome').value = '';
+            document.getElementById('videoUploadBtn').textContent = 'Fazer Upload';
+            document.getElementById('videoUploadBtn').disabled = false;
+        }
+
+        // ============================================
+        // INICIALIZAÇÃO
+        // ============================================
+
+        window.addEventListener('DOMContentLoaded', () => {
+            addDebugLog('DOM carregado', 'success');
+            
+            // Verifica autenticação
+            const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
+            if (isAuthenticated) {
+                addDebugLog('Já autenticado');
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('mainContent').classList.add('show');
+            }
+
+            // Login
+            document.getElementById('loginBtn').addEventListener('click', () => {
+                addDebugLog('Botão de login clicado');
+                checkPassword();
+            });
+
+            document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    addDebugLog('Enter pressionado no input');
+                    checkPassword();
+                }
+            });
+
+            // Video DropZone
+            const videoDropZone = document.getElementById('videoDropZone');
+            const videoInput = document.getElementById('videoInput');
+
+            addDebugLog('Configurando event listeners para vídeo...');
+
+            videoDropZone.addEventListener('click', () => {
+                addDebugLog('DropZone clicado!');
+                videoInput.click();
+            });
+
+            videoDropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                addDebugLog('Arquivo sendo arrastado sobre dropzone');
+                videoDropZone.style.borderColor = '#10b981';
+            });
+
+            videoDropZone.addEventListener('dragleave', () => {
+                addDebugLog('Arquivo saiu do dropzone');
+                videoDropZone.style.borderColor = '#3a3a3a';
+            });
+
+            videoDropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                addDebugLog('Arquivo DROPADO!', 'success');
+                videoDropZone.style.borderColor = '#3a3a3a';
+                
+                const file = e.dataTransfer.files[0];
+                addDebugLog(`Arquivo dropado: ${file ? file.name : 'NENHUM'}`, file ? 'success' : 'error');
+                
+                if (file && file.type.startsWith('video/')) {
+                    handleVideoFile(file);
+                } else {
+                    addDebugLog('Arquivo não é vídeo!', 'error');
+                }
+            });
+
+            videoInput.addEventListener('change', (e) => {
+                addDebugLog('Input file mudou!');
+                const file = e.target.files[0];
+                addDebugLog(`Arquivo selecionado: ${file ? file.name : 'NENHUM'}`, file ? 'success' : 'error');
+                
+                if (file) {
+                    handleVideoFile(file);
+                }
+            });
+
+            // Botões
+            document.getElementById('videoUploadBtn').addEventListener('click', () => {
+                addDebugLog('Botão upload clicado');
+                uploadVideo();
+            });
+
+            document.getElementById('cancelVideoBtn').addEventListener('click', () => {
+                addDebugLog('Botão cancelar clicado');
+                cancelVideoUpload();
+            });
+
+            addDebugLog('Todos os event listeners configurados!', 'success');
         });
 
-        if (!response.ok) throw new Error('Erro ao deletar vídeo');
-
-        showAlert('Vídeo deletado!', 'success');
-        loadVideos();
-    } catch (error) {
-        showAlert(`Erro: ${error.message}`, 'error');
-    }
-}
-
-function copyDirectUrl(url) {
-    const encodedUrl = encodeURI(url);
-    navigator.clipboard.writeText(encodedUrl).then(() => {
-        showAlert('📋 URL copiada!', 'success');
-    });
-}
-
-function copyEmbedCode(videoUrl, videoName) {
-    const embedCode = `<!-- VÍDEO PROTEGIDO: ${videoName} -->
-<div style="position: relative; width: 100%; max-width: 1200px; margin: 0 auto; padding-top: 56.25%; background: #000; border-radius: 10px; overflow: hidden;">
-    <div style="position: absolute; bottom: 60px; right: 15px; background: rgba(0,0,0,0.6); color: rgba(255,255,255,0.6); padding: 4px 8px; border-radius: 3px; font-size: 10px; pointer-events: none; z-index: 10; opacity: 0.5;">🔒 Protegido</div>
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5;" oncontextmenu="return false;"></div>
-    <video 
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;"
-        controls 
-        controlslist="nodownload" 
-        disablepictureinpicture 
-        playsinline
-        oncontextmenu="return false;"
-        id="video_${videoName.replace(/[^a-z0-9]/g, '_')}"
-    >
-        <source src="${videoUrl}" type="video/mp4">
-    </video>
-</div>
-
-<scr` + `ipt>
-(function() {
-    document.addEventListener('contextmenu', function(e) {
-        if (e.target.tagName === 'VIDEO') { e.preventDefault(); return false; }
-    });
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.key === 's') { e.preventDefault(); return false; }
-    });
-})();
-</scr` + `ipt>`;
-
-    currentEmbedCode = embedCode;
-    currentVideoUrl = videoUrl;
-
-    document.getElementById('codeDisplay').textContent = embedCode;
-    document.getElementById('codeModal').classList.add('show');
-}
-
-function closeCodeModal() {
-    document.getElementById('codeModal').classList.remove('show');
-}
-
-function copyCodeFromModal() {
-    navigator.clipboard.writeText(currentEmbedCode).then(() => {
-        showAlert('✅ Código HTML copiado!', 'success');
-        closeCodeModal();
-    });
-}
-
-function copyUrlFromModal() {
-    const encodedUrl = encodeURI(currentVideoUrl);
-    navigator.clipboard.writeText(encodedUrl).then(() => {
-        showAlert('📋 URL copiada!', 'success');
-    });
-}
-
-function copyUrl(url) {
-    const encodedUrl = encodeURI(url);
-    navigator.clipboard.writeText(encodedUrl).then(() => {
-        showAlert('URL copiada!', 'success');
-    });
-}
-
-async function submitImageForm(e) {
-    e.preventDefault();
-    const submitBtn = document.getElementById('submitImageBtn');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Adicionando...';
-
-    try {
-        await supabaseRequest('images', 'POST', {
-            tipo: document.getElementById('tipo').value,
-            nome: document.getElementById('nome').value,
-            url: document.getElementById('url').value,
-            descricao: document.getElementById('descricao').value || null
+        // Captura erros globais
+        window.addEventListener('error', (e) => {
+            addDebugLog(`ERRO GLOBAL: ${e.message} em ${e.filename}:${e.lineno}`, 'error');
         });
-        
-        showAlert('Imagem adicionada!', 'success');
-        document.getElementById('tipo').value = '';
-        document.getElementById('nome').value = '';
-        document.getElementById('url').value = '';
-        document.getElementById('descricao').value = '';
-        loadImages();
-    } catch (error) {
-        showAlert(`Erro: ${error.message}`, 'error');
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Adicionar Imagem';
-    }
-}
 
-// ============================================
-// INICIALIZAÇÃO
-// ============================================
-
-window.addEventListener('DOMContentLoaded', () => {
-    const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
-    
-    if (isAuthenticated) {
-        document.getElementById('loginScreen').classList.add('hidden');
-        document.getElementById('mainContent').classList.add('show');
-        loadImages();
-        loadVideos();
-    } else {
-        document.getElementById('passwordInput').focus();
-    }
-
-    // Event Listeners
-    document.getElementById('loginBtn').addEventListener('click', checkPassword);
-    document.getElementById('passwordInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') checkPassword();
-    });
-
-    document.querySelectorAll('[data-tab]').forEach(tab => {
-        tab.addEventListener('click', () => switchMainTab(tab.dataset.tab));
-    });
-
-    document.querySelectorAll('[data-media-tab]').forEach(tab => {
-        tab.addEventListener('click', () => switchMediaTab(tab.dataset.mediaTab));
-    });
-
-    const dropZone = document.getElementById('dropZone');
-    const fileInput = document.getElementById('fileInput');
-    
-    dropZone.addEventListener('click', () => fileInput.click());
-    dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.classList.add('dragover');
-    });
-    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-    dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('dragover');
-        const file = e.dataTransfer.files[0];
-        if (file && file.type.startsWith('image/')) handleFile(file);
-    });
-    fileInput.addEventListener('change', (e) => {
-        if (e.target.files[0]) handleFile(e.target.files[0]);
-    });
-
-    document.getElementById('uploadNome').addEventListener('input', updateSanitizedNamePreview);
-    document.getElementById('convertWebp').addEventListener('change', () => {
-        processPreview();
-        updateSanitizedNamePreview();
-    });
-    document.getElementById('quality').addEventListener('input', function() {
-        document.getElementById('qualityValue').textContent = this.value + '%';
-        processPreview();
-    });
-    document.getElementById('resizeImage').addEventListener('change', function() {
-        document.getElementById('resizeOptions').style.display = this.checked ? 'block' : 'none';
-        processPreview();
-    });
-    document.getElementById('maxWidth').addEventListener('input', processPreview);
-    document.getElementById('maxHeight').addEventListener('input', processPreview);
-    document.getElementById('uploadBtn').addEventListener('click', processAndUpload);
-    document.getElementById('cancelUploadBtn').addEventListener('click', cancelUpload);
-
-    const videoDropZone = document.getElementById('videoDropZone');
-    const videoInput = document.getElementById('videoInput');
-    
-    videoDropZone.addEventListener('click', () => videoInput.click());
-    videoDropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        videoDropZone.classList.add('dragover');
-    });
-    videoDropZone.addEventListener('dragleave', () => videoDropZone.classList.remove('dragover'));
-    videoDropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        videoDropZone.classList.remove('dragover');
-        const file = e.dataTransfer.files[0];
-        if (file && file.type.startsWith('video/')) handleVideoFile(file);
-    });
-    videoInput.addEventListener('change', (e) => {
-        if (e.target.files[0]) handleVideoFile(e.target.files[0]);
-    });
-
-    document.getElementById('videoNome').addEventListener('input', updateVideoSanitizedNamePreview);
-    document.getElementById('videoUploadBtn').addEventListener('click', uploadVideo);
-    document.getElementById('cancelVideoUploadBtn').addEventListener('click', cancelVideoUpload);
-    document.getElementById('copyVideoUrlBtn').addEventListener('click', copyVideoUrl);
-
-    document.getElementById('submitImageBtn').addEventListener('click', submitImageForm);
-
-    document.getElementById('closeModalBtn').addEventListener('click', closeCodeModal);
-    document.getElementById('copyCodeBtn').addEventListener('click', copyCodeFromModal);
-    document.getElementById('copyUrlModalBtn').addEventListener('click', copyUrlFromModal);
-    document.getElementById('codeModal').addEventListener('click', function(e) {
-        if (e.target === this) closeCodeModal();
-    });
-});
+        addDebugLog('Aguardando DOMContentLoaded...');
     </script>
 </body>
 </html>
