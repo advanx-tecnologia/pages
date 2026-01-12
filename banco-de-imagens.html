@@ -1010,27 +1010,16 @@
         let uploadedVideoUrl = '';
 
         // ============================================
-        // FUNÇÃO DE HIGIENIZAÇÃO DE NOMES (NOVA)
+        // FUNÇÃO DE HIGIENIZAÇÃO DE NOMES
         // ============================================
         
-        /**
-         * Higieniza o nome do arquivo para evitar problemas de URL
-         * - Converte para minúsculas
-         * - Remove acentos
-         * - Substitui espaços e caracteres especiais por hifens
-         * - Remove múltiplos hifens consecutivos
-         * - Remove hifens no início e fim
-         */
         function sanitizeFileName(fileName) {
-            // Separa nome e extensão
             const parts = fileName.split('.');
             const extension = parts.length > 1 ? parts.pop() : '';
             let name = parts.join('.');
 
-            // Converte para minúsculas
             name = name.toLowerCase();
 
-            // Remove acentos
             const accentsMap = {
                 'á': 'a', 'à': 'a', 'ã': 'a', 'â': 'a', 'ä': 'a',
                 'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e',
@@ -1041,17 +1030,10 @@
             };
             
             name = name.replace(/[áàãâäéèêëíìîïóòõôöúùûüçñ]/g, match => accentsMap[match] || match);
-
-            // Substitui espaços e caracteres especiais por hifens
             name = name.replace(/[^a-z0-9]+/g, '-');
-
-            // Remove múltiplos hifens consecutivos
             name = name.replace(/-+/g, '-');
-
-            // Remove hifens no início e fim
             name = name.replace(/^-|-$/g, '');
 
-            // Retorna nome + extensão
             return extension ? `${name}.${extension.toLowerCase()}` : name;
         }
 
@@ -1145,13 +1127,11 @@
             };
             reader.readAsDataURL(file);
 
-            // Sugere nome sanitizado
             const fileName = file.name.split('.')[0];
             document.getElementById('uploadNome').value = fileName;
             updateSanitizedNamePreview();
         }
 
-        // Atualiza preview do nome sanitizado conforme usuário digita
         document.getElementById('uploadNome').addEventListener('input', updateSanitizedNamePreview);
 
         function updateSanitizedNamePreview() {
@@ -1279,7 +1259,6 @@
                     maxHeight
                 });
 
-                // Aplica sanitização no nome do arquivo
                 const extension = convertWebp ? 'webp' : selectedFile.name.split('.').pop();
                 const rawFileName = `${nome}.${extension}`;
                 const sanitizedName = sanitizeFileName(rawFileName);
@@ -1316,7 +1295,7 @@
                     },
                     body: JSON.stringify({
                         tipo,
-                        nome: sanitizedName.split('.')[0], // Salva sem extensão
+                        nome: sanitizedName.split('.')[0],
                         url: publicUrl,
                         descricao: descricao || null
                     })
@@ -1382,14 +1361,12 @@
         });
 
         function handleVideoFile(file) {
-            // Validação de tamanho (500MB max)
             const maxSize = 500 * 1024 * 1024;
             if (file.size > maxSize) {
                 showAlert('Vídeo muito grande! Tamanho máximo: 500MB', 'error');
                 return;
             }
 
-            // Validação de tipo
             const validTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
             if (!validTypes.includes(file.type)) {
                 showAlert('Formato não suportado! Use MP4, WebM ou MOV', 'error');
@@ -1401,26 +1378,21 @@
             videoDropZone.style.display = 'none';
             videoUploadOptions.style.display = 'block';
 
-            // Preview do vídeo
             const videoPreview = document.getElementById('videoPreview');
             const videoUrl = URL.createObjectURL(file);
             videoPreview.src = videoUrl;
 
-            // Info do arquivo
             document.getElementById('videoFileName').textContent = file.name;
             document.getElementById('videoFileSize').textContent = formatFileSize(file.size);
             document.getElementById('videoFileType').textContent = file.type;
 
-            // Sugere nome sanitizado
             const fileName = file.name.split('.')[0];
             document.getElementById('videoNome').value = fileName;
             updateVideoSanitizedNamePreview();
 
-            // Ocultar URL display
             document.getElementById('videoUrlDisplay').classList.remove('show');
         }
 
-        // Atualiza preview do nome sanitizado conforme usuário digita
         document.getElementById('videoNome').addEventListener('input', updateVideoSanitizedNamePreview);
 
         function updateVideoSanitizedNamePreview() {
@@ -1443,11 +1415,6 @@
             return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
         }
 
-        /**
-         * CONFIGURAÇÃO DA EDGE FUNCTION
-         * Após fazer deploy da Edge Function, a URL será:
-         * https://SEU_PROJETO.supabase.co/functions/v1/optimize-video
-         */
         const EDGE_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/optimize-video`;
 
         async function uploadVideo() {
@@ -1465,7 +1432,6 @@
             uploadBtn.textContent = '🎬 Otimizando vídeo...';
 
             try {
-                // Aplica sanitização no nome (sem extensão, será .mp4 após otimização)
                 const sanitizedName = sanitizeFileName(nome);
 
                 document.getElementById('videoUploadProgress').style.display = 'block';
@@ -1473,7 +1439,6 @@
 
                 showAlert('🚀 Iniciando otimização com FFmpeg (H.264, CRF 28, faststart)...', 'success');
 
-                // Prepara FormData com vídeo e metadados
                 const formData = new FormData();
                 formData.append('video', selectedVideo);
                 formData.append('nome', sanitizedName);
@@ -1483,7 +1448,6 @@
                 document.getElementById('videoUploadProgressFill').style.width = '30%';
                 uploadBtn.textContent = '⚙️ Processando (pode levar alguns minutos)...';
 
-                // Envia para Edge Function (FFmpeg vai otimizar)
                 const response = await fetch(EDGE_FUNCTION_URL, {
                     method: 'POST',
                     headers: {
@@ -1500,7 +1464,6 @@
                 document.getElementById('videoUploadProgressFill').style.width = '80%';
                 uploadBtn.textContent = '📦 Salvando vídeo otimizado...';
 
-                // Resposta com vídeo otimizado
                 const result = await response.json();
                 
                 if (!result.success) {
@@ -1509,10 +1472,8 @@
 
                 document.getElementById('videoUploadProgressFill').style.width = '100%';
 
-                // URL do vídeo otimizado (já encoded)
                 uploadedVideoUrl = result.url;
 
-                // Exibe estatísticas de otimização
                 const stats = result.stats;
                 const statsHTML = `
 <div style="background: #1a2e1a; border: 1px solid #10b981; border-radius: 8px; padding: 15px; margin-top: 15px;">
@@ -1533,12 +1494,10 @@
 </div>
                 `;
 
-                // Adiciona estatísticas na página
                 const statsDiv = document.createElement('div');
                 statsDiv.innerHTML = statsHTML;
                 document.getElementById('videoUrlDisplay').appendChild(statsDiv);
 
-                // Mostrar URL para copiar
                 document.getElementById('videoUrlText').textContent = uploadedVideoUrl;
                 document.getElementById('videoUrlDisplay').classList.add('show');
 
@@ -1580,7 +1539,7 @@
         }
 
         // ============================================
-        // FUNÇÕES GERAIS
+        // FUNÇÕES GERAIS - CORRIGIDAS
         // ============================================
 
         async function supabaseRequest(endpoint, method = 'GET', body = null) {
@@ -1622,25 +1581,100 @@
             }
         }
 
+        // ============================================
+        // FUNÇÃO loadVideos CORRIGIDA
+        // ============================================
+        
         async function loadVideos() {
+            const container = document.getElementById('videosContainer');
+            
             try {
-                const response = await fetch(`${SUPABASE_URL}/storage/v1/object/list/images?prefix=videos/`, {
+                console.log('🔍 Iniciando busca de vídeos...');
+                
+                // Método 1: Tentar buscar vídeos via Storage API (mais confiável)
+                const listUrl = `${SUPABASE_URL}/storage/v1/object/list/images?limit=100&offset=0&sortBy=name:desc&prefix=videos/`;
+                
+                console.log('📡 URL de busca:', listUrl);
+                
+                const response = await fetch(listUrl, {
+                    method: 'POST',  // Storage API usa POST para list
                     headers: {
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    }
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        prefix: 'videos/',
+                        limit: 100,
+                        offset: 0,
+                        sortBy: {
+                            column: 'name',
+                            order: 'desc'
+                        }
+                    })
                 });
 
-                if (!response.ok) throw new Error('Erro ao carregar vídeos');
+                console.log('📥 Status da resposta:', response.status);
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('❌ Erro na resposta:', errorText);
+                    throw new Error(`Erro ${response.status}: ${errorText}`);
+                }
 
                 const files = await response.json();
-                allVideos = files.filter(f => f.name && !f.name.endsWith('/'));
+                console.log('📦 Arquivos recebidos:', files);
                 
-                displayVideos(allVideos);
+                // Filtra apenas arquivos (não pastas) e vídeos
+                allVideos = files.filter(f => {
+                    if (!f.name || f.name.endsWith('/')) return false;
+                    const extension = f.name.split('.').pop().toLowerCase();
+                    return ['mp4', 'webm', 'mov', 'avi', 'mkv'].includes(extension);
+                });
+                
+                console.log('✅ Vídeos filtrados:', allVideos.length);
+                
+                if (allVideos.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-results">
+                            <p>📹 Nenhum vídeo encontrado na pasta "videos/"</p>
+                            <p style="font-size: 12px; color: #b0b0b0; margin-top: 10px;">
+                                Faça upload de vídeos pela aba "Upload de Vídeo"
+                            </p>
+                        </div>
+                    `;
+                } else {
+                    displayVideos(allVideos);
+                }
+                
                 updateStats();
+
             } catch (error) {
-                document.getElementById('videosContainer').innerHTML = `
+                console.error('❌ Erro completo:', error);
+                
+                container.innerHTML = `
                     <div class="no-results">
-                        <p style="color: #dc2626;">Erro: ${error.message}</p>
+                        <p style="color: #dc2626; margin-bottom: 15px;">❌ Erro ao carregar vídeos</p>
+                        <div style="background: #1a1a1a; padding: 15px; border-radius: 8px; text-align: left;">
+                            <p style="color: #f59e0b; font-size: 13px; margin-bottom: 10px;">
+                                <strong>Detalhes do erro:</strong>
+                            </p>
+                            <code style="color: #dc2626; font-size: 12px; display: block; word-wrap: break-word;">
+                                ${error.message}
+                            </code>
+                            <p style="color: #b0b0b0; font-size: 12px; margin-top: 15px; line-height: 1.6;">
+                                <strong>Possíveis causas:</strong><br>
+                                1. Bucket "images" não existe ou não está configurado<br>
+                                2. Pasta "videos/" não existe dentro do bucket<br>
+                                3. Permissões insuficientes no Supabase<br>
+                                4. Configuração do RLS (Row Level Security)
+                            </p>
+                            <p style="color: #10b981; font-size: 12px; margin-top: 15px;">
+                                <strong>✅ Solução:</strong> Verifique o console do navegador (F12) para mais detalhes
+                            </p>
+                        </div>
+                        <button onclick="loadVideos()" style="margin-top: 15px; background: #10b981;">
+                            🔄 Tentar Novamente
+                        </button>
                     </div>
                 `;
             }
@@ -1680,14 +1714,16 @@
             container.className = 'video-list';
             container.innerHTML = videos.map(video => {
                 const url = `${SUPABASE_URL}/storage/v1/object/public/images/videos/${video.name}`;
-                const videoName = video.name.replace('.mp4', '').replace('.webm', '').replace('.mov', '');
+                const videoName = video.name.replace(/\.(mp4|webm|mov|avi|mkv)$/i, '');
+                const fileSize = video.metadata?.size || 0;
+                
                 return `
                     <div class="preview-item">
                         <button class="delete-btn" onclick="deleteVideo('videos/${video.name}')">×</button>
                         <video src="${url}" controls></video>
                         <div class="preview-info-item">
-                            <strong>${video.name}</strong>
-                            <p>${formatFileSize(video.metadata?.size || 0)}</p>
+                            <strong>${videoName}</strong>
+                            <p>${formatFileSize(fileSize)}</p>
                             <span class="badge video">vídeo</span>
                             <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
                                 <button class="copy-btn" onclick="copyDirectUrl('${url}')">📋 URL Direta</button>
@@ -1736,9 +1772,6 @@
             }
         }
 
-        /**
-         * Copia URL direta do vídeo (apenas o link)
-         */
         function copyDirectUrl(url) {
             const encodedUrl = encodeURI(url);
             navigator.clipboard.writeText(encodedUrl).then(() => {
@@ -1746,10 +1779,6 @@
             });
         }
 
-        /**
-         * Mostra modal com código HTML completo pronto para VSL/LP
-         * Com proteções embutidas
-         */
         let currentEmbedCode = '';
         let currentVideoUrl = '';
 
@@ -1781,7 +1810,6 @@
 
 <scr` + `ipt>
 (function() {
-    // Bloqueia clique direito
     document.addEventListener('contextmenu', function(e) {
         if (e.target.tagName === 'VIDEO') {
             e.preventDefault();
@@ -1789,7 +1817,6 @@
         }
     });
     
-    // Bloqueia Ctrl+S (salvar)
     document.addEventListener('keydown', function(e) {
         if (e.ctrlKey && e.key === 's') {
             e.preventDefault();
@@ -1797,14 +1824,12 @@
         }
     });
     
-    // Previne arrastar vídeo
     document.addEventListener('dragstart', function(e) {
         if (e.target.tagName === 'VIDEO') {
             e.preventDefault();
         }
     });
     
-    // Analytics (opcional - descomente se usar Google Analytics)
     var video = document.getElementById('video_${videoName.replace(/[^a-z0-9]/g, '_')}');
     if (video && typeof gtag !== 'undefined') {
         video.addEventListener('play', function() {
@@ -1819,11 +1844,9 @@
 
 <!-- FIM DO CÓDIGO DO VÍDEO -->`;
 
-            // Salva código e URL atuais
             currentEmbedCode = embedCode;
             currentVideoUrl = videoUrl;
 
-            // Mostra código no modal
             document.getElementById('codeDisplay').textContent = embedCode;
             document.getElementById('codeModal').classList.add('show');
         }
@@ -1846,7 +1869,6 @@
             });
         }
 
-        // Fecha modal ao clicar fora
         document.addEventListener('click', function(e) {
             const modal = document.getElementById('codeModal');
             if (e.target === modal) {
@@ -1854,10 +1876,6 @@
             }
         });
 
-        /**
-         * Copia URL com encoding adequado para garantir funcionamento
-         * em HTML mesmo com arquivos antigos que tenham espaços
-         */
         function copyUrl(url) {
             const encodedUrl = encodeURI(url);
             navigator.clipboard.writeText(encodedUrl).then(() => {
@@ -1865,7 +1883,6 @@
             });
         }
 
-        // URL Externa
         document.getElementById('imageForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
@@ -1891,7 +1908,6 @@
             }
         });
 
-        // Carregar ao iniciar
         loadImages();
         loadVideos();
 
@@ -1909,31 +1925,25 @@
             const loginError = document.getElementById('loginError');
             
             if (enteredPassword === CORRECT_PASSWORD) {
-                // Senha correta - libera acesso
                 document.getElementById('loginScreen').classList.add('hidden');
                 document.getElementById('mainContent').classList.add('show');
                 
-                // Salva no sessionStorage para manter login durante a sessão
                 sessionStorage.setItem('authenticated', 'true');
                 
-                // Mostra alerta de boas-vindas
                 setTimeout(() => {
                     showAlert('✅ Acesso liberado! Bem-vindo ao gerenciador de mídia.', 'success');
                 }, 500);
             } else {
-                // Senha incorreta - mostra erro
                 loginError.classList.add('show');
                 passwordInput.value = '';
                 passwordInput.focus();
                 
-                // Remove erro após 3 segundos
                 setTimeout(() => {
                     loginError.classList.remove('show');
                 }, 3000);
             }
         }
         
-        // Verifica se já está autenticado ao carregar a página
         window.addEventListener('DOMContentLoaded', () => {
             const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
             
@@ -1941,19 +1951,17 @@
                 document.getElementById('loginScreen').classList.add('hidden');
                 document.getElementById('mainContent').classList.add('show');
             } else {
-                // Foca no campo de senha
                 document.getElementById('passwordInput').focus();
             }
         });
         
-        // Permite Enter para enviar
         document.getElementById('passwordInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 checkPassword(e);
             }
         });
     </script>
-    </div> <!-- Fecha #mainContent -->
+    </div>
 
     <!-- Modal de Código -->
     <div class="code-modal" id="codeModal">
