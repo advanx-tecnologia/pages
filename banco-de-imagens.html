@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Mídia - DEBUG</title>
+    <title>Gerenciador de Mídia - Supabase</title>
     
     <style>
         * {
@@ -17,40 +17,6 @@
             background: #0a0a0a;
             color: #e0e0e0;
             padding: 20px;
-        }
-
-        /* DEBUG BOX */
-        #debugBox {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #1a1a1a;
-            border: 2px solid #10b981;
-            border-radius: 8px;
-            padding: 15px;
-            max-width: 400px;
-            max-height: 300px;
-            overflow-y: auto;
-            z-index: 99999;
-            font-family: monospace;
-            font-size: 12px;
-        }
-
-        .debug-log {
-            margin: 5px 0;
-            padding: 5px;
-            border-left: 3px solid #10b981;
-            background: #0a0a0a;
-        }
-
-        .debug-error {
-            border-left-color: #dc2626;
-            color: #dc2626;
-        }
-
-        .debug-success {
-            border-left-color: #10b981;
-            color: #10b981;
         }
 
         #loginScreen {
@@ -89,6 +55,18 @@
             padding: 0;
         }
 
+        .login-box p {
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
         .login-input {
             width: 100%;
             padding: 15px;
@@ -98,7 +76,14 @@
             color: #e0e0e0;
             font-size: 16px;
             text-align: center;
-            margin: 20px 0;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
         }
 
         .login-btn {
@@ -111,6 +96,31 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .login-error {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
 
         #mainContent {
@@ -142,11 +152,18 @@
             border: 1px solid #2a2a2a;
         }
 
+        .section h2 {
+            color: #10b981;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
         .tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
             border-bottom: 2px solid #2a2a2a;
+            flex-wrap: wrap;
         }
 
         .tab {
@@ -156,6 +173,12 @@
             cursor: pointer;
             border: none;
             border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+
+        .tab:hover {
+            color: #e0e0e0;
         }
 
         .tab.active {
@@ -171,17 +194,81 @@
             display: block;
         }
 
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b0b0b0;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background: #0a0a0a;
+            border: 1px solid #3a3a3a;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        button:disabled {
+            background: #4a4a4a;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .file-upload-area {
             border: 2px dashed #3a3a3a;
             border-radius: 8px;
             padding: 40px;
             text-align: center;
             cursor: pointer;
+            transition: all 0.3s;
             background: #0a0a0a;
         }
 
         .file-upload-area:hover {
             border-color: #10b981;
+            background: #0f0f0f;
+        }
+
+        .file-upload-area.dragover {
+            border-color: #10b981;
+            background: #1a2e1a;
         }
 
         .alert {
@@ -203,24 +290,37 @@
             color: #dc2626;
         }
 
-        button {
-            background: #10b981;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 600;
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: #f59e0b;
+            color: #f59e0b;
         }
 
-        button:hover {
-            background: #059669;
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
         }
 
-        button:disabled {
-            background: #4a4a4a;
-            cursor: not-allowed;
+        .stat-card {
+            background: #0a0a0a;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #3a3a3a;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #10b981;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #b0b0b0;
+            font-size: 0.9em;
         }
 
         .video-preview {
@@ -228,79 +328,371 @@
             max-height: 400px;
             border-radius: 8px;
             background: #000;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
+        .file-info {
             background: #0a0a0a;
             border: 1px solid #3a3a3a;
             border-radius: 6px;
+            padding: 12px;
+            margin-top: 15px;
+        }
+
+        .file-info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .file-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-info-label {
+            color: #b0b0b0;
+            font-size: 13px;
+        }
+
+        .file-info-value {
             color: #e0e0e0;
-            font-size: 14px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #2a2a2a;
+            border-radius: 3px;
+            overflow: hidden;
             margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #10b981;
+            transition: width 0.3s;
+        }
+
+        .url-display {
+            background: #0a0a0a;
+            border: 1px solid #10b981;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .url-display.show {
+            display: block;
+        }
+
+        .url-text {
+            color: #10b981;
+            font-family: monospace;
+            font-size: 13px;
+            word-break: break-all;
+            margin-bottom: 10px;
+        }
+
+        .copy-btn {
+            background: #059669;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .image-preview, .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .preview-item {
+            position: relative;
+            background: #0a0a0a;
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            padding: 10px;
+            transition: all 0.3s;
+        }
+
+        .preview-item:hover {
+            border-color: #10b981;
+            transform: translateY(-2px);
+        }
+
+        .preview-item img, .preview-item video {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .preview-info-item {
+            font-size: 12px;
+            color: #b0b0b0;
+        }
+
+        .preview-info-item strong {
+            color: #e0e0e0;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #10b981;
+            color: white;
+            border-radius: 4px;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        .badge.logo {
+            background: #f59e0b;
+        }
+
+        .badge.depoimento {
+            background: #10b981;
+        }
+
+        .badge.outro {
+            background: #8b5cf6;
+        }
+
+        .badge.video {
+            background: #ef4444;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .preview-item:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #b0b0b0;
+        }
+
+        .spinner {
+            border: 3px solid #3a3a3a;
+            border-top: 3px solid #10b981;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #b0b0b0;
         }
     </style>
 </head>
 <body>
-    <!-- DEBUG BOX -->
-    <div id="debugBox">
-        <div style="color: #10b981; font-weight: bold; margin-bottom: 10px;">🐛 DEBUG LOG</div>
-        <div id="debugLogs"></div>
-    </div>
-
-    <!-- Login -->
+    <!-- Tela de Login -->
     <div id="loginScreen">
         <div class="login-box">
-            <h1>🔒 Acesso</h1>
-            <input 
-                type="password" 
-                id="passwordInput" 
-                class="login-input" 
-                placeholder="Senha: 2112"
-            >
-            <button class="login-btn" id="loginBtn">Entrar</button>
+            <h1>🔒 Acesso Restrito</h1>
+            <p>Gerenciador de Mídia - Supabase</p>
+            <div class="login-form">
+                <input 
+                    type="password" 
+                    id="passwordInput" 
+                    class="login-input" 
+                    placeholder="Digite a senha"
+                    autocomplete="off"
+                    required
+                >
+                <button type="button" class="login-btn" id="loginBtn">🔓 Entrar</button>
+                <div id="loginError" class="login-error">❌ Senha incorreta!</div>
+            </div>
         </div>
     </div>
 
-    <!-- Conteúdo -->
+    <!-- Conteúdo Principal -->
     <div id="mainContent">
         <div class="container">
-            <h1>🎬 Gerenciador - MODO DEBUG</h1>
+            <h1>🎬 Gerenciador de Mídia - Supabase</h1>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalImages">0</div>
+                    <div class="stat-label">Total de Imagens</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalVideos">0</div>
+                    <div class="stat-label">Total de Vídeos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalLogos">0</div>
+                    <div class="stat-label">Logos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalDepoimentos">0</div>
+                    <div class="stat-label">Depoimentos</div>
+                </div>
+            </div>
 
             <div id="alertContainer"></div>
 
             <div class="section">
-                <h2>Upload de Vídeo (Debug)</h2>
+                <h2>➕ Adicionar Nova Mídia</h2>
                 
-                <div class="tabs">
-                    <button class="tab active" data-tab="video">🎥 Teste Upload</button>
+                <div class="tabs" id="mainTabs">
+                    <button class="tab active" data-tab="video">🎥 Upload de Vídeo</button>
+                    <button class="tab" data-tab="url">🔗 URL Externa</button>
                 </div>
 
+                <!-- Upload de Vídeo -->
                 <div id="videoTab" class="tab-content active">
-                    <div class="file-upload-area" id="videoDropZone">
-                        <input type="file" id="videoInput" accept="video/*" style="display: none;">
-                        <p style="font-size: 48px;">🎥</p>
-                        <p style="color: #e0e0e0;">Clique ou arraste um vídeo</p>
-                        <p style="font-size: 12px; color: #b0b0b0;">MP4, WebM, MOV</p>
+                    <div class="alert alert-warning">
+                        ⚠️ <strong>Upload Direto:</strong> Vídeos até 100MB. Otimize antes: H.264, CRF 28
                     </div>
 
-                    <div id="videoUploadOptions" style="display: none; margin-top: 20px;">
+                    <div class="file-upload-area" id="videoDropZone">
+                        <input type="file" id="videoInput" accept="video/mp4,video/webm,video/quicktime" style="display: none;">
+                        <p style="font-size: 48px; margin-bottom: 10px;">🎥</p>
+                        <p style="color: #e0e0e0; margin-bottom: 5px;">Clique ou arraste um vídeo</p>
+                        <p style="font-size: 12px; color: #b0b0b0;">MP4, WebM, MOV até 100MB</p>
+                    </div>
+
+                    <div id="videoUploadOptions" style="display: none;">
                         <video id="videoPreview" class="video-preview" controls></video>
-                        
-                        <div style="margin-top: 20px;">
-                            <p>Nome: <span id="videoFileName"></span></p>
-                            <p>Tamanho: <span id="videoFileSize"></span></p>
-                            <p>Tipo: <span id="videoFileType"></span></p>
+
+                        <div class="file-info">
+                            <div class="file-info-item">
+                                <span class="file-info-label">Nome:</span>
+                                <span class="file-info-value" id="videoFileName"></span>
+                            </div>
+                            <div class="file-info-item">
+                                <span class="file-info-label">Tamanho:</span>
+                                <span class="file-info-value" id="videoFileSize"></span>
+                            </div>
+                            <div class="file-info-item">
+                                <span class="file-info-label">Tipo:</span>
+                                <span class="file-info-value" id="videoFileType"></span>
+                            </div>
                         </div>
 
-                        <input type="text" id="videoNome" placeholder="Nome do vídeo">
+                        <div class="form-group">
+                            <label for="videoNome">Nome do Vídeo *</label>
+                            <input type="text" id="videoNome" placeholder="ex: apresentacao-produto" required>
+                        </div>
 
-                        <div style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label for="videoCategoria">Categoria</label>
+                            <select id="videoCategoria">
+                                <option value="apresentacao">Apresentação</option>
+                                <option value="tutorial">Tutorial</option>
+                                <option value="depoimento">Depoimento</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="videoDescricao">Descrição</label>
+                            <textarea id="videoDescricao" placeholder="Descrição opcional"></textarea>
+                        </div>
+
+                        <div class="progress-bar" id="videoUploadProgress" style="display: none;">
+                            <div class="progress-fill" id="videoUploadProgressFill"></div>
+                        </div>
+
+                        <div class="url-display" id="videoUrlDisplay">
+                            <h3 style="color: #10b981; margin-bottom: 10px;">✅ Upload Concluído!</h3>
+                            <p style="color: #b0b0b0; margin-bottom: 10px; font-size: 13px;">
+                                URL do vídeo:
+                            </p>
+                            <div class="url-text" id="videoUrlText"></div>
+                            <button class="copy-btn" id="copyVideoUrlBtn">📋 Copiar URL</button>
+                        </div>
+
+                        <div style="margin-top: 20px; display: flex; gap: 10px;">
                             <button id="videoUploadBtn">Fazer Upload</button>
-                            <button id="cancelVideoBtn" style="background: #dc2626; margin-left: 10px;">Cancelar</button>
+                            <button id="cancelVideoUploadBtn" style="background: #dc2626;">Cancelar</button>
                         </div>
+                    </div>
+                </div>
+
+                <!-- URL Externa -->
+                <div id="urlTab" class="tab-content">
+                    <div class="form-group">
+                        <label for="tipo">Tipo *</label>
+                        <select id="tipo" required>
+                            <option value="">Selecione...</option>
+                            <option value="logo">Logo</option>
+                            <option value="depoimento">Depoimento</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome">Nome *</label>
+                        <input type="text" id="nome" placeholder="ex: logo-empresa" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="url">URL da Imagem *</label>
+                        <input type="url" id="url" placeholder="https://..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Descrição</label>
+                        <textarea id="descricao" placeholder="Descrição opcional"></textarea>
+                    </div>
+
+                    <button id="submitImageBtn">Adicionar Imagem</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📂 Gerenciar Mídia</h2>
+                
+                <div class="tabs" id="mediaTabs">
+                    <button class="tab active" data-tab="images">🖼️ Imagens</button>
+                    <button class="tab" data-tab="videos">🎥 Vídeos</button>
+                </div>
+
+                <div id="imagesMediaTab" class="tab-content active">
+                    <div id="imagesContainer" class="loading">
+                        <div class="spinner"></div>
+                        <p>Carregando imagens...</p>
+                    </div>
+                </div>
+
+                <div id="videosMediaTab" class="tab-content">
+                    <div id="videosContainer" class="loading">
+                        <div class="spinner"></div>
+                        <p>Carregando vídeos...</p>
                     </div>
                 </div>
             </div>
@@ -308,266 +700,424 @@
     </div>
 
     <script>
-        // ============================================
-        // SISTEMA DE DEBUG
-        // ============================================
+// CONFIGURAÇÕES
+const SUPABASE_URL = 'https://lhbwfbquxkutcyqazpnw.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10';
+const CORRECT_PASSWORD = '2112';
 
-        function addDebugLog(message, type = 'info') {
-            const debugLogs = document.getElementById('debugLogs');
-            const log = document.createElement('div');
-            log.className = `debug-log ${type === 'error' ? 'debug-error' : type === 'success' ? 'debug-success' : ''}`;
-            log.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
-            debugLogs.appendChild(log);
-            debugLogs.scrollTop = debugLogs.scrollHeight;
-            console.log(`[DEBUG] ${message}`);
-        }
+let allImages = [];
+let allVideos = [];
+let selectedVideo = null;
+let uploadedVideoUrl = '';
 
-        // ============================================
-        // CONFIGURAÇÕES
-        // ============================================
+// NAVEGAÇÃO DE TABS - CORRIGIDA
+function switchTab(tabsContainer, tabName) {
+    const tabs = tabsContainer.querySelectorAll('.tab');
+    const contents = tabsContainer.parentElement.querySelectorAll('.tab-content');
+    
+    // Remove active de todas
+    tabs.forEach(tab => tab.classList.remove('active'));
+    contents.forEach(content => content.classList.remove('active'));
+    
+    // Adiciona active na selecionada
+    const selectedTab = tabsContainer.querySelector(`[data-tab="${tabName}"]`);
+    const selectedContent = document.getElementById(`${tabName}Tab`) || 
+                          document.getElementById(`${tabName}MediaTab`);
+    
+    if (selectedTab) selectedTab.classList.add('active');
+    if (selectedContent) selectedContent.classList.add('active');
+}
 
-        const SUPABASE_URL = 'https://lhbwfbquxkutcyqazpnw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10';
-        const CORRECT_PASSWORD = '2112';
+// LOGIN
+function checkPassword() {
+    const password = document.getElementById('passwordInput').value;
+    const loginError = document.getElementById('loginError');
+    
+    if (password === CORRECT_PASSWORD) {
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('mainContent').classList.add('show');
+        sessionStorage.setItem('authenticated', 'true');
+        setTimeout(() => showAlert('✅ Acesso liberado!', 'success'), 500);
+    } else {
+        loginError.classList.add('show');
+        document.getElementById('passwordInput').value = '';
+        setTimeout(() => loginError.classList.remove('show'), 3000);
+    }
+}
 
-        let selectedVideo = null;
+// UPLOAD DE VÍDEO
+function handleVideoFile(file) {
+    const maxSize = 100 * 1024 * 1024;
+    if (file.size > maxSize) {
+        showAlert('Vídeo muito grande! Max: 100MB', 'error');
+        return;
+    }
 
-        addDebugLog('Script carregado', 'success');
+    const validTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
+    if (!validTypes.includes(file.type)) {
+        showAlert('Formato não suportado! Use MP4, WebM ou MOV', 'error');
+        return;
+    }
 
-        // ============================================
-        // LOGIN
-        // ============================================
+    selectedVideo = file;
+    
+    document.getElementById('videoDropZone').style.display = 'none';
+    document.getElementById('videoUploadOptions').style.display = 'block';
 
-        function checkPassword() {
-            const password = document.getElementById('passwordInput').value;
-            addDebugLog(`Tentando login com senha: ${password}`);
-            
-            if (password === CORRECT_PASSWORD) {
-                addDebugLog('Login aceito!', 'success');
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('mainContent').classList.add('show');
-                sessionStorage.setItem('authenticated', 'true');
-            } else {
-                addDebugLog('Senha incorreta!', 'error');
-                alert('Senha incorreta!');
-            }
-        }
+    const videoPreview = document.getElementById('videoPreview');
+    videoPreview.src = URL.createObjectURL(file);
 
-        // ============================================
-        // UPLOAD DE VÍDEO
-        // ============================================
+    document.getElementById('videoFileName').textContent = file.name;
+    document.getElementById('videoFileSize').textContent = formatFileSize(file.size);
+    document.getElementById('videoFileType').textContent = file.type;
+    document.getElementById('videoNome').value = file.name.split('.')[0];
+    document.getElementById('videoUrlDisplay').classList.remove('show');
+}
 
-        function handleVideoFile(file) {
-            addDebugLog(`handleVideoFile chamada! Arquivo: ${file.name}`, 'success');
-            
-            // Validação
-            const maxSize = 100 * 1024 * 1024; // 100MB
-            addDebugLog(`Tamanho do arquivo: ${(file.size / 1024 / 1024).toFixed(2)}MB`);
-            
-            if (file.size > maxSize) {
-                addDebugLog('Arquivo muito grande!', 'error');
-                alert('Vídeo muito grande! Max 100MB');
-                return;
-            }
+function formatFileSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
 
-            addDebugLog(`Tipo do arquivo: ${file.type}`);
-            const validTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
-            if (!validTypes.includes(file.type)) {
-                addDebugLog('Tipo não suportado!', 'error');
-                alert('Formato não suportado!');
-                return;
-            }
+async function uploadVideo() {
+    const nome = document.getElementById('videoNome').value;
+    if (!nome) {
+        showAlert('Digite um nome!', 'error');
+        return;
+    }
 
-            selectedVideo = file;
-            addDebugLog('Vídeo aceito! Mostrando preview...', 'success');
-            
-            // Esconder dropzone
-            document.getElementById('videoDropZone').style.display = 'none';
-            document.getElementById('videoUploadOptions').style.display = 'block';
+    const uploadBtn = document.getElementById('videoUploadBtn');
+    uploadBtn.disabled = true;
+    uploadBtn.textContent = '📤 Fazendo upload...';
 
-            // Preview
-            const videoPreview = document.getElementById('videoPreview');
-            const videoUrl = URL.createObjectURL(file);
-            videoPreview.src = videoUrl;
-            addDebugLog('Preview carregado', 'success');
+    try {
+        const fileName = `videos/${nome}.${selectedVideo.name.split('.').pop()}`;
 
-            // Info
-            document.getElementById('videoFileName').textContent = file.name;
-            document.getElementById('videoFileSize').textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
-            document.getElementById('videoFileType').textContent = file.type;
+        document.getElementById('videoUploadProgress').style.display = 'block';
+        document.getElementById('videoUploadProgressFill').style.width = '50%';
 
-            // Sugere nome
-            const fileName = file.name.split('.')[0];
-            document.getElementById('videoNome').value = fileName;
-        }
-
-        async function uploadVideo() {
-            addDebugLog('Iniciando upload...', 'success');
-            
-            if (!selectedVideo) {
-                addDebugLog('Nenhum vídeo selecionado!', 'error');
-                alert('Nenhum vídeo selecionado!');
-                return;
-            }
-
-            const nome = document.getElementById('videoNome').value;
-            if (!nome) {
-                addDebugLog('Nome vazio!', 'error');
-                alert('Digite um nome!');
-                return;
-            }
-
-            const uploadBtn = document.getElementById('videoUploadBtn');
-            uploadBtn.disabled = true;
-            uploadBtn.textContent = 'Fazendo upload...';
-
-            try {
-                addDebugLog(`Nome do vídeo: ${nome}`);
-                const fileName = `videos/${nome}.${selectedVideo.name.split('.').pop()}`;
-                addDebugLog(`Path completo: ${fileName}`);
-
-                const uploadUrl = `${SUPABASE_URL}/storage/v1/object/images/${fileName}`;
-                addDebugLog(`URL de upload: ${uploadUrl}`);
-
-                addDebugLog('Enviando para Supabase...');
-                const uploadResponse = await fetch(uploadUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Content-Type': selectedVideo.type
-                    },
-                    body: selectedVideo
-                });
-
-                addDebugLog(`Status da resposta: ${uploadResponse.status}`);
-
-                if (!uploadResponse.ok) {
-                    const error = await uploadResponse.json();
-                    addDebugLog(`Erro: ${JSON.stringify(error)}`, 'error');
-                    throw new Error(error.message || 'Erro no upload');
-                }
-
-                const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/images/${fileName}`;
-                addDebugLog(`Upload concluído! URL: ${publicUrl}`, 'success');
-
-                alert('✅ Vídeo enviado com sucesso!\n\n' + publicUrl);
-
-                uploadBtn.textContent = '✓ Concluído';
-
-            } catch (error) {
-                addDebugLog(`ERRO: ${error.message}`, 'error');
-                alert('❌ Erro: ' + error.message);
-                uploadBtn.disabled = false;
-                uploadBtn.textContent = 'Fazer Upload';
-            }
-        }
-
-        function cancelVideoUpload() {
-            addDebugLog('Upload cancelado');
-            selectedVideo = null;
-            document.getElementById('videoDropZone').style.display = 'block';
-            document.getElementById('videoUploadOptions').style.display = 'none';
-            document.getElementById('videoInput').value = '';
-            document.getElementById('videoNome').value = '';
-            document.getElementById('videoUploadBtn').textContent = 'Fazer Upload';
-            document.getElementById('videoUploadBtn').disabled = false;
-        }
-
-        // ============================================
-        // INICIALIZAÇÃO
-        // ============================================
-
-        window.addEventListener('DOMContentLoaded', () => {
-            addDebugLog('DOM carregado', 'success');
-            
-            // Verifica autenticação
-            const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
-            if (isAuthenticated) {
-                addDebugLog('Já autenticado');
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('mainContent').classList.add('show');
-            }
-
-            // Login
-            document.getElementById('loginBtn').addEventListener('click', () => {
-                addDebugLog('Botão de login clicado');
-                checkPassword();
-            });
-
-            document.getElementById('passwordInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    addDebugLog('Enter pressionado no input');
-                    checkPassword();
-                }
-            });
-
-            // Video DropZone
-            const videoDropZone = document.getElementById('videoDropZone');
-            const videoInput = document.getElementById('videoInput');
-
-            addDebugLog('Configurando event listeners para vídeo...');
-
-            videoDropZone.addEventListener('click', () => {
-                addDebugLog('DropZone clicado!');
-                videoInput.click();
-            });
-
-            videoDropZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                addDebugLog('Arquivo sendo arrastado sobre dropzone');
-                videoDropZone.style.borderColor = '#10b981';
-            });
-
-            videoDropZone.addEventListener('dragleave', () => {
-                addDebugLog('Arquivo saiu do dropzone');
-                videoDropZone.style.borderColor = '#3a3a3a';
-            });
-
-            videoDropZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                addDebugLog('Arquivo DROPADO!', 'success');
-                videoDropZone.style.borderColor = '#3a3a3a';
-                
-                const file = e.dataTransfer.files[0];
-                addDebugLog(`Arquivo dropado: ${file ? file.name : 'NENHUM'}`, file ? 'success' : 'error');
-                
-                if (file && file.type.startsWith('video/')) {
-                    handleVideoFile(file);
-                } else {
-                    addDebugLog('Arquivo não é vídeo!', 'error');
-                }
-            });
-
-            videoInput.addEventListener('change', (e) => {
-                addDebugLog('Input file mudou!');
-                const file = e.target.files[0];
-                addDebugLog(`Arquivo selecionado: ${file ? file.name : 'NENHUM'}`, file ? 'success' : 'error');
-                
-                if (file) {
-                    handleVideoFile(file);
-                }
-            });
-
-            // Botões
-            document.getElementById('videoUploadBtn').addEventListener('click', () => {
-                addDebugLog('Botão upload clicado');
-                uploadVideo();
-            });
-
-            document.getElementById('cancelVideoBtn').addEventListener('click', () => {
-                addDebugLog('Botão cancelar clicado');
-                cancelVideoUpload();
-            });
-
-            addDebugLog('Todos os event listeners configurados!', 'success');
+        const uploadResponse = await fetch(`${SUPABASE_URL}/storage/v1/object/images/${fileName}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': selectedVideo.type
+            },
+            body: selectedVideo
         });
 
-        // Captura erros globais
-        window.addEventListener('error', (e) => {
-            addDebugLog(`ERRO GLOBAL: ${e.message} em ${e.filename}:${e.lineno}`, 'error');
+        if (!uploadResponse.ok) {
+            const error = await uploadResponse.json();
+            throw new Error(error.message || 'Erro no upload');
+        }
+
+        document.getElementById('videoUploadProgressFill').style.width = '100%';
+
+        uploadedVideoUrl = `${SUPABASE_URL}/storage/v1/object/public/images/${fileName}`;
+
+        document.getElementById('videoUrlText').textContent = uploadedVideoUrl;
+        document.getElementById('videoUrlDisplay').classList.add('show');
+
+        showAlert('✅ Vídeo enviado com sucesso!', 'success');
+        uploadBtn.textContent = '✓ Concluído';
+
+        loadVideos();
+
+    } catch (error) {
+        showAlert(`❌ Erro: ${error.message}`, 'error');
+        uploadBtn.disabled = false;
+        uploadBtn.textContent = 'Fazer Upload';
+    } finally {
+        setTimeout(() => {
+            document.getElementById('videoUploadProgress').style.display = 'none';
+        }, 1000);
+    }
+}
+
+function cancelVideoUpload() {
+    selectedVideo = null;
+    uploadedVideoUrl = '';
+    document.getElementById('videoDropZone').style.display = 'block';
+    document.getElementById('videoUploadOptions').style.display = 'none';
+    document.getElementById('videoInput').value = '';
+    document.getElementById('videoNome').value = '';
+    document.getElementById('videoUrlDisplay').classList.remove('show');
+    document.getElementById('videoUploadBtn').textContent = 'Fazer Upload';
+    document.getElementById('videoUploadBtn').disabled = false;
+}
+
+function copyVideoUrl() {
+    navigator.clipboard.writeText(encodeURI(uploadedVideoUrl)).then(() => {
+        showAlert('📋 URL copiada!', 'success');
+    });
+}
+
+// FUNÇÕES GERAIS
+async function supabaseRequest(endpoint, method = 'GET', body = null) {
+    const headers = {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
+    };
+
+    const options = { method, headers };
+    if (body) options.body = JSON.stringify(body);
+
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, options);
+    if (!response.ok) throw new Error(`Erro ${response.status}`);
+    return response.json();
+}
+
+function showAlert(message, type = 'success') {
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${type}`;
+    alert.textContent = message;
+    document.getElementById('alertContainer').appendChild(alert);
+    setTimeout(() => alert.remove(), 5000);
+}
+
+async function loadImages() {
+    try {
+        const data = await supabaseRequest('images?select=*&order=created_at.desc');
+        allImages = data || [];
+        displayImages(allImages);
+        updateStats();
+    } catch (error) {
+        document.getElementById('imagesContainer').innerHTML = `
+            <div class="no-results"><p style="color: #dc2626;">Erro: ${error.message}</p></div>
+        `;
+    }
+}
+
+async function loadVideos() {
+    const container = document.getElementById('videosContainer');
+    
+    try {
+        const response = await fetch(`${SUPABASE_URL}/storage/v1/object/list/images`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                prefix: 'videos/',
+                limit: 100,
+                offset: 0
+            })
         });
 
-        addDebugLog('Aguardando DOMContentLoaded...');
+        if (!response.ok) throw new Error(`Erro ${response.status}`);
+
+        const files = await response.json();
+        allVideos = files.filter(f => {
+            if (!f.name || f.name.endsWith('/')) return false;
+            const ext = f.name.split('.').pop().toLowerCase();
+            return ['mp4', 'webm', 'mov'].includes(ext);
+        });
+        
+        displayVideos(allVideos);
+        updateStats();
+
+    } catch (error) {
+        container.innerHTML = `
+            <div class="no-results">
+                <p style="color: #dc2626;">Erro: ${error.message}</p>
+                <button onclick="loadVideos()" style="margin-top: 15px;">🔄 Tentar Novamente</button>
+            </div>
+        `;
+    }
+}
+
+function displayImages(images) {
+    const container = document.getElementById('imagesContainer');
+    
+    if (!images || images.length === 0) {
+        container.innerHTML = '<div class="no-results"><p>Nenhuma imagem encontrada.</p></div>';
+        return;
+    }
+
+    container.className = 'image-preview';
+    container.innerHTML = images.map(img => `
+        <div class="preview-item">
+            <button class="delete-btn" onclick="deleteImage('${img.id}')">×</button>
+            <img src="${img.url}" alt="${img.nome}" loading="lazy">
+            <div class="preview-info-item">
+                <strong>${img.nome}</strong>
+                ${img.descricao ? `<p>${img.descricao}</p>` : ''}
+                <span class="badge ${img.tipo}">${img.tipo}</span>
+                <button class="copy-btn" onclick="copyUrl('${img.url}')">Copiar URL</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function displayVideos(videos) {
+    const container = document.getElementById('videosContainer');
+    
+    if (!videos || videos.length === 0) {
+        container.innerHTML = '<div class="no-results"><p>Nenhum vídeo encontrado.</p></div>';
+        return;
+    }
+
+    container.className = 'video-list';
+    container.innerHTML = videos.map(video => {
+        const url = `${SUPABASE_URL}/storage/v1/object/public/images/videos/${video.name}`;
+        const videoName = video.name.replace(/\.(mp4|webm|mov)$/i, '');
+        
+        return `
+            <div class="preview-item">
+                <button class="delete-btn" onclick="deleteVideo('videos/${video.name}')">×</button>
+                <video src="${url}" controls preload="metadata"></video>
+                <div class="preview-info-item">
+                    <strong>${videoName}</strong>
+                    <p>${formatFileSize(video.metadata?.size || 0)}</p>
+                    <span class="badge video">vídeo</span>
+                    <button class="copy-btn" onclick="copyUrl('${url}')">📋 Copiar URL</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function updateStats() {
+    document.getElementById('totalImages').textContent = allImages.length;
+    document.getElementById('totalVideos').textContent = allVideos.length;
+    document.getElementById('totalLogos').textContent = allImages.filter(img => img.tipo === 'logo').length;
+    document.getElementById('totalDepoimentos').textContent = allImages.filter(img => img.tipo === 'depoimento').length;
+}
+
+async function deleteImage(id) {
+    if (!confirm('Deletar?')) return;
+    try {
+        await supabaseRequest(`images?id=eq.${id}`, 'DELETE');
+        showAlert('Imagem deletada!', 'success');
+        loadImages();
+    } catch (error) {
+        showAlert(`Erro: ${error.message}`, 'error');
+    }
+}
+
+async function deleteVideo(path) {
+    if (!confirm('Deletar?')) return;
+    try {
+        const response = await fetch(`${SUPABASE_URL}/storage/v1/object/images/${path}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+        });
+
+        if (!response.ok) throw new Error('Erro ao deletar');
+
+        showAlert('Vídeo deletado!', 'success');
+        loadVideos();
+    } catch (error) {
+        showAlert(`Erro: ${error.message}`, 'error');
+    }
+}
+
+function copyUrl(url) {
+    navigator.clipboard.writeText(encodeURI(url)).then(() => {
+        showAlert('📋 URL copiada!', 'success');
+    });
+}
+
+async function submitImageForm() {
+    const submitBtn = document.getElementById('submitImageBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Adicionando...';
+
+    try {
+        await supabaseRequest('images', 'POST', {
+            tipo: document.getElementById('tipo').value,
+            nome: document.getElementById('nome').value,
+            url: document.getElementById('url').value,
+            descricao: document.getElementById('descricao').value || null
+        });
+        
+        showAlert('Imagem adicionada!', 'success');
+        document.getElementById('tipo').value = '';
+        document.getElementById('nome').value = '';
+        document.getElementById('url').value = '';
+        document.getElementById('descricao').value = '';
+        loadImages();
+    } catch (error) {
+        showAlert(`Erro: ${error.message}`, 'error');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Adicionar Imagem';
+    }
+}
+
+// INICIALIZAÇÃO
+window.addEventListener('DOMContentLoaded', () => {
+    const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
+    
+    if (isAuthenticated) {
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('mainContent').classList.add('show');
+        loadImages();
+        loadVideos();
+    }
+
+    // Event Listeners - Login
+    document.getElementById('loginBtn').addEventListener('click', checkPassword);
+    document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkPassword();
+    });
+
+    // Event Listeners - Tabs Principais
+    const mainTabs = document.getElementById('mainTabs');
+    mainTabs.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            switchTab(mainTabs, tab.dataset.tab);
+        });
+    });
+
+    // Event Listeners - Tabs de Mídia
+    const mediaTabs = document.getElementById('mediaTabs');
+    mediaTabs.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            switchTab(mediaTabs, tab.dataset.tab);
+        });
+    });
+
+    // Event Listeners - Upload de Vídeo
+    const videoDropZone = document.getElementById('videoDropZone');
+    const videoInput = document.getElementById('videoInput');
+    
+    videoDropZone.addEventListener('click', () => videoInput.click());
+    
+    videoDropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        videoDropZone.classList.add('dragover');
+    });
+    
+    videoDropZone.addEventListener('dragleave', () => {
+        videoDropZone.classList.remove('dragover');
+    });
+    
+    videoDropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        videoDropZone.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('video/')) {
+            handleVideoFile(file);
+        }
+    });
+    
+    videoInput.addEventListener('change', (e) => {
+        if (e.target.files[0]) {
+            handleVideoFile(e.target.files[0]);
+        }
+    });
+
+    document.getElementById('videoUploadBtn').addEventListener('click', uploadVideo);
+    document.getElementById('cancelVideoUploadBtn').addEventListener('click', cancelVideoUpload);
+    document.getElementById('copyVideoUrlBtn').addEventListener('click', copyVideoUrl);
+
+    // Event Listeners - URL Externa
+    document.getElementById('submitImageBtn').addEventListener('click', submitImageForm);
+});
     </script>
 </body>
 </html>
