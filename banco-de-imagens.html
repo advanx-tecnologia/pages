@@ -1436,39 +1436,66 @@ async function uploadVideo() {
     uploadBtn.textContent = '📤 Fazendo upload...';
 
     try {
-        const sanitizedName = sanitizeFileName(nome + '.' + selectedVideo.name.split('.').pop());
+        // Sanitiza o nome completo (com extensão)
+        const extension = selectedVideo.name.split('.').pop();
+        const sanitizedName = sanitizeFileName(nome + '.' + extension);
         const fileName = `videos/${sanitizedName}`;
+
+        console.log('📁 Nome original:', nome);
+        console.log('📁 Nome sanitizado:', sanitizedName);
+        console.log('📁 Path completo:', fileName);
+        console.log('📦 Tamanho:', formatFileSize(selectedVideo.size));
+        console.log('🎬 Tipo:', selectedVideo.type);
 
         document.getElementById('videoUploadProgress').style.display = 'block';
         document.getElementById('videoUploadProgressFill').style.width = '10%';
 
         // Upload direto para o Supabase Storage
+        console.log('🚀 Iniciando upload para:', `${SUPABASE_URL}/storage/v1/object/images/${fileName}`);
+        
         const uploadResponse = await fetch(`${SUPABASE_URL}/storage/v1/object/images/${fileName}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Content-Type': selectedVideo.type
+                'Content-Type': selectedVideo.type || 'video/mp4',
+                'x-upsert': 'true' // Sobrescreve se existir
             },
             body: selectedVideo
         });
 
         document.getElementById('videoUploadProgressFill').style.width = '90%';
 
+        console.log('📥 Status da resposta:', uploadResponse.status);
+
         if (!uploadResponse.ok) {
-            const error = await uploadResponse.json();
-            throw new Error(error.message || 'Erro no upload');
+            const errorText = await uploadResponse.text();
+            console.error('❌ Erro completo:', errorText);
+            
+            let errorMessage = 'Erro no upload';
+            try {
+                const errorJson = JSON.parse(errorText);
+                errorMessage = errorJson.message || errorJson.error || errorText;
+            } catch {
+                errorMessage = errorText;
+            }
+            
+            throw new Error(`${uploadResponse.status}: ${errorMessage}`);
         }
+
+        const responseData = await uploadResponse.json();
+        console.log('✅ Resposta do upload:', responseData);
 
         document.getElementById('videoUploadProgressFill').style.width = '100%';
 
         // URL público do vídeo
         uploadedVideoUrl = `${SUPABASE_URL}/storage/v1/object/public/images/${fileName}`;
+        console.log('🔗 URL gerada:', uploadedVideoUrl);
 
         // Mostra URL
         document.getElementById('videoUrlText').textContent = uploadedVideoUrl;
         document.getElementById('videoUrlDisplay').classList.add('show');
 
-        showAlert(`✅ Vídeo enviado com sucesso! Veja na aba "Vídeos" abaixo.`, 'success');
+        showAlert(`✅ Vídeo "${sanitizedName}" enviado com sucesso!`, 'success');
         uploadBtn.textContent = '✓ Concluído';
 
         // Recarrega lista de vídeos
