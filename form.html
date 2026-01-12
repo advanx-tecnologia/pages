@@ -62,8 +62,8 @@
 
   <!-- Chat Container -->
   <div class="flex-1 relative overflow-hidden">
-    <div id="chatContainer" class="chat-container h-full overflow-y-auto px-6 py-6 pb-24">
-      <div id="messagesArea" class="space-y-4 max-w-2xl mx-auto">
+    <div id="chatContainer" class="chat-container h-full overflow-y-auto px-6 py-6 pb-32">
+      <div id="messagesArea" class="space-y-4 max-w-2xl mx-auto mb-8">
         <!-- Mensagens aqui -->
       </div>
     </div>
@@ -353,26 +353,37 @@
 
     function showFaturamentoGrid(step) {
       const container = document.createElement('div');
+      container.className = 'mt-4';
       const grid = document.createElement('div');
       grid.className = 'grid grid-cols-2 gap-2';
-      step.options.forEach((option, index) => {
-        setTimeout(() => {
-          const button = document.createElement('button');
-          button.className = 'px-4 py-3 bg-gray-800/20 hover:bg-[#ff7a01] text-white rounded-xl transition-all text-sm font-medium opacity-0';
-          button.textContent = option.label;
-          button.onclick = () => handleFaturamentoSelect(option.value, option.label);
-          grid.appendChild(button);
-          setTimeout(() => { 
-            button.style.opacity = '1'; 
-            button.style.transition = 'opacity 0.3s ease-in';
-          }, 50);
-        }, index * 150);
-      });
+      
+      // Aguarda scroll completo antes de mostrar botões
+      setTimeout(() => {
+        step.options.forEach((option, index) => {
+          setTimeout(() => {
+            const button = document.createElement('button');
+            button.className = 'px-4 py-3 bg-gray-800/20 hover:bg-[#ff7a01] text-white rounded-xl transition-all text-sm font-medium opacity-0';
+            button.textContent = option.label;
+            button.onclick = () => handleFaturamentoSelect(option.value, option.label);
+            grid.appendChild(button);
+            setTimeout(() => { 
+              button.style.opacity = '1'; 
+              button.style.transition = 'opacity 0.3s ease-in';
+            }, 50);
+          }, index * 100);
+        });
+      }, 300);
+      
       container.appendChild(grid);
       inputArea.appendChild(container);
-      setTimeout(scrollToBottom, 200);
-      setTimeout(scrollToBottom, 500);
-      setTimeout(scrollToBottom, 1000);
+      
+      // Scroll adicional após criar container
+      setTimeout(() => {
+        scrollToBottom();
+      }, 100);
+      setTimeout(() => {
+        scrollToBottom();
+      }, 800);
     }
 
     function handleFaturamentoSelect(value, label) {
@@ -539,11 +550,10 @@
 
     function scrollToBottom() {
       requestAnimationFrame(() => {
-        const allMessages = document.querySelectorAll('.message-ia, .message-user');
-        const lastMessage = allMessages[allMessages.length - 1];
-        if (lastMessage) {
-          lastMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        chatContainer.scrollTo({
+          top: chatContainer.scrollHeight,
+          behavior: 'smooth'
+        });
       });
     }
   </script>
