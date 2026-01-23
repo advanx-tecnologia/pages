@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanx - Inteligência Comercial</title>
+
+<!-- ========================================== -->
+<!-- COLE OS PIXELS AQUI - SUBSTITUA OS IDs -->
+<!-- ========================================== -->
+
+<!-- META PIXEL (Facebook/Instagram) -->
+<!-- Substitua: 4361448937281110 -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4361448937281110');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4361448937281110&ev=PageView&noscript=1"/></noscript>
+
+<!-- GOOGLE ANALYTICS 4 (GA4) -->
+<!-- Substitua: G-XXXXXXXXXX -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QKZGV7YN84');
+</script>
+
+<!-- GOOGLE ADS -->
+<!-- Substitua: AW-XXXXXXXXX -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-XXXXXXXXX');
+</script>
+
+<!-- TIKTOK PIXEL -->
+<!-- Substitua: SEU_TIKTOK_ID -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+  ttq.load('SEU_TIKTOK_ID');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+
+<!-- TABOOLA PIXEL -->
+<!-- Substitua: SEU_TABOOLA_ID (2 lugares) -->
+<script type='text/javascript'>
+window._tfa = window._tfa || [];
+window._tfa.push({notify: 'event', name: 'page_view', id: 'SEU_TABOOLA_ID'});
+!function (t, f, a, x) {
+  if (!document.getElementById(x)) {
+    t.async = 1;t.src = a;t.id=x;f.parentNode.insertBefore(t, f);
+  }
+}(document.createElement('script'),
+document.getElementsByTagName('script')[0],
+'//cdn.taboola.com/libtrc/unip/SEU_TABOOLA_ID/tfa.js',
+'tb_tfa_script');
+</script>
+
+<!-- OUTBRAIN PIXEL -->
+<!-- Substitua: SEU_OUTBRAIN_ID -->
+<script type="text/javascript">
+!function(_window, _document) {
+  var OB_ADV_ID = 'SEU_OUTBRAIN_ID';
+  if (_window.obApi) {
+    var toArray = function(object) {
+      return Object.prototype.toString.call(object) === '[object Array]' ? object : [object];
+    };
+    _window.obApi.marketerId = toArray(_window.obApi.marketerId).concat(toArray(OB_ADV_ID));
+    return;
+  }
+  var api = _window.obApi = function() {
+    api.dispatch ? api.dispatch.apply(api, arguments) : api.queue.push(arguments);
+  };
+  api.version = '1.1';
+  api.loaded = true;
+  api.marketerId = OB_ADV_ID;
+  api.queue = [];
+  var tag = _document.createElement('script');
+  tag.async = true;
+  tag.src = '//amplify.outbrain.com/cp/obtp.js';
+  tag.type = 'text/javascript';
+  var script = _document.getElementsByTagName('script')[0];
+  script.parentNode.insertBefore(tag, script);
+}(window, document);
+obApi('track', 'PAGE_VIEW');
+</script>
+
+<!-- ========================================== -->
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  min-height: 100vh;
+  background: url('https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/background.webp') center/cover no-repeat fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  pointer-events: none;
+}
+
+.chat-container {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-header {
+  padding: 20px 24px 12px;
+  flex-shrink: 0;
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.messages-container::-webkit-scrollbar {
+  display: none;
+}
+
+.message {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  animation: messageSlide 0.3s ease;
+}
+
+@keyframes messageSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message.bot {
+  justify-content: flex-start;
+}
+
+.message.user {
+  justify-content: flex-end;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-image: url('https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp');
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.message-bubble {
+  max-width: 90%;
+  padding: 12px 16px;
+  line-height: 1.4;
+  font-size: 14px;
+  white-space: pre-line;
+}
+
+.message.bot .message-bubble {
+  background: #0f0f0f;
+  color: white;
+  border-radius: 16px 16px 16px 4px;
+  border: 1px solid rgba(255,122,1,0.3);
+  box-shadow: 0 0 8px rgba(255,122,1,0.15);
+}
+
+.message.user .message-bubble {
+  background: rgba(248,250,252,0.9);
+  color: #0f172a;
+  border-radius: 16px 16px 4px 16px;
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 6px;
+  padding: 12px 16px;
+  background: #0f0f0f;
+  border-radius: 16px 16px 16px 4px;
+  width: fit-content;
+  border: 1px solid rgba(255,122,1,0.3);
+  box-shadow: 0 0 8px rgba(255,122,1,0.15);
+}
+
+.typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  animation: typingBounce 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  30% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+.pricing-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.pricing-btn {
+  padding: 12px 20px;
+  background: rgba(15,23,42,0.35);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,122,1,0.85);
+  border-radius: 999px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.pricing-btn:hover {
+  background: linear-gradient(135deg, rgba(255,122,1,0.3), rgba(255,154,68,0.3));
+  box-shadow: 0 0 20px rgba(255,122,1,0.4), 0 0 0 1px rgba(255,122,1,0.9);
+  transform: translateY(-2px);
+}
+
+.whatsapp-button {
+  display: inline-block;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: white;
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 16px;
+  box-shadow: 0 0 20px rgba(37,211,102,0.5);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.whatsapp-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(37,211,102,0.7);
+}
+
+.input-area {
+  padding: 16px 24px 24px;
+  flex-shrink: 0;
+}
+
+.phone-warning {
+  background: rgba(16,185,129,0.18);
+  border: 1px solid rgba(52,211,153,0.9);
+  border-radius: 14px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.phone-warning.active {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.warning-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.warning-text {
+  color: #d1fae5;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.input-wrapper {
+  background: rgba(15,23,42,0.95);
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,0.35);
+  backdrop-filter: blur(20px);
+  padding: 10px 14px 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.message-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 14px;
+  padding: 0;
+}
+
+.message-input::placeholder {
+  color: rgba(148,163,184,0.6);
+}
+
+.message-input.invalid {
+  color: #ff6b6b;
+}
+
+.message-input.valid {
+  color: #51cf66;
+}
+
+.send-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ff7a01;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 18px rgba(255,122,1,0.7);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.send-btn:hover {
+  background: #ff8a11;
+  box-shadow: 0 0 24px rgba(255,122,1,0.9);
+  transform: scale(1.05);
+}
+
+.send-btn:active {
+  transform: scale(0.95);
+}
+
+.send-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: white;
+}
+</style>
+</head>
+<body>
+<div class="chat-container">
+  <div class="chat-header"></div>
+  
+  <div class="messages-container" id="messages"></div>
+  
+  <div class="input-area">
+    <div class="phone-warning" id="phoneWarning">
+      <div class="warning-dot"></div>
+      <div class="warning-text">Confira se o número está correto antes de enviar.</div>
+    </div>
+    
+    <div class="phone-warning" id="emailWarning" style="background: rgba(255,107,107,0.18); border: 1px solid rgba(255,107,107,0.9);">
+      <div class="warning-dot" style="background: #ff6b6b;"></div>
+      <div class="warning-text" style="color: #ffc9c9;">Digite um e-mail válido.</div>
+    </div>
+    
+    <div class="input-wrapper">
+      <input 
+        type="text" 
+        class="message-input" 
+        id="messageInput" 
+        placeholder="Digite sua mensagem..."
+        autocomplete="off"
+      >
+      <button class="send-btn" id="sendBtn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+const state = {
+  step: 'intro',
+  data: {
+    name: '',
+    phone: '',
+    email: '',
+    site: '',
+    pricing: ''
+  },
+  utm: {
+    source: '',
+    medium: '',
+    campaign: '',
+    term: '',
+    content: ''
+  }
+};
+
+const messages = {
+  intro1: 'Vou ser direto com você.',
+  intro2: 'O que a gente faz aqui na Advanx é implementar uma Inteligência Comercial completa.',
+  intro3: 'O objetivo é automatizar todo o processo: atender, follow up, prospectar, qualificar e agendar, lembretes.',
+  intro4: 'E o melhor tudo isso integrado aos seus sistemas e CRMs atuais, ou criamos um sistema inteiro adaptado ao que vc precisa, pra você não ter dor de cabeça técnica.',
+  intro5: 'Vamos criar a inteligência comercial mais natural e humanizada que você ja viu!',
+  intro6: 'Se for o que vc busca, vamos nos apresentar, o meu é Rafael Batista e qual é o seu Nome completo?'
+};
+
+const steps = {
+  intro: {
+    next: 'name'
+  },
+  name: {
+    validate: (value) => value.trim().length >= 2,
+    onValid: (value) => {
+      state.data.name = value;
+      return `Prazer, ${value}. Me passa seu WhatsApp (com DDD).`;
+    },
+    onInvalid: () => 'Por favor, digite um nome válido.',
+    next: 'phone'
+  },
+  phone: {
+    validate: (value) => /^\d{10,11}$/.test(value.replace(/\D/g, '')),
+    onValid: (value) => {
+      state.data.phone = value.replace(/\D/g, '');
+      return 'E seu melhor E-mail corporativo?';
+    },
+    onInvalid: () => 'Por favor, digite um telefone válido com DDD (exemplo: 71987654321).',
+    next: 'email'
+  },
+  email: {
+    validate: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+    onValid: (value) => {
+      state.data.email = value;
+      return 'Pra gente dar uma olhada na sua estrutura atual, qual o link do seu Instagram ou Site?';
+    },
+    onInvalid: () => 'Por favor, digite um e-mail válido.',
+    next: 'site'
+  },
+  site: {
+    onValid: (value) => {
+      state.data.site = value;
+      return 'Show. Vamos lá, pra gente ser transparente contigo';
+    },
+    next: 'pricing_intro',
+    continueFlow: true
+  },
+  pricing_intro: {
+    bot: 'Nossos planos de implementação partem de parcelas de R$ 1.597. Esse investimento se encaixa no seu momento hoje?',
+    next: 'pricing',
+    showPricing: true
+  },
+  pricing: {
+    onValid: (value) => {
+      state.data.pricing = value;
+      return `Perfeito, ${state.data.name}. Já registramos seus dados aqui.`;
+    },
+    next: 'final',
+    continueFlow: true
+  },
+  final: {
+    bot: 'Agora é só tocar abaixo para falar conosco no WhatsApp e alinhar os próximos passos.',
+    next: 'done',
+    showWhatsApp: true
+  },
+  done: {}
+};
+
+const messagesContainer = document.getElementById('messages');
+const messageInput = document.getElementById('messageInput');
+const sendBtn = document.getElementById('sendBtn');
+const phoneWarning = document.getElementById('phoneWarning');
+const emailWarning = document.getElementById('emailWarning');
+
+// ========================================
+// CAPTURA UTMs DA URL
+// ========================================
+function captureUTMs() {
+  const urlParams = new URLSearchParams(window.location.search);
+  state.utm.source = urlParams.get('utm_source') || '';
+  state.utm.medium = urlParams.get('utm_medium') || '';
+  state.utm.campaign = urlParams.get('utm_campaign') || '';
+  state.utm.term = urlParams.get('utm_term') || '';
+  state.utm.content = urlParams.get('utm_content') || '';
+  
+  console.log('📊 UTMs capturadas:', state.utm);
+}
+
+// Captura UTMs assim que a página carregar
+captureUTMs();
+
+// ========================================
+// WEBHOOK - Cole sua URL aqui
+// ========================================
+async function sendToWebhook() {
+  const WEBHOOK_URL = 'https://seu-webhook.com/endpoint'; // ← COLE SUA URL AQUI
+  
+  const data = {
+    name: state.data.name,
+    phone: '55' + state.data.phone, // Formato: 5571992894634 (DDI + DDD + número)
+    email: state.data.email,
+    site: state.data.site,
+    pricing: state.data.pricing,
+    utm_source: state.utm.source,
+    utm_medium: state.utm.medium,
+    utm_campaign: state.utm.campaign,
+    utm_term: state.utm.term,
+    utm_content: state.utm.content,
+    timestamp: new Date().toISOString()
+  };
+  
+  console.log('📤 Enviando dados para webhook:', data);
+  
+  try {
+    const response = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+    
+    if (response.ok) {
+      console.log('✅ Dados enviados com sucesso!', data);
+      
+      // ========================================
+      // EVENTOS DE CONVERSÃO (descomente para ativar)
+      // ========================================
+      
+      // Meta Pixel - Lead
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', {
+          content_name: 'Formulário Advanx',
+          value: 1597,
+          currency: 'BRL'
+        });
+      }
+      
+      // Google Analytics 4 - Lead
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'generate_lead', {
+          value: 1597,
+          currency: 'BRL'
+        });
+      }
+      
+      // TikTok - CompleteRegistration
+      if (typeof ttq !== 'undefined') {
+        ttq.track('CompleteRegistration');
+      }
+      
+      // Taboola - Lead
+      if (typeof _tfa !== 'undefined') {
+        _tfa.push({notify: 'event', name: 'lead'});
+      }
+      
+      // Outbrain - Lead
+      if (typeof obApi !== 'undefined') {
+        obApi('track', 'Lead');
+      }
+      
+    } else {
+      console.error('Erro ao enviar dados:', response.status);
+    }
+  } catch (error) {
+    console.error('Erro no webhook:', error);
+  }
+}
+// ============================================
+// WEBHOOK - ENVIO DE DADOS - FIM
+// ============================================
+
+
+function formatPhone(phone) {
+  if (phone.length === 11) {
+    return `(${phone.substring(0,2)}) ${phone.substring(2,7)}-${phone.substring(7)}`;
+  } else if (phone.length === 10) {
+    return `(${phone.substring(0,2)}) ${phone.substring(2,6)}-${phone.substring(6)}`;
+  }
+  return phone;
+}
+
+function addMessage(text, isBot = true, showAvatar = false) {
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `message ${isBot ? 'bot' : 'user'}`;
+  
+  if (isBot) {
+    const spacer = document.createElement('div');
+    spacer.style.width = '28px';
+    messageDiv.appendChild(spacer);
+  }
+  
+  const bubble = document.createElement('div');
+  bubble.className = 'message-bubble';
+  bubble.textContent = text;
+  messageDiv.appendChild(bubble);
+  
+  messagesContainer.appendChild(messageDiv);
+  
+  if (isBot) {
+    addAvatarToLastBotMessage();
+  }
+  
+  scrollToBottom();
+  return messageDiv;
+}
+
+function showTypingIndicator() {
+  const typingDiv = document.createElement('div');
+  typingDiv.className = 'message bot';
+  typingDiv.id = 'typing-indicator';
+  
+  const spacer = document.createElement('div');
+  spacer.style.width = '28px';
+  typingDiv.appendChild(spacer);
+  
+  const indicator = document.createElement('div');
+  indicator.className = 'typing-indicator';
+  indicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  typingDiv.appendChild(indicator);
+  
+  messagesContainer.appendChild(typingDiv);
+  addAvatarToLastBotMessage();
+  scrollToBottom();
+}
+
+function removeTypingIndicator() {
+  const typing = document.getElementById('typing-indicator');
+  if (typing) typing.remove();
+}
+
+function addAvatarToLastBotMessage() {
+  const messages = messagesContainer.querySelectorAll('.message.bot');
+  messages.forEach((msg, index) => {
+    const existingAvatar = msg.querySelector('.avatar');
+    const existingSpacer = msg.querySelector('div[style*="width: 28px"]');
+    
+    if (index === messages.length - 1) {
+      if (!existingAvatar && existingSpacer) {
+        const avatar = document.createElement('div');
+        avatar.className = 'avatar';
+        msg.replaceChild(avatar, existingSpacer);
+      }
+    } else {
+      if (existingAvatar) {
+        const spacer = document.createElement('div');
+        spacer.style.width = '28px';
+        msg.replaceChild(spacer, existingAvatar);
+      }
+    }
+  });
+}
+
+function showPricingButtons() {
+  const buttonsDiv = document.createElement('div');
+  buttonsDiv.className = 'pricing-buttons';
+  
+  const option1 = document.createElement('button');
+  option1.className = 'pricing-btn';
+  option1.textContent = 'Se trouxer resultado, posso investir';
+  option1.onclick = () => handlePricingChoice('Se trouxer resultado, posso investir');
+  
+  const option2 = document.createElement('button');
+  option2.className = 'pricing-btn';
+  option2.textContent = 'Preciso esperar';
+  option2.onclick = () => handlePricingChoice('Preciso esperar');
+  
+  buttonsDiv.appendChild(option1);
+  buttonsDiv.appendChild(option2);
+  
+  const lastMessage = messagesContainer.lastElementChild;
+  if (lastMessage) {
+    const bubble = lastMessage.querySelector('.message-bubble');
+    if (bubble) {
+      bubble.appendChild(buttonsDiv);
+    }
+  }
+  
+  scrollToBottom();
+}
+
+function showWhatsAppButton() {
+  // Envia os dados para o webhook
+  sendToWebhook();
+  
+  const buttonDiv = document.createElement('div');
+  buttonDiv.style.textAlign = 'center';
+  buttonDiv.style.marginTop = '16px';
+  
+  const whatsappLink = document.createElement('a');
+  whatsappLink.className = 'whatsapp-button';
+  whatsappLink.href = 'https://wa.me/5571999999999';
+  whatsappLink.target = '_blank';
+  whatsappLink.textContent = '✨ Fale conosco no WhatsApp';
+  
+  buttonDiv.appendChild(whatsappLink);
+  
+  const lastMessage = messagesContainer.lastElementChild;
+  if (lastMessage) {
+    const bubble = lastMessage.querySelector('.message-bubble');
+    if (bubble) {
+      bubble.appendChild(buttonDiv);
+    }
+  }
+  
+  scrollToBottom();
+}
+
+function handlePricingChoice(choice) {
+  const buttons = document.querySelector('.pricing-buttons');
+  if (buttons) buttons.remove();
+  
+  addMessage(choice, false);
+  
+  setTimeout(() => {
+    processMessage(choice);
+  }, 300);
+}
+
+function scrollToBottom() {
+  setTimeout(() => {
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }, 100);
+}
+
+function updatePlaceholder() {
+  const placeholders = {
+    'name': 'Digite seu nome completo...',
+    'phone': 'Digite seu WhatsApp (com DDD)...',
+    'email': 'Digite seu melhor e-mail...',
+    'site': 'Cole o link do seu Instagram ou Site...'
+  };
+  
+  messageInput.placeholder = placeholders[state.step] || 'Digite sua mensagem...';
+}
+
+function processMessage(text) {
+  const currentStep = steps[state.step];
+  
+  if (!currentStep || state.step === 'done') {
+    return;
+  }
+  
+  if (currentStep.validate) {
+    if (!currentStep.validate(text)) {
+      showTypingIndicator();
+      setTimeout(() => {
+        removeTypingIndicator();
+        const response = currentStep.onInvalid ? currentStep.onInvalid() : 'Resposta inválida.';
+        addMessage(response, true);
+      }, 800);
+      return;
+    }
+  }
+  
+  showTypingIndicator();
+  
+  setTimeout(() => {
+    removeTypingIndicator();
+    
+    const response = currentStep.onValid ? currentStep.onValid(text) : '';
+    if (response) {
+      addMessage(response, true);
+    }
+    
+    phoneWarning.classList.remove('active');
+    emailWarning.classList.remove('active');
+    
+    state.step = currentStep.next;
+    updatePlaceholder();
+    
+    if (currentStep.continueFlow) {
+      setTimeout(() => {
+        continueFlow();
+      }, 1000);
+    }
+    
+    if (currentStep.showPricing) {
+      setTimeout(() => {
+        showPricingButtons();
+        messageInput.style.display = 'none';
+        sendBtn.style.display = 'none';
+      }, 300);
+    }
+    
+    if (state.step === 'done') {
+      messageInput.disabled = true;
+      sendBtn.disabled = true;
+    }
+  }, 1000);
+}
+
+function continueFlow() {
+  const currentStep = steps[state.step];
+  if (!currentStep) return;
+  
+  showTypingIndicator();
+  
+  setTimeout(() => {
+    removeTypingIndicator();
+    
+    if (currentStep.bot) {
+      addMessage(currentStep.bot, true);
+    }
+    
+    state.step = currentStep.next;
+    updatePlaceholder();
+    
+    if (currentStep.showPricing) {
+      setTimeout(() => {
+        showPricingButtons();
+        messageInput.style.display = 'none';
+        sendBtn.style.display = 'none';
+      }, 300);
+    }
+    
+    if (currentStep.showWhatsApp) {
+      setTimeout(() => {
+        showWhatsAppButton();
+        document.querySelector('.input-area').style.display = 'none';
+      }, 300);
+    }
+    
+    if (state.step === 'done') {
+      messageInput.disabled = true;
+      sendBtn.disabled = true;
+    }
+  }, 1000);
+}
+
+function handleSend() {
+  const text = messageInput.value.trim();
+  if (!text || state.step === 'done') return;
+  
+  if (state.step === 'pricing') return;
+  
+  addMessage(text, false);
+  messageInput.value = '';
+  messageInput.classList.remove('valid', 'invalid');
+  phoneWarning.classList.remove('active');
+  emailWarning.classList.remove('active');
+  
+  setTimeout(() => {
+    processMessage(text);
+  }, 300);
+}
+
+sendBtn.addEventListener('click', handleSend);
+
+messageInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    handleSend();
+  }
+});
+
+messageInput.addEventListener('input', (e) => {
+  if (state.step === 'phone') {
+    let value = e.target.value.replace(/\D/g, '');
+    value = value.substring(0, 11);
+    
+    if (value.length <= 10) {
+      if (value.length > 6) {
+        e.target.value = `(${value.substring(0,2)}) ${value.substring(2,6)}-${value.substring(6)}`;
+      } else if (value.length > 2) {
+        e.target.value = `(${value.substring(0,2)}) ${value.substring(2)}`;
+      } else if (value.length > 0) {
+        e.target.value = `(${value}`;
+      }
+    } else {
+      e.target.value = `(${value.substring(0,2)}) ${value.substring(2,7)}-${value.substring(7)}`;
+    }
+    
+    if (value.length === 11 || value.length === 10) {
+      phoneWarning.classList.add('active');
+    } else {
+      phoneWarning.classList.remove('active');
+    }
+  }
+  
+  if (state.step === 'email') {
+    const value = e.target.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (value.length === 0) {
+      messageInput.classList.remove('valid', 'invalid');
+      emailWarning.classList.remove('active');
+    } else if (emailRegex.test(value)) {
+      messageInput.classList.remove('invalid');
+      messageInput.classList.add('valid');
+      emailWarning.classList.remove('active');
+    } else {
+      messageInput.classList.remove('valid');
+      messageInput.classList.add('invalid');
+      if (value.length > 3) {
+        emailWarning.classList.add('active');
+      }
+    }
+  } else {
+    messageInput.classList.remove('valid', 'invalid');
+    emailWarning.classList.remove('active');
+  }
+});
+
+async function startConversation() {
+  const msgKeys = ['intro1', 'intro2', 'intro3', 'intro4', 'intro5', 'intro6'];
+  
+  for (let i = 0; i < msgKeys.length; i++) {
+    showTypingIndicator();
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    removeTypingIndicator();
+    
+    addMessage(messages[msgKeys[i]], true);
+    
+    await new Promise(resolve => setTimeout(resolve, 800));
+  }
+  
+  state.step = steps.intro.next;
+  updatePlaceholder();
+}
+
+startConversation();
+</script>
+
+<!-- 
+============================================
+GUIA RÁPIDO DE LOCALIZAÇÃO
+============================================
+
+1. PIXELS E TAGS (HEAD):
+   - Meta Pixel (Facebook/Instagram): Linha ~8
+   - Google Analytics 4 (GA4): Linha ~20
+   - Google Ads: Linha ~28
+   - TikTok Pixel: Linha ~33
+   - Taboola Pixel: Linha ~44
+   - Outbrain Pixel: Linha ~55
+
+2. WEBHOOK (JAVASCRIPT):
+   - URL do Webhook: Linha ~420 (WEBHOOK_URL)
+   - Função sendToWebhook(): Linha ~418
+   - O webhook é chamado automaticamente quando o botão WhatsApp aparece
+
+3. EVENTOS DE CONVERSÃO:
+   - Dentro da função sendToWebhook() após envio bem-sucedido
+   - Linha ~455 em diante
+   - Descomente os eventos que você for usar
+
+4. NÚMERO DE WHATSAPP:
+   - Link do botão: Linha ~740 (https://wa.me/5571999999999)
+   - Altere para seu número no formato: 5571999999999
+
+startConversation();
+</script>
+
+<!-- 
+========================================
+INSTRUÇÕES RÁPIDAS:
+========================================
+
+1. PIXELS (no HEAD acima):
+   - 4361448937281110 → Seu ID do Meta/Facebook
+   - G-XXXXXXXXXX → Seu ID do GA4 (aparece 2x)
+   - AW-XXXXXXXXX → Seu ID do Google Ads
+   - SEU_TIKTOK_ID → Seu ID do TikTok
+   - SEU_TABOOLA_ID → Seu ID do Taboola (2x)
+   - SEU_OUTBRAIN_ID → Seu ID do Outbrain
+
+2. WEBHOOK:
+   - Busque "WEBHOOK_URL" e cole sua URL
+   - Telefone: 5571XXXXXXXXX (DDI+DDD+número)
+   - UTMs: Capturadas automaticamente da URL
+
+3. WHATSAPP:
+   - Busque "wa.me/" e coloque seu número
+
+📊 DADOS ENVIADOS NO WEBHOOK:
+{
+  "name": "Nome",
+  "phone": "5571992894634",
+  "email": "email@exemplo.com",
+  "site": "https://instagram.com/usuario",
+  "pricing": "Se trouxer resultado, posso investir",
+  "utm_source": "facebook",
+  "utm_medium": "cpc",
+  "utm_campaign": "campanha-teste",
+  "utm_term": "termo",
+  "utm_content": "anuncio1",
+  "timestamp": "2026-01-11T23:00:00.000Z"
+}
+
+PRONTO! 🚀
+========================================
+-->
+</body>
+</html>
