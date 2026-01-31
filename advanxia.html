@@ -80,6 +80,25 @@
         .cta-button:hover { background-color: #333333; transform: scale(1.02); }
         .warning-box { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 24px; margin: 24px 0; }
         
+        /* ANIMAÇÃO DE PULSO ELEGANTE */
+        @keyframes pulse-elegant {
+            0% {
+                box-shadow: 0 0 0 0 rgba(26, 26, 26, 0.4);
+                transform: scale(1);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(26, 26, 26, 0);
+                transform: scale(1.02);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(26, 26, 26, 0);
+                transform: scale(1);
+            }
+        }
+        .btn-pulse {
+            animation: pulse-elegant 2s infinite;
+        }
+
         /* Modal Style Conversacional */
         #modalOverlay {
             display: none;
@@ -387,23 +406,16 @@
             <h2 class="text-3xl font-black mb-8">Processo de Entrada</h2>
             <div class="space-y-12">
                 <div>
-                    <h4 class="font-bold text-xl mb-4 text-gray-800">Opção 1 - Ver na prática:</h4>
+                    <!-- Removed title Option 1 -->
                     <div class="space-y-2 mb-6">
                         <p>01: Você agenda uma demonstração de 15min</p>
                         <p>02: Mostramos a IA atendendo, qualificando e convertendo ao vivo</p>
                         <p>03: Se fizer sentido pro seu escritório, você recebe a proposta completa</p>
                     </div>
-                    <button onclick="openChat()" class="cta-button w-full md:w-auto">AGENDAR DEMONSTRAÇÃO (15MIN)</button>
+                    <!-- Added btn-pulse class -->
+                    <button onclick="openChat()" class="cta-button w-full md:w-auto btn-pulse">AGENDAR DEMONSTRAÇÃO (15MIN)</button>
                 </div>
-                <div>
-                    <h4 class="font-bold text-xl mb-4 text-gray-800">Opção 2 - Já quero começar:</h4>
-                    <div class="space-y-2 mb-6">
-                        <p>01: Você solicita acesso direto</p>
-                        <p>02: Nossa equipe customiza sua IA em 24-48h</p>
-                        <p>03: IA no ar atendendo seus leads</p>
-                    </div>
-                    <button onclick="openChat()" class="cta-button bg-gray-700 w-full md:w-auto">SOLICITAR ACESSO AGORA</button>
-                </div>
+                <!-- Removed Option 2 completely -->
             </div>
             <p class="mt-10 italic text-gray-500 text-sm">Não existe call de vendas. Não existe follow-up insistente ou pressão. Analisamos se conseguimos te ajudar. Se sim, você decide.</p>
         </section>
