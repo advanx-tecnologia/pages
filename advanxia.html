@@ -8,20 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     
     <!-- ==========================================
-         TRACKING SCRIPTS - ATUALIZADOS
+         TRACKING SCRIPTS
     =========================================== -->
-    
-    <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-98EL5GXG5F');
     </script>
 
-    <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -37,7 +33,6 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"
     /></noscript>
-    <!-- End Meta Pixel Code -->
 
     <style>
         body {
@@ -46,19 +41,15 @@
             color: #1a1a1a;
             line-height: 1.6;
             scroll-behavior: smooth;
-            /* BLOQUEIO DE SELEÇÃO DE TEXTO */
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none; /* Standard syntax */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
-
-        /* Permitir interação apenas onde necessário (inputs) */
         input, textarea {
             -webkit-user-select: text;
             -ms-user-select: text;
             user-select: text;
         }
-
         .serif { font-family: 'Merriweather', serif; }
         .container-doc { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
         .section-divider { border-top: 1px solid #f3f4f6; margin: 40px 0; }
@@ -80,119 +71,28 @@
         .cta-button:hover { background-color: #333333; transform: scale(1.02); }
         .warning-box { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 24px; margin: 24px 0; }
         
-        /* ANIMAÇÃO DE PULSO ELEGANTE */
         @keyframes pulse-elegant {
-            0% {
-                box-shadow: 0 0 0 0 rgba(26, 26, 26, 0.4);
-                transform: scale(1);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(26, 26, 26, 0);
-                transform: scale(1.02);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(26, 26, 26, 0);
-                transform: scale(1);
-            }
+            0% { box-shadow: 0 0 0 0 rgba(26, 26, 26, 0.4); transform: scale(1); }
+            70% { box-shadow: 0 0 0 10px rgba(26, 26, 26, 0); transform: scale(1.02); }
+            100% { box-shadow: 0 0 0 0 rgba(26, 26, 26, 0); transform: scale(1); }
         }
-        .btn-pulse {
-            animation: pulse-elegant 2s infinite;
-        }
+        .btn-pulse { animation: pulse-elegant 2s infinite; }
 
-        /* Modal Style Conversacional */
-        #modalOverlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            z-index: 50;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-        }
-        #modalContent {
-            background: #F8F9FB;
-            width: 100%;
-            max-width: 500px;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            height: 90vh;
-            max-height: 750px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-        #chatContainer {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            scroll-behavior: smooth;
-        }
-        .bubble {
-            max-width: 85%;
-            padding: 12px 16px;
-            border-radius: 18px;
-            font-size: 15px;
-            animation: fadeIn 0.3s ease;
-        }
+        /* Modal & Chat CSS */
+        #modalOverlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); z-index: 50; align-items: center; justify-content: center; padding: 10px; }
+        #modalContent { background: #F8F9FB; width: 100%; max-width: 500px; border-radius: 20px; display: flex; flex-direction: column; height: 90vh; max-height: 750px; position: relative; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+        #chatContainer { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
+        .bubble { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 15px; animation: fadeIn 0.3s ease; }
         .bot-bubble { background: white; color: #1a1a1a; align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .user-bubble { background: #1a1a1a; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
-        
         #inputArea { padding: 16px; background: white; border-top: 1px solid #eee; }
-        .chat-input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            outline: none;
-        }
-        
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            width: 100%;
-            margin-top: 10px;
-        }
-        .option-btn {
-            padding: 12px 8px;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.2s;
-            color: #4a5568;
-        }
+        .chat-input { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 12px; outline: none; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; margin-top: 10px; }
+        .option-btn { padding: 12px 8px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: center; font-size: 13px; font-weight: 600; transition: all 0.2s; color: #4a5568; }
         .option-btn:hover { border-color: #1a1a1a; color: #1a1a1a; background: #f7fafc; }
         
-        /* Video Fixes - Final */
-        .video-wrapper {
-            width: 100%;
-            max-width: 260px; /* Largura Story */
-            margin: 10px 0;
-            background: transparent;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            /* Min-height garante que a caixa exista antes do video carregar */
-            min-height: 350px; 
-            position: relative;
-            display: block;
-        }
-        
-        .video-wrapper video {
-            width: 100%;
-            height: 100%; 
-            object-fit: cover;
-            display: block;
-        }
+        .video-wrapper { width: 100%; max-width: 260px; margin: 10px 0; background: transparent; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.15); min-height: 350px; position: relative; display: block; }
+        .video-wrapper video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .typing { display: inline-flex; gap: 4px; padding: 8px 12px; }
@@ -213,9 +113,8 @@
             </p>
         </header>
 
-        <!-- Intro -->
+        <!-- Intro & Photo -->
         <section class="mb-12 text-lg">
-            <!-- FOTO DO RAFAEL BATISTA -->
             <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/eu-escritorio.webp" 
                  alt="Rafael Batista no Escritório" 
                  class="w-full h-auto rounded-xl shadow-md mb-8 border border-gray-100">
@@ -346,41 +245,118 @@
                 <p class="font-bold">É o primeiro sistema completo desenvolvido especificamente para advocacia, com IA comercial integrada que trabalha 24h.</p>
                 <p>Criamos consultando nossos 400+ clientes nos últimos 5 anos. Cada funcionalidade existe porque advogado pediu.</p>
             </div>
-            
-            <div class="grid grid-cols-1 gap-6">
-                <div class="p-6 border-b">
-                    <p><strong>✅ IA Comercial 24h:</strong> Atende lead em segundos via WhatsApp (texto e áudio), qualifica com script perfeito, agenda reunião, faz follow-up automático e humanizado. Nunca esquece. Nunca cansa. Converte 15-20% sozinha.</p>
+        </section>
+
+        <!-- O CRM A Prova de Desculpas -->
+        <section class="mb-12 bg-gray-50 p-8 rounded-xl border border-gray-100">
+            <h3 class="text-2xl font-bold mb-4">O CRM À Prova de Desculpas</h3>
+            <p class="mb-4">Sabe qual o maior problema de qualquer CRM? <strong>Depende de humano preencher.</strong></p>
+            <p class="mb-6 text-gray-700">Humano esquece. Humano enrola. Humano deixa pra depois. O Advanx System é diferente.</p>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <p class="font-bold text-lg mb-2">A IA preenche tudo sozinha.</p>
+                <p>Cada conversa. Cada qualificação. Cada interação. Atualização automática. Dados estruturados. Histórico completo. <strong>Sem depender de ninguém lembrar de atualizar.</strong></p>
+            </div>
+        </section>
+
+        <!-- Como Funciona na Pratica -->
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold mb-6">Como o Advanx System Funciona na Prática</h3>
+            <div class="space-y-6">
+                <div class="border-l-4 border-green-500 pl-4 py-2">
+                    <p class="font-bold">Cliente manda áudio às 23h?</p>
+                    <p class="text-gray-600">IA escuta, entende, responde em texto ou áudio. Qualifica. Salva tudo no CRM.</p>
                 </div>
-                <div class="p-6 border-b">
-                    <p><strong>✅ IAs Especialistas Prontas:</strong> Bloqueio DPVAT, tarifas bancárias, superendividamento, rescisão indireta, reconhecimento de vínculo, acidente de trabalho, salário maternidade. Cada uma treinada especificamente na área. Você ativa a que precisa.</p>
+                <div class="border-l-4 border-green-500 pl-4 py-2">
+                    <p class="font-bold">Cliente envia laudo médico em PDF?</p>
+                    <p class="text-gray-600">IA extrai informações, calcula valor da causa, monta proposta. Tudo automático.</p>
                 </div>
-                <div class="p-6 border-b">
-                    <p><strong>✅ Cálculos Automáticos:</strong> IA calcula valor de causa trabalhista, extrai tarifas bancárias do PDF, monta proposta de honorários. O que levava 40min agora leva 2min.</p>
+                <div class="border-l-4 border-green-500 pl-4 py-2">
+                    <p class="font-bold">Lead parou de responder?</p>
+                    <p class="text-gray-600">IA detecta, aguarda 48h, envia follow-up humanizado. Recupera sozinha.</p>
                 </div>
-                <div class="p-6 border-b">
-                    <p><strong>✅ Gestão Completa de Prazos:</strong> Sistema avisa antes de vencer. Delega pra equipe. Você nunca mais perde prazo por desorganização.</p>
+                <div class="border-l-4 border-green-500 pl-4 py-2">
+                    <p class="font-bold">Lead qualificado quer reunião?</p>
+                    <p class="text-gray-600">IA sugere horários, integra com Google Calendar, envia Google Meet. Confirmação automática.</p>
                 </div>
-                <div class="p-6 border-b">
-                    <p><strong>✅ Controle de Leads e Fontes:</strong> Rastreia de onde vem cada lead, quanto cada fonte converte, quanto cada área fatura. Você sabe exatamente onde investir.</p>
-                </div>
-                <div class="p-6 border-b">
-                    <p><strong>✅ Follow-up Massivo Automático:</strong> IA recupera leads que pararam de responder. Envia mensagem personalizada. Reativa base morta que ia virar R$0. Sem você mover um dedo.</p>
-                </div>
-                <div class="p-6 border-b">
-                    <p><strong>✅ Gestão Financeira:</strong> Controla faturamento por área, percentual de honorários recebidos, previsão de caixa. Você sabe quanto vai entrar mês que vem.</p>
-                </div>
-                <div class="p-6 border-b">
-                    <p><strong>✅ Landing Page de Alta Conversão:</strong> Bônus ao contratar. Uma página profissional para captar lead já otimizada para conversão.</p>
-                </div>
-                <div class="p-6">
-                    <p><strong>✅ Customização Completa:</strong> IA com a cara do seu escritório. Logo, cores, tom de voz. Cliente acha que está falando com seu time.</p>
+                <div class="border-l-4 border-green-500 pl-4 py-2">
+                    <p class="font-bold">Lead aceita proposta?</p>
+                    <p class="text-gray-600">IA envia contrato, acompanha assinatura, atualiza status no CRM. Você só advoga.</p>
                 </div>
             </div>
         </section>
 
+        <!-- Calculadoras -->
+        <section class="mb-16">
+            <h3 class="text-2xl font-bold mb-4">As Calculadoras Que Economizam R$3k-5k/Mês em Terceirização</h3>
+            <p class="mb-6">Sabe quanto você gasta contratando gente pra fazer cálculo trabalhista? R$200-400 por cálculo. Ou R$2.500-3.500/mês contratando alguém fixo. <strong>O Advanx System faz TUDO isso automaticamente. Em minutos.</strong></p>
+            
+            <h4 class="font-bold text-lg mb-4 text-gray-800">Ferramentas Incluídas:</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div class="p-4 border rounded bg-blue-50 border-blue-100">
+                    <p class="font-bold text-blue-800">🔵 Extrator de Tarifas Bancárias</p>
+                    <p class="text-sm">Identificação automática de taxas abusivas e RMC em extratos. IA lê o PDF do banco e monta a planilha sozinha.</p>
+                </div>
+                <div class="p-4 border rounded bg-green-50 border-green-100">
+                    <p class="font-bold text-green-800">🟢 Calculadora Trabalhista Completa</p>
+                    <p class="text-sm">Rescisão, horas extras, médias, FGTS e reflexos (CLT). O que um assistente leva 2h pra calcular, a IA faz em 3min.</p>
+                </div>
+                <div class="p-4 border rounded bg-blue-50 border-blue-100">
+                    <p class="font-bold text-blue-800">🔵 Calculadora Bancária</p>
+                    <p class="text-sm">CET, IOF, Tabela Price/SAC, Revisionais e Quitação. Cliente envia contrato, IA extrai e calcula.</p>
+                </div>
+                <div class="p-4 border rounded bg-orange-50 border-orange-100">
+                    <p class="font-bold text-orange-800">🟠 Previdenciário</p>
+                    <p class="text-sm">Revisão da Vida Toda e Conferência de Cálculo. Automatizado.</p>
+                </div>
+                <div class="p-4 border rounded bg-red-50 border-red-100">
+                    <p class="font-bold text-red-800">🔴 Planos de Saúde</p>
+                    <p class="text-sm">Auditoria de reajustes (Faixa/Anual), carências e abusividades (ANS).</p>
+                </div>
+                <div class="p-4 border rounded bg-purple-50 border-purple-100">
+                    <p class="font-bold text-purple-800">🟣 Calculadora Cível</p>
+                    <p class="text-sm">Danos materiais, lucros cessantes, locação e contratos.</p>
+                </div>
+                <div class="p-4 border rounded bg-red-50 border-red-100">
+                    <p class="font-bold text-red-800">🔴 Calculadora Família</p>
+                    <p class="text-sm">Pensão, revisional, partilha de bens, herança e atrasados.</p>
+                </div>
+                <div class="p-4 border rounded bg-red-50 border-red-100">
+                    <p class="font-bold text-red-800">🔴 Calculadora Penal</p>
+                    <p class="text-sm">Dosimetria, progressão, remição, prescrição e livramento.</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 text-white p-6 rounded-xl text-center mb-8">
+                <h4 class="font-bold text-xl mb-4">A matemática é simples:</h4>
+                <p class="mb-2">Contratar terceirizado: R$300/cálculo × 10 cálculos/mês = <span class="text-red-400 font-bold">R$3.000/mês</span></p>
+                <p class="text-lg">Advanx System: Cálculos ilimitados inclusos. <span class="text-green-400 font-bold">R$0 adicional.</span></p>
+            </div>
+            
+            <p class="text-center italic text-gray-600">E o melhor: IA já entrega isso pro cliente durante o atendimento. Você para de gastar com terceirização e ainda vende mais rápido.</p>
+        </section>
+
+        <!-- Features List -->
+        <section class="mb-16">
+            <h3 class="text-2xl font-bold mb-6">Aqui está o que você recebe:</h3>
+            <div class="grid grid-cols-1 gap-4">
+                <div class="p-4 border-b">✅ <strong>IA Comercial 24h no WhatsApp:</strong> Atende em segundos (texto e áudio), qualifica com script perfeito, agenda reuniões, faz follow-up automático e humanizado.</div>
+                <div class="p-4 border-b">✅ <strong>IAs Especialistas Prontas:</strong> Bloqueio DPVAT, tarifas bancárias, superendividamento, rescisão indireta, reconhecimento de vínculo, acidente de trabalho, salário maternidade.</div>
+                <div class="p-4 border-b">✅ <strong>Extração de Documentos:</strong> IA lê e extrai informações de PDFs, laudos médicos, contratos, holerites. O que levava 40min agora leva 2min.</div>
+                <div class="p-4 border-b">✅ <strong>Cálculos Automáticos:</strong> Calcula valor de causa trabalhista, extrai tarifas bancárias, monta proposta de honorários. Tudo em minutos.</div>
+                <div class="p-4 border-b">✅ <strong>Integração com Google Calendar:</strong> IA sugere horários, confirma reuniões, cria Google Meet automaticamente. Cliente recebe tudo por WhatsApp.</div>
+                <div class="p-4 border-b">✅ <strong>Gestão Completa de Prazos:</strong> Sistema avisa antes de vencer. Delega pra equipe. Você nunca mais perde prazo por desorganização.</div>
+                <div class="p-4 border-b">✅ <strong>Controle de Leads e Fontes:</strong> Rastreia de onde vem cada lead, quanto cada fonte converte, quanto cada área fatura.</div>
+                <div class="p-4 border-b">✅ <strong>Follow-up Massivo Automático:</strong> IA recupera leads que pararam de responder. Envia mensagem personalizada. Reativa base morta que ia virar R$0.</div>
+                <div class="p-4 border-b">✅ <strong>Gestão Financeira:</strong> Controla faturamento por área, percentual de honorários recebidos, previsão de caixa.</div>
+                <div class="p-4 border-b">✅ <strong>Atualização Automática do CRM:</strong> Cada interação atualiza o CRM sozinha. Dados estruturados, tags, próximos passos.</div>
+                <div class="p-4 border-b">✅ <strong>Landing Page de Alta Conversão:</strong> Bônus ao contratar. Uma página profissional para captar lead já otimizada para conversão.</div>
+                <div class="p-4">✅ <strong>Customização Completa:</strong> IA com a cara do seu escritório. Logo, cores, tom de voz. Cliente acha que está falando com seu time.</div>
+            </div>
+        </section>
+
         <!-- Before vs After -->
-        <section class="mt-20 bg-gray-50 p-8 rounded-3xl border border-gray-200">
-            <h2 class="text-3xl font-bold mb-10 text-center">Antes vs Depois</h2>
+        <section class="mb-16 bg-gray-50 p-8 rounded-3xl border border-gray-200">
+            <h2 class="text-3xl font-bold mb-10 text-center">A Diferença Entre Perder Leads e Fechar Contratos</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="space-y-4">
                     <h4 class="text-red-600 font-bold uppercase tracking-widest text-sm">Sem Advanx System</h4>
@@ -389,35 +365,60 @@
                     <p class="text-sm">❌ Informações perdidas no WhatsApp</p>
                     <p class="text-sm">❌ Base de leads morrendo sem recuperação</p>
                     <p class="text-sm">❌ Perder contratos fora do horário comercial</p>
+                    <p class="text-sm">❌ CRM desatualizado que ninguém preenche</p>
+                    <p class="text-sm">❌ Dependência total de humanos (que falham)</p>
                 </div>
                 <div class="space-y-4">
                     <h4 class="text-green-600 font-bold uppercase tracking-widest text-sm">Com Advanx System</h4>
                     <p class="text-sm">✅ IA filtra 100% automático e entrega só lead qualificado</p>
                     <p class="text-sm">✅ Atendimento em segundos, 24h por dia, 7 dias por semana</p>
-                    <p class="text-sm">✅ Todo histórico salvo no sistema integrado</p>
+                    <p class="text-sm">✅ Todo histórico salvo e organizado automaticamente</p>
                     <p class="text-sm">✅ Contratos sendo fechados enquanto você dorme</p>
                     <p class="text-sm">✅ Recuperação massiva de base antiga virando dinheiro</p>
+                    <p class="text-sm">✅ CRM sempre atualizado sem esforço humano</p>
+                    <p class="text-sm">✅ Automação inteligente que nunca falha</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Como Começar (3 Passos) -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">Como Começar: 3 Passos Simples</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div class="p-6 border rounded-xl bg-gray-50">
+                    <span class="text-4xl font-black text-gray-200 block mb-2">01</span>
+                    <h4 class="font-bold text-lg mb-2">Configuração</h4>
+                    <p class="text-sm text-gray-600">Você agenda demonstração. Nossa equipe configura a IA para entender o perfil do seu escritório, suas áreas de atuação, e seu tom de voz.</p>
+                </div>
+                <div class="p-6 border rounded-xl bg-gray-50">
+                    <span class="text-4xl font-black text-gray-200 block mb-2">02</span>
+                    <h4 class="font-bold text-lg mb-2">Integração</h4>
+                    <p class="text-sm text-gray-600">Conectamos ao seu WhatsApp, Google Calendar, e customizamos logo, cores, scripts. Validamos os fluxos de conversa. Tudo em 24-48h.</p>
+                </div>
+                <div class="p-6 border rounded-xl bg-gray-50">
+                    <span class="text-4xl font-black text-gray-200 block mb-2">03</span>
+                    <h4 class="font-bold text-lg mb-2">Execução</h4>
+                    <p class="text-sm text-gray-600">IA assume o atendimento inicial, qualifica leads, agenda reuniões, e entrega oportunidades prontas para você fechar. Você só advoga.</p>
                 </div>
             </div>
         </section>
 
         <!-- Processo de Entrada & CTA (MOVIDO PARA CIMA) -->
-        <section class="mt-20 py-12 border-t border-b">
-            <h2 class="text-3xl font-black mb-8">Processo de Entrada</h2>
-            <div class="space-y-12">
-                <div>
-                    <!-- Removed title Option 1 -->
-                    <div class="space-y-2 mb-6">
-                        <p>01: Você agenda uma demonstração de 15min</p>
-                        <p>02: Mostramos a IA atendendo, qualificando e convertendo ao vivo</p>
-                        <p>03: Se fizer sentido pro seu escritório, você recebe a proposta completa</p>
-                    </div>
-                    <!-- Added btn-pulse class -->
-                    <button onclick="openChat()" class="cta-button w-full md:w-auto btn-pulse">AGENDAR DEMONSTRAÇÃO (15MIN)</button>
-                </div>
-                <!-- Removed Option 2 completely -->
+        <section class="mt-20 py-12 border-t border-b text-center">
+            <h2 class="text-3xl font-black mb-4">Agende Sua Demonstração Gratuita</h2>
+            <p class="mb-8 text-gray-600">Na demonstração de 15 minutos, você vai ver:</p>
+            
+            <div class="text-left max-w-md mx-auto mb-10 space-y-2">
+                <p>✓ IA atendendo leads reais ao vivo</p>
+                <p>✓ Como ela qualifica, extrai documentos, e calcula valores</p>
+                <p>✓ Sistema completo funcionando (CRM, prazos, financeiro)</p>
+                <p>✓ Como ela recupera base morta e faz follow-up massivo</p>
+                <p>✓ Proposta completa adaptada pro seu escritório</p>
             </div>
-            <p class="mt-10 italic text-gray-500 text-sm">Não existe call de vendas. Não existe follow-up insistente ou pressão. Analisamos se conseguimos te ajudar. Se sim, você decide.</p>
+
+            <button onclick="openChat()" class="cta-button w-full md:w-auto btn-pulse text-xl">AGENDAR DEMONSTRAÇÃO GRATUITA</button>
+            
+            <p class="mt-6 italic text-gray-500 text-sm">Sem pressão. Sem enrolação. Se fizer sentido, você recebe acesso. Se não, sem problemas.</p>
         </section>
 
         <!-- Who is it for (AGORA ABAIXO) -->
@@ -435,13 +436,28 @@
             </div>
         </section>
 
+        <!-- Social Proof -->
+        <section class="mt-20 text-center bg-gray-50 p-10 rounded-2xl">
+            <h2 class="text-2xl font-bold mb-4">Mais de 400 Escritórios Confiam na Advanx</h2>
+            <p class="mb-6 font-semibold text-gray-600">Previdenciário. Trabalhista. Bancário. Cível. Família.</p>
+            <p class="text-gray-600">Escritórios de todas as áreas usam o Advanx System para parar de perder lead e começar a fechar mais. 5 anos construindo soluções exclusivas para advocacia.</p>
+        </section>
+
         <!-- FAQ -->
         <section class="mt-20">
             <h2 class="text-3xl font-bold mb-10">Perguntas Frequentes</h2>
             <div class="space-y-8">
                 <div>
+                    <h4 class="font-bold text-lg mb-2">A IA substitui o atendimento humano?</h4>
+                    <p class="text-gray-600">Não. A IA qualifica e filtra. Você (ou seu time) fecha o contrato. IA não substitui você, ela elimina a perda de tempo com curioso e entrega só quem tem real potencial de fechar. Você para de atender 100 leads pra fechar 5, e passa a atender só os 15 que vão fechar.</p>
+                </div>
+                <div>
                     <h4 class="font-bold text-lg mb-2">A IA entende termos jurídicos da minha área?</h4>
                     <p class="text-gray-600">Sim. Nosso agente foi desenvolvido do zero treinado especificamente para advocacia. Entende linguagem jurídica e pode ser customizada para sua área específica (trabalhista, cível, previdenciária, etc.). Não é ChatGPT genérico adaptado.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">A IA fecha contratos sozinha?</h4>
+                    <p class="text-gray-600">Ela conduz o processo comercial completo: atende, qualifica, apresenta proposta, tira dúvidas, envia contrato. Mas a assinatura final depende do cliente aceitar. A IA faz todo o trabalho pesado, você só valida e fecha.</p>
                 </div>
                 <div>
                     <h4 class="font-bold text-lg mb-2">Preciso saber de tecnologia pra usar?</h4>
@@ -453,11 +469,19 @@
                 </div>
                 <div>
                     <h4 class="font-bold text-lg mb-2">E se meu lead preferir falar com humano?</h4>
-                    <p class="text-gray-600">Sem problema. IA qualifica e agenda. Você (ou seu time) fecha o contrato. IA não substitui você, ela filtra pra você atender só quem tem real potencial de fechar. Acaba a perda de tempo com curioso.</p>
+                    <p class="text-gray-600">A IA é tão humanizada que 9 em cada 10 leads nem percebem que estão falando com IA. Mas se o lead pedir, a IA agenda reunião com você ou seu time. O importante é que o lead foi qualificado, você não perde 3h com curioso.</p>
                 </div>
                 <div>
                     <h4 class="font-bold text-lg mb-2">Quanto tempo pra IA estar funcionando?</h4>
                     <p class="text-gray-600">24-48h depois que você contratar. Nossa equipe customiza, integra com seu WhatsApp, treina a IA com suas informações, e entrega funcionando. Você só clica em "ativar".</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">O Advanx System tem integração com meu CRM?</h4>
+                    <p class="text-gray-600">O Advanx System JÁ É um CRM completo desenvolvido para advocacia. Mas se você já usa outro CRM e quer manter, podemos avaliar integração na demonstração.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Funciona apenas no WhatsApp?</h4>
+                    <p class="text-gray-600">O atendimento principal é via WhatsApp (onde 90% dos seus leads estão). Mas o sistema completo inclui gestão de prazos, controle financeiro, CRM, relatórios. Tudo integrado.</p>
                 </div>
                 <div>
                     <h4 class="font-bold text-lg mb-2">Qual o investimento?</h4>
@@ -507,7 +531,7 @@
         const INSTAGRAM_REDIRECT = 'https://instagram.com/rafaelbatistaz';
         
         const questions = [
-            { id: 'nome', text: "Somos um hub de tecnologia para escritórios, com soluções em IA, Automações, Apps, comerciais, marketing e gestão totalmente personalizados! Sou o assistente do Advanx System Inteligência comercial. Para começarmos, qual o seu nome completo?", type: 'text', placeholder: 'Seu nome aqui...' },
+            { id: 'nome', text: "Olá! Sou o assistente do Advanx System Inteligência comercial. Para começarmos, qual o seu nome completo?", type: 'text', placeholder: 'Seu nome aqui...' },
             { id: 'telefone', text: "Perfeito! Qual o seu melhor WhatsApp para contato? (Apenas DDD e número)", type: 'tel', placeholder: 'Ex: 11999999999' },
             { id: 'email', text: "Qual o seu e-mail profissional?", type: 'email', placeholder: 'seu@email.com' },
             { id: 'link', text: "Qual o Instagram ou site do seu escritório?", type: 'text', placeholder: '@seu-instagram' },
