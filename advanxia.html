@@ -480,7 +480,12 @@
         <div id="modalContent">
             <div class="p-4 bg-white border-bottom flex items-center justify-between shadow-sm z-10">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold">A</div>
+                    <div class="w-11 h-11 rounded-full overflow-hidden border border-gray-200 flex-shrink-0">
+                        <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/eu-escritorio.webp" 
+                             alt="Avatar" 
+                             class="w-full h-full object-cover"
+                             style="object-position: center 20%; transform: scale(1.8);">
+                    </div>
                     <div>
                         <p class="text-sm font-bold leading-tight">Advanx System</p>
                         <p class="text-[10px] text-gray-500 font-medium leading-tight italic">Inteligência comercial</p>
@@ -502,7 +507,7 @@
         const INSTAGRAM_REDIRECT = 'https://instagram.com/rafaelbatistaz';
         
         const questions = [
-            { id: 'nome', text: "Olá! Sou o assistente do Advanx System Inteligência comercial. Para começarmos, qual o seu nome completo?", type: 'text', placeholder: 'Seu nome aqui...' },
+            { id: 'nome', text: "Somos um hub de tecnologia para escritórios, com soluções em IA, Automações, Apps, comerciais, marketing e gestão totalmente personalizados! Sou o assistente do Advanx System Inteligência comercial. Para começarmos, qual o seu nome completo?", type: 'text', placeholder: 'Seu nome aqui...' },
             { id: 'telefone', text: "Perfeito! Qual o seu melhor WhatsApp para contato? (Apenas DDD e número)", type: 'tel', placeholder: 'Ex: 11999999999' },
             { id: 'email', text: "Qual o seu e-mail profissional?", type: 'email', placeholder: 'seu@email.com' },
             { id: 'link', text: "Qual o Instagram ou site do seu escritório?", type: 'text', placeholder: '@seu-instagram' },
