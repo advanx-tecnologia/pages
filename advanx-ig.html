@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanx System - IA para Advocacia</title>
+    <title>Advanx IA - Inteligência Comercial para Advocacia</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;0,900;1,700&display=swap" rel="stylesheet">
     
     <!-- ==========================================
          TRACKING SCRIPTS
@@ -30,276 +30,281 @@
     fbq('init', '502759528362336'); 
     fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"
-    /></noscript>
 
     <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #4b5563;
+            --highlight: #fef3c7;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: #1f2937;
-            line-height: 1.6;
-            scroll-behavior: smooth;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
-        
-        .serif { font-family: 'Merriweather', serif; }
 
-        input, textarea, select {
-            -webkit-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
+        .container-doc {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 24px;
         }
 
-        .container-doc { 
-            max-width: 800px;
-            margin: 0 auto; 
-            padding: 60px 24px; 
-        }
-        
-        .section-divider { 
-            border-top: 1px solid #f3f4f6; 
-            margin: 60px 0; 
-        }
-        
-        .headline-main {
+        h1, h2, h3 {
+            color: #000000;
             font-family: 'Merriweather', serif;
-            font-weight: 900;
-            color: #000;
-            line-height: 1.15;
-            letter-spacing: -0.02em;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+
+        .headline-3-lines {
+            font-size: 2.25rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+        @media (min-width: 768px) {
+            .headline-3-lines {
+                font-size: 2.8rem;
+                max-width: 650px;
+            }
         }
 
         .highlight-marker {
-            background-color: #fef3c7; /* Amarelo/Ouro bem suave estilo marca-texto */
+            background-color: var(--highlight);
             padding: 2px 6px;
+            font-weight: 700;
             border-radius: 2px;
             color: #000;
-            font-weight: 600;
+        }
+
+        .doc-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .doc-list li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
         }
 
         .cta-button {
             background-color: #000000;
             color: #ffffff;
-            padding: 20px 40px;
+            padding: 20px 32px;
             border-radius: 4px;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 1rem;
             display: inline-block;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-align: center;
-            cursor: pointer;
-            border: none;
             width: 100%;
+            text-transform: uppercase;
             letter-spacing: 0.05em;
+            border: none;
+            cursor: pointer;
         }
-        @media (min-width: 640px) { .cta-button { width: auto; } }
-        .cta-button:hover { background-color: #333; transform: translateY(-1px); }
-        
-        @keyframes pulse-elegant {
+        .cta-button:hover { opacity: 0.85; transform: translateY(-1px); }
+
+        @keyframes pulse-soft {
             0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1); }
-            70% { box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 0, 0, 0); }
             100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
         }
-        .btn-pulse { animation: pulse-elegant 2s infinite; }
+        .btn-pulse { animation: pulse-soft 2s infinite; }
 
-        /* Modal / Form */
         #modalOverlay { display: none; position: fixed; inset: 0; background: rgba(255, 255, 255, 0.98); z-index: 50; align-items: center; justify-content: center; padding: 20px; }
-        #modalContent { background: #ffffff; width: 100%; max-width: 450px; position: relative; padding: 20px; }
-        .form-input { width: 100%; padding: 14px; border-bottom: 2px solid #eee; margin-bottom: 24px; font-size: 16px; transition: border-color 0.3s; }
-        .form-input:focus { outline: none; border-color: #000; }
-        .close-modal { position: absolute; top: -40px; right: 0; font-size: 32px; color: #000; cursor: pointer; }
-        
-        .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; margin-right: 10px; }
+        #modalContent { background: #ffffff; width: 100%; max-width: 440px; padding: 40px; position: relative; border: 1px solid #f3f4f6; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .form-input { width: 100%; padding: 12px; border-bottom: 2px solid #f3f4f6; margin-bottom: 24px; font-size: 16px; outline: none; transition: border-color 0.3s; }
+        .form-input:focus { border-color: #000; }
+        .close-modal { position: absolute; top: 16px; right: 16px; font-size: 24px; color: #9ca3af; cursor: pointer; }
+        .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(0,0,0,0.1); border-radius: 50%; border-top-color: #000; animation: spin 1s infinite linear; margin-right: 10px; }
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Estilo lista DOC */
-        .list-check li { position: relative; padding-left: 28px; margin-bottom: 12px; }
-        .list-check li::before { content: "✓"; position: absolute; left: 0; color: #000; font-weight: bold; }
-        
-        .list-x li { position: relative; padding-left: 28px; margin-bottom: 12px; color: #6b7280; }
-        .list-x li::before { content: "✕"; position: absolute; left: 0; color: #ef4444; }
     </style>
 </head>
 <body>
 
     <div class="container-doc">
         <!-- HEADLINE -->
-        <header class="mb-8">
-            <h1 class="headline-main text-3xl md:text-5xl uppercase mb-8 max-w-4xl">
-                Advogados não precisam de mais clientes, precisam parar de falar com os errados.
+        <header class="mb-10">
+            <h1 class="headline-3-lines text-black">
+                VOCÊ JÁ FEZ TUDO “CERTO”.<br>
+                E MESMO ASSIM, OS CONTRATOS<br>
+                NÃO VÊM COMO DEVERIAM.
             </h1>
             
-            <p class="text-xl text-gray-700 leading-relaxed mb-6 max-w-2xl font-light">
-                A Advanx IA constrói um sistema de captação invisível que traz apenas clientes qualificados para o seu WhatsApp — enquanto você segue focado no direito, não em marketing.
-            </p>
+            <div class="text-xl text-gray-700 leading-relaxed space-y-6 mb-8">
+                <p>Isso não significa que seu escritório é fraco. Significa que você tentou resolver um problema comercial usando soluções que nunca foram feitas para vender advocacia.</p>
+                <p>A Advanx IA existe porque tudo o que você tentou antes atua no lugar errado.</p>
+                <p>Se você já investiu dinheiro, tempo e paciência e saiu com a sensação de que “quase funcionou”, continue lendo.</p>
+            </div>
 
-            <p class="text-lg font-bold text-black mb-8 serif italic border-l-2 border-black pl-4">
-                Estratégia validada por mais de 300 escritórios. — Chega de achismos.
-            </p>
-            
-            <div class="flex flex-wrap gap-4 text-xs md:text-sm font-bold uppercase tracking-widest">
+            <div class="flex flex-wrap gap-4 text-xs font-bold uppercase tracking-widest text-gray-400 mb-8">
                 <span class="highlight-marker">• Sem aparecer</span>
                 <span class="highlight-marker">• Sem gravar vídeos</span>
                 <span class="highlight-marker">• Sem curiosos</span>
             </div>
+            
+            <p class="text-lg font-bold text-black border-l-2 border-black pl-4 mb-10">
+                Estratégia validada por mais de 300 escritórios. — Chega de achismos.
+            </p>
         </header>
 
-        <!-- FOTO - Espaçamento ajustado para não ter vácuo -->
+        <!-- FOTO -->
         <div class="mb-12">
             <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/eu-escritorio.webp" 
-                 alt="Escritório Advanx" 
-                 class="w-full h-auto rounded-sm border border-gray-100 shadow-sm grayscale-[20%] hover:grayscale-0 transition-all duration-700">
+                 alt="Rafael Batista - Escritório" 
+                 class="w-full h-auto rounded-sm border border-gray-100 shadow-sm grayscale-[15%]">
         </div>
 
         <!-- IDENTIFICAÇÃO -->
         <section class="mb-16">
-            <p class="text-lg font-bold text-black mb-6 italic serif">Se você é advogado e:</p>
-            <ul class="space-y-4 text-lg text-gray-700 border-l border-gray-100 pl-6">
-                <li class="flex items-start">Você trabalha muito mais do que deveria para faturar o que fatura</li>
-                <li class="flex items-start">Sua agenda tem meses bons e meses inexplicavelmente ruins</li>
-                <li class="flex items-start">Depende de indicação, sorte ou urgência para fechar clientes</li>
-                <li class="flex items-start">Perde tempo respondendo WhatsApp de gente que some ou só quer preço</li>
-                <li class="flex items-start">Sente que é tecnicamente excelente, mas comercialmente travado</li>
-            </ul>
-            
+            <div class="text-lg text-gray-800 space-y-6">
+                <p>Se você ainda acredita que o próximo gestor, a próxima campanha ou o próximo ajuste vai resolver sozinho, pare aqui.</p>
+                <p>Você é advogado. Você estudou anos para dominar o direito. Mas, na prática:</p>
+                <ul class="doc-list pl-2">
+                    <li>Você depende de gente que some</li>
+                    <li>Conversa com quem não pode pagar</li>
+                    <li>Explica seu trabalho para quem não decide</li>
+                    <li>Atende muito</li>
+                    <li>Fecha pouco</li>
+                    <li>E no fim do mês, o esforço não se converte como deveria</li>
+                </ul>
+            </div>
+
             <div class="mt-10 py-6 px-8 bg-gray-50 border-l-2 border-black">
-                <p class="text-xl text-black">Então isso aqui não é mais uma promessa de marketing.</p>
-                <p class="text-xl font-bold text-black">É um sistema para tirar esse peso das suas costas.</p>
+                <p class="text-xl font-bold uppercase">E o mais irritante:</p>
+                <p class="text-xl italic">👉 você já tentou resolver isso.</p>
             </div>
         </section>
 
-        <!-- VERDADE-LÂMINA -->
-        <section class="mb-20">
-            <h2 class="text-3xl font-bold mb-8 text-black serif">Vamos ser diretos.</h2>
-            <div class="text-lg text-gray-700 space-y-6">
-                <p>O problema do seu escritório não é falta de demanda. <strong>É falta de controle sobre quem chega até você.</strong></p>
-                <p>Enquanto você continuar atendendo qualquer lead que aparece, seu tempo será drenado, sua agenda será instável e seu crescimento continuará dependente de você estar sempre disponível.</p>
-                
-                <p class="text-2xl font-black text-black uppercase tracking-tighter mt-12 leading-none serif">
-                    Advogados sérios não precisam de volume.<br>
-                    <span class="text-gray-400">Precisam de FILTRO.</span>
-                </p>
-            </div>
-        </section>
-
-        <div class="section-divider"></div>
-
-        <!-- O QUE A ADVANX IA FAZ -->
-        <section class="mb-20">
-            <h2 class="text-2xl font-bold mb-10 uppercase text-black tracking-widest serif">O que a Advanx IA faz</h2>
-            <p class="text-xl mb-10 text-gray-600 font-light">Assumimos 100% da operação de captação para o seu escritório.</p>
-            
-            <ul class="list-check space-y-4 text-lg text-gray-800 mb-12">
-                <li>Criamos o sistema de atração</li>
-                <li>Fazemos a pré-qualificação</li>
-                <li>Usamos IA para atender, filtrar e organizar</li>
-                <li>Eliminamos curiosos e desqualificados</li>
-                <li>Entregamos no seu WhatsApp apenas a nata dos clientes</li>
+        <!-- O QUE JÁ FOI FEITO -->
+        <section class="mb-16">
+            <p class="text-lg font-bold mb-6">Você já:</p>
+            <ul class="doc-list text-lg text-gray-700 mb-10">
+                <li>Colocou dinheiro em anúncios</li>
+                <li>Confiou em agência</li>
+                <li>Confiou em gestor</li>
+                <li>Produziu conteúdo</li>
+                <li>Mudou abordagem</li>
+                <li>Mudou discurso</li>
+                <li>Mudou promessa</li>
             </ul>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 py-10 border-t border-gray-100">
-                <div class="text-gray-400 space-y-1 font-medium text-sm uppercase tracking-widest">
-                    <p>Sem gravar</p>
-                    <p>Sem aparecer</p>
-                    <p>Sem conteúdo</p>
-                    <p>Sem mensagens inúteis</p>
-                </div>
-                <div class="text-2xl font-bold text-black serif leading-snug">
-                    Fale apenas com quem tem perfil, dor real e capacidade de fechar.
-                </div>
+            
+            <p class="text-lg font-bold mb-6">E teve três possíveis resultados:</p>
+            <div class="space-y-4 text-lg font-semibold mb-12 pl-4">
+                <p>1️⃣ Não fechou nada</p>
+                <p>2️⃣ Fechou pouco</p>
+                <p>3️⃣ Fechou, mas quando somou tudo… empatou</p>
+            </div>
+            
+            <div class="text-lg text-gray-800 space-y-6">
+                <p>Se identifica com qualquer um deles, o problema não é execução.</p>
+                <p>Advogados não perdem contratos porque “o mercado está difícil”. <strong>Perdem porque ninguém filtra o cliente antes de chegar até você.</strong></p>
             </div>
         </section>
 
-        <!-- COMO FUNCIONA -->
-        <section class="mb-20 bg-gray-50 p-10 rounded-sm">
-            <h2 class="text-xl font-bold mb-8 uppercase text-black tracking-widest serif">Na prática</h2>
-            <div class="grid grid-cols-1 gap-8 text-lg">
-                <div class="flex gap-4">
-                    <span class="font-bold text-gray-300">01.</span>
-                    <p><strong>A Advanx IA roda o sistema</strong> enquanto você está em audiência ou reunião.</p>
-                </div>
-                <div class="flex gap-4">
-                    <span class="font-bold text-gray-300">02.</span>
-                    <p><strong>A IA conversa com os leads</strong> e qualifica cada um deles automaticamente.</p>
-                </div>
-                <div class="flex gap-4">
-                    <span class="font-bold text-gray-300">03.</span>
-                    <p><strong>Agenda apenas quem faz sentido.</strong> A conversa chega até você madura, sem desgaste por preço.</p>
-                </div>
+        <!-- A LÓGICA DO FILTRO -->
+        <section class="mb-16">
+            <p class="text-lg font-bold mb-6">Enquanto você:</p>
+            <ul class="doc-list text-lg text-gray-700 mb-8">
+                <li>Atende qualquer contato</li>
+                <li>Responde qualquer mensagem</li>
+                <li>Explica tudo do zero</li>
+                <li>Perde tempo com gente errada</li>
+            </ul>
+            <p class="text-2xl font-black text-black uppercase serif leading-tight mb-10">O bom cliente se perde no meio do lixo.</p>
+            
+            <div class="text-lg text-gray-700 space-y-4 mb-12">
+                <p>E nenhuma campanha resolve isso. Nenhuma landing resolve isso. Nenhum gestor resolve isso.</p>
+                <p>Porque o erro não é gerar interesse. <strong>É não controlar a conversa.</strong></p>
+                <p>A Advanx IA não melhora seu marketing. <strong>Ela SUBSTITUI a parte que sempre falhou.</strong></p>
             </div>
         </section>
 
-        <!-- CONTRASTE -->
-        <section class="mb-24">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div>
-                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Marketing Tradicional</h3>
-                    <ul class="list-x text-sm">
-                        <li>Você aparece</li>
-                        <li>Você grava</li>
-                        <li>Você explica o básico</li>
-                        <li>Você atende todo mundo</li>
-                        <li>Você perde tempo</li>
-                        <li>Você se desgasta</li>
-                    </ul>
+        <!-- O QUE A IA FAZ -->
+        <section class="mb-16">
+            <h2 class="text-xl font-bold uppercase tracking-widest border-b border-gray-100 pb-4 mb-8">O que assumimos por você</h2>
+            <p class="text-lg mb-8">Nós assumimos o que você nunca deveria ter feito:</p>
+            <div class="flex flex-wrap gap-x-10 gap-y-4 text-xl font-bold text-black mb-12 uppercase italic">
+                <span>👉 atender</span>
+                <span>👉 explicar</span>
+                <span>👉 filtrar</span>
+                <span>👉 convencer</span>
+            </div>
+
+            <div class="text-lg space-y-6">
+                <p>Antes do cliente falar com você, ele já passou por uma <strong>Secretária IA jurídica</strong>, treinada por tese, não por script genérico. A conversa não começa do zero.</p>
+                <p class="font-bold">Nossa Secretária IA já sabe lidar com casos como:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2 text-gray-800 font-medium">
+                    <p>- Reclamação trabalhista</p>
+                    <p>- Reconhecimento de vínculo</p>
+                    <p>- Rescisão indireta</p>
+                    <p>- Auxílio-acidente</p>
+                    <p>- BPC/LOAS</p>
+                    <p>- Passageiro aéreo</p>
+                    <p>- RMC, RCC e tarifas</p>
+                    <p>- Superendividamento</p>
+                    <p>- Salário-maternidade</p>
                 </div>
-                <div>
-                    <h3 class="text-xs font-bold text-black uppercase tracking-widest mb-6">Sistema Advanx IA</h3>
-                    <ul class="list-check text-sm font-bold">
-                        <li>O sistema aparece</li>
-                        <li>A IA conversa</li>
-                        <li>O filtro protege seu tempo</li>
-                        <li>Você só fecha o contrato</li>
-                        <li class="text-gray-400 italic font-normal">Seu tempo fica intacto</li>
-                    </ul>
-                </div>
+                <p class="pt-4 border-t border-gray-100 text-gray-500">Ela entende a dor. Sabe o que perguntar. Sabe quando encerrar a conversa. Quando o contato chega até você, não é curiosidade. <strong>É intenção real.</strong></p>
             </div>
         </section>
 
-        <!-- AUTORIDADE -->
-        <section class="mb-24 text-center">
-            <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-8">Autoridade sem Ego</h2>
-            <p class="text-2xl md:text-3xl serif italic text-black leading-relaxed max-w-2xl mx-auto">
-                "Advogados não foram feitos para virar influenciadores. Foram feitos para resolver problemas complexos."
-            </p>
-            <p class="mt-8 text-gray-500 uppercase text-xs tracking-widest font-bold">Marketing barulhento atrai curiosos. Sistema silencioso atrai clientes.</p>
+        <!-- NÃO APARECER -->
+        <section class="mb-16 bg-gray-50 p-8 md:p-12">
+            <h2 class="text-2xl font-black text-black uppercase serif mb-6">“MAS EU NÃO QUERO APARECER”</h2>
+            <div class="text-lg text-gray-800 space-y-6">
+                <p>Perfeito. Você não aparece.</p>
+                <p>Se necessário, atores representam o escritório, com linguagem jurídica, postura adequada e narrativa alinhada ao seu posicionamento.</p>
+                <p class="font-bold">O cliente confia. Você não se expõe. O contrato anda.</p>
+            </div>
         </section>
 
-        <!-- QUEM SOMOS / CTA -->
-        <section class="mb-20">
-            <h2 class="text-2xl font-bold mb-10 text-black serif italic">“Mas isso funciona para mim?”</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-                <div class="text-lg space-y-4">
-                    <p>Funciona se você quer <strong>previsibilidade</strong>, valoriza <strong>processos</strong> e está cansado de perder tempo com leads errados.</p>
-                    <p class="text-gray-400">Se você busca volume a qualquer custo, essa conversa não é para você.</p>
-                </div>
-                <div class="text-lg font-light text-gray-600">
-                    <p>Não existe valor nesta página porque esse sistema não é para todo mundo. O próximo passo é conversar para avaliar seu momento.</p>
-                </div>
+        <!-- GARANTIA 41 DIAS -->
+        <section class="mb-20 py-16 border-y border-gray-100 text-center">
+            <p class="text-sm uppercase tracking-widest text-gray-400 font-bold mb-4">Aqui está a diferença que separa conversa de realidade:</p>
+            <h2 class="text-6xl md:text-8xl font-black text-black mb-10 serif italic">👉 41 DIAS.</h2>
+            <div class="text-xl md:text-2xl text-gray-800 max-w-2xl mx-auto space-y-6 leading-relaxed">
+                <p>Se, em até 41 dias, os contatos gerados não se convertem em contratos, <strong>você fica isento. Você não paga.</strong></p>
+                <p class="text-lg font-light text-gray-500 italic">Simples. Porque quando a conversa é certa, com a pessoa certa, no momento certo, o contrato acontece. Se não acontecer, o erro é nosso.</p>
             </div>
+        </section>
 
-            <div class="bg-black text-white p-12 text-center rounded-sm shadow-2xl">
-                <p class="text-sm uppercase tracking-[0.3em] mb-6 text-gray-400">A conversa começa agora</p>
-                <h3 class="text-2xl md:text-3xl serif mb-10 leading-tight">Se você quiser um sistema que trabalha por você, clique abaixo.</h3>
-                <button onclick="openModal()" class="cta-button btn-pulse !bg-white !text-black hover:!bg-gray-100">
-                    👉 FALAR COM A ADVANX IA NO WHATSAPP
+        <!-- CTA FINAL -->
+        <section class="mb-20 text-center">
+            <div class="max-w-xl mx-auto space-y-10">
+                <p class="text-lg text-gray-700">Essa página não é para convencer você. É para evitar perda de tempo dos dois lados. Se você já tentou de tudo e sentiu que sempre travava no mesmo ponto:</p>
+                
+                <button onclick="openModal()" class="cta-button btn-pulse shadow-xl">
+                    👉 clique no botão abaixo e vá para o WhatsApp.
                 </button>
-                <p class="mt-8 text-xs text-gray-500 uppercase tracking-widest">Sem pressão. Sem empurrar nada. Apenas clareza.</p>
+                
+                <div class="text-sm text-gray-400 uppercase tracking-widest space-y-2">
+                    <p>Lá, nós mostramos como funciona na prática.</p>
+                    <p>Sem promessa. Sem empurrar.</p>
+                    <p class="font-bold text-black border-b border-black inline-block">Se fizer sentido, você continua. Se não fizer, você sai ileso.</p>
+                </div>
             </div>
         </section>
 
-        <!-- SOBRE RAFAEL -->
-        <section class="border-t border-gray-100 pt-16 text-gray-400 text-xs tracking-wide leading-loose">
-            <p class="mb-4"><strong>RAFAEL BATISTA, FUNDADOR DA ADVANX.</strong></p>
-            <p>Nos últimos 5 anos atendi mais de 400 escritórios de advocacia. Vi bons advogados perdendo R$50k, R$80k, R$120k por mês simplesmente porque o lead esfriou ou o filtro era inexistente. Construímos este sistema para devolver o tempo e a rentabilidade ao advogado sério.</p>
-        </section>
-
-        <footer class="mt-20 pb-10 text-center text-[10px] text-gray-300 uppercase tracking-[0.2em]">
-            &copy; 2024 ADVANX SYSTEM. ELEGÂNCIA E INTELIGÊNCIA COMERCIAL.
+        <!-- FOOTER / RAFAEL -->
+        <footer class="mt-20 pt-12 border-t border-gray-100 text-xs text-gray-400 tracking-wide leading-loose">
+            <p class="mb-4 uppercase font-bold text-gray-500">Rafael Batista, fundador da Advanx.</p>
+            <p>
+                Nos últimos 5 anos atendi mais de 400 escritórios de advocacia. Vi bons advogados perdendo R$50k, R$80k, R$120k por mês simplesmente porque o lead esfriou ou o filtro era inexistente. Construímos este sistema para devolver o tempo e a rentabilidade ao advogado sério.
+            </p>
+            <p class="mt-10 text-center uppercase tracking-[0.3em] text-[9px] text-gray-300">
+                &copy; 2024 ADVANX SYSTEM. INTELIGÊNCIA COMERCIAL ESPECIALIZADA.
+            </p>
         </footer>
     </div>
 
@@ -307,20 +312,20 @@
     <div id="modalOverlay">
         <div id="modalContent">
             <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 class="text-3xl serif font-bold mb-2">Iniciar</h2>
-            <p class="text-gray-400 text-sm mb-10 uppercase tracking-widest">Atendimento prioritário via WhatsApp</p>
+            <h2 class="text-2xl font-extrabold mb-2 uppercase italic serif">Iniciar</h2>
+            <p class="text-gray-400 text-[10px] mb-10 uppercase tracking-widest font-bold">Atendimento prioritário via WhatsApp</p>
             
             <form id="leadForm" onsubmit="handleForm(event)">
                 <input type="text" name="nome" required class="form-input" placeholder="NOME COMPLETO">
                 <input type="tel" name="telefone" required class="form-input" placeholder="WHATSAPP (DDD + NÚMERO)" maxlength="11" oninput="this.value = this.value.replace(/\D/g, '')">
-                <input type="text" name="link" required class="form-input" placeholder="INSTAGRAM OU SITE">
-                <input type="text" name="area_direito" required class="form-input" placeholder="ÁREA DE ATUAÇÃO NO DIREITO">
+                <input type="text" name="link" required class="form-input" placeholder="INSTAGRAM OU SITE DO ESCRITÓRIO">
+                <input type="text" name="area_direito" required class="form-input" placeholder="PRINCIPAL ÁREA DE ATUAÇÃO">
                 
-                <button type="submit" class="cta-button w-full mt-6">
-                    <span id="btnText">CONTINUAR PARA O WHATSAPP</span>
+                <button type="submit" class="cta-button w-full mt-4">
+                    <span id="btnText">CONTINUAR NO WHATSAPP</span>
                 </button>
             </form>
-            <p class="text-[9px] text-gray-300 text-center mt-8 uppercase tracking-widest">Privacidade garantida conforme LGPD.</p>
+            <p class="text-[9px] text-gray-300 text-center mt-8 uppercase tracking-widest">Privacidade absoluta. Dados protegidos pela LGPD.</p>
         </div>
     </div>
 
@@ -328,7 +333,6 @@
         const WA_NUMBER = '5571992894634';
         const WEBHOOK_URL = 'https://n8n.advfunnel.com.br/webhook/cb33d994-f6ab-446a-9ba7-fc6f4fd24e0e/:leads';
         
-        // TRACKING ViewContent
         let viewContentFired = false;
         window.addEventListener('scroll', () => {
             if (!viewContentFired && window.scrollY > 150) {
@@ -363,11 +367,11 @@
             const btnText = document.getElementById('btnText');
             
             if (form.telefone.value.length < 10) {
-                alert("Insira um número válido.");
+                alert("Por favor, insira um número válido.");
                 return;
             }
 
-            const originalContent = btnText.innerHTML;
+            const originalBtnText = btnText.innerHTML;
             btnText.innerHTML = '<div class="spinner"></div> PROCESSANDO...';
             form.querySelector('button').disabled = true;
 
@@ -389,20 +393,20 @@
                 btnText.innerText = "DADOS RECEBIDOS. REDIRECIONANDO...";
 
                 const utmMsg = Object.entries(utms).map(([k, v]) => `${k}: ${v}`).join('\n');
-                const msg = `Olá, vim da página Advanx IA.\n\n*Dados do Lead:*\nNome: ${finalData.nome}\nTelefone: ${finalData.telefone}\nInstagram: ${finalData.link}\nÁrea: ${finalData.area_direito}\n\n${utmMsg}`;
+                const msg = `Olá, vim da página Advanx IA.\n\n*Dados do Lead:*\nNome: ${finalData.nome}\nTelefone: ${finalData.telefone}\nLink: ${finalData.link}\nÁrea: ${finalData.area_direito}\n\n${utmMsg}`;
                 
                 setTimeout(() => {
                     window.location.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
                 }, 1500);
 
             } catch (e) {
-                btnText.innerHTML = originalContent;
+                btnText.innerHTML = originalBtnText;
                 form.querySelector('button').disabled = false;
                 alert("Erro na conexão. Tente novamente.");
             }
         }
 
-        // Proteções
+        // Proteções Contra Cópia
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
             if ((e.ctrlKey && ['c','u','s','p'].includes(e.key.toLowerCase())) || e.key === 'F12') e.preventDefault();
