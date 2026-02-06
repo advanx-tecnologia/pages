@@ -93,7 +93,7 @@
 
         .section-divider {
             border-top: 1px solid #f3f4f6;
-            margin: 50px 0;
+            margin: 60px 0;
         }
 
         .doc-list li {
@@ -139,9 +139,9 @@
             display: none; 
             position: fixed; 
             inset: 0; 
-            background: rgba(255, 255, 255, 1); /* 100% opaco para focar no conteúdo */
+            background: rgba(255, 255, 255, 1); 
             z-index: 100; 
-            align-items: flex-start; /* Alinha ao topo para scroll natural em telas pequenas */
+            align-items: flex-start; 
             justify-content: center; 
             padding: 40px 20px; 
             overflow-y: auto; 
@@ -354,11 +354,9 @@
     <!-- MODAL -->
     <div id="modalOverlay">
         <div id="modalContent">
-            <!-- X DE FECHAR REMOVIDO -->
-            
             <!-- FORMULÁRIO -->
             <div id="formSection">
-                <h2 class="text-3xl serif font-bold mb-2 italic">Iniciar</h2>
+                <h2 class="text-2xl md:text-3xl serif font-bold mb-2 italic">Preencha para falar conosco.</h2>
                 <p class="text-gray-400 text-[10px] mb-10 uppercase tracking-[0.2em] font-bold">Atendimento prioritário via WhatsApp</p>
                 
                 <form id="leadForm" onsubmit="handleForm(event)">
@@ -372,7 +370,7 @@
                     <input type="text" name="area_direito" required class="form-input" placeholder="EX: TRABALHISTA, PREVIDENCIÁRIO...">
 
                     <label class="form-label">Faturamento mensal médio</label>
-                    <select name="faturamento" required class="form-input">
+                    <select name="faturamento" required class="form-input" id="faturamento">
                         <option value="" disabled selected>SELECIONE O FATURAMENTO</option>
                         <option value="0 a 5 mil reais">0 a 5 mil reais</option>
                         <option value="5 a 10 mil reais">5 a 10 mil reais</option>
@@ -399,7 +397,7 @@
                 <p class="text-[9px] text-gray-300 text-center mt-12 uppercase tracking-widest font-medium">Privacidade absoluta. Dados protegidos pela LGPD.</p>
             </div>
 
-            <!-- MENSAGEM DE REJEIÇÃO (MODELADA NO PRINT) -->
+            <!-- MENSAGEM DE REJEIÇÃO -->
             <div id="rejectionSection" class="rejection-text">
                 <h3 class="rejection-title">Nós não trabalhamos com advogados que ainda “não sabem” quando querem resolver um problema que já custou dinheiro, tempo e energia.</h3>
                 
@@ -415,7 +413,6 @@
                     
                     <p class="pt-4 text-black border-t border-gray-100">Quando a dor ficar clara o suficiente, talvez faça sentido conversar.</p>
                 </div>
-                <!-- BOTÃO DE FECHAR REMOVIDO -->
             </div>
         </div>
     </div>
@@ -449,17 +446,12 @@
             document.getElementById('rejectionSection').style.display = 'none';
         }
 
-        // FUNÇÃO DE FECHAR REMOVIDA PARA O FLUXO DE REJEIÇÃO
-        function closeModal() {
-            // Só permitimos fechar se o formulário ainda estiver visível (opcional, mas como você pediu pra não ter opção, vamos desabilitar)
-            // Para total segurança do seu pedido, esta função não será chamada por nenhum botão.
-        }
-
         async function handleForm(event) {
             event.preventDefault();
             const form = event.target;
             const btnText = document.getElementById('btnText');
             const urgency = document.getElementById('tempoResolucao').value;
+            const fatValue = document.getElementById('faturamento').value;
             
             if (form.telefone.value.length < 10) {
                 alert("Por favor, insira um número válido.");
@@ -482,15 +474,32 @@
             if (urgency === "Não sei ainda.") {
                 document.getElementById('formSection').style.display = 'none';
                 document.getElementById('rejectionSection').style.display = 'block';
-                // Não dispara pixel nem redireciona. O modal fica aberto com a msg.
                 return; 
             }
 
             btnText.innerHTML = '<div class="spinner"></div> PROCESSANDO...';
             form.querySelector('button').disabled = true;
 
+            // RASTREAMENTO CONDICIONAL PADRÃO (Lead)
             if (typeof fbq === 'function') fbq('track', 'Lead');
             if (typeof gtag === 'function') gtag('event', 'generate_lead');
+
+            // LÓGICA LEAD QUALIFICADO (Extra)
+            // Se Faturamento > 20k E (Urgência Imediata ou Próximos dias)
+            const qualifiedBilling = [
+                "20 a 50 mil reais",
+                "50 a 100 mil reais",
+                "100 a 500 mil reais",
+                "500 mil reais a 1 mm",
+                "+ de 1mm"
+            ].includes(fatValue);
+
+            const qualifiedUrgency = ["O quanto antes!", "Nos Próximos dias"].includes(urgency);
+
+            if (qualifiedBilling && qualifiedUrgency) {
+                if (typeof fbq === 'function') fbq('trackCustom', 'Lead Qualificado');
+                if (typeof gtag === 'function') gtag('event', 'lead_qualificado');
+            }
 
             btnText.innerText = "DADOS RECEBIDOS. REDIRECIONANDO...";
 
@@ -502,7 +511,6 @@
             }, 1200);
         }
 
-        // Proteções Contra Cópia e Atalhos
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
             if ((e.ctrlKey && ['c','u','s','p'].includes(e.key.toLowerCase())) || e.key === 'F12') e.preventDefault();
