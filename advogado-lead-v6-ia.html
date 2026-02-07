@@ -403,7 +403,7 @@
             </div>
         </section>
 
-        <!-- Processo de Entrada & CTA -->
+        <!-- Processo de Entrada & CTA (MOVIDO PARA CIMA) -->
         <section class="mt-20 py-12 border-t border-b text-center">
             <h2 class="text-3xl font-black mb-4">Agende Sua Demonstração Gratuita</h2>
             <p class="mb-8 text-gray-600">Na demonstração de 15 minutos, você vai ver:</p>
@@ -421,7 +421,7 @@
             <p class="mt-6 italic text-gray-500 text-sm">Sem pressão. Sem enrolação. Se fizer sentido, você recebe acesso. Se não, sem problemas.</p>
         </section>
 
-        <!-- Who is it for -->
+        <!-- Who is it for (AGORA ABAIXO) -->
         <section class="mt-20">
             <h2 class="text-3xl font-bold mb-8">Para Quem o Advanx System Funciona?</h2>
             <ul class="space-y-4 text-lg">
@@ -456,12 +456,36 @@
                     <p class="text-gray-600">Sim. Nosso agente foi desenvolvido do zero treinado especificamente para advocacia. Entende linguagem jurídica e pode ser customizada para sua área específica (trabalhista, cível, previdenciária, etc.). Não é ChatGPT genérico adaptado.</p>
                 </div>
                 <div>
-                    <h4 class="font-bold text-lg mb-2">Quanto tempo pra IA estar funcionando?</h4>
-                    <p class="text-gray-600">24-48h depois que você contratar. Nossa equipe customiza, integra com seu WhatsApp, treina a IA com suas informações, e entrega funcionando. Você só clica em "ativar".</p>
+                    <h4 class="font-bold text-lg mb-2">A IA fecha contratos sozinha?</h4>
+                    <p class="text-gray-600">Ela conduz o processo comercial completo: atende, qualifica, apresenta proposta, tira dúvidas, envia contrato. Mas a assinatura final depende do cliente aceitar. A IA faz todo o trabalho pesado, você só valida e fecha.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Preciso saber de tecnologia pra usar?</h4>
+                    <p class="text-gray-600">Não. Plataforma 100% intuitiva. Nossa equipe cuida de toda configuração inicial e customização. Você recebe tudo pronto. E temos suporte completo caso precise.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Funciona pra advogado solo ou só pra escritório grande?</h4>
+                    <p class="text-gray-600">Ambos. Se você é advogado solo que quer parar de perder lead, funciona. Se você tem escritório com 5-10 advogados e quer escalar sem contratar mais gente, funciona também. A diferença é o volume de leads que você processa.</p>
                 </div>
                 <div>
                     <h4 class="font-bold text-lg mb-2">E se meu lead preferir falar com humano?</h4>
                     <p class="text-gray-600">A IA é tão humanizada que 9 em cada 10 leads nem percebem que estão falando com IA. Mas se o lead pedir, a IA agenda reunião com você ou seu time. O importante é que o lead foi qualificado, você não perde 3h com curioso.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Quanto tempo pra IA estar funcionando?</h4>
+                    <p class="text-gray-600">24-48h depois que você contratar. Nossa equipe customiza, integra com seu WhatsApp, treina a IA com suas informações, e entrega funcionando. Você só clica em "ativar".</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">O Advanx System tem integração com meu CRM?</h4>
+                    <p class="text-gray-600">O Advanx System JÁ É um CRM completo desenvolvido para advocacia. Mas se você já usa outro CRM e quer manter, podemos avaliar integração na demonstração.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Funciona apenas no WhatsApp?</h4>
+                    <p class="text-gray-600">O atendimento principal é via WhatsApp (onde 90% dos seus leads estão). Mas o sistema completo inclui gestão de prazos, controle financeiro, CRM, relatórios. Tudo integrado.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Qual o investimento?</h4>
+                    <p class="text-gray-600">Temos condições especiais para quem está começando agora. Na demonstração de 15min mostramos o sistema funcionando e você recebe a proposta completa adaptada pro seu escritório.</p>
                 </div>
             </div>
         </section>
@@ -470,6 +494,7 @@
         <footer class="mt-20 pb-20 text-center text-gray-500 text-sm space-y-4">
             <p><strong>P.S.:</strong> Advanx System não é "pra qualquer advogado". É pra quem já recebe volume e sabe que tá sangrando lead.</p>
             <p><strong>P.P.S.:</strong> Não somos "mais um CRM genérico com IA". Somos especialistas em advocacia há 5 anos. A IA foi treinada do zero pra isso.</p>
+            <p><strong>P.P.P.S.:</strong> Se você acha que "IA não substitui humano no atendimento", você está certo. Ela não substitui. Ela filtra. Pra você parar de perder 3 horas por dia com curioso e atender só quem fecha.</p>
             <p class="pt-4 border-t w-1/2 mx-auto mt-4">Sobre mim: Rafael Batista, fundador da Advanx. 5 anos trabalhando exclusivamente com advogados. Mais de 400 escritórios atendidos. Construí esse sistema ouvindo advogado reclamando de CRM genérico que não entende a advocacia. Agora você tem um que entende.</p>
         </footer>
     </div>
@@ -531,7 +556,7 @@
             }
         });
 
-        // Captura de UTMs
+        // Captura de UTMs ao iniciar
         function getUTMs() {
             const params = new URLSearchParams(window.location.search);
             const utms = {};
@@ -541,6 +566,7 @@
             return utms;
         }
 
+        // Inicia userData com UTMs
         userData = getUTMs();
 
         function validateEmail(email) {
@@ -620,10 +646,14 @@
                 input.className = 'chat-input';
                 input.type = q.type;
                 input.placeholder = q.placeholder;
+                
                 if (q.id === 'telefone') {
                     input.maxLength = 11;
-                    input.addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, ''); });
+                    input.addEventListener('input', (e) => {
+                        e.target.value = e.target.value.replace(/\D/g, ''); 
+                    });
                 }
+
                 input.onkeydown = (e) => { if (e.key === 'Enter' && input.value.trim() !== '') handleInput(input.value); };
                 container.appendChild(input);
                 input.focus();
@@ -650,10 +680,23 @@
                         style="width: 100%; height: 100%; object-fit: cover;"
                     >
                         <source src="${VIDEO_URL}" type="video/mp4">
+                        <div style="padding: 20px; text-align: center; color: #666;">
+                            Vídeo não suportado. <a href="${VIDEO_URL}" target="_blank" style="text-decoration: underline; color: #333;">Clique aqui para ver</a>.
+                        </div>
                     </video>
                 </div>
             `;
+            
             chat.insertAdjacentHTML('beforeend', videoHTML);
+            
+            const videoEl = chat.querySelector('video:last-of-type');
+            if(videoEl) {
+                videoEl.load();
+                videoEl.play().catch(e => {
+                    videoEl.controls = true;
+                });
+            }
+
             chat.scrollTop = chat.scrollHeight;
 
             setTimeout(() => {
@@ -673,17 +716,19 @@
             const q = questions[currentStep];
             let processed = value.trim();
 
-            if (q.type === 'email' && !validateEmail(processed)) {
-                addMessage('user', processed);
-                showTyping(() => { addMessage('bot', "E-mail inválido."); renderInput(q); });
-                return;
+            if (q.type === 'email') {
+                if (!validateEmail(processed)) {
+                    addMessage('user', processed);
+                    showTyping(() => { addMessage('bot', "E-mail inválido. Certifique-se de incluir '@' e o domínio (ex: .com)."); renderInput(q); });
+                    return;
+                }
             }
 
             if (q.id === 'telefone') {
                 const formatted = formatPhoneToE164(processed);
                 if (!formatted) {
                     addMessage('user', processed);
-                    showTyping(() => { addMessage('bot', "Número inválido."); renderInput(q); });
+                    showTyping(() => { addMessage('bot', "Número inválido. Digite apenas o DDD e o número (10 ou 11 dígitos)."); renderInput(q); });
                     return;
                 }
                 processed = formatted;
@@ -701,6 +746,7 @@
             try {
                 userData.origem = window.location.href;
                 userData.data_hora = new Date().toLocaleString('pt-BR');
+                
                 await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -713,7 +759,7 @@
             userData.capacidade_escolhida = choice;
             document.getElementById('fieldContainer').innerHTML = '';
             
-            // WEBHOOK DISPARA APENAS AQUI NO FINAL COM TODOS OS DADOS
+            // WEBHOOK DISPARA AGORA NO FINAL COM TODOS OS DADOS CONSOLIDADOS
             sendToWebhook();
 
             if (choice === 'sim') {
@@ -730,7 +776,7 @@
                 showTyping(() => {
                     addMessage('bot', "Perfeito! Agradecemos o seu interesse. Você será redirecionado em 5 segundos para o nosso WhatsApp para fechar os detalhes.");
                     
-                    const msg = `Olá, tenho interesse no Advanx System.\n\n*Meus dados:*\nNome: ${userData.nome}\nTelefone: ${userData.telefone}\nÁrea: ${userData.area}\nFaturamento: ${userData.faturamento}`;
+                    const msg = `Olá, tenho interesse no Advanx System.\n\n*Meus dados:*\nNome: ${userData.nome}\nTelefone: ${userData.telefone}\nÁrea: ${userData.area}\nEmail: ${userData.email}\nInstagram: ${userData.link}\nFaturamento: ${userData.faturamento}`;
                     const whatsappLink = `${BASE_WA_URL}?text=${encodeURIComponent(msg)}`;
 
                     setTimeout(() => window.location.href = whatsappLink, 5000);
@@ -747,9 +793,18 @@
             }
         }
 
-        // Proteções globais
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('copy', e => e.preventDefault());
+        // Scripts de Proteção contra Cópia e Inspeção
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', event => {
+            if (
+                (event.ctrlKey && ['c', 'C', 'x', 'X', 'u', 'U', 's', 'S', 'p', 'P'].includes(event.key)) || 
+                event.key === 'F12'
+            ) {
+                event.preventDefault();
+            }
+        });
+        document.addEventListener('copy', event => event.preventDefault());
+        document.addEventListener('dragstart', event => event.preventDefault());
     </script>
 </body>
 </html>
