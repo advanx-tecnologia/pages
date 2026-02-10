@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando...</title>
+    
+    <!-- ==========================================
+         TRACKING PIXELS
+    =========================================== -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-98EL5GXG5F');
+    </script>
+
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '502759528362336'); 
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"
+    /></noscript>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0a0a0a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Efeito de partículas/grid no fundo */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 40px 20px;
+            max-width: 600px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            margin-bottom: 50px;
+            font-weight: 400;
+        }
+
+        .countdown-container {
+            position: relative;
+            margin: 0 auto 40px;
+            width: 200px;
+            height: 200px;
+        }
+
+        .countdown-circle {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+
+        .countdown-circle svg {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+
+        .countdown-circle circle {
+            fill: none;
+            stroke-width: 8;
+        }
+
+        .circle-bg {
+            stroke: rgba(255, 255, 255, 0.1);
+        }
+
+        .circle-progress {
+            stroke: #ffffff;
+            stroke-linecap: round;
+            stroke-dasharray: 565.48;
+            stroke-dashoffset: 565.48;
+            animation: countdown 3s linear forwards;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+        }
+
+        @keyframes countdown {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .countdown-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            font-weight: 900;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+        }
+
+        .loading-text {
+            font-size: 0.95rem;
+            color: #808080;
+            margin-top: 30px;
+            font-weight: 500;
+        }
+
+        .dots {
+            display: inline-block;
+        }
+
+        .dots::after {
+            content: '';
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        /* Efeito de brilho pulsante */
+        .glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* UTM Debug Info */
+        .utm-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: #666;
+            max-width: 300px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .utm-info h4 {
+            color: #999;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        .utm-info p {
+            margin: 4px 0;
+            word-break: break-all;
+        }
+
+        @media (max-width: 640px) {
+            .logo { font-size: 2rem; }
+            h1 { font-size: 1.5rem; }
+            .subtitle { font-size: 1rem; }
+            .countdown-container { width: 150px; height: 150px; }
+            .countdown-circle { width: 150px; height: 150px; }
+            .countdown-number { font-size: 4rem; }
+            .utm-info { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow"></div>
+    
+    <div class="container">
+        <div class="logo">ADVANX</div>
+        <h1>Aguarde um momento...</h1>
+        <p class="subtitle">Você será conectado ao nosso WhatsApp</p>
+        
+        <div class="countdown-container">
+            <div class="countdown-circle">
+                <svg>
+                    <circle class="circle-bg" cx="100" cy="100" r="90"></circle>
+                    <circle class="circle-progress" cx="100" cy="100" r="90"></circle>
+                </svg>
+                <div class="countdown-number" id="counter">3</div>
+            </div>
+        </div>
+        
+        <p class="loading-text">Preparando sua conexão<span class="dots"></span></p>
+    </div>
+
+    <!-- Debug UTM Info -->
+    <div class="utm-info" id="utmDebug"></div>
+
+    <script>
+        // ==========================================
+        // CONFIGURAÇÕES
+        // ==========================================
+        
+        const WHATSAPP_NUMBER = '5571982470873';
+        const WEBHOOK_URL = 'https://n8n.advfunnel.com.br/webhook/1a66fbb9-c364-46ae-a2b5-516034ef3cc5/:whatsapp';
+        const DEFAULT_MESSAGE = 'Olá! Tenho interesse no Advanx System.';
+
+        // ==========================================
+        // CAPTURA DE UTMs E DADOS
+        // ==========================================
+
+        function getUTMParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            const utmData = {
+                // UTMs padrão
+                utm_source: urlParams.get('utm_source') || 'direct',
+                utm_medium: urlParams.get('utm_medium') || 'none',
+                utm_campaign: urlParams.get('utm_campaign') || 'none',
+                utm_term: urlParams.get('utm_term') || 'none',
+                utm_content: urlParams.get('utm_content') || 'none',
+                
+                // Parâmetros do Meta Ads (Facebook/Instagram)
+                fbclid: urlParams.get('fbclid') || null,
+                ad_id: urlParams.get('ad_id') || null,
+                adset_id: urlParams.get('adset_id') || null,
+                campaign_id: urlParams.get('campaign_id') || null,
+                ad_name: urlParams.get('ad_name') || null,
+                adset_name: urlParams.get('adset_name') || null,
+                campaign_name: urlParams.get('campaign_name') || null,
+                
+                // Dados contextuais
+                page_url: window.location.href,
+                referrer: document.referrer || 'direct',
+                timestamp: new Date().toISOString(),
+                timestamp_br: new Date().toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'}),
+                user_agent: navigator.userAgent,
+                screen_resolution: `${screen.width}x${screen.height}`,
+                language: navigator.language,
+                platform: navigator.platform
+            };
+            
+            return utmData;
+        }
+
+        // Envia dados para o webhook
+        async function sendToWebhook(data) {
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                console.log('✅ Dados enviados com sucesso:', data);
+                return true;
+            } catch (error) {
+                console.error('❌ Erro ao enviar dados:', error);
+                return false;
+            }
+        }
+
+        // Mostra UTMs capturadas (debug)
+        function showDebugInfo(utmData) {
+            const debugDiv = document.getElementById('utmDebug');
+            debugDiv.innerHTML = `
+                <h4>📊 Dados Capturados:</h4>
+                <p><strong>Source:</strong> ${utmData.utm_source}</p>
+                <p><strong>Medium:</strong> ${utmData.utm_medium}</p>
+                <p><strong>Campaign:</strong> ${utmData.utm_campaign}</p>
+                ${utmData.fbclid ? `<p><strong>FBCLID:</strong> ${utmData.fbclid.substring(0, 20)}...</p>` : ''}
+                ${utmData.ad_name ? `<p><strong>Ad Name:</strong> ${utmData.ad_name}</p>` : ''}
+                ${utmData.campaign_name ? `<p><strong>Campaign Name:</strong> ${utmData.campaign_name}</p>` : ''}
+                <p><strong>Horário:</strong> ${utmData.timestamp_br}</p>
+            `;
+        }
+
+        // ==========================================
+        // CONTADOR E REDIRECIONAMENTO
+        // ==========================================
+
+        let count = 3;
+        const counterElement = document.getElementById('counter');
+        
+        const countdownInterval = setInterval(() => {
+            count--;
+            if (count > 0) {
+                counterElement.textContent = count;
+            } else {
+                counterElement.textContent = '✓';
+                clearInterval(countdownInterval);
+            }
+        }, 1000);
+
+        // ==========================================
+        // EXECUÇÃO PRINCIPAL
+        // ==========================================
+
+        (async function() {
+            // 1. Captura todos os dados
+            const utmData = getUTMParameters();
+            
+            // 2. Mostra no debug
+            showDebugInfo(utmData);
+            
+            // 3. Envia para webhook
+            await sendToWebhook(utmData);
+            
+            // 4. Dispara pixels de tracking
+            if (typeof fbq === 'function') {
+                fbq('trackCustom', 'LeadQualificado', {
+                    utm_source: utmData.utm_source,
+                    utm_campaign: utmData.utm_campaign
+                });
+            }
+            
+            if (typeof gtag === 'function') {
+                gtag('event', 'qualified_lead', {
+                    'event_category': 'engagement',
+                    'event_label': 'whatsapp_redirect',
+                    'utm_source': utmData.utm_source,
+                    'utm_campaign': utmData.utm_campaign
+                });
+            }
+            
+            // 5. Redireciona para WhatsApp após 3 segundos
+            setTimeout(() => {
+                const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(DEFAULT_MESSAGE)}`;
+                window.location.href = whatsappURL;
+            }, 3000);
+        })();
+    </script>
+</body>
+</html>
