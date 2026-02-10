@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanx System - IA para Advocacia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    
+    <!-- ==========================================
+         TRACKING SCRIPTS
+    =========================================== -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-98EL5GXG5F');
+    </script>
+
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '502759528362336'); 
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"
+    /></noscript>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        .serif { font-family: 'Merriweather', serif; }
+        .container-doc { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .section-divider { border-top: 1px solid #f3f4f6; margin: 40px 0; }
+        
+        .cta-button {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 18px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            display: inline-block;
+            transition: all 0.2s ease;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            text-decoration: none;
+        }
+        @media (min-width: 640px) { .cta-button { width: auto; } }
+        .cta-button:hover { background-color: #333333; transform: scale(1.02); }
+        .warning-box { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 24px; margin: 24px 0; }
+        
+        @keyframes pulse-elegant {
+            0% { box-shadow: 0 0 0 0 rgba(26, 26, 26, 0.4); transform: scale(1); }
+            70% { box-shadow: 0 0 0 10px rgba(26, 26, 26, 0); transform: scale(1.02); }
+            100% { box-shadow: 0 0 0 0 rgba(26, 26, 26, 0); transform: scale(1); }
+        }
+        .btn-pulse { animation: pulse-elegant 2s infinite; }
+    </style>
+</head>
+<body>
+
+    <div class="container-doc">
+        <!-- Headline -->
+        <header class="mb-12">
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight">
+                Transforme leads perdidos em contratos fechados 24h por dia com IA que atende, qualifica e converte enquanto você dorme
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-500 italic font-medium leading-relaxed">
+                Imagine cada lead sendo atendido em segundos (texto ou áudio), qualificado com script perfeito, e convertido em contrato assinado... mesmo às 3h da manhã quando sua equipe está dormindo, e a IA faz 85% do trabalho comercial que hoje consome seu time inteiro.
+            </p>
+        </header>
+
+        <!-- Intro & Photo -->
+        <section class="mb-12 text-lg">
+            <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/eu-escritorio.webp" 
+                 alt="Rafael Batista no Escritório" 
+                 class="w-full h-auto rounded-xl shadow-md mb-8 border border-gray-100">
+                 
+            <p class="mb-4">Oi, eu sou o <strong>Rafael Batista</strong>, fundador da Advanx.</p>
+            <p class="mb-4">Nos últimos 5 anos atendi mais de 400 escritórios de advocacia.</p>
+            <p>E vi bons advogados perdendo <span class="text-red-600 font-bold underline decoration-red-200 underline-offset-4">R$50k, R$80k, R$120k por mês</span> simplesmente porque o lead esfriou.</p>
+        </section>
+
+        <!-- Warning -->
+        <div class="warning-box">
+            <h3 class="font-bold mb-2 text-amber-800 flex items-center">
+                <span class="mr-2">⚠️</span> LEIA ANTES DE CONTINUAR
+            </h3>
+            <p class="text-amber-900 font-medium text-lg">Isso aqui é para advogado que recebe 10+ leads por dia e sabe que está sangrando dinheiro.</p>
+            <p class="mt-2 text-sm text-amber-700 italic">Se você ainda está tentando fazer a primeira captação ou recebe 2-3 leads por semana, essa página não é para você.</p>
+        </div>
+
+        <section class="mt-12 space-y-6 text-lg">
+            <p>Estou vendo advogados bons morrendo nessa nova dinâmica do digital.</p>
+            <ul class="space-y-4 list-none">
+                <li class="flex items-start">
+                    <span class="mr-3 text-red-500 font-bold">→</span>
+                    <span>Lead chega às 22h. Ninguém responde. Cliente contrata o concorrente.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="mr-3 text-red-500 font-bold">→</span>
+                    <span>SDR não segue script. Perde a venda. Você nem fica sabendo.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="mr-3 text-red-500 font-bold">→</span>
+                    <span>Base de leads fica morta. Ninguém faz recuperação. R$80k jogados fora.</span>
+                </li>
+            </ul>
+            <p class="mt-8">Se chegou até aqui, provavelmente está sentindo isso.</p>
+        </section>
+
+        <!-- Management styles -->
+        <section class="mt-12 bg-gray-50 p-8 rounded-xl">
+            <h3 class="text-xl font-bold mb-4">Talvez você gerencie hoje como:</h3>
+            <ul class="space-y-2 mb-6">
+                <li>• Planilha Excel desatualizada</li>
+                <li>• WhatsApp virando bagunça</li>
+                <li>• Papel e agenda que ninguém segue</li>
+                <li>• 3-4 softwares diferentes pra fazer meia gestão</li>
+            </ul>
+            <p class="italic text-gray-500">e funciona.</p>
+            <p class="text-xl font-bold mt-4">Mas existe outra forma que poucos advogados conhecem e ela fecha contrato enquanto você dorme.</p>
+            <p class="mt-2 font-bold text-black uppercase">Deixa eu te mostrar:</p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Problem Detail -->
+        <section class="space-y-8">
+            <h2 class="text-3xl font-bold">O Óbvio Que Advogado Ignora</h2>
+            <p class="text-lg">Lead que espera 2 horas contrata quem respondeu em 2 minutos.</p>
+            <p class="text-lg">Sua equipe dorme 8 horas. Almoça. Tira folga. Esquece follow-up. <strong>O lead não espera.</strong></p>
+            <p class="text-lg">Ele já está conversando com outros 3 escritórios. E quem responde primeiro, com atenção, seguindo processo... <strong>esse fecha.</strong></p>
+            <p class="text-xl font-bold text-red-600">Por que você deixa isso nas mãos de gente que falha?</p>
+
+            <div class="bg-gray-900 text-white p-8 rounded-2xl">
+                <h3 class="text-2xl font-bold mb-4">Pensa Comigo</h3>
+                <p class="mb-4"><strong>Dentista</strong> não gerencia paciente em papel e reza pra secretária lembrar de ligar. Ele tem sistema. Automatiza confirmação. Recupera faltosos. Paciente não esquece consulta.</p>
+                <p class="mb-4"><strong>Contador</strong> não confia em memória pra lembrar prazo de 40 clientes. Ele tem controle. Alertas automáticos. Nada passa.</p>
+                <p class="font-bold text-xl">Por que você ainda gerencia lead em WhatsApp e torce pra SDR fazer follow-up?</p>
+            </div>
+        </section>
+
+        <!-- The Math -->
+        <section class="mt-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">A Matemática</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="border p-8 rounded-xl">
+                    <h4 class="font-bold text-gray-400 uppercase text-xs mb-4">Modelo Tradicional</h4>
+                    <p class="mb-2 italic">Você contrata 3 atendentes a R$2.500/mês cada</p>
+                    <p class="text-sm text-gray-500 mb-4">Fecham 15% dos leads que conseguem atender (horário comercial)</p>
+                    <p class="text-red-600 font-bold">Custo: R$7.500/mês + encargos</p>
+                </div>
+                <div class="border-2 border-black p-8 rounded-xl bg-gray-50">
+                    <h4 class="font-bold text-black uppercase text-xs mb-4">Modelo IA Advanx</h4>
+                    <p class="mb-2 italic">IA atende 100% dos leads 24h (resposta em segundos)</p>
+                    <p class="text-sm text-gray-500 mb-4">Converte 15-20% de TODOS os leads (inclusive madrugada)</p>
+                    <p class="text-green-600 font-bold">Custo: menos que 1 estagiário</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8 space-y-4">
+                <p class="text-gray-600">Mesma taxa de conversão. Mas a IA atende o lead das 22h que seu time perdeu.</p>
+                <p class="font-bold text-xl">E a diferença entre:</p>
+                <p>Perder 40% dos leads porque chegaram fora do horário</p>
+                <p class="font-bold">OU</p>
+                <p>Atender 100% em menos de 1 minuto e converter mais 8-12 contratos/mês</p>
+                <p class="mt-8 italic text-gray-600">"Um dos nossos clientes reduziu de 5 atendentes pra 1. Continua fechando 45 contratos/mês. Só que agora economiza R$10k/mês em folha."</p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- How it works -->
+        <section>
+            <h2 class="text-3xl font-bold mb-8">"Mas Como a IA Atende Tão Bem?"</h2>
+            <p class="text-lg mb-6">Duas palavras: <strong>especialização jurídica.</strong></p>
+            <p class="text-lg mb-10">Não é ChatGPT genérico. É IA própria que desenvolvemos do zero, treinada em 5 anos atendendo 400+ escritórios. Ela já sabe:</p>
+            
+            <div class="space-y-4 mb-12">
+                <div class="flex items-center gap-3 p-4 border rounded-lg">✅ Qualificar lead de bloqueio DPVAT em 2min</div>
+                <div class="flex items-center gap-3 p-4 border rounded-lg">✅ Calcular valor de causa trabalhista automaticamente</div>
+                <div class="flex items-center gap-3 p-4 border rounded-lg">✅ Extrair tarifas bancárias e montar proposta</div>
+                <div class="flex items-center gap-3 p-4 border rounded-lg">✅ Identificar reclamante de acidente de trabalho</div>
+                <div class="flex items-center gap-3 p-4 border rounded-lg">✅ Fazer follow-up humanizado sem parecer robô</div>
+                <div class="flex items-center gap-3 p-4 border rounded-lg bg-blue-50 border-blue-100 font-bold">✅ Entender texto E áudio (cliente manda áudio, IA responde certeiro)</div>
+            </div>
+
+            <p class="text-xl">E você ativa ela em menos de 1 minuto. Dois cliques. IA no ar. Atendendo.</p>
+            <p class="mt-4 text-gray-600 italic">IA faz 85% do trabalho comercial (atendimento, qualificação, follow-up, recuperação de base). Você adiciona os 15% que importam: fechar o contrato e advogar.</p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- What is Advanx System -->
+        <section>
+            <h2 class="text-4xl font-black mb-10">O Que É o Advanx System</h2>
+            <div class="mb-10 text-lg space-y-2">
+                <p>Não é "mais um CRM genérico com chatbot".</p>
+                <p>Não é software complicado que sua equipe não usa.</p>
+                <p>Não é planilha turbinada.</p>
+                <p class="font-bold">É o primeiro sistema completo desenvolvido especificamente para advocacia, com IA comercial integrada que trabalha 24h.</p>
+                <p>Criamos consultando nossos 400+ clientes nos últimos 5 anos. Cada funcionalidade existe porque advogado pediu.</p>
+            </div>
+        </section>
+
+        <!-- O CRM A Prova de Desculpas -->
+        <section class="mb-12 bg-gray-50 p-8 rounded-xl border border-gray-100">
+            <h3 class="text-2xl font-bold mb-4">O CRM À Prova de Desculpas</h3>
+            <p class="mb-4">Sabe qual o maior problema de qualquer CRM? <strong>Depende de humano preencher.</strong></p>
+            <p class="mb-6 text-gray-700">Humano esquece. Humano enrola. Humano deixa pra depois. O Advanx System é diferente.</p>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <p class="font-bold text-lg mb-2">A IA preenche tudo sozinha.</p>
+                <p>Cada conversa. Cada qualificação. Cada interação. Atualização automática. Dados estruturados. Histórico completo. <strong>Sem depender de ninguém lembrar de atualizar.</strong></p>
+            </div>
+        </section>
+
+        <!-- Como Funciona na Pratica -->
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold mb-6">Como o Advanx System Funciona na Prática</h3>
+            <div class="space-y-6">
+                <div class="border-l-4 border-green-500 pl-4 py-2">
+                    <p class="font-bold">Cliente manda áudio às 23h?</p>
+                    <p class="text-gray-600">IA escuta, entende, responde em texto ou áudio. Qualifica. Salva tudo no CRM.</p>
+                </div>
+                <div class="border-l-4 border-green-500 pl-4 py-2">
+                    <p class="font-bold">Cliente envia laudo médico em PDF?</p>
+                    <p class="text-gray-600">IA extrai informações, calcula valor da causa, monta proposta. Tudo automático.</p>
+                </div>
+                <div class="border-l-4 border-green-500 pl-4 py-2">
+                    <p class="font-bold">Lead parou de responder?</p>
+                    <p class="text-gray-600">IA detecta, aguarda 48h, envia follow-up humanizado. Recupera sozinha.</p>
+                </div>
+                <div class="border-l-4 border-green-500 pl-4 py-2">
+                    <p class="font-bold">Lead qualificado quer reunião?</p>
+                    <p class="text-gray-600">IA sugere horários, integra com Google Calendar, envia Google Meet. Confirmação automática.</p>
+                </div>
+                <div class="border-l-4 border-green-500 pl-4 py-2">
+                    <p class="font-bold">Lead aceita proposta?</p>
+                    <p class="text-gray-600">IA envia contrato, acompanha assinatura, atualiza status no CRM. Você só advoga.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculadoras -->
+        <section class="mb-16">
+            <h3 class="text-2xl font-bold mb-4">As Calculadoras Que Economizam R$3k-5k/Mês em Terceirização</h3>
+            <p class="mb-6">Sabe quanto você gasta contratando gente pra fazer cálculo trabalhista? R$200-400 por cálculo. Ou R$2.500-3.500/mês contratando alguém fixo. <strong>O Advanx System faz TUDO isso automaticamente. Em minutos.</strong></p>
+            
+            <h4 class="font-bold text-lg mb-4 text-gray-800">Ferramentas Incluídas:</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div class="p-4 border rounded bg-blue-50 border-blue-100">
+                    <p class="font-bold text-blue-800">🔵 Extrator de Tarifas Bancárias</p>
+                    <p class="text-sm">Identificação automática de taxas abusivas e RMC em extratos. IA lê o PDF do banco e monta a planilha sozinha.</p>
+                </div>
+                <div class="p-4 border rounded bg-green-50 border-green-100">
+                    <p class="font-bold text-green-800">🟢 Calculadora Trabalhista Completa</p>
+                    <p class="text-sm">Rescisão, horas extras, médias, FGTS e reflexos (CLT). O que um assistente leva 2h pra calcular, a IA faz em 3min.</p>
+                </div>
+                <div class="p-4 border rounded bg-blue-50 border-blue-100">
+                    <p class="font-bold text-blue-800">🔵 Calculadora Bancária</p>
+                    <p class="text-sm">CET, IOF, Tabela Price/SAC, Revisionais e Quitação. Cliente envia contrato, IA extrai e calcula.</p>
+                </div>
+                <div class="p-4 border rounded bg-orange-50 border-orange-100">
+                    <p class="font-bold text-orange-800">🟠 Previdenciário</p>
+                    <p class="text-sm">Revisão da Vida Toda e Conferência de Cálculo. Automatizado.</p>
+                </div>
+                <div class="p-4 border rounded bg-red-50 border-red-100">
+                    <p class="font-bold text-red-800">🔴 Planos de Saúde</p>
+                    <p class="text-sm">Auditoria de reajustes (Faixa/Anual), carências e abusividades (ANS).</p>
+                </div>
+                <div class="p-4 border rounded bg-purple-50 border-purple-100">
+                    <p class="font-bold text-purple-800">🟣 Calculadora Cível</p>
+                    <p class="text-sm">Danos materiais, lucros cessantes, locação e contratos.</p>
+                </div>
+                <div class="p-4 border rounded bg-red-50 border-red-100">
+                    <p class="font-bold text-red-800">🔴 Calculadora Família</p>
+                    <p class="text-sm">Pensão, revisional, partilha de bens, herança e atrasados.</p>
+                </div>
+                <div class="p-4 border rounded bg-red-50 border-red-100">
+                    <p class="font-bold text-red-800">🔴 Calculadora Penal</p>
+                    <p class="text-sm">Dosimetria, progressão, remição, prescrição e livramento.</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 text-white p-6 rounded-xl text-center mb-8">
+                <h4 class="font-bold text-xl mb-4">A matemática é simples:</h4>
+                <p class="mb-2">Contratar terceirizado: R$300/cálculo × 10 cálculos/mês = <span class="text-red-400 font-bold">R$3.000/mês</span></p>
+                <p class="text-lg">Advanx System: Cálculos ilimitados inclusos. <span class="text-green-400 font-bold">R$0 adicional.</span></p>
+            </div>
+            
+            <p class="text-center italic text-gray-600">E o melhor: IA já entrega isso pro cliente durante o atendimento. Você para de gastar com terceirização e ainda vende mais rápido.</p>
+        </section>
+
+        <!-- Features List -->
+        <section class="mb-16">
+            <h3 class="text-2xl font-bold mb-6">Aqui está o que você recebe:</h3>
+            <div class="grid grid-cols-1 gap-4">
+                <div class="p-4 border-b">✅ <strong>IA Comercial 24h no WhatsApp:</strong> Atende em segundos (texto e áudio), qualifica com script perfeito, agenda reuniões, faz follow-up automático e humanizado.</div>
+                <div class="p-4 border-b">✅ <strong>IAs Especialistas Prontas:</strong> Bloqueio DPVAT, tarifas bancárias, superendividamento, rescisão indireta, reconhecimento de vínculo, acidente de trabalho, salário maternidade.</div>
+                <div class="p-4 border-b">✅ <strong>Extração de Documentos:</strong> IA lê e extrai informações de PDFs, laudos médicos, contratos, holerites. O que levava 40min agora leva 2min.</div>
+                <div class="p-4 border-b">✅ <strong>Cálculos Automáticos:</strong> Calcula valor de causa trabalhista, extrai tarifas bancárias, monta proposta de honorários. Tudo em minutos.</div>
+                <div class="p-4 border-b">✅ <strong>Integração com Google Calendar:</strong> IA sugere horários, confirma reuniões, cria Google Meet automaticamente. Cliente recebe tudo por WhatsApp.</div>
+                <div class="p-4 border-b">✅ <strong>Gestão Completa de Prazos:</strong> Sistema avisa antes de vencer. Delega pra equipe. Você nunca mais perde prazo por desorganização.</div>
+                <div class="p-4 border-b">✅ <strong>Controle de Leads e Fontes:</strong> Rastreia de onde vem cada lead, quanto cada fonte converte, quanto cada área fatura.</div>
+                <div class="p-4 border-b">✅ <strong>Follow-up Massivo Automático:</strong> IA recupera leads que pararam de responder. Envia mensagem personalizada. Reativa base morta que ia virar R$0.</div>
+                <div class="p-4 border-b">✅ <strong>Gestão Financeira:</strong> Controla faturamento por área, percentual de honorários recebidos, previsão de caixa.</div>
+                <div class="p-4 border-b">✅ <strong>Atualização Automática do CRM:</strong> Cada interação atualiza o CRM sozinha. Dados estruturados, tags, próximos passos.</div>
+                <div class="p-4 border-b">✅ <strong>Landing Page de Alta Conversão:</strong> Bônus ao contratar. Uma página profissional para captar lead já otimizada para conversão.</div>
+                <div class="p-4">✅ <strong>Customização Completa:</strong> IA com a cara do seu escritório. Logo, cores, tom de voz. Cliente acha que está falando com seu time.</div>
+            </div>
+        </section>
+
+        <!-- Before vs After -->
+        <section class="mb-16 bg-gray-50 p-8 rounded-3xl border border-gray-200">
+            <h2 class="text-3xl font-bold mb-10 text-center">A Diferença Entre Perder Leads e Fechar Contratos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <h4 class="text-red-600 font-bold uppercase tracking-widest text-sm">Sem Advanx System</h4>
+                    <p class="text-sm">❌ Horas perdidas com curiosos que nunca fecham</p>
+                    <p class="text-sm">❌ Leads esfriam porque ninguém responde rápido</p>
+                    <p class="text-sm">❌ Informações perdidas no WhatsApp</p>
+                    <p class="text-sm">❌ Base de leads morrendo sem recuperação</p>
+                    <p class="text-sm">❌ Perder contratos fora do horário comercial</p>
+                    <p class="text-sm">❌ CRM desatualizado que ninguém preenche</p>
+                    <p class="text-sm">❌ Dependência total de humanos (que falham)</p>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="text-green-600 font-bold uppercase tracking-widest text-sm">Com Advanx System</h4>
+                    <p class="text-sm">✅ IA filtra 100% automático e entrega só lead qualificado</p>
+                    <p class="text-sm">✅ Atendimento em segundos, 24h por dia, 7 dias por semana</p>
+                    <p class="text-sm">✅ Todo histórico salvo e organizado automaticamente</p>
+                    <p class="text-sm">✅ Contratos sendo fechados enquanto você dorme</p>
+                    <p class="text-sm">✅ Recuperação massiva de base antiga virando dinheiro</p>
+                    <p class="text-sm">✅ CRM sempre atualizado sem esforço humano</p>
+                    <p class="text-sm">✅ Automação inteligente que nunca falha</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Como Começar (3 Passos) -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">Como Começar: 3 Passos Simples</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div class="p-6 border rounded-xl bg-gray-50">
+                    <span class="text-4xl font-black text-gray-200 block mb-2">01</span>
+                    <h4 class="font-bold text-lg mb-2">Configuração</h4>
+                    <p class="text-sm text-gray-600">Você agenda demonstração. Nossa equipe configura a IA para entender o perfil do seu escritório, suas áreas de atuação, e seu tom de voz.</p>
+                </div>
+                <div class="p-6 border rounded-xl bg-gray-50">
+                    <span class="text-4xl font-black text-gray-200 block mb-2">02</span>
+                    <h4 class="font-bold text-lg mb-2">Integração</h4>
+                    <p class="text-sm text-gray-600">Conectamos ao seu WhatsApp, Google Calendar, e customizamos logo, cores, scripts. Validamos os fluxos de conversa. Tudo em 24-48h.</p>
+                </div>
+                <div class="p-6 border rounded-xl bg-gray-50">
+                    <span class="text-4xl font-black text-gray-200 block mb-2">03</span>
+                    <h4 class="font-bold text-lg mb-2">Execução</h4>
+                    <p class="text-sm text-gray-600">IA assume o atendimento inicial, qualifica leads, agenda reuniões, e entrega oportunidades prontas para você fechar. Você só advoga.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== 
+             CTA PRINCIPAL - WHATSAPP
+             COLOQUE SEU NÚMERO AQUI ↓ 
+        =========================================== -->
+        <section class="mt-20 py-12 border-t border-b text-center">
+            <h2 class="text-3xl font-black mb-4">Fale Comigo no WhatsApp Agora</h2>
+            <p class="mb-8 text-gray-600">Clique no botão abaixo e vamos conversar sobre como o Advanx System pode transformar seu escritório:</p>
+            
+            <!-- 
+                ⚠️ ATENÇÃO: COLOQUE SEU NÚMERO DE WHATSAPP ABAIXO
+                Formato: https://wa.me/5511999999999
+                Substitua 5511999999999 pelo seu número (código do país + DDD + número)
+            -->
+            <a href="https://wa.me/5511999999999" 
+               target="_blank" 
+               class="cta-button btn-pulse text-xl"
+               onclick="trackWhatsAppClick()">
+                FALAR NO WHATSAPP AGORA
+            </a>
+            
+            <p class="mt-6 italic text-gray-500 text-sm">Respondo pessoalmente. Sem pressão. Sem enrolação.</p>
+        </section>
+
+        <!-- Who is it for -->
+        <section class="mt-20">
+            <h2 class="text-3xl font-bold mb-8">Para Quem o Advanx System Funciona?</h2>
+            <ul class="space-y-4 text-lg">
+                <li>• Advogados que recebem 10+ leads/dia</li>
+                <li>• Escritórios que perdem contrato porque equipe não seguiu processo</li>
+                <li>• Advogados que sabem que base de leads está morrendo sem follow-up</li>
+                <li>• Escritórios que querem reduzir equipe mas manter (ou aumentar) faturamento</li>
+            </ul>
+            <div class="mt-8 bg-amber-50 p-6 rounded-lg text-amber-900 border-l-4 border-amber-500">
+                <p class="font-bold">Atenção:</p>
+                <p>Se você ainda está captando os primeiros leads ou atende 2-3 clientes/mês, não é aqui. Isso é para quem já recebe volume e sabe que está perdendo dinheiro por falta de estrutura.</p>
+            </div>
+        </section>
+
+        <!-- Social Proof -->
+        <section class="mt-20 text-center bg-gray-50 p-10 rounded-2xl">
+            <h2 class="text-2xl font-bold mb-4">Mais de 400 Escritórios Confiam na Advanx</h2>
+            <p class="mb-6 font-semibold text-gray-600">Previdenciário. Trabalhista. Bancário. Cível. Família.</p>
+            <p class="text-gray-600">Escritórios de todas as áreas usam o Advanx System para parar de perder lead e começar a fechar mais. 5 anos construindo soluções exclusivas para advocacia.</p>
+        </section>
+
+        <!-- FAQ -->
+        <section class="mt-20">
+            <h2 class="text-3xl font-bold mb-10">Perguntas Frequentes</h2>
+            <div class="space-y-8">
+                <div>
+                    <h4 class="font-bold text-lg mb-2">A IA substitui o atendimento humano?</h4>
+                    <p class="text-gray-600">Não. A IA qualifica e filtra. Você (ou seu time) fecha o contrato. IA não substitui você, ela elimina a perda de tempo com curioso e entrega só quem tem real potencial de fechar. Você para de atender 100 leads pra fechar 5, e passa a atender só os 15 que vão fechar.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">A IA entende termos jurídicos da minha área?</h4>
+                    <p class="text-gray-600">Sim. Nosso agente foi desenvolvido do zero treinado especificamente para advocacia. Entende linguagem jurídica e pode ser customizada para sua área específica (trabalhista, cível, previdenciária, etc.). Não é ChatGPT genérico adaptado.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">A IA fecha contratos sozinha?</h4>
+                    <p class="text-gray-600">Ela conduz o processo comercial completo: atende, qualifica, apresenta proposta, tira dúvidas, envia contrato. Mas a assinatura final depende do cliente aceitar. A IA faz todo o trabalho pesado, você só valida e fecha.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Preciso saber de tecnologia pra usar?</h4>
+                    <p class="text-gray-600">Não. Plataforma 100% intuitiva. Nossa equipe cuida de toda configuração inicial e customização. Você recebe tudo pronto. E temos suporte completo caso precise.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Funciona pra advogado solo ou só pra escritório grande?</h4>
+                    <p class="text-gray-600">Ambos. Se você é advogado solo que quer parar de perder lead, funciona. Se você tem escritório com 5-10 advogados e quer escalar sem contratar mais gente, funciona também. A diferença é o volume de leads que você processa.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">E se meu lead preferir falar com humano?</h4>
+                    <p class="text-gray-600">A IA é tão humanizada que 9 em cada 10 leads nem percebem que estão falando com IA. Mas se o lead pedir, a IA agenda reunião com você ou seu time. O importante é que o lead foi qualificado, você não perde 3h com curioso.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Quanto tempo pra IA estar funcionando?</h4>
+                    <p class="text-gray-600">24-48h depois que você contratar. Nossa equipe customiza, integra com seu WhatsApp, treina a IA com suas informações, e entrega funcionando. Você só clica em "ativar".</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">O Advanx System tem integração com meu CRM?</h4>
+                    <p class="text-gray-600">O Advanx System JÁ É um CRM completo desenvolvido para advocacia. Mas se você já usa outro CRM e quer manter, podemos avaliar integração na demonstração.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Funciona apenas no WhatsApp?</h4>
+                    <p class="text-gray-600">O atendimento principal é via WhatsApp (onde 90% dos seus leads estão). Mas o sistema completo inclui gestão de prazos, controle financeiro, CRM, relatórios. Tudo integrado.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Qual o investimento?</h4>
+                    <p class="text-gray-600">Temos condições especiais para quem está começando agora. Na demonstração de 15min mostramos o sistema funcionando e você recebe a proposta completa adaptada pro seu escritório.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="mt-20 py-12 bg-black text-white rounded-2xl text-center px-8">
+            <h2 class="text-3xl font-black mb-6">Pronto Para Parar de Perder Leads?</h2>
+            <p class="mb-8 text-gray-300">Clique abaixo e vamos conversar sobre a implementação no seu escritório:</p>
+            
+            <!-- ⚠️ ATENÇÃO: MESMO NÚMERO DO WHATSAPP AQUI -->
+            <a href="https://wa.me/5511999999999" 
+               target="_blank" 
+               class="cta-button btn-pulse text-xl bg-white !text-black hover:!bg-gray-100"
+               onclick="trackWhatsAppClick()">
+                FALAR NO WHATSAPP
+            </a>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-20 pb-20 text-center text-gray-500 text-sm space-y-4">
+            <p><strong>P.S.:</strong> Advanx System não é "pra qualquer advogado". É pra quem já recebe volume e sabe que tá sangrando lead.</p>
+            <p><strong>P.P.S.:</strong> Não somos "mais um CRM genérico com IA". Somos especialistas em advocacia há 5 anos. A IA foi treinada do zero pra isso.</p>
+            <p><strong>P.P.P.S.:</strong> Se você acha que "IA não substitui humano no atendimento", você está certo. Ela não substitui. Ela filtra. Pra você parar de perder 3 horas por dia com curioso e atender só quem fecha.</p>
+            <p class="pt-4 border-t w-1/2 mx-auto mt-4">Sobre mim: Rafael Batista, fundador da Advanx. 5 anos trabalhando exclusivamente com advogados. Mais de 400 escritórios atendidos. Construí esse sistema ouvindo advogado reclamando de CRM genérico que não entende a advocacia. Agora você tem um que entende.</p>
+        </footer>
+    </div>
+
+    <!-- ========================================== 
+         TRACKING SCRIPTS
+    =========================================== -->
+    <script>
+        // PageView já disparou automaticamente no head
+        
+        // ViewContent no scroll (após 100px)
+        let viewContentFired = false;
+        window.addEventListener('scroll', () => {
+            if (!viewContentFired && window.scrollY > 100) {
+                // Facebook Pixel
+                if (typeof fbq === 'function') {
+                    fbq('track', 'ViewContent');
+                }
+                // Google Analytics
+                if (typeof gtag === 'function') {
+                    gtag('event', 'view_content');
+                }
+                viewContentFired = true;
+            }
+        });
+
+        // Lead Qualificado ao clicar no WhatsApp
+        function trackWhatsAppClick() {
+            // Facebook Pixel
+            if (typeof fbq === 'function') {
+                fbq('trackCustom', 'LeadQualificado');
+            }
+            // Google Analytics
+            if (typeof gtag === 'function') {
+                gtag('event', 'qualified_lead', {
+                    'event_category': 'engagement',
+                    'event_label': 'whatsapp_click'
+                });
+            }
+        }
+    </script>
+</body>
+</html>
