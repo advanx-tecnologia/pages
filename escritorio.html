@@ -1,0 +1,703 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  CheckCircle2, 
+  XCircle, 
+  TrendingUp, 
+  ShieldCheck, 
+  ArrowRight, 
+  Smartphone,
+  MessageCircle,
+  AlertTriangle,
+  Lock
+} from 'lucide-react';
+
+/**
+ * CONFIGURAÇÕES DE RASTREAMENTO
+ */
+const WHATSAPP_NUMBER = "5571982470873";
+const PHOTO_URL = "https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/eu-escritorio.webp";
+
+// Helper para disparar eventos de forma segura
+const trackEvent = (eventName, params = {}) => {
+  if (typeof window !== 'undefined') {
+    // console.log(`📡 Evento: ${eventName}`, params);
+    if (window.fbq) window.fbq('track', eventName, params);
+    if (window.gtag) window.gtag('event', eventName, params);
+  }
+};
+
+const App = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [webhookUrl, setWebhookUrl] = useState('');
+  
+  // Estado para o menu secreto
+  const [secretClicks, setSecretClicks] = useState(0);
+
+  useEffect(() => {
+    // Carregar Webhook salvo
+    const savedWebhook = localStorage.getItem('advanx_webhook_url');
+    if (savedWebhook) setWebhookUrl(savedWebhook);
+
+    // Rastreamento Inicial
+    trackEvent('PageView');
+    const handleScroll = () => {
+      if (!scrolled && window.scrollY > 300) {
+        setScrolled(true);
+        trackEvent('ViewContent');
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrolled]);
+
+  // Lógica do Menu Secreto
+  const handleSecretTrigger = () => {
+    const newCount = secretClicks + 1;
+    setSecretClicks(newCount);
+
+    if (newCount === 3) {
+      setTimeout(() => {
+        const password = prompt("🔒 Acesso Admin\nDigite a senha:");
+        if (password === "2112") {
+          const currentUrl = localStorage.getItem('advanx_webhook_url') || "";
+          const newUrl = prompt("🔗 Configurar Webhook URL (n8n/Make):", currentUrl);
+          
+          if (newUrl !== null) {
+            localStorage.setItem('advanx_webhook_url', newUrl);
+            setWebhookUrl(newUrl);
+            alert("✅ Webhook atualizado com sucesso!");
+          }
+        } else if (password !== null) {
+          alert("❌ Senha incorreta.");
+        }
+        setSecretClicks(0);
+      }, 200); // Pequeno delay para UX
+    }
+
+    // Resetar contagem se demorar muito
+    setTimeout(() => setSecretClicks(0), 2000);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0A0A0A] font-sans text-gray-300 selection:bg-[#ff7a01] selection:text-white pb-20 md:pb-0">
+      
+      {/* HEADER DISCRETO */}
+      <div className="flex justify-center py-2 bg-[#121212] border-b border-[#222]">
+        <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-gray-600">
+          <Lock size={10} /> Documento Seguro Advanx IA
+        </div>
+      </div>
+
+      <main className="max-w-4xl mx-auto my-4 md:my-12 px-2 md:px-0">
+        <div className="bg-[#161616] border border-[#262626] shadow-2xl min-h-screen p-6 md:p-16 relative overflow-hidden rounded-sm md:rounded-lg">
+          
+          {/* Marca d'água */}
+          <div className="absolute top-6 right-6 flex flex-col items-end opacity-10 pointer-events-none z-0">
+             <span className="text-xs font-black tracking-[0.3em] text-white">CONFIDENCIAL</span>
+             <span className="text-[10px] text-gray-500 uppercase">Acesso Restrito // Advanx IA</span>
+          </div>
+
+          {/* HEADLINE / PROMESSA */}
+          <section className="mb-16 relative z-10 mt-16 md:mt-20">
+            <h1 className="text-3xl md:text-5xl font-black text-white leading-tight md:leading-tight mb-12 tracking-tight">
+              CONTRATOS FECHADOS EM ATÉ 41 DIAS.
+            </h1>
+            
+            <p className="text-lg md:text-xl text-gray-400 font-medium mb-10 border-l-4 border-[#ff7a01] pl-6 py-4 leading-relaxed bg-[#1E1E1E]/50 rounded-r-lg shadow-lg">
+              Garantido. Ou você fica isento da mensalidade.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+              {[
+                { text: "Não é lead.", icon: <XCircle className="text-red-500/80" /> },
+                { text: "Não é reunião.", icon: <XCircle className="text-red-500/80" /> },
+                { text: "Não é “movimento”.", icon: <XCircle className="text-red-500/80" /> },
+                { text: "É contrato assinado.", icon: <CheckCircle2 className="text-green-500" /> },
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center gap-4 bg-[#1E1E1E] p-4 md:p-5 rounded-lg border border-[#2A2A2A] hover:border-[#ff7a01]/30 transition-colors group">
+                  {item.icon}
+                  <span className="font-bold text-gray-200 text-lg group-hover:text-white transition-colors">{item.text}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="prose prose-invert prose-lg max-w-none text-gray-400 space-y-6">
+              <p>
+                Se em até 41 dias o seu escritório não estiver fechando novos contratos através do nosso sistema, você não paga a mensalidade.
+              </p>
+              <div className="flex flex-wrap gap-6 text-xs font-bold text-gray-500 uppercase tracking-widest">
+                <span>// Sem risco</span>
+                <span>// Sem desculpa</span>
+                <span>// Sem ambiguidade</span>
+              </div>
+            </div>
+          </section>
+
+          {/* FOTO ANTES DO SIC */}
+          <div className="mb-12 relative group rounded-xl overflow-hidden border border-[#333]">
+            <div className="absolute inset-0 bg-[#ff7a01]/10 mix-blend-overlay z-10"></div>
+            <img 
+              src={PHOTO_URL} 
+              alt="Advanx IA Office" 
+              loading="lazy"
+              width="800"
+              height="400"
+              className="w-full h-64 md:h-96 object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700"
+            />
+          </div>
+
+          {/* SIC SECTION */}
+          <section className="mb-16 py-8 border-t border-[#262626]">
+            <h2 className="text-2xl font-bold text-white mb-6">SIC — Sistema de Captação Inteligente</h2>
+            <p className="text-gray-400 mb-8 text-lg">
+              A Advanx IA implementa no seu escritório um mecanismo proprietário: <strong className="text-white">SIC — Sistema de Captação Inteligente.</strong>
+            </p>
+            <p className="text-gray-400 mb-8">Ele integra:</p>
+
+            <div className="space-y-4 mb-10">
+              {[
+                "Captação estruturada",
+                "Atendimento imediato com Inteligência Artificial",
+                "Qualificação estratégica",
+                "Condução até a decisão",
+                "CRM próprio integrado com controle total do funil"
+              ].map((item, idx) => (
+                <div key={idx} className="flex gap-4 items-center group">
+                  <div className="w-6 h-6 rounded bg-[#ff7a01]/10 text-[#ff7a01] flex items-center justify-center border border-[#ff7a01]/30 group-hover:bg-[#ff7a01] group-hover:text-white transition-colors">
+                    <CheckCircle2 size={14} />
+                  </div>
+                  <span className="text-gray-300 font-medium group-hover:text-white transition-colors">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="p-6 bg-[#1A1A1A] border-l-2 border-[#ff7a01] rounded-r-lg">
+              <p className="text-gray-300 text-lg italic">
+                "O que antes era disperso, agora opera como um sistema único. <br/>
+                <span className="text-[#ff7a01] font-bold not-italic mt-2 block">E sistema gera previsibilidade."</span>
+              </p>
+            </div>
+          </section>
+
+          {/* O PROBLEMA / CONSCIÊNCIA */}
+          <section className="mb-16 space-y-8 text-gray-400 text-lg leading-relaxed">
+            <h3 className="text-xl font-bold text-white">Se você já investiu em marketing e não teve resultado…</h3>
+            <p>
+              O problema não foi investir. O problema foi não ter um <strong className="text-white">mecanismo completo de condução até o fechamento.</strong>
+            </p>
+            <p>
+              Muitos escritórios geram interesse. Poucos controlam o processo.
+            </p>
+            
+            <div className="grid md:grid-cols-3 gap-4 text-sm my-8">
+               <div className="bg-[#1E1E1E] p-4 rounded border border-red-900/30 text-red-200/80 hover:border-red-500/50 transition-colors">
+                 Sem estrutura, o lead esfria.
+               </div>
+               <div className="bg-[#1E1E1E] p-4 rounded border border-red-900/30 text-red-200/80 hover:border-red-500/50 transition-colors">
+                 Sem inteligência de qualificação, o tempo é desperdiçado.
+               </div>
+               <div className="bg-[#1E1E1E] p-4 rounded border border-red-900/30 text-red-200/80 hover:border-red-500/50 transition-colors">
+                 Sem condução estratégica, a decisão não acontece.
+               </div>
+            </div>
+
+            <p>O SIC elimina essas quebras.</p>
+            <p>
+              Se você recebe muitos leads e fecha pouco… <br/>
+              <strong className="text-white">Isso não é normal.</strong> É sintoma de ausência de engenharia comercial.
+            </p>
+            <p>
+              Volume não compensa falha de estrutura. Quando o atendimento demora, quando não há filtro inteligente, quando não existe acompanhamento lógico de negociação a taxa de fechamento despenca.
+            </p>
+          </section>
+
+          {/* CALCULADORA / PERDA OCULTA */}
+          <section className="mb-16">
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+              <TrendingUp className="text-[#ff7a01]"/> Cálculo de Perda Oculta
+            </h2>
+            <div className="mb-8 text-gray-400 space-y-4">
+              <p>Vamos usar números mais próximos da realidade do mercado jurídico.</p>
+              <p>A maioria dos escritórios que investe em marketing fecha entre 1% e 3% dos leads que recebe.</p>
+              <p className="text-white font-bold">Agora imagine:</p>
+            </div>
+
+            <CalculatorDark />
+
+            <div className="mt-8 text-gray-400 space-y-6">
+              <p>
+                Mas aqui está a pergunta estratégica: <br/>
+                Quantos desses leads perdidos eram realmente inviáveis… E quantos foram perdidos por:
+              </p>
+              <ul className="list-disc pl-6 space-y-2 text-gray-500">
+                <li>Demora no atendimento</li>
+                <li>Falta de qualificação estruturada</li>
+                <li>Ausência de condução estratégica</li>
+                <li>Follow-up inexistente</li>
+              </ul>
+              <p className="pt-4 border-t border-[#262626]">
+                O problema nunca foi falta de lead. Foi aceitar como “normal” fechar 1% ou 2%. <br/>
+                <span className="text-[#ff7a01] font-bold">Normal não significa eficiente. Significa apenas comum. E comum não escala.</span>
+              </p>
+            </div>
+          </section>
+
+          {/* COMO FUNCIONA O SIC */}
+          <section className="mb-16 bg-[#121212] p-8 rounded-lg border border-[#262626]">
+            <h3 className="text-xl font-bold text-white mb-6">O SIC foi criado exatamente para resolver esse gargalo:</h3>
+            <ul className="space-y-4 text-gray-300">
+              <li className="flex gap-3"><CheckCircle2 className="text-[#ff7a01] shrink-0"/> A IA atende no minuto certo.</li>
+              <li className="flex gap-3"><CheckCircle2 className="text-[#ff7a01] shrink-0"/> Qualifica com critérios objetivos.</li>
+              <li className="flex gap-3"><CheckCircle2 className="text-[#ff7a01] shrink-0"/> Avança a conversa com direção estratégica.</li>
+              <li className="flex gap-3"><CheckCircle2 className="text-[#ff7a01] shrink-0"/> Organiza cada oportunidade dentro de um CRM proprietário.</li>
+            </ul>
+            <p className="mt-8 text-center text-lg font-bold text-white uppercase tracking-wide">
+              Não é sobre ter mais contatos. <br/>
+              É sobre transformar contatos em contratos.
+            </p>
+          </section>
+
+          {/* CRONOGRAMA 41 DIAS */}
+          <section className="mb-20">
+            <h2 className="text-2xl font-bold text-white mb-8">Previsibilidade em até 41 dias — por que funciona</h2>
+            <div className="space-y-8 pl-4 border-l-2 border-[#262626]">
+               <div className="relative pl-6">
+                 <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-[#331a00] border-2 border-[#ff7a01]"></div>
+                 <h4 className="text-white font-bold mb-2">Primeiros dias</h4>
+                 <p className="text-gray-500">Implementação estratégica e ativação do sistema.</p>
+               </div>
+               <div className="relative pl-6">
+                 <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-[#331a00] border-2 border-[#ff7a01]"></div>
+                 <h4 className="text-white font-bold mb-2">Na sequência</h4>
+                 <p className="text-gray-500">Captação + atendimento imediato + qualificação + condução estruturada.</p>
+               </div>
+               <div className="relative pl-6">
+                 <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-green-900 border-2 border-green-500"></div>
+                 <h4 className="text-white font-bold mb-2">Resultado</h4>
+                 <p className="text-gray-500">Quando o processo deixa de ser improvisado e passa a ser sistêmico, o ciclo de fechamento encurta. <strong className="text-green-500">Contratos previsíveis em até 41 dias.</strong></p>
+               </div>
+            </div>
+            <p className="mt-8 text-gray-400 font-medium">
+              Não é promessa vaga. É processo estruturado.
+            </p>
+          </section>
+
+          {/* QUEM ESTA POR TRAS (FOUNDER) */}
+          <section className="mb-16 py-10 bg-[#121212] -mx-6 md:-mx-16 px-6 md:px-16 border-y border-[#262626]">
+            <h2 className="text-2xl font-bold text-white mb-8 text-center md:text-left">Quem está por trás da Advanx IA</h2>
+            <div className="flex flex-col md:flex-row gap-8 items-center">
+              {/* FOTO NO CIRCULO DO FOUNDER - INTERATIVO */}
+              <div className="w-32 h-32 bg-gray-800 rounded-full overflow-hidden flex-shrink-0 shadow-[0_0_20px_rgba(255,122,1,0.2)] cursor-pointer active:scale-95 transition-transform" onClick={handleSecretTrigger}>
+                <img 
+                   src={PHOTO_URL} 
+                   alt="Rafael Batista" 
+                   loading="lazy"
+                   width="128"
+                   height="128"
+                   className="w-full h-full object-cover object-top"
+                />
+              </div>
+              
+              <div className="flex-1 text-center md:text-left">
+                <p className="text-gray-300 mb-4 text-lg">
+                  A empresa foi idealizada por <strong className="text-white">Rafael Batista (@rafaelbatistaz)</strong>.
+                </p>
+                <p className="text-gray-400 mb-6">
+                  Há mais de 5 anos atuando exclusivamente com advogados, desenvolvendo estruturas de aquisição voltadas para o mercado jurídico.
+                </p>
+                
+                <div className="bg-[#1A1A1A] p-4 rounded-lg border border-[#2A2A2A] mb-6 hover:border-[#ff7a01]/40 transition-colors inline-block md:block w-full">
+                  <h4 className="text-[#ff7a01] font-bold mb-2 text-sm uppercase">Já são:</h4>
+                  <ul className="text-gray-400 space-y-1 text-left">
+                    <li>• Mais de 400 escritórios atendidos</li>
+                    <li>• Grandes nomes como Professor Alexandre Mazza</li>
+                    <li>• Audiência 4.0</li>
+                    <li>• Weinmann & Colbeich</li>
+                  </ul>
+                </div>
+
+                <div className="text-gray-300 space-y-4 font-medium text-left">
+                  <p>Não estamos falando de teoria. Estamos falando de experiência acumulada em centenas de operações jurídicas.</p>
+                  <p>Advanx IA não é uma prestadora de serviço. <strong className="text-white">É engenharia de aquisição jurídica.</strong></p>
+                  <p>Implementamos um sistema proprietário dentro do seu escritório: Processo. Tecnologia. Inteligência. Controle.</p>
+                  <p className="text-[#ff7a01] font-bold">Nosso foco é um só: Contrato fechado.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* GARANTIA DIRETA */}
+          <section className="mb-12 text-center border border-green-900/30 bg-green-900/10 p-8 rounded-xl">
+            <ShieldCheck size={48} className="text-green-500 mx-auto mb-4"/>
+            <h2 className="text-2xl font-black text-white mb-4">Garantia Direta</h2>
+            <p className="text-lg text-gray-300 mb-2">Contratos fechados em até 41 dias.</p>
+            <p className="text-lg text-gray-300 mb-6">Se não acontecer, você fica <strong className="text-green-400">isento da mensalidade.</strong></p>
+            <p className="text-sm text-gray-500">Simples. Quando existe sistema, existe segurança para garantir.</p>
+          </section>
+
+          {/* CTA FINAL */}
+          <section className="text-center py-8">
+            <h2 className="text-3xl font-black text-white mb-6">A decisão é estratégica</h2>
+            <p className="text-lg text-gray-400 mb-4 max-w-2xl mx-auto">
+              Você pode continuar aceitando que “é normal fechar pouco”.
+              Ou pode implementar um Sistema de Captação Inteligente que transforma aquisição em processo controlado.
+            </p>
+            <p className="text-xl font-bold text-white mb-10">
+              A diferença entre crescer e oscilar é ter ou não ter sistema.
+            </p>
+            
+            <button 
+              onClick={() => {
+                setIsFormOpen(true);
+                trackEvent('InitiateCheckout'); 
+              }}
+              className="group relative inline-flex items-center justify-center w-full md:w-auto px-10 py-5 font-bold text-white transition-all duration-300 bg-gradient-to-r from-[#ff7a01] to-[#cc6200] rounded-sm hover:brightness-110 focus:outline-none ring-offset-2 ring-offset-[#0A0A0A] focus:ring-2 focus:ring-[#ff7a01] shadow-[0_0_20px_rgba(255,122,1,0.3)] hover:shadow-[0_0_30px_rgba(255,122,1,0.5)]"
+            >
+              IMPLEMENTAR SIC NO MEU ESCRITÓRIO
+              <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
+            </button>
+
+            <div className="mt-12 text-gray-600 text-sm font-mono uppercase tracking-widest">
+              Advanx IA<br/>
+              SIC — Sistema de Captação Inteligente<br/>
+              Contratos fechados em até 41 dias. Ou você não paga.
+            </div>
+          </section>
+
+          <div className="mt-8 pt-4 border-t border-[#262626] text-center text-xs text-gray-700 font-mono">
+            SYSTEM STATUS: ONLINE // SECURE CONNECTION
+          </div>
+        </div>
+      </main>
+
+      {/* Floating Button Mobile */}
+      <div className="md:hidden fixed bottom-6 right-6 z-30">
+        <button 
+          onClick={() => setIsFormOpen(true)}
+          className="bg-[#ff7a01] text-white p-4 rounded-full shadow-2xl shadow-[#ff7a01]/50 animate-pulse"
+        >
+          <MessageCircle />
+        </button>
+      </div>
+
+      {isFormOpen && (
+        <TypeformModal 
+          onClose={() => setIsFormOpen(false)} 
+          webhookUrl={webhookUrl}
+        />
+      )}
+    </div>
+  );
+};
+
+const CalculatorDark = () => {
+  const [leads, setLeads] = useState(150);
+  const [ticketMedio, setTicketMedio] = useState(5000);
+  
+  const currentConversion = 0.02; 
+  const sicConversion = 0.06;
+  const currentContracts = Math.floor(leads * currentConversion);
+  const sicContracts = Math.floor(leads * sicConversion);
+  const revenueGain = ((sicContracts - currentContracts) * ticketMedio) * 12;
+
+  return (
+    <div className="p-8 bg-[#121212] rounded-xl border border-[#2A2A2A] shadow-inner">
+      <div className="grid md:grid-cols-2 gap-10 mb-8 items-center">
+        <div className="space-y-8 flex flex-col justify-center">
+          <div>
+            <label className="block text-xs font-bold text-gray-500 uppercase mb-3">Seu escritório recebe: <span className="text-white ml-2 text-lg">{leads} leads/mês</span></label>
+            <input 
+              type="range" min="50" max="1000" step="10"
+              value={leads} onChange={(e) => setLeads(Number(e.target.value))}
+              className="w-full h-1 bg-[#333] rounded-lg appearance-none cursor-pointer accent-[#ff7a01]"
+            />
+            <div className="mt-2 text-xs text-gray-500">
+              Com 2% de fechamento = <span className="text-red-400">{currentContracts} contratos</span>
+            </div>
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-gray-500 uppercase mb-3">Ticket Médio: <span className="text-white ml-2 text-lg">R$ {ticketMedio.toLocaleString('pt-BR')}</span></label>
+            <input 
+              type="range" min="1000" max="20000" step="500"
+              value={ticketMedio} onChange={(e) => setTicketMedio(Number(e.target.value))}
+              className="w-full h-1 bg-[#333] rounded-lg appearance-none cursor-pointer accent-[#ff7a01]"
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col justify-center bg-[#1A1A1A] p-6 rounded-lg border border-[#333]">
+          <span className="text-xs font-bold text-gray-500 uppercase mb-1">Se elevasse para 6% (ainda longe do ideal)</span>
+          <div className="text-lg text-gray-300 mb-2">
+            Passaria de {currentContracts} para <strong className="text-white">{sicContracts} contratos</strong>
+          </div>
+          <div className="mt-4 pt-4 border-t border-[#333]">
+             <span className="text-xs font-bold text-green-500 uppercase">Dinheiro deixado na mesa por ano</span>
+             <div className="text-3xl font-black text-white">
+               R$ {revenueGain.toLocaleString('pt-BR')}
+             </div>
+             <p className="text-xs text-gray-500 mt-2">Sem aumentar investimento. Apenas corrigindo estrutura.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TypeformModal = ({ onClose, webhookUrl }) => {
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState({
+    nome: '',
+    telefone: '',
+    email: '',
+    faturamento: '',
+    instagram: '',
+    ia: '',
+    trafego: '',
+    desafio: '',
+    prazo: ''
+  });
+  const [isQualified, setIsQualified] = useState(null); 
+  
+  const faturamentoOpts = ["0 a 10 mil reais", "10 a 20 mil reais", "20 a 50 mil reais", "+ de 50 mil reais"];
+  
+  const iaOpts = [
+    "Sim, utilizo IA e Automações", 
+    "Sim, Apenas IA",
+    "Sim, Apenas Automações",
+    "Não utilizo"
+  ];
+
+  const trafegoOpts = ["Sim, faço tráfego pago", "Não estou fazendo no momento", "Nunca fiz"];
+  const desafioOpts = [
+    "Não recebo contatos, preciso de demanda.",
+    "Recebo contatos, mas conversão é baixa.",
+    "Recebo contatos, mas muitos curiosos/desqualificados.",
+    "Quero usar IA para petições/contratos.",
+    "Quero automatizar o comercial inteiro."
+  ];
+  const prazoOpts = ["O Mais rápido possível", "Em até 30 dias", "Ainda não sei, não é tão urgente"];
+
+  const handlePhone = (e) => {
+    let v = e.target.value.replace(/\D/g, "");
+    v = v.replace(/^(\d\d)(\d)/g, "($1) $2");
+    v = v.replace(/(\d{5})(\d)/, "$1-$2");
+    setAnswers({ ...answers, telefone: v.slice(0, 15) });
+  };
+
+  const nextStep = () => {
+    if (step === 0 && !answers.nome) return alert("Por favor, preencha seu nome.");
+    if (step === 1 && answers.telefone.length < 14) return alert("Telefone inválido.");
+    if (step === 2 && !answers.email.includes('@')) return alert("Email inválido.");
+    if (step === 5 && !answers.instagram) return alert("Preencha seu Instagram.");
+    setStep(step + 1);
+  };
+
+  const selectOption = (field, value) => {
+    setAnswers(prev => ({ ...prev, [field]: value }));
+    if (field === 'prazo') {
+      finishForm(value);
+    } else {
+      setTimeout(() => setStep(step + 1), 300);
+    }
+  };
+
+  const submitToWebhook = async (finalAnswers) => {
+    if (!webhookUrl) return;
+
+    // Formatação do telefone: 55 + DDD + Numero
+    const rawPhone = finalAnswers.telefone.replace(/\D/g, ''); // Remove tudo que não é número
+    const formattedPhone = `55${rawPhone}`;
+
+    const payload = {
+      ...finalAnswers,
+      telefone: formattedPhone, // Sobrescreve com o formato 5571...
+      submittedAt: new Date().toISOString()
+    };
+
+    try {
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+        mode: 'no-cors' // Tenta enviar mesmo sem CORS (comum em webhooks simples)
+      });
+      console.log('Dados enviados para o webhook');
+    } catch (error) {
+      console.error('Erro ao enviar webhook:', error);
+    }
+  };
+
+  const finishForm = (prazoValue) => {
+    // Atualiza o estado final localmente para envio
+    const finalAnswers = { ...answers, prazo: prazoValue };
+
+    // Enviar para Webhook independentemente da qualificação
+    submitToWebhook(finalAnswers);
+
+    const isDesqualificado = prazoValue === "Ainda não sei, não é tão urgente";
+    if (isDesqualificado) {
+      setIsQualified(false);
+    } else {
+      setIsQualified(true);
+      const fatIndex = faturamentoOpts.indexOf(answers.faturamento);
+      const isHighTicket = fatIndex >= 2; 
+      
+      if (isHighTicket) {
+        trackEvent('Lead', {
+          currency: "BRL",
+          value: 0,
+          content_name: "High Ticket Lead",
+          faturamento: answers.faturamento,
+          prazo: prazoValue
+        });
+      } else {
+        trackEvent('SubmitApplication');
+      }
+    }
+    setStep(99);
+  };
+
+  const sendToWhatsapp = () => {
+    const text = `*NOVO LEAD - ADVANX IA*\n---------------------\n👤 *Nome:* ${answers.nome}\n📱 *Tel:* ${answers.telefone}\n📧 *Email:* ${answers.email}\n📸 *Insta:* ${answers.instagram}\n💰 *Fat:* ${answers.faturamento}\n🤖 *Usa IA:* ${answers.ia}\n📢 *Tráfego:* ${answers.trafego}\n🎯 *Desafio:* ${answers.desafio}\n⏰ *Prazo:* ${answers.prazo}\n---------------------`;
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  };
+
+  const renderStep = () => {
+    switch(step) {
+      case 0: return (
+        <div className="fade-in w-full text-left">
+          <label className="block text-2xl md:text-3xl font-bold text-white mb-8">Como podemos te chamar?</label>
+          <input autoFocus type="text" placeholder="Digite seu nome completo..." className="w-full bg-transparent border-b-2 border-gray-700 text-2xl md:text-4xl text-[#ff7a01] focus:border-[#ff7a01] outline-none py-4 placeholder-gray-700 transition-all" value={answers.nome} onChange={e => setAnswers({...answers, nome: e.target.value})} onKeyDown={e => e.key === 'Enter' && nextStep()}/>
+          <button onClick={nextStep} className="mt-12 bg-[#ff7a01] hover:bg-[#cc6200] text-white px-8 py-3 rounded text-lg font-bold flex items-center gap-2">OK <CheckCircle2 size={18}/></button>
+        </div>
+      );
+      case 1: return (
+        <div className="fade-in w-full text-left">
+          <label className="block text-2xl md:text-3xl font-bold text-white mb-8">Seu WhatsApp para contato</label>
+          <input autoFocus type="tel" placeholder="(00) 00000-0000" className="w-full bg-transparent border-b-2 border-gray-700 text-2xl md:text-4xl text-[#ff7a01] focus:border-[#ff7a01] outline-none py-4 placeholder-gray-700 transition-all" value={answers.telefone} onChange={handlePhone} onKeyDown={e => e.key === 'Enter' && nextStep()}/>
+          <button onClick={nextStep} className="mt-12 bg-[#ff7a01] hover:bg-[#cc6200] text-white px-8 py-3 rounded text-lg font-bold flex items-center gap-2">OK <CheckCircle2 size={18}/></button>
+        </div>
+      );
+      case 2: return (
+        <div className="fade-in w-full text-left">
+          <label className="block text-2xl md:text-3xl font-bold text-white mb-8">Seu melhor email corporativo</label>
+          <input autoFocus type="email" placeholder="nome@seuadvogado.com" className="w-full bg-transparent border-b-2 border-gray-700 text-2xl md:text-4xl text-[#ff7a01] focus:border-[#ff7a01] outline-none py-4 placeholder-gray-700 transition-all" value={answers.email} onChange={e => setAnswers({...answers, email: e.target.value})} onKeyDown={e => e.key === 'Enter' && nextStep()}/>
+          <button onClick={nextStep} className="mt-12 bg-[#ff7a01] hover:bg-[#cc6200] text-white px-8 py-3 rounded text-lg font-bold flex items-center gap-2">OK <CheckCircle2 size={18}/></button>
+        </div>
+      );
+      case 3: return (
+        <div className="fade-in w-full text-left">
+          <label className="block text-2xl md:text-3xl font-bold text-white mb-8">Média de faturamento mensal</label>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {faturamentoOpts.map((opt, i) => (
+              <button key={i} onClick={() => selectOption('faturamento', opt)} className="text-left p-6 border border-gray-700 rounded hover:border-[#ff7a01] hover:bg-[#1E1E1E] transition-all text-xl text-gray-300 font-medium group"><span className="bg-gray-800 text-xs px-2 py-1 rounded text-gray-500 group-hover:bg-[#331a00] group-hover:text-[#ff7a01] mr-3">{String.fromCharCode(65+i)}</span>{opt}</button>
+            ))}
+          </div>
+        </div>
+      );
+      case 4: return (
+        <div className="fade-in w-full text-left">
+          <label className="block text-2xl md:text-3xl font-bold text-white mb-8">Qual seu Instagram pessoal ou profissional?</label>
+          <div className="flex items-center border-b-2 border-gray-700 focus-within:border-[#ff7a01] transition-all">
+            <span className="text-2xl md:text-4xl text-gray-500 mr-2">@</span>
+            <input autoFocus type="text" placeholder="seu.usuario" className="w-full bg-transparent border-none text-2xl md:text-4xl text-[#ff7a01] outline-none py-4 placeholder-gray-700" value={answers.instagram} onChange={e => setAnswers({...answers, instagram: e.target.value})} onKeyDown={e => e.key === 'Enter' && nextStep()}/>
+          </div>
+          <button onClick={nextStep} className="mt-12 bg-[#ff7a01] hover:bg-[#cc6200] text-white px-8 py-3 rounded text-lg font-bold flex items-center gap-2">OK <CheckCircle2 size={18}/></button>
+        </div>
+      );
+      case 5: return (
+        <div className="fade-in w-full text-left">
+          <label className="block text-2xl md:text-3xl font-bold text-white mb-8">Já utiliza Inteligência Artificial e automações?</label>
+          <div className="space-y-4">
+            {iaOpts.map((opt, i) => (
+              <button key={i} onClick={() => selectOption('ia', opt)} className="block w-full text-left p-6 border border-gray-700 rounded hover:border-[#ff7a01] hover:bg-[#1E1E1E] transition-all text-xl text-gray-300 font-medium group"><span className="bg-gray-800 text-xs px-2 py-1 rounded text-gray-500 group-hover:bg-[#331a00] group-hover:text-[#ff7a01] mr-3">{String.fromCharCode(65+i)}</span>{opt}</button>
+            ))}
+          </div>
+        </div>
+      );
+      case 6: return (
+        <div className="fade-in w-full text-left">
+          <label className="block text-2xl md:text-3xl font-bold text-white mb-8">Você já faz tráfego pago?</label>
+          <div className="space-y-4">
+            {trafegoOpts.map((opt, i) => (
+              <button key={i} onClick={() => selectOption('trafego', opt)} className="block w-full text-left p-6 border border-gray-700 rounded hover:border-[#ff7a01] hover:bg-[#1E1E1E] transition-all text-xl text-gray-300 font-medium group"><span className="bg-gray-800 text-xs px-2 py-1 rounded text-gray-500 group-hover:bg-[#331a00] group-hover:text-[#ff7a01] mr-3">{String.fromCharCode(65+i)}</span>{opt}</button>
+            ))}
+          </div>
+        </div>
+      );
+      case 7: return (
+        <div className="fade-in w-full text-left">
+          <label className="block text-2xl md:text-3xl font-bold text-white mb-8">Qual seu maior desafio atual?</label>
+          <div className="space-y-3">
+            {desafioOpts.map((opt, i) => (
+              <button key={i} onClick={() => selectOption('desafio', opt)} className="block w-full text-left p-5 border border-gray-700 rounded hover:border-[#ff7a01] hover:bg-[#1E1E1E] transition-all text-lg text-gray-300 font-medium group"><span className="bg-gray-800 text-xs px-2 py-1 rounded text-gray-500 group-hover:bg-[#331a00] group-hover:text-[#ff7a01] mr-3">{String.fromCharCode(65+i)}</span>{opt}</button>
+            ))}
+          </div>
+        </div>
+      );
+      case 8: return (
+        <div className="fade-in w-full text-left">
+          <label className="block text-2xl md:text-3xl font-bold text-white mb-8">Quando pretende resolver esse problema?</label>
+          <div className="space-y-4">
+            {prazoOpts.map((opt, i) => (
+              <button key={i} onClick={() => selectOption('prazo', opt)} className="block w-full text-left p-6 border border-gray-700 rounded hover:border-[#ff7a01] hover:bg-[#1E1E1E] transition-all text-xl text-gray-300 font-medium group"><span className="bg-gray-800 text-xs px-2 py-1 rounded text-gray-500 group-hover:bg-[#331a00] group-hover:text-[#ff7a01] mr-3">{String.fromCharCode(65+i)}</span>{opt}</button>
+            ))}
+          </div>
+        </div>
+      );
+      case 99: 
+        if (isQualified === false) {
+          return (
+            <div className="fade-in text-center max-w-2xl mx-auto">
+              <div className="mb-6 flex justify-center"><AlertTriangle size={64} className="text-yellow-500" /></div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Perfeito. Essa resposta nos poupa tempo.</h2>
+              <div className="text-left bg-[#1E1E1E] p-8 rounded border-l-4 border-yellow-500 mb-8 space-y-4 text-gray-400 text-lg">
+                <p>O que fazemos aqui exige convicção, não curiosidade.</p>
+                <p>Se você ainda “não sabe” quando vai resolver um problema que já tentou consertar várias vezes, então provavelmente prefere continuar explicando, atendendo e empatando do que decidir.</p>
+                <p>Não há nada de errado nisso. Só não espere resultados diferentes mantendo o mesmo comportamento.</p>
+                <p className="font-bold text-white">Quando estiver pronto para parar de fingir que está tudo sob controle, a conversa existe.</p>
+              </div>
+              <a href="https://instagram.com/rafaelbatistaz" target="_blank" rel="noreferrer" className="bg-transparent border-2 border-gray-600 text-white hover:bg-white hover:text-black px-8 py-3 rounded-full font-bold transition-all inline-flex items-center gap-2">Voltar para o Instagram <ArrowRight size={18}/></a>
+            </div>
+          );
+        } else {
+          return (
+            <div className="fade-in text-center max-w-2xl mx-auto">
+              <div className="mb-6 flex justify-center"><CheckCircle2 size={80} className="text-green-500" /></div>
+              <h2 className="text-3xl font-bold text-white mb-4">Você tem o perfil que buscamos.</h2>
+              <div className="bg-[#1E1E1E] p-6 rounded border border-[#333] mb-8 text-gray-400 text-lg leading-relaxed text-left">
+                <p className="mb-4">Suas respostas mostraram três coisas raras: <strong className="text-white">clareza do problema, urgência real e maturidade</strong>.</p>
+                <p className="mb-4">A partir daqui, a conversa é objetiva. Vou te mostrar como nosso sistema assume o atendimento inicial, filtra por tese e te entrega apenas contratos.</p>
+                <p className="italic text-sm text-gray-500">*Não é apresentação comercial. É validação prática.</p>
+              </div>
+              <button onClick={sendToWhatsapp} className="w-full bg-green-600 hover:bg-green-500 text-white p-5 rounded font-bold text-xl shadow-lg hover:shadow-green-900/50 transition-all flex items-center justify-center gap-3 animate-pulse"><Smartphone size={24} /> FALAR NO WHATSAPP AGORA</button>
+              <p className="mt-4 text-sm text-gray-600">Suas respostas já estão organizadas para o atendimento.</p>
+            </div>
+          );
+        }
+      default: return null;
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 bg-[#0A0A0A] flex flex-col">
+      <div className="px-6 py-4 flex justify-between items-center border-b border-[#222]">
+        <div className="flex items-center gap-2 text-gray-500 text-sm font-mono"><span className="text-[#ff7a01] font-bold">{step < 9 ? step + 1 : 9}</span> / 9</div>
+        {/* BOTÃO FECHAR REMOVIDO */}
+      </div>
+      {step < 99 && (
+        <div className="w-full h-1 bg-[#1E1E1E]"><div className="h-full bg-[#ff7a01] transition-all duration-500 ease-out" style={{ width: `${((step + 1) / 9) * 100}%` }}></div></div>
+      )}
+      <div className="flex-1 flex items-center justify-center p-6 md:p-12 overflow-y-auto">
+        <div className="w-full max-w-3xl">{renderStep()}</div>
+      </div>
+      {step < 99 && (<div className="md:hidden p-4 text-center text-xs text-gray-600 border-t border-[#222]">Toque nas opções ou pressione enter</div>)}
+    </div>
+  );
+};
+
+export default App;
