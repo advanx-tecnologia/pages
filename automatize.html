@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatize seu Escritório com IA — Advanx</title>
+    <meta name="description" content="Crie sua IA personalizada, automatize processos e desenvolva apps para seu negócio. Agende uma sessão com a Advanx.">
+    <link rel="preconnect" href="https://app.cal.com" crossorigin>
+    <link rel="dns-prefetch" href="https://app.cal.com">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #080808;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 50px;
+            background: radial-gradient(ellipse at top, rgba(255,120,0,0.12) 0%, transparent 65%);
+            border-bottom: 1px solid rgba(255,120,0,0.1);
+        }
+
+        .logo {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 36px;
+            opacity: 0.95;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,120,0,0.1);
+            border: 1px solid rgba(255,120,0,0.3);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            color: #ff8c00;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 6px; height: 6px;
+            background: #ff8c00;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #ff8c00, #ff5500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: #999;
+            max-width: 560px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        /* FEATURES */
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .feature-tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .feature-tag .icon { font-size: 1.1rem; }
+
+        /* CALENDAR SECTION */
+        .calendar-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px 60px;
+        }
+
+        .section-label {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 30px;
+        }
+
+        .calendar-card {
+            background: #111;
+            border: 1px solid rgba(255,120,0,0.15);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 80px rgba(255,100,0,0.05);
+        }
+
+        #cal-automatize {
+            width: 100%;
+            min-height: 700px;
+        }
+
+        /* SOCIAL PROOF */
+        .proof-section {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 50px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .proof-title {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 36px;
+        }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .proof-card {
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .proof-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ff8c00;
+            margin-bottom: 6px;
+        }
+
+        .proof-label {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #444;
+            font-size: 0.85rem;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .hero { padding: 40px 20px 36px; }
+            .calendar-card { padding: 16px; border-radius: 14px; }
+            .features { gap: 8px; }
+            .feature-tag { font-size: 0.82rem; padding: 8px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <img src="https://res.cloudinary.com/dmf4bqbdd/image/upload/v1763770769/v3-png-e1759865866929.png_bbs0um.webp"
+             alt="Advanx" class="logo">
+
+        <div class="badge">
+            <span class="badge-dot"></span>
+            Sessão estratégica gratuita
+        </div>
+
+        <h1>Automatize seu negócio<br>com <span>Inteligência Artificial</span></h1>
+
+        <p>Crie IAs de atendimento, qualificação e vendas. Desenvolva apps, CRMs e ERPs personalizados. Tudo integrado ao seu processo comercial.</p>
+
+        <div class="features">
+            <div class="feature-tag"><span class="icon">🤖</span> IA de Atendimento</div>
+            <div class="feature-tag"><span class="icon">⚡</span> Automações</div>
+            <div class="feature-tag"><span class="icon">📱</span> Apps e SaaS</div>
+            <div class="feature-tag"><span class="icon">🔗</span> CRM Integrado</div>
+            <div class="feature-tag"><span class="icon">📊</span> ERPs</div>
+        </div>
+    </section>
+
+    <!-- CALENDAR -->
+    <section class="calendar-section">
+        <p class="section-label">Escolha o melhor horário para você</p>
+        <div class="calendar-card">
+            <div id="cal-automatize"></div>
+        </div>
+    </section>
+
+    <!-- SOCIAL PROOF -->
+    <section class="proof-section">
+        <p class="proof-title">Advanx em números</p>
+        <div class="proof-grid">
+            <div class="proof-card">
+                <div class="proof-number">400+</div>
+                <div class="proof-label">Clientes atendidos</div>
+            </div>
+            <div class="proof-card">
+                <div class="proof-number">41 dias</div>
+                <div class="proof-label">Para ver os primeiros resultados</div>
+            </div>
+            <div class="proof-card">
+                <div class="proof-number">R$5M+</div>
+                <div class="proof-label">Gerados para clientes</div>
+            </div>
+            <div class="proof-card">
+                <div class="proof-number">21</div>
+                <div class="proof-label">Estados atendidos</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2025 Advanx Assessoria e Tecnologia · CNPJ: 46.156.131/0001-27</p>
+    </footer>
+
+    <!-- CAL.COM EMBED -->
+    <script>
+    (function(C,A,L){
+        let p=function(a,ar){a.q.push(ar);};
+        let d=C.document;
+        C.Cal=C.Cal||function(){
+            let cal=C.Cal;let ar=arguments;
+            if(!cal.loaded){
+                cal.ns={};cal.q=cal.q||[];
+                d.head.appendChild(d.createElement("script")).src=A;
+                cal.loaded=true;
+            }
+            if(ar[0]===L){
+                const api=function(){p(api,arguments);};
+                const namespace=ar[1];
+                api.q=api.q||[];
+                if(typeof namespace==="string"){
+                    cal.ns[namespace]=cal.ns[namespace]||api;
+                    p(cal.ns[namespace],ar);
+                    p(cal,["initNamespace",namespace]);
+                }else p(cal,ar);
+                return;
+            }
+            p(cal,ar);
+        };
+    })(window,"https://app.cal.com/embed/embed.js","init");
+
+    Cal("init","automatize",{origin:"https://cal.com"});
+
+    Cal.ns["automatize"]("inline",{
+        elementOrSelector:"#cal-automatize",
+        config:{"layout":"month_view","theme":"dark"},
+        calLink:"advanx/automatize",
+    });
+
+    Cal.ns["automatize"]("ui",{
+        "cssVarsPerTheme":{
+            "dark":{"cal-brand":"#ff8c00"}
+        },
+        "hideEventTypeDetails":false,
+        "layout":"month_view"
+    });
+    </script>
+</body>
+</html>
