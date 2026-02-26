@@ -8,6 +8,8 @@
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/></noscript>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-98EL5GXG5F');</script>
+<!-- Supabase JS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{width:100%;height:100%;overflow:hidden;background:#0D0D12;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;}
@@ -307,6 +309,60 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0D0D12;font-family:
 <script>
 var ANS={},formStep=-1;
 
+/* ─── SUPABASE ───────────────────────────────────────────────────────────── */
+var sb=window.supabase.createClient(
+  'https://lhbwfbquxkutcyqazpnw.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10'
+);
+
+/* ─── UTMs — capturados no load da página ────────────────────────────────── */
+var UTM=(function(){
+  var p=new URLSearchParams(window.location.search);
+  return{
+    source:   p.get('utm_source')  ||null,
+    medium:   p.get('utm_medium')  ||null,
+    campaign: p.get('utm_campaign')||null,
+    content:  p.get('utm_content') ||null,
+    term:     p.get('utm_term')    ||null
+  };
+})();
+
+/* ─── SALVAR LEAD ────────────────────────────────────────────────────────────
+   Chamado em 3 pontos:
+   - allDone()        → kanban_stage = 'OPORTUNIDADE'  (lead qualificado)
+   - handleExit(wait) → kanban_stage = 'OUTRO MOMENTO' (não sabe quando implementar)
+   - handleExit(nofit)→ kanban_stage = 'PERDIDO'       (não tem budget)
+*/
+function saveLead(stage){
+  var payload={
+    nome:         ANS.nome  ||null,
+    telefone:     (ANS.tel||'').replace(/\D/g,'')||null,
+    email:        ANS.email ||null,
+    area:         ANS.esp   ||null,
+    colaborador:  ANS.col   ||null,
+    faturamento:  ANS.fat   ||null,
+    posicionamento: ANS.traf||null,
+    interesse:    ANS.urg   ||null,
+    instagram:    ANS.ig    ||null,
+    nicho:        'Jurídico',
+    kanban_stage: stage,
+    origem:       'advanxia-captacao',
+    funil_lead:   'Advanx',
+    empresa_fonte:'Advanx',
+    pipeline_type:'inbound',
+    /* UTMs */
+    fonte:    UTM.source   ||'organico',
+    campanha: UTM.campaign ||null,
+    conjunto: UTM.medium   ||null,
+    anuncio:  UTM.content  ||null,
+    created_at: new Date().toISOString()
+  };
+  sb.from('dados_cliente').insert(payload).then(function(res){
+    if(res.error)console.error('[Supabase lead]',res.error.message,res.error);
+  });
+}
+
+/* ─── RELÓGIO ────────────────────────────────────────────────────────────── */
 (function tick(){
   var d=new Date(),h=String(d.getHours()).padStart(2,'0'),m=String(d.getMinutes()).padStart(2,'0');
   document.getElementById('ios-clock').textContent=h+':'+m;
@@ -316,8 +372,7 @@ var ANS={},formStep=-1;
 /* ─── AUDIO ─────────────────────────────────────────────────────────────────
    iOS só permite audio.play() dentro de um evento de clique/toque do usuário.
    A solução: botão "Seu futuro começa aqui." chama tryRing() DENTRO do handler
-   de click — isso é um gesto válido e o iOS permite. O áudio inicia junto com
-   a transição para a tela de chamada.
+   de click — isso é um gesto válido e o iOS permite.
 */
 var ring=document.getElementById('ring');
 var ringing=false;
@@ -343,10 +398,7 @@ function stopRing(){
   }
 }
 
-/* ─── INTERVALO DINÂMICO ──────────────────────────────────────────────────
-   Usa a duração real do arquivo de áudio para sincronizar shake e vibrate
-   com o loop do toque. Fallback: 3200ms caso metadados ainda não carregaram.
-*/
+/* ─── INTERVALO DINÂMICO ─── */
 function getAudioInterval(){
   return(ring.duration&&isFinite(ring.duration)&&ring.duration>0)?Math.round(ring.duration*1000):3200;
 }
@@ -369,21 +421,16 @@ function stopShake(){if(shakeInt){clearInterval(shakeInt);shakeInt=null;}}
 
 /* ─── BOTÃO LANDING → CALL SCREEN ──────────────────────────────────────────
    tryRing() é chamado AQUI, dentro do click handler = gesto válido no iOS.
-   O áudio começa junto com a transição. Shake e vibrate são atrasados 1100ms
-   para coincidir com o pico do som de vibração no arquivo de áudio.
+   Shake e vibrate com 1100ms de delay para sincronizar com o pico do áudio.
 */
 document.getElementById('btn-start').addEventListener('click',function(){
-  /* 1. Iniciar audio DENTRO do click handler — gesto válido pro iOS */
   tryRing();
-  /* 1100ms: aguarda o áudio atingir o pico da vibração para sincronizar */
   setTimeout(function(){startVib();startShake();},1100);
 
-  /* 2. Fade out landing */
   var land=document.getElementById('landing');
   land.style.transition='opacity .45s ease';
   land.style.opacity='0';
 
-  /* 3. Mostrar call screen com fade in */
   var cs=document.getElementById('call-screen');
   cs.style.transition='opacity .4s ease';
   setTimeout(function(){
@@ -399,7 +446,6 @@ document.getElementById('btn-decline').addEventListener('click',function(e){
   setTimeout(function(){
     if(!callEnded){
       tryRing();
-      /* 1100ms de delay para sincronizar shake/vibrate com o áudio */
       setTimeout(function(){if(!callEnded){startVib();startShake();}},1100);
     }
   },2200);
@@ -574,13 +620,16 @@ function renderText(q){
 
 function handleExit(type){
   if(type==='wait'){
+    saveLead('OUTRO MOMENTO');
     typing(800).then(function(){addRcv('Sem problema! 😊\n\nQuando estiver pronto, é só nos chamar.\nEstamos aqui para quando fizer sentido para você!');setTimeout(function(){showEnd('wait');},1800);});
   }else{
+    saveLead('PERDIDO');
     typing(800).then(function(){addRcv('Tudo bem! 🙏\n\nAcompanhe o Instagram do Rafael para dicas sobre IA para advogados.');setTimeout(function(){showEnd('nofit');},1800);});
   }
 }
 
 function allDone(){
+  saveLead('OPORTUNIDADE');
   if(typeof fbq!=='undefined')fbq('track','Lead');
   if(typeof gtag!=='undefined')gtag('event','generate_lead');
   var nome=(ANS.nome||'').split(' ')[0];
