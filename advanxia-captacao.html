@@ -12,13 +12,15 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;}
 
+/* Gate invisível: fica acima da tela de chamada, captura o PRIMEIRO toque para desbloquear áudio */
+#audio-gate{position:fixed;inset:0;z-index:500;background:transparent;-webkit-tap-highlight-color:transparent;}
+
 #call-screen{position:fixed;inset:0;z-index:100;overflow:hidden;display:flex;}
 .call-bg{position:absolute;inset:0;background:url('https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp') center/cover no-repeat;filter:blur(30px) brightness(.28) saturate(1.5);transform:scale(1.15);}
 .call-ovl{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.85) 100%);}
 .call-inner{flex:1;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;}
 
-@keyframes shake{0%,100%{transform:translateX(0);}15%{transform:translateX(-5px) rotate(-.4deg);}30%{transform:translateX(5px) rotate(.4deg);}45%{transform:translateX(-4px);}60%{transform:translateX(4px);}75%{transform:translateX(-3px);}90%{transform:translateX(3px);}
-}
+@keyframes shake{0%,100%{transform:translateX(0);}15%{transform:translateX(-5px) rotate(-.4deg);}30%{transform:translateX(5px) rotate(.4deg);}45%{transform:translateX(-4px);}60%{transform:translateX(4px);}75%{transform:translateX(-3px);}90%{transform:translateX(3px);}}
 .call-inner.shaking{animation:shake .55s ease-in-out;}
 
 .ios-sb{width:100%;flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top,14px) + 6px) 22px 0;color:#fff;}
@@ -123,6 +125,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
   <source src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/audio/ring-advanxia.mp3" type="audio/mpeg">
 </audio>
 
+<!-- Gate invisível: captura o 1º toque para desbloquear áudio no iOS -->
+<div id="audio-gate"></div>
+
 <div id="call-screen">
   <div class="call-bg"></div>
   <div class="call-ovl"></div>
@@ -210,13 +215,11 @@ var ANS={},formStep=-1;
   setTimeout(tick,30000);
 })();
 
-/* ─── AUDIO ───────────────────────────────────────────────────────────────
-   iOS só desbloqueia audio via gesto do usuário.
-   - touchend é o evento mais confiável no iOS para desbloquear audio
-   - Guardamos a play promise para evitar erro de pause() antes de play() resolver
-   - callEnded impede que tryRing() reinicie após o usuário atender
-   - stopRing() aguarda a promise antes de pausar (evita AbortError no iOS)
-   - btn-accept: stopRing() movido para DEPOIS do fade (user ouve ~350ms ao atender)
+/* ─── AUDIO ─────────────────────────────────────────────────────────────────
+   iOS bloqueia autoplay de audio sem gesto do usuário — sem exceção.
+   Solução: gate invisível (z-index:500) captura o 1º toque,
+   chama tryRing() com o gesto válido, se remove e redireciona o toque
+   ao botão correto (Atender/Recusar) via elementFromPoint + btn.click().
 */
 var ring=document.getElementById('ring');
 var ringing=false;
@@ -242,11 +245,40 @@ function stopRing(){
   }
 }
 
-/* touchend = gesto mais confiável no iOS para desbloquear audio */
-document.addEventListener('touchstart',tryRing,{passive:true});
+/* ─── GATE INVISÍVEL ─── */
+(function(){
+  var gate=document.getElementById('audio-gate');
+  if(!gate)return;
+
+  function unlock(x,y){
+    gate.remove(); /* remove gate — agora elementFromPoint acha os elementos reais */
+    tryRing();     /* inicia audio com o gesto válido */
+    /* redireciona o toque ao botão correto, se foi nele que o user tocou */
+    if(x!==undefined&&y!==undefined){
+      var el=document.elementFromPoint(x,y);
+      if(el&&typeof el.closest==='function'){
+        var btn=el.closest('#btn-accept')||el.closest('#btn-decline');
+        if(btn)setTimeout(function(){btn.click();},16);
+      }
+    }
+  }
+
+  /* touchend = gesto mais confiável no iOS para audio; preventDefault evita click duplicado */
+  gate.addEventListener('touchend',function(e){
+    e.preventDefault();
+    var t=e.changedTouches[0];
+    unlock(t.clientX,t.clientY);
+  });
+
+  /* click = fallback para desktop e browsers sem touch */
+  gate.addEventListener('click',function(e){
+    unlock(e.clientX,e.clientY);
+  });
+})();
+
+/* listeners backup para toques após o gate ser removido */
 document.addEventListener('touchend',tryRing,{passive:true});
 document.addEventListener('click',tryRing);
-tryRing();
 
 /* ─── VIBRAÇÃO ─── */
 var vibInt=null;
@@ -280,7 +312,7 @@ document.getElementById('btn-accept').addEventListener('click',function(e){
   var cs=document.getElementById('call-screen');
   cs.style.transition='opacity .35s ease';cs.style.opacity='0';
   setTimeout(function(){
-    stopRing(); /* para o audio APÓS o fade — user ouve o toque durante a transição */
+    stopRing(); /* para o audio APÓS o fade */
     cs.style.display='none';
     document.getElementById('wa-screen').classList.add('show');
     if(typeof fbq!=='undefined')fbq('track','ViewContent');
