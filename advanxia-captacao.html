@@ -12,119 +12,52 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;}
 
-/* ═══ CALL SCREEN ═══ */
-/* display:flex no pai garante que call-inner com flex:1 ocupa 100% da altura e largura */
 #call-screen{position:fixed;inset:0;z-index:100;overflow:hidden;display:flex;}
+.call-bg{position:absolute;inset:0;background:url('https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp') center/cover no-repeat;filter:blur(30px) brightness(.28) saturate(1.5);transform:scale(1.15);}
+.call-ovl{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.85) 100%);}
 
-.call-bg{
-  position:absolute;inset:0;
-  background:url('https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp') center/cover no-repeat;
-  filter:blur(30px) brightness(.28) saturate(1.5);
-  transform:scale(1.15);
-}
-.call-ovl{
-  position:absolute;inset:0;
-  background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.85) 100%);
-}
+/* flex:1 garante que call-inner preenche todo o #call-screen (width+height) */
+.call-inner{flex:1;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;}
 
-/*
-  call-inner: flex:1 = ocupa TODO o espaço de #call-screen (width+height)
-  Como flex coluna, os filhos empilham de cima para baixo:
-    ios-sb → call-info (TEXTO) → call-photo-wrap (FOTO) → spacer → botões
-*/
-.call-inner{
-  flex:1;
-  position:relative;z-index:1;
-  display:flex;flex-direction:column;align-items:center;
-}
-
-@keyframes shake{
-  0%,100%{transform:translateX(0);}
-  15%{transform:translateX(-5px) rotate(-.4deg);}
-  30%{transform:translateX(5px) rotate(.4deg);}
-  45%{transform:translateX(-4px);}
-  60%{transform:translateX(4px);}
-  75%{transform:translateX(-3px);}
-  90%{transform:translateX(3px);}
-}
+@keyframes shake{0%,100%{transform:translateX(0);}15%{transform:translateX(-5px) rotate(-.4deg);}30%{transform:translateX(5px) rotate(.4deg);}45%{transform:translateX(-4px);}60%{transform:translateX(4px);}75%{transform:translateX(-3px);}90%{transform:translateX(3px);}}
 .call-inner.shaking{animation:shake .55s ease-in-out;}
 
-.ios-sb{
-  width:100%;flex-shrink:0;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:calc(env(safe-area-inset-top,14px) + 6px) 22px 0;
-  color:#fff;
-}
+.ios-sb{width:100%;flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top,14px) + 6px) 22px 0;color:#fff;}
 .ios-time{font-size:17px;font-weight:600;letter-spacing:-.4px;}
 .ios-icons{display:flex;gap:6px;align-items:center;}
 
-/* TEXTO — aparece ANTES da foto no DOM = visualmente ACIMA */
-.call-info{
-  flex-shrink:0;
-  display:flex;flex-direction:column;align-items:center;
-  margin-top:16px;gap:4px;text-align:center;padding:0 24px;
-}
+.call-info{flex-shrink:0;display:flex;flex-direction:column;align-items:center;margin-top:clamp(20px,5vh,40px);gap:4px;text-align:center;padding:0 24px;}
 .call-received{color:rgba(255,255,255,.6);font-size:14px;}
 .call-name{color:#fff;font-size:clamp(20px,5.5vw,26px);font-weight:700;letter-spacing:-.4px;line-height:1.2;}
 .call-sub{color:rgba(255,255,255,.55);font-size:15px;}
 
-/* FOTO — aparece DEPOIS do texto no DOM = visualmente ABAIXO */
 @keyframes pring{0%{transform:scale(1);opacity:.45;}100%{transform:scale(1.8);opacity:0;}}
-.call-photo-wrap{
-  flex-shrink:0;position:relative;
-  margin-top:clamp(18px,4vw,28px);
-  width:110px;height:110px;
-}
-.pr{position:absolute;inset:-18px;border-radius:50%;background:rgba(255,255,255,.12);animation:pring 2.2s ease-out infinite;}
+.call-photo-wrap{flex-shrink:0;position:relative;margin-top:clamp(22px,4vw,32px);width:130px;height:130px;}
+.pr{position:absolute;inset:-20px;border-radius:50%;background:rgba(255,255,255,.12);animation:pring 2.2s ease-out infinite;}
 .pr:nth-child(2){animation-delay:.75s;}
 .pr:nth-child(3){animation-delay:1.5s;}
-.call-photo{width:110px;height:110px;border-radius:50%;object-fit:cover;border:2.5px solid rgba(255,255,255,.2);position:relative;z-index:1;}
+.call-photo{width:130px;height:130px;border-radius:50%;object-fit:cover;border:2.5px solid rgba(255,255,255,.2);position:relative;z-index:1;}
 
-/* Spacer empurra botões para o fundo */
 .call-spacer{flex:1;min-height:16px;}
 
-.call-secondary{
-  flex-shrink:0;
-  width:100%;display:flex;justify-content:space-around;
-  padding:0 52px;margin-bottom:18px;
-}
+.call-secondary{flex-shrink:0;width:100%;display:flex;justify-content:space-around;padding:0 52px;margin-bottom:18px;}
 .call-mini-wrap{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:76px;}
-.call-mini-btn{
-  width:54px;height:54px;border-radius:50%;
-  background:rgba(255,255,255,.18);backdrop-filter:blur(12px);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-}
+.call-mini-btn{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.18);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .call-mini-btn svg{width:22px;height:22px;}
 .call-mini-label{color:rgba(255,255,255,.65);font-size:12px;font-weight:500;}
 
-.call-primary{
-  flex-shrink:0;
-  width:100%;display:flex;justify-content:space-around;align-items:center;
-  padding:0 52px;
-  padding-bottom:calc(env(safe-area-inset-bottom,0px) + 42px);
-}
+.call-primary{flex-shrink:0;width:100%;display:flex;justify-content:space-around;align-items:center;padding:0 52px;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 42px);}
 .call-btn-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;}
-.call-btn{
-  width:72px;height:72px;border-radius:50%;border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .15s,opacity .15s;
-}
+.call-btn{width:72px;height:72px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,opacity .15s;}
 .call-btn:active{transform:scale(.88);opacity:.78;}
 .call-btn-decline{background:#FF3B30;}
 .call-btn-accept{background:#34C759;}
 .call-btn svg{width:30px;height:30px;}
 .call-btn-label{color:rgba(255,255,255,.8);font-size:13px;font-weight:500;}
 
-/* ═══ WHATSAPP ═══ */
 #wa-screen{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;background:#ECE5DD;}
 #wa-screen.show{display:flex;}
-
-.wa-hdr{
-  background:#075E54;flex-shrink:0;
-  padding:calc(env(safe-area-inset-top,0px) + 8px) 12px 8px;
-  display:flex;align-items:center;gap:10px;
-  box-shadow:0 1px 3px rgba(0,0,0,.3);
-}
+.wa-hdr{background:#075E54;flex-shrink:0;padding:calc(env(safe-area-inset-top,0px) + 8px) 12px 8px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 3px rgba(0,0,0,.3);}
 .wa-back{color:rgba(255,255,255,.75);font-size:22px;cursor:pointer;line-height:1;margin-right:2px;flex-shrink:0;}
 .wa-av{width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(255,255,255,.18);flex-shrink:0;}
 .wa-cinfo{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
@@ -134,14 +67,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 .wa-hdr-icons{display:flex;gap:18px;color:rgba(255,255,255,.8);flex-shrink:0;}
 .wa-hdr-icons svg{width:22px;height:22px;}
 
-.wa-chat{
-  flex:1;overflow-y:auto;
-  padding:10px 8px 4px;
-  display:flex;flex-direction:column;gap:2px;
-  -webkit-overflow-scrolling:touch;
-  background-color:#ECE5DD;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='10' cy='10' r='5' fill='%23b8a99a' fill-opacity='.13'/%3E%3Ccircle cx='48' cy='36' r='5' fill='%23b8a99a' fill-opacity='.13'/%3E%3Ccircle cx='68' cy='60' r='2.5' fill='%23b8a99a' fill-opacity='.1'/%3E%3C/svg%3E");
-}
+.wa-chat{flex:1;overflow-y:auto;padding:10px 8px 4px;display:flex;flex-direction:column;gap:2px;-webkit-overflow-scrolling:touch;background-color:#ECE5DD;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='10' cy='10' r='5' fill='%23b8a99a' fill-opacity='.13'/%3E%3Ccircle cx='48' cy='36' r='5' fill='%23b8a99a' fill-opacity='.13'/%3E%3Ccircle cx='68' cy='60' r='2.5' fill='%23b8a99a' fill-opacity='.1'/%3E%3C/svg%3E");}
 .wa-date-mkr{text-align:center;margin:6px 0 4px;}
 .wa-date-mkr span{background:rgba(255,255,255,.82);color:#667781;font-size:12px;padding:4px 12px;border-radius:8px;}
 
@@ -194,11 +120,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 </head>
 <body>
 
+<!-- áudio hospedado no Supabase — CORS OK em todos os browsers mobile -->
 <audio id="ring" loop preload="auto">
-  <source src="https://drive.google.com/uc?id=1CXlMl_PPyBRLrougQg4USq_mmImU5XnF&export=download" type="audio/mpeg">
+  <source src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/audio/ring-advanxia.mp3" type="audio/mpeg">
 </audio>
 
-<!-- CALL SCREEN -->
 <div id="call-screen">
   <div class="call-bg"></div>
   <div class="call-ovl"></div>
@@ -213,14 +139,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
       </div>
     </div>
 
-    <!-- TEXTO: ACIMA da foto no DOM → aparece visualmente acima -->
     <div class="call-info">
       <div class="call-received">Chamada recebida</div>
       <div class="call-name">O futuro da advocacia chegou</div>
       <div class="call-sub">você vai atender ou não?</div>
     </div>
 
-    <!-- FOTO: ABAIXO do texto no DOM → aparece visualmente abaixo -->
     <div class="call-photo-wrap">
       <div class="pr"></div><div class="pr"></div><div class="pr"></div>
       <img class="call-photo" src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" alt="Rafael">
@@ -261,7 +185,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
   </div>
 </div>
 
-<!-- WHATSAPP -->
 <div id="wa-screen">
   <div class="wa-hdr">
     <span class="wa-back">&#8249;</span>
@@ -290,51 +213,24 @@ var ANS={},formStep=-1;
 })();
 
 /* ─── AUDIO ─── */
+/* Arquivo hospedado no Supabase Storage — sem CORS, funciona em todos os browsers */
 var ring=document.getElementById('ring');
 var ringing=false;
-var AC=window.AudioContext||window.webkitAudioContext;
-var aCtx=null,synthTimer=null;
-
-function note(freq,when,dur){
-  if(!aCtx)return;
-  var o=aCtx.createOscillator(),g=aCtx.createGain();
-  o.connect(g);g.connect(aCtx.destination);
-  o.type='sine';o.frequency.value=freq;
-  g.gain.setValueAtTime(0,when);
-  g.gain.linearRampToValueAtTime(0.35,when+0.03);
-  g.gain.exponentialRampToValueAtTime(0.001,when+dur);
-  o.start(when);o.stop(when+dur+0.1);
-}
-function synthLoop(){
-  if(!ringing||!aCtx)return;
-  var t=aCtx.currentTime+0.08;
-  note(880,t,.15);note(880,t+.2,.15);
-  note(1108,t+.45,.15);note(1108,t+.65,.15);
-  note(880,t+.9,.15);note(880,t+1.1,.15);
-  note(1108,t+1.35,.3);
-  synthTimer=setTimeout(synthLoop,2400);
-}
-function startSynth(){if(aCtx&&ringing&&ring.paused)synthLoop();}
 
 function tryRing(){
   if(ringing)return;
   ringing=true;
-  if(AC&&!aCtx){try{aCtx=new AC();}catch(e){}}
-  if(aCtx&&aCtx.state==='suspended'){aCtx.resume();}
-  ring.play().catch(function(){startSynth();});
-  /* fallback: se audio não carregou após 1.5s, usar síntese */
-  setTimeout(function(){if(ringing&&ring.paused)startSynth();},1500);
+  ring.play().catch(function(){ringing=false;});
 }
 function stopRing(){
   ringing=false;
-  ring.pause();ring.currentTime=0;
-  if(synthTimer){clearTimeout(synthTimer);synthTimer=null;}
+  ring.pause();
+  ring.currentTime=0;
 }
-ring.addEventListener('error',function(){if(ringing)startSynth();});
 
-/* primeiro gesto do usuário destrava áudio no iOS */
-document.addEventListener('touchstart',function(){tryRing();},{passive:true});
-document.addEventListener('click',function(){tryRing();});
+/* iOS bloqueia autoplay — destrava no primeiro toque do usuário */
+document.addEventListener('touchstart',tryRing,{passive:true});
+document.addEventListener('click',tryRing);
 tryRing();
 
 /* ─── VIBRAÇÃO ─── */
@@ -399,7 +295,6 @@ function typing(ms){
   });
 }
 
-/* ─── STORY ─── */
 var STORY=[
   {t:'Você atendeu.',d:600},
   {t:'E isso já diz muito sobre você.',d:900},
@@ -432,7 +327,6 @@ async function startStory(){
   formStep=0;showStep();
 }
 
-/* ─── FORM ─── */
 var QS=[
   {id:'esp',type:'choice',q:'Qual é a sua especialidade?',opts:['Trabalhista','Previdenciário','Família','Bancário','Tributário','Imobiliário','Criminal','Outros']},
   {id:'col',type:'choice',q:'Quantos colaboradores no escritório?',opts:['Apenas eu','1 a 3','4 a 9','Mais de 10']},
