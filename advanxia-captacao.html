@@ -39,7 +39,6 @@ html,body{height:100%;overflow:hidden;background:#000;font-family:-apple-system,
   position:relative;z-index:1;width:100%;height:100%;
   display:flex;flex-direction:column;align-items:center;
 }
-
 @keyframes shake{
   0%,100%{transform:translateX(0) rotate(0);}
   12%{transform:translateX(-5px) rotate(-.4deg);}
@@ -51,57 +50,35 @@ html,body{height:100%;overflow:hidden;background:#000;font-family:-apple-system,
   87%{transform:translateX(-2px);}
 }
 .call-inner.shaking{animation:shake .55s ease-in-out;}
-
-/* Status bar */
 .ios-sb{
   width:100%;display:flex;justify-content:space-between;align-items:center;
-  padding:calc(env(safe-area-inset-top,14px) + 8px) 22px 4px;
-  color:#fff;
+  padding:calc(env(safe-area-inset-top,14px) + 8px) 22px 4px;color:#fff;
 }
 .ios-time{font-size:17px;font-weight:600;letter-spacing:-.4px;}
 .ios-icons{display:flex;gap:7px;align-items:center;}
-
-/* Call info */
 .call-info{display:flex;flex-direction:column;align-items:center;margin-top:18px;gap:5px;}
 .call-app-name{color:rgba(255,255,255,.62);font-size:14px;font-weight:500;}
-.call-name{
-  color:#fff;font-size:clamp(20px,5.5vw,27px);font-weight:700;
-  text-align:center;padding:0 28px;line-height:1.25;letter-spacing:-.4px;
-}
+.call-name{color:#fff;font-size:clamp(20px,5.5vw,27px);font-weight:700;text-align:center;padding:0 28px;line-height:1.25;letter-spacing:-.4px;}
 .call-sub{color:rgba(255,255,255,.58);font-size:15px;text-align:center;padding:0 32px;margin-top:2px;}
-
-/* Photo */
 @keyframes pring{0%{transform:scale(1);opacity:.5;}100%{transform:scale(1.75);opacity:0;}}
 .call-photo-wrap{position:relative;margin:30px auto 0;width:128px;height:128px;flex-shrink:0;}
 .pr{position:absolute;inset:-22px;border-radius:50%;background:rgba(255,255,255,.13);animation:pring 2.2s ease-out infinite;}
 .pr:nth-child(2){animation-delay:.75s;}
 .pr:nth-child(3){animation-delay:1.5s;}
 .call-photo{width:128px;height:128px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,.22);position:relative;z-index:1;}
-
-/* Extra buttons */
 .call-extras{
   position:absolute;bottom:calc(env(safe-area-inset-bottom,20px) + 148px);
   width:100%;display:flex;justify-content:space-around;padding:0 52px;
 }
 .ex-btn{display:flex;flex-direction:column;align-items:center;gap:9px;}
-.ex-circle{
-  width:58px;height:58px;border-radius:50%;
-  background:rgba(255,255,255,.16);backdrop-filter:blur(10px);
-  display:flex;align-items:center;justify-content:center;
-}
+.ex-circle{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;}
 .ex-label{color:rgba(255,255,255,.68);font-size:12px;font-weight:500;}
-
-/* Action buttons */
 .call-actions{
   position:absolute;bottom:calc(env(safe-area-inset-bottom,24px) + 38px);
   width:100%;display:flex;justify-content:space-around;align-items:center;padding:0 52px;
 }
 .call-btn-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;}
-.call-btn{
-  width:74px;height:74px;border-radius:50%;border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .15s ease,opacity .15s ease;
-}
+.call-btn{width:74px;height:74px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s ease,opacity .15s ease;}
 .call-btn:active{transform:scale(.88)!important;opacity:.78;}
 .call-btn-decline{background:#FF3B30;}
 .call-btn-accept{background:#34C759;}
@@ -111,13 +88,8 @@ html,body{height:100%;overflow:hidden;background:#000;font-family:-apple-system,
 /* ═══════════════════════
    WHATSAPP SCREEN
 ═══════════════════════ */
-#wa-screen{
-  position:fixed;inset:0;z-index:200;
-  display:none;flex-direction:column;background:#ECE5DD;
-}
+#wa-screen{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;background:#ECE5DD;}
 #wa-screen.show{display:flex;}
-
-/* WA Header */
 .wa-hdr{
   background:#075E54;flex-shrink:0;
   padding:calc(env(safe-area-inset-top,0px) + 10px) 12px 10px;
@@ -132,8 +104,6 @@ html,body{height:100%;overflow:hidden;background:#000;font-family:-apple-system,
 .wa-cstatus{color:rgba(255,255,255,.68);font-size:12px;margin-top:1px;}
 .wa-hdr-icons{display:flex;gap:20px;color:rgba(255,255,255,.8);}
 .wa-hdr-icons svg{width:22px;height:22px;}
-
-/* Chat */
 .wa-chat{
   flex:1;overflow-y:auto;padding:10px 8px 6px;
   display:flex;flex-direction:column;gap:2px;
@@ -141,18 +111,10 @@ html,body{height:100%;overflow:hidden;background:#000;font-family:-apple-system,
   background-color:#ECE5DD;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='10' cy='10' r='5.5' fill='%23b8a99a' fill-opacity='.13'/%3E%3Ccircle cx='48' cy='36' r='5.5' fill='%23b8a99a' fill-opacity='.13'/%3E%3Ccircle cx='18' cy='28' r='2.5' fill='%23b8a99a' fill-opacity='.12'/%3E%3Ccircle cx='68' cy='54' r='2.5' fill='%23b8a99a' fill-opacity='.12'/%3E%3Ccircle cx='28' cy='72' r='2.5' fill='%23b8a99a' fill-opacity='.12'/%3E%3Ccircle cx='72' cy='12' r='2.5' fill='%23b8a99a' fill-opacity='.12'/%3E%3C/svg%3E");
 }
-
-/* Date marker */
 .wa-date-mkr{text-align:center;margin:8px 0 5px;}
 .wa-date-mkr span{background:rgba(255,255,255,.82);color:#667781;font-size:12px;padding:4px 12px;border-radius:8px;}
-
-/* Bubbles */
 @keyframes bubIn{from{opacity:0;transform:translateY(10px) scale(.97);}to{opacity:1;transform:none;}}
-.bub{
-  max-width:82%;padding:6px 9px 4px;border-radius:8px;
-  font-size:14.5px;line-height:1.5;position:relative;
-  word-break:break-word;animation:bubIn .22s ease-out;
-}
+.bub{max-width:82%;padding:6px 9px 4px;border-radius:8px;font-size:14.5px;line-height:1.5;position:relative;word-break:break-word;animation:bubIn .22s ease-out;}
 .bub-rcv{background:#fff;color:#111;align-self:flex-start;margin-left:4px;border-top-left-radius:0;}
 .bub-rcv::before{content:'';position:absolute;top:0;left:-8px;border-top:8px solid #fff;border-left:8px solid transparent;}
 .bub-snt{background:#D9FDD3;color:#111;align-self:flex-end;margin-right:4px;border-top-right-radius:0;}
@@ -160,161 +122,81 @@ html,body{height:100%;overflow:hidden;background:#000;font-family:-apple-system,
 .bub-meta{display:flex;justify-content:flex-end;align-items:center;gap:3px;margin-top:3px;}
 .bub-time{font-size:11px;color:#667781;}
 .bub-ticks{font-size:13px;color:#53BDEB;line-height:1;}
-
-/* Typing */
 @keyframes dot{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-7px);}}
-.typ-bub{
-  background:#fff;border-radius:8px;border-top-left-radius:0;
-  padding:12px 16px;align-self:flex-start;margin-left:4px;
-  display:flex;gap:5px;align-items:center;
-  position:relative;animation:bubIn .2s ease-out;
-}
+.typ-bub{background:#fff;border-radius:8px;border-top-left-radius:0;padding:12px 16px;align-self:flex-start;margin-left:4px;display:flex;gap:5px;align-items:center;position:relative;animation:bubIn .2s ease-out;}
 .typ-bub::before{content:'';position:absolute;top:0;left:-8px;border-top:8px solid #fff;border-left:8px solid transparent;}
 .td{width:8px;height:8px;border-radius:50%;background:#b0b7be;animation:dot 1.2s infinite;}
 .td:nth-child(2){animation-delay:.2s;}
 .td:nth-child(3){animation-delay:.4s;}
-
-/* Input zone */
 #input-zone{flex-shrink:0;}
-
-.wa-ibar{
-  background:#F0F0F0;padding:8px 8px calc(env(safe-area-inset-bottom,0px) + 8px);
-  display:flex;align-items:flex-end;gap:8px;
-}
+.wa-ibar{background:#F0F0F0;padding:8px 8px calc(env(safe-area-inset-bottom,0px) + 8px);display:flex;align-items:flex-end;gap:8px;}
 .wa-iwrap{flex:1;background:#fff;border-radius:24px;padding:9px 14px;display:flex;align-items:center;gap:8px;}
 .wa-inp{flex:1;border:none;outline:none;font-size:15px;color:#111;background:transparent;font-family:inherit;}
 .wa-inp::placeholder{color:#aaa;}
-.wa-send{
-  width:44px;height:44px;border-radius:50%;border:none;background:#075E54;
-  color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;transition:background .15s;
-}
+.wa-send{width:44px;height:44px;border-radius:50%;border:none;background:#075E54;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;}
 .wa-send:active{background:#054d44;}
 .wa-send svg{width:20px;height:20px;}
-
-/* Chips */
-.wa-chips{
-  padding:10px 10px calc(env(safe-area-inset-bottom,0px) + 10px);
-  background:#F0F0F0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
-}
-.chip{
-  background:#fff;color:#075E54;border:1.5px solid #075E54;
-  padding:10px 18px;border-radius:20px;
-  font-size:14px;font-weight:500;cursor:pointer;
-  transition:all .15s;font-family:inherit;
-}
+.wa-chips{padding:10px 10px calc(env(safe-area-inset-bottom,0px) + 10px);background:#F0F0F0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.chip{background:#fff;color:#075E54;border:1.5px solid #075E54;padding:10px 18px;border-radius:20px;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit;}
 .chip:active{background:#075E54;color:#fff;transform:scale(.95);}
-
-/* Group inputs */
-.wa-group{
-  background:#F0F0F0;padding:10px 10px calc(env(safe-area-inset-bottom,0px) + 10px);
-  display:flex;flex-direction:column;gap:8px;
-}
+.wa-group{background:#F0F0F0;padding:10px 10px calc(env(safe-area-inset-bottom,0px) + 10px);display:flex;flex-direction:column;gap:8px;}
 .g-field{background:#fff;border-radius:12px;padding:10px 14px;display:flex;flex-direction:column;gap:3px;}
 .g-label{font-size:11px;color:#667781;font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
 .g-inp{border:none;outline:none;font-size:15px;color:#111;background:transparent;font-family:inherit;width:100%;padding:2px 0;}
 .g-inp::placeholder{color:#aaa;}
-.g-sub{
-  background:#075E54;color:#fff;border:none;border-radius:22px;
-  padding:13px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .15s;
-}
+.g-sub{background:#075E54;color:#fff;border:none;border-radius:22px;padding:13px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .15s;}
 .g-sub:active{opacity:.85;}
-
-/* End overlay */
-.wa-end{
-  position:fixed;inset:0;z-index:300;background:#ECE5DD;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:32px 28px;text-align:center;
-}
+.wa-end{position:fixed;inset:0;z-index:300;background:#ECE5DD;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 28px;text-align:center;}
 .wa-end-icon{font-size:68px;margin-bottom:22px;}
 .wa-end-ttl{font-size:25px;font-weight:700;color:#111;margin-bottom:12px;line-height:1.2;}
 .wa-end-txt{font-size:15px;color:#667781;line-height:1.7;max-width:300px;}
-.wa-end-btn{
-  margin-top:32px;padding:15px 36px;border-radius:26px;border:none;
-  font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;
-  text-decoration:none;display:inline-block;
-}
+.wa-end-btn{margin-top:32px;padding:15px 36px;border-radius:26px;border:none;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;text-decoration:none;display:inline-block;}
 .btn-wa{background:#25D366;color:#fff;}
 .btn-ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;}
 </style>
 </head>
 <body>
 
-<!-- ÁUDIO -->
 <audio id="ring" loop preload="auto">
   <source src="https://drive.google.com/uc?id=1CXlMl_PPyBRLrougQg4USq_mmImU5XnF&export=download" type="audio/mpeg">
 </audio>
 
-<!-- ═══════════════════════
-     CALL SCREEN
-═══════════════════════ -->
+<!-- CALL SCREEN -->
 <div id="call-screen">
   <div class="call-bg"></div>
   <div class="call-ovl"></div>
   <div class="call-inner" id="call-inner">
-
-    <!-- Status bar -->
     <div class="ios-sb">
       <span class="ios-time" id="ios-clock">9:41</span>
       <div class="ios-icons">
-        <!-- Signal bars -->
-        <svg width="17" height="12" viewBox="0 0 17 12" fill="white">
-          <rect x="0" y="5" width="3" height="7" rx="1"/>
-          <rect x="4.5" y="3" width="3" height="9" rx="1"/>
-          <rect x="9" y="1" width="3" height="11" rx="1"/>
-          <rect x="13.5" y="0" width="3" height="12" rx="1" fill-opacity=".3"/>
-        </svg>
-        <!-- Wifi -->
-        <svg width="16" height="12" viewBox="0 0 16 12" fill="white">
-          <path d="M8 2.4C10.6 2.4 12.9 3.5 14.6 5.2L15.9 3.9C13.8 1.8 11 .6 8 .6S2.2 1.8.1 3.9l1.3 1.3C3.1 3.5 5.4 2.4 8 2.4z"/>
-          <path d="M8 5.2c1.7 0 3.2.7 4.3 1.8L13.6 5.7C12.2 4.3 10.2 3.4 8 3.4S3.8 4.3 2.4 5.7l1.3 1.3C4.8 5.9 6.3 5.2 8 5.2z"/>
-          <path d="M8 8c1 0 1.9.4 2.6 1.1L8 11.6l-2.6-2.5C6.1 8.4 7 8 8 8z"/>
-        </svg>
-        <!-- Battery -->
-        <svg width="26" height="12" viewBox="0 0 26 12" fill="none">
-          <rect x=".5" y=".5" width="22" height="11" rx="3.3" stroke="white" stroke-opacity=".35"/>
-          <rect x="1.5" y="1.5" width="18" height="9" rx="2.3" fill="white"/>
-          <path d="M23.5 4v4a2 2 0 000-4z" fill="white" fill-opacity=".4"/>
-        </svg>
+        <svg width="17" height="12" viewBox="0 0 17 12" fill="white"><rect x="0" y="5" width="3" height="7" rx="1"/><rect x="4.5" y="3" width="3" height="9" rx="1"/><rect x="9" y="1" width="3" height="11" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill-opacity=".3"/></svg>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="white"><path d="M8 2.4C10.6 2.4 12.9 3.5 14.6 5.2L15.9 3.9C13.8 1.8 11 .6 8 .6S2.2 1.8.1 3.9l1.3 1.3C3.1 3.5 5.4 2.4 8 2.4z"/><path d="M8 5.2c1.7 0 3.2.7 4.3 1.8L13.6 5.7C12.2 4.3 10.2 3.4 8 3.4S3.8 4.3 2.4 5.7l1.3 1.3C4.8 5.9 6.3 5.2 8 5.2z"/><path d="M8 8c1 0 1.9.4 2.6 1.1L8 11.6l-2.6-2.5C6.1 8.4 7 8 8 8z"/></svg>
+        <svg width="26" height="12" viewBox="0 0 26 12" fill="none"><rect x=".5" y=".5" width="22" height="11" rx="3.3" stroke="white" stroke-opacity=".35"/><rect x="1.5" y="1.5" width="18" height="9" rx="2.3" fill="white"/><path d="M23.5 4v4a2 2 0 000-4z" fill="white" fill-opacity=".4"/></svg>
       </div>
     </div>
-
-    <!-- Call info -->
     <div class="call-info">
       <div class="call-app-name">Chamada recebida</div>
       <div class="call-name">O futuro da advocacia chegou</div>
       <div class="call-sub">você vai atender ou não?</div>
     </div>
-
-    <!-- Photo with pulse -->
     <div class="call-photo-wrap">
       <div class="pr"></div><div class="pr"></div><div class="pr"></div>
       <img class="call-photo" src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" alt="Rafael Batista">
     </div>
-
-    <!-- Extras decorativos (iOS style) -->
     <div class="call-extras">
       <div class="ex-btn">
-        <div class="ex-circle">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 1c-5 0-9 4-9 9v7c0 1.7 1.3 3 3 3h3v-8H5v-2c0-3.9 3.1-7 7-7s7 3.1 7 7v2h-4v8h3c1.7 0 3-1.3 3-3v-7c0-5-4-9-9-9z"/></svg>
-        </div>
+        <div class="ex-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 1c-5 0-9 4-9 9v7c0 1.7 1.3 3 3 3h3v-8H5v-2c0-3.9 3.1-7 7-7s7 3.1 7 7v2h-4v8h3c1.7 0 3-1.3 3-3v-7c0-5-4-9-9-9z"/></svg></div>
         <span class="ex-label">Fone</span>
       </div>
       <div class="ex-btn">
-        <div class="ex-circle">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 14c1.7 0 3-1.3 3-3V5c0-1.7-1.3-3-3-3S9 3.3 9 5v6c0 1.7 1.3 3 3 3zm5.3-3c0 3-2.5 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.4 2.7 6.2 6 6.7V21h2v-3.3c3.3-.5 6-3.3 6-6.7h-1.7z"/></svg>
-        </div>
+        <div class="ex-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 14c1.7 0 3-1.3 3-3V5c0-1.7-1.3-3-3-3S9 3.3 9 5v6c0 1.7 1.3 3 3 3zm5.3-3c0 3-2.5 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.4 2.7 6.2 6 6.7V21h2v-3.3c3.3-.5 6-3.3 6-6.7h-1.7z"/></svg></div>
         <span class="ex-label">Mudo</span>
       </div>
       <div class="ex-btn">
-        <div class="ex-circle">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-        </div>
+        <div class="ex-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div>
         <span class="ex-label">Alto-falante</span>
       </div>
     </div>
-
-    <!-- Decline / Accept -->
     <div class="call-actions">
       <div class="call-btn-wrap">
         <button class="call-btn call-btn-decline" id="btn-decline">
@@ -329,15 +211,11 @@ html,body{height:100%;overflow:hidden;background:#000;font-family:-apple-system,
         <span class="call-btn-label">Atender</span>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- ═══════════════════════
-     WHATSAPP SCREEN
-═══════════════════════ -->
+<!-- WHATSAPP SCREEN -->
 <div id="wa-screen">
-
   <div class="wa-hdr">
     <span class="wa-back">&#8249;</span>
     <img class="wa-av" src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" alt="Rafael">
@@ -350,221 +228,250 @@ html,body{height:100%;overflow:hidden;background:#000;font-family:-apple-system,
       <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
     </div>
   </div>
-
   <div class="wa-chat" id="chat"></div>
   <div id="input-zone"></div>
-
 </div>
 
 <script>
 // ── STATE ──
-const ANS = {};
-let formStep = -1;
+var ANS = {};
+var formStep = -1;
+
+// ── HELPER: decode HTML entities ──
+function dec(str) {
+  var d = document.createElement('div');
+  d.innerHTML = str;
+  return d.textContent || d.innerText || '';
+}
 
 // ── CLOCK ──
-(function tick(){
-  const d=new Date(),h=String(d.getHours()).padStart(2,'0'),m=String(d.getMinutes()).padStart(2,'0');
-  document.getElementById('ios-clock').textContent=h+':'+m;
-  setTimeout(tick,30000);
+(function tick() {
+  var d = new Date(), h = String(d.getHours()).padStart(2,'0'), m = String(d.getMinutes()).padStart(2,'0');
+  document.getElementById('ios-clock').textContent = h + ':' + m;
+  setTimeout(tick, 30000);
 })();
 
 // ── AUDIO ──
-const ring=document.getElementById('ring');
-let ringOk=false;
-function tryRing(){
-  if(ringOk)return;
-  ring.play().then(()=>{ringOk=true;}).catch(()=>{});
+var ring = document.getElementById('ring');
+var ringOk = false;
+function tryRing() {
+  if (ringOk) return;
+  ring.play().then(function(){ ringOk = true; }).catch(function(){});
 }
 tryRing();
-['touchstart','click'].forEach(ev=>document.addEventListener(ev,tryRing,{once:true,passive:true}));
-function stopRing(){ring.pause();ring.currentTime=0;ringOk=false;}
+document.addEventListener('touchstart', tryRing, {once:true, passive:true});
+document.addEventListener('click', tryRing, {once:true});
+function stopRing() { ring.pause(); ring.currentTime = 0; ringOk = false; }
 
 // ── VIBRATION ──
-let vibInt=null;
-function startVib(){
-  function v(){if(navigator.vibrate)navigator.vibrate([500,200,500,200,400]);}
-  v();vibInt=setInterval(v,3200);
+var vibInt = null;
+function startVib() {
+  function v() { if (navigator.vibrate) navigator.vibrate([500,200,500,200,400]); }
+  v(); vibInt = setInterval(v, 3200);
 }
-function stopVib(){if(vibInt){clearInterval(vibInt);vibInt=null;}if(navigator.vibrate)navigator.vibrate(0);}
+function stopVib() {
+  if (vibInt) { clearInterval(vibInt); vibInt = null; }
+  if (navigator.vibrate) navigator.vibrate(0);
+}
 startVib();
 
 // ── CALL SHAKE ──
-const callInner=document.getElementById('call-inner');
-let shakeInt=null;
-function startShake(){
-  function s(){callInner.classList.add('shaking');setTimeout(()=>callInner.classList.remove('shaking'),560);}
-  s();shakeInt=setInterval(s,3200);
+var callInner = document.getElementById('call-inner');
+var shakeInt = null;
+function startShake() {
+  function s() { callInner.classList.add('shaking'); setTimeout(function(){ callInner.classList.remove('shaking'); }, 560); }
+  s(); shakeInt = setInterval(s, 3200);
 }
-function stopShake(){if(shakeInt){clearInterval(shakeInt);shakeInt=null;}}
+function stopShake() { if (shakeInt) { clearInterval(shakeInt); shakeInt = null; } }
 startShake();
 
 // ── CALL BUTTONS ──
-document.getElementById('btn-decline').addEventListener('click',function(){
-  stopRing();stopVib();stopShake();
-  setTimeout(()=>{tryRing();startVib();startShake();},2200);
+document.getElementById('btn-decline').addEventListener('click', function() {
+  stopRing(); stopVib(); stopShake();
+  setTimeout(function(){ tryRing(); startVib(); startShake(); }, 2200);
 });
 
-document.getElementById('btn-accept').addEventListener('click',function(){
-  stopRing();stopVib();stopShake();
-  const cs=document.getElementById('call-screen');
-  cs.style.transition='opacity .38s ease';cs.style.opacity='0';
-  setTimeout(()=>{
-    cs.style.display='none';
+document.getElementById('btn-accept').addEventListener('click', function() {
+  stopRing(); stopVib(); stopShake();
+  var cs = document.getElementById('call-screen');
+  cs.style.transition = 'opacity .38s ease'; cs.style.opacity = '0';
+  setTimeout(function() {
+    cs.style.display = 'none';
     document.getElementById('wa-screen').classList.add('show');
-    if(typeof fbq!=='undefined')fbq('track','ViewContent');
-    if(typeof gtag!=='undefined')gtag('event','call_accepted');
-    setTimeout(startStory,420);
-  },380);
+    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent');
+    if (typeof gtag !== 'undefined') gtag('event', 'call_accepted');
+    setTimeout(startStory, 420);
+  }, 380);
 });
 
 // ── WA UTILS ──
-const chat=document.getElementById('chat');
-function ts(){const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
-function sc(){chat.scrollTo({top:chat.scrollHeight,behavior:'smooth'});}
+var chat = document.getElementById('chat');
+function ts() {
+  var d = new Date();
+  return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+}
+function sc() { chat.scrollTo({top: chat.scrollHeight, behavior: 'smooth'}); }
 
-function addRcv(text){
-  const d=document.createElement('div');
-  d.className='bub bub-rcv';
-  d.innerHTML=text.replace(/\n/g,'<br>')+'<div class="bub-meta"><span class="bub-time">'+ts()+'</span></div>';
-  chat.appendChild(d);sc();
+function addRcv(text) {
+  var d = document.createElement('div');
+  d.className = 'bub bub-rcv';
+  d.innerHTML = text.replace(/\n/g, '<br>') + '<div class="bub-meta"><span class="bub-time">' + ts() + '</span></div>';
+  chat.appendChild(d); sc();
 }
-function addSnt(text){
-  const d=document.createElement('div');
-  d.className='bub bub-snt';
-  d.innerHTML=text.replace(/\n/g,'<br>')+'<div class="bub-meta"><span class="bub-time">'+ts()+'</span><span class="bub-ticks">&#10003;&#10003;</span></div>';
-  chat.appendChild(d);sc();
+function addSnt(text) {
+  var d = document.createElement('div');
+  d.className = 'bub bub-snt';
+  d.innerHTML = escHtml(text).replace(/\n/g, '<br>') + '<div class="bub-meta"><span class="bub-time">' + ts() + '</span><span class="bub-ticks">&#10003;&#10003;</span></div>';
+  chat.appendChild(d); sc();
 }
-function typing(ms){
-  return new Promise(res=>{
-    const el=document.createElement('div');
-    el.className='typ-bub';
-    el.innerHTML='<div class="td"></div><div class="td"></div><div class="td"></div>';
-    chat.appendChild(el);sc();
-    document.getElementById('wa-status').textContent='digitando...';
-    setTimeout(()=>{el.remove();document.getElementById('wa-status').textContent='online';res();},ms);
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function typing(ms) {
+  return new Promise(function(res) {
+    var el = document.createElement('div');
+    el.className = 'typ-bub';
+    el.innerHTML = '<div class="td"></div><div class="td"></div><div class="td"></div>';
+    chat.appendChild(el); sc();
+    document.getElementById('wa-status').textContent = 'digitando...';
+    setTimeout(function() { el.remove(); document.getElementById('wa-status').textContent = 'online'; res(); }, ms);
   });
 }
 
-// ── STORY MESSAGES ──
-const STORY=[
-  {t:'Voc&#234; atendeu.',d:600},
-  {t:'E isso j&#225; diz muito sobre voc&#234;.',d:900},
-  {t:'A maioria dos advogados prefere ignorar essa liga&#231;&#227;o.',d:1100},
-  {t:'Preferem continuar acreditando que o problema &#233; "mais tr&#225;fego", "mais indica&#231;&#227;o", ou "mais tempo".',d:1800},
-  {t:'Mas no fundo voc&#234; j&#225; sabe.',d:700},
-  {t:'O problema nunca foi falta de cliente.',d:900},
-  {t:'Foi falta de controle.',d:600},
-  {t:'Enquanto voc&#234; atende manualmente, explica o b&#225;sico repetidamente e torce para o lead n&#227;o sumir...',d:1600},
-  {t:'...outros escrit&#243;rios j&#225; operam diferente.',d:800},
-  {t:'Eles utilizam Intelig&#234;ncia Artificial para:\n\n&#8212; Qualificar antes de conversar\n&#8212; Calcular viabilidade automaticamente\n&#8212; Filtrar curiosos\n&#8212; Organizar follow-up\n&#8212; Registrar tudo em CRM\n&#8212; Controlar metas e prazos\n&#8212; Transformar atendimento em contrato',d:2500},
-  {t:'N&#227;o &#233; sobre tecnologia.',d:700},
-  {t:'&#201; sobre parar de improvisar.',d:700},
-  {t:'A pergunta real n&#227;o &#233; se a IA funciona.',d:1000},
-  {t:'Voc&#234; vai continuar operando como em 2015&#8230; ou vai estruturar seu escrit&#243;rio para 2026? &#129300;',d:1800},
-  {t:'Antes de continuarmos, preciso entender uma coisa sobre o seu escrit&#243;rio.',d:1300},
-  {t:'Responda com sinceridade. &#128071;',d:700},
+// ── STORY ──
+var STORY = [
+  {t:'Você atendeu.', d:600},
+  {t:'E isso já diz muito sobre você.', d:900},
+  {t:'A maioria dos advogados prefere ignorar essa ligação.', d:1100},
+  {t:'Preferem continuar acreditando que o problema é "mais tráfego", "mais indicação", ou "mais tempo".', d:1800},
+  {t:'Mas no fundo você já sabe.', d:700},
+  {t:'O problema nunca foi falta de cliente.', d:900},
+  {t:'Foi falta de controle.', d:600},
+  {t:'Enquanto você atende manualmente, explica o básico repetidamente e torce para o lead não sumir...', d:1600},
+  {t:'...outros escritórios já operam diferente.', d:800},
+  {t:'Eles utilizam Inteligência Artificial para:\n\n— Qualificar antes de conversar\n— Calcular viabilidade automaticamente\n— Filtrar curiosos\n— Organizar follow-up\n— Registrar tudo em CRM\n— Controlar metas e prazos\n— Transformar atendimento em contrato', d:2500},
+  {t:'Não é sobre tecnologia.', d:700},
+  {t:'É sobre parar de improvisar.', d:700},
+  {t:'A pergunta real não é se a IA funciona.', d:1000},
+  {t:'Você vai continuar operando como em 2015… ou vai estruturar seu escritório para 2026? 🤔', d:1800},
+  {t:'Antes de continuarmos, preciso entender uma coisa sobre o seu escritório.', d:1300},
+  {t:'Responda com sinceridade. 👇', d:700}
 ];
 
-async function startStory(){
-  const dm=document.createElement('div');dm.className='wa-date-mkr';
-  const today=new Date();
-  dm.innerHTML='<span>'+today.toLocaleDateString('pt-BR',{weekday:'long'}).replace(/^\w/,c=>c.toUpperCase())+'</span>';
+async function startStory() {
+  var dm = document.createElement('div'); dm.className = 'wa-date-mkr';
+  var today = new Date();
+  var weekday = today.toLocaleDateString('pt-BR', {weekday:'long'});
+  weekday = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+  dm.innerHTML = '<span>' + weekday + '</span>';
   chat.appendChild(dm);
-
-  for(let i=0;i<STORY.length;i++){
+  for (var i = 0; i < STORY.length; i++) {
     await typing(STORY[i].d);
     addRcv(STORY[i].t);
-    await new Promise(r=>setTimeout(r,i<STORY.length-1?520:800));
+    await new Promise(function(r){ setTimeout(r, i < STORY.length - 1 ? 520 : 800); });
   }
-  formStep=0;
+  formStep = 0;
   showStep();
 }
 
 // ── PERGUNTAS ──
-const QS=[
-  {id:'esp',type:'choice',q:'Qual &#233; a sua especialidade?',opts:['Trabalhista','Previdenci&#225;rio','Fam&#237;lia','Banc&#225;rio','Tribut&#225;rio','Imobili&#225;rio','Criminal','Outros']},
-  {id:'col',type:'choice',q:'Quantos colaboradores no escrit&#243;rio?',opts:['Apenas eu','1 a 3','4 a 9','Mais de 10']},
-  {id:'fat',type:'choice',q:'Qual o faturamento m&#233;dio mensal?',opts:['0 a R$5 mil','R$5 a 10 mil','R$10 a 20 mil','R$20 a 50 mil','R$50 a 100 mil','Mais de R$100 mil']},
-  {id:'traf',type:'choice',q:'Quanto investe em tr&#225;fego pago por m&#234;s?',opts:['N&#227;o invisto','At&#233; R$1 mil','R$1 a 2 mil','R$2 a 5 mil','R$5 a 10 mil','Mais de R$10 mil']},
-  {id:'urg',type:'choice',q:'Quando pretende implementar IA no seu escrit&#243;rio?',opts:['O quanto antes','Em at&#233; 30 dias','Ainda n&#227;o sei'],exitOn:'Ainda n&#227;o sei',exitType:'wait'},
-  {id:'inv',type:'choice',q:'Nossos planos iniciam de R$500 a R$4.000/m&#234;s. Consegue realizar esse investimento?',opts:['Sim, consigo','N&#227;o &#233; meu momento'],exitOn:'N&#227;o &#233; meu momento',exitType:'nofit'},
-  {id:'ig',type:'text',q:'&#211;timo! Qual o seu Instagram? (opcional)',ph:'@seuinstagram',optional:true},
+// exitOn usa texto puro (UTF-8) para comparação direta com b.textContent
+var QS = [
+  {id:'esp', type:'choice', q:'Qual é a sua especialidade?',
+   opts:['Trabalhista','Previdenciário','Família','Bancário','Tributário','Imobiliário','Criminal','Outros']},
+  {id:'col', type:'choice', q:'Quantos colaboradores no escritório?',
+   opts:['Apenas eu','1 a 3','4 a 9','Mais de 10']},
+  {id:'fat', type:'choice', q:'Qual o faturamento médio mensal?',
+   opts:['0 a R$5 mil','R$5 a 10 mil','R$10 a 20 mil','R$20 a 50 mil','R$50 a 100 mil','Mais de R$100 mil']},
+  {id:'traf', type:'choice', q:'Quanto investe em tráfego pago por mês?',
+   opts:['Não invisto','Até R$1 mil','R$1 a 2 mil','R$2 a 5 mil','R$5 a 10 mil','Mais de R$10 mil']},
+  {id:'urg', type:'choice', q:'Quando pretende implementar IA no seu escritório?',
+   opts:['O quanto antes','Em até 30 dias','Ainda não sei'],
+   exitOn:'Ainda não sei', exitType:'wait'},
+  {id:'inv', type:'choice', q:'Nossos planos iniciam de R$500 a R$4.000/mês. Consegue realizar esse investimento?',
+   opts:['Sim, consigo','Não é meu momento'],
+   exitOn:'Não é meu momento', exitType:'nofit'},
+  {id:'ig', type:'text', q:'Ótimo! Qual o seu Instagram? (opcional)', ph:'@seuinstagram', optional:true}
 ];
 
-const iz=document.getElementById('input-zone');
-function clrIz(){iz.innerHTML='';}
+var iz = document.getElementById('input-zone');
+function clrIz() { iz.innerHTML = ''; }
 
-function showAfterTyping(text,cb){
-  typing(680).then(()=>{addRcv(text);setTimeout(cb,340);});
+function showAfterTyping(text, cb) {
+  typing(680).then(function(){ addRcv(text); setTimeout(cb, 340); });
 }
 
-function showStep(){
-  if(formStep===0){
-    showAfterTyping('Me conta um pouco sobre voc&#234;:',renderGroup);
+function showStep() {
+  if (formStep === 0) {
+    showAfterTyping('Me conta um pouco sobre você:', renderGroup);
   } else {
-    const q=QS[formStep-1];
-    if(!q){allDone();return;}
-    showAfterTyping(q.q,()=>{
-      if(q.type==='choice')renderChips(q);
+    var q = QS[formStep - 1];
+    if (!q) { allDone(); return; }
+    showAfterTyping(q.q, function() {
+      if (q.type === 'choice') renderChips(q);
       else renderText(q);
     });
   }
 }
 
-// Group: nome + tel + email juntos
-function renderGroup(){
+// Group: nome + tel + email
+function renderGroup() {
   clrIz();
-  const w=document.createElement('div');
-  w.className='wa-group';
-  w.innerHTML=
-    '<div class="g-field"><div class="g-label">Nome completo</div><input id="g-nome" class="g-inp" type="text" placeholder="Seu nome" autocomplete="name" inputmode="text"></div>'+
-    '<div class="g-field"><div class="g-label">WhatsApp (com DDD)</div><input id="g-tel" class="g-inp" type="tel" placeholder="(71) 99999-9999" autocomplete="tel" inputmode="numeric"></div>'+
-    '<div class="g-field"><div class="g-label">E-mail</div><input id="g-email" class="g-inp" type="email" placeholder="nome@email.com" autocomplete="email" inputmode="email"></div>'+
-    '<button class="g-sub" id="g-sub-btn">Continuar &#8594;</button>';
+  var w = document.createElement('div'); w.className = 'wa-group';
+  w.innerHTML =
+    '<div class="g-field"><div class="g-label">Nome completo</div><input id="g-nome" class="g-inp" type="text" placeholder="Seu nome" autocomplete="name"></div>' +
+    '<div class="g-field"><div class="g-label">WhatsApp (com DDD)</div><input id="g-tel" class="g-inp" type="tel" placeholder="(71) 99999-9999" autocomplete="tel" inputmode="numeric"></div>' +
+    '<div class="g-field"><div class="g-label">E-mail</div><input id="g-email" class="g-inp" type="email" placeholder="nome@email.com" autocomplete="email"></div>' +
+    '<button class="g-sub" id="g-sub-btn">Continuar →</button>';
   iz.appendChild(w);
-
-  const tel=document.getElementById('g-tel');
-  tel.addEventListener('input',function(){
-    let v=this.value.replace(/\D/g,'').slice(0,11);
-    if(v.length>7)v='('+v.slice(0,2)+') '+v.slice(2,7)+'-'+v.slice(7);
-    else if(v.length>2)v='('+v.slice(0,2)+') '+v.slice(2);
-    else if(v.length)v='('+v;
-    this.value=v;
+  var tel = document.getElementById('g-tel');
+  tel.addEventListener('input', function() {
+    var v = this.value.replace(/\D/g,'').slice(0,11);
+    if (v.length > 7) v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+    else if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+    else if (v.length) v = '(' + v;
+    this.value = v;
   });
-
-  document.getElementById('g-sub-btn').addEventListener('click',submitGroup);
-  ['g-nome','g-tel','g-email'].forEach(id=>{
-    document.getElementById(id).addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();submitGroup();}});
+  document.getElementById('g-sub-btn').addEventListener('click', submitGroup);
+  ['g-nome','g-tel','g-email'].forEach(function(id) {
+    document.getElementById(id).addEventListener('keydown', function(e){ if(e.key==='Enter'){e.preventDefault();submitGroup();} });
   });
   document.getElementById('g-nome').focus();
 }
 
-function submitGroup(){
-  const n=document.getElementById('g-nome'),t=document.getElementById('g-tel'),e=document.getElementById('g-email');
-  const nome=n.value.trim(),tel=t.value.trim(),email=e.value.trim();
-  if(nome.length<2){n.style.outline='2px solid #FF3B30';n.focus();return;}
-  if(tel.replace(/\D/g,'').length<10){t.style.outline='2px solid #FF3B30';t.focus();return;}
-  if(!email.includes('@')||!email.includes('.')){e.style.outline='2px solid #FF3B30';e.focus();return;}
-  ANS.nome=nome;ANS.tel=tel;ANS.email=email;
-  clrIz();addSnt(nome+'\n'+tel+'\n'+email);
-  if(typeof fbq!=='undefined')fbq('track','ViewContent');
-  formStep=1;setTimeout(showStep,680);
+function submitGroup() {
+  var n = document.getElementById('g-nome'), t = document.getElementById('g-tel'), e = document.getElementById('g-email');
+  var nome = n.value.trim(), tel = t.value.trim(), email = e.value.trim();
+  if (nome.length < 2) { n.style.outline = '2px solid #FF3B30'; n.focus(); return; }
+  if (tel.replace(/\D/g,'').length < 10) { t.style.outline = '2px solid #FF3B30'; t.focus(); return; }
+  if (!email.includes('@') || !email.includes('.')) { e.style.outline = '2px solid #FF3B30'; e.focus(); return; }
+  ANS.nome = nome; ANS.tel = tel; ANS.email = email;
+  clrIz();
+  addSnt(nome + '\n' + tel + '\n' + email);
+  if (typeof fbq !== 'undefined') fbq('track', 'ViewContent');
+  formStep = 1;
+  setTimeout(showStep, 680);
 }
 
-// Choice chips
-function renderChips(q){
+// Chips — usa b.textContent para comparação correta (sem problemas de encoding)
+function renderChips(q) {
   clrIz();
-  const w=document.createElement('div');w.className='wa-chips';
-  q.opts.forEach(opt=>{
-    const b=document.createElement('button');b.className='chip';
-    b.innerHTML=opt;
-    b.addEventListener('click',()=>{
-      ANS[q.id]=opt.replace(/&#\d+;/g,s=>String.fromCharCode(parseInt(s.slice(2,-1))));
-      clrIz();addSnt(b.textContent);
-      if(q.exitOn&&b.textContent.includes(q.exitOn.substring(0,8))){
-        setTimeout(()=>handleExit(q.exitType),680);return;
+  var w = document.createElement('div'); w.className = 'wa-chips';
+  q.opts.forEach(function(opt) {
+    var b = document.createElement('button'); b.className = 'chip';
+    b.textContent = opt; // textContent: texto puro, sem HTML entities
+    b.addEventListener('click', function() {
+      var val = b.textContent; // valor real exibido
+      ANS[q.id] = val;
+      clrIz();
+      addSnt(val);
+      // Comparação direta: ambos são texto puro
+      if (q.exitOn && val === q.exitOn) {
+        setTimeout(function(){ handleExit(q.exitType); }, 680);
+        return;
       }
-      formStep++;setTimeout(showStep,680);
+      formStep++;
+      setTimeout(showStep, 680);
     });
     w.appendChild(b);
   });
@@ -572,61 +479,61 @@ function renderChips(q){
 }
 
 // Text input
-function renderText(q){
+function renderText(q) {
   clrIz();
-  const w=document.createElement('div');w.className='wa-ibar';
-  w.innerHTML='<div class="wa-iwrap"><input id="wa-inp" class="wa-inp" type="text" placeholder="'+(q.ph||'')+'"></div><button class="wa-send" id="wa-snd"><svg viewBox="0 0 24 24" fill="white"><path d="M2 21L23 12 2 3v7l15 2-15 2z"/></svg></button>';
+  var w = document.createElement('div'); w.className = 'wa-ibar';
+  w.innerHTML = '<div class="wa-iwrap"><input id="wa-inp" class="wa-inp" type="text" placeholder="' + (q.ph || '') + '"></div><button class="wa-send" id="wa-snd"><svg viewBox="0 0 24 24" fill="white"><path d="M2 21L23 12 2 3v7l15 2-15 2z"/></svg></button>';
   iz.appendChild(w);
-  const inp=document.getElementById('wa-inp');
-  function sub(){
-    const v=inp.value.trim();
-    if(!q.optional&&!v){inp.focus();return;}
-    ANS[q.id]=v||'—';clrIz();if(v)addSnt(v);
+  var inp = document.getElementById('wa-inp');
+  function sub() {
+    var v = inp.value.trim();
+    if (!q.optional && !v) { inp.focus(); return; }
+    ANS[q.id] = v || '—'; clrIz(); if (v) addSnt(v);
     formStep++;
-    if(!QS[formStep-1])setTimeout(allDone,680);
-    else setTimeout(showStep,680);
+    if (!QS[formStep - 1]) setTimeout(allDone, 680);
+    else setTimeout(showStep, 680);
   }
-  document.getElementById('wa-snd').addEventListener('click',sub);
-  inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();sub();}});
+  document.getElementById('wa-snd').addEventListener('click', sub);
+  inp.addEventListener('keydown', function(e){ if(e.key==='Enter'){e.preventDefault();sub();} });
   inp.focus();
 }
 
-// Exit handlers
-function handleExit(type){
-  if(type==='wait'){
-    typing(800).then(()=>{
-      addRcv('Sem problema! &#128522;\n\nQuando estiver pronto, &#233; s&#243; nos chamar.\nEstamos aqui para quando fizer sentido para voc&#234;!');
-      setTimeout(()=>showEnd('wait'),1800);
+// Exit
+function handleExit(type) {
+  if (type === 'wait') {
+    typing(800).then(function() {
+      addRcv('Sem problema! 😊\n\nQuando estiver pronto, é só nos chamar.\nEstamos aqui para quando fizer sentido para você!');
+      setTimeout(function(){ showEnd('wait'); }, 1800);
     });
   } else {
-    typing(800).then(()=>{
-      addRcv('Tudo bem! &#128591;\n\nAcompanhe o Instagram do Rafael para dicas sobre IA para advogados.');
-      setTimeout(()=>showEnd('nofit'),1800);
+    typing(800).then(function() {
+      addRcv('Tudo bem! 🙏\n\nAcompanhe o Instagram do Rafael para dicas sobre IA para advogados.');
+      setTimeout(function(){ showEnd('nofit'); }, 1800);
     });
   }
 }
 
-// All done
-function allDone(){
-  if(typeof fbq!=='undefined')fbq('track','Lead');
-  if(typeof gtag!=='undefined')gtag('event','generate_lead');
-  const nome=(ANS.nome||'').split(' ')[0];
-  typing(900).then(()=>{
-    addRcv('Perfeito, '+nome+'! &#127881;\n\nRecebi tudo. Nossa equipe vai entrar em contato pelo WhatsApp para agendar sua apresenta&#231;&#227;o!');
-    setTimeout(()=>showEnd('success'),2000);
+// Done
+function allDone() {
+  if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+  if (typeof gtag !== 'undefined') gtag('event', 'generate_lead');
+  var nome = (ANS.nome || '').split(' ')[0];
+  typing(900).then(function() {
+    addRcv('Perfeito, ' + nome + '! 🎉\n\nRecebi tudo. Nossa equipe vai entrar em contato pelo WhatsApp para agendar sua apresentação!');
+    setTimeout(function(){ showEnd('success'); }, 2000);
   });
 }
 
 // End screens
-function showEnd(type){
-  const s=document.createElement('div');s.className='wa-end';
-  if(type==='success'){
-    const msg=encodeURIComponent('Ol&#225;! Sou '+(ANS.nome||'')+' e acabei de preencher o formul&#225;rio da Advanx IA. Gostaria de ver a demonstra&#231;&#227;o!');
-    s.innerHTML='<div class="wa-end-icon">&#128640;</div><div class="wa-end-ttl">Cadastro realizado!</div><div class="wa-end-txt">Nossa equipe vai entrar em contato em breve.<br><br>Prefere agilizar? Fale com a gente agora.</div><a href="https://wa.me/5571982470873?text='+msg+'" target="_blank" class="wa-end-btn btn-wa">&#128172; Falar com a Advanx IA</a>';
-  } else if(type==='wait'){
-    s.innerHTML='<div class="wa-end-icon">&#8987;</div><div class="wa-end-ttl">At&#233; logo!</div><div class="wa-end-txt">Quando estiver pronto para estruturar seu escrit&#243;rio com IA, a Advanx estar&#225; aqui.</div>';
+function showEnd(type) {
+  var s = document.createElement('div'); s.className = 'wa-end';
+  if (type === 'success') {
+    var msg = encodeURIComponent('Olá! Sou ' + (ANS.nome || '') + ' e acabei de preencher o formulário da Advanx IA. Gostaria de ver a demonstração!');
+    s.innerHTML = '<div class="wa-end-icon">🚀</div><div class="wa-end-ttl">Cadastro realizado!</div><div class="wa-end-txt">Nossa equipe vai entrar em contato em breve.<br><br>Prefere agilizar? Fale com a gente agora.</div><a href="https://wa.me/5571982470873?text=' + msg + '" target="_blank" class="wa-end-btn btn-wa">💬 Falar com a Advanx IA</a>';
+  } else if (type === 'wait') {
+    s.innerHTML = '<div class="wa-end-icon">⏳</div><div class="wa-end-ttl">Até logo!</div><div class="wa-end-txt">Quando estiver pronto para estruturar seu escritório com IA, a Advanx estará aqui.</div>';
   } else {
-    s.innerHTML='<div class="wa-end-icon">&#128242;</div><div class="wa-end-ttl">Acompanhe o Rafael</div><div class="wa-end-txt">Siga para receber dicas exclusivas sobre IA para advogados.</div><a href="https://www.instagram.com/rafaelbatistazz" target="_blank" class="wa-end-btn btn-ig">@rafaelbatistazz no Instagram</a>';
+    s.innerHTML = '<div class="wa-end-icon">📲</div><div class="wa-end-ttl">Acompanhe o Rafael</div><div class="wa-end-txt">Siga para receber dicas exclusivas sobre IA para advogados.</div><a href="https://www.instagram.com/rafaelbatistazz" target="_blank" class="wa-end-btn btn-ig">@rafaelbatistazz no Instagram</a>';
   }
   document.body.appendChild(s);
 }
