@@ -1,1119 +1,1085 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanx IA — Captação Jurídica com Inteligência Artificial</title>
-  <meta name="description" content="Sistema completo de captação, qualificação e gestão comercial para advogados. IA treinada por tese jurídica. Resultado em 41 dias.">
-
-  <!-- Meta Pixel -->
-  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','502759528362336');fbq('track','PageView');</script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/></noscript>
-
-  <!-- GA4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-98EL5GXG5F');</script>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,700;1,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --orange: #FF7A01;
-      --orange-glow: rgba(255,122,1,0.25);
-      --orange-dim: rgba(255,122,1,0.08);
-      --orange-border: rgba(255,122,1,0.18);
-      --bg: #070707;
-      --bg2: #0f0f0f;
-      --bg3: #161616;
-      --bg4: #1e1e1e;
-      --text: #F0EDE6;
-      --text-dim: rgba(240,237,230,0.6);
-      --text-muted: rgba(240,237,230,0.35);
-      --border: rgba(255,255,255,0.07);
-      --border-hover: rgba(255,122,1,0.35);
-    }
-
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; font-size: 16px; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Noise grain overlay */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.6;
-    }
-
-    /* ─── HEADER ─── */
-    .site-header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
-      padding: 22px 48px;
-      display: flex;
-      align-items: center;
-      background: linear-gradient(to bottom, rgba(7,7,7,0.97) 0%, transparent 100%);
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      text-decoration: none;
-    }
-
-    .logo-name {
-      font-weight: 800;
-      font-size: 1.25rem;
-      letter-spacing: -0.02em;
-      color: var(--text);
-    }
-
-    .logo-badge {
-      background: var(--orange);
-      color: #000;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      padding: 3px 7px;
-      border-radius: 5px;
-    }
-
-    /* ─── HERO ─── */
-    .hero {
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 130px 48px 72px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .hero-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.28em;
-      color: var(--orange);
-      text-transform: uppercase;
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s forwards;
-    }
-
-    .hero-headline {
-      font-size: clamp(3rem, 7vw, 6.5rem);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      line-height: 0.95;
-      margin-bottom: 20px;
-      opacity: 0;
-      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
-    }
-
-    .hero-headline em {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-weight: 800;
-      color: var(--orange);
-    }
-
-    .hero-sub {
-      font-size: clamp(1rem, 1.8vw, 1.2rem);
-      font-weight: 300;
-      line-height: 1.7;
-      color: var(--text-dim);
-      max-width: 620px;
-      margin-bottom: 52px;
-      opacity: 0;
-      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.45s forwards;
-    }
-
-    /* ─── COPY BODY ─── */
-    .copy-body {
-      padding: 0 48px 80px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .copy-intro-block {
-      display: grid;
-      grid-template-columns: 1fr 1px 1fr;
-      gap: 48px;
-      margin-bottom: 64px;
-      opacity: 0;
-      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.6s forwards;
-    }
-
-    .copy-col-divider { background: var(--border); }
-
-    .copy-col p {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: var(--text-dim);
-    }
-
-    .copy-col p strong { color: var(--text); font-weight: 600; }
-
-    .features-section {
-      margin-bottom: 64px;
-      opacity: 0;
-      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.75s forwards;
-    }
-
-    .features-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.25em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    .feature-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 20px 24px;
-      background: var(--bg2);
-      transition: background 0.2s;
-    }
-
-    .feature-item:hover { background: var(--bg3); }
-
-    .feature-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--orange);
-      flex-shrink: 0;
-      margin-top: 7px;
-    }
-
-    .feature-item span {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: var(--text-dim);
-    }
-
-    .guarantee-block {
-      background: var(--orange-dim);
-      border: 1px solid var(--orange-border);
-      border-radius: 20px;
-      padding: 36px 40px;
-      margin-bottom: 52px;
-      opacity: 0;
-      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.9s forwards;
-    }
-
-    .guarantee-block p {
-      font-size: 1.05rem;
-      line-height: 1.75;
-      color: var(--text-dim);
-      margin-bottom: 16px;
-    }
-
-    .guarantee-block p:last-child { margin-bottom: 0; }
-    .guarantee-block p strong { color: var(--text); font-weight: 600; }
-
-    .guarantee-highlight {
-      font-size: 1.15rem;
-      color: var(--orange);
-      font-weight: 700;
-      padding-top: 16px;
-      border-top: 1px solid var(--orange-border);
-      display: block;
-    }
-
-    .cta-row {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      opacity: 0;
-      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 1s forwards;
-    }
-
-    .btn-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--orange);
-      color: #000;
-      font-weight: 800;
-      font-size: 1rem;
-      padding: 18px 36px;
-      border-radius: 100px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      font-family: 'Inter', sans-serif;
-      transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-cta:hover {
-      transform: scale(1.04) translateY(-2px);
-      box-shadow: 0 24px 64px rgba(255,122,1,0.38);
-    }
-
-    .btn-cta .arr { transition: transform 0.25s; }
-    .btn-cta:hover .arr { transform: translateX(4px); }
-
-    .cta-note {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* ─── DIVIDER ─── */
-    .section-sep {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      max-width: 1000px;
-      margin: 0 auto 0;
-      padding: 0 48px 72px;
-    }
-    .sep-line { flex: 1; height: 1px; background: var(--border); }
-    .sep-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-
-    /* ─── FORM SECTION ─── */
-    .form-section {
-      min-height: 100dvh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 20px 80px;
-    }
-
-    .form-wrap {
-      width: 100%;
-      max-width: 600px;
-    }
-
-    /* Progress */
-    .progress-track {
-      height: 2px;
-      background: var(--border);
-      border-radius: 2px;
-      margin-bottom: 48px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: var(--orange);
-      border-radius: 2px;
-      transition: width 0.5s cubic-bezier(0.22,1,0.36,1);
-    }
-
-    /* Steps */
-    .form-step { display: none; }
-    .form-step.active {
-      display: block;
-      animation: stepSlide 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
-    }
-
-    .step-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.25em;
-      color: var(--orange);
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .step-title {
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 8px;
-    }
-
-    .step-desc {
-      font-size: 0.95rem;
-      color: var(--text-dim);
-      line-height: 1.6;
-      margin-bottom: 36px;
-    }
-
-    /* Text inputs */
-    .field-group { margin-bottom: 18px; }
-
-    .field-label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .field-input {
-      width: 100%;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px 20px;
-      color: var(--text);
-      font-size: 1rem;
-      font-family: 'Inter', sans-serif;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .field-input:focus {
-      border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(255,122,1,0.12);
-    }
-
-    .field-input::placeholder { color: rgba(240,237,230,0.2); }
-
-    /* Option grid */
-    .opt-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 32px;
-    }
-
-    .opt-grid.two { grid-template-columns: 1fr 1fr; }
-
-    .opt-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 16px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--text-dim);
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.25,0.46,0.45,0.94);
-      position: relative;
-      text-align: left;
-      user-select: none;
-    }
-
-    .opt-card:hover {
-      border-color: var(--border-hover);
-      color: var(--text);
-      transform: translateY(-1px);
-    }
-
-    .opt-card.sel {
-      background: var(--orange-dim);
-      border-color: var(--orange);
-      color: var(--text);
-    }
-
-    .opt-card.sel::after {
-      content: '✓';
-      position: absolute;
-      top: 6px; right: 10px;
-      font-size: 0.65rem;
-      color: var(--orange);
-      font-weight: 800;
-    }
-
-    /* Option list (big radio style) */
-    .opt-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
-
-    .opt-row {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.25,0.46,0.45,0.94);
-      user-select: none;
-    }
-
-    .opt-row:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-1px);
-    }
-
-    .opt-row.sel {
-      background: var(--orange-dim);
-      border-color: var(--orange);
-    }
-
-    .radio-dot {
-      width: 20px; height: 20px;
-      border-radius: 50%;
-      border: 2px solid var(--border);
-      flex-shrink: 0;
-      transition: all 0.2s;
-      position: relative;
-    }
-
-    .opt-row.sel .radio-dot {
-      border-color: var(--orange);
-      background: var(--orange);
-    }
-
-    .opt-row.sel .radio-dot::after {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      width: 7px; height: 7px;
-      background: #000;
-      border-radius: 50%;
-    }
-
-    .opt-row-text { font-size: 0.97rem; font-weight: 500; color: var(--text-dim); }
-    .opt-row.sel .opt-row-text { color: var(--text); }
-
-    /* Question block */
-    .q-block { margin-bottom: 36px; }
-    .q-label {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 14px;
-      line-height: 1.4;
-    }
-
-    /* Nav */
-    .form-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 8px;
-    }
-
-    .btn-next {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--orange);
-      color: #000;
-      font-weight: 800;
-      font-size: 0.95rem;
-      padding: 15px 30px;
-      border-radius: 100px;
-      border: none;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.3s, opacity 0.2s;
-    }
-
-    .btn-next:hover:not(:disabled) {
-      transform: scale(1.04) translateY(-1px);
-      box-shadow: 0 16px 48px rgba(255,122,1,0.3);
-    }
-
-    .btn-next:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-
-    .btn-back {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: color 0.2s;
-    }
-
-    .btn-back:hover { color: var(--text); }
-
-    /* Investment notice */
-    .inv-notice {
-      background: var(--orange-dim);
-      border: 1px solid var(--orange-border);
-      border-radius: 14px;
-      padding: 18px 22px;
-      font-size: 0.92rem;
-      color: var(--text-dim);
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-
-    .inv-notice strong { color: var(--orange); }
-
-    /* ─── END SCREENS ─── */
-    .end-screen { display: none; text-align: center; padding: 32px 0; }
-    .end-screen.active { display: block; animation: stepSlide 0.5s cubic-bezier(0.22,1,0.36,1) forwards; }
-
-    .end-icon {
-      width: 72px; height: 72px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      margin: 0 auto 24px;
-    }
-
-    .end-icon.ok { background: var(--orange-dim); border: 1px solid var(--orange-border); }
-    .end-icon.neutral { background: var(--bg3); border: 1px solid var(--border); }
-
-    .end-title {
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-    }
-
-    .end-title span { color: var(--orange); }
-
-    .end-text {
-      font-size: 1rem;
-      color: var(--text-dim);
-      line-height: 1.7;
-      margin-bottom: 36px;
-      max-width: 440px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .btn-wa {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--orange);
-      color: #000;
-      font-weight: 800;
-      font-size: 1rem;
-      padding: 18px 36px;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.3s;
-      margin-bottom: 14px;
-    }
-
-    .btn-wa:hover {
-      transform: scale(1.04) translateY(-2px);
-      box-shadow: 0 24px 64px rgba(255,122,1,0.38);
-    }
-
-    .btn-ig {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--bg3);
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding: 16px 32px;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: all 0.2s;
-      margin-bottom: 14px;
-    }
-
-    .btn-ig:hover { border-color: var(--border-hover); color: var(--text); transform: translateY(-1px); }
-
-    .end-note {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
-      margin-top: 8px;
-    }
-
-    /* ─── ANIMATIONS ─── */
-    @keyframes riseUp {
-      from { opacity: 0; transform: translateY(32px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes stepSlide {
-      from { opacity: 0; transform: translateX(24px); }
-      to   { opacity: 1; transform: translateX(0); }
-    }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 700px) {
-      .site-header { padding: 18px 24px; }
-      .hero { padding: 110px 24px 56px; }
-      .copy-body { padding: 0 24px 64px; }
-      .section-sep { padding: 0 24px 56px; }
-      .copy-intro-block { grid-template-columns: 1fr; }
-      .copy-col-divider { display: none; }
-      .features-grid { grid-template-columns: 1fr; }
-      .opt-grid { grid-template-columns: 1fr 1fr; }
-      .opt-grid.two { grid-template-columns: 1fr; }
-      .guarantee-block { padding: 28px 24px; }
-      .cta-row { flex-direction: column; align-items: flex-start; }
-    }
-
-    @media (max-width: 420px) {
-      .opt-grid { grid-template-columns: 1fr 1fr; }
-      .hero-headline { font-size: 2.6rem; }
-    }
-
-    /* form-anchor offset */
-    #form-anchor { scroll-margin-top: 0; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanx IA — Captação Jurídica com Inteligência Artificial</title>
+<meta name="description" content="IA treinada por tese jurídica que capta, qualifica e organiza clientes para advogados. Resultado em 41 dias.">
+
+<!-- Meta Pixel -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','502759528362336');fbq('track','PageView');</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/></noscript>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-98EL5GXG5F');</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,700;1,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;height:100%}
+body{
+  background:#080808;
+  color:#F0EDE8;
+  font-family:'Inter',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  min-height:100%;
+  overflow-x:hidden;
+}
+
+/* ── GRAIN ── */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;opacity:.5;
+}
+
+/* ═══════════════════════════
+   LANDING PAGE
+═══════════════════════════ */
+#landing{
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  padding:0 clamp(24px,5vw,80px);
+}
+
+/* Header */
+.lp-header{
+  padding:28px 0 0;
+  display:flex;
+  align-items:center;
+}
+.logo-img{
+  height:32px;
+  width:auto;
+  filter:brightness(0) invert(1);
+}
+
+/* Hero */
+.lp-hero{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:80px 0 60px;
+  max-width:820px;
+}
+
+.lp-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;
+  letter-spacing:.28em;
+  color:#FF7A01;
+  text-transform:uppercase;
+  margin-bottom:24px;
+  opacity:0;
+  animation:up .8s cubic-bezier(.22,1,.36,1) .1s forwards;
+}
+
+.lp-title{
+  font-size:clamp(2.8rem,7vw,6rem);
+  font-weight:900;
+  letter-spacing:-.04em;
+  line-height:.95;
+  margin-bottom:32px;
+  opacity:0;
+  animation:up .8s cubic-bezier(.22,1,.36,1) .25s forwards;
+}
+.lp-title em{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-weight:800;
+  color:#FF7A01;
+}
+
+.lp-body{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  max-width:640px;
+  margin-bottom:52px;
+  opacity:0;
+  animation:up .8s cubic-bezier(.22,1,.36,1) .4s forwards;
+}
+.lp-body p{
+  font-size:1.05rem;
+  line-height:1.8;
+  color:rgba(240,237,232,.65);
+  font-weight:300;
+}
+.lp-body p strong{color:#F0EDE8;font-weight:600;}
+
+/* Feature list */
+.lp-features{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:52px;
+  opacity:0;
+  animation:up .8s cubic-bezier(.22,1,.36,1) .55s forwards;
+}
+.lp-feat{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  border-right:1px solid rgba(255,255,255,.06);
+  font-size:.88rem;
+  color:rgba(240,237,232,.6);
+  transition:background .2s;
+}
+.lp-feat:nth-child(even){border-right:none;}
+.lp-feat:nth-last-child(-n+2){border-bottom:none;}
+.lp-feat:hover{background:rgba(255,122,1,.04);color:rgba(240,237,232,.9);}
+.feat-dot{
+  width:5px;height:5px;
+  border-radius:50%;
+  background:#FF7A01;
+  flex-shrink:0;
+}
+
+/* Guarantee */
+.lp-guarantee{
+  background:rgba(255,122,1,.06);
+  border:1px solid rgba(255,122,1,.15);
+  border-radius:14px;
+  padding:24px 28px;
+  margin-bottom:44px;
+  opacity:0;
+  animation:up .8s cubic-bezier(.22,1,.36,1) .65s forwards;
+}
+.lp-guarantee p{
+  font-size:.97rem;
+  line-height:1.7;
+  color:rgba(240,237,232,.7);
+}
+.lp-guarantee p strong{color:#F0EDE8;font-weight:600;}
+.lp-guarantee .g-highlight{
+  display:block;
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid rgba(255,122,1,.15);
+  font-size:1rem;
+  font-weight:700;
+  color:#FF7A01;
+}
+
+/* CTA */
+.lp-cta{
+  opacity:0;
+  animation:up .8s cubic-bezier(.22,1,.36,1) .75s forwards;
+}
+.btn-iniciar{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:#FF7A01;
+  color:#000;
+  font-weight:800;
+  font-size:1.05rem;
+  padding:18px 40px;
+  border-radius:100px;
+  border:none;
+  cursor:pointer;
+  font-family:'Inter',sans-serif;
+  letter-spacing:-.01em;
+  transition:transform .3s cubic-bezier(.25,.46,.45,.94),box-shadow .3s;
+  position:relative;overflow:hidden;
+}
+.btn-iniciar:hover{
+  transform:scale(1.04) translateY(-2px);
+  box-shadow:0 20px 60px rgba(255,122,1,.4);
+}
+.btn-iniciar .arr{
+  transition:transform .25s;
+  font-size:1.1rem;
+}
+.btn-iniciar:hover .arr{transform:translateX(5px);}
+.btn-iniciar::before{
+  content:'';
+  position:absolute;inset:0;
+  background:rgba(255,255,255,.12);
+  transform:translateX(-100%);
+  transition:transform .4s;
+}
+.btn-iniciar:hover::before{transform:translateX(0);}
+
+/* Footer strip */
+.lp-footer{
+  padding:24px 0;
+  border-top:1px solid rgba(255,255,255,.05);
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+.lp-footer span{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;
+  color:rgba(240,237,232,.25);
+  letter-spacing:.12em;
+}
+.status-dot{
+  width:6px;height:6px;
+  border-radius:50%;
+  background:#22c55e;
+  animation:pulse 2s infinite;
+  flex-shrink:0;
+}
+
+/* ═══════════════════════════
+   TYPEFORM OVERLAY
+═══════════════════════════ */
+#tf-overlay{
+  position:fixed;inset:0;
+  background:#080808;
+  z-index:100;
+  display:flex;
+  flex-direction:column;
+  opacity:0;
+  transform:translateY(40px);
+  pointer-events:none;
+  transition:opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1);
+}
+#tf-overlay.open{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:all;
+}
+
+/* Progress bar */
+.tf-progress{
+  height:2px;
+  background:rgba(255,255,255,.06);
+  flex-shrink:0;
+}
+.tf-progress-fill{
+  height:100%;
+  background:#FF7A01;
+  transition:width .5s cubic-bezier(.22,1,.36,1);
+}
+
+/* Top bar */
+.tf-topbar{
+  padding:20px 32px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-shrink:0;
+}
+.tf-logo{height:26px;width:auto;filter:brightness(0) invert(1);opacity:.7;}
+.tf-close{
+  background:none;border:none;
+  color:rgba(240,237,232,.3);
+  font-size:1.2rem;cursor:pointer;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  transition:background .2s, color .2s;
+  font-family:'Inter',sans-serif;
+}
+.tf-close:hover{background:rgba(255,255,255,.06);color:rgba(240,237,232,.7);}
+
+/* Stage (main Q area) */
+.tf-stage{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px 24px 40px;
+  overflow-y:auto;
+  position:relative;
+}
+
+.tf-step{
+  width:100%;
+  max-width:680px;
+  animation:stepIn .45s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+/* Question number */
+.tf-qnum{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;
+  letter-spacing:.22em;
+  color:#FF7A01;
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.tf-qnum span{color:rgba(240,237,232,.3);}
+
+/* Question text */
+.tf-question{
+  font-size:clamp(1.5rem,3.5vw,2.2rem);
+  font-weight:700;
+  letter-spacing:-.03em;
+  line-height:1.2;
+  margin-bottom:10px;
+  color:#F0EDE8;
+}
+
+.tf-hint{
+  font-size:.9rem;
+  color:rgba(240,237,232,.4);
+  margin-bottom:36px;
+  font-weight:300;
+}
+
+/* Text input */
+.tf-input-wrap{position:relative;margin-bottom:24px;}
+.tf-input{
+  width:100%;
+  background:transparent;
+  border:none;
+  border-bottom:2px solid rgba(255,255,255,.12);
+  padding:14px 0;
+  font-size:1.4rem;
+  font-weight:500;
+  font-family:'Inter',sans-serif;
+  color:#F0EDE8;
+  outline:none;
+  transition:border-color .3s;
+}
+.tf-input:focus{border-bottom-color:#FF7A01;}
+.tf-input::placeholder{color:rgba(240,237,232,.18);}
+.tf-input-line{
+  position:absolute;bottom:0;left:0;
+  height:2px;width:0%;
+  background:#FF7A01;
+  transition:width .3s cubic-bezier(.22,1,.36,1);
+}
+.tf-input:focus ~ .tf-input-line{width:100%;}
+
+/* Continue btn (for text inputs) */
+.tf-continue{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#FF7A01;
+  color:#000;
+  font-weight:700;
+  font-size:.9rem;
+  padding:13px 26px;
+  border-radius:100px;
+  border:none;
+  cursor:pointer;
+  font-family:'Inter',sans-serif;
+  transition:transform .25s cubic-bezier(.25,.46,.45,.94),box-shadow .25s,opacity .2s;
+}
+.tf-continue:hover:not(:disabled){
+  transform:scale(1.04) translateY(-1px);
+  box-shadow:0 12px 36px rgba(255,122,1,.3);
+}
+.tf-continue:disabled{opacity:.3;cursor:default;}
+
+.tf-enter-hint{
+  font-size:.75rem;
+  color:rgba(240,237,232,.25);
+  margin-left:16px;
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* Choice grid */
+.tf-choices{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-bottom:8px;
+}
+.tf-choices.single{grid-template-columns:1fr;}
+
+.tf-choice{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:12px;
+  padding:16px 20px;
+  font-size:.95rem;
+  font-weight:500;
+  color:rgba(240,237,232,.7);
+  cursor:pointer;
+  transition:all .2s cubic-bezier(.25,.46,.45,.94);
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  position:relative;
+  overflow:hidden;
+  font-family:'Inter',sans-serif;
+}
+.tf-choice:hover{
+  border-color:rgba(255,122,1,.35);
+  color:#F0EDE8;
+  background:rgba(255,122,1,.06);
+  transform:translateY(-1px);
+}
+.tf-choice.sel{
+  border-color:#FF7A01;
+  background:rgba(255,122,1,.1);
+  color:#F0EDE8;
+}
+.choice-key{
+  min-width:22px;height:22px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;
+  color:rgba(240,237,232,.35);
+  flex-shrink:0;
+  transition:all .2s;
+}
+.tf-choice.sel .choice-key{
+  background:#FF7A01;
+  border-color:#FF7A01;
+  color:#000;
+}
+.choice-ripple{
+  position:absolute;inset:0;
+  background:rgba(255,122,1,.12);
+  transform:scale(0);
+  border-radius:12px;
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.tf-choice.sel .choice-ripple{transform:scale(1);}
+
+/* Bottom nav */
+.tf-bottom{
+  padding:20px 32px 28px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  flex-shrink:0;
+}
+.tf-back{
+  background:none;border:none;
+  color:rgba(240,237,232,.3);
+  cursor:pointer;
+  font-size:.85rem;
+  font-family:'Inter',sans-serif;
+  display:flex;align-items:center;gap:6px;
+  transition:color .2s;
+  padding:8px 0;
+}
+.tf-back:hover{color:rgba(240,237,232,.7);}
+.tf-count{
+  margin-left:auto;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;
+  color:rgba(240,237,232,.2);
+  letter-spacing:.1em;
+}
+
+/* ═══════════════════════════
+   CELEBRATION
+═══════════════════════════ */
+#celebrate{
+  position:fixed;inset:0;
+  z-index:200;
+  pointer-events:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.cel-ring{
+  position:relative;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.cel-ring.fire{display:flex;animation:celIn .5s cubic-bezier(.22,1,.36,1) forwards;}
+
+.cel-check{
+  width:72px;height:72px;
+  border-radius:50%;
+  background:rgba(255,122,1,.12);
+  border:2px solid rgba(255,122,1,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;
+  animation:checkPop .4s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+
+.cel-particle{
+  position:absolute;
+  width:6px;height:6px;
+  border-radius:50%;
+  background:#FF7A01;
+}
+
+/* ═══════════════════════════
+   END SCREENS
+═══════════════════════════ */
+.tf-end{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:40px 24px;
+  max-width:520px;
+  margin:auto;
+  animation:stepIn .5s cubic-bezier(.22,1,.36,1) forwards;
+}
+.tf-end.active{display:flex;}
+
+.end-icon{
+  font-size:3rem;
+  margin-bottom:24px;
+  animation:iconBounce .6s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+.end-title{
+  font-size:clamp(1.8rem,4vw,2.6rem);
+  font-weight:800;
+  letter-spacing:-.03em;
+  line-height:1.1;
+  margin-bottom:14px;
+}
+.end-title span{color:#FF7A01;}
+.end-text{
+  font-size:1rem;
+  color:rgba(240,237,232,.6);
+  line-height:1.75;
+  margin-bottom:40px;
+  font-weight:300;
+}
+
+.btn-wa{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:#FF7A01;
+  color:#000;
+  font-weight:800;
+  font-size:1rem;
+  padding:18px 40px;
+  border-radius:100px;
+  text-decoration:none;
+  font-family:'Inter',sans-serif;
+  transition:transform .3s cubic-bezier(.25,.46,.45,.94),box-shadow .3s;
+  margin-bottom:12px;
+}
+.btn-wa:hover{
+  transform:scale(1.04) translateY(-2px);
+  box-shadow:0 20px 60px rgba(255,122,1,.4);
+}
+
+.btn-ig{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  color:rgba(240,237,232,.6);
+  font-size:.9rem;
+  font-weight:500;
+  padding:14px 28px;
+  border-radius:100px;
+  text-decoration:none;
+  font-family:'Inter',sans-serif;
+  transition:all .2s;
+  margin-bottom:12px;
+}
+.btn-ig:hover{border-color:rgba(255,122,1,.3);color:#F0EDE8;transform:translateY(-1px);}
+
+.end-note{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;
+  color:rgba(240,237,232,.2);
+  letter-spacing:.1em;
+  margin-top:4px;
+}
+
+/* ═══════════════════════════
+   KEYFRAMES
+═══════════════════════════ */
+@keyframes up{
+  from{opacity:0;transform:translateY(28px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes stepIn{
+  from{opacity:0;transform:translateY(32px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes stepOut{
+  from{opacity:1;transform:translateY(0);}
+  to{opacity:0;transform:translateY(-24px);}
+}
+@keyframes celIn{
+  from{opacity:0;transform:scale(.6);}
+  to{opacity:1;transform:scale(1);}
+}
+@keyframes checkPop{
+  from{transform:scale(.5);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+@keyframes iconBounce{
+  from{transform:scale(.5) translateY(20px);opacity:0;}
+  to{transform:scale(1) translateY(0);opacity:1;}
+}
+@keyframes pulse{
+  0%,100%{opacity:1;}
+  50%{opacity:.4;}
+}
+@keyframes particleOut{
+  0%{transform:translate(0,0) scale(1);opacity:1;}
+  100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0;}
+}
+
+/* ═══════════════════════════
+   RESPONSIVE
+═══════════════════════════ */
+@media(max-width:640px){
+  .lp-features{grid-template-columns:1fr;}
+  .lp-feat:nth-child(even){border-right:1px solid rgba(255,255,255,.06);}
+  .lp-feat{border-right:none!important;}
+  .tf-choices{grid-template-columns:1fr;}
+  .tf-topbar,.tf-bottom{padding:16px 20px;}
+  .tf-stage{padding:16px 20px 32px;}
+}
+</style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <a href="https://advanx.com.br" class="logo">
-      <span class="logo-name">ADVANX</span>
-      <span class="logo-badge">IA</span>
-    </a>
+<!-- ═══════════════════════════
+     LANDING PAGE
+═══════════════════════════ -->
+<div id="landing">
+  <header class="lp-header">
+    <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/logo-horizontal-1-scaled.webp"
+         alt="Advanx" class="logo-img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <span style="display:none;font-weight:800;font-size:1.2rem;letter-spacing:-.02em;align-items:center;gap:8px">ADVANX <span style="background:#FF7A01;color:#000;font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:700;letter-spacing:.1em;padding:2px 6px;border-radius:4px">IA</span></span>
   </header>
 
-  <!-- ─── HERO ─── -->
-  <section class="hero">
-    <p class="hero-tag">Sistema de Captação Jurídica Inteligente</p>
-    <h1 class="hero-headline">
-      A D V A N X&nbsp;&nbsp;<em>IA</em>
+  <main class="lp-hero">
+    <p class="lp-eyebrow">Sistema de Captação Jurídica Inteligente</p>
+
+    <h1 class="lp-title">
+      Contratos com<br><em>previsibilidade.</em><br>Não com improviso.
     </h1>
-    <p class="hero-sub">
-      Os escritórios que estão fechando contratos com previsibilidade<br>
-      não dependem mais de improviso.<br>
-      Eles utilizam Inteligência Artificial aplicada ao comercial jurídico.
-    </p>
-  </section>
 
-  <!-- ─── COPY BODY ─── -->
-  <div class="copy-body">
-
-    <div class="copy-intro-block">
-      <div class="copy-col">
-        <p>A <strong>Advanx IA</strong> é um sistema completo de captação, qualificação e gestão comercial para advogados que querem controle real sobre resultados.</p>
-        <br>
-        <p>Não é apenas automação de WhatsApp. É uma <strong>IA treinada por tese jurídica</strong> que atua como a sua estrutura comercial completa.</p>
-      </div>
-      <div class="copy-col-divider"></div>
-      <div class="copy-col">
-        <p>Ela <strong>não apenas responde</strong>. Ela analisa, calcula, classifica e organiza.</p>
-        <br>
-        <p>Enquanto a maioria ainda atende manualmente e perde oportunidades por desorganização, nossos clientes operam com <strong>dados, processo e previsibilidade</strong>.</p>
-      </div>
+    <div class="lp-body">
+      <p>Os escritórios que estão fechando contratos com consistência não dependem mais de atendimento manual. Eles utilizam <strong>Inteligência Artificial aplicada ao comercial jurídico</strong>.</p>
+      <p>A Advanx IA é um sistema completo de captação, qualificação e gestão para advogados que querem <strong>controle real sobre resultados</strong>. Não é apenas automação de WhatsApp. É uma IA treinada por tese jurídica.</p>
     </div>
 
-    <div class="features-section">
-      <p class="features-label">O que a IA executa por você</p>
-      <div class="features-grid">
-        <div class="feature-item"><span class="feature-dot"></span><span>Assume o primeiro atendimento</span></div>
-        <div class="feature-item"><span class="feature-dot"></span><span>Conduz a conversa com lógica comercial</span></div>
-        <div class="feature-item"><span class="feature-dot"></span><span>Filtra clientes desqualificados</span></div>
-        <div class="feature-item"><span class="feature-dot"></span><span>Cálculos automáticos de direitos e estimativas</span></div>
-        <div class="feature-item"><span class="feature-dot"></span><span>Identifica viabilidade técnica antes de você entrar</span></div>
-        <div class="feature-item"><span class="feature-dot"></span><span>Executa follow-up sem falhas</span></div>
-        <div class="feature-item"><span class="feature-dot"></span><span>Atende múltiplos clientes simultaneamente</span></div>
-        <div class="feature-item"><span class="feature-dot"></span><span>Registra tudo em CRM próprio</span></div>
-        <div class="feature-item"><span class="feature-dot"></span><span>Organiza metas, prazos e etapas do processo comercial</span></div>
-        <div class="feature-item"><span class="feature-dot"></span><span>Sem falhas, sem esquecimentos, sem horário</span></div>
-      </div>
+    <div class="lp-features">
+      <div class="lp-feat"><span class="feat-dot"></span>Assume o primeiro atendimento</div>
+      <div class="lp-feat"><span class="feat-dot"></span>Conduz com lógica comercial</div>
+      <div class="lp-feat"><span class="feat-dot"></span>Filtra clientes desqualificados</div>
+      <div class="lp-feat"><span class="feat-dot"></span>Cálculos automáticos de direitos</div>
+      <div class="lp-feat"><span class="feat-dot"></span>Identifica viabilidade técnica</div>
+      <div class="lp-feat"><span class="feat-dot"></span>Follow-up sem falhas</div>
+      <div class="lp-feat"><span class="feat-dot"></span>Atende múltiplos clientes ao mesmo tempo</div>
+      <div class="lp-feat"><span class="feat-dot"></span>CRM próprio integrado</div>
     </div>
 
-    <div class="guarantee-block">
-      <p>Se você quer parar de explicar o básico repetidamente e começar a conversar apenas com quem realmente tem potencial de fechar, o próximo passo é simples.</p>
-      <p>Preencha o formulário abaixo e veja como funciona na prática.</p>
-      <strong class="guarantee-highlight">Se em até 41 dias o sistema não gerar contratos fechados, a mensalidade é isenta.</strong>
+    <div class="lp-guarantee">
+      <p>Enquanto a maioria perde oportunidades por desorganização, nossos clientes operam com <strong>dados, processo e previsibilidade</strong>.</p>
+      <strong class="g-highlight">Se em 41 dias o sistema não gerar contratos fechados, a mensalidade é isenta.</strong>
     </div>
 
-    <div class="cta-row">
-      <a href="#form-anchor" class="btn-cta" onclick="event.preventDefault();document.getElementById('form-anchor').scrollIntoView({behavior:'smooth'})">
-        Preencher o formulário <span class="arr">→</span>
-      </a>
-      <span class="cta-note">Leva menos de 3 minutos</span>
+    <div class="lp-cta">
+      <button class="btn-iniciar" onclick="openForm()">
+        Iniciar <span class="arr">→</span>
+      </button>
     </div>
+  </main>
+
+  <footer class="lp-footer">
+    <span class="status-dot"></span>
+    <span>SISTEMA OPERACIONAL</span>
+    <span>·</span>
+    <span>400+ ESCRITÓRIOS ATENDIDOS</span>
+    <span>·</span>
+    <span>41 DIAS DE GARANTIA</span>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════
+     TYPEFORM OVERLAY
+═══════════════════════════ -->
+<div id="tf-overlay">
+  <div class="tf-progress"><div class="tf-progress-fill" id="tf-prog"></div></div>
+
+  <div class="tf-topbar">
+    <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/logo-horizontal-1-scaled.webp"
+         alt="Advanx" class="tf-logo"
+         onerror="this.style.display='none'">
+    <button class="tf-close" onclick="closeForm()" title="Fechar">✕</button>
   </div>
 
-  <!-- ─── SEPARATOR ─── -->
-  <div class="section-sep">
-    <div class="sep-line"></div>
-    <span class="sep-label">Formulário de qualificação</span>
-    <div class="sep-line"></div>
+  <div class="tf-stage" id="tf-stage">
+    <!-- steps rendered here -->
   </div>
 
-  <!-- ─── FORM ─── -->
-  <section class="form-section" id="form-anchor">
-    <div class="form-wrap">
+  <div class="tf-bottom">
+    <button class="tf-back" id="tf-back-btn" onclick="prevStep()" style="display:none">↑ Voltar</button>
+    <span class="tf-count" id="tf-count"></span>
+  </div>
+</div>
 
-      <!-- Progress -->
-      <div class="progress-track">
-        <div class="progress-fill" id="progress" style="width:0%"></div>
-      </div>
+<!-- ═══════════════════════════
+     CELEBRATION
+═══════════════════════════ -->
+<div id="celebrate">
+  <div class="cel-ring" id="cel-ring">
+    <div class="cel-check" id="cel-icon">✓</div>
+  </div>
+</div>
 
-      <!-- ── STEP 1: Dados pessoais ── -->
-      <div class="form-step active" id="s1">
-        <p class="step-num">01 / 06 — Vamos começar</p>
-        <h2 class="step-title">Seus dados para contato.</h2>
-        <p class="step-desc">Preencha abaixo para personalizar sua apresentação.</p>
+<script>
+// ─────────────────────────────
+// QUESTION BANK
+// ─────────────────────────────
+const QUESTIONS = [
+  {
+    id:'nome', type:'text', inputType:'text',
+    q:'Qual é o seu nome?',
+    hint:'Digite seu nome completo',
+    placeholder:'Seu nome...',
+    validate: v => v.trim().length >= 2,
+    errMsg: 'Digite seu nome completo'
+  },
+  {
+    id:'tel', type:'text', inputType:'tel',
+    q:'Qual o seu WhatsApp?',
+    hint:'Com DDD, para entrarmos em contato',
+    placeholder:'(71) 99999-9999',
+    validate: v => v.replace(/\D/g,'').length >= 10,
+    errMsg: 'Digite um número válido com DDD'
+  },
+  {
+    id:'email', type:'text', inputType:'email',
+    q:'E o seu e-mail?',
+    hint:'Usado para enviar informações da apresentação',
+    placeholder:'nome@email.com',
+    validate: v => v.includes('@') && v.includes('.'),
+    errMsg: 'Digite um e-mail válido'
+  },
+  {
+    id:'esp', type:'choice',
+    q:'Qual é a sua especialidade?',
+    hint:'Selecione a área principal de atuação',
+    options:['Trabalhista','Previdenciário','Família','Bancário','Tributário','Imobiliário','Criminal','Outros']
+  },
+  {
+    id:'col', type:'choice',
+    q:'Quantos colaboradores no escritório?',
+    hint:'Contando você e toda a equipe',
+    options:['Apenas eu','1 a 3','4 a 9','Mais de 10']
+  },
+  {
+    id:'fat', type:'choice',
+    q:'Qual o faturamento médio mensal?',
+    hint:'Uma estimativa já é suficiente',
+    options:['0 a R$ 5 mil','R$ 5 a 10 mil','R$ 10 a 20 mil','R$ 20 a 50 mil','R$ 50 a 100 mil','Mais de R$ 100 mil']
+  },
+  {
+    id:'traf', type:'choice',
+    q:'Quanto investe em tráfego pago por mês?',
+    hint:'Anúncios no Meta, Google, etc.',
+    options:['Não invisto','Até R$ 1 mil','R$ 1 a 2 mil','R$ 2 a 5 mil','R$ 5 a 10 mil','Mais de R$ 10 mil']
+  },
+  {
+    id:'urg', type:'choice',
+    q:'Quando pretende implementar IA no seu escritório?',
+    hint:'',
+    options:['O quanto antes','Em até 30 dias','Ainda não sei'],
+    exitOn:'Ainda não sei', exitScreen:'e-wait'
+  },
+  {
+    id:'inv', type:'choice',
+    q:'Nossas implementações iniciam entre R$ 500 e R$ 4.000/mês.\nVocê consegue realizar esse investimento?',
+    hint:'Caso aprove a apresentação',
+    options:['Sim, consigo realizar','Não é meu momento atual'],
+    exitOn:'Não é meu momento atual', exitScreen:'e-nofit'
+  },
+  {
+    id:'ig', type:'text', inputType:'text',
+    q:'Qual o seu Instagram?',
+    hint:'Pessoal ou comercial — para acompanharmos você',
+    placeholder:'@seuinstagram',
+    validate: v => true // optional
+  }
+];
 
-        <div class="field-group">
-          <label class="field-label">Nome completo</label>
-          <input class="field-input" type="text" id="f-nome" placeholder="Seu nome completo" autocomplete="name">
-        </div>
-        <div class="field-group">
-          <label class="field-label">WhatsApp</label>
-          <input class="field-input" type="tel" id="f-tel" placeholder="(71) 99999-9999" autocomplete="tel">
-        </div>
-        <div class="field-group">
-          <label class="field-label">E-mail</label>
-          <input class="field-input" type="email" id="f-email" placeholder="seu@email.com.br" autocomplete="email">
-        </div>
+// ─────────────────────────────
+// STATE
+// ─────────────────────────────
+const D = {};
+let cur = 0;
+let celebrating = false;
+const KEYS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-        <div class="form-nav">
-          <span></span>
-          <button class="btn-next" onclick="go(1)">Continuar →</button>
-        </div>
-      </div>
+// ─────────────────────────────
+// OPEN / CLOSE
+// ─────────────────────────────
+function openForm(){
+  document.getElementById('tf-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  fbq && fbq('track','ViewContent');
+  gtag && gtag('event','view_content');
+  cur = 0;
+  renderStep();
+}
 
-      <!-- ── STEP 2: Especialidade ── -->
-      <div class="form-step" id="s2">
-        <p class="step-num">02 / 06 — Área de atuação</p>
-        <h2 class="step-title">Qual é a sua especialidade?</h2>
-        <p class="step-desc">Selecione a área principal do seu escritório.</p>
+function closeForm(){
+  document.getElementById('tf-overlay').classList.remove('open');
+  document.body.style.overflow='';
+  // hide all end screens
+  document.querySelectorAll('.tf-end').forEach(e=>e.classList.remove('active'));
+}
 
-        <div class="opt-grid" id="g-esp">
-          <div class="opt-card" onclick="pick('esp',this,'Trabalhista')">Trabalhista</div>
-          <div class="opt-card" onclick="pick('esp',this,'Previdenciária')">Previdenciária</div>
-          <div class="opt-card" onclick="pick('esp',this,'Criminal')">Criminal</div>
-          <div class="opt-card" onclick="pick('esp',this,'Bancária')">Bancária</div>
-          <div class="opt-card" onclick="pick('esp',this,'DPA')">DPA</div>
-          <div class="opt-card" onclick="pick('esp',this,'Saúde')">Saúde</div>
-          <div class="opt-card" onclick="pick('esp',this,'Tributário')">Tributário</div>
-          <div class="opt-card" onclick="pick('esp',this,'Empresarial')">Empresarial</div>
-          <div class="opt-card" onclick="pick('esp',this,'Imobiliário')">Imobiliário</div>
-          <div class="opt-card" onclick="pick('esp',this,'Agro')">Agro</div>
-          <div class="opt-card" onclick="pick('esp',this,'Família')">Família</div>
-          <div class="opt-card" onclick="pick('esp',this,'Civil Geral')">Civil Geral</div>
-          <div class="opt-card" onclick="pick('esp',this,'Outro')">Outro</div>
-        </div>
+// ─────────────────────────────
+// RENDER STEP
+// ─────────────────────────────
+function renderStep(){
+  if(cur >= QUESTIONS.length){ finish(); return; }
+  const q = QUESTIONS[cur];
+  const stage = document.getElementById('tf-stage');
 
-        <div class="form-nav">
-          <button class="btn-back" onclick="back(2)">← Voltar</button>
-          <button class="btn-next" id="n2" onclick="go(2)" disabled>Continuar →</button>
-        </div>
-      </div>
+  // Progress
+  const pct = Math.round((cur / QUESTIONS.length) * 100);
+  document.getElementById('tf-prog').style.width = pct + '%';
+  document.getElementById('tf-count').textContent = (cur+1) + ' / ' + QUESTIONS.length;
 
-      <!-- ── STEP 3: Escritório ── -->
-      <div class="form-step" id="s3">
-        <p class="step-num">03 / 06 — Seu escritório</p>
-        <h2 class="step-title">Conta mais sobre o seu contexto.</h2>
-        <p class="step-desc">Três perguntas rápidas para entendermos sua estrutura atual.</p>
+  // Back button
+  document.getElementById('tf-back-btn').style.display = cur > 0 ? 'flex' : 'none';
 
-        <div class="q-block">
-          <p class="q-label">Quantos colaboradores você tem hoje?</p>
-          <div class="opt-list" id="g-col">
-            <div class="opt-row" onclick="pickRow('col',this,'Apenas eu')"><span class="radio-dot"></span><span class="opt-row-text">Apenas eu</span></div>
-            <div class="opt-row" onclick="pickRow('col',this,'1 a 3')"><span class="radio-dot"></span><span class="opt-row-text">1 a 3</span></div>
-            <div class="opt-row" onclick="pickRow('col',this,'4 a 9')"><span class="radio-dot"></span><span class="opt-row-text">4 a 9</span></div>
-            <div class="opt-row" onclick="pickRow('col',this,'Mais de 10')"><span class="radio-dot"></span><span class="opt-row-text">Mais de 10</span></div>
-          </div>
-        </div>
+  // Hide any end screens showing
+  document.querySelectorAll('.tf-end').forEach(e=>e.classList.remove('active'));
 
-        <div class="q-block">
-          <p class="q-label">Qual o faturamento médio mensal atual?</p>
-          <div class="opt-list" id="g-fat">
-            <div class="opt-row" onclick="pickRow('fat',this,'0 a 5 mil')"><span class="radio-dot"></span><span class="opt-row-text">0 a R$ 5 mil</span></div>
-            <div class="opt-row" onclick="pickRow('fat',this,'5 a 10 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 5 a 10 mil</span></div>
-            <div class="opt-row" onclick="pickRow('fat',this,'10 a 20 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 10 a 20 mil</span></div>
-            <div class="opt-row" onclick="pickRow('fat',this,'20 a 50 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 20 a 50 mil</span></div>
-            <div class="opt-row" onclick="pickRow('fat',this,'50 a 100 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 50 a 100 mil</span></div>
-            <div class="opt-row" onclick="pickRow('fat',this,'Mais de 100 mil')"><span class="radio-dot"></span><span class="opt-row-text">Mais de R$ 100 mil</span></div>
-          </div>
-        </div>
+  // Build HTML
+  let html = '<div class="tf-step">';
+  html += '<div class="tf-qnum">' + (cur+1) + ' <span>/ ' + QUESTIONS.length + '</span></div>';
+  html += '<div class="tf-question">' + q.q.replace(/\n/g,'<br>') + '</div>';
+  if(q.hint) html += '<div class="tf-hint">' + q.hint + '</div>';
 
-        <div class="q-block">
-          <p class="q-label">Quanto investe em tráfego pago atualmente? <span style="font-weight:400;font-size:0.85rem;color:var(--text-muted)">(mensal)</span></p>
-          <div class="opt-list" id="g-traf">
-            <div class="opt-row" onclick="pickRow('traf',this,'Não invisto')"><span class="radio-dot"></span><span class="opt-row-text">Não invisto</span></div>
-            <div class="opt-row" onclick="pickRow('traf',this,'Até 1 mil')"><span class="radio-dot"></span><span class="opt-row-text">Até R$ 1 mil/mês</span></div>
-            <div class="opt-row" onclick="pickRow('traf',this,'1 a 2 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 1 a 2 mil/mês</span></div>
-            <div class="opt-row" onclick="pickRow('traf',this,'2 a 5 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 2 a 5 mil/mês</span></div>
-            <div class="opt-row" onclick="pickRow('traf',this,'5 a 10 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 5 a 10 mil/mês</span></div>
-            <div class="opt-row" onclick="pickRow('traf',this,'Mais de 10 mil')"><span class="radio-dot"></span><span class="opt-row-text">Mais de R$ 10 mil/mês</span></div>
-          </div>
-        </div>
+  if(q.type === 'text'){
+    const saved = D[q.id] || '';
+    html += '<div class="tf-input-wrap">';
+    html += '<input class="tf-input" id="tf-inp" type="' + q.inputType + '" placeholder="' + q.placeholder + '" value="' + saved + '" autocomplete="' + (q.inputType==='tel'?'tel':q.inputType==='email'?'email':'off') + '">';
+    html += '<div class="tf-input-line"></div>';
+    html += '</div>';
+    html += '<button class="tf-continue" id="tf-cont" onclick="submitText()" disabled>Continuar →</button>';
+    html += '<span class="tf-enter-hint">ou pressione Enter ↵</span>';
 
-        <div class="form-nav">
-          <button class="btn-back" onclick="back(3)">← Voltar</button>
-          <button class="btn-next" id="n3" onclick="go(3)" disabled>Continuar →</button>
-        </div>
-      </div>
+  } else {
+    html += '<div class="tf-choices' + (q.options.length <= 4 ? ' single':'') + '">';
+    q.options.forEach((opt, i) => {
+      const sel = D[q.id] === opt ? ' sel':'';
+      html += '<div class="tf-choice' + sel + '" onclick="pickChoice(this,\'' + esc(opt) + '\')">';
+      html += '<span class="choice-ripple"></span>';
+      html += '<span class="choice-key">' + (i < 26 ? KEYS[i] : '·') + '</span>';
+      html += opt;
+      html += '</div>';
+    });
+    html += '</div>';
+  }
 
-      <!-- ── STEP 4: Urgência ── -->
-      <div class="form-step" id="s4">
-        <p class="step-num">04 / 06 — Momento</p>
-        <h2 class="step-title">Quando pretende implementar?</h2>
-        <p class="step-desc">Sua intenção de implementar IA jurídica executora no seu escritório.</p>
+  html += '</div>';
+  stage.innerHTML = html;
 
-        <div class="opt-list" id="g-urg">
-          <div class="opt-row" onclick="pickRow('urg',this,'O quanto antes')"><span class="radio-dot"></span><span class="opt-row-text"><strong>O quanto antes</strong></span></div>
-          <div class="opt-row" onclick="pickRow('urg',this,'Em até 30 dias')"><span class="radio-dot"></span><span class="opt-row-text"><strong>Em até 30 dias</strong></span></div>
-          <div class="opt-row" onclick="pickRow('urg',this,'Ainda não sei')"><span class="radio-dot"></span><span class="opt-row-text"><strong>Ainda não sei</strong></span></div>
-        </div>
+  // Focus input
+  if(q.type === 'text'){
+    const inp = document.getElementById('tf-inp');
+    inp.focus();
+    if(inp.value) document.getElementById('tf-cont').disabled = false;
+    inp.addEventListener('input', ()=>{
+      document.getElementById('tf-cont').disabled = !inp.value.trim();
+    });
+    inp.addEventListener('keydown', e => {
+      if(e.key === 'Enter'){ e.preventDefault(); submitText(); }
+    });
+    if(q.inputType === 'tel'){
+      inp.addEventListener('input', function(){
+        let v = this.value.replace(/\D/g,'').slice(0,11);
+        if(v.length>7) v='('+v.slice(0,2)+') '+v.slice(2,7)+'-'+v.slice(7);
+        else if(v.length>2) v='('+v.slice(0,2)+') '+v.slice(2);
+        else if(v.length) v='('+v;
+        this.value = v;
+      });
+    }
+  }
 
-        <div class="form-nav">
-          <button class="btn-back" onclick="back(4)">← Voltar</button>
-          <button class="btn-next" id="n4" onclick="go(4)" disabled>Continuar →</button>
-        </div>
-      </div>
+  // Keyboard shortcuts for choices
+  if(q.type === 'choice'){
+    window._choiceHandler = function(e){
+      const idx = KEYS.indexOf(e.key.toUpperCase());
+      if(idx >= 0 && idx < q.options.length){
+        const cards = document.querySelectorAll('.tf-choice');
+        if(cards[idx]) cards[idx].click();
+      }
+    };
+    document.addEventListener('keydown', window._choiceHandler);
+  } else {
+    if(window._choiceHandler) document.removeEventListener('keydown', window._choiceHandler);
+  }
+}
 
-      <!-- ── STEP 5: Investimento ── -->
-      <div class="form-step" id="s5">
-        <p class="step-num">05 / 06 — Investimento</p>
-        <h2 class="step-title">Sobre o investimento.</h2>
-        <p class="step-desc">Uma pergunta importante antes de agendarmos sua apresentação.</p>
+function esc(s){ return s.replace(/'/g,"\\'"); }
 
-        <div class="inv-notice">
-          Nossas implementações com inteligência artificial da <strong>Advanx IA</strong> iniciam em parcelas de <strong>R$ 500 até R$ 4.000 por mês</strong>. Caso você goste do que vai ser apresentado na reunião, você consegue realizar esse investimento?
-        </div>
+// ─────────────────────────────
+// SUBMIT TEXT
+// ─────────────────────────────
+function submitText(){
+  if(celebrating) return;
+  const q = QUESTIONS[cur];
+  const inp = document.getElementById('tf-inp');
+  const val = inp.value.trim();
+  if(q.validate && !q.validate(val)){
+    inp.style.borderBottomColor='#ef4444';
+    inp.focus();
+    return;
+  }
+  D[q.id] = val;
+  celebrate(()=>{ advance(); });
+}
 
-        <div class="opt-list" id="g-inv">
-          <div class="opt-row" onclick="pickRow('inv',this,'Sim')"><span class="radio-dot"></span><span class="opt-row-text"><strong>Sim</strong> — consigo realizar esse investimento</span></div>
-          <div class="opt-row" onclick="pickRow('inv',this,'Não')"><span class="radio-dot"></span><span class="opt-row-text"><strong>Não</strong> — não está no meu momento atual</span></div>
-        </div>
+// ─────────────────────────────
+// PICK CHOICE
+// ─────────────────────────────
+function pickChoice(el, val){
+  if(celebrating) return;
+  const q = QUESTIONS[cur];
 
-        <div class="form-nav">
-          <button class="btn-back" onclick="back(5)">← Voltar</button>
-          <button class="btn-next" id="n5" onclick="go(5)" disabled>Continuar →</button>
-        </div>
-      </div>
+  // Mark selected
+  document.querySelectorAll('.tf-choice').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  D[q.id] = val;
 
-      <!-- ── STEP 6: Instagram ── -->
-      <div class="form-step" id="s6">
-        <p class="step-num">06 / 06 — Quase lá</p>
-        <h2 class="step-title">Só mais uma informação.</h2>
-        <p class="step-desc">Para completarmos o seu perfil antes da apresentação.</p>
+  // Exit check
+  if(q.exitOn && val === q.exitOn){
+    celebrate(()=>{ showEnd(q.exitScreen); });
+    return;
+  }
 
-        <div class="field-group">
-          <label class="field-label">Qual o seu Instagram pessoal ou comercial?</label>
-          <input class="field-input" type="text" id="f-ig" placeholder="@seuinstagram">
-        </div>
+  celebrate(()=>{ advance(); });
+}
 
-        <div class="form-nav">
-          <button class="btn-back" onclick="back(6)">← Voltar</button>
-          <button class="btn-next" onclick="finish()">Finalizar →</button>
-        </div>
-      </div>
+// ─────────────────────────────
+// ADVANCE
+// ─────────────────────────────
+function advance(){
+  cur++;
+  renderStep();
+}
 
-      <!-- ── END: Sucesso (lead qualificado) ── -->
-      <div class="end-screen" id="e-ok">
-        <div class="end-icon ok">🎯</div>
-        <h2 class="end-title">Perfeito, <span id="e-nome"></span></h2>
-        <p class="end-text">
-          Seu perfil está totalmente alinhado com o que a Advanx IA entrega.<br>
-          Nossa equipe vai apresentar como o sistema funciona na prática para o seu escritório.
-        </p>
-        <br>
-        <a id="btn-wa" href="https://wa.me/5571982470873" target="_blank" class="btn-wa">
-          Veja sua demonstração →
-        </a>
-        <p class="end-note">Você será redirecionado ao WhatsApp da Advanx IA</p>
-      </div>
+function prevStep(){
+  if(cur <= 0) return;
+  cur--;
+  renderStep();
+}
 
-      <!-- ── END: Não está pronto (urgência = não sei) ── -->
-      <div class="end-screen" id="e-wait">
-        <div class="end-icon neutral">🙏</div>
+// ─────────────────────────────
+// CELEBRATE
+// ─────────────────────────────
+function celebrate(cb){
+  celebrating = true;
+  const ring = document.getElementById('cel-ring');
+  const icon = document.getElementById('cel-icon');
+
+  // Create particles
+  const cel = document.getElementById('celebrate');
+  // Remove old particles
+  cel.querySelectorAll('.cel-particle').forEach(p=>p.remove());
+
+  ring.classList.add('fire');
+  icon.textContent = '✓';
+
+  // Particles
+  const colors = ['#FF7A01','#FFB347','#fff','#FFD700'];
+  for(let i=0;i<10;i++){
+    const p = document.createElement('div');
+    p.className = 'cel-particle';
+    const angle = (i/10)*360;
+    const dist = 50+Math.random()*30;
+    const tx = Math.cos(angle*Math.PI/180)*dist + 'px';
+    const ty = Math.sin(angle*Math.PI/180)*dist + 'px';
+    p.style.cssText = '--tx:'+tx+';--ty:'+ty+';background:'+colors[i%colors.length]+';animation:particleOut .6s cubic-bezier(.22,1,.36,1) forwards;position:absolute;';
+    ring.appendChild(p);
+  }
+
+  setTimeout(()=>{
+    ring.classList.remove('fire');
+    ring.querySelectorAll('.cel-particle').forEach(p=>p.remove());
+    celebrating = false;
+    if(cb) cb();
+  }, 600);
+}
+
+// ─────────────────────────────
+// FINISH (last step done)
+// ─────────────────────────────
+function finish(){
+  fbq && fbq('track','Lead');
+  gtag && gtag('event','generate_lead');
+  document.getElementById('tf-prog').style.width='100%';
+  document.getElementById('tf-back-btn').style.display='none';
+  document.getElementById('tf-count').textContent='';
+
+  const first = (D.nome||'').split(' ')[0];
+  const msg = encodeURIComponent('Olá! Sou ' + (D.nome||'') + ' e acabei de preencher o formulário da Advanx IA. Gostaria de ver a demonstração.');
+
+  const stage = document.getElementById('tf-stage');
+  stage.innerHTML = `
+    <div class="tf-end active" id="e-ok">
+      <div class="end-icon">🎯</div>
+      <h2 class="end-title">Perfeito, <span>${first}!</span></h2>
+      <p class="end-text">Seu perfil está alinhado com o que a Advanx IA entrega.<br>Nossa equipe vai apresentar como funciona na prática para o seu escritório.</p>
+      <a href="https://wa.me/5571982470873?text=${msg}" target="_blank" class="btn-wa">Veja sua demonstração →</a>
+      <p class="end-note">REDIRECIONADO AO WHATSAPP DA ADVANX IA</p>
+    </div>`;
+}
+
+// ─────────────────────────────
+// SHOW END SCREENS
+// ─────────────────────────────
+function showEnd(id){
+  document.getElementById('tf-prog').style.width='100%';
+  document.getElementById('tf-back-btn').style.display='none';
+  document.getElementById('tf-count').textContent='';
+
+  const stage = document.getElementById('tf-stage');
+
+  if(id === 'e-wait'){
+    stage.innerHTML = `
+      <div class="tf-end active">
+        <div class="end-icon">🙏</div>
         <h2 class="end-title">Obrigado pelo seu tempo.</h2>
-        <p class="end-text">
-          Entendemos que o momento ainda não chegou. Quando estiver pronto para dar esse passo, estaremos aqui para apresentar a solução certa para o seu escritório.
-        </p>
-      </div>
+        <p class="end-text">Entendemos que o momento ainda não chegou. Quando estiver pronto para dar esse passo, estaremos aqui.</p>
+        <button class="btn-ig" onclick="closeForm()">Voltar ao início</button>
+      </div>`;
+  }
 
-      <!-- ── END: Não fit (investimento = Não) ── -->
-      <div class="end-screen" id="e-fit">
-        <div class="end-icon neutral">👋</div>
+  if(id === 'e-nofit'){
+    stage.innerHTML = `
+      <div class="tf-end active">
+        <div class="end-icon">👋</div>
         <h2 class="end-title">Obrigado pela honestidade.</h2>
-        <p class="end-text">
-          Entendemos que esse não é o seu momento. A Advanx IA é para escritórios prontos para crescer com tecnologia. Quando chegar a hora, estaremos aqui.
-        </p>
-        <a href="https://www.instagram.com/rafaelbatistazz" target="_blank" class="btn-ig">
-          Acompanhar no Instagram →
-        </a>
-        <br>
-        <p class="end-note">@rafaelbatistazz</p>
-      </div>
+        <p class="end-text">Entendemos que esse não é o seu momento. Quando chegar a hora, estaremos aqui para apresentar a solução certa.</p>
+        <a href="https://www.instagram.com/rafaelbatistazz" target="_blank" class="btn-ig">Acompanhar no Instagram →</a>
+        <p class="end-note">@RAFAELBATISTAZZ</p>
+      </div>`;
+  }
+}
 
-    </div><!-- /form-wrap -->
-  </section>
-
-  <script>
-    // ── State ──
-    const D = { nome:'', tel:'', email:'', esp:'', col:'', fat:'', traf:'', urg:'', inv:'', ig:'' };
-    let cur = 1;
-    const STEPS = 6;
-
-    // ── Progress ──
-    function setProgress(n) {
-      document.getElementById('progress').style.width = ((n-1)/STEPS*100) + '%';
-    }
-
-    // ── Show step ──
-    function showStep(n) {
-      document.querySelectorAll('.form-step,.end-screen').forEach(el => el.classList.remove('active'));
-      const el = document.getElementById('s' + n);
-      if (el) {
-        el.classList.add('active');
-        el.style.animation = 'none';
-        void el.offsetHeight;
-        el.style.animation = '';
-      }
-      cur = n;
-      setProgress(n);
-      scroll();
-    }
-
-    function showEnd(id) {
-      document.querySelectorAll('.form-step,.end-screen').forEach(el => el.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      document.getElementById('progress').style.width = '100%';
-      scroll();
-    }
-
-    function scroll() {
-      document.getElementById('form-anchor').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    // ── Navigation ──
-    function go(from) {
-      if (from === 1) {
-        D.nome  = document.getElementById('f-nome').value.trim();
-        D.tel   = document.getElementById('f-tel').value.trim();
-        D.email = document.getElementById('f-email').value.trim();
-        if (!D.nome || !D.tel || !D.email) { shake('s1'); return; }
-        if (!D.email.includes('@')) { shake('s1'); return; }
-        // ViewContent
-        track('ViewContent');
-        showStep(2);
-
-      } else if (from === 2) {
-        if (!D.esp) return;
-        showStep(3);
-
-      } else if (from === 3) {
-        if (!D.col || !D.fat || !D.traf) { shake('s3'); return; }
-        showStep(4);
-
-      } else if (from === 4) {
-        if (!D.urg) return;
-        if (D.urg === 'Ainda não sei') { showEnd('e-wait'); return; }
-        showStep(5);
-
-      } else if (from === 5) {
-        if (!D.inv) return;
-        if (D.inv === 'Não') { showEnd('e-fit'); return; }
-        // Fire Lead event
-        track('Lead');
-        trackGA('generate_lead');
-        showStep(6);
-      }
-    }
-
-    function back(from) {
-      if (from > 1) showStep(from - 1);
-    }
-
-    function finish() {
-      D.ig = document.getElementById('f-ig').value.trim();
-      // Set name on success screen
-      const first = D.nome.split(' ')[0];
-      document.getElementById('e-nome').textContent = first + '!';
-      // Dynamic WhatsApp link with pre-filled message
-      const msg = encodeURIComponent('Olá! Sou ' + D.nome + ' e acabei de preencher o formulário da Advanx IA. Gostaria de ver a demonstração.');
-      document.getElementById('btn-wa').href = 'https://wa.me/5571982470873?text=' + msg;
-      showEnd('e-ok');
-    }
-
-    // ── Option selectors ──
-    function pick(field, el, val) {
-      el.closest('.opt-grid').querySelectorAll('.opt-card').forEach(c => c.classList.remove('sel'));
-      el.classList.add('sel');
-      D[field] = val;
-      const nb = document.getElementById('n' + cur);
-      if (nb) nb.disabled = false;
-    }
-
-    function pickRow(field, el, val) {
-      el.closest('.opt-list').querySelectorAll('.opt-row').forEach(r => r.classList.remove('sel'));
-      el.classList.add('sel');
-      D[field] = val;
-      checkStep();
-    }
-
-    function checkStep() {
-      let ok = false;
-      if (cur === 3) ok = !!(D.col && D.fat && D.traf);
-      else if (cur === 4) ok = !!D.urg;
-      else if (cur === 5) ok = !!D.inv;
-      const nb = document.getElementById('n' + cur);
-      if (nb) nb.disabled = !ok;
-    }
-
-    // ── Shake feedback ──
-    function shake(id) {
-      const el = document.getElementById(id);
-      el.style.animation = 'none';
-      void el.offsetHeight;
-      el.style.animation = 'stepSlide 0.45s cubic-bezier(0.22,1,0.36,1) forwards';
-    }
-
-    // ── Tracking ──
-    function track(ev) { if (typeof fbq === 'function') fbq('track', ev); }
-    function trackGA(ev) { if (typeof gtag === 'function') gtag('event', ev); }
-
-    // ── Phone mask ──
-    document.getElementById('f-tel').addEventListener('input', function(e) {
-      let v = e.target.value.replace(/\D/g,'').slice(0,11);
-      if (v.length > 7) v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
-      else if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
-      else if (v.length) v = '(' + v;
-      e.target.value = v;
-    });
-
-    // ── ViewContent on scroll 50% ──
-    let vcFired = false;
-    window.addEventListener('scroll', () => {
-      if (!vcFired && window.scrollY > document.body.scrollHeight * 0.3) {
-        track('ViewContent'); vcFired = true;
-      }
-    });
-  </script>
-
+// ─────────────────────────────
+// ESC key
+// ─────────────────────────────
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape') closeForm();
+});
+</script>
 </body>
 </html>
