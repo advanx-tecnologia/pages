@@ -17,7 +17,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 .call-ovl{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.85) 100%);}
 .call-inner{flex:1;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;}
 
-@keyframes shake{0%,100%{transform:translateX(0);}15%{transform:translateX(-5px) rotate(-.4deg);}30%{transform:translateX(5px) rotate(.4deg);}45%{transform:translateX(-4px);}60%{transform:translateX(4px);}75%{transform:translateX(-3px);}90%{transform:translateX(3px);}}
+@keyframes shake{0%,100%{transform:translateX(0);}15%{transform:translateX(-5px) rotate(-.4deg);}30%{transform:translateX(5px) rotate(.4deg);}45%{transform:translateX(-4px);}60%{transform:translateX(4px);}75%{transform:translateX(-3px);}90%{transform:translateX(3px);}
+}
 .call-inner.shaking{animation:shake .55s ease-in-out;}
 
 .ios-sb{width:100%;flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top,14px) + 6px) 22px 0;color:#fff;}
@@ -209,26 +210,41 @@ var ANS={},formStep=-1;
   setTimeout(tick,30000);
 })();
 
-/* ─── AUDIO + VIBRAÇÃO ───
-   callEnded = true quando o usuário atende → impede que o click borbulhando
-   ao document reinicie o áudio depois do stopRing() ter zerado ringing.
+/* ─── AUDIO ───────────────────────────────────────────────────────────────
+   iOS só desbloqueia audio via gesto do usuário.
+   - touchend é o evento mais confiável no iOS para desbloquear audio
+   - Guardamos a play promise para evitar erro de pause() antes de play() resolver
+   - callEnded impede que tryRing() reinicie após o usuário atender
+   - stopRing() aguarda a promise antes de pausar (evita AbortError no iOS)
+   - btn-accept: stopRing() movido para DEPOIS do fade (user ouve ~350ms ao atender)
 */
 var ring=document.getElementById('ring');
 var ringing=false;
-var callEnded=false;  /* flag: chamada encerrada — NÃO reiniciar mais */
+var callEnded=false;
+var playPromise=null;
 
 function tryRing(){
-  if(ringing||callEnded)return;  /* callEnded bloqueia restart por bubble */
+  if(ringing||callEnded)return;
   ringing=true;
-  ring.play().catch(function(){ringing=false;});
-}
-function stopRing(){
-  ringing=false;
-  ring.pause();
-  ring.currentTime=0;
+  playPromise=ring.play();
+  if(playPromise!==undefined){
+    playPromise.then(function(){playPromise=null;}).catch(function(){ringing=false;playPromise=null;});
+  }
 }
 
+function stopRing(){
+  ringing=false;
+  if(playPromise){
+    playPromise.then(function(){ring.pause();ring.currentTime=0;}).catch(function(){ring.currentTime=0;});
+    playPromise=null;
+  } else {
+    ring.pause();ring.currentTime=0;
+  }
+}
+
+/* touchend = gesto mais confiável no iOS para desbloquear audio */
 document.addEventListener('touchstart',tryRing,{passive:true});
+document.addEventListener('touchend',tryRing,{passive:true});
 document.addEventListener('click',tryRing);
 tryRing();
 
@@ -254,15 +270,17 @@ startShake();
 document.getElementById('btn-decline').addEventListener('click',function(e){
   e.stopPropagation();
   stopRing();stopVib();stopShake();
-  setTimeout(function(){tryRing();startVib();startShake();},2200);
+  setTimeout(function(){if(!callEnded){tryRing();startVib();startShake();}},2200);
 });
+
 document.getElementById('btn-accept').addEventListener('click',function(e){
-  e.stopPropagation();        /* impede bubble ao document */
-  callEnded=true;             /* bloqueia qualquer tryRing futuro */
-  stopRing();stopVib();stopShake();
+  e.stopPropagation();
+  callEnded=true;
+  stopVib();stopShake();
   var cs=document.getElementById('call-screen');
   cs.style.transition='opacity .35s ease';cs.style.opacity='0';
   setTimeout(function(){
+    stopRing(); /* para o audio APÓS o fade — user ouve o toque durante a transição */
     cs.style.display='none';
     document.getElementById('wa-screen').classList.add('show');
     if(typeof fbq!=='undefined')fbq('track','ViewContent');
