@@ -15,8 +15,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 #call-screen{position:fixed;inset:0;z-index:100;overflow:hidden;display:flex;}
 .call-bg{position:absolute;inset:0;background:url('https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp') center/cover no-repeat;filter:blur(30px) brightness(.28) saturate(1.5);transform:scale(1.15);}
 .call-ovl{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.85) 100%);}
-
-/* flex:1 garante que call-inner preenche todo o #call-screen (width+height) */
 .call-inner{flex:1;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;}
 
 @keyframes shake{0%,100%{transform:translateX(0);}15%{transform:translateX(-5px) rotate(-.4deg);}30%{transform:translateX(5px) rotate(.4deg);}45%{transform:translateX(-4px);}60%{transform:translateX(4px);}75%{transform:translateX(-3px);}90%{transform:translateX(3px);}}
@@ -120,7 +118,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 </head>
 <body>
 
-<!-- áudio hospedado no Supabase — CORS OK em todos os browsers mobile -->
 <audio id="ring" loop preload="auto">
   <source src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/audio/ring-advanxia.mp3" type="audio/mpeg">
 </audio>
@@ -212,13 +209,16 @@ var ANS={},formStep=-1;
   setTimeout(tick,30000);
 })();
 
-/* ─── AUDIO ─── */
-/* Arquivo hospedado no Supabase Storage — sem CORS, funciona em todos os browsers */
+/* ─── AUDIO + VIBRAÇÃO ───
+   callEnded = true quando o usuário atende → impede que o click borbulhando
+   ao document reinicie o áudio depois do stopRing() ter zerado ringing.
+*/
 var ring=document.getElementById('ring');
 var ringing=false;
+var callEnded=false;  /* flag: chamada encerrada — NÃO reiniciar mais */
 
 function tryRing(){
-  if(ringing)return;
+  if(ringing||callEnded)return;  /* callEnded bloqueia restart por bubble */
   ringing=true;
   ring.play().catch(function(){ringing=false;});
 }
@@ -228,7 +228,6 @@ function stopRing(){
   ring.currentTime=0;
 }
 
-/* iOS bloqueia autoplay — destrava no primeiro toque do usuário */
 document.addEventListener('touchstart',tryRing,{passive:true});
 document.addEventListener('click',tryRing);
 tryRing();
@@ -252,11 +251,14 @@ function stopShake(){if(shakeInt){clearInterval(shakeInt);shakeInt=null;}}
 startShake();
 
 /* ─── BOTÕES CHAMADA ─── */
-document.getElementById('btn-decline').addEventListener('click',function(){
+document.getElementById('btn-decline').addEventListener('click',function(e){
+  e.stopPropagation();
   stopRing();stopVib();stopShake();
   setTimeout(function(){tryRing();startVib();startShake();},2200);
 });
-document.getElementById('btn-accept').addEventListener('click',function(){
+document.getElementById('btn-accept').addEventListener('click',function(e){
+  e.stopPropagation();        /* impede bubble ao document */
+  callEnded=true;             /* bloqueia qualquer tryRing futuro */
   stopRing();stopVib();stopShake();
   var cs=document.getElementById('call-screen');
   cs.style.transition='opacity .35s ease';cs.style.opacity='0';
