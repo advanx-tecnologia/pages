@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanx IA — Captação Jurídica com Inteligência Artificial</title>
+  <meta name="description" content="Sistema completo de captação, qualificação e gestão comercial para advogados. IA treinada por tese jurídica. Resultado em 41 dias.">
+
+  <!-- Meta Pixel -->
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','502759528362336');fbq('track','PageView');</script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/></noscript>
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-98EL5GXG5F');</script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,700;1,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --orange: #FF7A01;
+      --orange-glow: rgba(255,122,1,0.25);
+      --orange-dim: rgba(255,122,1,0.08);
+      --orange-border: rgba(255,122,1,0.18);
+      --bg: #070707;
+      --bg2: #0f0f0f;
+      --bg3: #161616;
+      --bg4: #1e1e1e;
+      --text: #F0EDE6;
+      --text-dim: rgba(240,237,230,0.6);
+      --text-muted: rgba(240,237,230,0.35);
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(255,122,1,0.35);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Noise grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
+
+    /* ─── HEADER ─── */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 22px 48px;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(7,7,7,0.97) 0%, transparent 100%);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+    }
+
+    .logo-name {
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .logo-badge {
+      background: var(--orange);
+      color: #000;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 3px 7px;
+      border-radius: 5px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 130px 48px 72px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s forwards;
+    }
+
+    .hero-headline {
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
+    }
+
+    .hero-headline em {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-dim);
+      max-width: 620px;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.45s forwards;
+    }
+
+    /* ─── COPY BODY ─── */
+    .copy-body {
+      padding: 0 48px 80px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .copy-intro-block {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 48px;
+      margin-bottom: 64px;
+      opacity: 0;
+      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.6s forwards;
+    }
+
+    .copy-col-divider { background: var(--border); }
+
+    .copy-col p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-dim);
+    }
+
+    .copy-col p strong { color: var(--text); font-weight: 600; }
+
+    .features-section {
+      margin-bottom: 64px;
+      opacity: 0;
+      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.75s forwards;
+    }
+
+    .features-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 20px 24px;
+      background: var(--bg2);
+      transition: background 0.2s;
+    }
+
+    .feature-item:hover { background: var(--bg3); }
+
+    .feature-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+
+    .feature-item span {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-dim);
+    }
+
+    .guarantee-block {
+      background: var(--orange-dim);
+      border: 1px solid var(--orange-border);
+      border-radius: 20px;
+      padding: 36px 40px;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.9s forwards;
+    }
+
+    .guarantee-block p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    .guarantee-block p:last-child { margin-bottom: 0; }
+    .guarantee-block p strong { color: var(--text); font-weight: 600; }
+
+    .guarantee-highlight {
+      font-size: 1.15rem;
+      color: var(--orange);
+      font-weight: 700;
+      padding-top: 16px;
+      border-top: 1px solid var(--orange-border);
+      display: block;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      opacity: 0;
+      animation: riseUp 0.9s cubic-bezier(0.22,1,0.36,1) 1s forwards;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--orange);
+      color: #000;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 18px 36px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-cta:hover {
+      transform: scale(1.04) translateY(-2px);
+      box-shadow: 0 24px 64px rgba(255,122,1,0.38);
+    }
+
+    .btn-cta .arr { transition: transform 0.25s; }
+    .btn-cta:hover .arr { transform: translateX(4px); }
+
+    .cta-note {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ─── DIVIDER ─── */
+    .section-sep {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto 0;
+      padding: 0 48px 72px;
+    }
+    .sep-line { flex: 1; height: 1px; background: var(--border); }
+    .sep-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    /* ─── FORM SECTION ─── */
+    .form-section {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px 80px;
+    }
+
+    .form-wrap {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    /* Progress */
+    .progress-track {
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-bottom: 48px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--orange);
+      border-radius: 2px;
+      transition: width 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    /* Steps */
+    .form-step { display: none; }
+    .form-step.active {
+      display: block;
+      animation: stepSlide 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .step-title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+
+    /* Text inputs */
+    .field-group { margin-bottom: 18px; }
+
+    .field-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .field-input {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      color: var(--text);
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field-input:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(255,122,1,0.12);
+    }
+
+    .field-input::placeholder { color: rgba(240,237,230,0.2); }
+
+    /* Option grid */
+    .opt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .opt-grid.two { grid-template-columns: 1fr 1fr; }
+
+    .opt-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.25,0.46,0.45,0.94);
+      position: relative;
+      text-align: left;
+      user-select: none;
+    }
+
+    .opt-card:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .opt-card.sel {
+      background: var(--orange-dim);
+      border-color: var(--orange);
+      color: var(--text);
+    }
+
+    .opt-card.sel::after {
+      content: '✓';
+      position: absolute;
+      top: 6px; right: 10px;
+      font-size: 0.65rem;
+      color: var(--orange);
+      font-weight: 800;
+    }
+
+    /* Option list (big radio style) */
+    .opt-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+
+    .opt-row {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.25,0.46,0.45,0.94);
+      user-select: none;
+    }
+
+    .opt-row:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-1px);
+    }
+
+    .opt-row.sel {
+      background: var(--orange-dim);
+      border-color: var(--orange);
+    }
+
+    .radio-dot {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .opt-row.sel .radio-dot {
+      border-color: var(--orange);
+      background: var(--orange);
+    }
+
+    .opt-row.sel .radio-dot::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 7px; height: 7px;
+      background: #000;
+      border-radius: 50%;
+    }
+
+    .opt-row-text { font-size: 0.97rem; font-weight: 500; color: var(--text-dim); }
+    .opt-row.sel .opt-row-text { color: var(--text); }
+
+    /* Question block */
+    .q-block { margin-bottom: 36px; }
+    .q-label {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    /* Nav */
+    .form-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 15px 30px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.3s, opacity 0.2s;
+    }
+
+    .btn-next:hover:not(:disabled) {
+      transform: scale(1.04) translateY(-1px);
+      box-shadow: 0 16px 48px rgba(255,122,1,0.3);
+    }
+
+    .btn-next:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .btn-back {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .btn-back:hover { color: var(--text); }
+
+    /* Investment notice */
+    .inv-notice {
+      background: var(--orange-dim);
+      border: 1px solid var(--orange-border);
+      border-radius: 14px;
+      padding: 18px 22px;
+      font-size: 0.92rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .inv-notice strong { color: var(--orange); }
+
+    /* ─── END SCREENS ─── */
+    .end-screen { display: none; text-align: center; padding: 32px 0; }
+    .end-screen.active { display: block; animation: stepSlide 0.5s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+    .end-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 24px;
+    }
+
+    .end-icon.ok { background: var(--orange-dim); border: 1px solid var(--orange-border); }
+    .end-icon.neutral { background: var(--bg3); border: 1px solid var(--border); }
+
+    .end-title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+
+    .end-title span { color: var(--orange); }
+
+    .end-text {
+      font-size: 1rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--orange);
+      color: #000;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 18px 36px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.3s;
+      margin-bottom: 14px;
+    }
+
+    .btn-wa:hover {
+      transform: scale(1.04) translateY(-2px);
+      box-shadow: 0 24px 64px rgba(255,122,1,0.38);
+    }
+
+    .btn-ig {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg3);
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 16px 32px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-bottom: 14px;
+    }
+
+    .btn-ig:hover { border-color: var(--border-hover); color: var(--text); transform: translateY(-1px); }
+
+    .end-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 8px;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes riseUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes stepSlide {
+      from { opacity: 0; transform: translateX(24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 700px) {
+      .site-header { padding: 18px 24px; }
+      .hero { padding: 110px 24px 56px; }
+      .copy-body { padding: 0 24px 64px; }
+      .section-sep { padding: 0 24px 56px; }
+      .copy-intro-block { grid-template-columns: 1fr; }
+      .copy-col-divider { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .opt-grid { grid-template-columns: 1fr 1fr; }
+      .opt-grid.two { grid-template-columns: 1fr; }
+      .guarantee-block { padding: 28px 24px; }
+      .cta-row { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 420px) {
+      .opt-grid { grid-template-columns: 1fr 1fr; }
+      .hero-headline { font-size: 2.6rem; }
+    }
+
+    /* form-anchor offset */
+    #form-anchor { scroll-margin-top: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="https://advanx.com.br" class="logo">
+      <span class="logo-name">ADVANX</span>
+      <span class="logo-badge">IA</span>
+    </a>
+  </header>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <p class="hero-tag">Sistema de Captação Jurídica Inteligente</p>
+    <h1 class="hero-headline">
+      A D V A N X&nbsp;&nbsp;<em>IA</em>
+    </h1>
+    <p class="hero-sub">
+      Os escritórios que estão fechando contratos com previsibilidade<br>
+      não dependem mais de improviso.<br>
+      Eles utilizam Inteligência Artificial aplicada ao comercial jurídico.
+    </p>
+  </section>
+
+  <!-- ─── COPY BODY ─── -->
+  <div class="copy-body">
+
+    <div class="copy-intro-block">
+      <div class="copy-col">
+        <p>A <strong>Advanx IA</strong> é um sistema completo de captação, qualificação e gestão comercial para advogados que querem controle real sobre resultados.</p>
+        <br>
+        <p>Não é apenas automação de WhatsApp. É uma <strong>IA treinada por tese jurídica</strong> que atua como a sua estrutura comercial completa.</p>
+      </div>
+      <div class="copy-col-divider"></div>
+      <div class="copy-col">
+        <p>Ela <strong>não apenas responde</strong>. Ela analisa, calcula, classifica e organiza.</p>
+        <br>
+        <p>Enquanto a maioria ainda atende manualmente e perde oportunidades por desorganização, nossos clientes operam com <strong>dados, processo e previsibilidade</strong>.</p>
+      </div>
+    </div>
+
+    <div class="features-section">
+      <p class="features-label">O que a IA executa por você</p>
+      <div class="features-grid">
+        <div class="feature-item"><span class="feature-dot"></span><span>Assume o primeiro atendimento</span></div>
+        <div class="feature-item"><span class="feature-dot"></span><span>Conduz a conversa com lógica comercial</span></div>
+        <div class="feature-item"><span class="feature-dot"></span><span>Filtra clientes desqualificados</span></div>
+        <div class="feature-item"><span class="feature-dot"></span><span>Cálculos automáticos de direitos e estimativas</span></div>
+        <div class="feature-item"><span class="feature-dot"></span><span>Identifica viabilidade técnica antes de você entrar</span></div>
+        <div class="feature-item"><span class="feature-dot"></span><span>Executa follow-up sem falhas</span></div>
+        <div class="feature-item"><span class="feature-dot"></span><span>Atende múltiplos clientes simultaneamente</span></div>
+        <div class="feature-item"><span class="feature-dot"></span><span>Registra tudo em CRM próprio</span></div>
+        <div class="feature-item"><span class="feature-dot"></span><span>Organiza metas, prazos e etapas do processo comercial</span></div>
+        <div class="feature-item"><span class="feature-dot"></span><span>Sem falhas, sem esquecimentos, sem horário</span></div>
+      </div>
+    </div>
+
+    <div class="guarantee-block">
+      <p>Se você quer parar de explicar o básico repetidamente e começar a conversar apenas com quem realmente tem potencial de fechar, o próximo passo é simples.</p>
+      <p>Preencha o formulário abaixo e veja como funciona na prática.</p>
+      <strong class="guarantee-highlight">Se em até 41 dias o sistema não gerar contratos fechados, a mensalidade é isenta.</strong>
+    </div>
+
+    <div class="cta-row">
+      <a href="#form-anchor" class="btn-cta" onclick="event.preventDefault();document.getElementById('form-anchor').scrollIntoView({behavior:'smooth'})">
+        Preencher o formulário <span class="arr">→</span>
+      </a>
+      <span class="cta-note">Leva menos de 3 minutos</span>
+    </div>
+  </div>
+
+  <!-- ─── SEPARATOR ─── -->
+  <div class="section-sep">
+    <div class="sep-line"></div>
+    <span class="sep-label">Formulário de qualificação</span>
+    <div class="sep-line"></div>
+  </div>
+
+  <!-- ─── FORM ─── -->
+  <section class="form-section" id="form-anchor">
+    <div class="form-wrap">
+
+      <!-- Progress -->
+      <div class="progress-track">
+        <div class="progress-fill" id="progress" style="width:0%"></div>
+      </div>
+
+      <!-- ── STEP 1: Dados pessoais ── -->
+      <div class="form-step active" id="s1">
+        <p class="step-num">01 / 06 — Vamos começar</p>
+        <h2 class="step-title">Seus dados para contato.</h2>
+        <p class="step-desc">Preencha abaixo para personalizar sua apresentação.</p>
+
+        <div class="field-group">
+          <label class="field-label">Nome completo</label>
+          <input class="field-input" type="text" id="f-nome" placeholder="Seu nome completo" autocomplete="name">
+        </div>
+        <div class="field-group">
+          <label class="field-label">WhatsApp</label>
+          <input class="field-input" type="tel" id="f-tel" placeholder="(71) 99999-9999" autocomplete="tel">
+        </div>
+        <div class="field-group">
+          <label class="field-label">E-mail</label>
+          <input class="field-input" type="email" id="f-email" placeholder="seu@email.com.br" autocomplete="email">
+        </div>
+
+        <div class="form-nav">
+          <span></span>
+          <button class="btn-next" onclick="go(1)">Continuar →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: Especialidade ── -->
+      <div class="form-step" id="s2">
+        <p class="step-num">02 / 06 — Área de atuação</p>
+        <h2 class="step-title">Qual é a sua especialidade?</h2>
+        <p class="step-desc">Selecione a área principal do seu escritório.</p>
+
+        <div class="opt-grid" id="g-esp">
+          <div class="opt-card" onclick="pick('esp',this,'Trabalhista')">Trabalhista</div>
+          <div class="opt-card" onclick="pick('esp',this,'Previdenciária')">Previdenciária</div>
+          <div class="opt-card" onclick="pick('esp',this,'Criminal')">Criminal</div>
+          <div class="opt-card" onclick="pick('esp',this,'Bancária')">Bancária</div>
+          <div class="opt-card" onclick="pick('esp',this,'DPA')">DPA</div>
+          <div class="opt-card" onclick="pick('esp',this,'Saúde')">Saúde</div>
+          <div class="opt-card" onclick="pick('esp',this,'Tributário')">Tributário</div>
+          <div class="opt-card" onclick="pick('esp',this,'Empresarial')">Empresarial</div>
+          <div class="opt-card" onclick="pick('esp',this,'Imobiliário')">Imobiliário</div>
+          <div class="opt-card" onclick="pick('esp',this,'Agro')">Agro</div>
+          <div class="opt-card" onclick="pick('esp',this,'Família')">Família</div>
+          <div class="opt-card" onclick="pick('esp',this,'Civil Geral')">Civil Geral</div>
+          <div class="opt-card" onclick="pick('esp',this,'Outro')">Outro</div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn-back" onclick="back(2)">← Voltar</button>
+          <button class="btn-next" id="n2" onclick="go(2)" disabled>Continuar →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3: Escritório ── -->
+      <div class="form-step" id="s3">
+        <p class="step-num">03 / 06 — Seu escritório</p>
+        <h2 class="step-title">Conta mais sobre o seu contexto.</h2>
+        <p class="step-desc">Três perguntas rápidas para entendermos sua estrutura atual.</p>
+
+        <div class="q-block">
+          <p class="q-label">Quantos colaboradores você tem hoje?</p>
+          <div class="opt-list" id="g-col">
+            <div class="opt-row" onclick="pickRow('col',this,'Apenas eu')"><span class="radio-dot"></span><span class="opt-row-text">Apenas eu</span></div>
+            <div class="opt-row" onclick="pickRow('col',this,'1 a 3')"><span class="radio-dot"></span><span class="opt-row-text">1 a 3</span></div>
+            <div class="opt-row" onclick="pickRow('col',this,'4 a 9')"><span class="radio-dot"></span><span class="opt-row-text">4 a 9</span></div>
+            <div class="opt-row" onclick="pickRow('col',this,'Mais de 10')"><span class="radio-dot"></span><span class="opt-row-text">Mais de 10</span></div>
+          </div>
+        </div>
+
+        <div class="q-block">
+          <p class="q-label">Qual o faturamento médio mensal atual?</p>
+          <div class="opt-list" id="g-fat">
+            <div class="opt-row" onclick="pickRow('fat',this,'0 a 5 mil')"><span class="radio-dot"></span><span class="opt-row-text">0 a R$ 5 mil</span></div>
+            <div class="opt-row" onclick="pickRow('fat',this,'5 a 10 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 5 a 10 mil</span></div>
+            <div class="opt-row" onclick="pickRow('fat',this,'10 a 20 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 10 a 20 mil</span></div>
+            <div class="opt-row" onclick="pickRow('fat',this,'20 a 50 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 20 a 50 mil</span></div>
+            <div class="opt-row" onclick="pickRow('fat',this,'50 a 100 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 50 a 100 mil</span></div>
+            <div class="opt-row" onclick="pickRow('fat',this,'Mais de 100 mil')"><span class="radio-dot"></span><span class="opt-row-text">Mais de R$ 100 mil</span></div>
+          </div>
+        </div>
+
+        <div class="q-block">
+          <p class="q-label">Quanto investe em tráfego pago atualmente? <span style="font-weight:400;font-size:0.85rem;color:var(--text-muted)">(mensal)</span></p>
+          <div class="opt-list" id="g-traf">
+            <div class="opt-row" onclick="pickRow('traf',this,'Não invisto')"><span class="radio-dot"></span><span class="opt-row-text">Não invisto</span></div>
+            <div class="opt-row" onclick="pickRow('traf',this,'Até 1 mil')"><span class="radio-dot"></span><span class="opt-row-text">Até R$ 1 mil/mês</span></div>
+            <div class="opt-row" onclick="pickRow('traf',this,'1 a 2 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 1 a 2 mil/mês</span></div>
+            <div class="opt-row" onclick="pickRow('traf',this,'2 a 5 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 2 a 5 mil/mês</span></div>
+            <div class="opt-row" onclick="pickRow('traf',this,'5 a 10 mil')"><span class="radio-dot"></span><span class="opt-row-text">R$ 5 a 10 mil/mês</span></div>
+            <div class="opt-row" onclick="pickRow('traf',this,'Mais de 10 mil')"><span class="radio-dot"></span><span class="opt-row-text">Mais de R$ 10 mil/mês</span></div>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn-back" onclick="back(3)">← Voltar</button>
+          <button class="btn-next" id="n3" onclick="go(3)" disabled>Continuar →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 4: Urgência ── -->
+      <div class="form-step" id="s4">
+        <p class="step-num">04 / 06 — Momento</p>
+        <h2 class="step-title">Quando pretende implementar?</h2>
+        <p class="step-desc">Sua intenção de implementar IA jurídica executora no seu escritório.</p>
+
+        <div class="opt-list" id="g-urg">
+          <div class="opt-row" onclick="pickRow('urg',this,'O quanto antes')"><span class="radio-dot"></span><span class="opt-row-text"><strong>O quanto antes</strong></span></div>
+          <div class="opt-row" onclick="pickRow('urg',this,'Em até 30 dias')"><span class="radio-dot"></span><span class="opt-row-text"><strong>Em até 30 dias</strong></span></div>
+          <div class="opt-row" onclick="pickRow('urg',this,'Ainda não sei')"><span class="radio-dot"></span><span class="opt-row-text"><strong>Ainda não sei</strong></span></div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn-back" onclick="back(4)">← Voltar</button>
+          <button class="btn-next" id="n4" onclick="go(4)" disabled>Continuar →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 5: Investimento ── -->
+      <div class="form-step" id="s5">
+        <p class="step-num">05 / 06 — Investimento</p>
+        <h2 class="step-title">Sobre o investimento.</h2>
+        <p class="step-desc">Uma pergunta importante antes de agendarmos sua apresentação.</p>
+
+        <div class="inv-notice">
+          Nossas implementações com inteligência artificial da <strong>Advanx IA</strong> iniciam em parcelas de <strong>R$ 500 até R$ 4.000 por mês</strong>. Caso você goste do que vai ser apresentado na reunião, você consegue realizar esse investimento?
+        </div>
+
+        <div class="opt-list" id="g-inv">
+          <div class="opt-row" onclick="pickRow('inv',this,'Sim')"><span class="radio-dot"></span><span class="opt-row-text"><strong>Sim</strong> — consigo realizar esse investimento</span></div>
+          <div class="opt-row" onclick="pickRow('inv',this,'Não')"><span class="radio-dot"></span><span class="opt-row-text"><strong>Não</strong> — não está no meu momento atual</span></div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn-back" onclick="back(5)">← Voltar</button>
+          <button class="btn-next" id="n5" onclick="go(5)" disabled>Continuar →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 6: Instagram ── -->
+      <div class="form-step" id="s6">
+        <p class="step-num">06 / 06 — Quase lá</p>
+        <h2 class="step-title">Só mais uma informação.</h2>
+        <p class="step-desc">Para completarmos o seu perfil antes da apresentação.</p>
+
+        <div class="field-group">
+          <label class="field-label">Qual o seu Instagram pessoal ou comercial?</label>
+          <input class="field-input" type="text" id="f-ig" placeholder="@seuinstagram">
+        </div>
+
+        <div class="form-nav">
+          <button class="btn-back" onclick="back(6)">← Voltar</button>
+          <button class="btn-next" onclick="finish()">Finalizar →</button>
+        </div>
+      </div>
+
+      <!-- ── END: Sucesso (lead qualificado) ── -->
+      <div class="end-screen" id="e-ok">
+        <div class="end-icon ok">🎯</div>
+        <h2 class="end-title">Perfeito, <span id="e-nome"></span></h2>
+        <p class="end-text">
+          Seu perfil está totalmente alinhado com o que a Advanx IA entrega.<br>
+          Nossa equipe vai apresentar como o sistema funciona na prática para o seu escritório.
+        </p>
+        <br>
+        <a id="btn-wa" href="https://wa.me/5571982470873" target="_blank" class="btn-wa">
+          Veja sua demonstração →
+        </a>
+        <p class="end-note">Você será redirecionado ao WhatsApp da Advanx IA</p>
+      </div>
+
+      <!-- ── END: Não está pronto (urgência = não sei) ── -->
+      <div class="end-screen" id="e-wait">
+        <div class="end-icon neutral">🙏</div>
+        <h2 class="end-title">Obrigado pelo seu tempo.</h2>
+        <p class="end-text">
+          Entendemos que o momento ainda não chegou. Quando estiver pronto para dar esse passo, estaremos aqui para apresentar a solução certa para o seu escritório.
+        </p>
+      </div>
+
+      <!-- ── END: Não fit (investimento = Não) ── -->
+      <div class="end-screen" id="e-fit">
+        <div class="end-icon neutral">👋</div>
+        <h2 class="end-title">Obrigado pela honestidade.</h2>
+        <p class="end-text">
+          Entendemos que esse não é o seu momento. A Advanx IA é para escritórios prontos para crescer com tecnologia. Quando chegar a hora, estaremos aqui.
+        </p>
+        <a href="https://www.instagram.com/rafaelbatistazz" target="_blank" class="btn-ig">
+          Acompanhar no Instagram →
+        </a>
+        <br>
+        <p class="end-note">@rafaelbatistazz</p>
+      </div>
+
+    </div><!-- /form-wrap -->
+  </section>
+
+  <script>
+    // ── State ──
+    const D = { nome:'', tel:'', email:'', esp:'', col:'', fat:'', traf:'', urg:'', inv:'', ig:'' };
+    let cur = 1;
+    const STEPS = 6;
+
+    // ── Progress ──
+    function setProgress(n) {
+      document.getElementById('progress').style.width = ((n-1)/STEPS*100) + '%';
+    }
+
+    // ── Show step ──
+    function showStep(n) {
+      document.querySelectorAll('.form-step,.end-screen').forEach(el => el.classList.remove('active'));
+      const el = document.getElementById('s' + n);
+      if (el) {
+        el.classList.add('active');
+        el.style.animation = 'none';
+        void el.offsetHeight;
+        el.style.animation = '';
+      }
+      cur = n;
+      setProgress(n);
+      scroll();
+    }
+
+    function showEnd(id) {
+      document.querySelectorAll('.form-step,.end-screen').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.getElementById('progress').style.width = '100%';
+      scroll();
+    }
+
+    function scroll() {
+      document.getElementById('form-anchor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ── Navigation ──
+    function go(from) {
+      if (from === 1) {
+        D.nome  = document.getElementById('f-nome').value.trim();
+        D.tel   = document.getElementById('f-tel').value.trim();
+        D.email = document.getElementById('f-email').value.trim();
+        if (!D.nome || !D.tel || !D.email) { shake('s1'); return; }
+        if (!D.email.includes('@')) { shake('s1'); return; }
+        // ViewContent
+        track('ViewContent');
+        showStep(2);
+
+      } else if (from === 2) {
+        if (!D.esp) return;
+        showStep(3);
+
+      } else if (from === 3) {
+        if (!D.col || !D.fat || !D.traf) { shake('s3'); return; }
+        showStep(4);
+
+      } else if (from === 4) {
+        if (!D.urg) return;
+        if (D.urg === 'Ainda não sei') { showEnd('e-wait'); return; }
+        showStep(5);
+
+      } else if (from === 5) {
+        if (!D.inv) return;
+        if (D.inv === 'Não') { showEnd('e-fit'); return; }
+        // Fire Lead event
+        track('Lead');
+        trackGA('generate_lead');
+        showStep(6);
+      }
+    }
+
+    function back(from) {
+      if (from > 1) showStep(from - 1);
+    }
+
+    function finish() {
+      D.ig = document.getElementById('f-ig').value.trim();
+      // Set name on success screen
+      const first = D.nome.split(' ')[0];
+      document.getElementById('e-nome').textContent = first + '!';
+      // Dynamic WhatsApp link with pre-filled message
+      const msg = encodeURIComponent('Olá! Sou ' + D.nome + ' e acabei de preencher o formulário da Advanx IA. Gostaria de ver a demonstração.');
+      document.getElementById('btn-wa').href = 'https://wa.me/5571982470873?text=' + msg;
+      showEnd('e-ok');
+    }
+
+    // ── Option selectors ──
+    function pick(field, el, val) {
+      el.closest('.opt-grid').querySelectorAll('.opt-card').forEach(c => c.classList.remove('sel'));
+      el.classList.add('sel');
+      D[field] = val;
+      const nb = document.getElementById('n' + cur);
+      if (nb) nb.disabled = false;
+    }
+
+    function pickRow(field, el, val) {
+      el.closest('.opt-list').querySelectorAll('.opt-row').forEach(r => r.classList.remove('sel'));
+      el.classList.add('sel');
+      D[field] = val;
+      checkStep();
+    }
+
+    function checkStep() {
+      let ok = false;
+      if (cur === 3) ok = !!(D.col && D.fat && D.traf);
+      else if (cur === 4) ok = !!D.urg;
+      else if (cur === 5) ok = !!D.inv;
+      const nb = document.getElementById('n' + cur);
+      if (nb) nb.disabled = !ok;
+    }
+
+    // ── Shake feedback ──
+    function shake(id) {
+      const el = document.getElementById(id);
+      el.style.animation = 'none';
+      void el.offsetHeight;
+      el.style.animation = 'stepSlide 0.45s cubic-bezier(0.22,1,0.36,1) forwards';
+    }
+
+    // ── Tracking ──
+    function track(ev) { if (typeof fbq === 'function') fbq('track', ev); }
+    function trackGA(ev) { if (typeof gtag === 'function') gtag('event', ev); }
+
+    // ── Phone mask ──
+    document.getElementById('f-tel').addEventListener('input', function(e) {
+      let v = e.target.value.replace(/\D/g,'').slice(0,11);
+      if (v.length > 7) v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+      else if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+      else if (v.length) v = '(' + v;
+      e.target.value = v;
+    });
+
+    // ── ViewContent on scroll 50% ──
+    let vcFired = false;
+    window.addEventListener('scroll', () => {
+      if (!vcFired && window.scrollY > document.body.scrollHeight * 0.3) {
+        track('ViewContent'); vcFired = true;
+      }
+    });
+  </script>
+
+</body>
+</html>
