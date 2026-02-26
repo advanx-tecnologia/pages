@@ -23,9 +23,20 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
   filter:blur(30px) brightness(.28) saturate(1.5);
   transform:scale(1.15);
 }
-.call-ovl{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,rgba(0,0,0,.45) 50%,rgba(0,0,0,.82) 100%);}
+.call-ovl{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.85) 100%);
+}
 
-/* Conteúdo da chamada — flex column, top to bottom */
+/*
+  call-inner: flex coluna vertical
+  ┌ ios-sb          ← fixo
+  ├ call-info        ← texto: chamada + nome + sub
+  ├ call-photo-wrap  ← foto
+  ├ (spacer flex:1)  ← empurra botões para baixo
+  ├ call-secondary   ← Lembrar-me + Mensagem
+  └ call-primary     ← Recusar + Atender + padding bottom
+*/
 .call-inner{
   position:relative;z-index:1;
   width:100%;height:100%;
@@ -36,8 +47,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
   0%,100%{transform:translateX(0);}
   15%{transform:translateX(-5px) rotate(-.4deg);}
   30%{transform:translateX(5px) rotate(.4deg);}
-  45%{transform:translateX(-4px) rotate(-.3deg);}
-  60%{transform:translateX(4px) rotate(.3deg);}
+  45%{transform:translateX(-4px);}
+  60%{transform:translateX(4px);}
   75%{transform:translateX(-3px);}
   90%{transform:translateX(3px);}
 }
@@ -45,75 +56,62 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 
 /* ── Status bar ── */
 .ios-sb{
-  width:100%;display:flex;justify-content:space-between;align-items:center;
-  padding:calc(env(safe-area-inset-top,14px) + 8px) 22px 0;
-  color:#fff;flex-shrink:0;
+  width:100%;flex-shrink:0;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:calc(env(safe-area-inset-top,14px) + 6px) 22px 0;
+  color:#fff;
 }
 .ios-time{font-size:17px;font-weight:600;letter-spacing:-.4px;}
 .ios-icons{display:flex;gap:6px;align-items:center;}
 
-/* ── Chamada recebida (acima do nome) ── */
-.call-received{
-  color:rgba(255,255,255,.62);font-size:14px;font-weight:500;
-  margin-top:14px;letter-spacing:.1px;
+/* ── Info (chamada recebida + nome + sub) — ACIMA da foto ── */
+.call-info{
+  flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;
+  margin-top:16px;gap:4px;text-align:center;padding:0 24px;
 }
+.call-received{color:rgba(255,255,255,.6);font-size:14px;font-weight:400;}
+.call-name{color:#fff;font-size:clamp(20px,5.5vw,26px);font-weight:700;letter-spacing:-.4px;line-height:1.2;}
+.call-sub{color:rgba(255,255,255,.55);font-size:15px;}
 
-/* ── Nome do contato ── */
-.call-name{
-  color:#fff;font-size:clamp(22px,6vw,30px);font-weight:700;
-  text-align:center;padding:0 24px;line-height:1.2;letter-spacing:-.5px;
-  margin-top:6px;
+/* ── Foto ── */
+@keyframes pring{0%{transform:scale(1);opacity:.45;}100%{transform:scale(1.8);opacity:0;}}
+.call-photo-wrap{
+  flex-shrink:0;position:relative;
+  margin-top:clamp(18px,4vw,28px);
+  width:110px;height:110px;
 }
-
-/* ── Subtítulo ── */
-.call-sub{
-  color:rgba(255,255,255,.6);font-size:15px;font-weight:400;
-  text-align:center;padding:0 32px;margin-top:4px;
-}
-
-/* ── Foto com anéis de pulso ── */
-@keyframes pring{0%{transform:scale(1);opacity:.5;}100%{transform:scale(1.8);opacity:0;}}
-.call-photo-wrap{position:relative;margin-top:clamp(16px,4vw,28px);width:120px;height:120px;flex-shrink:0;}
-.pr{position:absolute;inset:-20px;border-radius:50%;background:rgba(255,255,255,.12);animation:pring 2.2s ease-out infinite;}
+.pr{position:absolute;inset:-18px;border-radius:50%;background:rgba(255,255,255,.12);animation:pring 2.2s ease-out infinite;}
 .pr:nth-child(2){animation-delay:.75s;}
 .pr:nth-child(3){animation-delay:1.5s;}
-.call-photo{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,.22);position:relative;z-index:1;}
+.call-photo{width:110px;height:110px;border-radius:50%;object-fit:cover;border:2.5px solid rgba(255,255,255,.2);position:relative;z-index:1;}
 
-/* ── Bottom: secundário + primário ── */
-.call-bottom{
-  position:absolute;
-  bottom:calc(env(safe-area-inset-bottom,0px) + 36px);
-  width:100%;
-  display:flex;flex-direction:column;align-items:center;
-  gap:18px;
-  padding:0 48px;
-}
+/* ── Spacer ── */
+.call-spacer{flex:1;}
 
-/* Row de botões secundários */
+/* ── Botões secundários: Lembrar-me | Mensagem ── */
 .call-secondary{
-  width:100%;display:flex;justify-content:space-around;align-items:flex-end;
+  flex-shrink:0;
+  width:100%;display:flex;justify-content:space-around;
+  padding:0 52px;
+  margin-bottom:18px;
 }
-.call-mini-wrap{
-  display:flex;flex-direction:column;align-items:center;gap:7px;
-  min-width:82px;
-}
-.call-mini-name{
-  color:rgba(255,255,255,.65);font-size:12px;font-weight:500;
-  white-space:nowrap;
-}
+.call-mini-wrap{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:76px;}
 .call-mini-btn{
-  width:56px;height:56px;border-radius:50%;
+  width:54px;height:54px;border-radius:50%;
   background:rgba(255,255,255,.18);backdrop-filter:blur(12px);
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:opacity .15s;
+  cursor:pointer;
 }
-.call-mini-btn:active{opacity:.7;}
 .call-mini-btn svg{width:22px;height:22px;}
 .call-mini-label{color:rgba(255,255,255,.65);font-size:12px;font-weight:500;}
 
-/* Row de botões primários */
+/* ── Botões primários: Recusar | Atender ── */
 .call-primary{
+  flex-shrink:0;
   width:100%;display:flex;justify-content:space-around;align-items:center;
+  padding:0 52px;
+  padding-bottom:calc(env(safe-area-inset-bottom,0px) + 42px);
 }
 .call-btn-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;}
 .call-btn{
@@ -131,7 +129,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 #wa-screen{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;background:#ECE5DD;}
 #wa-screen.show{display:flex;}
 
-/* WA Header */
 .wa-hdr{
   background:#075E54;flex-shrink:0;
   padding:calc(env(safe-area-inset-top,0px) + 8px) 12px 8px;
@@ -141,27 +138,24 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 .wa-back{color:rgba(255,255,255,.75);font-size:22px;cursor:pointer;line-height:1;margin-right:2px;flex-shrink:0;}
 .wa-av{width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(255,255,255,.18);flex-shrink:0;}
 .wa-cinfo{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
-.wa-cname{color:#fff;font-size:16px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.wa-csub{color:#FF7A01;font-size:11.5px;font-weight:700;letter-spacing:.2px;}
+.wa-cname{color:#fff;font-size:16px;font-weight:600;line-height:1.2;}
+.wa-csub{color:#FF7A01;font-size:11.5px;font-weight:700;letter-spacing:.1px;}
 .wa-cstatus{color:rgba(255,255,255,.65);font-size:12px;}
 .wa-hdr-icons{display:flex;gap:18px;color:rgba(255,255,255,.8);flex-shrink:0;}
 .wa-hdr-icons svg{width:22px;height:22px;}
 
-/* WA Chat */
 .wa-chat{
   flex:1;overflow-y:auto;
   padding:10px 8px 4px;
   display:flex;flex-direction:column;gap:2px;
   -webkit-overflow-scrolling:touch;
   background-color:#ECE5DD;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='10' cy='10' r='5' fill='%23b8a99a' fill-opacity='.13'/%3E%3Ccircle cx='48' cy='36' r='5' fill='%23b8a99a' fill-opacity='.13'/%3E%3Ccircle cx='18' cy='28' r='2' fill='%23b8a99a' fill-opacity='.12'/%3E%3Ccircle cx='68' cy='54' r='2' fill='%23b8a99a' fill-opacity='.12'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='10' cy='10' r='5' fill='%23b8a99a' fill-opacity='.13'/%3E%3Ccircle cx='48' cy='36' r='5' fill='%23b8a99a' fill-opacity='.13'/%3E%3Ccircle cx='68' cy='60' r='2.5' fill='%23b8a99a' fill-opacity='.1'/%3E%3C/svg%3E");
 }
 
-/* Date marker */
 .wa-date-mkr{text-align:center;margin:6px 0 4px;}
 .wa-date-mkr span{background:rgba(255,255,255,.82);color:#667781;font-size:12px;padding:4px 12px;border-radius:8px;}
 
-/* Bubbles */
 @keyframes bubIn{from{opacity:0;transform:translateY(8px) scale(.97);}to{opacity:1;transform:none;}}
 .bub{
   max-width:82%;padding:6px 9px 3px;border-radius:8px;
@@ -174,10 +168,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 .bub-snt::after{content:'';position:absolute;top:0;right:-8px;border-top:8px solid #D9FDD3;border-right:8px solid transparent;}
 .bub-meta{display:flex;justify-content:flex-end;align-items:center;gap:3px;margin-top:2px;}
 .bub-time{font-size:11px;color:#667781;}
-.bub-ticks{display:inline-flex;align-items:center;margin-left:1px;}
-.bub-ticks svg{width:15px;height:10px;}
+.bub-ticks{color:#53BDEB;font-size:13px;letter-spacing:-3px;display:inline-block;margin-left:1px;line-height:1;}
 
-/* Typing dots */
 @keyframes dot{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
 .typ-bub{background:#fff;border-radius:8px;border-top-left-radius:0;padding:12px 14px;align-self:flex-start;margin-left:4px;display:flex;gap:5px;align-items:center;position:relative;animation:bubIn .2s ease-out;}
 .typ-bub::before{content:'';position:absolute;top:0;left:-8px;border-top:8px solid #fff;border-left:8px solid transparent;}
@@ -185,10 +177,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 .td:nth-child(2){animation-delay:.2s;}
 .td:nth-child(3){animation-delay:.4s;}
 
-/* Input zone */
 #input-zone{flex-shrink:0;}
 
-/* Barra de texto */
 .wa-ibar{background:#F0F0F0;padding:8px 8px calc(env(safe-area-inset-bottom,0px) + 8px);display:flex;align-items:flex-end;gap:8px;}
 .wa-iwrap{flex:1;background:#fff;border-radius:22px;padding:9px 14px;display:flex;align-items:center;}
 .wa-inp{flex:1;border:none;outline:none;font-size:15px;color:#111;background:transparent;font-family:inherit;}
@@ -197,12 +187,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 .wa-send:active{background:#054d44;}
 .wa-send svg{width:20px;height:20px;}
 
-/* Chips */
 .wa-chips{padding:10px 10px calc(env(safe-area-inset-bottom,0px) + 10px);background:#F0F0F0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
-.chip{background:#fff;color:#075E54;border:1.5px solid #128C7E;padding:10px 18px;border-radius:20px;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit;}
-.chip:active{background:#075E54;color:#fff;transform:scale(.95);}
+.chip{background:#fff;color:#075E54;border:1.5px solid #128C7E;padding:10px 18px;border-radius:20px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;}
+.chip:active{background:#075E54;color:#fff;}
 
-/* Group inputs (nome+tel+email) */
 .wa-group{background:#F0F0F0;padding:10px 10px calc(env(safe-area-inset-bottom,0px) + 10px);display:flex;flex-direction:column;gap:8px;}
 .g-field{background:#fff;border-radius:12px;padding:10px 14px;display:flex;flex-direction:column;gap:3px;}
 .g-label{font-size:11px;color:#667781;font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
@@ -211,7 +199,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 .g-sub{background:#075E54;color:#fff;border:none;border-radius:22px;padding:13px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;}
 .g-sub:active{opacity:.85;}
 
-/* End overlay */
 .wa-end{position:fixed;inset:0;z-index:300;background:#ECE5DD;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 28px;text-align:center;}
 .wa-end-icon{font-size:64px;margin-bottom:20px;}
 .wa-end-ttl{font-size:24px;font-weight:700;color:#111;margin-bottom:12px;line-height:1.2;}
@@ -231,9 +218,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
 <div id="call-screen">
   <div class="call-bg"></div>
   <div class="call-ovl"></div>
+
+  <!-- FLEX COLUNA: topo → base, sem position:absolute -->
   <div class="call-inner" id="call-inner">
 
-    <!-- Status bar iOS -->
+    <!-- 1. Status bar -->
     <div class="ios-sb">
       <span class="ios-time" id="ios-clock">9:41</span>
       <div class="ios-icons">
@@ -243,64 +232,61 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
       </div>
     </div>
 
-    <!-- TEXTO ACIMA DA FOTO -->
-    <div class="call-received">Chamada recebida</div>
-    <div class="call-name">O futuro da advocacia chegou</div>
-    <div class="call-sub">você vai atender ou não?</div>
+    <!-- 2. TEXTO ACIMA DA FOTO -->
+    <div class="call-info">
+      <div class="call-received">Chamada recebida</div>
+      <div class="call-name">O futuro da advocacia chegou</div>
+      <div class="call-sub">você vai atender ou não?</div>
+    </div>
 
-    <!-- FOTO com pulso -->
+    <!-- 3. FOTO -->
     <div class="call-photo-wrap">
       <div class="pr"></div><div class="pr"></div><div class="pr"></div>
       <img class="call-photo" src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" alt="Rafael">
     </div>
 
-    <!-- BOTTOM: Lembrar-me + Mensagem / Recusar + Atender -->
-    <div class="call-bottom">
+    <!-- 4. ESPAÇO FLEXÍVEL (empurra botões para o fundo) -->
+    <div class="call-spacer"></div>
 
-      <!-- Botões secundários -->
-      <div class="call-secondary">
-        <!-- Lembrar-me (alinhado com Recusar) -->
-        <div class="call-mini-wrap">
-          <div class="call-mini-btn">
-            <svg viewBox="0 0 24 24" fill="white"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm.01 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
-          </div>
-          <span class="call-mini-label">Lembrar-me</span>
+    <!-- 5. SECUNDÁRIOS: Lembrar-me | Mensagem -->
+    <div class="call-secondary">
+      <div class="call-mini-wrap">
+        <div class="call-mini-btn">
+          <!-- Relógio / alarme -->
+          <svg viewBox="0 0 24 24" fill="white"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm.01 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
         </div>
-        <!-- Mensagem (alinhado com Atender) -->
-        <div class="call-mini-wrap">
-          <span class="call-mini-name">Rafael Batista</span>
-          <div class="call-mini-btn">
-            <svg viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
-          </div>
-          <span class="call-mini-label">Mensagem</span>
-        </div>
+        <span class="call-mini-label">Lembrar-me</span>
       </div>
-
-      <!-- Botões primários -->
-      <div class="call-primary">
-        <!-- Recusar -->
-        <div class="call-btn-wrap">
-          <button class="call-btn call-btn-decline" id="btn-decline">
-            <svg viewBox="0 0 24 24" fill="white"><path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08C.11 12.91 0 12.66 0 12.38c0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.1-.7-.28-.79-.73-1.68-1.36-2.66-1.85-.33-.16-.56-.51-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/></svg>
-          </button>
-          <span class="call-btn-label">Recusar</span>
+      <div class="call-mini-wrap">
+        <div class="call-mini-btn">
+          <!-- Balão de mensagem -->
+          <svg viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
         </div>
-        <!-- Atender -->
-        <div class="call-btn-wrap">
-          <button class="call-btn call-btn-accept" id="btn-accept">
-            <svg viewBox="0 0 24 24" fill="white"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
-          </button>
-          <span class="call-btn-label">Atender</span>
-        </div>
+        <span class="call-mini-label">Mensagem</span>
       </div>
+    </div>
 
-    </div><!-- /call-bottom -->
+    <!-- 6. PRIMÁRIOS: Recusar | Atender -->
+    <div class="call-primary">
+      <div class="call-btn-wrap">
+        <button class="call-btn call-btn-decline" id="btn-decline">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08C.11 12.91 0 12.66 0 12.38c0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.1-.7-.28-.79-.73-1.68-1.36-2.66-1.85-.33-.16-.56-.51-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/></svg>
+        </button>
+        <span class="call-btn-label">Recusar</span>
+      </div>
+      <div class="call-btn-wrap">
+        <button class="call-btn call-btn-accept" id="btn-accept">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+        </button>
+        <span class="call-btn-label">Atender</span>
+      </div>
+    </div>
+
   </div><!-- /call-inner -->
 </div><!-- /call-screen -->
 
-<!-- ═══════════ WHATSAPP SCREEN ═══════════ -->
+<!-- ═══════════ WHATSAPP ═══════════ -->
 <div id="wa-screen">
-
   <div class="wa-hdr">
     <span class="wa-back">&#8249;</span>
     <img class="wa-av" src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/Foto%20redonda.webp" alt="Rafael">
@@ -314,356 +300,244 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:-ap
       <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
     </div>
   </div>
-
   <div class="wa-chat" id="chat"></div>
   <div id="input-zone"></div>
-
 </div>
 
 <script>
 var ANS = {};
 var formStep = -1;
 
-// ── RELÓGIO ──
+// Relógio
 (function tick(){
-  var d=new Date(), h=String(d.getHours()).padStart(2,'0'), m=String(d.getMinutes()).padStart(2,'0');
-  document.getElementById('ios-clock').textContent = h+':'+m;
-  setTimeout(tick, 30000);
+  var d=new Date(),h=String(d.getHours()).padStart(2,'0'),m=String(d.getMinutes()).padStart(2,'0');
+  document.getElementById('ios-clock').textContent=h+':'+m;
+  setTimeout(tick,30000);
 })();
 
-// ── ÁUDIO ──
-var ring = document.getElementById('ring');
-var ringOk = false;
-function tryRing(){ if(ringOk)return; ring.play().then(function(){ringOk=true;}).catch(function(){}); }
+// Áudio
+var ring=document.getElementById('ring');var ringOk=false;
+function tryRing(){if(ringOk)return;ring.play().then(function(){ringOk=true;}).catch(function(){});}
 tryRing();
-document.addEventListener('touchstart', tryRing, {once:true,passive:true});
-document.addEventListener('click', tryRing, {once:true});
-function stopRing(){ ring.pause(); ring.currentTime=0; ringOk=false; }
+document.addEventListener('touchstart',tryRing,{once:true,passive:true});
+document.addEventListener('click',tryRing,{once:true});
+function stopRing(){ring.pause();ring.currentTime=0;ringOk=false;}
 
-// ── VIBRAÇÃO ──
-var vibInt = null;
+// Vibração
+var vibInt=null;
 function startVib(){
-  function v(){ if(navigator.vibrate) navigator.vibrate([500,200,500,200,400]); }
-  v(); vibInt = setInterval(v, 3200);
+  function v(){if(navigator.vibrate)navigator.vibrate([500,200,500,200,400]);}
+  v();vibInt=setInterval(v,3200);
 }
-function stopVib(){
-  if(vibInt){ clearInterval(vibInt); vibInt=null; }
-  if(navigator.vibrate) navigator.vibrate(0);
-}
+function stopVib(){if(vibInt){clearInterval(vibInt);vibInt=null;}if(navigator.vibrate)navigator.vibrate(0);}
 startVib();
 
-// ── SHAKE ──
-var callInner = document.getElementById('call-inner');
-var shakeInt = null;
+// Shake
+var callInner=document.getElementById('call-inner');var shakeInt=null;
 function startShake(){
-  function s(){ callInner.classList.add('shaking'); setTimeout(function(){ callInner.classList.remove('shaking'); }, 560); }
-  s(); shakeInt = setInterval(s, 3200);
+  function s(){callInner.classList.add('shaking');setTimeout(function(){callInner.classList.remove('shaking');},560);}
+  s();shakeInt=setInterval(s,3200);
 }
-function stopShake(){ if(shakeInt){ clearInterval(shakeInt); shakeInt=null; } }
+function stopShake(){if(shakeInt){clearInterval(shakeInt);shakeInt=null;}}
 startShake();
 
-// ── BOTÕES DA CHAMADA ──
-document.getElementById('btn-decline').addEventListener('click', function(){
-  stopRing(); stopVib(); stopShake();
-  setTimeout(function(){ tryRing(); startVib(); startShake(); }, 2200);
+// Botões da chamada
+document.getElementById('btn-decline').addEventListener('click',function(){
+  stopRing();stopVib();stopShake();
+  setTimeout(function(){tryRing();startVib();startShake();},2200);
 });
-
-document.getElementById('btn-accept').addEventListener('click', function(){
-  stopRing(); stopVib(); stopShake();
-  var cs = document.getElementById('call-screen');
-  cs.style.transition = 'opacity .35s ease';
-  cs.style.opacity = '0';
+document.getElementById('btn-accept').addEventListener('click',function(){
+  stopRing();stopVib();stopShake();
+  var cs=document.getElementById('call-screen');
+  cs.style.transition='opacity .35s ease';cs.style.opacity='0';
   setTimeout(function(){
-    cs.style.display = 'none';
+    cs.style.display='none';
     document.getElementById('wa-screen').classList.add('show');
-    if(typeof fbq!=='undefined') fbq('track','ViewContent');
-    if(typeof gtag!=='undefined') gtag('event','call_accepted');
-    setTimeout(startStory, 420);
-  }, 350);
+    if(typeof fbq!=='undefined')fbq('track','ViewContent');
+    if(typeof gtag!=='undefined')gtag('event','call_accepted');
+    setTimeout(startStory,420);
+  },350);
 });
 
-// ── WA UTILS ──
-var chat = document.getElementById('chat');
-
-function ts(){
-  var d=new Date();
-  return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
-}
-
-// Scroll: usa scrollIntoView no último filho para garantir visibilidade
-function sc(){
-  var last = chat.lastElementChild;
-  if(last) last.scrollIntoView({behavior:'smooth', block:'end'});
-}
-
-// SVG double tick WhatsApp
-var TICK_SVG = '<svg class="bub-ticks" viewBox="0 0 18 11" fill="#53BDEB"><path d="M5.6 8.6L1.4 4.4.0 5.8l5.6 5.6 12-12L16.2 0z"/><path d="M9.6 8.6L5.4 4.4 4 5.8l5.6 5.6 12-12L20.2 0z" transform="translate(3,0)"/></svg>';
-var TICK_SVG2 = '<span style="color:#53BDEB;font-size:13px;letter-spacing:-3px;">&#10003;&#10003;</span>';
+// WA utils
+var chat=document.getElementById('chat');
+function ts(){var d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+function sc(){var l=chat.lastElementChild;if(l)l.scrollIntoView({behavior:'smooth',block:'end'});}
+function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 function addRcv(text){
-  var d = document.createElement('div');
-  d.className = 'bub bub-rcv';
-  d.innerHTML = escH(text).replace(/\n/g,'<br>') + '<div class="bub-meta"><span class="bub-time">'+ts()+'</span></div>';
-  chat.appendChild(d);
-  sc();
+  var d=document.createElement('div');d.className='bub bub-rcv';
+  d.innerHTML=escH(text).replace(/\n/g,'<br>')+'<div class="bub-meta"><span class="bub-time">'+ts()+'</span></div>';
+  chat.appendChild(d);sc();
 }
-
 function addSnt(text){
-  var d = document.createElement('div');
-  d.className = 'bub bub-snt';
-  d.innerHTML = escH(text).replace(/\n/g,'<br>') + '<div class="bub-meta"><span class="bub-time">'+ts()+'</span>'+TICK_SVG2+'</div>';
-  chat.appendChild(d);
-  sc();
+  var d=document.createElement('div');d.className='bub bub-snt';
+  d.innerHTML=escH(text).replace(/\n/g,'<br>')+'<div class="bub-meta"><span class="bub-time">'+ts()+'</span><span class="bub-ticks">✓✓</span></div>';
+  chat.appendChild(d);sc();
 }
-
-function escH(s){
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
 function typing(ms){
   return new Promise(function(res){
-    var el = document.createElement('div');
-    el.className = 'typ-bub';
-    el.innerHTML = '<div class="td"></div><div class="td"></div><div class="td"></div>';
-    chat.appendChild(el); sc();
-    document.getElementById('wa-status').textContent = 'digitando...';
-    setTimeout(function(){
-      el.remove();
-      document.getElementById('wa-status').textContent = 'online';
-      res();
-    }, ms);
+    var el=document.createElement('div');el.className='typ-bub';
+    el.innerHTML='<div class="td"></div><div class="td"></div><div class="td"></div>';
+    chat.appendChild(el);sc();
+    document.getElementById('wa-status').textContent='digitando...';
+    setTimeout(function(){el.remove();document.getElementById('wa-status').textContent='online';res();},ms);
   });
 }
 
-// ── MENSAGENS DA HISTÓRIA ──
-var STORY = [
-  {t:'Você atendeu.', d:600},
-  {t:'E isso já diz muito sobre você.', d:900},
-  {t:'A maioria dos advogados prefere ignorar essa ligação.', d:1100},
-  {t:'Preferem continuar acreditando que o problema é "mais tráfego", "mais indicação", ou "mais tempo".', d:1800},
-  {t:'Mas no fundo você já sabe.', d:700},
-  {t:'O problema nunca foi falta de cliente.', d:900},
-  {t:'Foi falta de controle.', d:600},
-  {t:'Enquanto você atende manualmente, explica o básico repetidamente e torce para o lead não sumir...', d:1600},
-  {t:'...outros escritórios já operam diferente.', d:800},
-  {t:'Eles utilizam Inteligência Artificial para:\n\n— Qualificar antes de conversar\n— Calcular viabilidade automaticamente\n— Filtrar curiosos\n— Organizar follow-up\n— Registrar tudo em CRM\n— Controlar metas e prazos\n— Transformar atendimento em contrato', d:2500},
-  {t:'Não é sobre tecnologia.', d:700},
-  {t:'É sobre parar de improvisar.', d:700},
-  {t:'A pergunta real não é se a IA funciona.', d:1000},
-  {t:'Você vai continuar operando como em 2015… ou vai estruturar seu escritório para 2026? 🤔', d:1800},
-  {t:'Antes de continuarmos, preciso entender uma coisa sobre o seu escritório.', d:1300},
-  {t:'Responda com sinceridade. 👇', d:700}
+// História
+var STORY=[
+  {t:'Você atendeu.',d:600},
+  {t:'E isso já diz muito sobre você.',d:900},
+  {t:'A maioria dos advogados prefere ignorar essa ligação.',d:1100},
+  {t:'Preferem continuar acreditando que o problema é "mais tráfego", "mais indicação", ou "mais tempo".',d:1800},
+  {t:'Mas no fundo você já sabe.',d:700},
+  {t:'O problema nunca foi falta de cliente.',d:900},
+  {t:'Foi falta de controle.',d:600},
+  {t:'Enquanto você atende manualmente, explica o básico repetidamente e torce para o lead não sumir...',d:1600},
+  {t:'...outros escritórios já operam diferente.',d:800},
+  {t:'Eles utilizam Inteligência Artificial para:\n\n— Qualificar antes de conversar\n— Calcular viabilidade automaticamente\n— Filtrar curiosos\n— Organizar follow-up\n— Registrar tudo em CRM\n— Controlar metas e prazos\n— Transformar atendimento em contrato',d:2500},
+  {t:'Não é sobre tecnologia.',d:700},
+  {t:'É sobre parar de improvisar.',d:700},
+  {t:'A pergunta real não é se a IA funciona.',d:1000},
+  {t:'Você vai continuar operando como em 2015… ou vai estruturar seu escritório para 2026? 🤔',d:1800},
+  {t:'Antes de continuarmos, preciso entender uma coisa sobre o seu escritório.',d:1300},
+  {t:'Responda com sinceridade. 👇',d:700}
 ];
 
 async function startStory(){
-  var dm = document.createElement('div'); dm.className = 'wa-date-mkr';
-  var today = new Date();
-  var wd = today.toLocaleDateString('pt-BR',{weekday:'long'});
-  wd = wd.charAt(0).toUpperCase() + wd.slice(1);
-  dm.innerHTML = '<span>'+wd+'</span>';
+  var dm=document.createElement('div');dm.className='wa-date-mkr';
+  var wd=new Date().toLocaleDateString('pt-BR',{weekday:'long'});
+  dm.innerHTML='<span>'+wd.charAt(0).toUpperCase()+wd.slice(1)+'</span>';
   chat.appendChild(dm);
-
-  for(var i=0; i<STORY.length; i++){
+  for(var i=0;i<STORY.length;i++){
     await typing(STORY[i].d);
     addRcv(STORY[i].t);
-    await new Promise(function(r){ setTimeout(r, i < STORY.length-1 ? 500 : 800); });
+    await new Promise(function(r){setTimeout(r,i<STORY.length-1?500:800);});
   }
-  formStep = 0;
-  showStep();
+  formStep=0;showStep();
 }
 
-// ── PERGUNTAS ──
-var QS = [
-  {id:'esp', type:'choice',
-   q:'Qual é a sua especialidade?',
-   opts:['Trabalhista','Previdenciário','Família','Bancário','Tributário','Imobiliário','Criminal','Outros']},
-
-  {id:'col', type:'choice',
-   q:'Quantos colaboradores no escritório?',
-   opts:['Apenas eu','1 a 3','4 a 9','Mais de 10']},
-
-  {id:'fat', type:'choice',
-   q:'Qual o faturamento médio mensal?',
-   opts:['0 a R$5 mil','R$5 a 10 mil','R$10 a 20 mil','R$20 a 50 mil','R$50 a 100 mil','Mais de R$100 mil']},
-
-  {id:'traf', type:'choice',
-   q:'Quanto investe em tráfego pago por mês?',
-   opts:['Não invisto','Até R$1 mil','R$1 a 2 mil','R$2 a 5 mil','R$5 a 10 mil','Mais de R$10 mil']},
-
-  {id:'urg', type:'choice',
-   q:'Quando pretende implementar IA no seu escritório?',
-   opts:['O quanto antes','Em até 30 dias','Ainda não sei'],
-   exitOn:'Ainda não sei', exitType:'wait'},
-
-  {id:'inv', type:'choice',
-   q: function(){
-     var nome = (ANS.nome||'').split(' ')[0];
-     return (nome ? nome+', nossas' : 'Nossas') + ' soluções com IA têm parcelas de R$400 até R$4.000 mensais. Caso o que você veja, você entenda que vai te ajudar, você faria esse investimento?';
-   },
-   opts:['Sim','Não'],
-   exitOn:'Não', exitType:'nofit'},
-
-  {id:'ig', type:'text',
-   q:'Ótimo! Qual o seu Instagram? (opcional)',
-   ph:'@seuinstagram', optional:true}
+// Perguntas
+var QS=[
+  {id:'esp',type:'choice',q:'Qual é a sua especialidade?',opts:['Trabalhista','Previdenciário','Família','Bancário','Tributário','Imobiliário','Criminal','Outros']},
+  {id:'col',type:'choice',q:'Quantos colaboradores no escritório?',opts:['Apenas eu','1 a 3','4 a 9','Mais de 10']},
+  {id:'fat',type:'choice',q:'Qual o faturamento médio mensal?',opts:['0 a R$5 mil','R$5 a 10 mil','R$10 a 20 mil','R$20 a 50 mil','R$50 a 100 mil','Mais de R$100 mil']},
+  {id:'traf',type:'choice',q:'Quanto investe em tráfego pago por mês?',opts:['Não invisto','Até R$1 mil','R$1 a 2 mil','R$2 a 5 mil','R$5 a 10 mil','Mais de R$10 mil']},
+  {id:'urg',type:'choice',q:'Quando pretende implementar IA no seu escritório?',opts:['O quanto antes','Em até 30 dias','Ainda não sei'],exitOn:'Ainda não sei',exitType:'wait'},
+  {id:'inv',type:'choice',
+   q:function(){var n=(ANS.nome||'').split(' ')[0];return(n?n+', nossas':'Nossas')+' soluções com IA têm parcelas de R$400 até R$4.000 mensais. Caso o que você veja, você entenda que vai te ajudar, você faria esse investimento?';},
+   opts:['Sim','Não'],exitOn:'Não',exitType:'nofit'},
+  {id:'ig',type:'text',q:'Ótimo! Qual o seu Instagram? (opcional)',ph:'@seuinstagram',optional:true}
 ];
 
-var iz = document.getElementById('input-zone');
-function clrIz(){ iz.innerHTML=''; }
+var iz=document.getElementById('input-zone');
+function clrIz(){iz.innerHTML='';}
 
-// Após mostrar o input zone, scroll para garantir que a pergunta seja visível
-function showAfterTyping(text, cb){
+function showAfterTyping(text,cb){
   typing(680).then(function(){
     addRcv(text);
-    setTimeout(function(){
-      cb();
-      // Scroll depois do input zone renderizar
-      setTimeout(sc, 80);
-    }, 320);
+    setTimeout(function(){cb();setTimeout(sc,80);},320);
   });
 }
 
 function showStep(){
-  if(formStep === 0){
-    showAfterTyping('Me conta um pouco sobre você:', renderGroup);
-  } else {
-    var q = QS[formStep-1];
-    if(!q){ allDone(); return; }
-    var qText = typeof q.q === 'function' ? q.q() : q.q;
-    showAfterTyping(qText, function(){
-      if(q.type === 'choice') renderChips(q);
-      else renderText(q);
-    });
+  if(formStep===0){showAfterTyping('Me conta um pouco sobre você:',renderGroup);}
+  else{
+    var q=QS[formStep-1];if(!q){allDone();return;}
+    var qt=typeof q.q==='function'?q.q():q.q;
+    showAfterTyping(qt,function(){if(q.type==='choice')renderChips(q);else renderText(q);});
   }
 }
 
-// ── GRUPO: nome + tel + email ──
+// Group
 function renderGroup(){
-  clrIz();
-  var w = document.createElement('div'); w.className = 'wa-group';
-  w.innerHTML =
-    '<div class="g-field"><div class="g-label">Nome completo</div><input id="g-nome" class="g-inp" type="text" placeholder="Seu nome" autocomplete="name"></div>'+
+  clrIz();var w=document.createElement('div');w.className='wa-group';
+  w.innerHTML='<div class="g-field"><div class="g-label">Nome completo</div><input id="g-nome" class="g-inp" type="text" placeholder="Seu nome" autocomplete="name"></div>'+
     '<div class="g-field"><div class="g-label">WhatsApp (com DDD)</div><input id="g-tel" class="g-inp" type="tel" placeholder="(71) 99999-9999" autocomplete="tel" inputmode="numeric"></div>'+
     '<div class="g-field"><div class="g-label">E-mail</div><input id="g-email" class="g-inp" type="email" placeholder="nome@email.com" autocomplete="email"></div>'+
     '<button class="g-sub" id="g-sub-btn">Continuar →</button>';
   iz.appendChild(w);
-
-  // Máscara telefone
-  var tel = document.getElementById('g-tel');
-  tel.addEventListener('input', function(){
-    var v = this.value.replace(/\D/g,'').slice(0,11);
-    if(v.length>7) v='('+v.slice(0,2)+') '+v.slice(2,7)+'-'+v.slice(7);
-    else if(v.length>2) v='('+v.slice(0,2)+') '+v.slice(2);
-    else if(v.length) v='('+v;
-    this.value = v;
+  var tel=document.getElementById('g-tel');
+  tel.addEventListener('input',function(){
+    var v=this.value.replace(/\D/g,'').slice(0,11);
+    if(v.length>7)v='('+v.slice(0,2)+') '+v.slice(2,7)+'-'+v.slice(7);
+    else if(v.length>2)v='('+v.slice(0,2)+') '+v.slice(2);
+    else if(v.length)v='('+v;
+    this.value=v;
   });
-
-  document.getElementById('g-sub-btn').addEventListener('click', submitGroup);
-  ['g-nome','g-tel','g-email'].forEach(function(id){
-    document.getElementById(id).addEventListener('keydown', function(e){ if(e.key==='Enter'){e.preventDefault();submitGroup();} });
-  });
+  document.getElementById('g-sub-btn').addEventListener('click',submitGroup);
+  ['g-nome','g-tel','g-email'].forEach(function(id){document.getElementById(id).addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();submitGroup();}});});
   document.getElementById('g-nome').focus();
+  setTimeout(sc,80);
 }
 
 function submitGroup(){
-  var n=document.getElementById('g-nome'), t=document.getElementById('g-tel'), e=document.getElementById('g-email');
-  var nome=n.value.trim(), tel=t.value.trim(), email=e.value.trim();
-  if(nome.length<2){ n.style.outline='2px solid #FF3B30'; n.focus(); return; }
-  if(tel.replace(/\D/g,'').length<10){ t.style.outline='2px solid #FF3B30'; t.focus(); return; }
-  if(!email.includes('@')||!email.includes('.')){ e.style.outline='2px solid #FF3B30'; e.focus(); return; }
-  ANS.nome=nome; ANS.tel=tel; ANS.email=email;
-  clrIz();
-  addSnt(nome+'\n'+tel+'\n'+email);
-  if(typeof fbq!=='undefined') fbq('track','ViewContent');
-  formStep=1;
-  setTimeout(showStep, 680);
+  var n=document.getElementById('g-nome'),t=document.getElementById('g-tel'),e=document.getElementById('g-email');
+  var nome=n.value.trim(),tel=t.value.trim(),email=e.value.trim();
+  if(nome.length<2){n.style.outline='2px solid #FF3B30';n.focus();return;}
+  if(tel.replace(/\D/g,'').length<10){t.style.outline='2px solid #FF3B30';t.focus();return;}
+  if(!email.includes('@')||!email.includes('.')){e.style.outline='2px solid #FF3B30';e.focus();return;}
+  ANS.nome=nome;ANS.tel=tel;ANS.email=email;
+  clrIz();addSnt(nome+'\n'+tel+'\n'+email);
+  if(typeof fbq!=='undefined')fbq('track','ViewContent');
+  formStep=1;setTimeout(showStep,680);
 }
 
-// ── CHIPS ──
+// Chips
 function renderChips(q){
-  clrIz();
-  var w = document.createElement('div'); w.className = 'wa-chips';
+  clrIz();var w=document.createElement('div');w.className='wa-chips';
   q.opts.forEach(function(opt){
-    var b = document.createElement('button'); b.className = 'chip';
-    b.textContent = opt; // textContent = texto puro, sem encoding
-    b.addEventListener('click', function(){
-      var val = b.textContent;
-      ANS[q.id] = val;
-      clrIz();
-      addSnt(val);
-      if(q.exitOn && val === q.exitOn){
-        setTimeout(function(){ handleExit(q.exitType); }, 680);
-        return;
-      }
-      formStep++;
-      setTimeout(showStep, 680);
+    var b=document.createElement('button');b.className='chip';b.textContent=opt;
+    b.addEventListener('click',function(){
+      var val=b.textContent;ANS[q.id]=val;clrIz();addSnt(val);
+      if(q.exitOn&&val===q.exitOn){setTimeout(function(){handleExit(q.exitType);},680);return;}
+      formStep++;setTimeout(showStep,680);
     });
     w.appendChild(b);
   });
-  iz.appendChild(w);
-  setTimeout(sc, 80);
+  iz.appendChild(w);setTimeout(sc,80);
 }
 
-// ── TEXTO ──
+// Text
 function renderText(q){
-  clrIz();
-  var w = document.createElement('div'); w.className = 'wa-ibar';
-  w.innerHTML =
-    '<div class="wa-iwrap"><input id="wa-inp" class="wa-inp" type="text" placeholder="'+(q.ph||'')+'"></div>'+
-    '<button class="wa-send" id="wa-snd"><svg viewBox="0 0 24 24" fill="white"><path d="M2 21L23 12 2 3v7l15 2-15 2z"/></svg></button>';
+  clrIz();var w=document.createElement('div');w.className='wa-ibar';
+  w.innerHTML='<div class="wa-iwrap"><input id="wa-inp" class="wa-inp" type="text" placeholder="'+(q.ph||'')+'"></div><button class="wa-send" id="wa-snd"><svg viewBox="0 0 24 24" fill="white"><path d="M2 21L23 12 2 3v7l15 2-15 2z"/></svg></button>';
   iz.appendChild(w);
-
-  var inp = document.getElementById('wa-inp');
-  function sub(){
-    var v = inp.value.trim();
-    if(!q.optional && !v){ inp.focus(); return; }
-    ANS[q.id] = v||'—'; clrIz(); if(v) addSnt(v);
-    formStep++;
-    if(!QS[formStep-1]) setTimeout(allDone, 680);
-    else setTimeout(showStep, 680);
-  }
-  document.getElementById('wa-snd').addEventListener('click', sub);
-  inp.addEventListener('keydown', function(e){ if(e.key==='Enter'){e.preventDefault();sub();} });
-  inp.focus();
-  setTimeout(sc, 80);
+  var inp=document.getElementById('wa-inp');
+  function sub(){var v=inp.value.trim();if(!q.optional&&!v){inp.focus();return;}ANS[q.id]=v||'—';clrIz();if(v)addSnt(v);formStep++;if(!QS[formStep-1])setTimeout(allDone,680);else setTimeout(showStep,680);}
+  document.getElementById('wa-snd').addEventListener('click',sub);
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();sub();}});
+  inp.focus();setTimeout(sc,80);
 }
 
-// ── EXIT ──
+// Exit
 function handleExit(type){
-  if(type==='wait'){
-    typing(800).then(function(){
-      addRcv('Sem problema! 😊\n\nQuando estiver pronto, é só nos chamar.\nEstamos aqui para quando fizer sentido para você!');
-      setTimeout(function(){ showEnd('wait'); }, 1800);
-    });
-  } else {
-    typing(800).then(function(){
-      addRcv('Tudo bem! 🙏\n\nAcompanhe o Instagram do Rafael para dicas sobre IA para advogados.');
-      setTimeout(function(){ showEnd('nofit'); }, 1800);
-    });
-  }
+  if(type==='wait'){typing(800).then(function(){addRcv('Sem problema! 😊\n\nQuando estiver pronto, é só nos chamar.\nEstamos aqui para quando fizer sentido para você!');setTimeout(function(){showEnd('wait');},1800);});}
+  else{typing(800).then(function(){addRcv('Tudo bem! 🙏\n\nAcompanhe o Instagram do Rafael para dicas sobre IA para advogados.');setTimeout(function(){showEnd('nofit');},1800);});}
 }
 
-// ── SUCESSO ──
+// Done
 function allDone(){
-  if(typeof fbq!=='undefined') fbq('track','Lead');
-  if(typeof gtag!=='undefined') gtag('event','generate_lead');
-  var nome = (ANS.nome||'').split(' ')[0];
+  if(typeof fbq!=='undefined')fbq('track','Lead');
+  if(typeof gtag!=='undefined')gtag('event','generate_lead');
+  var nome=(ANS.nome||'').split(' ')[0];
   typing(900).then(function(){
     addRcv('Perfeito, '+nome+'! 🎉\n\nRecebi tudo. Nossa equipe vai entrar em contato pelo WhatsApp para agendar sua apresentação!');
-    setTimeout(function(){ showEnd('success'); }, 2000);
+    setTimeout(function(){showEnd('success');},2000);
   });
 }
 
-// ── TELAS FINAIS ──
+// End screens
 function showEnd(type){
-  var s = document.createElement('div'); s.className = 'wa-end';
+  var s=document.createElement('div');s.className='wa-end';
   if(type==='success'){
-    var msg = encodeURIComponent('Olá! Sou '+(ANS.nome||'')+' e acabei de preencher o formulário da Advanx IA. Gostaria de ver a demonstração!');
-    s.innerHTML = '<div class="wa-end-icon">🚀</div><div class="wa-end-ttl">Cadastro realizado!</div><div class="wa-end-txt">Nossa equipe vai entrar em contato em breve.<br><br>Prefere agilizar? Fale com a gente agora.</div><a href="https://wa.me/5571982470873?text='+msg+'" target="_blank" class="wa-end-btn btn-wa">💬 Falar com a Advanx IA</a>';
-  } else if(type==='wait'){
-    s.innerHTML = '<div class="wa-end-icon">⏳</div><div class="wa-end-ttl">Até logo!</div><div class="wa-end-txt">Quando estiver pronto para estruturar seu escritório com IA, a Advanx estará aqui.</div>';
-  } else {
-    s.innerHTML = '<div class="wa-end-icon">📲</div><div class="wa-end-ttl">Acompanhe o Rafael</div><div class="wa-end-txt">Siga para receber dicas exclusivas sobre IA para advogados.</div><a href="https://www.instagram.com/rafaelbatistazz" target="_blank" class="wa-end-btn btn-ig">@rafaelbatistazz no Instagram</a>';
+    var msg=encodeURIComponent('Olá! Sou '+(ANS.nome||'')+' e acabei de preencher o formulário da Advanx IA. Gostaria de ver a demonstração!');
+    s.innerHTML='<div class="wa-end-icon">🚀</div><div class="wa-end-ttl">Cadastro realizado!</div><div class="wa-end-txt">Nossa equipe vai entrar em contato em breve.<br><br>Prefere agilizar? Fale com a gente agora.</div><a href="https://wa.me/5571982470873?text='+msg+'" target="_blank" class="wa-end-btn btn-wa">💬 Falar com a Advanx IA</a>';
+  }else if(type==='wait'){
+    s.innerHTML='<div class="wa-end-icon">⏳</div><div class="wa-end-ttl">Até logo!</div><div class="wa-end-txt">Quando estiver pronto para estruturar seu escritório com IA, a Advanx estará aqui.</div>';
+  }else{
+    s.innerHTML='<div class="wa-end-icon">📲</div><div class="wa-end-ttl">Acompanhe o Rafael</div><div class="wa-end-txt">Siga para receber dicas exclusivas sobre IA para advogados.</div><a href="https://www.instagram.com/rafaelbatistazz" target="_blank" class="wa-end-btn btn-ig">@rafaelbatistazz no Instagram</a>';
   }
   document.body.appendChild(s);
 }
