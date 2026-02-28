@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Planejamento Estratégico</title>
+
+<!-- ══ META PIXEL ══ -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','502759528362336');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/></noscript>
+
+<!-- ══ GA4 ══ -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-98EL5GXG5F');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --acc:      #ff7a01;
+  --acc-dim:  rgba(255,122,1,.13);
+  --acc-glow: rgba(255,122,1,.28);
+  --bg:       #07090e;
+  --s1:       #0d1017;
+  --s2:       #121620;
+  --s3:       #181e2a;
+  --border:   rgba(255,122,1,.14);
+  --bsoft:    rgba(255,255,255,.055);
+  --txt:      #e8eaf2;
+  --muted:    #7a8499;
+  --dim:      #384050;
+  --r:        14px;
+  --rs:       9px;
+  --ease:     cubic-bezier(.4,0,.2,1);
+}
+html{-webkit-text-size-adjust:100%;}
+body{font-family:'Figtree',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;position:relative;}
+
+#cvs{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.glow{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0;animation:gshift 9s ease-in-out infinite alternate;}
+.g1{width:560px;height:560px;top:-180px;right:-140px;background:radial-gradient(circle,rgba(255,122,1,.2),transparent 70%);animation-delay:0s;}
+.g2{width:380px;height:380px;bottom:-120px;left:-100px;background:radial-gradient(circle,rgba(255,100,0,.12),transparent 70%);animation-delay:4s;}
+.g3{width:240px;height:240px;top:50%;left:35%;background:radial-gradient(circle,rgba(255,160,60,.07),transparent 70%);animation-delay:7s;}
+@keyframes gshift{from{transform:scale(1) translate(0,0);}to{transform:scale(1.1) translate(20px,15px);}}
+
+#pbar-wrap{position:fixed;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.05);z-index:200;}
+#pbar{height:100%;background:linear-gradient(90deg,var(--acc),#ffb04a);width:0%;transition:width .7s var(--ease);box-shadow:0 0 10px var(--acc-glow);}
+
+#app{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:0 16px 80px;}
+
+#dots{display:none;gap:7px;align-items:center;margin:32px 0 24px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--dim);transition:all .35s var(--ease);}
+.dot.active{width:22px;border-radius:3px;background:var(--acc);box-shadow:0 0 8px var(--acc-glow);}
+.dot.done{background:rgba(255,122,1,.35);}
+
+.pane{display:none;width:100%;max-width:620px;animation:slideIn .45s var(--ease) both;}
+.pane.show{display:block;}
+@keyframes slideIn{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+
+.card{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:36px 32px;box-shadow:0 30px 80px rgba(0,0,0,.45),0 0 0 1px rgba(255,122,1,.05);position:relative;overflow:hidden;}
+.card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 5%,rgba(255,122,1,.5) 50%,transparent 95%);}
+
+#pane-0{padding-top:64px;}
+#pane-0 .card{max-width:480px;margin:0 auto;text-align:center;padding:52px 36px 44px;}
+
+.gem{width:68px;height:68px;margin:0 auto 26px;background:conic-gradient(from 200deg,#cc5200,#ff7a01,#ffb347,#ff7a01,#cc5200);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 0 0 10px rgba(255,122,1,.1),0 8px 32px rgba(255,122,1,.35);animation:gemPulse 3s ease-in-out infinite;}
+@keyframes gemPulse{0%,100%{box-shadow:0 0 0 8px rgba(255,122,1,.12),0 8px 32px rgba(255,122,1,.3);}50%{box-shadow:0 0 0 18px rgba(255,122,1,.05),0 8px 50px rgba(255,122,1,.5);}}
+
+.start-title{font-family:'Cormorant',serif;font-size:clamp(26px,5.5vw,38px);font-weight:600;line-height:1.2;margin-bottom:12px;color:#fff;letter-spacing:-.01em;}
+.start-title em{font-style:italic;background:linear-gradient(135deg,#ff7a01,#ffb04a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.start-sub{font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:28px;}
+
+.tags{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:32px;}
+.tag{display:flex;align-items:center;gap:5px;padding:5px 12px;background:var(--s2);border:1px solid var(--bsoft);border-radius:100px;font-size:12px;color:var(--muted);}
+
+.btn-start{display:inline-flex;align-items:center;gap:9px;font-family:'Figtree',sans-serif;font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:17px 44px;border:none;border-radius:100px;background:linear-gradient(135deg,#ff7a01,#ff9a35);color:#fff;cursor:pointer;animation:btnPulse 2.5s cubic-bezier(.66,0,0,1) infinite;transition:transform .25s var(--ease),box-shadow .25s var(--ease);position:relative;overflow:hidden;}
+.btn-start::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);}
+.btn-start:hover{animation:none;transform:translateY(-2px);box-shadow:0 16px 48px rgba(255,122,1,.45);}
+@keyframes btnPulse{0%{box-shadow:0 0 0 0 rgba(255,122,1,.6);}70%{box-shadow:0 0 0 18px rgba(255,122,1,0);}100%{box-shadow:0 0 0 0 rgba(255,122,1,0);}}
+
+.step-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 11px;background:var(--acc-dim);border:1px solid var(--border);border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--acc);margin-bottom:16px;}
+.pane-title{font-family:'Cormorant',serif;font-size:clamp(20px,4vw,27px);font-weight:600;line-height:1.25;margin-bottom:6px;color:#fff;letter-spacing:-.01em;}
+.pane-sub{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:26px;}
+
+.slabel{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--border);}
+.divider{height:1px;background:var(--bsoft);margin:22px 0;}
+
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:7px;letter-spacing:.02em;}
+.req{color:var(--acc);}
+.opt-tag{font-size:10px;font-weight:500;color:var(--dim);margin-left:4px;text-transform:uppercase;letter-spacing:.05em;}
+
+input[type=text],input[type=email],input[type=tel],input[type=url],textarea,select{width:100%;background:var(--s2);border:1px solid var(--bsoft);border-radius:var(--rs);color:var(--txt);font-family:'Figtree',sans-serif;font-size:13.5px;padding:11px 14px;outline:none;transition:border-color .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease);-webkit-appearance:none;}
+input::placeholder,textarea::placeholder{color:var(--dim);font-size:13px;}
+input:focus,textarea:focus,select:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(255,122,1,.1);background:var(--s3);}
+textarea{resize:vertical;min-height:100px;line-height:1.65;}
+
+.iconed{position:relative;}
+.iconed .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none;line-height:1;}
+.iconed input{padding-left:36px;}
+
+.g2col{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ccount{display:flex;justify-content:flex-end;font-size:10.5px;color:var(--dim);margin-top:4px;}
+
+input.err,textarea.err{border-color:#e03358!important;}
+.emsg{font-size:11px;color:#e03358;margin-top:4px;display:none;}
+.emsg.on{display:block;}
+
+/* ── trafego callout ── */
+.callout{
+  background:rgba(255,122,1,.07);
+  border:1px solid rgba(255,122,1,.25);
+  border-radius:var(--rs);
+  padding:14px 16px;
+  margin-top:10px;
+  display:none;
+}
+.callout-title{
+  font-size:12px;font-weight:700;
+  color:var(--acc);
+  margin-bottom:10px;
+  display:flex;align-items:center;gap:6px;
+}
+.callout-checklist{
+  list-style:none;
+  display:grid;gap:6px;
+}
+.callout-checklist li{
+  font-size:12.5px;color:var(--txt);
+  display:flex;align-items:flex-start;gap:8px;line-height:1.45;
+}
+.callout-checklist li::before{
+  content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:1px;
+}
+.callout textarea{
+  margin-top:12px;min-height:110px;
+  background:rgba(0,0,0,.25);
+}
+
+/* ── choices ── */
+.choices{display:grid;gap:8px;}
+.choices.col2{grid-template-columns:1fr 1fr;}
+.choices.col3{grid-template-columns:repeat(3,1fr);}
+.ci{display:none;}
+.cl{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--s2);border:1px solid var(--bsoft);border-radius:var(--rs);cursor:pointer;transition:border-color .25s var(--ease),background .25s var(--ease),transform .2s var(--ease),box-shadow .25s var(--ease);font-size:13px;line-height:1.4;user-select:none;position:relative;overflow:hidden;}
+.cl:hover{border-color:rgba(255,122,1,.35);background:var(--s3);transform:translateY(-1px);}
+.ci:checked+.cl{border-color:var(--acc);background:var(--s3);box-shadow:0 0 0 1px var(--acc),0 4px 20px rgba(255,122,1,.1);}
+.cico{font-size:17px;flex-shrink:0;margin-top:1px;}
+.ctxt{flex:1;}
+.ctxt strong{display:block;font-size:13px;font-weight:600;color:var(--txt);margin-bottom:1px;}
+.ctxt small{font-size:11.5px;color:var(--muted);}
+.chk{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--dim);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s var(--ease);}
+.ci:checked+.cl .chk{background:var(--acc);border-color:var(--acc);}
+.ci:checked+.cl .chk::after{content:'✓';color:#fff;font-size:9px;font-weight:700;}
+
+/* ── buttons ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-family:'Figtree',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:14px 28px;border-radius:var(--r);border:none;cursor:pointer;transition:all .25s var(--ease);}
+.btn:active{transform:scale(.97);}
+.btn-p{background:linear-gradient(135deg,#ff7a01,#ff9a35);color:#fff;flex:1;box-shadow:0 6px 24px rgba(255,122,1,.28);}
+.btn-p:hover{box-shadow:0 10px 36px rgba(255,122,1,.44);transform:translateY(-1px);}
+.btn-g{background:transparent;color:var(--muted);border:1px solid var(--bsoft);padding:13px 22px;}
+.btn-g:hover{border-color:rgba(255,122,1,.3);color:var(--acc);}
+.nav{display:flex;gap:10px;margin-top:24px;}
+.spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:rot .7s linear infinite;display:none;}
+@keyframes rot{to{transform:rotate(360deg);}}
+
+/* ── thanks ── */
+#pane-ok{padding-top:60px;display:none;}
+#pane-ok .card{max-width:500px;margin:0 auto;text-align:center;padding:52px 36px;}
+.ok-icon{font-size:56px;margin-bottom:18px;animation:popIn .6s cubic-bezier(.36,.07,.19,.97) both;}
+@keyframes popIn{from{transform:scale(.4) rotate(-12deg);opacity:0;}to{transform:scale(1) rotate(0);opacity:1;}}
+.ok-title{font-family:'Cormorant',serif;font-size:clamp(22px,5vw,32px);font-weight:600;line-height:1.2;margin-bottom:12px;color:#fff;}
+.ok-body{font-size:13.5px;color:var(--muted);line-height:1.75;margin-bottom:24px;}
+.timer-pill{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--acc-dim);border:1px solid var(--border);border-radius:100px;font-size:13px;font-weight:600;color:var(--acc);margin-bottom:20px;animation:pillGlow 2.5s ease-in-out infinite alternate;}
+@keyframes pillGlow{from{box-shadow:0 0 8px rgba(255,122,1,.15);}to{box-shadow:0 0 22px rgba(255,122,1,.4);}}
+
+.floater{position:fixed;pointer-events:none;z-index:999;animation:floatUp 1.1s ease-out forwards;}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1);}100%{opacity:0;transform:translateY(-70px) scale(1.3);}}
+
+@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-7px);}40%{transform:translateX(7px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}
+.shake{animation:shake .38s ease;}
+
+@media(max-width:600px){
+  .card{padding:26px 18px;border-radius:16px;}
+  #pane-0 .card{padding:40px 22px 36px;}
+  #pane-ok .card{padding:40px 22px;}
+  .g2col{grid-template-columns:1fr;}
+  .choices.col2{grid-template-columns:1fr;}
+  .choices.col3{grid-template-columns:1fr 1fr;}
+  .nav{flex-direction:column-reverse;}
+  .btn-g{order:2;}
+}
+@media(max-width:360px){.choices.col3{grid-template-columns:1fr;}.start-title{font-size:24px;}}
+</style>
+</head>
+<body>
+
+<canvas id="cvs"></canvas>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+<div class="glow g3"></div>
+<div id="pbar-wrap"><div id="pbar"></div></div>
+
+<div id="app">
+
+  <div id="dots">
+    <div class="dot" id="d1"></div>
+    <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
+    <div class="dot" id="d4"></div>
+    <div class="dot" id="d5"></div>
+    <div class="dot" id="d6"></div>
+  </div>
+
+  <!-- ════ INÍCIO ════ -->
+  <div id="pane-0" class="pane show">
+    <div class="card">
+      <div class="gem">⚡</div>
+      <h1 class="start-title">Seu planejamento<br><em>estratégico</em> começa aqui</h1>
+      <p class="start-sub">Responda com calma. Cada detalhe que você compartilhar vira estratégia real de crescimento. 🎯</p>
+      <div class="tags">
+        <span class="tag">⏱️ 5–8 min</span>
+        <span class="tag">🔒 Sigiloso</span>
+        <span class="tag">🚀 Entrega 24h</span>
+        <span class="tag">💎 100% Personalizado</span>
+      </div>
+      <button class="btn-start" onclick="goTo(1)">⚡ Iniciar Planejamento</button>
+    </div>
+  </div>
+
+  <!-- ════ ETAPA 1 ════ -->
+  <div id="pane-1" class="pane">
+    <div class="card">
+      <div class="step-badge">✦ Etapa 1 de 6</div>
+      <h2 class="pane-title">Vamos nos conhecer 👋</h2>
+      <p class="pane-sub">Informações para personalizarmos cada detalhe do seu planejamento.</p>
+
+      <div class="field">
+        <label>Nome completo <span class="req">*</span></label>
+        <div class="iconed"><span class="ico">✍️</span>
+          <input id="f_nome" type="text" placeholder="Dr. João da Silva" oninput="clrE('f_nome','e_nome')">
+        </div>
+        <div class="emsg" id="e_nome">Por favor, informe seu nome.</div>
+      </div>
+
+      <div class="field">
+        <label>WhatsApp <span class="req">*</span></label>
+        <div class="iconed"><span class="ico">📱</span>
+          <input id="f_wp" type="tel" placeholder="(71) 99999-9999" oninput="maskTel(this);clrE('f_wp','e_wp')">
+        </div>
+        <div class="emsg" id="e_wp">Informe um número válido com DDD.</div>
+      </div>
+
+      <div class="field">
+        <label>E-mail <span class="req">*</span></label>
+        <div class="iconed"><span class="ico">📧</span>
+          <input id="f_em" type="email" placeholder="voce@email.com.br" oninput="clrE('f_em','e_em')">
+        </div>
+        <div class="emsg" id="e_em">Informe um e-mail válido.</div>
+      </div>
+
+      <div class="field">
+        <label>Link do Instagram <span class="req">*</span></label>
+        <div class="iconed"><span class="ico">📸</span>
+          <input id="f_ig" type="url" placeholder="https://instagram.com/seu.perfil" oninput="clrE('f_ig','e_ig')">
+        </div>
+        <div class="emsg" id="e_ig">Informe o link do seu Instagram.</div>
+      </div>
+
+      <div class="nav">
+        <button class="btn btn-p" onclick="next(1)">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ETAPA 2 ════ -->
+  <div id="pane-2" class="pane">
+    <div class="card">
+      <div class="step-badge">✦ Etapa 2 de 6</div>
+      <h2 class="pane-title">Sobre o seu escritório 💼</h2>
+      <p class="pane-sub">Quanto mais detalhes, mais cirúrgico será o planejamento.</p>
+
+      <div class="field">
+        <label>Teses de interesse <span class="req">*</span></label>
+        <textarea id="f_teses" placeholder="Ex: Revisão de contratos bancários, direito previdenciário, trabalhista, RMC, RCC..." oninput="cnt(this,'cc_teses',500);clrE('f_teses','e_teses')"></textarea>
+        <div class="ccount"><span id="cc_teses">0</span>/500</div>
+        <div class="emsg" id="e_teses">Informe pelo menos uma tese.</div>
+      </div>
+
+      <div class="g2col">
+        <div class="field">
+          <label>% cobrado do contrato <span class="req">*</span></label>
+          <input id="f_pct" type="text" placeholder="Ex: 30%" oninput="clrE('f_pct','e_pct')">
+          <div class="emsg" id="e_pct">Informe o percentual.</div>
+        </div>
+        <div class="field">
+          <label>Ticket médio dos contratos</label>
+          <input id="f_ticket" type="text" placeholder="Ex: R$ 3.000">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Tem sucumbência? Se sim, qual média?</label>
+        <input id="f_sucumb" type="text" placeholder="Ex: Sim, média de R$ 1.500 por processo">
+      </div>
+
+      <div class="field">
+        <label>Principal dor que seu serviço resolve <span class="req">*</span></label>
+        <textarea id="f_dor" placeholder="Seja específico. Ex: Clientes cobrados indevidamente que não sabem que têm direito a restituição..." oninput="cnt(this,'cc_dor',600);clrE('f_dor','e_dor')"></textarea>
+        <div class="ccount"><span id="cc_dor">0</span>/600</div>
+        <div class="emsg" id="e_dor">Descreva a dor que você resolve.</div>
+      </div>
+
+      <div class="nav">
+        <button class="btn btn-g" onclick="goTo(1)">← Voltar</button>
+        <button class="btn btn-p" onclick="next(2)">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ETAPA 3 ════ -->
+  <div id="pane-3" class="pane">
+    <div class="card">
+      <div class="step-badge">✦ Etapa 3 de 6</div>
+      <h2 class="pane-title">Sua estrutura atual 🛠️</h2>
+      <p class="pane-sub">O que já temos para potencializar — e o que precisamos construir do zero.</p>
+
+      <div class="slabel">Criativos</div>
+      <div class="field">
+        <label>Você já tem criativos? <span class="req">*</span></label>
+        <div class="choices col2">
+          <input type="radio" name="criativos" id="cr1" value="Sim, imagens" class="ci">
+          <label for="cr1" class="cl"><span class="cico">🖼️</span><div class="ctxt"><strong>Sim, imagens</strong></div><div class="chk"></div></label>
+          <input type="radio" name="criativos" id="cr2" value="Sim, vídeos" class="ci">
+          <label for="cr2" class="cl"><span class="cico">🎬</span><div class="ctxt"><strong>Sim, vídeos</strong></div><div class="chk"></div></label>
+          <input type="radio" name="criativos" id="cr3" value="Imagens e vídeos" class="ci">
+          <label for="cr3" class="cl"><span class="cico">🔥</span><div class="ctxt"><strong>Imagens e vídeos</strong><small>Completo!</small></div><div class="chk"></div></label>
+          <input type="radio" name="criativos" id="cr4" value="Ainda não tenho" class="ci">
+          <label for="cr4" class="cl"><span class="cico">🚧</span><div class="ctxt"><strong>Ainda não tenho</strong></div><div class="chk"></div></label>
+        </div>
+        <div class="emsg" id="e_cr">Selecione uma opção.</div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="slabel">Funil de Vendas</div>
+      <div class="field">
+        <label>Já tem página de vendas ou funil? <span class="req">*</span></label>
+        <div class="choices col3">
+          <input type="radio" name="funil" id="fn1" value="Sim, completo" class="ci">
+          <label for="fn1" class="cl"><span class="cico">🚀</span><div class="ctxt"><strong>Sim, completo</strong></div><div class="chk"></div></label>
+          <input type="radio" name="funil" id="fn2" value="Sim, básico" class="ci">
+          <label for="fn2" class="cl"><span class="cico">🌱</span><div class="ctxt"><strong>Sim, básico</strong></div><div class="chk"></div></label>
+          <input type="radio" name="funil" id="fn3" value="Não tenho" class="ci">
+          <label for="fn3" class="cl"><span class="cico">❌</span><div class="ctxt"><strong>Não tenho</strong></div><div class="chk"></div></label>
+        </div>
+        <div class="emsg" id="e_fn">Selecione uma opção.</div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="slabel">Tráfego Pago</div>
+      <div class="field">
+        <label>Já rodou tráfego pago antes? <span class="req">*</span></label>
+        <div class="choices col2">
+          <input type="radio" name="trafego" id="tr1" value="sim" class="ci" onchange="toggleTrafego(true)">
+          <label for="tr1" class="cl"><span class="cico">✅</span><div class="ctxt"><strong>Sim, já rodei</strong></div><div class="chk"></div></label>
+          <input type="radio" name="trafego" id="tr2" value="nao" class="ci" onchange="toggleTrafego(false)">
+          <label for="tr2" class="cl"><span class="cico">🆕</span><div class="ctxt"><strong>Nunca rodei</strong></div><div class="chk"></div></label>
+        </div>
+
+        <!-- callout detalhado que aparece quando sim -->
+        <div class="callout" id="tr_callout">
+          <div class="callout-title">📋 Perfeito! Agora precisamos de todos os detalhes para analisar e melhorar o que foi feito. Responda cada ponto abaixo no campo:</div>
+          <ul class="callout-checklist">
+            <li>Quanto tempo rodou os anúncios (dias, semanas, meses)?</li>
+            <li>Valor total investido em tráfego</li>
+            <li>Qual tese ou serviço foi anunciado?</li>
+            <li>Quais regiões foram segmentadas?</li>
+            <li>Quais plataformas usou (Facebook, Instagram, Google, TikTok...)?</li>
+            <li>Qual estratégia foi aplicada (remarketing, topo de funil, leads, conversão...)?</li>
+            <li>Qual foi o resultado — leads gerados, clientes fechados, custo por lead?</li>
+            <li>O que funcionou? O que não funcionou?</li>
+          </ul>
+          <textarea id="f_tr_det" placeholder="Descreva com o máximo de detalhes possível — isso é ouro para o seu planejamento..."></textarea>
+        </div>
+
+        <div class="emsg" id="e_tr">Selecione uma opção.</div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="slabel">Business Manager</div>
+      <div class="field">
+        <label>Já possui BM configurada? <span class="req">*</span></label>
+        <div class="choices col2">
+          <input type="radio" name="bm" id="bm1" value="Sim, verificada" class="ci">
+          <label for="bm1" class="cl"><span class="cico">✅</span><div class="ctxt"><strong>Sim, verificada</strong></div><div class="chk"></div></label>
+          <input type="radio" name="bm" id="bm2" value="Sim, não verificada" class="ci">
+          <label for="bm2" class="cl"><span class="cico">⚠️</span><div class="ctxt"><strong>Sim, não verificada</strong></div><div class="chk"></div></label>
+          <input type="radio" name="bm" id="bm3" value="Não tenho" class="ci">
+          <label for="bm3" class="cl"><span class="cico">❌</span><div class="ctxt"><strong>Não tenho</strong></div><div class="chk"></div></label>
+          <input type="radio" name="bm" id="bm4" value="Não sei o que é" class="ci">
+          <label for="bm4" class="cl"><span class="cico">❓</span><div class="ctxt"><strong>Não sei o que é</strong></div><div class="chk"></div></label>
+        </div>
+        <div class="emsg" id="e_bm">Selecione uma opção.</div>
+      </div>
+
+      <div class="nav">
+        <button class="btn btn-g" onclick="goTo(2)">← Voltar</button>
+        <button class="btn btn-p" onclick="next(3)">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ETAPA 4 ════ -->
+  <div id="pane-4" class="pane">
+    <div class="card">
+      <div class="step-badge">✦ Etapa 4 de 6</div>
+      <h2 class="pane-title">Seu cliente ideal 🧩</h2>
+      <p class="pane-sub">Evite respostas genéricas — quanto mais preciso, mais certeiro é o resultado.</p>
+
+      <div class="field">
+        <label>Quem é seu cliente ideal? Seja específico! <span class="req">*</span></label>
+        <textarea id="f_ci" style="min-height:115px;" placeholder="Ex: Homens e mulheres entre 40–60 anos, endividados com bancos, região Sul/Sudeste, que usam muito WhatsApp e já tentaram renegociar sem sucesso..." oninput="cnt(this,'cc_ci',800);clrE('f_ci','e_ci')"></textarea>
+        <div class="ccount"><span id="cc_ci">0</span>/800</div>
+        <div class="emsg" id="e_ci">Detalhe mais — sem resposta genérica.</div>
+      </div>
+
+      <div class="g2col">
+        <div class="field">
+          <label>Faixa etária e gênero</label>
+          <input id="f_idade" type="text" placeholder="Ex: 40–60 anos, maioria feminino">
+        </div>
+        <div class="field">
+          <label>Região de atuação</label>
+          <input id="f_reg" type="text" placeholder="Ex: Sul e Sudeste, Brasil todo">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Qual problema seu cliente quer resolver? <span class="req">*</span></label>
+        <textarea id="f_prob" placeholder="Ex: Quer sair das dívidas bancárias que sufocam a família, recuperar dinheiro cobrado indevidamente..." oninput="clrE('f_prob','e_prob')"></textarea>
+        <div class="emsg" id="e_prob">Descreva o problema do cliente.</div>
+      </div>
+
+      <div class="field">
+        <label>O que faria ele te contratar imediatamente? <span class="req">*</span></label>
+        <textarea id="f_gat" placeholder="Ex: Se descobrisse que tem dinheiro a receber do banco sem pagar nada adiantado..." oninput="clrE('f_gat','e_gat')"></textarea>
+        <div class="emsg" id="e_gat">Qual seria o gatilho decisivo?</div>
+      </div>
+
+      <div class="nav">
+        <button class="btn btn-g" onclick="goTo(3)">← Voltar</button>
+        <button class="btn btn-p" onclick="next(4)">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ETAPA 5 ════ -->
+  <div id="pane-5" class="pane">
+    <div class="card">
+      <div class="step-badge">✦ Etapa 5 de 6</div>
+      <h2 class="pane-title">Investimento & Estratégia 📈</h2>
+      <p class="pane-sub">Calibrando a estratégia de crescimento com base na sua realidade.</p>
+
+      <div class="field">
+        <label>Quanto pretende investir por dia em tráfego? <span class="req">*</span></label>
+        <div class="choices col2">
+          <input type="radio" name="invest" id="iv1" value="R$20 – R$50/dia" class="ci">
+          <label for="iv1" class="cl"><span class="cico">🌱</span><div class="ctxt"><strong>R$20 – R$50/dia</strong><small>Começando</small></div><div class="chk"></div></label>
+          <input type="radio" name="invest" id="iv2" value="R$50 – R$100/dia" class="ci">
+          <label for="iv2" class="cl"><span class="cico">⚡</span><div class="ctxt"><strong>R$50 – R$100/dia</strong><small>Crescendo</small></div><div class="chk"></div></label>
+          <input type="radio" name="invest" id="iv3" value="R$100 – R$300/dia" class="ci">
+          <label for="iv3" class="cl"><span class="cico">🔥</span><div class="ctxt"><strong>R$100 – R$300/dia</strong><small>Escalando</small></div><div class="chk"></div></label>
+          <input type="radio" name="invest" id="iv4" value="Acima de R$300/dia" class="ci">
+          <label for="iv4" class="cl"><span class="cico">💎</span><div class="ctxt"><strong>Acima de R$300/dia</strong><small>Dominando</small></div><div class="chk"></div></label>
+        </div>
+        <div class="emsg" id="e_iv">Selecione sua faixa de investimento.</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label>Objetivo nos próximos 30 dias <span class="req">*</span></label>
+        <textarea id="f_obj" placeholder="Ex: Fechar 5 novos clientes, gerar 200 leads qualificados, reduzir o CAC para menos de R$100..." oninput="clrE('f_obj','e_obj')"></textarea>
+        <div class="emsg" id="e_obj">Defina sua meta para os próximos 30 dias.</div>
+      </div>
+
+      <div class="field">
+        <label>Você prefere vender rápido ou escalar forte? <span class="req">*</span></label>
+        <div class="choices">
+          <input type="radio" name="estrat" id="es1" value="Validar rápido" class="ci">
+          <label for="es1" class="cl">
+            <span class="cico">🧪</span>
+            <div class="ctxt"><strong>Validar rápido — testar minha oferta primeiro</strong><small>Quero saber o que funciona antes de investir pesado</small></div>
+            <div class="chk"></div>
+          </label>
+          <input type="radio" name="estrat" id="es2" value="Escalar forte" class="ci">
+          <label for="es2" class="cl">
+            <span class="cico">🚀</span>
+            <div class="ctxt"><strong>Escalar forte — já sei o que funciona, quero crescer</strong><small>Oferta validada, hora de acelerar</small></div>
+            <div class="chk"></div>
+          </label>
+          <input type="radio" name="estrat" id="es3" value="Preciso de orientação" class="ci">
+          <label for="es3" class="cl">
+            <span class="cico">🧭</span>
+            <div class="ctxt"><strong>Não tenho certeza — preciso de orientação</strong><small>Me guia no melhor caminho</small></div>
+            <div class="chk"></div>
+          </label>
+        </div>
+        <div class="emsg" id="e_es">Selecione uma estratégia.</div>
+      </div>
+
+      <div class="nav">
+        <button class="btn btn-g" onclick="goTo(4)">← Voltar</button>
+        <button class="btn btn-p" onclick="next(5)">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ETAPA 6 — OPCIONAL ════ -->
+  <div id="pane-6" class="pane">
+    <div class="card">
+      <div class="step-badge">✦ Etapa 6 de 6</div>
+      <h2 class="pane-title">Última etapa —<br>quase lá! 🏁</h2>
+      <p class="pane-sub">Se tiver alguma observação importante, esse é o momento. Mas pode pular se preferir.</p>
+
+      <div class="field">
+        <label>Observações finais <span class="opt-tag">(opcional)</span></label>
+        <textarea id="f_obs" style="min-height:150px;" placeholder="Ex: Tenho parceria com outros advogados, já tentei gestão antes e não deu certo por X razão, meu diferencial é Y, preciso de resultado urgente..."></textarea>
+        <div class="ccount"><span id="cc_obs">0</span>/1000</div>
+      </div>
+
+      <div class="nav">
+        <button class="btn btn-g" onclick="goTo(5)">← Voltar</button>
+        <button class="btn btn-p" id="btn_sub" onclick="submitForm()">
+          <span id="sub_txt">🚀 Enviar Planejamento</span>
+          <div class="spin" id="sub_spin"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ OBRIGADO ════ -->
+  <div id="pane-ok">
+    <div class="card">
+      <div class="ok-icon">🎉</div>
+      <h2 class="ok-title">Informações recebidas<br>com sucesso!</h2>
+      <p class="ok-body">Obrigado por compartilhar tudo isso — cada detalhe vai fazer diferença no seu planejamento. Nossa equipe já vai correr para montar uma estratégia cirúrgica para você. 💪</p>
+      <div class="timer-pill">⏰ Entrega em até <strong>&nbsp;24 horas</strong> — sábado, domingo ou feriado</div>
+      <p class="ok-body" style="margin-bottom:0;font-size:13px;">📱 <strong style="color:var(--txt)">Fique atento ao WhatsApp e e-mail.</strong><br>Vamos entrar em contato para começar o quanto antes. Prepara-se para decolar. 🚀</p>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+/* ─── CANVAS ─── */
+const cv=document.getElementById('cvs'),cx=cv.getContext('2d');
+let W,H,pts=[];
+function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+class Pt{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.3+.2;this.sx=(Math.random()-.5)*.25;this.sy=-Math.random()*.4-.08;this.a=Math.random()*.4+.06;this.orange=Math.random()>.6;}tick(){this.x+=this.sx;this.y+=this.sy;if(this.y<-4)this.reset();}draw(){cx.save();cx.globalAlpha=this.a;cx.fillStyle=this.orange?'#ff7a01':'#2a3a5c';cx.beginPath();cx.arc(this.x,this.y,this.r,0,Math.PI*2);cx.fill();cx.restore();}}
+for(let i=0;i<90;i++)pts.push(new Pt());
+(function loop(){cx.clearRect(0,0,W,H);pts.forEach(p=>{p.tick();p.draw();});requestAnimationFrame(loop);})();
+
+/* ─── NAV ─── */
+let cur=0;
+function goTo(n){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('show'));
+  document.getElementById('pane-ok').style.display='none';
+  if(n===0){
+    document.getElementById('pane-0').classList.add('show');
+    document.getElementById('dots').style.display='none';
+    document.getElementById('pbar').style.width='0%';
+  } else {
+    const el=document.getElementById('pane-'+n);
+    el.classList.remove('show');void el.offsetWidth;el.classList.add('show');
+    document.getElementById('dots').style.display='flex';
+    for(let i=1;i<=6;i++){const d=document.getElementById('d'+i);d.className='dot'+(i===n?' active':i<n?' done':'');}
+    document.getElementById('pbar').style.width=Math.round(n/6*100)+'%';
+    // fire ViewContent on each step
+    if(typeof fbq!=='undefined') fbq('track','ViewContent',{content_name:'Etapa '+n});
+    if(typeof gtag!=='undefined') gtag('event','view_content',{step:n});
+  }
+  cur=n;window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function next(from){if(!validate(from))return;spawn(['✅','⚡','🔥']);goTo(from+1);}
+
+/* ─── TRAFEGO TOGGLE ─── */
+function toggleTrafego(show){
+  document.getElementById('tr_callout').style.display=show?'block':'none';
+}
+
+/* ─── VALIDATE ─── */
+function validate(p){
+  let ok=true;
+  function req(id,eid,min){const el=document.getElementById(id);if(el.value.trim().length<(min||1)){el.classList.add('err');document.getElementById(eid).classList.add('on');if(ok){el.focus();ok=false;}}}
+  function radio(nm,eid){if(!document.querySelector('input[name="'+nm+'"]:checked')){document.getElementById(eid).classList.add('on');ok=false;}}
+  clrAll(p);
+  if(p===1){
+    req('f_nome','e_nome');
+    if(document.getElementById('f_wp').value.replace(/\D/g,'').length<10){document.getElementById('f_wp').classList.add('err');document.getElementById('e_wp').classList.add('on');ok=false;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('f_em').value)){document.getElementById('f_em').classList.add('err');document.getElementById('e_em').classList.add('on');ok=false;}
+    req('f_ig','e_ig');
+  }
+  if(p===2){req('f_teses','e_teses');req('f_pct','e_pct');req('f_dor','e_dor');}
+  if(p===3){radio('criativos','e_cr');radio('funil','e_fn');radio('trafego','e_tr');radio('bm','e_bm');}
+  if(p===4){req('f_ci','e_ci',20);req('f_prob','e_prob');req('f_gat','e_gat');}
+  if(p===5){radio('invest','e_iv');req('f_obj','e_obj');radio('estrat','e_es');}
+  // p===6 é opcional, sem validação
+  if(!ok){const el=document.getElementById('pane-'+p);el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');setTimeout(()=>el.classList.remove('shake'),400);}
+  return ok;
+}
+
+function clrAll(p){const el=document.getElementById('pane-'+p);el.querySelectorAll('.err').forEach(e=>e.classList.remove('err'));el.querySelectorAll('.emsg').forEach(e=>e.classList.remove('on'));}
+function clrE(iid,eid){document.getElementById(iid).classList.remove('err');const ee=document.getElementById(eid);if(ee)ee.classList.remove('on');}
+
+/* ─── SUBMIT ─── */
+function submitForm(){
+  const btn=document.getElementById('btn_sub');
+  btn.disabled=true;
+  document.getElementById('sub_txt').style.display='none';
+  document.getElementById('sub_spin').style.display='block';
+
+  const wpRaw='55'+document.getElementById('f_wp').value.replace(/\D/g,'');
+
+  const data={
+    nome:       document.getElementById('f_nome').value,
+    wp:         wpRaw,
+    email:      document.getElementById('f_em').value,
+    instagram:  document.getElementById('f_ig').value,
+    teses:      document.getElementById('f_teses').value,
+    pct:        document.getElementById('f_pct').value,
+    ticket:     document.getElementById('f_ticket').value,
+    sucumb:     document.getElementById('f_sucumb').value,
+    dor:        document.getElementById('f_dor').value,
+    criativos:  document.querySelector('input[name="criativos"]:checked')?.value,
+    funil:      document.querySelector('input[name="funil"]:checked')?.value,
+    trafego:    document.querySelector('input[name="trafego"]:checked')?.value,
+    trafego_det:document.getElementById('f_tr_det').value,
+    bm:         document.querySelector('input[name="bm"]:checked')?.value,
+    ci:         document.getElementById('f_ci').value,
+    idade_genero:document.getElementById('f_idade').value,
+    regiao:     document.getElementById('f_reg').value,
+    prob:       document.getElementById('f_prob').value,
+    gatilho:    document.getElementById('f_gat').value,
+    invest:     document.querySelector('input[name="invest"]:checked')?.value,
+    objetivo:   document.getElementById('f_obj').value,
+    estrat:     document.querySelector('input[name="estrat"]:checked')?.value,
+    obs:        document.getElementById('f_obs').value,
+    ts:         new Date().toLocaleString('pt-BR')
+  };
+
+  // Pixels — Lead event
+  if(typeof fbq!=='undefined') fbq('track','Lead',{content_name:'Planejamento Estratégico'});
+  if(typeof gtag!=='undefined') gtag('event','generate_lead',{currency:'BRL'});
+
+  fetch('https://n8n.advfunnel.com.br/webhook/f63bf3e6-18c5-41a2-82f2-e13972c84f4f',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
+  })
+  .then(()=>showOk())
+  .catch(()=>showOk());
+}
+
+function showOk(){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('show'));
+  document.getElementById('dots').style.display='none';
+  document.getElementById('pbar').style.width='100%';
+  const ok=document.getElementById('pane-ok');
+  ok.style.cssText='display:block;padding-top:60px;animation:slideIn .5s cubic-bezier(.4,0,.2,1) both;';
+  window.scrollTo({top:0,behavior:'smooth'});
+  confetti();
+}
+
+/* ─── HELPERS ─── */
+function maskTel(inp){let v=inp.value.replace(/\D/g,'').substring(0,11);if(v.length>10)v=v.replace(/^(\d{2})(\d{5})(\d{4})$/,'($1) $2-$3');else if(v.length>6)v=v.replace(/^(\d{2})(\d{4})(\d*)$/,'($1) $2-$3');else if(v.length>2)v=v.replace(/^(\d{2})(\d*)$/,'($1) $2');inp.value=v;}
+function cnt(el,cid,max){if(el.value.length>max)el.value=el.value.slice(0,max);document.getElementById(cid).textContent=el.value.length;}
+document.getElementById('f_obs').addEventListener('input',function(){cnt(this,'cc_obs',1000);});
+function spawn(icons){icons.forEach((ic,i)=>{setTimeout(()=>{const el=document.createElement('span');el.className='floater';el.textContent=ic;el.style.cssText='left:'+(25+Math.random()*50)+'%;top:'+(50+Math.random()*30)+'%;font-size:'+(17+Math.random()*12)+'px;';document.body.appendChild(el);setTimeout(()=>el.remove(),1200);},i*110);});}
+function confetti(){const ic=['🎉','🚀','⚡','💎','🔥','🎯','✨','💪','🏆'];for(let i=0;i<14;i++){setTimeout(()=>{const el=document.createElement('span');el.className='floater';el.textContent=ic[Math.floor(Math.random()*ic.length)];el.style.cssText='left:'+(5+Math.random()*90)+'%;top:'+(20+Math.random()*60)+'%;font-size:'+(16+Math.random()*18)+'px;';document.body.appendChild(el);setTimeout(()=>el.remove(),1300);},i*70);}}
+</script>
+</body>
+</html>
