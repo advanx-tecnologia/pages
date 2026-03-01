@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de Site - Kahoot Clone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .iframe-container {
+            height: calc(100vh - 64px); /* Altura total menos o header */
+            width: 100%;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .header {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header / Barra de Navegação -->
+    <header class="header">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
+                K
+            </div>
+            <h1 class="text-lg font-semibold text-gray-800">Visualizador Kahoot</h1>
+        </div>
+        
+        <div class="flex items-center gap-4">
+            <span class="text-sm text-gray-500 hidden md:inline">Visualizando: kahoott.lovable.app</span>
+            <a href="https://kahoott.lovable.app" target="_blank" rel="noopener noreferrer" 
+               class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-full transition-colors duration-200">
+                Abrir em Nova Aba
+            </a>
+        </div>
+    </header>
+
+    <!-- Container do Iframe -->
+    <main class="iframe-container">
+        <!-- O atributo loading="lazy" ajuda na performance e o sandbox pode ser ajustado se necessário -->
+        <iframe 
+            src="https://kahoott.lovable.app" 
+            title="Kahoot Clone"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+        </iframe>
+    </main>
+
+    <!-- Script para tratar possíveis erros de carregamento ou bloqueios de frame -->
+    <script>
+        // Nota: Muitos sites modernos utilizam cabeçalhos X-Frame-Options ou CSP para evitar clickjacking.
+        // Se o site kahoott.lovable.app bloquear o carregamento em frames, o iframe aparecerá em branco.
+        window.addEventListener('message', function(e) {
+            // Lógica para comunicação entre janelas se necessário no futuro
+        });
+    </script>
+</body>
+</html>
