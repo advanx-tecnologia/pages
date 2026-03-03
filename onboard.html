@@ -735,39 +735,38 @@ function submitForm(){
   const wpRaw='55'+document.getElementById('f_wp').value.replace(/\D/g,'');
 
   const data={
-    nome:           document.getElementById('f_nome').value,
-    wp:             wpRaw,
-    email:          document.getElementById('f_em').value,
-    instagram:      document.getElementById('f_ig').value,
-    // Seção A
-    area_juridica:  document.querySelector('input[name="area"]:checked')?.value,
-    tipo_caso:      document.getElementById('f_caso').value,
-    modelo_cobranca:document.querySelector('input[name="cobranca"]:checked')?.value,
-    ticket_medio:   document.getElementById('f_ticket_med').value,
-    ticket_maximo:  document.getElementById('f_ticket_max').value,
-    // Seção B
-    investimento:   document.querySelector('input[name="invest"]:checked')?.value,
-    criminal_aware: document.querySelector('input[name="criminal_aware"]:checked')?.value||'N/A',
-    // Seção C
-    equipe:         document.querySelector('input[name="equipe"]:checked')?.value,
-    orientacao:     document.querySelector('input[name="orient"]:checked')?.value,
-    ligacao:        document.querySelector('input[name="ligacao"]:checked')?.value,
-    video:          document.querySelector('input[name="video"]:checked')?.value,
-    // Seção D
-    diferencial:    document.getElementById('f_dif').value,
-    atendimento:    document.querySelector('input[name="atend"]:checked')?.value,
-    estados:        document.getElementById('f_estados').value,
-    // Seção E
-    trafego:        document.querySelector('input[name="trafego"]:checked')?.value,
-    trafego_det:    document.getElementById('f_tr_det').value,
-    resultado:      document.getElementById('f_resultado').value,
-    demora_resposta:document.querySelector('input[name="demora"]:checked')?.value,
-    // Seção F
-    meta_contratos: document.getElementById('f_contratos').value,
-    meta_fat:       document.getElementById('f_fat').value,
-    estrategia:     document.querySelector('input[name="estrat"]:checked')?.value,
-    obs:            document.getElementById('f_obs').value,
-    ts:             new Date().toLocaleString('pt-BR')
+    "Nome completo":                                              document.getElementById('f_nome').value,
+    "WhatsApp":                                                   wpRaw,
+    "E-mail":                                                     document.getElementById('f_em').value,
+    "Link do Instagram":                                          document.getElementById('f_ig').value,
+    // Seção A — Foco da Campanha
+    "Qual área jurídica você quer escalar primeiro?":             document.querySelector('input[name="area"]:checked')?.value,
+    "Tipo específico de caso que deseja captar":                  document.getElementById('f_caso').value,
+    "Esse serviço é cobrado como…":                               document.querySelector('input[name="cobranca"]:checked')?.value,
+    "Ticket médio dos contratos":                                 document.getElementById('f_ticket_med').value,
+    "Ticket máximo":                                              document.getElementById('f_ticket_max').value,
+    // Seção B — Investimento
+    "Quanto pretende investir por mês em tráfego?":               document.querySelector('input[name="invest"]:checked')?.value,
+    "Está ciente do investimento mínimo para a área criminal?":   document.querySelector('input[name="criminal_aware"]:checked')?.value||'N/A',
+    // Seção C — Estrutura do Escritório
+    "Atua sozinho ou possui equipe?":                             document.querySelector('input[name="equipe"]:checked')?.value,
+    "Está disposto a seguir orientação comercial estratégica?":   document.querySelector('input[name="orient"]:checked')?.value,
+    "Pode atender ligações quando acionado pela IA?":             document.querySelector('input[name="ligacao"]:checked')?.value,
+    "Está disposto a gravar vídeos estratégicos?":                document.querySelector('input[name="video"]:checked')?.value,
+    // Seção D — Posicionamento
+    "Qual é o seu maior diferencial?":                            document.getElementById('f_dif').value,
+    "Formato de atendimento":                                     document.querySelector('input[name="atend"]:checked')?.value,
+    "Atende quais estados?":                                      document.getElementById('f_estados').value,
+    // Seção E — Experiência Anterior
+    "Já rodou tráfego pago antes?":                               document.querySelector('input[name="trafego"]:checked')?.value,
+    "Qual foi o resultado dos seus esforços anteriores?":         document.getElementById('f_tr_det').value||document.getElementById('f_resultado').value,
+    "Já perdeu cliente por demora na resposta?":                  document.querySelector('input[name="demora"]:checked')?.value,
+    // Seção F — Metas
+    "Quantos contratos deseja fechar por mês?":                   document.getElementById('f_contratos').value,
+    "Qual meta de faturamento mensal?":                           document.getElementById('f_fat').value,
+    "Prefere validar primeiro ou escalar direto?":                document.querySelector('input[name="estrat"]:checked')?.value,
+    "Observações finais":                                         document.getElementById('f_obs').value,
+    "Data/Hora":                                                  new Date().toLocaleString('pt-BR')
   };
 
   if(typeof fbq!=='undefined') fbq('track','Lead',{content_name:'Planejamento Estratégico'});
