@@ -105,7 +105,7 @@ body{font-family:'Figtree',sans-serif;background:var(--bg);color:var(--txt);min-
 input[type=text],input[type=email],input[type=tel],input[type=url],textarea,select{width:100%;background:var(--s2);border:1px solid var(--bsoft);border-radius:var(--rs);color:var(--txt);font-family:'Figtree',sans-serif;font-size:13.5px;padding:11px 14px;outline:none;transition:border-color .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease);-webkit-appearance:none;}
 input::placeholder,textarea::placeholder{color:var(--dim);font-size:13px;}
 input:focus,textarea:focus,select:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(255,122,1,.1);background:var(--s3);}
-textarea{resize:vertical;min-height:100px;line-height:1.65;}
+textarea{resize:vertical;min-height:90px;line-height:1.65;}
 
 .iconed{position:relative;}
 .iconed .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none;line-height:1;}
@@ -118,7 +118,24 @@ input.err,textarea.err{border-color:#e03358!important;}
 .emsg{font-size:11px;color:#e03358;margin-top:4px;display:none;}
 .emsg.on{display:block;}
 
-/* ── trafego callout ── */
+/* ── alert box ── */
+.alert-box{
+  background:rgba(255,122,1,.08);
+  border:1px solid rgba(255,122,1,.3);
+  border-radius:var(--rs);
+  padding:13px 16px;
+  margin-top:-4px;
+  margin-bottom:14px;
+  font-size:12.5px;
+  color:var(--txt);
+  line-height:1.55;
+  display:flex;
+  gap:9px;
+  align-items:flex-start;
+}
+.alert-box span{font-size:16px;flex-shrink:0;margin-top:1px;}
+
+/* ── callout details ── */
 .callout{
   background:rgba(255,122,1,.07);
   border:1px solid rgba(255,122,1,.25);
@@ -127,27 +144,8 @@ input.err,textarea.err{border-color:#e03358!important;}
   margin-top:10px;
   display:none;
 }
-.callout-title{
-  font-size:12px;font-weight:700;
-  color:var(--acc);
-  margin-bottom:10px;
-  display:flex;align-items:center;gap:6px;
-}
-.callout-checklist{
-  list-style:none;
-  display:grid;gap:6px;
-}
-.callout-checklist li{
-  font-size:12.5px;color:var(--txt);
-  display:flex;align-items:flex-start;gap:8px;line-height:1.45;
-}
-.callout-checklist li::before{
-  content:'→';color:var(--acc);font-weight:700;flex-shrink:0;margin-top:1px;
-}
-.callout textarea{
-  margin-top:12px;min-height:110px;
-  background:rgba(0,0,0,.25);
-}
+.callout-title{font-size:12px;font-weight:700;color:var(--acc);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.callout textarea{margin-top:0;min-height:110px;background:rgba(0,0,0,.25);}
 
 /* ── choices ── */
 .choices{display:grid;gap:8px;}
@@ -222,6 +220,7 @@ input.err,textarea.err{border-color:#e03358!important;}
     <div class="dot" id="d4"></div>
     <div class="dot" id="d5"></div>
     <div class="dot" id="d6"></div>
+    <div class="dot" id="d7"></div>
   </div>
 
   <!-- ════ INÍCIO ════ -->
@@ -240,10 +239,10 @@ input.err,textarea.err{border-color:#e03358!important;}
     </div>
   </div>
 
-  <!-- ════ ETAPA 1 ════ -->
+  <!-- ════ ETAPA 1 — DADOS PESSOAIS ════ -->
   <div id="pane-1" class="pane">
     <div class="card">
-      <div class="step-badge">✦ Etapa 1 de 6</div>
+      <div class="step-badge">✦ Etapa 1 de 7</div>
       <h2 class="pane-title">Vamos nos conhecer 👋</h2>
       <p class="pane-sub">Informações para personalizarmos cada detalhe do seu planejamento.</p>
 
@@ -285,42 +284,63 @@ input.err,textarea.err{border-color:#e03358!important;}
     </div>
   </div>
 
-  <!-- ════ ETAPA 2 ════ -->
+  <!-- ════ ETAPA 2 — A) FOCO DA CAMPANHA ════ -->
   <div id="pane-2" class="pane">
     <div class="card">
-      <div class="step-badge">✦ Etapa 2 de 6</div>
-      <h2 class="pane-title">Sobre o seu escritório 💼</h2>
-      <p class="pane-sub">Quanto mais detalhes, mais cirúrgico será o planejamento.</p>
+      <div class="step-badge">✦ Etapa 2 de 7 · Foco da Campanha</div>
+      <h2 class="pane-title">Onde está o ouro? 🎯</h2>
+      <p class="pane-sub">Vamos identificar a área que tem mais potencial para escalar agora.</p>
 
       <div class="field">
-        <label>Teses de interesse <span class="req">*</span></label>
-        <textarea id="f_teses" placeholder="Ex: Revisão de contratos bancários, direito previdenciário, trabalhista, RMC, RCC..." oninput="cnt(this,'cc_teses',500);clrE('f_teses','e_teses')"></textarea>
-        <div class="ccount"><span id="cc_teses">0</span>/500</div>
-        <div class="emsg" id="e_teses">Informe pelo menos uma tese.</div>
+        <label>Qual área jurídica você quer escalar primeiro? <span class="req">*</span></label>
+        <div class="choices col2">
+          <input type="radio" name="area" id="ar1" value="Trabalhista" class="ci">
+          <label for="ar1" class="cl"><span class="cico">⚖️</span><div class="ctxt"><strong>Trabalhista</strong></div><div class="chk"></div></label>
+          <input type="radio" name="area" id="ar2" value="Previdenciário" class="ci">
+          <label for="ar2" class="cl"><span class="cico">🏛️</span><div class="ctxt"><strong>Previdenciário</strong></div><div class="chk"></div></label>
+          <input type="radio" name="area" id="ar3" value="Criminal" class="ci">
+          <label for="ar3" class="cl"><span class="cico">🔒</span><div class="ctxt"><strong>Criminal</strong></div><div class="chk"></div></label>
+          <input type="radio" name="area" id="ar4" value="Tributário" class="ci">
+          <label for="ar4" class="cl"><span class="cico">🧾</span><div class="ctxt"><strong>Tributário</strong></div><div class="chk"></div></label>
+          <input type="radio" name="area" id="ar5" value="Cível / Consumidor" class="ci">
+          <label for="ar5" class="cl"><span class="cico">🤝</span><div class="ctxt"><strong>Cível / Consumidor</strong></div><div class="chk"></div></label>
+          <input type="radio" name="area" id="ar6" value="Outra" class="ci">
+          <label for="ar6" class="cl"><span class="cico">📋</span><div class="ctxt"><strong>Outra área</strong></div><div class="chk"></div></label>
+        </div>
+        <div class="emsg" id="e_area">Selecione a área que deseja escalar.</div>
+      </div>
+
+      <div class="field">
+        <label>Tipo específico de caso que deseja captar <span class="req">*</span></label>
+        <textarea id="f_caso" placeholder="Ex: Revisão de contratos bancários com cobrança indevida, aposentadoria por invalidez, demissão sem justa causa..." oninput="clrE('f_caso','e_caso')"></textarea>
+        <div class="emsg" id="e_caso">Descreva o tipo de caso.</div>
+      </div>
+
+      <div class="field">
+        <label>Esse serviço é cobrado como… <span class="req">*</span></label>
+        <div class="choices col2">
+          <input type="radio" name="cobranca" id="cb1" value="Cobrança inicial (honorários fixos)" class="ci">
+          <label for="cb1" class="cl"><span class="cico">💰</span><div class="ctxt"><strong>Cobrança inicial</strong><small>Honorários fixos / entrada</small></div><div class="chk"></div></label>
+          <input type="radio" name="cobranca" id="cb2" value="Êxito (só cobra se ganhar)" class="ci">
+          <label for="cb2" class="cl"><span class="cico">🏆</span><div class="ctxt"><strong>Êxito</strong><small>Só cobra se ganhar</small></div><div class="chk"></div></label>
+          <input type="radio" name="cobranca" id="cb3" value="Híbrido (entrada + êxito)" class="ci">
+          <label for="cb3" class="cl"><span class="cico">🔄</span><div class="ctxt"><strong>Híbrido</strong><small>Entrada + êxito</small></div><div class="chk"></div></label>
+          <input type="radio" name="cobranca" id="cb4" value="Mensalidade / Pacote" class="ci">
+          <label for="cb4" class="cl"><span class="cico">📅</span><div class="ctxt"><strong>Mensalidade / Pacote</strong></div><div class="chk"></div></label>
+        </div>
+        <div class="emsg" id="e_cb">Selecione o modelo de cobrança.</div>
       </div>
 
       <div class="g2col">
         <div class="field">
-          <label>% cobrado do contrato <span class="req">*</span></label>
-          <input id="f_pct" type="text" placeholder="Ex: 30%" oninput="clrE('f_pct','e_pct')">
-          <div class="emsg" id="e_pct">Informe o percentual.</div>
+          <label>Ticket médio dos contratos <span class="req">*</span></label>
+          <input id="f_ticket_med" type="text" placeholder="Ex: R$ 3.000" oninput="clrE('f_ticket_med','e_ticket_med')">
+          <div class="emsg" id="e_ticket_med">Informe o ticket médio.</div>
         </div>
         <div class="field">
-          <label>Ticket médio dos contratos</label>
-          <input id="f_ticket" type="text" placeholder="Ex: R$ 3.000">
+          <label>Ticket máximo</label>
+          <input id="f_ticket_max" type="text" placeholder="Ex: R$ 15.000">
         </div>
-      </div>
-
-      <div class="field">
-        <label>Tem sucumbência? Se sim, qual média?</label>
-        <input id="f_sucumb" type="text" placeholder="Ex: Sim, média de R$ 1.500 por processo">
-      </div>
-
-      <div class="field">
-        <label>Principal dor que seu serviço resolve <span class="req">*</span></label>
-        <textarea id="f_dor" placeholder="Seja específico. Ex: Clientes cobrados indevidamente que não sabem que têm direito a restituição..." oninput="cnt(this,'cc_dor',600);clrE('f_dor','e_dor')"></textarea>
-        <div class="ccount"><span id="cc_dor">0</span>/600</div>
-        <div class="emsg" id="e_dor">Descreva a dor que você resolve.</div>
       </div>
 
       <div class="nav">
@@ -330,89 +350,42 @@ input.err,textarea.err{border-color:#e03358!important;}
     </div>
   </div>
 
-  <!-- ════ ETAPA 3 ════ -->
+  <!-- ════ ETAPA 3 — B) INVESTIMENTO ════ -->
   <div id="pane-3" class="pane">
     <div class="card">
-      <div class="step-badge">✦ Etapa 3 de 6</div>
-      <h2 class="pane-title">Sua estrutura atual 🛠️</h2>
-      <p class="pane-sub">O que já temos para potencializar — e o que precisamos construir do zero.</p>
+      <div class="step-badge">✦ Etapa 3 de 7 · Investimento</div>
+      <h2 class="pane-title">Combustível da máquina 💸</h2>
+      <p class="pane-sub">O investimento define o ritmo. Vamos calibrar a estratégia certa para a sua realidade.</p>
 
-      <div class="slabel">Criativos</div>
       <div class="field">
-        <label>Você já tem criativos? <span class="req">*</span></label>
+        <label>Quanto pretende investir por mês em tráfego? <span class="req">*</span></label>
         <div class="choices col2">
-          <input type="radio" name="criativos" id="cr1" value="Sim, imagens" class="ci">
-          <label for="cr1" class="cl"><span class="cico">🖼️</span><div class="ctxt"><strong>Sim, imagens</strong></div><div class="chk"></div></label>
-          <input type="radio" name="criativos" id="cr2" value="Sim, vídeos" class="ci">
-          <label for="cr2" class="cl"><span class="cico">🎬</span><div class="ctxt"><strong>Sim, vídeos</strong></div><div class="chk"></div></label>
-          <input type="radio" name="criativos" id="cr3" value="Imagens e vídeos" class="ci">
-          <label for="cr3" class="cl"><span class="cico">🔥</span><div class="ctxt"><strong>Imagens e vídeos</strong><small>Completo!</small></div><div class="chk"></div></label>
-          <input type="radio" name="criativos" id="cr4" value="Ainda não tenho" class="ci">
-          <label for="cr4" class="cl"><span class="cico">🚧</span><div class="ctxt"><strong>Ainda não tenho</strong></div><div class="chk"></div></label>
+          <input type="radio" name="invest" id="iv1" value="Até R$1.000/mês" class="ci">
+          <label for="iv1" class="cl"><span class="cico">🌱</span><div class="ctxt"><strong>Até R$1.000/mês</strong><small>Começando</small></div><div class="chk"></div></label>
+          <input type="radio" name="invest" id="iv2" value="R$1.000 – R$2.000/mês" class="ci">
+          <label for="iv2" class="cl"><span class="cico">⚡</span><div class="ctxt"><strong>R$1.000 – R$2.000/mês</strong><small>Crescendo</small></div><div class="chk"></div></label>
+          <input type="radio" name="invest" id="iv3" value="R$2.000 – R$5.000/mês" class="ci">
+          <label for="iv3" class="cl"><span class="cico">🔥</span><div class="ctxt"><strong>R$2.000 – R$5.000/mês</strong><small>Escalando</small></div><div class="chk"></div></label>
+          <input type="radio" name="invest" id="iv4" value="Acima de R$5.000/mês" class="ci">
+          <label for="iv4" class="cl"><span class="cico">💎</span><div class="ctxt"><strong>Acima de R$5.000/mês</strong><small>Dominando</small></div><div class="chk"></div></label>
         </div>
-        <div class="emsg" id="e_cr">Selecione uma opção.</div>
+        <div class="emsg" id="e_iv">Selecione sua faixa de investimento.</div>
       </div>
 
-      <div class="divider"></div>
-      <div class="slabel">Funil de Vendas</div>
-      <div class="field">
-        <label>Já tem página de vendas ou funil? <span class="req">*</span></label>
-        <div class="choices col3">
-          <input type="radio" name="funil" id="fn1" value="Sim, completo" class="ci">
-          <label for="fn1" class="cl"><span class="cico">🚀</span><div class="ctxt"><strong>Sim, completo</strong></div><div class="chk"></div></label>
-          <input type="radio" name="funil" id="fn2" value="Sim, básico" class="ci">
-          <label for="fn2" class="cl"><span class="cico">🌱</span><div class="ctxt"><strong>Sim, básico</strong></div><div class="chk"></div></label>
-          <input type="radio" name="funil" id="fn3" value="Não tenho" class="ci">
-          <label for="fn3" class="cl"><span class="cico">❌</span><div class="ctxt"><strong>Não tenho</strong></div><div class="chk"></div></label>
-        </div>
-        <div class="emsg" id="e_fn">Selecione uma opção.</div>
+      <div class="alert-box" id="criminal_alert" style="display:none;">
+        <span>⚠️</span>
+        <div>Para campanhas na área <strong>criminal</strong>, o mínimo recomendado é <strong>R$2.000/mês</strong> em tráfego pago para gerar volume suficiente de leads qualificados.</div>
       </div>
 
-      <div class="divider"></div>
-      <div class="slabel">Tráfego Pago</div>
       <div class="field">
-        <label>Já rodou tráfego pago antes? <span class="req">*</span></label>
-        <div class="choices col2">
-          <input type="radio" name="trafego" id="tr1" value="sim" class="ci" onchange="toggleTrafego(true)">
-          <label for="tr1" class="cl"><span class="cico">✅</span><div class="ctxt"><strong>Sim, já rodei</strong></div><div class="chk"></div></label>
-          <input type="radio" name="trafego" id="tr2" value="nao" class="ci" onchange="toggleTrafego(false)">
-          <label for="tr2" class="cl"><span class="cico">🆕</span><div class="ctxt"><strong>Nunca rodei</strong></div><div class="chk"></div></label>
+        <label>Está ciente do investimento mínimo para a área criminal? <span class="req">*</span></label>
+        <div class="choices col2" id="criminal_aware_wrap">
+          <input type="radio" name="criminal_aware" id="ca1" value="Sim, estou ciente" class="ci">
+          <label for="ca1" class="cl"><span class="cico">✅</span><div class="ctxt"><strong>Sim, estou ciente</strong></div><div class="chk"></div></label>
+          <input type="radio" name="criminal_aware" id="ca2" value="Não sabia disso" class="ci">
+          <label for="ca2" class="cl"><span class="cico">💡</span><div class="ctxt"><strong>Não sabia disso</strong><small>Obrigado por avisar!</small></div><div class="chk"></div></label>
         </div>
-
-        <!-- callout detalhado que aparece quando sim -->
-        <div class="callout" id="tr_callout">
-          <div class="callout-title">📋 Perfeito! Agora precisamos de todos os detalhes para analisar e melhorar o que foi feito. Responda cada ponto abaixo no campo:</div>
-          <ul class="callout-checklist">
-            <li>Quanto tempo rodou os anúncios (dias, semanas, meses)?</li>
-            <li>Valor total investido em tráfego</li>
-            <li>Qual tese ou serviço foi anunciado?</li>
-            <li>Quais regiões foram segmentadas?</li>
-            <li>Quais plataformas usou (Facebook, Instagram, Google, TikTok...)?</li>
-            <li>Qual estratégia foi aplicada (remarketing, topo de funil, leads, conversão...)?</li>
-            <li>Qual foi o resultado — leads gerados, clientes fechados, custo por lead?</li>
-            <li>O que funcionou? O que não funcionou?</li>
-          </ul>
-          <textarea id="f_tr_det" placeholder="Descreva com o máximo de detalhes possível — isso é ouro para o seu planejamento..."></textarea>
-        </div>
-
-        <div class="emsg" id="e_tr">Selecione uma opção.</div>
-      </div>
-
-      <div class="divider"></div>
-      <div class="slabel">Business Manager</div>
-      <div class="field">
-        <label>Já possui BM configurada? <span class="req">*</span></label>
-        <div class="choices col2">
-          <input type="radio" name="bm" id="bm1" value="Sim, verificada" class="ci">
-          <label for="bm1" class="cl"><span class="cico">✅</span><div class="ctxt"><strong>Sim, verificada</strong></div><div class="chk"></div></label>
-          <input type="radio" name="bm" id="bm2" value="Sim, não verificada" class="ci">
-          <label for="bm2" class="cl"><span class="cico">⚠️</span><div class="ctxt"><strong>Sim, não verificada</strong></div><div class="chk"></div></label>
-          <input type="radio" name="bm" id="bm3" value="Não tenho" class="ci">
-          <label for="bm3" class="cl"><span class="cico">❌</span><div class="ctxt"><strong>Não tenho</strong></div><div class="chk"></div></label>
-          <input type="radio" name="bm" id="bm4" value="Não sei o que é" class="ci">
-          <label for="bm4" class="cl"><span class="cico">❓</span><div class="ctxt"><strong>Não sei o que é</strong></div><div class="chk"></div></label>
-        </div>
-        <div class="emsg" id="e_bm">Selecione uma opção.</div>
+        <div class="emsg" id="e_ca">Selecione uma opção.</div>
       </div>
 
       <div class="nav">
@@ -422,41 +395,71 @@ input.err,textarea.err{border-color:#e03358!important;}
     </div>
   </div>
 
-  <!-- ════ ETAPA 4 ════ -->
+  <!-- ════ ETAPA 4 — C) ESTRUTURA DO ESCRITÓRIO ════ -->
   <div id="pane-4" class="pane">
     <div class="card">
-      <div class="step-badge">✦ Etapa 4 de 6</div>
-      <h2 class="pane-title">Seu cliente ideal 🧩</h2>
-      <p class="pane-sub">Evite respostas genéricas — quanto mais preciso, mais certeiro é o resultado.</p>
+      <div class="step-badge">✦ Etapa 4 de 7 · Estrutura do Escritório</div>
+      <h2 class="pane-title">Sua estrutura atual 🛠️</h2>
+      <p class="pane-sub">O que já temos para potencializar — e o que precisamos construir do zero.</p>
 
       <div class="field">
-        <label>Quem é seu cliente ideal? Seja específico! <span class="req">*</span></label>
-        <textarea id="f_ci" style="min-height:115px;" placeholder="Ex: Homens e mulheres entre 40–60 anos, endividados com bancos, região Sul/Sudeste, que usam muito WhatsApp e já tentaram renegociar sem sucesso..." oninput="cnt(this,'cc_ci',800);clrE('f_ci','e_ci')"></textarea>
-        <div class="ccount"><span id="cc_ci">0</span>/800</div>
-        <div class="emsg" id="e_ci">Detalhe mais — sem resposta genérica.</div>
-      </div>
-
-      <div class="g2col">
-        <div class="field">
-          <label>Faixa etária e gênero</label>
-          <input id="f_idade" type="text" placeholder="Ex: 40–60 anos, maioria feminino">
+        <label>Atua sozinho ou possui equipe? <span class="req">*</span></label>
+        <div class="choices col2">
+          <input type="radio" name="equipe" id="eq1" value="Atuo sozinho" class="ci">
+          <label for="eq1" class="cl"><span class="cico">🧑‍💼</span><div class="ctxt"><strong>Atuo sozinho</strong></div><div class="chk"></div></label>
+          <input type="radio" name="equipe" id="eq2" value="Tenho equipe" class="ci">
+          <label for="eq2" class="cl"><span class="cico">👥</span><div class="ctxt"><strong>Tenho equipe</strong><small>Sócios / colaboradores</small></div><div class="chk"></div></label>
         </div>
-        <div class="field">
-          <label>Região de atuação</label>
-          <input id="f_reg" type="text" placeholder="Ex: Sul e Sudeste, Brasil todo">
+        <div class="emsg" id="e_eq">Selecione uma opção.</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label>Está disposto a seguir orientação comercial estratégica? <span class="req">*</span></label>
+        <div class="choices col2">
+          <input type="radio" name="orient" id="or1" value="Sim, totalmente" class="ci">
+          <label for="or1" class="cl"><span class="cico">🚀</span><div class="ctxt"><strong>Sim, totalmente</strong><small>Pronto para executar</small></div><div class="chk"></div></label>
+          <input type="radio" name="orient" id="or2" value="Sim, com ressalvas" class="ci">
+          <label for="or2" class="cl"><span class="cico">🤔</span><div class="ctxt"><strong>Sim, com ressalvas</strong><small>Algumas limitações</small></div><div class="chk"></div></label>
+          <input type="radio" name="orient" id="or3" value="Preciso entender melhor" class="ci">
+          <label for="or3" class="cl"><span class="cico">💡</span><div class="ctxt"><strong>Preciso entender melhor</strong></div><div class="chk"></div></label>
         </div>
+        <div class="emsg" id="e_or">Selecione uma opção.</div>
       </div>
 
-      <div class="field">
-        <label>Qual problema seu cliente quer resolver? <span class="req">*</span></label>
-        <textarea id="f_prob" placeholder="Ex: Quer sair das dívidas bancárias que sufocam a família, recuperar dinheiro cobrado indevidamente..." oninput="clrE('f_prob','e_prob')"></textarea>
-        <div class="emsg" id="e_prob">Descreva o problema do cliente.</div>
-      </div>
+      <div class="divider"></div>
 
       <div class="field">
-        <label>O que faria ele te contratar imediatamente? <span class="req">*</span></label>
-        <textarea id="f_gat" placeholder="Ex: Se descobrisse que tem dinheiro a receber do banco sem pagar nada adiantado..." oninput="clrE('f_gat','e_gat')"></textarea>
-        <div class="emsg" id="e_gat">Qual seria o gatilho decisivo?</div>
+        <label>Pode atender ligações quando acionado pela IA? <span class="req">*</span></label>
+        <div class="choices col2">
+          <input type="radio" name="ligacao" id="li1" value="Sim, consigo atender rápido" class="ci">
+          <label for="li1" class="cl"><span class="cico">📞</span><div class="ctxt"><strong>Sim</strong><small>Atendo rápido quando acionado</small></div><div class="chk"></div></label>
+          <input type="radio" name="ligacao" id="li2" value="Sim, mas com demora às vezes" class="ci">
+          <label for="li2" class="cl"><span class="cico">⏱️</span><div class="ctxt"><strong>Sim, mas com demora</strong><small>Às vezes não consigo de imediato</small></div><div class="chk"></div></label>
+          <input type="radio" name="ligacao" id="li3" value="Tenho alguém da equipe para atender" class="ci">
+          <label for="li3" class="cl"><span class="cico">👤</span><div class="ctxt"><strong>Tenho alguém na equipe</strong></div><div class="chk"></div></label>
+          <input type="radio" name="ligacao" id="li4" value="Não consigo atender ligações" class="ci">
+          <label for="li4" class="cl"><span class="cico">🚫</span><div class="ctxt"><strong>Não consigo atender</strong></div><div class="chk"></div></label>
+        </div>
+        <div class="emsg" id="e_li">Selecione uma opção.</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label>Está disposto a gravar vídeos estratégicos? <span class="req">*</span></label>
+        <div class="choices col2">
+          <input type="radio" name="video" id="vi1" value="Sim, sem problema" class="ci">
+          <label for="vi1" class="cl"><span class="cico">🎬</span><div class="ctxt"><strong>Sim, sem problema</strong><small>Já gravo ou estou disposto</small></div><div class="chk"></div></label>
+          <input type="radio" name="video" id="vi2" value="Sim, mas preciso de orientação" class="ci">
+          <label for="vi2" class="cl"><span class="cico">📹</span><div class="ctxt"><strong>Sim, com orientação</strong><small>Nunca gravei, mas topo</small></div><div class="chk"></div></label>
+          <input type="radio" name="video" id="vi3" value="Prefiro imagens / artes" class="ci">
+          <label for="vi3" class="cl"><span class="cico">🖼️</span><div class="ctxt"><strong>Prefiro imagens / artes</strong></div><div class="chk"></div></label>
+          <input type="radio" name="video" id="vi4" value="Não quero aparecer" class="ci">
+          <label for="vi4" class="cl"><span class="cico">🙈</span><div class="ctxt"><strong>Não quero aparecer</strong></div><div class="chk"></div></label>
+        </div>
+        <div class="emsg" id="e_vi">Selecione uma opção.</div>
       </div>
 
       <div class="nav">
@@ -466,59 +469,39 @@ input.err,textarea.err{border-color:#e03358!important;}
     </div>
   </div>
 
-  <!-- ════ ETAPA 5 ════ -->
+  <!-- ════ ETAPA 5 — D) POSICIONAMENTO ════ -->
   <div id="pane-5" class="pane">
     <div class="card">
-      <div class="step-badge">✦ Etapa 5 de 6</div>
-      <h2 class="pane-title">Investimento & Estratégia 📈</h2>
-      <p class="pane-sub">Calibrando a estratégia de crescimento com base na sua realidade.</p>
+      <div class="step-badge">✦ Etapa 5 de 7 · Posicionamento</div>
+      <h2 class="pane-title">Como você se posiciona? 🧭</h2>
+      <p class="pane-sub">Seu diferencial é o que separa você de todos os outros advogados na cabeça do cliente.</p>
 
       <div class="field">
-        <label>Quanto pretende investir por dia em tráfego? <span class="req">*</span></label>
-        <div class="choices col2">
-          <input type="radio" name="invest" id="iv1" value="R$20 – R$50/dia" class="ci">
-          <label for="iv1" class="cl"><span class="cico">🌱</span><div class="ctxt"><strong>R$20 – R$50/dia</strong><small>Começando</small></div><div class="chk"></div></label>
-          <input type="radio" name="invest" id="iv2" value="R$50 – R$100/dia" class="ci">
-          <label for="iv2" class="cl"><span class="cico">⚡</span><div class="ctxt"><strong>R$50 – R$100/dia</strong><small>Crescendo</small></div><div class="chk"></div></label>
-          <input type="radio" name="invest" id="iv3" value="R$100 – R$300/dia" class="ci">
-          <label for="iv3" class="cl"><span class="cico">🔥</span><div class="ctxt"><strong>R$100 – R$300/dia</strong><small>Escalando</small></div><div class="chk"></div></label>
-          <input type="radio" name="invest" id="iv4" value="Acima de R$300/dia" class="ci">
-          <label for="iv4" class="cl"><span class="cico">💎</span><div class="ctxt"><strong>Acima de R$300/dia</strong><small>Dominando</small></div><div class="chk"></div></label>
-        </div>
-        <div class="emsg" id="e_iv">Selecione sua faixa de investimento.</div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="field">
-        <label>Objetivo nos próximos 30 dias <span class="req">*</span></label>
-        <textarea id="f_obj" placeholder="Ex: Fechar 5 novos clientes, gerar 200 leads qualificados, reduzir o CAC para menos de R$100..." oninput="clrE('f_obj','e_obj')"></textarea>
-        <div class="emsg" id="e_obj">Defina sua meta para os próximos 30 dias.</div>
+        <label>Qual é o seu maior diferencial? <span class="req">*</span></label>
+        <textarea id="f_dif" placeholder="Ex: Atendo apenas casos de revisão previdenciária com mais de 15 anos de contribuição. Já ajudei +300 clientes. Meu processo é 100% online e sem burocracia..." oninput="cnt(this,'cc_dif',600);clrE('f_dif','e_dif')"></textarea>
+        <div class="ccount"><span id="cc_dif">0</span>/600</div>
+        <div class="emsg" id="e_dif">Descreva seu maior diferencial.</div>
       </div>
 
       <div class="field">
-        <label>Você prefere vender rápido ou escalar forte? <span class="req">*</span></label>
-        <div class="choices">
-          <input type="radio" name="estrat" id="es1" value="Validar rápido" class="ci">
-          <label for="es1" class="cl">
-            <span class="cico">🧪</span>
-            <div class="ctxt"><strong>Validar rápido — testar minha oferta primeiro</strong><small>Quero saber o que funciona antes de investir pesado</small></div>
-            <div class="chk"></div>
-          </label>
-          <input type="radio" name="estrat" id="es2" value="Escalar forte" class="ci">
-          <label for="es2" class="cl">
-            <span class="cico">🚀</span>
-            <div class="ctxt"><strong>Escalar forte — já sei o que funciona, quero crescer</strong><small>Oferta validada, hora de acelerar</small></div>
-            <div class="chk"></div>
-          </label>
-          <input type="radio" name="estrat" id="es3" value="Preciso de orientação" class="ci">
-          <label for="es3" class="cl">
-            <span class="cico">🧭</span>
-            <div class="ctxt"><strong>Não tenho certeza — preciso de orientação</strong><small>Me guia no melhor caminho</small></div>
-            <div class="chk"></div>
-          </label>
+        <label>Formato de atendimento <span class="req">*</span></label>
+        <div class="choices col3">
+          <input type="radio" name="atend" id="at1" value="Online" class="ci">
+          <label for="at1" class="cl"><span class="cico">💻</span><div class="ctxt"><strong>Online</strong></div><div class="chk"></div></label>
+          <input type="radio" name="atend" id="at2" value="Presencial" class="ci">
+          <label for="at2" class="cl"><span class="cico">🏢</span><div class="ctxt"><strong>Presencial</strong></div><div class="chk"></div></label>
+          <input type="radio" name="atend" id="at3" value="Híbrido" class="ci">
+          <label for="at3" class="cl"><span class="cico">🔄</span><div class="ctxt"><strong>Híbrido</strong></div><div class="chk"></div></label>
         </div>
-        <div class="emsg" id="e_es">Selecione uma estratégia.</div>
+        <div class="emsg" id="e_at">Selecione o formato de atendimento.</div>
+      </div>
+
+      <div class="field">
+        <label>Atende quais estados? <span class="req">*</span></label>
+        <div class="iconed"><span class="ico">📍</span>
+          <input id="f_estados" type="text" placeholder="Ex: SP, RJ, MG — ou Brasil todo" oninput="clrE('f_estados','e_estados')">
+        </div>
+        <div class="emsg" id="e_estados">Informe os estados de atuação.</div>
       </div>
 
       <div class="nav">
@@ -528,21 +511,110 @@ input.err,textarea.err{border-color:#e03358!important;}
     </div>
   </div>
 
-  <!-- ════ ETAPA 6 — OPCIONAL ════ -->
+  <!-- ════ ETAPA 6 — E) EXPERIÊNCIA ANTERIOR ════ -->
   <div id="pane-6" class="pane">
     <div class="card">
-      <div class="step-badge">✦ Etapa 6 de 6</div>
-      <h2 class="pane-title">Última etapa —<br>quase lá! 🏁</h2>
-      <p class="pane-sub">Se tiver alguma observação importante, esse é o momento. Mas pode pular se preferir.</p>
+      <div class="step-badge">✦ Etapa 6 de 7 · Experiência Anterior</div>
+      <h2 class="pane-title">O que já foi testado? 🔬</h2>
+      <p class="pane-sub">Histórico é ouro. Vamos usar o que funcionou e corrigir o que não funcionou.</p>
 
       <div class="field">
-        <label>Observações finais <span class="opt-tag">(opcional)</span></label>
-        <textarea id="f_obs" style="min-height:150px;" placeholder="Ex: Tenho parceria com outros advogados, já tentei gestão antes e não deu certo por X razão, meu diferencial é Y, preciso de resultado urgente..."></textarea>
-        <div class="ccount"><span id="cc_obs">0</span>/1000</div>
+        <label>Já rodou tráfego pago antes? <span class="req">*</span></label>
+        <div class="choices col2">
+          <input type="radio" name="trafego" id="tr1" value="Sim" class="ci" onchange="toggleTrafego(true)">
+          <label for="tr1" class="cl"><span class="cico">✅</span><div class="ctxt"><strong>Sim, já rodei</strong></div><div class="chk"></div></label>
+          <input type="radio" name="trafego" id="tr2" value="Não" class="ci" onchange="toggleTrafego(false)">
+          <label for="tr2" class="cl"><span class="cico">🆕</span><div class="ctxt"><strong>Nunca rodei</strong></div><div class="chk"></div></label>
+        </div>
+
+        <div class="callout" id="tr_callout">
+          <div class="callout-title">📊 Conte sobre seus resultados anteriores:</div>
+          <textarea id="f_tr_det" placeholder="Ex: Rodei por 3 meses no Facebook com R$1.500/mês. Gerei ~80 leads mas fechei apenas 2 contratos. O custo por lead era R$56. Não tinha follow-up estruturado..."></textarea>
+        </div>
+
+        <div class="emsg" id="e_tr">Selecione uma opção.</div>
+      </div>
+
+      <div class="field">
+        <label>Qual foi o resultado geral dos seus esforços de marketing até hoje? <span class="opt-tag">(opcional)</span></label>
+        <textarea id="f_resultado" placeholder="Ex: Maioria dos clientes vem por indicação, já tentei impulsionar posts mas sem resultado consistente..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Já perdeu cliente por demora na resposta? <span class="req">*</span></label>
+        <div class="choices col2">
+          <input type="radio" name="demora" id="dm1" value="Sim, acontece com frequência" class="ci">
+          <label for="dm1" class="cl"><span class="cico">😬</span><div class="ctxt"><strong>Sim, com frequência</strong><small>É um problema real</small></div><div class="chk"></div></label>
+          <input type="radio" name="demora" id="dm2" value="Sim, já aconteceu algumas vezes" class="ci">
+          <label for="dm2" class="cl"><span class="cico">😕</span><div class="ctxt"><strong>Já aconteceu</strong><small>Algumas vezes</small></div><div class="chk"></div></label>
+          <input type="radio" name="demora" id="dm3" value="Raramente / Nunca" class="ci">
+          <label for="dm3" class="cl"><span class="cico">✅</span><div class="ctxt"><strong>Raramente / Nunca</strong><small>Tenho bom tempo de resposta</small></div><div class="chk"></div></label>
+          <input type="radio" name="demora" id="dm4" value="Não sei mensurar" class="ci">
+          <label for="dm4" class="cl"><span class="cico">❓</span><div class="ctxt"><strong>Não sei mensurar</strong></div><div class="chk"></div></label>
+        </div>
+        <div class="emsg" id="e_dm">Selecione uma opção.</div>
       </div>
 
       <div class="nav">
         <button class="btn btn-g" onclick="goTo(5)">← Voltar</button>
+        <button class="btn btn-p" onclick="next(6)">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ETAPA 7 — F) METAS ════ -->
+  <div id="pane-7" class="pane">
+    <div class="card">
+      <div class="step-badge">✦ Etapa 7 de 7 · Metas</div>
+      <h2 class="pane-title">Onde você quer chegar? 🏆</h2>
+      <p class="pane-sub">Última etapa! Defina suas metas para construirmos a rota de crescimento exata.</p>
+
+      <div class="g2col">
+        <div class="field">
+          <label>Contratos que deseja fechar por mês <span class="req">*</span></label>
+          <input id="f_contratos" type="text" placeholder="Ex: 10 contratos/mês" oninput="clrE('f_contratos','e_contratos')">
+          <div class="emsg" id="e_contratos">Informe a meta de contratos.</div>
+        </div>
+        <div class="field">
+          <label>Meta de faturamento mensal <span class="req">*</span></label>
+          <input id="f_fat" type="text" placeholder="Ex: R$ 30.000/mês" oninput="clrE('f_fat','e_fat')">
+          <div class="emsg" id="e_fat">Informe a meta de faturamento.</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Como prefere começar? <span class="req">*</span></label>
+        <div class="choices">
+          <input type="radio" name="estrat" id="es1" value="Validar primeiro" class="ci">
+          <label for="es1" class="cl">
+            <span class="cico">🧪</span>
+            <div class="ctxt"><strong>Validar primeiro — testar minha oferta antes de investir pesado</strong><small>Quero saber o que funciona antes de escalar</small></div>
+            <div class="chk"></div>
+          </label>
+          <input type="radio" name="estrat" id="es2" value="Escalar direto" class="ci">
+          <label for="es2" class="cl">
+            <span class="cico">🚀</span>
+            <div class="ctxt"><strong>Escalar direto — já sei o que funciona, quero acelerar</strong><small>Oferta validada, hora de colocar o pé no acelerador</small></div>
+            <div class="chk"></div>
+          </label>
+          <input type="radio" name="estrat" id="es3" value="Preciso de orientação" class="ci">
+          <label for="es3" class="cl">
+            <span class="cico">🧭</span>
+            <div class="ctxt"><strong>Não tenho certeza — me orienta no melhor caminho</strong><small>Preciso de uma recomendação especializada</small></div>
+            <div class="chk"></div>
+          </label>
+        </div>
+        <div class="emsg" id="e_es">Selecione uma opção.</div>
+      </div>
+
+      <div class="field">
+        <label>Alguma observação final? <span class="opt-tag">(opcional)</span></label>
+        <textarea id="f_obs" style="min-height:100px;" placeholder="Ex: Tenho parceria com outros advogados, já tentei gestão antes sem sucesso, meu diferencial é X, preciso de resultado urgente..." oninput="cnt(this,'cc_obs',1000)"></textarea>
+        <div class="ccount"><span id="cc_obs">0</span>/1000</div>
+      </div>
+
+      <div class="nav">
+        <button class="btn btn-g" onclick="goTo(6)">← Voltar</button>
         <button class="btn btn-p" id="btn_sub" onclick="submitForm()">
           <span id="sub_txt">🚀 Enviar Planejamento</span>
           <div class="spin" id="sub_spin"></div>
@@ -575,6 +647,7 @@ for(let i=0;i<90;i++)pts.push(new Pt());
 (function loop(){cx.clearRect(0,0,W,H);pts.forEach(p=>{p.tick();p.draw();});requestAnimationFrame(loop);})();
 
 /* ─── NAV ─── */
+const TOTAL=7;
 let cur=0;
 function goTo(n){
   document.querySelectorAll('.pane').forEach(p=>p.classList.remove('show'));
@@ -587,9 +660,8 @@ function goTo(n){
     const el=document.getElementById('pane-'+n);
     el.classList.remove('show');void el.offsetWidth;el.classList.add('show');
     document.getElementById('dots').style.display='flex';
-    for(let i=1;i<=6;i++){const d=document.getElementById('d'+i);d.className='dot'+(i===n?' active':i<n?' done':'');}
-    document.getElementById('pbar').style.width=Math.round(n/6*100)+'%';
-    // fire ViewContent on each step
+    for(let i=1;i<=TOTAL;i++){const d=document.getElementById('d'+i);d.className='dot'+(i===n?' active':i<n?' done':'');}
+    document.getElementById('pbar').style.width=Math.round(n/TOTAL*100)+'%';
     if(typeof fbq!=='undefined') fbq('track','ViewContent',{content_name:'Etapa '+n});
     if(typeof gtag!=='undefined') gtag('event','view_content',{step:n});
   }
@@ -603,6 +675,19 @@ function toggleTrafego(show){
   document.getElementById('tr_callout').style.display=show?'block':'none';
 }
 
+/* ─── CRIMINAL ALERT ─── */
+document.querySelectorAll('input[name="area"]').forEach(r=>{
+  r.addEventListener('change',function(){
+    const isCriminal=this.value==='Criminal';
+    document.getElementById('criminal_alert').style.display=isCriminal?'flex':'none';
+    document.getElementById('criminal_aware_wrap').style.display=isCriminal?'grid':'none';
+    // make criminal_aware required only if criminal is selected
+    document.getElementById('criminal_aware_wrap').dataset.required=isCriminal?'1':'0';
+  });
+});
+// init
+document.getElementById('criminal_aware_wrap').style.display='none';
+
 /* ─── VALIDATE ─── */
 function validate(p){
   let ok=true;
@@ -615,11 +700,24 @@ function validate(p){
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('f_em').value)){document.getElementById('f_em').classList.add('err');document.getElementById('e_em').classList.add('on');ok=false;}
     req('f_ig','e_ig');
   }
-  if(p===2){req('f_teses','e_teses');req('f_pct','e_pct');req('f_dor','e_dor');}
-  if(p===3){radio('criativos','e_cr');radio('funil','e_fn');radio('trafego','e_tr');radio('bm','e_bm');}
-  if(p===4){req('f_ci','e_ci',20);req('f_prob','e_prob');req('f_gat','e_gat');}
-  if(p===5){radio('invest','e_iv');req('f_obj','e_obj');radio('estrat','e_es');}
-  // p===6 é opcional, sem validação
+  if(p===2){
+    radio('area','e_area');
+    req('f_caso','e_caso');
+    radio('cobranca','e_cb');
+    req('f_ticket_med','e_ticket_med');
+  }
+  if(p===3){
+    radio('invest','e_iv');
+    // validate criminal_aware only if criminal is selected
+    const isCriminal=document.querySelector('input[name="area"]:checked')?.value==='Criminal';
+    if(isCriminal && !document.querySelector('input[name="criminal_aware"]:checked')){
+      document.getElementById('e_ca').classList.add('on');ok=false;
+    }
+  }
+  if(p===4){radio('equipe','e_eq');radio('orient','e_or');radio('ligacao','e_li');radio('video','e_vi');}
+  if(p===5){req('f_dif','e_dif',10);radio('atend','e_at');req('f_estados','e_estados');}
+  if(p===6){radio('trafego','e_tr');radio('demora','e_dm');}
+  if(p===7){req('f_contratos','e_contratos');req('f_fat','e_fat');radio('estrat','e_es');}
   if(!ok){const el=document.getElementById('pane-'+p);el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');setTimeout(()=>el.classList.remove('shake'),400);}
   return ok;
 }
@@ -637,33 +735,41 @@ function submitForm(){
   const wpRaw='55'+document.getElementById('f_wp').value.replace(/\D/g,'');
 
   const data={
-    nome:       document.getElementById('f_nome').value,
-    wp:         wpRaw,
-    email:      document.getElementById('f_em').value,
-    instagram:  document.getElementById('f_ig').value,
-    teses:      document.getElementById('f_teses').value,
-    pct:        document.getElementById('f_pct').value,
-    ticket:     document.getElementById('f_ticket').value,
-    sucumb:     document.getElementById('f_sucumb').value,
-    dor:        document.getElementById('f_dor').value,
-    criativos:  document.querySelector('input[name="criativos"]:checked')?.value,
-    funil:      document.querySelector('input[name="funil"]:checked')?.value,
-    trafego:    document.querySelector('input[name="trafego"]:checked')?.value,
-    trafego_det:document.getElementById('f_tr_det').value,
-    bm:         document.querySelector('input[name="bm"]:checked')?.value,
-    ci:         document.getElementById('f_ci').value,
-    idade_genero:document.getElementById('f_idade').value,
-    regiao:     document.getElementById('f_reg').value,
-    prob:       document.getElementById('f_prob').value,
-    gatilho:    document.getElementById('f_gat').value,
-    invest:     document.querySelector('input[name="invest"]:checked')?.value,
-    objetivo:   document.getElementById('f_obj').value,
-    estrat:     document.querySelector('input[name="estrat"]:checked')?.value,
-    obs:        document.getElementById('f_obs').value,
-    ts:         new Date().toLocaleString('pt-BR')
+    nome:           document.getElementById('f_nome').value,
+    wp:             wpRaw,
+    email:          document.getElementById('f_em').value,
+    instagram:      document.getElementById('f_ig').value,
+    // Seção A
+    area_juridica:  document.querySelector('input[name="area"]:checked')?.value,
+    tipo_caso:      document.getElementById('f_caso').value,
+    modelo_cobranca:document.querySelector('input[name="cobranca"]:checked')?.value,
+    ticket_medio:   document.getElementById('f_ticket_med').value,
+    ticket_maximo:  document.getElementById('f_ticket_max').value,
+    // Seção B
+    investimento:   document.querySelector('input[name="invest"]:checked')?.value,
+    criminal_aware: document.querySelector('input[name="criminal_aware"]:checked')?.value||'N/A',
+    // Seção C
+    equipe:         document.querySelector('input[name="equipe"]:checked')?.value,
+    orientacao:     document.querySelector('input[name="orient"]:checked')?.value,
+    ligacao:        document.querySelector('input[name="ligacao"]:checked')?.value,
+    video:          document.querySelector('input[name="video"]:checked')?.value,
+    // Seção D
+    diferencial:    document.getElementById('f_dif').value,
+    atendimento:    document.querySelector('input[name="atend"]:checked')?.value,
+    estados:        document.getElementById('f_estados').value,
+    // Seção E
+    trafego:        document.querySelector('input[name="trafego"]:checked')?.value,
+    trafego_det:    document.getElementById('f_tr_det').value,
+    resultado:      document.getElementById('f_resultado').value,
+    demora_resposta:document.querySelector('input[name="demora"]:checked')?.value,
+    // Seção F
+    meta_contratos: document.getElementById('f_contratos').value,
+    meta_fat:       document.getElementById('f_fat').value,
+    estrategia:     document.querySelector('input[name="estrat"]:checked')?.value,
+    obs:            document.getElementById('f_obs').value,
+    ts:             new Date().toLocaleString('pt-BR')
   };
 
-  // Pixels — Lead event
   if(typeof fbq!=='undefined') fbq('track','Lead',{content_name:'Planejamento Estratégico'});
   if(typeof gtag!=='undefined') gtag('event','generate_lead',{currency:'BRL'});
 
@@ -689,7 +795,6 @@ function showOk(){
 /* ─── HELPERS ─── */
 function maskTel(inp){let v=inp.value.replace(/\D/g,'').substring(0,11);if(v.length>10)v=v.replace(/^(\d{2})(\d{5})(\d{4})$/,'($1) $2-$3');else if(v.length>6)v=v.replace(/^(\d{2})(\d{4})(\d*)$/,'($1) $2-$3');else if(v.length>2)v=v.replace(/^(\d{2})(\d*)$/,'($1) $2');inp.value=v;}
 function cnt(el,cid,max){if(el.value.length>max)el.value=el.value.slice(0,max);document.getElementById(cid).textContent=el.value.length;}
-document.getElementById('f_obs').addEventListener('input',function(){cnt(this,'cc_obs',1000);});
 function spawn(icons){icons.forEach((ic,i)=>{setTimeout(()=>{const el=document.createElement('span');el.className='floater';el.textContent=ic;el.style.cssText='left:'+(25+Math.random()*50)+'%;top:'+(50+Math.random()*30)+'%;font-size:'+(17+Math.random()*12)+'px;';document.body.appendChild(el);setTimeout(()=>el.remove(),1200);},i*110);});}
 function confetti(){const ic=['🎉','🚀','⚡','💎','🔥','🎯','✨','💪','🏆'];for(let i=0;i<14;i++){setTimeout(()=>{const el=document.createElement('span');el.className='floater';el.textContent=ic[Math.floor(Math.random()*ic.length)];el.style.cssText='left:'+(5+Math.random()*90)+'%;top:'+(20+Math.random()*60)+'%;font-size:'+(16+Math.random()*18)+'px;';document.body.appendChild(el);setTimeout(()=>el.remove(),1300);},i*70);}}
 </script>
