@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanx IA | SCI - Sistema de Captação Inteligente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Google Analytics 4 (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-98EL5GXG5F');
+    </script>
+
+    <!-- Facebook Pixel -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '502759528362336');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/>
+    </noscript>
+
+    <style>
+        :root {
+            --bg: #000000;
+            --text: #ffffff;
+            --ui-border: #262626;
+            --status-green: #00ff41;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .mono { font-family: 'Space Mono', monospace; }
+
+        .tech-grid {
+            background-image: 
+                linear-gradient(to right, #0d0d0d 1px, transparent 1px),
+                linear-gradient(to bottom, #0d0d0d 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bento-card {
+            border: 1px solid var(--ui-border);
+            background: #030303;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--status-green);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 12px var(--status-green);
+            margin-right: 10px;
+        }
+
+        .btn-highlight {
+            background: #ffffff;
+            color: #000000;
+            padding: 1.5rem 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 2px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 500px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-highlight:hover {
+            background: #e5e5e5;
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+        }
+
+        .price-card {
+            border: 2px solid white;
+            padding: 3rem;
+            background: #000;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #050505;
+            border: 1px solid #333;
+            width: 100%;
+            max-width: 550px;
+            padding: 40px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .form-input {
+            width: 100%;
+            background: #000;
+            border: 1px solid #333;
+            padding: 14px 16px;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border-radius: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #aaa;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .hero-image-container {
+            width: 100%;
+            border: 1px solid var(--ui-border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            background: #050505;
+            position: relative;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        #phone-warning {
+            color: var(--status-green);
+            font-size: 11px;
+            text-transform: uppercase;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            display: none;
+            font-weight: bold;
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #333; }
+    </style>
+</head>
+<body class="tech-grid">
+
+    <!-- Modal Form -->
+    <div id="modal-overlay">
+        <div class="modal-content bento-card">
+            <button onclick="closeModal()" class="absolute top-5 right-5 text-white/40 hover:text-white mono text-xs uppercase tracking-widest">Fechar [X]</button>
+            <h3 class="text-3xl font-black mb-8 tracking-tighter uppercase">AGENDAR DEMONSTRAÇÃO</h3>
+            
+            <form id="sci-form">
+                <label class="form-label" for="fullname">Nome Completo</label>
+                <input type="text" id="fullname" name="Nome Completo" class="form-input" placeholder="Seu nome" required>
+
+                <label class="form-label" for="phone">WhatsApp</label>
+                <input type="text" id="phone" name="WhatsApp" class="form-input" placeholder="(00) 00000-0000" maxlength="15" required>
+                <div id="phone-warning" class="mono">✓ Por favor, confira o telefone digitado.</div>
+
+                <label class="form-label" for="tese">Tese de Atuação Principal</label>
+                <select id="tese" name="Tese de Atuação Principal" class="form-input" required>
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="Trabalhista">Trabalhista</option>
+                    <option value="Previdenciário">Previdenciário</option>
+                    <option value="Bancário">Bancário</option>
+                    <option value="Civil">Civil</option>
+                    <option value="Criminal">Criminal</option>
+                    <option value="Tributário">Tributário</option>
+                    <option value="Empresarial">Empresarial</option>
+                    <option value="DPA">DPA</option>
+                    <option value="Família">Família</option>
+                    <option value="Outros">Outros</option>
+                </select>
+
+                <label class="form-label" for="faturamento">Faturamento Médio Mensal</label>
+                <select id="faturamento" name="Faturamento Médio Mensal" class="form-input" required>
+                    <option value="" disabled selected>Selecione uma faixa</option>
+                    <option value="0 a 10 mil">0 a 10 mil</option>
+                    <option value="10 a 20 mil">10 a 20 mil</option>
+                    <option value="20 a 50 mil">20 a 50 mil</option>
+                    <option value="50 a 100 mil">50 a 100 mil</option>
+                    <option value="100 a 500 mil">100 a 500 mil</option>
+                    <option value="500 mil a 1mm">500 mil a 1mm</option>
+                    <option value="mais de 1 mm">Mais de 1 mm</option>
+                </select>
+
+                <label class="form-label" for="prazo">Quando você pretende resolver esse problema?</label>
+                <select id="prazo" name="Quando você pretende resolver esse problema?" class="form-input" required>
+                    <option value="" disabled selected>Selecione um prazo</option>
+                    <option value="O quanto antes">O quanto antes</option>
+                    <option value="Em até 30d">Em até 30d</option>
+                    <option value="Ainda não sei">Ainda não sei</option>
+                </select>
+
+                <button type="submit" id="submit-btn" class="btn-highlight mt-4" style="max-width: 100%; padding: 1.25rem;">
+                    ENTRAR EM CONTATO
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Seção 1: O Problema do Emprego Caro -->
+    <section class="min-h-screen flex flex-col justify-center px-6 lg:px-24 relative overflow-hidden">
+        <div class="absolute top-10 left-6 lg:left-24 flex items-center gap-3 mono text-[11px] text-white/50 uppercase tracking-[0.4em]">
+            <div class="status-pulse"></div> 
+            PROTOCOL_00_DIAGNOSIS
+        </div>
+
+        <div class="max-w-7xl relative z-20">
+            <div class="reveal">
+                <h1 class="text-5xl md:text-7xl lg:text-[7.5rem] font-extrabold tracking-tighter leading-none mb-12 uppercase">
+                    VOCÊ NÃO TEM <br> UM ESCRITÓRIO.
+                </h1>
+                <div class="text-2xl lg:text-5xl font-light text-white/80 tracking-tight mb-16 space-y-4 leading-tight">
+                    <p class="font-black italic uppercase">VOCÊ TEM UM EMPREGO CARO COM OAB.</p>
+                    <p class="text-white/40 text-xl lg:text-3xl">Se você parar por 7 dias, o faturamento para junto.</p>
+                </div>
+            </div>
+
+            <div class="reveal delay-200 border-l-2 border-white/20 pl-8 mt-12">
+                <p class="text-2xl lg:text-4xl text-white font-bold tracking-tight mb-4">Isso não é empresa. É dependência.</p>
+                <p class="text-white/60 text-xl italic leading-relaxed">
+                    Enquanto você responde manualmente, explica tese no WhatsApp e tenta organizar planilha… outros escritórios já operam com um sistema completo.
+                </p>
+                <p class="text-white/40 text-lg uppercase tracking-widest mt-4">Não apenas atendimento. Sistema.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 2: SCI e os Módulos -->
+    <section class="py-32 px-6 lg:px-24 border-t border-white/10 bg-[#030303]">
+        <div class="max-w-7xl mx-auto">
+            <div class="reveal mb-24">
+                <div class="hero-image-container">
+                    <div class="absolute top-4 right-4 bg-black/80 border border-white/20 text-[10px] mono p-2">RAFAEL_ADVANX // FOUNDER</div>
+                    <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/rafaeladvanxhorizontal.webp" alt="Rafael Advanx">
+                </div>
+                
+                <h2 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-10 leading-tight uppercase tracking-tighter">
+                    ENQUANTO VOCÊ TENTA FECHAR, <br>
+                    <span class="opacity-30">OUTROS JÁ CAPTAM, FILTRAM E CONVERTEM.</span>
+                </h2>
+                <div class="text-white/70 text-xl lg:text-2xl leading-relaxed italic mb-16 max-w-4xl">
+                    O SCI — Sistema de Captação Inteligente da Advanx IA — não é um chatbot. É uma estrutura completa que:
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div class="bento-card p-8 min-h-[140px] flex flex-col justify-center border-white/10"><p class="font-bold text-base uppercase tracking-wider text-white">Capta clientes</p></div>
+                    <div class="bento-card p-8 min-h-[140px] flex flex-col justify-center border-white/10"><p class="font-bold text-base uppercase tracking-wider text-white">Atende automaticamente</p></div>
+                    <div class="bento-card p-8 min-h-[140px] flex flex-col justify-center border-white/10"><p class="font-bold text-base uppercase tracking-wider text-white">Qualifica por tese</p></div>
+                    <div class="bento-card p-8 min-h-[140px] flex flex-col justify-center border-white/10"><p class="font-bold text-base uppercase tracking-wider text-white">Calcula viabilidade</p></div>
+                    <div class="bento-card p-8 min-h-[140px] flex flex-col justify-center border-white/10"><p class="font-bold text-base uppercase tracking-wider text-white">Filtra desqualificados</p></div>
+                    <div class="bento-card p-8 min-h-[140px] flex flex-col justify-center border-white/10"><p class="font-bold text-base uppercase tracking-wider text-white">Executa follow-up</p></div>
+                    <div class="bento-card p-8 min-h-[140px] flex flex-col justify-center border-white/10"><p class="font-bold text-base uppercase tracking-wider text-white">Apresenta contrato</p></div>
+                    <div class="bento-card p-8 min-h-[140px] flex flex-col justify-center border-white/10"><p class="font-bold text-base uppercase tracking-wider text-white">Organiza CRM</p></div>
+                    <div class="bento-card p-8 min-h-[140px] flex flex-col justify-center border-white/10"><p class="font-bold text-base uppercase tracking-wider text-white">Controla metas</p></div>
+                    <div class="bento-card p-8 min-h-[140px] flex flex-col justify-center border-white/10"><p class="font-bold text-base uppercase tracking-wider text-white">Gerencia pipeline</p></div>
+                </div>
+                <p class="mt-12 text-center mono text-[12px] uppercase tracking-[0.5em] text-white/40 italic">Tudo integrado. Tudo funcionando junto. Sem improviso.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 3: O que muda na prática -->
+    <section class="py-32 px-6 lg:px-24 bg-black">
+        <div class="max-w-5xl mx-auto reveal">
+            <h2 class="text-4xl lg:text-6xl font-black mb-16 tracking-tighter uppercase underline decoration-white/20 underline-offset-[15px]">O QUE MUDA NA PRÁTICA?</h2>
+            <div class="space-y-12 text-xl lg:text-3xl font-light text-white/80 leading-relaxed">
+                <p>Você não depende só de indicação. Você não depende só de tráfego mal estruturado.</p>
+                <p>Você não depende da secretária. <span class="text-white font-black underline decoration-white/30 underline-offset-8">Você não depende de você.</span></p>
+                <div class="border-y border-white/10 py-12 mt-12">
+                    <p class="text-white font-bold leading-snug">O sistema gera oportunidades, organiza o comercial e transforma conversa em contrato. Enquanto você fala apenas com quem realmente tem potencial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 4: O Problema Real -->
+    <section class="py-32 px-6 lg:px-24 bg-[#050505] border-y border-white/10">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20">
+            <div class="reveal text-left">
+                <h2 class="text-4xl font-black mb-10 tracking-tighter uppercase leading-tight">O PROBLEMA NUNCA FOI FALTA DE CLIENTE.</h2>
+                <div class="space-y-6 text-white/70 text-lg lg:text-xl leading-relaxed">
+                    <p>Você já investiu. Já contratou agência. Já fez tráfego. Já testou gestor.</p>
+                    <p class="font-bold text-white text-2xl uppercase tracking-tighter">E mesmo assim:</p>
+                    <ul class="space-y-4 opacity-80 text-xl font-light">
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-white rounded-full"></span> Conversão de 1% a 3%.</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-white rounded-full"></span> Leads curiosos.</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-white rounded-full"></span> Desorganização.</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-white rounded-full"></span> Meses instáveis.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="reveal delay-200 flex flex-col justify-center">
+                <p class="text-2xl lg:text-3xl font-bold mb-8 leading-snug">O que faltava era integrar tudo em um único sistema.</p>
+                <div class="grid grid-cols-2 gap-4 mono text-[11px] uppercase tracking-[0.2em] font-bold">
+                    <div class="border border-white/20 p-6 text-center bg-white/5">Captação</div>
+                    <div class="border border-white/20 p-6 text-center bg-white/5">Atendimento</div>
+                    <div class="border border-white/20 p-6 text-center bg-white/5">Qualificação</div>
+                    <div class="border border-white/20 p-6 text-center bg-white/5">Gestão</div>
+                </div>
+                <p class="mt-8 text-white/40 uppercase text-xs tracking-widest text-center">Sem fragmentação.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 5: Estatística e Garantia -->
+    <section class="py-40 px-6 lg:px-24 text-center">
+        <div class="reveal mb-32">
+            <h2 class="text-4xl lg:text-7xl font-black mb-12 tracking-tighter uppercase">A DIFERENÇA ESTÁ NA ESTRUTURA.</h2>
+            <p class="text-2xl lg:text-4xl text-white/70 max-w-4xl mx-auto font-light leading-snug italic">
+                Escritórios estruturados fecham entre <span class="text-white font-black underline decoration-white/30">15% e 20%</span> dos leads qualificados. <br><br>
+                Não é promessa. É consequência de processo organizado.
+            </p>
+        </div>
+
+        <div class="reveal bento-card max-w-4xl mx-auto p-16 border-white/30 bg-[#080808] shadow-2xl shadow-white/5">
+            <p class="mono text-[13px] text-status-green mb-8 tracking-[0.5em] font-black uppercase">DIFERENCIAL_ESTRATÉGICO</p>
+            <h3 class="text-3xl lg:text-5xl font-black mb-10 italic leading-tight uppercase tracking-tighter">
+                E AQUI ESTÁ O DIFERENCIAL QUE DEFINE TUDO.
+            </h3>
+            <p class="text-2xl lg:text-4xl font-light mb-12 text-white/80 leading-relaxed">
+                Se em até <span class="text-white font-black">41 dias</span> o SCI não gerar contratos fechados, você fica isento da mensalidade.
+            </p>
+            <p class="text-[12px] uppercase tracking-[0.4em] font-bold text-white/40">Sem contrato. Sem cobrança. Simples.</p>
+        </div>
+    </section>
+
+    <!-- Seção 6: Investimento -->
+    <section class="py-32 px-6 lg:px-24 border-t border-white/10 bg-[#030303]">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="reveal">
+                <h2 class="text-5xl lg:text-[6rem] font-black mb-16 tracking-tighter uppercase leading-none">INVESTIMENTO</h2>
+                <div class="price-card mb-12">
+                    <p class="mono text-[11px] text-white/50 mb-8 uppercase tracking-[0.6em] font-bold">Implementação SCI</p>
+                    <div class="text-5xl md:text-7xl lg:text-[8rem] font-black mb-6 tracking-tighter leading-none">R$497 <span class="text-2xl font-light text-white/40 px-4 italic">até</span> R$2.997</div>
+                    <p class="text-xl md:text-2xl text-white font-black uppercase tracking-[0.3em] mb-4">+ TAXA DE IMPLEMENTAÇÃO</p>
+                    <p class="text-sm opacity-50 uppercase tracking-widest leading-relaxed max-w-lg mx-auto italic">Valor mensal conforme o nível de estrutura e volume do escritório.</p>
+                </div>
+            </div>
+
+            <!-- Botão de Agendamento (Sessão abaixo do preço) -->
+            <div class="reveal mt-16 flex flex-col items-center">
+                <button onclick="openModal()" class="btn-highlight">
+                    AGENDAR DEMONSTRAÇÃO
+                </button>
+                <p class="mt-8 text-white/30 mono text-[10px] uppercase tracking-[0.4em]">Protocolo de segurança Advanx IA</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 7: Decisão (A copy final completa) -->
+    <section class="py-40 px-6 lg:px-24 bg-white text-black text-center">
+        <div class="max-w-5xl mx-auto reveal">
+            <h2 class="text-6xl lg:text-[9rem] font-black mb-12 tracking-tighter uppercase leading-none">DECISÃO</h2>
+            <div class="space-y-12 mb-20">
+                <p class="text-xl lg:text-3xl font-light leading-relaxed max-w-4xl mx-auto">
+                    Você pode continuar com captação de um lado, atendimento do outro, CRM separado, planilha perdida, e comercial improvisado. 
+                    Ou pode centralizar tudo em um <span class="font-black">único sistema inteligente.</span>
+                </p>
+                <p class="text-2xl lg:text-4xl font-black uppercase tracking-tighter">Se chegou até aqui, você já sabe que precisa estruturar.</p>
+            </div>
+            
+            <div class="text-left space-y-8 text-lg lg:text-xl border-t border-black/10 pt-16 max-w-4xl mx-auto">
+                <p>Preencha o formulário. Entenda como o SCI pode assumir a captação, o atendimento e a gestão do seu escritório.</p>
+                <p class="font-black uppercase tracking-tighter text-3xl lg:text-5xl leading-none">E decida se quer continuar dependendo de esforço… ou começar a operar com controle.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 px-6 lg:px-24 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-10 bg-black">
+        <div class="flex flex-col gap-2">
+            <div class="text-base font-black tracking-[0.4em] uppercase">ADVANX IA</div>
+            <p class="mono text-[10px] text-white/40 uppercase tracking-widest">Sistemas de Alta Performance Jurídica</p>
+        </div>
+        <div class="text-[9px] text-white/20 mono tracking-widest">BUILD_2026.SCI_V5_FULL_COPY</div>
+    </footer>
+
+    <script>
+        const modal = document.getElementById('modal-overlay');
+        const phoneInput = document.getElementById('phone');
+        const phoneWarning = document.getElementById('phone-warning');
+        const sciForm = document.getElementById('sci-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        const TARGET_WHATSAPP = "5571982470873";
+        const WEBHOOK_URL = "https://n8n.advfunnel.com.br/webhook/e65f4834-6fe5-4201-b635-3dec9caef86c";
+
+        function openModal() {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Phone Masking
+        phoneInput.addEventListener('input', (e) => {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+            const rawValue = e.target.value.replace(/\D/g, '');
+            if (rawValue.length === 11) {
+                phoneWarning.style.display = 'block';
+            } else {
+                phoneWarning.style.display = 'none';
+            }
+        });
+
+        // Scroll Tracking
+        let scrolled50 = false;
+        window.onscroll = function() {
+            if (!scrolled50 && window.scrollY > (document.body.scrollHeight / 2)) {
+                fbq('track', 'ViewContent');
+                scrolled50 = true;
+            }
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Form Submit
+        sciForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(sciForm);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Analytics Logic
+            const faturamentoValue = data["Faturamento Médio Mensal"];
+            const prazoValue = data["Quando você pretende resolver esse problema?"];
+            
+            // Faturamento + de 10 mil logic
+            const faturamentoQualificado = (faturamentoValue !== "0 a 10 mil");
+            
+            if (faturamentoQualificado && prazoValue !== "Ainda não sei") {
+                fbq('track', 'Lead');
+                gtag('event', 'generate_lead');
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "ENVIANDO DADOS...";
+
+            try {
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            } catch (err) { console.error("Webhook Error:", err); }
+
+            // Countdown Logic
+            let count = 3;
+            const countdownInterval = setInterval(() => {
+                submitBtn.textContent = `REDIRECIONANDO EM ${count}...`;
+                count--;
+                if (count < 0) {
+                    clearInterval(countdownInterval);
+                    redirectToWhatsApp(data);
+                }
+            }, 1000);
+        });
+
+        function redirectToWhatsApp(data) {
+            const name = data["Nome Completo"];
+            const tese = data["Tese de Atuação Principal"];
+            const faturamento = data["Faturamento Médio Mensal"];
+            const prazo = data["Quando você pretende resolver esse problema?"];
+            const zap = data["WhatsApp"];
+
+            const message = `Olá! Acabei de preencher o formulário no site Advanx.\n\n` +
+                            `*Nome:* ${name}\n` +
+                            `*WhatsApp:* ${zap}\n` +
+                            `*Tese:* ${tese}\n` +
+                            `*Faturamento:* ${faturamento}\n` +
+                            `*Prazo:* ${prazo}`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.location.href = `https://wa.me/${TARGET_WHATSAPP}?text=${encodedMessage}`;
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+    </script>
+</body>
+</html>
