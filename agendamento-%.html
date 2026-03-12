@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado do Diagnóstico - Advanx IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        .brand-text {
+            color: #ff7a01;
+        }
+        .brand-bg {
+            background-color: #ff7a01;
+        }
+        .brand-border {
+            border-color: #ff7a01;
+        }
+        #my-cal-inline-sic {
+            min-height: 700px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="text-gray-900 antialiased">
+
+    <!-- Header / Logo Area -->
+    <header class="bg-white border-b border-gray-200 py-6">
+        <div class="max-w-5xl mx-auto px-4 flex justify-center md:justify-start">
+            <div class="text-2xl font-bold brand-text tracking-tight">
+                ADVANX <span class="text-gray-800">IA</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-12">
+        <!-- Content Section -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12 mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold mb-6 text-gray-800 leading-tight">
+                Resultado do <span class="brand-text">Diagnóstico</span>
+            </h1>
+            
+            <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                Com base nas suas respostas, identificamos que seu escritório possui <strong>potencial para aumentar o número de reuniões e novos contratos</strong> ao estruturar melhor o processo de captação e atendimento.
+            </p>
+
+            <div class="bg-orange-50 rounded-xl p-6 mb-8 border-l-4 brand-border">
+                <p class="text-gray-800 font-medium mb-4">
+                    Alguns escritórios em cenário semelhante começaram a implementar soluções de <strong>Inteligência Artificial da Advanx IA</strong>, que combinam:
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 brand-text mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span class="text-gray-700">Captação estratégica de novos clientes</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 brand-text mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span class="text-gray-700">Atendimento automatizado com IA</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 brand-text mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span class="text-gray-700">Organização do funil comercial do escritório</span>
+                    </li>
+                </ul>
+            </div>
+
+            <p class="text-lg text-gray-700 mb-2">
+                Esse modelo tem ajudado escritórios a aumentar significativamente o número de reuniões com potenciais clientes qualificados.
+            </p>
+            <p class="text-gray-500 italic">
+                Agende uma conversa abaixo para entendermos como aplicar essas soluções no seu negócio:
+            </p>
+        </div>
+
+        <!-- Cal inline embed section -->
+        <div class="relative">
+            <div id="my-cal-inline-sic"></div>
+        </div>
+    </main>
+
+    <footer class="py-10 text-center text-gray-400 text-sm">
+        <p>&copy; 2024 Advanx IA. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Cal inline embed code begins -->
+    <script type="text/javascript">
+      (function (C, A, L) { 
+        let p = function (a, ar) { a.q.push(ar); }; 
+        let d = C.document; 
+        C.Cal = C.Cal || function () { 
+            let cal = C.Cal; 
+            let ar = arguments; 
+            if (!cal.loaded) { 
+                cal.ns = {}; 
+                cal.q = cal.q || []; 
+                d.head.appendChild(d.createElement("script")).src = A; 
+                cal.loaded = true; 
+            } 
+            if (ar[0] === L) { 
+                const api = function () { p(api, arguments); }; 
+                const namespace = ar[1]; 
+                api.q = api.q || []; 
+                if(typeof namespace === "string"){
+                    cal.ns[namespace] = cal.ns[namespace] || api;
+                    p(cal.ns[namespace], ar);
+                    p(cal, ["initNamespace", namespace]);
+                } else p(cal, ar); 
+                return;
+            } 
+            p(cal, ar); 
+        }; 
+      })(window, "https://app.cal.com/embed/embed.js", "init");
+
+      Cal("init", "sic", {origin:"https://app.cal.com"});
+
+      Cal.ns.sic("inline", {
+        elementOrSelector:"#my-cal-inline-sic",
+        config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+        calLink: "advanx/sic",
+      });
+
+      Cal.ns.sic("ui", {
+        "cssVarsPerTheme":{
+            "light":{"cal-brand":"#ff7a01"},
+            "dark":{"cal-brand":"#ff7a01"}
+        },
+        "hideEventTypeDetails":false,
+        "layout":"month_view"
+      });
+    </script>
+    <!-- Cal inline embed code ends -->
+
+</body>
+</html>
