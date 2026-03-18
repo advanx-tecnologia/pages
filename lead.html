@@ -16,7 +16,7 @@
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .select-none {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -42,7 +42,7 @@
         const Icon = ({ name, size = 18, color = "currentColor", className = "" }) => {
             useEffect(() => {
                 if (window.lucide) window.lucide.createIcons();
-            }, [name]);
+            }, [name, size]);
             return <i data-lucide={name} style={{ width: size, height: size, color: color }} className={`inline-block ${className}`}></i>;
         };
 
@@ -80,15 +80,17 @@
                         fbq('init', PIXEL_ID);
                         fbq('track', 'PageView');
                     }
-                    const script = document.createElement('script');
-                    script.async = true;
-                    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-                    document.head.appendChild(script);
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag() { dataLayer.push(arguments); }
-                    window.gtag = gtag;
-                    gtag('js', new Date());
-                    gtag('config', GA_ID);
+                    if (!window.gtag) {
+                        const script = document.createElement('script');
+                        script.async = true;
+                        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+                        document.head.appendChild(script);
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag() { dataLayer.push(arguments); }
+                        window.gtag = gtag;
+                        gtag('js', new Date());
+                        gtag('config', GA_ID);
+                    }
                 };
                 insertTracking();
 
@@ -188,12 +190,12 @@
 
             return (
                 <div className="pb-10 overflow-x-hidden">
-                    <main className="max-w-[850px] mx-auto bg-white doc-shadow border border-gray-200 mt-0 md:mt-8 mb-10 p-6 md:p-20 transition-all duration-700">
+                    <main className="max-w-[850px] mx-auto bg-white doc-shadow border border-gray-200 mt-0 md:mt-8 mb-10 p-5 md:p-20 transition-all duration-700">
                         {/* Status Bar */}
-                        <div className="flex items-center justify-between mb-16 border-b border-gray-100 pb-4">
+                        <div className="flex items-center justify-between mb-12 md:mb-16 border-b border-gray-100 pb-4">
                             <div className="flex items-center gap-2">
                                 <div className="w-5 h-5 rounded-sm bg-[#FF7A01] flex items-center justify-center text-white font-bold text-[8px]">A</div>
-                                <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Advanx IA // Sistema de Captação Inteligente</span>
+                                <span className="text-gray-400 text-[9px] md:text-[10px] font-bold uppercase tracking-widest truncate max-w-[150px] md:max-w-none">Advanx IA // Sistema de Captação Inteligente</span>
                             </div>
                             <div className="flex items-center gap-1 text-gray-300 text-[9px] font-bold">
                                 <Icon name="lock" size={10} /> ACESSO RESTRITO
@@ -201,29 +203,29 @@
                         </div>
 
                         {/* Full Copy Section */}
-                        <article className="space-y-10 text-gray-900 leading-relaxed text-lg md:text-xl">
+                        <article className="space-y-8 md:space-y-10 text-gray-900 leading-relaxed text-base md:text-xl">
                             
-                            <header className="space-y-6">
-                                <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-tight uppercase">
+                            <header className="space-y-4 md:space-y-6">
+                                <h1 className="text-2xl md:text-5xl font-black tracking-tight leading-tight uppercase">
                                     SEM MENSALIDADE. <br/>
                                     <span style={{ color: BRAND_COLOR }}>PAGUE APENAS UMA % DOS RESULTADOS GERADOS.</span>
                                 </h1>
-                                <p className="text-xl md:text-2xl text-gray-500 font-medium">
+                                <p className="text-lg md:text-2xl text-gray-500 font-medium">
                                     Se não gera cliente, você não paga. <span className="text-gray-900 border-b-2" style={{ borderColor: BRAND_COLOR }}>Simples assim.</span>
                                 </p>
                             </header>
 
-                            <div className="w-full py-4">
+                            <div className="w-full py-2 md:py-4">
                                 <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/rafaeladvanxhorizontal.webp" className="w-full h-auto rounded-lg shadow-sm border border-gray-100" alt="Rafael Advanx" />
                             </div>
 
-                            <section className="space-y-6">
-                                <p className="font-black text-2xl md:text-3xl tracking-tight">Agora vamos encarar o que ninguém fala abertamente:</p>
+                            <section className="space-y-6 pt-4">
+                                <p className="font-black text-xl md:text-3xl tracking-tight">Agora vamos encarar o que ninguém fala abertamente:</p>
                                 <p>Você já pagou caro demais para gente que não tinha responsabilidade nenhuma pelo seu faturamento.</p>
                                 
-                                <div className="flex flex-wrap gap-2 py-4">
+                                <div className="flex flex-wrap gap-2 py-2">
                                     {['Agência', 'Gestor', 'Social media'].map(i => (
-                                        <div key={i} className="px-4 py-2 bg-red-50 text-red-700 border border-red-100 rounded-lg text-sm font-bold uppercase tracking-tighter">
+                                        <div key={i} className="px-3 py-1.5 bg-red-50 text-red-700 border border-red-100 rounded-lg text-xs font-bold uppercase tracking-tighter">
                                             {i}
                                         </div>
                                     ))}
@@ -231,32 +233,41 @@
 
                                 <p>Todos recebendo no fim do mês, <span className="underline decoration-red-300 underline-offset-4">independente do seu resultado.</span></p>
                                 <p>E você assumindo todo o risco.</p>
-                                <p className="text-2xl font-black text-red-600 italic leading-tight">Isso nunca foi parceria. Foi um acordo onde só um lado podia perder. E foi você.</p>
+                                <p className="text-xl md:text-2xl font-black text-red-600 italic leading-tight">Isso nunca foi parceria. Foi um acordo onde só um lado podia perder. E foi você.</p>
                             </section>
 
-                            <section ref={observerRef} className="space-y-6 pt-6">
-                                <h2 className="text-3xl font-black tracking-tight">Agora presta atenção nisso:</h2>
+                            <section ref={observerRef} className="space-y-6 pt-4">
+                                <h2 className="text-2xl md:text-3xl font-black tracking-tight">Agora presta atenção nisso:</h2>
                                 <p>O problema nunca foi investir em tráfego.</p>
                                 <p>Foi investir sem um sistema que transformasse tráfego em cliente.</p>
                                 <p className="font-bold border-l-4 pl-4" style={{ borderColor: BRAND_COLOR }}>Porque tráfego sozinho não vende. Ele só expõe o problema.</p>
 
-                                <div className="bg-gray-950 text-white p-8 md:p-12 rounded-2xl space-y-6 shadow-xl">
+                                <div className="bg-gray-950 text-white p-6 md:p-12 rounded-2xl space-y-6 shadow-xl">
                                     <div className="space-y-4">
-                                        <p className="flex items-center gap-3"><span className="text-red-500 text-2xl">●</span> <span><strong className="text-red-400">Lead chega</strong> — E ninguém responde direito</span></p>
-                                        <p className="flex items-center gap-3"><span className="text-red-500 text-2xl">●</span> <span><strong className="text-red-400">Responde</strong> — E ninguém conduz</span></p>
-                                        <p className="flex items-center gap-3"><span className="text-red-500 text-2xl">●</span> <span><strong className="text-red-400">Conduz</strong> — E ninguém fecha</span></p>
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-red-500 text-xl md:text-2xl">●</span> 
+                                            <p className="text-sm md:text-lg"><strong className="text-red-400">Lead chega</strong> — E ninguém responde direito</p>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-red-500 text-xl md:text-2xl">●</span> 
+                                            <p className="text-sm md:text-lg"><strong className="text-red-400">Responde</strong> — E ninguém conduz</p>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-red-500 text-xl md:text-2xl">●</span> 
+                                            <p className="text-sm md:text-lg"><strong className="text-red-400">Conduz</strong> — E ninguém fecha</p>
+                                        </div>
                                     </div>
-                                    <p className="text-gray-400 italic text-base pt-4">E no final, a culpa sempre volta para o anúncio...</p>
+                                    <p className="text-gray-400 italic text-xs md:text-base pt-2 md:pt-4">E no final, a culpa sempre volta para o anúncio...</p>
                                 </div>
 
-                                <p className="text-3xl font-black leading-tight">Mas não é o anúncio.</p>
-                                <p className="text-3xl font-black leading-tight underline underline-offset-8 decoration-4" style={{ color: BRAND_COLOR, textDecorationColor: BRAND_COLOR }}>É o buraco entre o clique e o dinheiro.</p>
+                                <p className="text-2xl md:text-3xl font-black leading-tight">Mas não é o anúncio.</p>
+                                <p className="text-2xl md:text-3xl font-black leading-tight underline underline-offset-8 decoration-4" style={{ color: BRAND_COLOR, textDecorationColor: BRAND_COLOR }}>É o buraco entre o clique e o dinheiro.</p>
                                 <p>E é exatamente esse buraco que destrói seu crescimento.</p>
                             </section>
 
-                            <section className="bg-gray-50 p-8 md:p-12 rounded-3xl space-y-8 border border-gray-100">
-                                <h3 className="text-3xl font-black uppercase tracking-tight">Agora imagina o cenário oposto:</h3>
-                                <ul className="space-y-6">
+                            <section className="bg-gray-50 p-6 md:p-12 rounded-3xl space-y-8 border border-gray-100">
+                                <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight leading-tight">Agora imagina o cenário oposto:</h3>
+                                <ul className="space-y-4 md:space-y-6">
                                     {[
                                         "O lead entra e recebe resposta imediata com IA",
                                         "É qualificado automaticamente sem depender de equipe",
@@ -264,108 +275,108 @@
                                         "Avança dentro de um processo estruturado até chegar pronto para fechar"
                                     ].map((text, i) => (
                                         <li key={i} className="flex gap-4 items-start font-bold text-gray-800">
-                                            <Icon name="check-circle" color={BRAND_COLOR} size={24} className="mt-1 shrink-0" /> 
-                                            <span className="leading-tight">{text}</span>
+                                            <Icon name="check-circle" color={BRAND_COLOR} size={20} className="mt-1 shrink-0 md:w-6 md:h-6" /> 
+                                            <span className="leading-snug text-sm md:text-lg">{text}</span>
                                         </li>
                                     ))}
                                 </ul>
-                                <p className="text-center font-black pt-4">Sem improviso. Sem tentativa. Sem depender de sorte.</p>
+                                <p className="text-center font-black pt-2 md:pt-4 text-sm md:text-lg">Sem improviso. Sem tentativa. Sem depender de sorte.</p>
                             </section>
 
-                            <section className="space-y-8 pt-10">
+                            <section className="space-y-8 pt-6 md:pt-10">
                                 <div className="space-y-2">
-                                    <h2 className="text-4xl font-black tracking-tighter">Isso é o SCI.</h2>
-                                    <p className="text-2xl font-bold" style={{ color: BRAND_COLOR }}>Sistema de Captação Inteligente</p>
+                                    <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase">Isso é o SCI.</h2>
+                                    <p className="text-xl md:text-2xl font-bold" style={{ color: BRAND_COLOR }}>Sistema de Captação Inteligente</p>
                                 </div>
-                                <p className="text-lg uppercase tracking-widest font-bold text-gray-400">Um ecossistema completo que conecta:</p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm font-black uppercase tracking-widest">
+                                <p className="text-base md:text-lg uppercase tracking-widest font-bold text-gray-400">Um ecossistema completo que conecta:</p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs md:text-sm font-black uppercase tracking-widest">
                                     {["Tráfego pago", "IA de atendimento", "Automação de contato", "CRM próprio", "Processo comercial"].map(tag => (
                                         <div key={tag} className="bg-white border border-gray-200 p-3 rounded-lg flex items-center gap-2">
-                                            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: BRAND_COLOR }}></div> {tag}
+                                            <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: BRAND_COLOR }}></div> {tag}
                                         </div>
                                     ))}
                                 </div>
-                                <p className="text-2xl font-bold pt-6">Tudo funcionando junto com um único objetivo: <span className="border-b-4" style={{ borderColor: BRAND_COLOR }}>Gerar cliente.</span></p>
+                                <p className="text-lg md:text-2xl font-bold pt-6 leading-tight">Tudo funcionando junto com um único objetivo: <span className="border-b-4" style={{ borderColor: BRAND_COLOR }}>Gerar cliente.</span></p>
                                 
-                                <div className="py-10 border-y border-gray-100 space-y-6">
-                                    <p className="text-2xl font-black">E aqui está o ponto que muda completamente o jogo:</p>
+                                <div className="py-6 md:py-10 border-y border-gray-100 space-y-6">
+                                    <p className="text-xl md:text-2xl font-black leading-tight">E aqui está o ponto que muda completamente o jogo:</p>
                                     <p>Você não paga para ver se funciona. Você investe apenas na estrutura de tráfego, o que de fato traz demanda.</p>
-                                    <p className="text-2xl font-black">E só paga uma % quando o resultado acontece.</p>
+                                    <p className="text-xl md:text-2xl font-black leading-tight">E só paga uma % quando o resultado acontece.</p>
                                     <p>Se não entra cliente, <span className="text-red-600 font-bold">você não sustenta operação.</span></p>
                                 </div>
 
-                                <div className="space-y-6 py-6">
-                                    <p className="text-2xl font-black">Agora responde com honestidade:</p>
+                                <div className="space-y-4 md:space-y-6 py-4 md:py-6">
+                                    <p className="text-xl md:text-2xl font-black">Agora responde com honestidade:</p>
                                     <p>Quantas vezes você já colocou dinheiro antes de ter qualquer prova real?</p>
                                     <p>E quantas vezes isso terminou do mesmo jeito?</p>
                                     <p className="italic text-gray-500">Mais gasto. Mais frustração. E nenhuma previsibilidade.</p>
                                 </div>
 
-                                <p className="text-2xl md:text-3xl font-black leading-tight border-t border-gray-50 pt-10">Ou você muda o modelo, ou continua financiando a tentativa dos outros.</p>
-                                <p className="text-4xl font-black uppercase tracking-tighter" style={{ color: BRAND_COLOR }}>Aqui não existe meio termo.</p>
+                                <p className="text-xl md:text-3xl font-black leading-tight border-t border-gray-50 pt-8 md:pt-10">Ou você muda o modelo, ou continua financiando a tentativa dos outros.</p>
+                                <p className="text-2xl md:text-4xl font-black uppercase tracking-tighter" style={{ color: BRAND_COLOR }}>Aqui não existe meio termo.</p>
                             </section>
 
-                            {/* CTA Section */}
-                            <div className="flex justify-center pt-16 pb-12">
+                            {/* CTA Section - Fixed Mobile Size & No Wrap */}
+                            <div className="flex justify-center pt-8 md:pt-16 pb-12">
                                 <button 
                                     onClick={() => setShowModal(true)} 
                                     style={{ backgroundColor: BRAND_COLOR }} 
-                                    className="group flex items-center gap-6 text-white px-10 py-6 rounded-2xl font-black text-2xl md:text-3xl shadow-xl hover:shadow-orange-200 transition-all transform hover:-translate-y-2 active:scale-95 animate-bounce-subtle"
+                                    className="group flex items-center justify-center gap-2.5 md:gap-6 text-white px-5 py-3.5 md:px-10 md:py-6 rounded-2xl font-black text-sm md:text-3xl shadow-xl hover:shadow-orange-200 transition-all transform hover:-translate-y-2 active:scale-95 animate-bounce-subtle whitespace-nowrap"
                                 >
                                     CONVERSE CONOSCO 
-                                    <Icon name="arrow-right" size={28} className="group-hover:translate-x-3 transition-transform" />
+                                    <Icon name="arrow-right" size={18} className="group-hover:translate-x-3 transition-transform md:w-[28px] md:h-[28px]" />
                                 </button>
                             </div>
                         </article>
 
-                        <footer className="mt-20 text-center opacity-30 text-[10px] font-bold uppercase tracking-widest border-t border-gray-50 pt-10">
+                        <footer className="mt-12 md:mt-20 text-center opacity-30 text-[9px] md:text-[10px] font-bold uppercase tracking-widest border-t border-gray-50 pt-10">
                             Advanx IA &copy; 2024 - Todos os direitos reservados
                         </footer>
                     </main>
 
-                    {/* Modal Component */}
+                    {/* Modal Component - Adjusted for Mobile */}
                     {showModal && (
-                        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-gray-900/80 backdrop-blur-sm transition-opacity duration-300">
-                            <div className="bg-white w-full max-w-md rounded-[32px] overflow-hidden shadow-2xl flex flex-col max-h-[95vh] animate-in zoom-in-95 duration-200">
+                        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-4 bg-gray-900/80 backdrop-blur-sm transition-opacity duration-300">
+                            <div className="bg-white w-full max-w-md rounded-[24px] md:rounded-[32px] overflow-hidden shadow-2xl flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-200">
                                 
-                                <div className="p-8 text-white relative" style={{ backgroundColor: BRAND_COLOR }}>
-                                    <button onClick={() => setShowModal(false)} className="absolute top-6 right-6 hover:rotate-90 transition-transform">
-                                        <Icon name="x" size={24} />
+                                <div className="p-6 md:p-8 text-white relative" style={{ backgroundColor: BRAND_COLOR }}>
+                                    <button onClick={() => setShowModal(false)} className="absolute top-5 right-5 md:top-6 md:right-6 hover:rotate-90 transition-transform">
+                                        <Icon name="x" size={20} />
                                     </button>
-                                    <div className="mb-4 inline-block px-3 py-1 rounded-full bg-white/20 text-[10px] font-black uppercase tracking-widest">
+                                    <div className="mb-3 md:mb-4 inline-block px-2.5 py-1 rounded-full bg-white/20 text-[9px] md:text-[10px] font-black uppercase tracking-widest">
                                         Etapa {step} de 2
                                     </div>
-                                    <h2 className="text-2xl font-black leading-tight">
+                                    <h2 className="text-xl md:text-2xl font-black leading-tight">
                                         {step === 1 ? 'Inicie sua Captação Inteligente' : 'Falta apenas um detalhe'}
                                     </h2>
                                 </div>
 
-                                <div className="p-8 overflow-y-auto">
+                                <div className="p-6 md:p-8 overflow-y-auto">
                                     {!loading ? (
-                                        <form onSubmit={(e) => { e.preventDefault(); step === 1 ? setStep(2) : handleSubmit(e); }} className="space-y-5">
+                                        <form onSubmit={(e) => { e.preventDefault(); step === 1 ? setStep(2) : handleSubmit(e); }} className="space-y-4 md:space-y-5">
                                             {step === 1 ? (
                                                 <>
                                                     <div className="space-y-1">
-                                                        <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Nome Completo</label>
-                                                        <input required name="nome" placeholder="Como te chamamos?" className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:border-orange-500 transition-all font-bold" value={formData.nome} onChange={handleInputChange} />
+                                                        <label className="text-[9px] md:text-[10px] font-black uppercase text-gray-400 ml-2">Nome Completo</label>
+                                                        <input required name="nome" placeholder="Como te chamamos?" className="w-full p-3.5 md:p-4 bg-gray-50 border border-gray-200 rounded-xl md:rounded-2xl outline-none focus:border-orange-500 transition-all font-bold text-sm md:text-base" value={formData.nome} onChange={handleInputChange} />
                                                     </div>
                                                     <div className="space-y-1">
-                                                        <label className="text-[10px] font-black uppercase text-gray-400 ml-2">E-mail Corporativo</label>
-                                                        <input required type="email" name="email" placeholder="seu@email.com" className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:border-orange-500 transition-all font-bold" value={formData.email} onChange={handleInputChange} />
+                                                        <label className="text-[9px] md:text-[10px] font-black uppercase text-gray-400 ml-2">E-mail Corporativo</label>
+                                                        <input required type="email" name="email" placeholder="seu@email.com" className="w-full p-3.5 md:p-4 bg-gray-50 border border-gray-200 rounded-xl md:rounded-2xl outline-none focus:border-orange-500 transition-all font-bold text-sm md:text-base" value={formData.email} onChange={handleInputChange} />
                                                     </div>
                                                     <div className="space-y-1">
-                                                        <label className="text-[10px] font-black uppercase text-gray-400 ml-2">WhatsApp</label>
-                                                        <input required type="tel" name="telefone" placeholder="(00) 00000-0000" className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:border-orange-500 transition-all font-bold" value={formData.telefone} onChange={handleInputChange} />
+                                                        <label className="text-[9px] md:text-[10px] font-black uppercase text-gray-400 ml-2">WhatsApp</label>
+                                                        <input required type="tel" name="telefone" placeholder="(00) 00000-0000" className="w-full p-3.5 md:p-4 bg-gray-50 border border-gray-200 rounded-xl md:rounded-2xl outline-none focus:border-orange-500 transition-all font-bold text-sm md:text-base" value={formData.telefone} onChange={handleInputChange} />
                                                     </div>
-                                                    <button type="submit" style={{ backgroundColor: BRAND_COLOR }} className="w-full text-white p-5 rounded-2xl font-black text-lg shadow-lg hover:opacity-90 transition-all flex items-center justify-center gap-3">
+                                                    <button type="submit" style={{ backgroundColor: BRAND_COLOR }} className="w-full text-white p-4 md:p-5 rounded-xl md:rounded-2xl font-black text-base md:text-lg shadow-lg hover:opacity-90 transition-all flex items-center justify-center gap-3">
                                                         PRÓXIMO PASSO <Icon name="arrow-right" />
                                                     </button>
                                                 </>
                                             ) : (
                                                 <>
                                                     <div className="space-y-1">
-                                                        <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Faturamento Médio Mensal</label>
-                                                        <select required name="faturamento" className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none font-bold" value={formData.faturamento} onChange={handleInputChange}>
+                                                        <label className="text-[9px] md:text-[10px] font-black uppercase text-gray-400 ml-2">Faturamento Médio Mensal</label>
+                                                        <select required name="faturamento" className="w-full p-3.5 md:p-4 bg-gray-50 border border-gray-200 rounded-xl md:rounded-2xl outline-none font-bold text-sm md:text-base" value={formData.faturamento} onChange={handleInputChange}>
                                                             <option value="">Selecione seu faturamento</option>
                                                             <option value="0 a 5 mil">R$ 0 a R$ 5 mil</option>
                                                             <option value="5 a 10 mil">R$ 5 a R$ 10 mil</option>
@@ -378,33 +389,33 @@
                                                         </select>
                                                     </div>
                                                     <div className="space-y-1">
-                                                        <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Sua Especialidade</label>
-                                                        <input required name="especialidade" placeholder="Qual seu nicho?" className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:border-orange-500 transition-all font-bold" value={formData.especialidade} onChange={handleInputChange} />
+                                                        <label className="text-[9px] md:text-[10px] font-black uppercase text-gray-400 ml-2">Sua Especialidade</label>
+                                                        <input required name="especialidade" placeholder="Qual seu nicho?" className="w-full p-3.5 md:p-4 bg-gray-50 border border-gray-200 rounded-xl md:rounded-2xl outline-none focus:border-orange-500 transition-all font-bold text-sm md:text-base" value={formData.especialidade} onChange={handleInputChange} />
                                                     </div>
                                                     <div className="space-y-1">
-                                                        <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Quando pretende iniciar?</label>
-                                                        <select required name="inicio" className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none font-bold" value={formData.inicio} onChange={handleInputChange}>
+                                                        <label className="text-[9px] md:text-[10px] font-black uppercase text-gray-400 ml-2">Quando pretende iniciar?</label>
+                                                        <select required name="inicio" className="w-full p-3.5 md:p-4 bg-gray-50 border border-gray-200 rounded-xl md:rounded-2xl outline-none font-bold text-sm md:text-base" value={formData.inicio} onChange={handleInputChange}>
                                                             <option value="">Selecione o prazo</option>
                                                             <option value="o quanto antes">O quanto antes</option>
                                                             <option value="nos proximos 30d">Nos próximos 30 dias</option>
                                                             <option value="ainda nao sei">Ainda não sei</option>
                                                         </select>
                                                     </div>
-                                                    <button type="submit" className="w-full bg-green-600 text-white p-5 rounded-2xl font-black text-lg shadow-lg hover:bg-green-700 transition-all flex items-center justify-center gap-3">
+                                                    <button type="submit" className="w-full bg-green-600 text-white p-4 md:p-5 rounded-xl md:rounded-2xl font-black text-base md:text-lg shadow-lg hover:bg-green-700 transition-all flex items-center justify-center gap-3">
                                                         SOLICITAR ACESSO <Icon name="check-circle" />
                                                     </button>
                                                 </>
                                             )}
                                         </form>
                                     ) : (
-                                        <div className="text-center py-10 space-y-6">
+                                        <div className="text-center py-8 md:py-10 space-y-6">
                                             <div className="relative inline-block">
-                                                <Icon name="loader-2" size={60} className="animate-spin mx-auto" color={BRAND_COLOR} />
-                                                <div className="absolute inset-0 flex items-center justify-center font-black text-xl">{countdown}</div>
+                                                <Icon name="loader-2" size={48} className="animate-spin mx-auto md:w-[60px] md:h-[60px]" color={BRAND_COLOR} />
+                                                <div className="absolute inset-0 flex items-center justify-center font-black text-lg md:text-xl">{countdown}</div>
                                             </div>
-                                            <div className="space-y-2">
-                                                <h3 className="text-2xl font-black tracking-tight">Qualificando...</h3>
-                                                <p className="text-gray-400 font-medium">Aguarde o redirecionamento.</p>
+                                            <div className="space-y-1 md:space-y-2">
+                                                <h3 className="text-xl md:text-2xl font-black tracking-tight">Qualificando...</h3>
+                                                <p className="text-gray-400 text-xs md:text-sm font-medium">Aguarde o redirecionamento.</p>
                                             </div>
                                         </div>
                                     )}
@@ -414,7 +425,7 @@
                     )}
 
                     {/* Security Toast */}
-                    <div id="security-alert" className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest opacity-0 transition-opacity pointer-events-none z-[200]">
+                    <div id="security-alert" className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-5 py-2.5 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-widest opacity-0 transition-opacity pointer-events-none z-[200]">
                         Protegido por Advanx IA
                     </div>
                 </div>
