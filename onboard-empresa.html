@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Advanx IA</title>
+    <style>
+        /* Remove margens e preenchimentos padrão do navegador */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* Impede a rolagem na página pai */
+        }
+
+        /* Faz o iframe ocupar todo o espaço disponível */
+        #quiz-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe 
+        id="quiz-frame"
+        src="https://advanx-ia-quiz-234031055564.us-west1.run.app" 
+        title="Quiz Advanx IA"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+    </iframe>
+
+</body>
+</html>
