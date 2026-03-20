@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanx — Brand Guidelines v1.0</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #FF7A00;
+      --color-primary-light: #FF9933;
+      --color-primary-deep: #E56E00;
+      --color-secondary: #1E2A3A;
+      --color-bg-dark: #0D1117;
+      --color-surface-1: #111620;
+      --color-surface-2: #1A2235;
+      --color-bg-light: #F8F7F4;
+      --color-bg-alt: #F0EFE9;
+      --color-text: #111827;
+      --color-text-muted: #6B7280;
+      --color-text-dark: #F1F0ED;
+      --color-text-muted-dark: #8B95A3;
+      --color-success: #22C55E;
+      --color-accent: #3B82F6;
+      --color-border-dark: #1E2A3A;
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg-light);
+      color: var(--color-text);
+      line-height: 1.65;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* CAPA */
+    .cover {
+      background: var(--color-bg-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 64px;
+      page-break-after: always;
+    }
+
+    .cover-top {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-symbol {
+      width: 56px;
+      height: 56px;
+    }
+
+    .logo-wordmark {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--color-text-dark);
+      letter-spacing: -0.02em;
+    }
+
+    .logo-wordmark span {
+      color: var(--color-primary);
+    }
+
+    .cover-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 0;
+    }
+
+    .cover-tag {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 24px;
+    }
+
+    .cover-title {
+      font-family: var(--font-display);
+      font-size: 72px;
+      font-weight: 800;
+      color: var(--color-text-dark);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .cover-title span {
+      color: var(--color-primary);
+    }
+
+    .cover-subtitle {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: var(--color-text-muted-dark);
+      max-width: 480px;
+    }
+
+    .cover-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cover-version {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--color-text-muted-dark);
+    }
+
+    .cover-accent-line {
+      width: 80px;
+      height: 3px;
+      background: var(--color-primary);
+      border-radius: 2px;
+    }
+
+    /* ÍNDICE */
+    .toc {
+      background: var(--color-surface-1);
+      padding: 64px;
+      page-break-after: always;
+    }
+
+    .toc-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 48px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--color-border-dark);
+    }
+
+    .toc-number {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-primary);
+      width: 24px;
+    }
+
+    .toc-label {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-text-dark);
+    }
+
+    /* SEÇÕES */
+    .section {
+      padding: 72px 64px;
+      page-break-inside: avoid;
+    }
+
+    .section-dark {
+      background: var(--color-bg-dark);
+    }
+
+    .section-surface {
+      background: var(--color-surface-1);
+    }
+
+    .section-light {
+      background: var(--color-bg-light);
+    }
+
+    .section-alt {
+      background: var(--color-bg-alt);
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+
+    .section-tag {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    .section-dark .section-title,
+    .section-surface .section-title {
+      color: var(--color-text-dark);
+    }
+
+    .section-light .section-title,
+    .section-alt .section-title {
+      color: var(--color-text);
+    }
+
+    /* POSICIONAMENTO */
+    .positioning-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .positioning-card {
+      background: var(--color-surface-1);
+      border: 1px solid var(--color-border-dark);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .positioning-card-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+    }
+
+    .positioning-card-text {
+      font-size: 15px;
+      color: var(--color-text-muted-dark);
+      line-height: 1.6;
+    }
+
+    .promise-box {
+      background: var(--color-surface-2);
+      border-left: 4px solid var(--color-primary);
+      border-radius: 0 12px 12px 0;
+      padding: 28px 32px;
+      margin-top: 32px;
+    }
+
+    .promise-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted-dark);
+      margin-bottom: 8px;
+    }
+
+    .promise-text {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-text-dark);
+      line-height: 1.3;
+    }
+
+    /* CORES */
+    .color-primary-showcase {
+      background: var(--color-primary);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .color-primary-name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--color-bg-dark);
+    }
+
+    .color-primary-hex {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 600;
+      color: rgba(13,17,23,0.7);
+      font-feature-settings: "tnum";
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .color-card {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .color-swatch {
+      height: 80px;
+    }
+
+    .color-info {
+      padding: 14px;
+      background: var(--color-surface-2);
+    }
+
+    .color-name {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-dark);
+      margin-bottom: 4px;
+    }
+
+    .color-hex {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-primary);
+      font-feature-settings: "tnum";
+    }
+
+    .color-use {
+      font-size: 11px;
+      color: var(--color-text-muted-dark);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* PALETA COMPLETA */
+    .palette-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+    }
+
+    .palette-table th {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-muted-dark);
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-border-dark);
+    }
+
+    .palette-table td {
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--color-text-muted-dark);
+      border-bottom: 1px solid rgba(30,42,58,0.5);
+      vertical-align: middle;
+    }
+
+    .palette-table td:first-child {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--color-text-dark);
+    }
+
+    .swatch-inline {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* TIPOGRAFIA */
+    .type-showcase {
+      margin-bottom: 48px;
+    }
+
+    .type-display-sample {
+      font-family: var(--font-display);
+      font-size: 60px;
+      font-weight: 800;
+      color: var(--color-text-dark);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .type-display-sample span {
+      color: var(--color-primary);
+    }
+
+    .type-meta {
+      font-size: 12px;
+      color: var(--color-text-muted-dark);
+      font-feature-settings: "tnum";
+    }
+
+    .type-hierarchy-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 32px;
+    }
+
+    .type-hierarchy-table th {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-muted-dark);
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-border-dark);
+    }
+
+    .type-hierarchy-table td {
+      padding: 16px;
+      border-bottom: 1px solid rgba(30,42,58,0.5);
+      color: var(--color-text-muted-dark);
+      font-size: 13px;
+      vertical-align: middle;
+    }
+
+    .type-sample-cell {
+      color: var(--color-text-dark) !important;
+    }
+
+    /* VOZ */
+    .adjectives-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .adjective-card {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border-dark);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .adjective-word {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+    }
+
+    .adjective-desc {
+      font-size: 14px;
+      color: var(--color-text-muted-dark);
+      line-height: 1.6;
+    }
+
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .vocab-card {
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .vocab-card-use {
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .vocab-card-avoid {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .vocab-card-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .vocab-card-use .vocab-card-title { color: #22C55E; }
+    .vocab-card-avoid .vocab-card-title { color: #EF4444; }
+
+    .vocab-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .vocab-item {
+      font-size: 14px;
+      color: var(--color-text-muted-dark);
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* LOGO DIRETRIZES */
+    .logo-versions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .logo-version-card {
+      border-radius: 12px;
+      padding: 32px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-version-dark { background: var(--color-bg-dark); border: 1px solid var(--color-border-dark); }
+    .logo-version-light { background: #FFFFFF; border: 1px solid #E5E3DC; }
+    .logo-version-orange { background: var(--color-primary); }
+
+    .logo-placeholder {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-img {
+      max-width: 180px;
+      height: auto;
+    }
+
+    .logo-img-dark {
+      filter: none;
+    }
+
+    .logo-img-light {
+      filter: brightness(0);
+    }
+
+    .logo-img-mono {
+      filter: brightness(0);
+    }
+
+    .logo-version-dark .logo-placeholder { color: var(--color-primary); }
+    .logo-version-light .logo-placeholder { color: var(--color-text); }
+    .logo-version-orange .logo-placeholder { color: var(--color-bg-dark); }
+
+    .logo-version-label {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .logo-version-dark .logo-version-label { color: var(--color-text-muted-dark); }
+    .logo-version-light .logo-version-label { color: var(--color-text-muted); }
+    .logo-version-orange .logo-version-label { color: rgba(13,17,23,0.7); }
+
+    .dont-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .dont-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background: rgba(239, 68, 68, 0.06);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+      border-radius: 8px;
+    }
+
+    .dont-icon {
+      font-size: 14px;
+      font-weight: 700;
+      color: #EF4444;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .dont-text {
+      font-size: 14px;
+      color: var(--color-text-muted-dark);
+      line-height: 1.5;
+    }
+
+    /* APLICAÇÕES */
+    .site-map {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 24px;
+    }
+
+    .site-section-block {
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .site-section-name {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .site-section-info {
+      font-size: 12px;
+      font-family: var(--font-body);
+      font-feature-settings: "tnum";
+    }
+
+    /* CSS TOKENS */
+    .code-block {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border-dark);
+      border-radius: 12px;
+      padding: 32px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--color-text-muted-dark);
+      overflow-x: auto;
+      margin-top: 24px;
+    }
+
+    .code-comment { color: #4B5563; }
+    .code-var { color: var(--color-primary); }
+    .code-value { color: #22C55E; }
+    .code-punct { color: var(--color-text-muted-dark); }
+
+    /* CHECKLIST */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .checklist-group {
+      background: var(--color-surface-1);
+      border: 1px solid var(--color-border-dark);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .checklist-group-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .checklist-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--color-text-muted-dark);
+      line-height: 1.5;
+    }
+
+    .checkbox {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--color-border-dark);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* DIVISOR */
+    .divider {
+      height: 1px;
+      background: var(--color-border-dark);
+      margin: 48px 0;
+    }
+
+    /* RODAPÉ */
+    .footer-bar {
+      background: var(--color-bg-dark);
+      padding: 32px 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--color-border-dark);
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--color-text-dark);
+      letter-spacing: -0.02em;
+    }
+
+    .footer-logo span { color: var(--color-primary); }
+
+    .footer-info {
+      font-size: 13px;
+      color: var(--color-text-muted-dark);
+    }
+
+    /* PRINT */
+    @media print {
+      body { background: white; }
+      .cover { page-break-after: always; min-height: auto; padding: 48px; }
+      .toc { page-break-after: always; }
+      .section { page-break-inside: avoid; }
+      @page { margin: 0; size: A4; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CAPA -->
+  <div class="cover">
+    <div class="cover-top">
+      <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/logo-advanx-transparente.webp" alt="Advanx" class="logo-img logo-img-dark" style="max-width:160px;">
+    </div>
+    <div class="cover-main">
+      <span class="cover-tag">Identidade de Marca</span>
+      <h1 class="cover-title">Brand<br><span>Guidelines</span></h1>
+      <p class="cover-subtitle">O manual completo da identidade visual, verbal e estratégica da Advanx.</p>
+    </div>
+    <div class="cover-bottom">
+      <div>
+        <div class="cover-version">Versão 1.0 — Março 2026</div>
+      </div>
+      <div class="cover-accent-line"></div>
+    </div>
+  </div>
+
+  <!-- ÍNDICE -->
+  <div class="toc">
+    <div class="toc-title">Índice</div>
+    <ul class="toc-list">
+      <li class="toc-item"><span class="toc-number">01</span><span class="toc-label">Posicionamento e Essência</span></li>
+      <li class="toc-item"><span class="toc-number">01B</span><span class="toc-label">Expressão de Marca por Mercado</span></li>
+      <li class="toc-item"><span class="toc-number">02</span><span class="toc-label">Cor Primária</span></li>
+      <li class="toc-item"><span class="toc-number">03</span><span class="toc-label">Paleta Completa</span></li>
+      <li class="toc-item"><span class="toc-number">03B</span><span class="toc-label">Acessibilidade de Contraste</span></li>
+      <li class="toc-item"><span class="toc-number">04</span><span class="toc-label">Tipografia</span></li>
+      <li class="toc-item"><span class="toc-number">05</span><span class="toc-label">Logo — Diretrizes de Uso</span></li>
+      <li class="toc-item"><span class="toc-number">06</span><span class="toc-label">Voz e Tom</span></li>
+      <li class="toc-item"><span class="toc-number">07</span><span class="toc-label">Aplicações Práticas</span></li>
+      <li class="toc-item"><span class="toc-number">07B</span><span class="toc-label">Estados de Componente</span></li>
+      <li class="toc-item"><span class="toc-number">07C</span><span class="toc-label">Comunicação de Resultado</span></li>
+      <li class="toc-item"><span class="toc-number">08</span><span class="toc-label">Tokens de Design (CSS)</span></li>
+      <li class="toc-item"><span class="toc-number">09</span><span class="toc-label">Checklist de Consistência</span></li>
+    </ul>
+  </div>
+
+  <!-- 01 POSICIONAMENTO -->
+  <div class="section section-dark">
+    <div class="section-header">
+      <span class="section-tag">01 — Posicionamento</span>
+      <h2 class="section-title">Essência da Marca</h2>
+    </div>
+    <div class="positioning-grid">
+      <div class="positioning-card">
+        <div class="positioning-card-title">Quem é a Advanx</div>
+        <div class="positioning-card-text">Uma empresa de crescimento orientado a resultado. Não vende serviço — vende consequência. Captação, IA, automações e SaaS construídos para gerar retorno mensurável, sem custo fixo até o resultado acontecer.</div>
+      </div>
+      <div class="positioning-card">
+        <div class="positioning-card-title">O que a marca comunica</div>
+        <div class="positioning-card-text">Confiança técnica sem frieza corporativa. Velocidade e resultado sem arrogância. Modernidade acessível para quem não é tech. Autoridade no mercado jurídico sem ser conservadora.</div>
+      </div>
+      <div class="positioning-card">
+        <div class="positioning-card-title">Público Principal</div>
+        <div class="positioning-card-text">Advogados autônomos, 30–55 anos, faturamento +R$20k, frustrados com marketing anterior. E empresas em geral que buscam captação e automação com resultado garantido.</div>
+      </div>
+      <div class="positioning-card">
+        <div class="positioning-card-title">Expansão</div>
+        <div class="positioning-card-text">Nova frente de IA e automações dev. A identidade precisa suportar tanto o mercado jurídico quanto o universo de tecnologia e produto digital.</div>
+      </div>
+      <div class="positioning-card">
+        <div class="positioning-card-title">Arquétipo da Marca</div>
+        <div class="positioning-card-text"><strong style="color:var(--color-primary);">Herói com traços do Rebelde.</strong> Age onde outros prometem. Assume o resultado como responsabilidade própria. Rejeita o modelo de agência tradicional — mensalidade fixa sem garantia de resultado. A Advanx não pede confiança: ela a ganha pela prova.</div>
+      </div>
+    </div>
+    <div class="promise-box">
+      <div class="promise-label">Promessa Central</div>
+      <div class="promise-text">Crescimento com resultado garantido. Ou você não paga.</div>
+    </div>
+    <div style="background:var(--color-surface-2);border-left:4px solid #22C55E;border-radius:0 12px 12px 0;padding:20px 24px;margin-top:16px;">
+      <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-muted-dark);margin-bottom:8px;">Duas Ofertas — Um Compromisso</div>
+      <div style="font-size:14px;color:var(--color-text-muted-dark);line-height:1.7;">
+        <strong style="color:var(--color-text-dark);">Oferta 1:</strong> Criamos sua propria ia, integrada aos sistemas que vc usa, se ela nao te ajudar a vender ou reduzir seus custos nos proximos 61 dias, devolvemos seu dinheiro.<br>
+        <strong style="color:var(--color-text-dark);">Oferta 2:</strong> Crimamos seu app, sismte ou saas
+      </div>
+    </div>
+  </div>
+
+  <!-- 01B POSICIONAMENTO POR MERCADO -->
+  <div class="section section-surface">
+    <div class="section-header">
+      <span class="section-tag">01B — Expressão por Mercado</span>
+      <h2 class="section-title">A Mesma Marca, Ênfases Diferentes</h2>
+    </div>
+    <p style="font-size:15px;color:var(--color-text-muted-dark);line-height:1.7;margin-bottom:32px;">A Advanx opera em dois mercados com perfis distintos. A identidade de marca é uma — a ênfase de comunicação varia. O que não muda em nenhum mercado: cor primária #FF7A00, tipografia, promessa de resultado com risco da Advanx, tom direto sem eufemismos.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="background:var(--color-surface-2);border:1px solid var(--color-border-dark);border-radius:12px;padding:28px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-primary);margin-bottom:16px;">Mercado Jurídico — Core Atual</div>
+        <div style="font-size:13px;color:var(--color-text-muted-dark);margin-bottom:6px;"><strong style="color:var(--color-text-dark);">Público:</strong> Advogados autônomos e escritórios, 30–55 anos</div>
+        <div style="font-size:13px;color:var(--color-text-muted-dark);margin-bottom:6px;"><strong style="color:var(--color-text-dark);">Tom:</strong> Competente e direto. Menos tech, mais resultado.</div>
+        <div style="font-size:13px;color:var(--color-text-muted-dark);margin-bottom:6px;"><strong style="color:var(--color-text-dark);">Em evidência:</strong> Captação, Clientes, Meta, Escritório, Previsível</div>
+        <div style="font-size:13px;color:var(--color-text-muted-dark);margin-bottom:6px;"><strong style="color:var(--color-text-dark);">Em segundo plano:</strong> IA, Automação, SaaS, Sistema</div>
+        <div style="font-size:13px;color:var(--color-text-muted-dark);margin-bottom:12px;"><strong style="color:var(--color-text-dark);">Proof points:</strong> número de clientes captados, redução de custo por cliente, faturamento gerado</div>
+        <div style="font-size:12px;color:var(--color-text-muted-dark);padding:12px;background:rgba(255,122,0,0.06);border-radius:8px;line-height:1.5;">Visual: mais espaço em branco, tipografia em destaque, dados como protagonistas</div>
+      </div>
+      <div style="background:var(--color-surface-2);border:1px solid var(--color-border-dark);border-radius:12px;padding:28px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#3B82F6;margin-bottom:16px;">Mercado Tech / Produto — Expansão</div>
+        <div style="font-size:13px;color:var(--color-text-muted-dark);margin-bottom:6px;"><strong style="color:var(--color-text-dark);">Público:</strong> Founders, gestores de produto, empresas que buscam automação e sistemas</div>
+        <div style="font-size:13px;color:var(--color-text-muted-dark);margin-bottom:6px;"><strong style="color:var(--color-text-dark);">Tom:</strong> Técnico e objetivo. Menos jurídico, mais capacidade.</div>
+        <div style="font-size:13px;color:var(--color-text-muted-dark);margin-bottom:6px;"><strong style="color:var(--color-text-dark);">Em evidência:</strong> IA, Automação, Sistema, App, Integração, Escala</div>
+        <div style="font-size:13px;color:var(--color-text-muted-dark);margin-bottom:6px;"><strong style="color:var(--color-text-dark);">Em segundo plano:</strong> Escritório, Captação jurídica, Honorários</div>
+        <div style="font-size:13px;color:var(--color-text-muted-dark);margin-bottom:12px;"><strong style="color:var(--color-text-dark);">Proof points:</strong> tempo de implementação, integrações disponíveis, redução de custo operacional</div>
+        <div style="font-size:12px;color:var(--color-text-muted-dark);padding:12px;background:rgba(59,130,246,0.06);border-radius:8px;line-height:1.5;">Visual: mais elementos de interface, visualizações de dados, densidade maior</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 COR PRIMÁRIA -->
+  <div class="section section-surface">
+    <div class="section-header">
+      <span class="section-tag">02 — Cor Primária</span>
+      <h2 class="section-title">O Laranja Advanx</h2>
+    </div>
+    <div class="color-primary-showcase">
+      <div>
+        <div class="color-primary-name">Advanx Orange</div>
+        <div style="font-size:14px;color:rgba(13,17,23,0.65);margin-top:4px;">Cor principal da identidade. Usada em CTAs, destaques e logo.</div>
+      </div>
+      <div class="color-primary-hex">#FF7A00</div>
+    </div>
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#FF9933;"></div>
+        <div class="color-info">
+          <div class="color-name">Orange Light</div>
+          <div class="color-hex">#FF9933</div>
+          <div class="color-use">Hover states, gradiente claro</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#FF7A00;"></div>
+        <div class="color-info">
+          <div class="color-name">Advanx Orange</div>
+          <div class="color-hex">#FF7A00</div>
+          <div class="color-use">Cor principal, CTAs</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#E56E00;"></div>
+        <div class="color-info">
+          <div class="color-name">Orange Deep</div>
+          <div class="color-hex">#E56E00</div>
+          <div class="color-use">Active states, sombras</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:rgba(255,122,0,0.15);border:1px dashed rgba(255,122,0,0.3);"></div>
+        <div class="color-info">
+          <div class="color-name">Orange Glow</div>
+          <div class="color-hex">#FF7A00 / 15%</div>
+          <div class="color-use">Glow, fundo de cards</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--color-surface-2);border-radius:12px;padding:24px 28px;border-left:4px solid var(--color-primary);">
+      <div style="font-size:13px;font-weight:600;color:var(--color-text-muted-dark);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.04em;">Por que este laranja funciona</div>
+      <div style="font-size:15px;color:var(--color-text-dark);line-height:1.6;">O laranja é um <strong style="color:var(--color-primary);">vazio estratégico no mercado jurídico</strong> — nenhum concorrente relevante o ocupa. Para o advogado autônomo frustrado com o conservadorismo do setor, ver uma empresa que quebra o padrão visual é sinal de que ela também quebra padrões nos resultados.</div>
+    </div>
+  </div>
+
+  <!-- 03 PALETA COMPLETA -->
+  <div class="section section-dark">
+    <div class="section-header">
+      <span class="section-tag">03 — Paleta</span>
+      <h2 class="section-title">Sistema de Cores Completo</h2>
+    </div>
+    <table class="palette-table">
+      <thead>
+        <tr>
+          <th>Cor</th>
+          <th>Nome</th>
+          <th>Hex</th>
+          <th>Quando usar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="swatch-inline" style="background:#FF7A00;"></span>Primária</td>
+          <td>Advanx Orange</td>
+          <td style="font-family:monospace;color:var(--color-primary);">#FF7A00</td>
+          <td>CTAs, destaques, logo, ícones principais</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#1E2A3A;"></span>Secundária</td>
+          <td>Slate</td>
+          <td style="font-family:monospace;color:var(--color-primary);">#1E2A3A</td>
+          <td>Textos, bordas, elementos secundários</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#0D1117;"></span>Fundo Dark</td>
+          <td>Advanx Dark</td>
+          <td style="font-family:monospace;color:var(--color-primary);">#0D1117</td>
+          <td>Hero, seções de impacto, header, footer</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#111620;"></span>Surface 1</td>
+          <td>Surface Dark</td>
+          <td style="font-family:monospace;color:var(--color-primary);">#111620</td>
+          <td>Cards em primeiro nível sobre fundo dark (#0D1117)</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#1A2235;"></span>Surface 2</td>
+          <td>Surface Mid</td>
+          <td style="font-family:monospace;color:var(--color-primary);">#1A2235</td>
+          <td>Cards em segundo nível (aninhados). Se não houver aninhamento, use Surface Dark.</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#F8F7F4;border:1px solid #E5E3DC;"></span>Fundo Claro</td>
+          <td>Advanx White</td>
+          <td style="font-family:monospace;color:var(--color-primary);">#F8F7F4</td>
+          <td>Seções de conteúdo, formulários</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#F0EFE9;border:1px solid #E5E3DC;"></span>Alternado</td>
+          <td>Off-White</td>
+          <td style="font-family:monospace;color:var(--color-primary);">#F0EFE9</td>
+          <td>Seções alternadas em contexto claro</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#111827;"></span>Texto</td>
+          <td>Ink</td>
+          <td style="font-family:monospace;color:var(--color-primary);">#111827</td>
+          <td>Corpo de texto sobre fundo claro</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#6B7280;"></span>Muted</td>
+          <td>Text Muted</td>
+          <td style="font-family:monospace;color:var(--color-primary);">#6B7280</td>
+          <td>Subtítulos, labels, metadados</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#22C55E;"></span>Sucesso</td>
+          <td>Growth Green</td>
+          <td style="font-family:monospace;color:var(--color-primary);">#22C55E</td>
+          <td>Métricas de resultado, crescimento, confirmações</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#3B82F6;"></span>Accent</td>
+          <td>Electric Blue</td>
+          <td style="font-family:monospace;color:var(--color-primary);">#3B82F6</td>
+          <td>Links, funcionalidades de IA, interface de produto</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 03B ACESSIBILIDADE -->
+  <div class="section section-surface">
+    <div class="section-header">
+      <span class="section-tag">03B — Acessibilidade</span>
+      <h2 class="section-title">Contraste WCAG 2.1</h2>
+    </div>
+    <p style="font-size:15px;color:var(--color-text-muted-dark);line-height:1.7;margin-bottom:32px;">Todos os pares de cor abaixo foram verificados para WCAG 2.1 AA — mínimo 4.5:1 para texto normal, 3:1 para texto grande (acima de 18px ou 14px bold).</p>
+    <table class="palette-table" style="margin-top:0;">
+      <thead>
+        <tr>
+          <th>Par</th>
+          <th>Contraste</th>
+          <th>Resultado</th>
+          <th>Observação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="swatch-inline" style="background:#F8F7F4;border:1px solid #ccc;"></span><span class="swatch-inline" style="background:#0D1117;"></span> Branco sobre Dark</td>
+          <td style="font-family:monospace;color:var(--color-primary);">16.8:1</td>
+          <td><span style="color:#22C55E;font-weight:700;">✓ AAA</span></td>
+          <td>Uso principal de texto em seções dark</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#FF7A00;"></span><span class="swatch-inline" style="background:#0D1117;"></span> Laranja sobre Dark</td>
+          <td style="font-family:monospace;color:var(--color-primary);">5.2:1</td>
+          <td><span style="color:#22C55E;font-weight:700;">✓ AA</span></td>
+          <td>Aprovado para texto normal em fundos escuros</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#111827;border:1px solid #ccc;"></span><span class="swatch-inline" style="background:#F8F7F4;border:1px solid #ccc;"></span> Ink sobre Branco</td>
+          <td style="font-family:monospace;color:var(--color-primary);">17.1:1</td>
+          <td><span style="color:#22C55E;font-weight:700;">✓ AAA</span></td>
+          <td>Uso principal de texto em seções claras</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#22C55E;"></span><span class="swatch-inline" style="background:#0D1117;"></span> Verde sobre Dark</td>
+          <td style="font-family:monospace;color:var(--color-primary);">8.1:1</td>
+          <td><span style="color:#22C55E;font-weight:700;">✓ AA</span></td>
+          <td>Métricas de resultado sobre fundos escuros</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#6B7280;border:1px solid #ccc;"></span><span class="swatch-inline" style="background:#F8F7F4;border:1px solid #ccc;"></span> Muted sobre Branco</td>
+          <td style="font-family:monospace;color:var(--color-primary);">4.6:1</td>
+          <td><span style="color:#22C55E;font-weight:700;">✓ AA</span></td>
+          <td>Limite mínimo — usar apenas para texto auxiliar</td>
+        </tr>
+        <tr>
+          <td><span class="swatch-inline" style="background:#FF7A00;"></span><span class="swatch-inline" style="background:#F8F7F4;border:1px solid #ccc;"></span> Laranja sobre Branco</td>
+          <td style="font-family:monospace;color:#EF4444;">2.9:1</td>
+          <td><span style="color:#EF4444;font-weight:700;">✕ REPROVADO</span></td>
+          <td>Laranja nunca como texto sobre fundo claro. Apenas em ícones, bordas e elementos não-textuais ≥24px bold.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="background:rgba(255,122,0,0.08);border:1px solid rgba(255,122,0,0.2);border-radius:12px;padding:20px 24px;margin-top:24px;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-primary);margin-bottom:8px;">Regra Prática</div>
+      <div style="font-size:14px;color:var(--color-text-muted-dark);line-height:1.6;">O laranja #FF7A00 nunca aparece como texto sobre fundo claro (#F8F7F4 / #F0EFE9 / #FFFFFF). Em fundos claros, use laranja apenas em bordas, ícones, underlines decorativos ou texto com tamanho mínimo de 24px bold.</div>
+    </div>
+  </div>
+
+  <!-- 04 TIPOGRAFIA -->
+  <div class="section section-surface">
+    <div class="section-header">
+      <span class="section-tag">04 — Tipografia</span>
+      <h2 class="section-title">Sistema Tipográfico</h2>
+    </div>
+    <div class="type-showcase">
+      <div class="type-display-sample">Crescimento<br><span>previsível.</span></div>
+      <div class="type-meta">Plus Jakarta Sans 800 — Display / Headlines — google.com/fonts</div>
+    </div>
+    <div style="margin-bottom:40px;">
+      <div style="font-family:var(--font-body);font-size:18px;color:var(--color-text-muted-dark);line-height:1.7;border-top:1px solid var(--color-border-dark);padding-top:24px;">
+        Inter Regular 18px — Body Large — Texto de parágrafos, introduções e descrições. Legibilidade excepcional em qualquer tamanho de tela, suporte completo ao português.
+      </div>
+      <div class="type-meta" style="margin-top:8px;">Inter 400 — Body / Interface — google.com/fonts</div>
+    </div>
+    <table class="type-hierarchy-table">
+      <thead>
+        <tr>
+          <th>Nível</th>
+          <th>Fonte</th>
+          <th>Peso</th>
+          <th>Desktop</th>
+          <th>Mobile</th>
+          <th>Line-height</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="type-sample-cell">Display</td>
+          <td>Plus Jakarta Sans</td>
+          <td>800</td>
+          <td>72px / 4.5rem</td>
+          <td>40px / 2.5rem</td>
+          <td>1.1</td>
+        </tr>
+        <tr>
+          <td class="type-sample-cell">H1</td>
+          <td>Plus Jakarta Sans</td>
+          <td>700</td>
+          <td>48px / 3rem</td>
+          <td>32px / 2rem</td>
+          <td>1.15</td>
+        </tr>
+        <tr>
+          <td class="type-sample-cell">H2</td>
+          <td>Plus Jakarta Sans</td>
+          <td>700</td>
+          <td>36px / 2.25rem</td>
+          <td>26px / 1.625rem</td>
+          <td>1.2</td>
+        </tr>
+        <tr>
+          <td class="type-sample-cell">H3</td>
+          <td>Plus Jakarta Sans</td>
+          <td>600</td>
+          <td>24px / 1.5rem</td>
+          <td>20px / 1.25rem</td>
+          <td>1.3</td>
+        </tr>
+        <tr>
+          <td class="type-sample-cell">H4</td>
+          <td>Plus Jakarta Sans</td>
+          <td>600</td>
+          <td>18px / 1.125rem</td>
+          <td>16px / 1rem</td>
+          <td>1.4</td>
+        </tr>
+        <tr>
+          <td class="type-sample-cell">Body Large</td>
+          <td>Inter</td>
+          <td>400</td>
+          <td>18px / 1.125rem</td>
+          <td>16px / 1rem</td>
+          <td>1.7</td>
+        </tr>
+        <tr>
+          <td class="type-sample-cell">Body Base</td>
+          <td>Inter</td>
+          <td>400</td>
+          <td>16px / 1rem</td>
+          <td>15px / 0.9375rem</td>
+          <td>1.65</td>
+        </tr>
+        <tr>
+          <td class="type-sample-cell">Body Small</td>
+          <td>Inter</td>
+          <td>400</td>
+          <td>14px / 0.875rem</td>
+          <td>13px / 0.8125rem</td>
+          <td>1.6</td>
+        </tr>
+        <tr>
+          <td class="type-sample-cell">Label</td>
+          <td>Inter</td>
+          <td>500</td>
+          <td>13px / 0.8125rem</td>
+          <td>12px / 0.75rem</td>
+          <td>1.4</td>
+        </tr>
+        <tr>
+          <td class="type-sample-cell">Caption</td>
+          <td>Inter</td>
+          <td>400</td>
+          <td>12px / 0.75rem</td>
+          <td>11px / 0.6875rem</td>
+          <td>1.5</td>
+        </tr>
+        <tr>
+          <td class="type-sample-cell">Overline</td>
+          <td>Inter</td>
+          <td>600</td>
+          <td>11px UPPERCASE</td>
+          <td>10px UPPERCASE</td>
+          <td>1.4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 05 LOGO -->
+  <div class="section section-dark">
+    <div class="section-header">
+      <span class="section-tag">05 — Logo</span>
+      <h2 class="section-title">Diretrizes de Uso</h2>
+    </div>
+    <div class="logo-versions-grid">
+      <div class="logo-version-card logo-version-dark">
+        <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/logo-advanx-transparente.webp" alt="Advanx — versão principal" class="logo-img logo-img-dark">
+        <div class="logo-version-label">Principal Colorida<br><span style="opacity:0.6;">Uso em fundos escuros</span></div>
+      </div>
+      <div class="logo-version-card logo-version-light">
+        <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/logo-advanx-transparente.webp" alt="Advanx — versão invertida" class="logo-img logo-img-light">
+        <div class="logo-version-label">Principal Invertida<br><span style="opacity:0.6;">Uso em fundos claros</span></div>
+      </div>
+      <div class="logo-version-card logo-version-orange">
+        <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/logo-advanx-transparente.webp" alt="Advanx — versão monocromática" class="logo-img logo-img-mono">
+        <div class="logo-version-label">Monocromática Dark<br><span style="opacity:0.6;">Uso em fundo laranja</span></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:32px;">
+      <div style="font-size:14px;font-weight:600;color:var(--color-primary);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:16px;">Tamanhos Mínimos</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div style="background:var(--color-surface-1);border-radius:8px;padding:20px;text-align:center;">
+          <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--color-text-dark);margin-bottom:6px;">120px</div>
+          <div style="font-size:12px;color:var(--color-text-muted-dark);">Logo completo em tela</div>
+        </div>
+        <div style="background:var(--color-surface-1);border-radius:8px;padding:20px;text-align:center;">
+          <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--color-text-dark);margin-bottom:6px;">24px</div>
+          <div style="font-size:12px;color:var(--color-text-muted-dark);">Símbolo mínimo em tela</div>
+        </div>
+        <div style="background:var(--color-surface-1);border-radius:8px;padding:20px;text-align:center;">
+          <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--color-text-dark);margin-bottom:6px;">30mm</div>
+          <div style="font-size:12px;color:var(--color-text-muted-dark);">Logo completo impresso</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size:14px;font-weight:600;color:var(--color-primary);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:16px;">Nunca Fazer</div>
+    <ul class="dont-list">
+      <li class="dont-item"><span class="dont-icon">✕</span><span class="dont-text">Não esticar ou comprimir o logo — proporções são fixas</span></li>
+      <li class="dont-item"><span class="dont-icon">✕</span><span class="dont-text">Não recolorir o símbolo com cores fora da paleta oficial</span></li>
+      <li class="dont-item"><span class="dont-icon">✕</span><span class="dont-text">Não adicionar sombra ao logo</span></li>
+      <li class="dont-item"><span class="dont-icon">✕</span><span class="dont-text">Não usar o logo sobre fundo laranja — contraste insuficiente</span></li>
+      <li class="dont-item"><span class="dont-icon">✕</span><span class="dont-text">Não adicionar contorno (stroke) ao redor das letras do wordmark</span></li>
+      <li class="dont-item"><span class="dont-icon">✕</span><span class="dont-text">Não rotacionar o logo em nenhum ângulo</span></li>
+    </ul>
+  </div>
+
+  <!-- 06 VOZ E TOM -->
+  <div class="section section-surface">
+    <div class="section-header">
+      <span class="section-tag">06 — Voz e Tom</span>
+      <h2 class="section-title">Personalidade da Marca</h2>
+    </div>
+    <div class="adjectives-row">
+      <div class="adjective-card">
+        <div class="adjective-word">Direta.</div>
+        <div class="adjective-desc">Sem eufemismos, sem linguagem de agência. A Advanx diz o que vai acontecer — não o que "espera" que aconteça. Benefício antes da feature.</div>
+      </div>
+      <div class="adjective-card">
+        <div class="adjective-word">Comprometida.</div>
+        <div class="adjective-desc">A empresa tem pele no jogo. A comunicação reflete isso — não há distância entre a promessa e a execução. Afirmações têm dados que sustentam.</div>
+      </div>
+      <div class="adjective-card">
+        <div class="adjective-word">Responsável pelo resultado.</div>
+        <div class="adjective-desc">Substitui "humana" porque humanidade sem responsabilidade é só simpatia. A Advanx é humana porque assume o que promete — não porque usa linguagem calorosa.</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card vocab-card-use">
+        <div class="vocab-card-title">✓ Palavras que a Advanx usa</div>
+        <ul class="vocab-list">
+          <li class="vocab-item">Resultado, Crescimento, Meta</li>
+          <li class="vocab-item">Automação, Seu escritório, Dados</li>
+          <li class="vocab-item">Entregamos, Previsível, Garantia</li>
+          <li class="vocab-item">Captação, Mensurável, 41 dias</li>
+          <li class="vocab-item">Sem mensalidade, Você não paga</li>
+          <li class="vocab-item">Retorno mensurável, Estrutura, Ativação</li>
+        </ul>
+      </div>
+      <div class="vocab-card vocab-card-avoid">
+        <div class="vocab-card-title">✕ Palavras que a Advanx evita</div>
+        <ul class="vocab-list">
+          <li class="vocab-item">Revolucionário, Disruptivo, Soluções</li>
+          <li class="vocab-item">Jornada, Conteúdo de valor, Funil</li>
+          <li class="vocab-item">Leads quentes, Pacote básico</li>
+          <li class="vocab-item">Infelizmente, Tentaremos, Esperamos</li>
+          <li class="vocab-item">Parceiro (implica divisão — a Advanx assume)</li>
+          <li class="vocab-item">Personalizado, Buscamos, Tentamos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 APLICAÇÕES -->
+  <div class="section section-dark">
+    <div class="section-header">
+      <span class="section-tag">07 — Aplicações</span>
+      <h2 class="section-title">Mapa de Cores do Site</h2>
+    </div>
+    <div class="site-map">
+      <div class="site-section-block" style="background:#0D1117;border:1px solid #1E2A3A;">
+        <span class="site-section-name" style="color:#F1F0ED;">Header</span>
+        <span class="site-section-info" style="color:#8B95A3;">bg #0D1117 · logo colorida · CTA #FF7A00</span>
+      </div>
+      <div class="site-section-block" style="background:#0D1117;border:1px solid #1E2A3A;">
+        <span class="site-section-name" style="color:#FF7A00;">Hero Section</span>
+        <span class="site-section-info" style="color:#8B95A3;">bg #0D1117 · headline #F1F0ED · palavra-chave #FF7A00 · métricas #22C55E</span>
+      </div>
+      <div class="site-section-block" style="background:#111620;border:1px solid #1E2A3A;">
+        <span class="site-section-name" style="color:#F1F0ED;">Prova Social / Logos</span>
+        <span class="site-section-info" style="color:#8B95A3;">bg #111620 · overline #FF7A00 · logos #8B95A3</span>
+      </div>
+      <div class="site-section-block" style="background:#F8F7F4;border:1px solid #E5E3DC;">
+        <span class="site-section-name" style="color:#111827;">Features / Benefícios</span>
+        <span class="site-section-info" style="color:#6B7280;">bg #F8F7F4 · cards #FFFFFF · ícones #FF7A00 · texto #6B7280</span>
+      </div>
+      <div class="site-section-block" style="background:#0D1117;border:1px solid #1E2A3A;">
+        <span class="site-section-name" style="color:#FF7A00;">Métricas de Resultado</span>
+        <span class="site-section-info" style="color:#8B95A3;">bg #0D1117 · números #FF7A00 Display 800 · crescimento #22C55E</span>
+      </div>
+      <div class="site-section-block" style="background:#F0EFE9;border:1px solid #E5E3DC;">
+        <span class="site-section-name" style="color:#111827;">Depoimentos</span>
+        <span class="site-section-info" style="color:#6B7280;">bg #F0EFE9 · cards #FFFFFF · estrelas #FF7A00 · nome #1E2A3A</span>
+      </div>
+      <div class="site-section-block" style="background:#FF7A00;">
+        <span class="site-section-name" style="color:#0D1117;">CTA Final ⭐ única seção com fundo laranja</span>
+        <span class="site-section-info" style="color:rgba(13,17,23,0.7);">bg #FF7A00 · título #0D1117 · botão bg #0D1117 text #FF7A00</span>
+      </div>
+      <div class="site-section-block" style="background:#0D1117;border:1px solid #1E2A3A;">
+        <span class="site-section-name" style="color:#F1F0ED;">Footer</span>
+        <span class="site-section-info" style="color:#8B95A3;">bg #0D1117 · links #8B95A3 hover #F1F0ED · divisor #1E2A3A</span>
+      </div>
+    </div>
+    <div style="background:var(--color-surface-2);border-left:4px solid var(--color-primary);border-radius:0 12px 12px 0;padding:20px 24px;margin-top:24px;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-muted-dark);margin-bottom:8px;">Regra de Uso do Fundo Laranja</div>
+      <div style="font-size:14px;color:var(--color-text-muted-dark);line-height:1.7;">O fundo <strong style="color:var(--color-text-dark);">#FF7A00 é reservado exclusivamente para o CTA final</strong> de cada página. O laranja perde poder de conversão se aparecer em múltiplos fundos. Quando o usuário chega no CTA final, o fundo laranja deve ser o único momento na jornada visual em que essa cor ocupa toda a largura — criando sinalização inconsciente de que chegou ao ponto de ação.<br><br>
+      <strong style="color:var(--color-text-dark);">Nunca usar fundo laranja em:</strong> headers, navegação, seções intermediárias de conteúdo, cards internos, modais ou overlays. A única exceção é uma segunda seção de CTA em páginas com mais de 8 scrolls, e apenas se a primeira não estiver visível.</div>
+    </div>
+  </div>
+
+  <!-- 07B ESTADOS DE COMPONENTE -->
+  <div class="section section-surface">
+    <div class="section-header">
+      <span class="section-tag">07B — Estados</span>
+      <h2 class="section-title">Estados de Componente</h2>
+    </div>
+    <p style="font-size:15px;color:var(--color-text-muted-dark);line-height:1.7;margin-bottom:32px;">Todo elemento interativo tem quatro estados obrigatórios. Nenhum componente vai para produção sem todos os quatro definidos.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="background:var(--color-surface-2);border:1px solid var(--color-border-dark);border-radius:12px;padding:24px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-primary);margin-bottom:16px;">Botão Primário (#FF7A00)</div>
+        <div style="font-family:monospace;font-size:12px;color:var(--color-text-muted-dark);line-height:2;">
+          <div><span style="color:#22C55E;">Default</span>: bg #FF7A00 · text #0D1117 · border none</div>
+          <div><span style="color:#22C55E;">Hover</span>: bg #E56E00 · escala 1.01 · 150ms ease</div>
+          <div><span style="color:#22C55E;">Focus</span>: outline 2px solid #FF7A00 · offset 3px</div>
+          <div><span style="color:#22C55E;">Disabled</span>: bg rgba(255,122,0,0.3) · cursor not-allowed</div>
+          <div><span style="color:#22C55E;">Loading</span>: bg #FF7A00 · spinner #0D1117</div>
+        </div>
+      </div>
+      <div style="background:var(--color-surface-2);border:1px solid var(--color-border-dark);border-radius:12px;padding:24px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-primary);margin-bottom:16px;">Botão Secundário (outline)</div>
+        <div style="font-family:monospace;font-size:12px;color:var(--color-text-muted-dark);line-height:2;">
+          <div><span style="color:#22C55E;">Default</span>: bg transparent · border 1.5px #FF7A00 · text #FF7A00</div>
+          <div><span style="color:#22C55E;">Hover</span>: bg rgba(255,122,0,0.08) · border #E56E00</div>
+          <div><span style="color:#22C55E;">Focus</span>: outline 2px solid #FF7A00 · offset 3px</div>
+          <div><span style="color:#22C55E;">Disabled</span>: border rgba(255,122,0,0.3) · text rgba(255,122,0,0.3)</div>
+        </div>
+      </div>
+      <div style="background:var(--color-surface-2);border:1px solid var(--color-border-dark);border-radius:12px;padding:24px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-primary);margin-bottom:16px;">Inputs e Campos</div>
+        <div style="font-family:monospace;font-size:12px;color:var(--color-text-muted-dark);line-height:2;">
+          <div><span style="color:#22C55E;">Default</span>: border 1px #374151 · bg #111620 · text #F8F7F4</div>
+          <div><span style="color:#22C55E;">Focus</span>: border 1.5px #FF7A00 · ring rgba(255,122,0,0.15)</div>
+          <div><span style="color:#EF4444;">Error</span>: border 1.5px #EF4444 · msg Inter 400 14px #EF4444</div>
+          <div><span style="color:#22C55E;">Success</span>: border 1.5px #22C55E</div>
+          <div><span style="color:#6B7280;">Disabled</span>: bg #0D1117 · text #6B7280 · cursor not-allowed</div>
+        </div>
+      </div>
+      <div style="background:var(--color-surface-2);border:1px solid var(--color-border-dark);border-radius:12px;padding:24px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-primary);margin-bottom:16px;">Mensagens de Sistema</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:rgba(34,197,94,0.1);border-left:3px solid #22C55E;padding:8px 12px;border-radius:0 6px 6px 0;font-size:12px;color:#22C55E;">Sucesso</div>
+          <div style="background:rgba(239,68,68,0.1);border-left:3px solid #EF4444;padding:8px 12px;border-radius:0 6px 6px 0;font-size:12px;color:#EF4444;">Erro</div>
+          <div style="background:rgba(255,122,0,0.1);border-left:3px solid #FF7A00;padding:8px 12px;border-radius:0 6px 6px 0;font-size:12px;color:#FF7A00;">Alerta</div>
+          <div style="background:rgba(59,130,246,0.1);border-left:3px solid #3B82F6;padding:8px 12px;border-radius:0 6px 6px 0;font-size:12px;color:#3B82F6;">Info (IA)</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--color-surface-2);border-left:4px solid var(--color-primary);border-radius:0 12px 12px 0;padding:16px 20px;margin-top:24px;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-muted-dark);margin-bottom:4px;">Regra de Transição</div>
+      <div style="font-size:14px;color:var(--color-text-muted-dark);">Toda transição de estado usa <strong style="color:var(--color-text-dark);">150ms ease</strong>. Nada acima de 300ms para interações funcionais. Animações decorativas podem usar curvas diferentes — documentar caso a caso.</div>
+    </div>
+  </div>
+
+  <!-- 07C COMUNICAÇÃO DE RESULTADO -->
+  <div class="section section-dark">
+    <div class="section-header">
+      <span class="section-tag">07C — Proof Points</span>
+      <h2 class="section-title">Comunicação de Resultado</h2>
+    </div>
+    <p style="font-size:15px;color:var(--color-text-muted-dark);line-height:1.7;margin-bottom:32px;">A Advanx prova pelo número. Toda métrica de resultado segue o mesmo padrão visual para criar reconhecimento de padrão no público. Número sem contexto não é prova — é alegação.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px;">
+      <div style="background:var(--color-surface-1);border:1px solid var(--color-border-dark);border-radius:12px;padding:32px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-primary);margin-bottom:20px;">Formato de Métrica Principal</div>
+        <div style="font-family:var(--font-display);font-size:64px;font-weight:800;color:var(--color-primary);line-height:1;">347</div>
+        <div style="font-family:var(--font-display);font-size:18px;font-weight:600;color:var(--color-primary);margin-bottom:4px;">clientes</div>
+        <div style="font-size:13px;color:var(--color-text-muted-dark);">captados em 90 dias</div>
+        <div style="font-size:13px;color:#22C55E;font-weight:600;margin-top:6px;">↑ 284% vs. período anterior</div>
+      </div>
+      <div style="background:var(--color-surface-1);border:1px solid var(--color-border-dark);border-radius:12px;padding:28px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-primary);margin-bottom:16px;">Regras de Uso</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:13px;color:var(--color-text-muted-dark);padding-left:16px;border-left:2px solid var(--color-primary);">Toda métrica tem contexto. Número sem contexto não é prova.</li>
+          <li style="font-size:13px;color:var(--color-text-muted-dark);padding-left:16px;border-left:2px solid var(--color-primary);">Período de tempo obrigatório — "em X dias/meses".</li>
+          <li style="font-size:13px;color:var(--color-text-muted-dark);padding-left:16px;border-left:2px solid var(--color-primary);">Base de comparação quando disponível (antes/depois).</li>
+          <li style="font-size:13px;color:var(--color-text-muted-dark);padding-left:16px;border-left:2px solid var(--color-primary);">Nunca arredondar para cima — 284% real é mais crível que 300%.</li>
+        </ul>
+      </div>
+    </div>
+    <div style="background:var(--color-surface-1);border:1px solid var(--color-border-dark);border-radius:12px;padding:28px;">
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-primary);margin-bottom:16px;">Padrão de Depoimento</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div>
+          <div style="font-size:12px;color:#22C55E;font-weight:600;margin-bottom:8px;">✓ Depoimento que funciona</div>
+          <div style="background:var(--color-surface-2);border-radius:8px;padding:16px;font-size:13px;color:var(--color-text-muted-dark);line-height:1.6;font-style:italic;">"Em 61 dias, captamos 23 clientes novos pelo sistema da Advanx. Antes, levávamos 6 meses para o mesmo número."<br><span style="font-style:normal;color:var(--color-text-dark);font-weight:600;">— Dr. Carlos Mendes</span><br><span style="font-style:normal;color:var(--color-text-muted-dark);">Direito Previdenciário, SP · Janeiro 2026</span></div>
+        </div>
+        <div>
+          <div style="font-size:12px;color:#EF4444;font-weight:600;margin-bottom:8px;">✕ Depoimento que não funciona</div>
+          <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:8px;padding:16px;font-size:13px;color:var(--color-text-muted-dark);line-height:1.6;font-style:italic;">"A Advanx é incrível, recomendo muito!"<br><span style="font-style:normal;color:var(--color-text-muted-dark);">— João S., Advogado</span></div>
+          <div style="font-size:12px;color:#EF4444;margin-top:8px;">Sem resultado, sem período, sem contexto.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 CSS TOKENS -->
+  <div class="section section-surface">
+    <div class="section-header">
+      <span class="section-tag">08 — Tokens de Design</span>
+      <h2 class="section-title">Variáveis CSS</h2>
+    </div>
+    <div class="code-block">
+<span class="code-comment">/* ===== ADVANX DESIGN TOKENS ===== */</span>
+<span class="code-punct">:root {</span>
+
+  <span class="code-comment">/* Cores */</span>
+  <span class="code-var">--color-primary</span><span class="code-punct">:</span>         <span class="code-value">#FF7A00</span><span class="code-punct">;</span>
+  <span class="code-var">--color-primary-light</span><span class="code-punct">:</span>   <span class="code-value">#FF9933</span><span class="code-punct">;</span>
+  <span class="code-var">--color-primary-deep</span><span class="code-punct">:</span>    <span class="code-value">#E56E00</span><span class="code-punct">;</span>
+  <span class="code-var">--color-secondary</span><span class="code-punct">:</span>       <span class="code-value">#1E2A3A</span><span class="code-punct">;</span>
+  <span class="code-var">--color-bg-dark</span><span class="code-punct">:</span>         <span class="code-value">#0D1117</span><span class="code-punct">;</span>
+  <span class="code-var">--color-surface-1</span><span class="code-punct">:</span>       <span class="code-value">#111620</span><span class="code-punct">;</span>
+  <span class="code-var">--color-surface-2</span><span class="code-punct">:</span>       <span class="code-value">#1A2235</span><span class="code-punct">;</span>
+  <span class="code-var">--color-bg-light</span><span class="code-punct">:</span>        <span class="code-value">#F8F7F4</span><span class="code-punct">;</span>
+  <span class="code-var">--color-bg-alt</span><span class="code-punct">:</span>          <span class="code-value">#F0EFE9</span><span class="code-punct">;</span>
+  <span class="code-var">--color-text</span><span class="code-punct">:</span>            <span class="code-value">#111827</span><span class="code-punct">;</span>
+  <span class="code-var">--color-text-muted</span><span class="code-punct">:</span>      <span class="code-value">#6B7280</span><span class="code-punct">;</span>
+  <span class="code-var">--color-text-dark</span><span class="code-punct">:</span>       <span class="code-value">#F1F0ED</span><span class="code-punct">;</span>
+  <span class="code-var">--color-text-muted-dark</span><span class="code-punct">: </span><span class="code-value">#8B95A3</span><span class="code-punct">;</span>
+  <span class="code-var">--color-success</span><span class="code-punct">:</span>         <span class="code-value">#22C55E</span><span class="code-punct">;</span>
+  <span class="code-var">--color-accent</span><span class="code-punct">:</span>          <span class="code-value">#3B82F6</span><span class="code-punct">;</span>
+
+  <span class="code-comment">/* Tipografia */</span>
+  <span class="code-var">--font-display</span><span class="code-punct">:</span>  <span class="code-value">'Plus Jakarta Sans'</span><span class="code-punct">, sans-serif;</span>
+  <span class="code-var">--font-body</span><span class="code-punct">:</span>     <span class="code-value">'Inter'</span><span class="code-punct">, sans-serif;</span>
+
+  <span class="code-comment">/* Tamanhos */</span>
+  <span class="code-var">--text-display</span><span class="code-punct">:</span> <span class="code-value">4.5rem</span><span class="code-punct">;</span>    <span class="code-comment">/* 72px */</span>
+  <span class="code-var">--text-h1</span><span class="code-punct">:</span>      <span class="code-value">3rem</span><span class="code-punct">;</span>       <span class="code-comment">/* 48px */</span>
+  <span class="code-var">--text-h2</span><span class="code-punct">:</span>      <span class="code-value">2.25rem</span><span class="code-punct">;</span>    <span class="code-comment">/* 36px */</span>
+  <span class="code-var">--text-h3</span><span class="code-punct">:</span>      <span class="code-value">1.5rem</span><span class="code-punct">;</span>     <span class="code-comment">/* 24px */</span>
+  <span class="code-var">--text-body</span><span class="code-punct">:</span>    <span class="code-value">1rem</span><span class="code-punct">;</span>       <span class="code-comment">/* 16px */</span>
+
+  <span class="code-comment">/* Sombras */</span>
+  <span class="code-var">--shadow-orange</span><span class="code-punct">:</span> <span class="code-value">0 8px 32px rgba(255, 122, 0, 0.24)</span><span class="code-punct">;</span>
+  <span class="code-var">--shadow-md</span><span class="code-punct">:</span>     <span class="code-value">0 4px 16px rgba(0, 0, 0, 0.16)</span><span class="code-punct">;</span>
+<span class="code-punct">}</span>
+    </div>
+  </div>
+
+  <!-- 09 CHECKLIST -->
+  <div class="section section-dark">
+    <div class="section-header">
+      <span class="section-tag">09 — Checklist</span>
+      <h2 class="section-title">Antes de Publicar</h2>
+    </div>
+    <div class="checklist-grid">
+      <div class="checklist-group">
+        <div class="checklist-group-title">Cores</div>
+        <ul class="checklist-items">
+          <li class="checklist-item"><span class="checkbox"></span>Todas as cores estão na paleta oficial</li>
+          <li class="checklist-item"><span class="checkbox"></span>CTA principal usa #FF7A00 com texto #0D1117</li>
+          <li class="checklist-item"><span class="checkbox"></span>Contraste de texto atende WCAG AA (4.5:1)</li>
+          <li class="checklist-item"><span class="checkbox"></span>Não há laranja sobre laranja em nenhum elemento</li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">Tipografia</div>
+        <ul class="checklist-items">
+          <li class="checklist-item"><span class="checkbox"></span>Títulos usam Plus Jakarta Sans</li>
+          <li class="checklist-item"><span class="checkbox"></span>Corpo usa Inter</li>
+          <li class="checklist-item"><span class="checkbox"></span>Hierarquia está clara (H1 > H2 > H3 > body)</li>
+          <li class="checklist-item"><span class="checkbox"></span>No máximo dois pesos num mesmo bloco</li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">Logo</div>
+        <ul class="checklist-items">
+          <li class="checklist-item"><span class="checkbox"></span>Versão correta para o fundo em uso</li>
+          <li class="checklist-item"><span class="checkbox"></span>Área de proteção respeitada</li>
+          <li class="checklist-item"><span class="checkbox"></span>Logo não está distorcido ou recolorido</li>
+          <li class="checklist-item"><span class="checkbox"></span>Logo não está sobre fundo laranja</li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">Voz</div>
+        <ul class="checklist-items">
+          <li class="checklist-item"><span class="checkbox"></span>Texto começa pelo benefício, não pela feature</li>
+          <li class="checklist-item"><span class="checkbox"></span>Sem superlativos sem dados de sustentação</li>
+          <li class="checklist-item"><span class="checkbox"></span>Tom adequado ao canal</li>
+          <li class="checklist-item"><span class="checkbox"></span>Sem jargão não traduzido para o público leigo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- RODAPÉ -->
+  <div class="footer-bar">
+    <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/logo-advanx-transparente.webp" alt="Advanx" style="max-height:28px;width:auto;">
+    <div class="footer-info">Brand Guidelines v1.0 — Março 2026 · Para atualizações, contate o time de design.</div>
+  </div>
+
+</body>
+</html>
