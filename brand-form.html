@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefing Advanx - Branding & Logo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --advanx-orange: #ff7a01;
+            --advanx-dark: #0a0a0a;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--advanx-dark);
+            color: #e5e5e5;
+        }
+        .step-content { display: none; }
+        .step-content.active { display: block; animation: fadeIn 0.4s ease-out; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        textarea {
+            background: #171717 !important;
+            border: 1px solid #333 !important;
+            color: #fff !important;
+            transition: all 0.3s ease;
+        }
+        textarea:focus {
+            border-color: var(--advanx-orange) !important;
+            box-shadow: 0 0 0 2px rgba(255, 122, 1, 0.2) !important;
+            outline: none;
+        }
+        .sidebar-item.active {
+            background: rgba(255, 122, 1, 0.1);
+            border-left: 4px solid var(--advanx-orange);
+            color: #fff;
+        }
+        .advanx-gradient {
+            background: linear-gradient(to r, #ffa64d, var(--advanx-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        
+        .btn-primary {
+            background-color: var(--advanx-orange);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #e66e00;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col lg:flex-row">
+
+    <!-- Sidebar de Navegação -->
+    <aside class="lg:w-80 w-full bg-[#0f0f0f] border-r border-white/5 p-6 flex flex-col">
+        <div class="mb-10">
+            <h1 class="text-2xl font-bold advanx-gradient">
+                Advanx Portal
+            </h1>
+            <p class="text-[10px] text-gray-500 mt-1 uppercase tracking-[0.2em]">Estratégia & Identidade</p>
+        </div>
+
+        <nav class="flex-1 space-y-6 overflow-y-auto pr-2">
+            <div>
+                <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-3 tracking-widest">Briefing 1 — Branding</h3>
+                <div id="nav-branding" class="space-y-1">
+                    <button onclick="showStep('b1')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all active" data-step="b1">1. Fundação Estratégica</button>
+                    <button onclick="showStep('b2')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="b2">2. Público e Mercados</button>
+                    <button onclick="showStep('b3')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="b3">3. Posição Competitiva</button>
+                    <button onclick="showStep('b4')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="b4">4. Identidade Visual</button>
+                    <button onclick="showStep('b5')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="b5">5. Referências Visuais</button>
+                    <button onclick="showStep('b6')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="b6">6. Voz e Linguagem</button>
+                    <button onclick="showStep('b7')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="b7">7. Canais e Aplicações</button>
+                    <button onclick="showStep('b8')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="b8">8. Resultados</button>
+                    <button onclick="showStep('b9')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="b9">9. Operacional</button>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-3 tracking-widest">Briefing 2 — Logo</h3>
+                <div id="nav-logo" class="space-y-1">
+                    <button onclick="showStep('l1')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="l1">1. Sobre o Negócio</button>
+                    <button onclick="showStep('l2')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="l2">2. Público e Mercado</button>
+                    <button onclick="showStep('l3')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="l3">3. Referências Visuais</button>
+                    <button onclick="showStep('l4')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="l4">4. Elementos e Formato</button>
+                    <button onclick="showStep('l5')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="l5">5. Aplicações e Uso</button>
+                    <button onclick="showStep('l6')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="l6">6. Entrega</button>
+                    <button onclick="showStep('l7')" class="sidebar-item w-full text-left p-3 rounded-lg text-sm text-gray-400 transition-all" data-step="l7">7. Contexto Adicional</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="mt-6">
+            <button onclick="exportData()" class="w-full btn-primary text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-[#ff7a01]/20">
+                Finalizar Briefing
+            </button>
+        </div>
+    </aside>
+
+    <!-- Área Principal -->
+    <main class="flex-1 p-6 lg:p-12 overflow-y-auto max-w-5xl mx-auto w-full">
+        
+        <div class="mb-8 flex justify-between items-end border-b border-white/5 pb-8">
+            <div>
+                <h2 id="section-title" class="text-3xl font-bold text-white">Fundação Estratégica</h2>
+                <p id="section-desc" class="text-gray-400 mt-2 italic">Bloco 1 — Construindo os pilares da sua marca.</p>
+            </div>
+            <div class="text-right hidden sm:block">
+                <span class="text-[10px] text-gray-500 block mb-1 font-bold">PROGRESSO ADVANX</span>
+                <div class="w-32 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-[#ff7a01] transition-all duration-500" style="width: 5%"></div>
+                </div>
+            </div>
+        </div>
+
+        <form id="briefingForm">
+            <!-- BRANDING STEPS -->
+            <div id="step-b1" class="step-content active">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">1.1 Em uma frase, o que a sua empresa faz — e para quem?</label>
+                        <textarea name="Branding_1.1" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">1.2 Por que sua empresa existe além de gerar lucro? Qual problema ela resolve?</label>
+                        <textarea name="Branding_1.2" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">1.3 Se sua empresa fosse uma pessoa, como ela seria? Use adjetivos livres.</label>
+                        <textarea name="Branding_1.3" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">1.4 Quais são os três valores inegociáveis da empresa?</label>
+                        <textarea name="Branding_1.4" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">1.5 Como você quer que as pessoas se sintam depois de qualquer contato com sua marca?</label>
+                        <textarea name="Branding_1.5" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-b2" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">2.1 Quem é seu cliente principal? Idade, setor, cargo, dores.</label>
+                        <textarea name="Branding_2.1" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">2.2 Existe mais de um tipo de cliente? O que cada um tem de diferente?</label>
+                        <textarea name="Branding_2.2" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">2.3 O cliente decide sozinho ou precisa convencer outras pessoas?</label>
+                        <textarea name="Branding_2.3" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">2.4 Em qual mercado você não quer entrar — mesmo que ele te procure?</label>
+                        <textarea name="Branding_2.4" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-b3" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">3.1 Cite 2-3 concorrentes. O que fazem bem? O que fazem mal?</label>
+                        <textarea name="Branding_3.1" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">3.2 Por que um cliente escolhe o concorrente em vez de você?</label>
+                        <textarea name="Branding_3.2" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">3.3 Qual argumento fecha mais negócios para você?</label>
+                        <textarea name="Branding_3.3" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">3.4 Em que você é objetivamente melhor — e consegue provar com dados?</label>
+                        <textarea name="Branding_3.4" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-b4" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">4.1 Você já tem logo? Há significado por trás das formas ou cores?</label>
+                        <textarea name="Branding_4.1" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">4.2 O que você ama no logo atual? E o que nunca gostou?</label>
+                        <textarea name="Branding_4.2" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">4.3 Quais cores usa hoje? Sabe os códigos HEX/RGB/Pantone?</label>
+                        <textarea name="Branding_4.3" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">4.4 Alguma cor que jamais usaria — por associação com concorrente ou valor?</label>
+                        <textarea name="Branding_4.4" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">4.5 Quais fontes/tipografias a empresa usa hoje?</label>
+                        <textarea name="Branding_4.5" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-b5" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">5.1 3 marcas de qualquer setor que você admira visualmente. Por quê?</label>
+                        <textarea name="Branding_5.1" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">5.2 1-2 marcas que você não quer parecer.</label>
+                        <textarea name="Branding_5.2" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">5.3 Escolha entre os pares (Sério/Descontraído, Sofisticado/Acessível...):</label>
+                        <textarea name="Branding_5.3" rows="3" class="w-full p-4 rounded-xl resize-none" placeholder="Ex: Sofisticado, Minimalista, Inovador, Quente..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-b6" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">6.1 A empresa trata o cliente de "você" ou "senhor"? Usa gírias do setor?</label>
+                        <textarea name="Branding_6.1" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">6.2 Alguma palavra ou frase que virou quase uma assinatura da empresa?</label>
+                        <textarea name="Branding_6.2" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">6.3 Alguma palavra ou promessa que nunca deve aparecer?</label>
+                        <textarea name="Branding_6.3" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">6.4 Como a empresa fala em momentos difíceis — erro, atraso, crise?</label>
+                        <textarea name="Branding_6.4" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-b7" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">7.1 Liste todos os lugares onde sua marca aparece: site, redes, embalagem...</label>
+                        <textarea name="Branding_7.1" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">7.2 Qual canal é mais importante para fechar negócios? Qual negligencia?</label>
+                        <textarea name="Branding_7.2" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">7.3 Seu site existe? Quem costuma atualizar?</label>
+                        <textarea name="Branding_7.3" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">7.4 Qual plataforma de design a equipe usa? Quem cria materiais?</label>
+                        <textarea name="Branding_7.4" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-b8" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">8.1 Qual é o resultado mais concreto que um cliente já teve com você?</label>
+                        <textarea name="Branding_8.1" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">8.2 Tem cases, depoimentos ou prêmios que provam sua promessa?</label>
+                        <textarea name="Branding_8.2" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">8.3 Existe algum número que impressiona quando compartilhado?</label>
+                        <textarea name="Branding_8.3" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-b9" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">9.1 Quem vai usar o brand guidelines no dia a dia?</label>
+                        <textarea name="Branding_9.1" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">9.2 Hoje como decidem cores e fontes em novos materiais?</label>
+                        <textarea name="Branding_9.2" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">9.3 Qual é o maior problema que quer resolver com esse guia?</label>
+                        <textarea name="Branding_9.3" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">9.4 Existe prazo, lançamento ou evento que precisamos respeitar?</label>
+                        <textarea name="Branding_9.4" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOGO STEPS -->
+            <div id="step-l1" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">1. Qual é o nome exato da empresa ou marca?</label>
+                        <textarea name="Logo_1" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">2. O que a empresa faz, de forma simples e direta?</label>
+                        <textarea name="Logo_2" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">3. A marca é nova, um rebranding ou atualização?</label>
+                        <textarea name="Logo_3" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">4. Se fosse uma pessoa, como ela seria? (Até 5 adjetivos)</label>
+                        <textarea name="Logo_4" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">5. Qual é a missão ou propósito da empresa?</label>
+                        <textarea name="Logo_5" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-l2" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">6. Quem é o seu cliente ideal? Faixa etária, perfil, o que valoriza.</label>
+                        <textarea name="Logo_6" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">7. Quais são os 3 principais concorrentes? (Nome + site)</label>
+                        <textarea name="Logo_7" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">8. O que quer que as pessoas sintam ao ver sua logo pela primeira vez?</label>
+                        <textarea name="Logo_8" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">9. Como se posiciona? Preço baixo, qualidade premium, nicho, inovação?</label>
+                        <textarea name="Logo_9" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-l3" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">10. Logos que admira (qualquer setor). Envie nomes ou links.</label>
+                        <textarea name="Logo_10" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">11. Logos que não quer como referência. O que odeia?</label>
+                        <textarea name="Logo_11" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">12. Tem alguma cor que já associa à sua marca?</label>
+                        <textarea name="Logo_12" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">13. Tem alguma cor proibida?</label>
+                        <textarea name="Logo_13" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">14. Prefere estilo clássico/atemporal ou moderno/contemporâneo?</label>
+                        <textarea name="Logo_14" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-l4" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">15. Quer só o nome, só símbolo, ou ambos juntos?</label>
+                        <textarea name="Logo_15" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">16. Estilo do símbolo: geométrico, orgânico, abstrato, literal, inicial ou mascote?</label>
+                        <textarea name="Logo_16" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">17. A logo precisa funcionar em horizontal, vertical ou ambos?</label>
+                        <textarea name="Logo_17" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">18. Vai aparecer em fundo escuro e fundo claro?</label>
+                        <textarea name="Logo_18" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-l5" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">19. Onde a logo vai ser usada? (Site, redes, uniforme, fachada...)</label>
+                        <textarea name="Logo_19" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">20. Contextos internacionais ou plano de expansão?</label>
+                        <textarea name="Logo_20" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">21. Existe material já existente que a nova logo precisa conviver?</label>
+                        <textarea name="Logo_21" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-l6" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">22. Precisa de um guia de uso da marca (manual)?</label>
+                        <textarea name="Logo_22" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">23. Além da logo, precisa de paleta, tipografia, papelaria, templates?</label>
+                        <textarea name="Logo_23" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">24. Quais formatos de arquivo precisa? (PNG, SVG, PDF, AI/EPS)</label>
+                        <textarea name="Logo_24" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">25. Qual é o prazo esperado? Existe data limite?</label>
+                        <textarea name="Logo_25" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-l7" class="step-content">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">26. História ou significado por trás do nome para a logo?</label>
+                        <textarea name="Logo_26" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">27. Algo que absolutamente não quer na logo?</label>
+                        <textarea name="Logo_27" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">28. Você tem orçamento definido para o projeto?</label>
+                        <textarea name="Logo_28" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">29. Quem vai aprovar a logo no final? (Sócio, comitê...)</label>
+                        <textarea name="Logo_29" rows="2" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">30. Alguma informação importante que não coube acima?</label>
+                        <textarea name="Logo_30" rows="3" class="w-full p-4 rounded-xl resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Navegação Inferior -->
+        <div class="mt-12 flex justify-between">
+            <button onclick="prevStep()" id="btn-prev" class="px-6 py-2 rounded-lg bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all hidden">Voltar</button>
+            <button onclick="nextStep()" id="btn-next" class="px-6 py-2 rounded-lg btn-primary text-white ml-auto">Próximo</button>
+        </div>
+    </main>
+
+    <!-- Modal de Resultado -->
+    <div id="modal" class="fixed inset-0 bg-black/95 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-[#171717] p-8 rounded-3xl max-w-4xl w-full border border-white/10 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <h3 class="text-2xl font-bold text-white mb-2">Briefing Advanx Concluído! 🚀</h3>
+            <p class="text-gray-400 mb-6 text-sm">Copie o conteúdo abaixo para o seu documento oficial.</p>
+            <textarea id="result-text" readonly class="flex-1 w-full p-4 text-xs font-mono mb-6 bg-black/30 border border-white/10 rounded-xl"></textarea>
+            <div class="flex gap-4">
+                <button onclick="copyToClipboard()" class="flex-1 bg-white/5 text-white py-3 rounded-xl hover:bg-white/10 transition-all">Copiar Texto</button>
+                <button onclick="closeModal()" class="flex-1 btn-primary text-white py-3 rounded-xl">Fechar Janela</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const steps = [
+            'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9',
+            'l1', 'l2', 'l3', 'l4', 'l5', 'l6', 'l7'
+        ];
+        let currentStepIndex = 0;
+
+        const titles = {
+            'b1': ['Fundação Estratégica', 'Bloco 1 — Construindo os pilares da sua marca.'],
+            'b2': ['Público e Mercados', 'Bloco 2 — Entendendo para quem você resolve dores.'],
+            'b3': ['Posição Competitiva', 'Bloco 3 — Sua vantagem perante o mercado.'],
+            'b4': ['Identidade Visual Existente', 'Bloco 4 — O legado e as cores atuais.'],
+            'b5': ['Referências Visuais', 'Bloco 5 — Gostos, admirações e filtros.'],
+            'b6': ['Voz, Tom e Linguagem', 'Bloco 6 — A personalidade sonora da marca.'],
+            'b7': ['Canais e Aplicações', 'Bloco 7 — Onde a marca se manifesta.'],
+            'b8': ['Resultados e Evidências', 'Bloco 8 — As provas do seu sucesso.'],
+            'b9': ['Operacional', 'Bloco 9 — Prazos e gestão do guia.'],
+            'l1': ['Logo: Sobre o Negócio', 'Bloco 1 — Nome, missão e propósito.'],
+            'l2': ['Logo: Público e Mercado', 'Bloco 2 — Alvo e sentimentos desejados.'],
+            'l3': ['Logo: Referências Visuais', 'Bloco 3 — Admiração e cores associadas.'],
+            'l4': ['Logo: Elementos e Formato', 'Bloco 4 — Símbolos e disposições.'],
+            'l5': ['Logo: Aplicações e Uso', 'Bloco 5 — Onde a logo ganhará vida.'],
+            'l6': ['Logo: Entrega', 'Bloco 6 — Formatos e expectativas finais.'],
+            'l7': ['Logo: Contexto Adicional', 'Bloco 7 — Últimas observações e orçamento.']
+        };
+
+        function showStep(stepId) {
+            const stepIndex = steps.indexOf(stepId);
+            if(stepIndex === -1) return;
+            currentStepIndex = stepIndex;
+
+            document.querySelectorAll('.sidebar-item').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.dataset.step === stepId) btn.classList.add('active');
+            });
+
+            document.getElementById('section-title').innerText = titles[stepId][0];
+            document.getElementById('section-desc').innerText = titles[stepId][1];
+
+            const percent = ((currentStepIndex + 1) / steps.length) * 100;
+            document.getElementById('progress-bar').style.width = percent + '%';
+
+            document.querySelectorAll('.step-content').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step-${stepId}`).classList.add('active');
+
+            document.getElementById('btn-prev').style.display = currentStepIndex === 0 ? 'none' : 'block';
+            document.getElementById('btn-next').innerText = currentStepIndex === steps.length - 1 ? 'Finalizar Tudo' : 'Próximo';
+        }
+
+        function nextStep() {
+            if (currentStepIndex < steps.length - 1) {
+                showStep(steps[currentStepIndex + 1]);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                exportData();
+            }
+        }
+
+        function prevStep() {
+            if (currentStepIndex > 0) {
+                showStep(steps[currentStepIndex - 1]);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function exportData() {
+            const formData = new FormData(document.getElementById('briefingForm'));
+            let output = "=== BRIEFING OFICIAL ADVANX ===\n\n";
+            
+            for (let [key, value] of formData.entries()) {
+                const label = key.replace('_', ' ');
+                output += `${label}:\n${value || "Não preenchido"}\n\n`;
+            }
+
+            document.getElementById('result-text').value = output;
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function copyToClipboard() {
+            const copyText = document.getElementById("result-text");
+            copyText.select();
+            document.execCommand("copy");
+            alert("Briefing copiado para a área de transferência!");
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
