@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webnário Tribunal - Visualização</title>
+    <style>
+        /* Remove margens e preenchimentos padrão do navegador */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* Impede barras de rolagem duplas */
+        }
+
+        /* Faz o iframe ocupar todo o espaço disponível */
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe 
+        src="https://v0-fabio-pericles-webnario-tribunal-phi.vercel.app/" 
+        title="Webnário Tribunal"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen>
+        <p>Seu navegador não suporta iframes. <a href="https://v0-fabio-pericles-webnario-tribunal-phi.vercel.app/">Clique aqui para acessar o site diretamente.</a></p>
+    </iframe>
+
+</body>
+</html>
