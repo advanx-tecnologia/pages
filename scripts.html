@@ -3,18 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hub Advanx | Scripts Validados</title>
+  <title>Hub Advanx | Scripts de Alta Conversão</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
           colors: {
-            brand: '#ff7a01',
-            dark: '#0f1115',
-            panel: 'rgba(30, 33, 40, 0.7)'
+            brand: {
+              DEFAULT: '#ff7a01',
+              light: '#ffa040',
+              dark: '#cc6200',
+              subtle: 'rgba(255, 122, 1, 0.1)'
+            },
+            dark: {
+              bg: '#0a0a0c',
+              surface: '#121316',
+              border: '#2a2b30'
+            }
           }
         }
       }
@@ -22,87 +36,157 @@
   </script>
   <style>
     body {
-      background-color: #0f1115;
+      background-color: #0a0a0c;
       color: #e2e8f0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-image: radial-gradient(circle at 50% 0%, rgba(255, 122, 1, 0.08) 0%, transparent 50%);
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(255, 122, 1, 0.05), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(255, 122, 1, 0.03), transparent 25%);
+      background-attachment: fixed;
     }
-    .glass {
-      background: rgba(25, 28, 35, 0.6);
+    .glass-nav {
+      background: rgba(18, 19, 22, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid #2a2b30;
+    }
+    .glass-panel {
+      background: rgba(18, 19, 22, 0.6);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
+      border: 1px solid #2a2b30;
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     }
-    .scrollbar-hide::-webkit-scrollbar {
-      display: none;
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
     }
-    .scrollbar-hide {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+    ::-webkit-scrollbar-track {
+      background: transparent;
     }
-    pre {
+    ::-webkit-scrollbar-thumb {
+      background: #2a2b30;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ff7a01;
+    }
+
+    .script-item.active {
+      background-color: rgba(255, 122, 1, 0.1);
+      border-left: 3px solid #ff7a01;
+    }
+
+    /* Content Typography */
+    .content-body pre {
       white-space: pre-wrap;
-      word-wrap: break-word;
+      font-family: inherit;
+      line-height: 1.7;
+      color: #cbd5e1;
+    }
+    .content-body strong {
+      color: #fff;
+      font-weight: 600;
+    }
+    
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade {
+      animation: fadeIn 0.3s ease-out forwards;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col h-screen overflow-hidden">
 
-  <nav class="glass sticky top-0 z-50 m-4 p-4 flex justify-between items-center">
+  <!-- Navbar -->
+  <nav class="glass-nav sticky top-0 z-50 flex-shrink-0 h-16 flex items-center px-6 justify-between">
     <div class="flex items-center gap-3">
-      <div class="w-8 h-8 rounded bg-brand flex items-center justify-center text-white font-bold">A</div>
+      <div class="w-8 h-8 rounded bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-bold shadow-[0_0_10px_rgba(255,122,1,0.4)]">A</div>
       <span class="font-bold text-lg tracking-tight">Hub <span class="text-brand">Advanx</span></span>
     </div>
-    <div class="text-sm font-medium text-gray-400">Banco de Scripts</div>
+    
+    <div class="flex items-center gap-4">
+      <div class="hidden md:flex items-center gap-2 text-xs text-gray-400 bg-dark-surface px-3 py-1.5 rounded-full border border-dark-border">
+        <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+        <span>Sync Auto: Ativo</span>
+      </div>
+      <span class="text-sm font-medium text-gray-400 bg-dark-border px-3 py-1 rounded">Roteiros e Copys</span>
+    </div>
   </nav>
 
-  <main class="flex-1 container mx-auto px-4 pb-10 flex flex-col lg:flex-row gap-6 h-[calc(100vh-100px)]">
-    
-    <!-- Sidebar / Filtros -->
-    <aside class="glass w-full lg:w-1/3 flex flex-col h-full overflow-hidden">
-      <div class="p-4 border-b border-white/5">
-        <h2 class="text-lg font-semibold mb-3 flex items-center gap-2"><i class="fa-solid fa-filter text-brand"></i> Filtros</h2>
-        
-        <div class="mb-4">
-          <label class="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Nicho</label>
-          <select id="niche-select" class="w-full bg-dark/50 border border-white/10 rounded p-2 text-sm focus:outline-none focus:border-brand transition-colors">
-            <option value="all">Todos os Nichos</option>
-          </select>
-        </div>
+  <!-- Main Workspace -->
+  <main class="flex-1 p-4 lg:p-6 flex flex-col lg:flex-row gap-6 overflow-hidden h-[calc(100vh-4rem)]">
 
-        <div>
-          <label class="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Buscar Tese</label>
+    <!-- Sidebar / Filtros -->
+    <aside class="glass-panel w-full lg:w-[380px] flex flex-col h-full flex-shrink-0">
+      
+      <!-- Top Filters -->
+      <div class="p-5 border-b border-dark-border shrink-0">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-semibold text-white">Explorar</h2>
+          <span id="total-count" class="text-xs font-bold bg-brand-subtle text-brand px-2 py-1 rounded-full">0 roteiros</span>
+        </div>
+        
+        <div class="space-y-4">
           <div class="relative">
-            <i class="fa-solid fa-search absolute left-3 top-2.5 text-gray-500 text-sm"></i>
-            <input type="text" id="search-input" placeholder="Ex: Acidente de trabalho..." class="w-full bg-dark/50 border border-white/10 rounded p-2 pl-9 text-sm focus:outline-none focus:border-brand transition-colors">
+            <i class="fa-solid fa-search absolute left-3 top-3 text-gray-500 text-sm"></i>
+            <input type="text" id="search-input" placeholder="Buscar tese, palavra-chave..." 
+              class="w-full bg-dark-bg border border-dark-border rounded-lg p-2.5 pl-9 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all">
+          </div>
+
+          <div class="relative">
+            <select id="niche-select" class="w-full appearance-none bg-dark-bg border border-dark-border rounded-lg p-2.5 text-sm text-gray-300 focus:outline-none focus:border-brand transition-all cursor-pointer">
+              <option value="all">📁 Todos os Nichos</option>
+            </select>
+            <i class="fa-solid fa-chevron-down absolute right-3 top-3.5 text-gray-500 text-xs pointer-events-none"></i>
           </div>
         </div>
       </div>
-      
-      <!-- Lista de Scripts -->
-      <div class="flex-1 overflow-y-auto scrollbar-hide p-2" id="scripts-list">
-        <!-- Itens injetados via JS -->
+
+      <!-- List Container -->
+      <div class="flex-1 overflow-y-auto p-3 space-y-1" id="scripts-list">
+        <!-- Loader -->
+        <div class="flex justify-center items-center h-32 text-brand">
+          <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+        </div>
       </div>
+      
     </aside>
 
-    <!-- Visualizador -->
-    <section class="glass w-full lg:w-2/3 flex flex-col h-full overflow-hidden relative">
-      <div class="p-6 border-b border-white/5 flex justify-between items-center shrink-0">
-        <div>
-          <span id="view-niche" class="text-xs font-bold bg-brand/20 text-brand px-2 py-1 rounded mb-2 inline-block">Nicho</span>
-          <h1 id="view-title" class="text-xl md:text-2xl font-bold">Selecione um Script</h1>
-        </div>
-        <button id="copy-btn" class="hidden bg-brand hover:bg-orange-600 text-white p-2 md:px-4 md:py-2 rounded transition-colors flex items-center gap-2 text-sm font-medium">
-          <i class="fa-regular fa-copy"></i> <span class="hidden md:inline">Copiar Copy</span>
-        </button>
-      </div>
+    <!-- Editor / Visualizador -->
+    <section class="glass-panel w-full flex flex-col h-full relative overflow-hidden flex-1">
       
-      <div class="flex-1 p-6 overflow-y-auto scrollbar-hide bg-dark/20 text-gray-300 text-sm md:text-base leading-relaxed" id="view-content">
-        <div class="h-full flex flex-col items-center justify-center text-gray-500 gap-4">
-          <i class="fa-solid fa-file-lines text-4xl opacity-50"></i>
-          <p>Selecione um roteiro na lista ao lado para visualizar a copy completa.</p>
+      <!-- View Header -->
+      <header class="p-6 border-b border-dark-border bg-dark-surface/30 shrink-0 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-2">
+            <span id="view-niche" class="text-xs font-bold bg-dark-border text-gray-300 px-2 py-1 rounded">Selecione</span>
+          </div>
+          <h1 id="view-title" class="text-xl md:text-2xl font-bold text-white leading-tight">Painel de Scripts Advanx</h1>
         </div>
+        
+        <button id="copy-btn" class="hidden shrink-0 h-fit bg-brand hover:bg-brand-light text-white px-5 py-2.5 rounded-lg transition-all flex items-center gap-2 text-sm font-semibold shadow-[0_4px_14px_rgba(255,122,1,0.3)] hover:shadow-[0_6px_20px_rgba(255,122,1,0.4)] hover:-translate-y-0.5">
+          <i class="fa-regular fa-copy"></i> <span>Copiar Texto</span>
+        </button>
+      </header>
+      
+      <!-- View Content -->
+      <div class="flex-1 overflow-y-auto p-6 md:p-10 content-body relative" id="view-content">
+        
+        <!-- Empty State -->
+        <div class="h-full flex flex-col items-center justify-center text-gray-500 text-center animate-fade">
+          <div class="w-16 h-16 mb-4 rounded-2xl bg-dark-border flex items-center justify-center">
+            <i class="fa-solid fa-wand-magic-sparkles text-2xl text-brand/50"></i>
+          </div>
+          <h3 class="text-lg font-medium text-gray-300 mb-2">Nenhum roteiro selecionado</h3>
+          <p class="max-w-xs text-sm">Selecione uma tese no menu lateral para visualizar e copiar a estrutura do anúncio.</p>
+        </div>
+
       </div>
     </section>
 
@@ -112,7 +196,7 @@
     let allScripts = [];
     let currentScripts = [];
 
-    // Elements
+    // DOM Elements
     const nicheSelect = document.getElementById('niche-select');
     const searchInput = document.getElementById('search-input');
     const scriptsList = document.getElementById('scripts-list');
@@ -120,76 +204,106 @@
     const viewTitle = document.getElementById('view-title');
     const viewContent = document.getElementById('view-content');
     const copyBtn = document.getElementById('copy-btn');
+    const totalCount = document.getElementById('total-count');
 
-    // Load Data
+    // Init
     fetch('scripts_data.json')
       .then(res => res.json())
       .then(data => {
         allScripts = data;
         currentScripts = data;
         
-        // Populate Niches
-        const niches = [...new Set(data.map(s => s.niche))].sort();
+        // Count niches
+        const nicheCount = {};
+        data.forEach(s => {
+          nicheCount[s.niche] = (nicheCount[s.niche] || 0) + 1;
+        });
+
+        const niches = Object.keys(nicheCount).sort();
         niches.forEach(n => {
           const opt = document.createElement('option');
           opt.value = n;
-          opt.textContent = n;
+          opt.textContent = `${n} (${nicheCount[n]})`;
           nicheSelect.appendChild(opt);
         });
 
         renderList();
       })
       .catch(err => {
-        console.error("Erro ao carregar dados", err);
-        scriptsList.innerHTML = `<div class="p-4 text-red-400 text-sm">Erro ao carregar os scripts. Verifique se scripts_data.json existe.</div>`;
+        console.error("Erro", err);
+        scriptsList.innerHTML = `<div class="p-4 text-red-400 text-sm flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i> Banco de dados indisponível.</div>`;
       });
 
-    // Render List
     function renderList() {
       scriptsList.innerHTML = '';
+      totalCount.textContent = `${currentScripts.length} roteiros`;
+      
       if(currentScripts.length === 0) {
-        scriptsList.innerHTML = `<div class="p-4 text-gray-500 text-sm text-center">Nenhum script encontrado.</div>`;
+        scriptsList.innerHTML = `<div class="p-8 text-gray-500 text-sm text-center">Nenhum resultado encontrado.</div>`;
         return;
       }
 
-      currentScripts.forEach((script, idx) => {
+      currentScripts.forEach(script => {
         const div = document.createElement('div');
-        div.className = 'p-3 mb-2 rounded border border-transparent hover:border-white/10 hover:bg-white/5 cursor-pointer transition-colors';
+        div.className = 'script-item p-3.5 rounded-lg border border-transparent hover:border-dark-border cursor-pointer transition-all duration-200 group';
+        
         div.innerHTML = `
-          <div class="text-xs text-brand font-medium mb-1">${script.niche}</div>
-          <div class="font-medium text-sm text-gray-200 line-clamp-2">${script.title}</div>
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex-1 min-w-0">
+              <div class="text-[11px] font-semibold tracking-wide text-brand mb-1.5 uppercase">${script.niche}</div>
+              <div class="font-medium text-sm text-gray-200 leading-snug group-hover:text-white transition-colors line-clamp-2">${script.title}</div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-xs text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity mt-5"></i>
+          </div>
         `;
-        div.onclick = () => selectScript(script);
+        
+        div.onclick = () => {
+          document.querySelectorAll('.script-item').forEach(el => el.classList.remove('active'));
+          div.classList.add('active');
+          selectScript(script);
+        };
+        
         scriptsList.appendChild(div);
       });
     }
 
-    // Select Script
     let activeContent = "";
     function selectScript(script) {
       viewNiche.textContent = script.niche;
       viewTitle.textContent = script.title;
       activeContent = script.content;
-      
-      // Render text properly handling line breaks
-      viewContent.innerHTML = `<pre class="font-sans whitespace-pre-wrap">${escapeHTML(script.content)}</pre>`;
+
+      // Basic markdown-like parsing for bold titles
+      let formattedText = escapeHTML(script.content)
+        .replace(/^(Anúncio \d+|HEADLINE PADRÃO|\[.*?\]):?/gm, '<strong class="text-brand">$1</strong>')
+        .replace(/^>> (.*)/gm, '<span class="text-brand-light italic">>> $1</span>');
+
+      viewContent.innerHTML = `<div class="animate-fade"><pre>${formattedText}</pre></div>`;
       copyBtn.classList.remove('hidden');
+      
+      // Mobile smooth scroll to content
+      if(window.innerWidth < 1024) {
+        viewContent.parentElement.scrollIntoView({ behavior: 'smooth' });
+      }
     }
 
-    // Copy to clipboard
     copyBtn.onclick = () => {
       navigator.clipboard.writeText(activeContent).then(() => {
         const originalHtml = copyBtn.innerHTML;
-        copyBtn.innerHTML = `<i class="fa-solid fa-check"></i> <span class="hidden md:inline">Copiado!</span>`;
-        copyBtn.classList.replace('bg-brand', 'bg-green-600');
+        copyBtn.innerHTML = `<i class="fa-solid fa-check"></i> <span>Copiado!</span>`;
+        copyBtn.classList.replace('bg-brand', 'bg-green-500');
+        copyBtn.classList.replace('hover:bg-brand-light', 'hover:bg-green-400');
+        copyBtn.classList.replace('shadow-[0_4px_14px_rgba(255,122,1,0.3)]', 'shadow-[0_4px_14px_rgba(34,197,94,0.3)]');
+        
         setTimeout(() => {
           copyBtn.innerHTML = originalHtml;
-          copyBtn.classList.replace('bg-green-600', 'bg-brand');
+          copyBtn.classList.replace('bg-green-500', 'bg-brand');
+          copyBtn.classList.replace('hover:bg-green-400', 'hover:bg-brand-light');
+          copyBtn.classList.replace('shadow-[0_4px_14px_rgba(34,197,94,0.3)]', 'shadow-[0_4px_14px_rgba(255,122,1,0.3)]');
         }, 2000);
       });
     };
 
-    // Filters
     function applyFilters() {
       const niche = nicheSelect.value;
       const term = searchInput.value.toLowerCase();
