@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estratégia Digital · Pastora Maria Carolina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #8A6E2F;
+    --bg: #080808;
+    --bg2: #0F0F0F;
+    --bg3: #161616;
+    --bg4: #1E1E1E;
+    --text: #F0EDE8;
+    --text-dim: #8A8480;
+    --accent: #C9A84C;
+    --red: #E05A4A;
+    --green: #4CAF7D;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* SLIDE SYSTEM */
+  .slide {
+    min-height: 100vh;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 60px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .slide.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .slide + .slide {
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+
+  /* DIVIDER */
+  .gold-line {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin-bottom: 24px;
+  }
+
+  /* TYPOGRAPHY */
+  .kicker {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  h1.display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 14vw, 72px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  h1.display span {
+    color: var(--gold);
+  }
+
+  h2.section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 9vw, 48px);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  h2.section-title .gold { color: var(--gold); }
+
+  h3.card-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  p.lead {
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(240,237,232,0.7);
+    font-weight: 300;
+  }
+
+  p.body {
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(240,237,232,0.6);
+    font-weight: 300;
+  }
+
+  em.italic {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold-light);
+    font-size: 1.1em;
+  }
+
+  /* COVER SLIDE */
+  .cover {
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.08) 0%, transparent 70%);
+    min-height: 100vh;
+  }
+
+  .cover-meta {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 48px;
+  }
+
+  .cross-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 32px;
+    opacity: 0.5;
+  }
+
+  .church-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 6px 14px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 32px;
+  }
+
+  /* ANALYSIS SLIDE */
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .analysis-card {
+    background: var(--bg3);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .analysis-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .analysis-card.pro::before { background: var(--green); }
+  .analysis-card.con::before { background: var(--red); }
+
+  .analysis-card .label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .analysis-card.pro .label { color: var(--green); }
+  .analysis-card.con .label { color: var(--red); }
+
+  .analysis-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+
+  .analysis-item .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .analysis-card.pro .dot { background: var(--green); }
+  .analysis-card.con .dot { background: var(--red); }
+
+  .analysis-item span {
+    font-size: 11px;
+    line-height: 1.5;
+    color: rgba(240,237,232,0.65);
+  }
+
+  /* PHASE CARDS */
+  .phase-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    color: rgba(201,168,76,0.08);
+    line-height: 1;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    pointer-events: none;
+  }
+
+  .phase-card {
+    background: var(--bg3);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 24px;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .phase-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold-dim), transparent);
+  }
+
+  .phase-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .tactic-list {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tactic-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .tactic-icon {
+    font-size: 13px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .tactic-text {
+    font-size: 12px;
+    line-height: 1.55;
+    color: rgba(240,237,232,0.65);
+  }
+
+  .tactic-text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* IMPROVEMENT SLIDE */
+  .improvement-item {
+    background: var(--bg3);
+    border-left: 2px solid var(--gold);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .improvement-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .imp-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--gold-dim);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .imp-content h4 {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  .imp-content p {
+    font-size: 11px;
+    color: rgba(240,237,232,0.55);
+    line-height: 1.5;
+  }
+
+  /* KPI SLIDE */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .kpi-card {
+    background: var(--bg3);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 18px 14px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 40%;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.4;
+  }
+
+  .kpi-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .kpi-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .kpi-note {
+    font-size: 10px;
+    color: rgba(240,237,232,0.35);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* FUNNEL VIZ */
+  .funnel-viz {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .funnel-step {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--bg3);
+    border: 1px solid rgba(255,255,255,0.04);
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .funnel-step:hover {
+    background: var(--bg4);
+    border-color: rgba(201,168,76,0.2);
+  }
+
+  .funnel-step:not(:last-child)::after {
+    content: '↓';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--gold-dim);
+    font-size: 14px;
+    z-index: 1;
+  }
+
+  .funnel-step + .funnel-step {
+    margin-top: 8px;
+  }
+
+  .funnel-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: rgba(201,168,76,0.3);
+    flex-shrink: 0;
+    width: 28px;
+    text-align: center;
+  }
+
+  .funnel-info h4 {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .funnel-info p {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .funnel-tag {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gold);
+    background: rgba(201,168,76,0.08);
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    margin-top: 24px;
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.1));
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .tl-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 10px rgba(201,168,76,0.5);
+  }
+
+  .tl-week {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .tl-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .tl-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .tl-task {
+    font-size: 11px;
+    color: var(--text-dim);
+    display: flex;
+    gap: 6px;
+  }
+
+  .tl-task::before {
+    content: '—';
+    color: rgba(201,168,76,0.3);
+    flex-shrink: 0;
+  }
+
+  /* BUDGET SLIDE */
+  .budget-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    gap: 12px;
+  }
+
+  .budget-row:last-child { border-bottom: none; }
+
+  .budget-bar-wrap {
+    flex: 1;
+    height: 3px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .budget-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transition: width 1s ease;
+  }
+
+  .budget-label {
+    font-size: 12px;
+    color: rgba(240,237,232,0.7);
+    width: 110px;
+    flex-shrink: 0;
+  }
+
+  .budget-pct {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--gold);
+    width: 40px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* SCRIPTS SLIDE */
+  .script-card {
+    background: var(--bg3);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 20px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .script-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    right: 14px;
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: rgba(201,168,76,0.08);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .script-theme {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .script-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(240,237,232,0.8);
+  }
+
+  /* CTA / CLOSING */
+  .closing {
+    background: radial-gradient(ellipse 100% 80% at 50% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    text-align: center;
+  }
+
+  .closing .gold-line {
+    margin: 0 auto 24px;
+    width: 32px;
+  }
+
+  .cta-box {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 28px 24px;
+    margin-top: 32px;
+  }
+
+  .cta-box p {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .cta-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: fixed;
+    bottom: 28px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    opacity: 0.4;
+    z-index: 100;
+    animation: fadeUpDown 2s ease-in-out infinite;
+  }
+
+  .scroll-hint span {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  .scroll-hint::after {
+    content: '↓';
+    color: var(--gold);
+    font-size: 14px;
+  }
+
+  @keyframes fadeUpDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    z-index: 1000;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 8px rgba(201,168,76,0.6);
+  }
+
+  /* SLIDE COUNTER */
+  .slide-counter {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    z-index: 100;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+  }
+
+  .slide-counter span { color: var(--gold); }
+
+  /* GLOW PULSE */
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(201,168,76,0); }
+    50% { box-shadow: 0 0 20px rgba(201,168,76,0.15); }
+  }
+
+  .phase-card:hover {
+    animation: glowPulse 2s ease infinite;
+  }
+
+  /* STAGGER children */
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .stagger.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+  .stagger.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+  .stagger.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
+  .stagger.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.35s; }
+  .stagger.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.45s; }
+  .stagger.visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.55s; }
+  .stagger.visible > *:nth-child(7) { opacity: 1; transform: translateY(0); transition-delay: 0.65s; }
+  .stagger.visible > *:nth-child(8) { opacity: 1; transform: translateY(0); transition-delay: 0.75s; }
+  .stagger.visible > *:nth-child(9) { opacity: 1; transform: translateY(0); transition-delay: 0.85s; }
+
+  /* NEW BADGE */
+  .new-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--bg);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    padding: 2px 6px;
+    vertical-align: middle;
+    margin-left: 6px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<div class="slide-counter"><span id="currentSlide">01</span> / <span id="totalSlides">10</span></div>
+<div class="scroll-hint"><span>scroll</span></div>
+
+<!-- ===== SLIDE 1: COVER ===== -->
+<section class="slide cover" id="slide-1">
+  <div class="cover-meta">Advanx IA · Estratégia Digital 2025</div>
+  <svg class="cross-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="15" y="2" width="6" height="32" rx="1" fill="#C9A84C" opacity="0.6"/>
+    <rect x="2" y="12" width="32" height="6" rx="1" fill="#C9A84C" opacity="0.6"/>
+  </svg>
+  <div class="kicker">Crescimento Digital · Mogi das Cruzes</div>
+  <h1 class="display">Pastora<br>Maria<br><span>Carolina</span></h1>
+  <div class="gold-line"></div>
+  <p class="lead">Funil de conexão regionalizado para Jundiapeba — unindo tráfego pago, WhatsApp e presença presencial.</p>
+  <div class="church-tag">
+    ✦ Igreja · Av. Pres. Altino Arantes, 440
+  </div>
+</section>
+
+<!-- ===== SLIDE 2: ANÁLISE ===== -->
+<section class="slide" id="slide-2">
+  <div class="kicker">Diagnóstico Estratégico</div>
+  <h2 class="section-title">O que está <span class="gold">certo</span> &<br>o que falta</h2>
+  <p class="body" style="margin-top:12px;">Análise honesta da estratégia antes da implementação.</p>
+  <div class="analysis-grid stagger" style="margin-top:20px;">
+    <div class="analysis-card pro">
+      <div class="label">✓ Pontos Fortes</div>
+      <div class="analysis-item"><div class="dot"></div><span>Funil em 4 fases bem estruturado</span></div>
+      <div class="analysis-item"><div class="dot"></div><span>Foco regional em Jundiapeba</span></div>
+      <div class="analysis-item"><div class="dot"></div><span>WhatsApp: canal certo pra BR</span></div>
+      <div class="analysis-item"><div class="dot"></div><span>Pastora como âncora humana</span></div>
+      <div class="analysis-item"><div class="dot"></div><span>Regra dos 8 contatos</span></div>
+    </div>
+    <div class="analysis-card con">
+      <div class="label">✗ Lacunas</div>
+      <div class="analysis-item"><div class="dot"></div><span>Sem KPIs ou metas numéricas</span></div>
+      <div class="analysis-item"><div class="dot"></div><span>Sem orçamento definido</span></div>
+      <div class="analysis-item"><div class="dot"></div><span>Remarketing ausente</span></div>
+      <div class="analysis-item"><div class="dot"></div><span>Sem landing page dedicada</span></div>
+      <div class="analysis-item"><div class="dot"></div><span>Automação não detalhada</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 3: FUNIL VISUAL ===== -->
+<section class="slide" id="slide-3">
+  <div class="kicker">Visão Geral</div>
+  <h2 class="section-title">O <span class="gold">Funil</span><br>de Conexão</h2>
+  <div class="funnel-viz stagger">
+    <div class="funnel-step">
+      <div class="funnel-num">1</div>
+      <div class="funnel-info">
+        <h4>Tráfego Pago Regional</h4>
+        <p>Meta Ads · Google Ads · Reels</p>
+      </div>
+      <div class="funnel-tag">ATRAÇÃO</div>
+    </div>
+    <div class="funnel-step">
+      <div class="funnel-num">2</div>
+      <div class="funnel-info">
+        <h4>Landing Page + Grupo VIP</h4>
+        <p>WhatsApp · Nutrição diária</p>
+      </div>
+      <div class="funnel-tag">NUTRIÇÃO</div>
+    </div>
+    <div class="funnel-step">
+      <div class="funnel-num">3</div>
+      <div class="funnel-info">
+        <h4>Culto Online Especial</h4>
+        <p>Live · Anfitriões · CTA presencial</p>
+      </div>
+      <div class="funnel-tag">CONVERSÃO</div>
+    </div>
+    <div class="funnel-step">
+      <div class="funnel-num">4</div>
+      <div class="funnel-info">
+        <h4>Follow-up Individual</h4>
+        <p>8 contatos · Ligação · Áudio Pastora</p>
+      </div>
+      <div class="funnel-tag">RETENÇÃO</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 4: FASE 1 ===== -->
+<section class="slide" id="slide-4">
+  <div class="kicker">Fase 01 · Atração</div>
+  <h2 class="section-title">Tráfego<br><span class="gold">Pago</span></h2>
+  <div class="phase-card">
+    <div class="phase-number">01</div>
+    <div class="phase-badge">Meta + Google Ads</div>
+    <p class="body">Segmentação hiper-local em Jundiapeba e bairros vizinhos. Criativos com a Pastora em vídeo curto (Reels 15–30s), ganchos emocionais sobre paz, solidão e família.</p>
+    <div class="tactic-list">
+      <div class="tactic-item">
+        <div class="tactic-icon">📍</div>
+        <div class="tactic-text"><strong>Raio de 5km</strong> ao redor da Av. Pres. Altino Arantes</div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">🎯</div>
+        <div class="tactic-text"><strong>Interesses:</strong> espiritualidade, família, bem-estar emocional</div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">🔁</div>
+        <div class="tactic-text"><strong>Remarketing</strong> para visitantes do Instagram <span class="new-badge">novo</span></div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">🧪</div>
+        <div class="tactic-text"><strong>A/B test</strong> de criativos: Paz vs Pertencimento vs Convite <span class="new-badge">novo</span></div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">📄</div>
+        <div class="tactic-text"><strong>Landing page</strong> dedicada à campanha com pixel instalado <span class="new-badge">novo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 5: FASE 2 ===== -->
+<section class="slide" id="slide-5">
+  <div class="kicker">Fase 02 · Nutrição</div>
+  <h2 class="section-title">Grupo <span class="gold">VIP</span><br>WhatsApp</h2>
+  <div class="phase-card">
+    <div class="phase-number">02</div>
+    <div class="phase-badge">Átrio Digital</div>
+    <p class="body">Grupo silencioso para admins. Boas-vindas automáticas via Evolution API, sequência de 7 dias antes do culto.</p>
+    <div class="tactic-list">
+      <div class="tactic-item">
+        <div class="tactic-icon">🤖</div>
+        <div class="tactic-text"><strong>Automação de boas-vindas</strong> com Evolution API + n8n <span class="new-badge">novo</span></div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">📅</div>
+        <div class="tactic-text"><strong>Sequência 7 dias:</strong> devocionais, bastidores, testemunhos</div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">🎙</div>
+        <div class="tactic-text"><strong>Áudios da Pastora</strong> 1–2x/dia, tom íntimo e materno</div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">🏆</div>
+        <div class="tactic-text"><strong>Testemunhos locais</strong> a partir do dia 3 <span class="new-badge">novo</span></div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">⏰</div>
+        <div class="tactic-text"><strong>Gatilho:</strong> link exclusivo 24h antes do culto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 6: FASE 3 ===== -->
+<section class="slide" id="slide-6">
+  <div class="kicker">Fase 03 · Conversão</div>
+  <h2 class="section-title">Culto<br><span class="gold">Online</span></h2>
+  <div class="phase-card">
+    <div class="phase-number">03</div>
+    <div class="phase-badge">Evento de Conversão</div>
+    <p class="body">O ponto crítico do funil. Produção de qualidade, equipe de anfitriões no chat, mensagem contextualizada para Mogi.</p>
+    <div class="tactic-list">
+      <div class="tactic-item">
+        <div class="tactic-icon">📺</div>
+        <div class="tactic-text"><strong>Transmissão ao vivo</strong> YouTube/Instagram com OBS</div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">💬</div>
+        <div class="tactic-text"><strong>Anfitriões digitais</strong> 2–3 pessoas no chat em tempo real</div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">🗓</div>
+        <div class="tactic-text"><strong>Domingo às 19h</strong> — melhor janela pra audiência familiar <span class="new-badge">novo</span></div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">📊</div>
+        <div class="tactic-text"><strong>Medir:</strong> pico simultâneo, engajamento, % que permanecem até CTA</div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">🏠</div>
+        <div class="tactic-text"><strong>CTA presencial</strong> com data e horário exatos do próximo culto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 7: FASE 4 ===== -->
+<section class="slide" id="slide-7">
+  <div class="kicker">Fase 04 · Retenção</div>
+  <h2 class="section-title">Follow<span class="gold">-up</span><br>Individual</h2>
+  <div class="phase-card">
+    <div class="phase-number">04</div>
+    <div class="phase-badge">Pós-Evento Crítico</div>
+    <p class="body">A fase mais negligenciada e mais decisiva. Contato humano transforma interesse em presença.</p>
+    <div class="tactic-list">
+      <div class="tactic-item">
+        <div class="tactic-icon">📞</div>
+        <div class="tactic-text"><strong>Regra dos 8 contatos</strong> para os mais engajados</div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">🎤</div>
+        <div class="tactic-text"><strong>Áudio personalizado</strong> da Pastora para reativar silenciosos</div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">☕</div>
+        <div class="tactic-text"><strong>Café com a Pastora</strong> — evento presencial de baixa barreira <span class="new-badge">novo</span></div>
+      </div>
+      <div class="tactic-item">
+        <div class="tactic-icon">📋</div>
+        <div class="tactic-text"><strong>CRM simples</strong> no Notion/Google Sheets para rastrear status <span class="new-badge">novo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 8: MELHORIAS ADICIONAIS ===== -->
+<section class="slide" id="slide-8">
+  <div class="kicker">Melhorias Recomendadas</div>
+  <h2 class="section-title">O que<br><span class="gold">adicionar</span></h2>
+  <div class="tactic-list stagger" style="margin-top:20px;">
+    <div class="improvement-item">
+      <div class="imp-num">01</div>
+      <div class="imp-content">
+        <h4>KPIs e Metas Numéricas</h4>
+        <p>Definir CPL alvo (R$8–15), taxa de conversão lead→presença (10–20%), custo por membro ativo.</p>
+      </div>
+    </div>
+    <div class="improvement-item">
+      <div class="imp-num">02</div>
+      <div class="imp-content">
+        <h4>Distribuição de Orçamento</h4>
+        <p>70% tráfego pago · 15% produção criativa · 10% ferramentas · 5% reserva de teste.</p>
+      </div>
+    </div>
+    <div class="improvement-item">
+      <div class="imp-num">03</div>
+      <div class="imp-content">
+        <h4>Landing Page Dedicada</h4>
+        <p>Página focada em conversão com pixel do Meta + GA4, formulário direto para o grupo de WhatsApp.</p>
+      </div>
+    </div>
+    <div class="improvement-item">
+      <div class="imp-num">04</div>
+      <div class="imp-content">
+        <h4>Instagram Orgânico</h4>
+        <p>Calendário semanal de conteúdo para alimentar o funil gratuitamente entre campanhas.</p>
+      </div>
+    </div>
+    <div class="improvement-item">
+      <div class="imp-num">05</div>
+      <div class="imp-content">
+        <h4>Automação WhatsApp</h4>
+        <p>Evolution API + n8n: boas-vindas automáticas, sequência de mensagens, tag de engajamento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 9: KPIs ===== -->
+<section class="slide" id="slide-9">
+  <div class="kicker">Métricas de Sucesso</div>
+  <h2 class="section-title">KPIs <span class="gold">Alvo</span></h2>
+  <p class="body" style="margin-top:8px;">Referências para o primeiro ciclo de 4 semanas.</p>
+  <div class="kpi-grid stagger">
+    <div class="kpi-card">
+      <div class="kpi-value">R$12</div>
+      <div class="kpi-label">CPL Meta</div>
+      <div class="kpi-note">Custo por lead no grupo WhatsApp</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">15%</div>
+      <div class="kpi-label">Taxa Culto</div>
+      <div class="kpi-note">Leads que assistem ao culto online</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">30%</div>
+      <div class="kpi-label">Presença</div>
+      <div class="kpi-note">Assistentes que visitam presencialmente</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">8×</div>
+      <div class="kpi-label">Follow-up</div>
+      <div class="kpi-note">Tentativas por lead engajado</div>
+    </div>
+  </div>
+  <div style="margin-top:20px; background:var(--bg3); padding:16px; border-left:2px solid var(--gold);">
+    <div class="kicker" style="margin-bottom:6px;">Orçamento Sugerido · Primeiro Ciclo</div>
+    <div class="budget-row">
+      <div class="budget-label">Tráfego Pago</div>
+      <div class="budget-bar-wrap"><div class="budget-bar" style="width:70%"></div></div>
+      <div class="budget-pct">70%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-label">Produção</div>
+      <div class="budget-bar-wrap"><div class="budget-bar" style="width:15%"></div></div>
+      <div class="budget-pct">15%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-label">Ferramentas</div>
+      <div class="budget-bar-wrap"><div class="budget-bar" style="width:10%"></div></div>
+      <div class="budget-pct">10%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-label">Reserva Teste</div>
+      <div class="budget-bar-wrap"><div class="budget-bar" style="width:5%"></div></div>
+      <div class="budget-pct">5%</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 10: CRONOGRAMA ===== -->
+<section class="slide" id="slide-10">
+  <div class="kicker">Implementação</div>
+  <h2 class="section-title">4 <span class="gold">Semanas</span></h2>
+  <div class="timeline stagger">
+    <div class="tl-item">
+      <div class="tl-week">Semana 01</div>
+      <div class="tl-title">Preparação & Setup</div>
+      <div class="tl-tasks">
+        <div class="tl-task">Gravação dos roteiros com a Pastora</div>
+        <div class="tl-task">Landing page + pixel + automação WhatsApp</div>
+        <div class="tl-task">Criativos A/B para Meta Ads</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-week">Semana 02</div>
+      <div class="tl-title">Lançamento & Atração</div>
+      <div class="tl-tasks">
+        <div class="tl-task">Início das campanhas em Mogi/Jundiapeba</div>
+        <div class="tl-task">Nutrição diária no grupo VIP</div>
+        <div class="tl-task">Monitoramento diário de CPL e alcance</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-week">Semana 03</div>
+      <div class="tl-title">Culto Online & Conversão</div>
+      <div class="tl-tasks">
+        <div class="tl-task">Culto Online Especial (Domingo 19h)</div>
+        <div class="tl-task">Início imediato do follow-up (24h pós-culto)</div>
+        <div class="tl-task">Abertura para testemunhos no grupo</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-week">Semana 04</div>
+      <div class="tl-title">Integração Presencial</div>
+      <div class="tl-tasks">
+        <div class="tl-task">Recepção na Av. Presidente Altino Arantes</div>
+        <div class="tl-task">Café com a Pastora Maria Carolina</div>
+        <div class="tl-task">Análise de resultados + próximo ciclo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 11: CLOSING ===== -->
+<section class="slide closing" id="slide-11">
+  <div class="gold-line"></div>
+  <div class="kicker">Missão Mogi · Tecnologia & Fé</div>
+  <h2 class="section-title" style="text-align:center;font-size:clamp(40px,10vw,56px);">Prontos<br>para <span class="gold">Começar</span></h2>
+  <p class="lead" style="text-align:center;margin-top:16px;">O marketing digital, aplicado com ética e propósito, é a ferramenta para cumprir o <em class="italic">"Ide"</em> em Mogi das Cruzes.</p>
+  <div class="cta-box">
+    <p>Próximo passo: aprovação do plano e início da gravação dos roteiros com a Pastora Maria Carolina.</p>
+    <div class="cta-label">✦ Advanx IA · advanx.com.br</div>
+  </div>
+</section>
+
+<script>
+  // Intersection Observer for slide animations
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  document.getElementById('totalSlides').textContent = String(totalSlides).padStart(2, '0');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Find stagger children
+        const stagger = entry.target.querySelector('.stagger');
+        if (stagger) stagger.classList.add('visible');
+        // Improvement items
+        entry.target.querySelectorAll('.improvement-item').forEach((item, i) => {
+          setTimeout(() => item.classList.add('visible'), i * 100);
+        });
+        // Timeline items
+        entry.target.querySelectorAll('.tl-item').forEach((item, i) => {
+          setTimeout(() => item.classList.add('visible'), i * 150);
+        });
+        // Update counter
+        const idx = Array.from(slides).indexOf(entry.target) + 1;
+        document.getElementById('currentSlide').textContent = String(idx).padStart(2, '0');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  slides.forEach(slide => observer.observe(slide));
+
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  // Animate budget bars when visible
+  const budgetObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.budget-bar').forEach(bar => {
+          const w = bar.style.width;
+          bar.style.width = '0%';
+          setTimeout(() => { bar.style.width = w; }, 200);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.slide').forEach(s => budgetObserver.observe(s));
+</script>
+</body>
+</html>
