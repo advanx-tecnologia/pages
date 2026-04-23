@@ -93,7 +93,7 @@
 
   .hero h1 {
     font-family: 'Open Sans', sans-serif;
-    font-size: clamp(42px, 7vw, 80px);
+    font-size: clamp(32px, 8vw, 80px);
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -0.03em;
@@ -190,7 +190,7 @@
   }
   .section-title {
     font-family: 'Open Sans', sans-serif;
-    font-size: clamp(32px, 4vw, 52px);
+    font-size: clamp(26px, 6vw, 52px);
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.025em;
@@ -551,13 +551,114 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
-    .products-grid { grid-template-columns: 1fr; }
-    .features-container { grid-template-columns: 1fr; }
-    .stats-strip { grid-template-columns: repeat(2, 1fr); }
-    .adicional-card { grid-template-columns: 1fr; }
-    .crm-grid { grid-template-columns: 1fr; }
-    nav { padding: 16px 20px; }
-    .wrap { padding: 0 20px; }
+    /* Base */
+    .wrap { padding: 0 18px; }
+    section { padding: 72px 0; }
+
+    /* Nav */
+    nav { padding: 14px 18px; gap: 10px; }
+    nav img { height: 28px; }
+    .nav-badge { font-size: 9px; padding: 5px 10px; letter-spacing: 0.06em; white-space: nowrap; }
+
+    /* Hero */
+    .hero { padding: 100px 18px 60px; }
+    .hero h1 { font-size: clamp(34px, 9vw, 52px); }
+    .hero-sub { font-size: 15px; }
+    .hero-cta { flex-direction: column; align-items: center; gap: 12px; margin-top: 36px; }
+    .btn-primary, .btn-ghost { width: 100%; max-width: 320px; justify-content: center; padding: 16px 24px; font-size: 13px; }
+
+    /* Stats */
+    .stats-strip { grid-template-columns: repeat(2, 1fr); margin: 48px 0; }
+    .stat-box { padding: 24px 16px; }
+    .stat-num { font-size: 26px; }
+    .stat-label { font-size: 11px; }
+
+    /* Section headers */
+    .section-title { font-size: clamp(26px, 7vw, 38px); }
+    .section-sub { font-size: 15px; }
+    .section-header { margin-bottom: 40px; }
+
+    /* Product cards */
+    .products-grid { grid-template-columns: 1fr; gap: 20px; }
+    .product-card { padding: 28px 24px; }
+    .card-title { font-size: 20px; }
+    .price-main { font-size: 30px; }
+
+    /* Adicional */
+    .adicional-card {
+      grid-template-columns: 1fr;
+      padding: 28px 24px;
+      gap: 28px;
+    }
+    .adicional-card::after { display: none; }
+    .adicional-title { font-size: 19px; }
+    .adicional-price { text-align: left; }
+    .adicional-price .price-main { font-size: 34px; }
+
+    /* Features deep dive */
+    .features-container { grid-template-columns: 1fr; gap: 0; }
+    .feature-group:first-child { margin-bottom: 48px; }
+
+    /* Comparison table — stack into cards */
+    .comparison-table thead { display: none; }
+    .comparison-table, .comparison-table tbody, .comparison-table tr, .comparison-table td { display: block; width: 100%; }
+    .comparison-table tr {
+      background: var(--card);
+      border-radius: 14px;
+      margin-bottom: 12px;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+    }
+    .comparison-table td {
+      background: transparent;
+      padding: 6px 0;
+      font-size: 13px;
+      border: none;
+    }
+    .comparison-table td:first-child {
+      border-radius: 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+    .comparison-table td[colspan] { text-align: left !important; }
+    .comparison-table td::before {
+      content: attr(data-label);
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted2);
+      margin-bottom: 2px;
+    }
+
+    /* CRM section */
+    .crm-grid { grid-template-columns: 1fr; gap: 32px; }
+    .crm-sidebar { width: 110px; min-width: 110px; }
+    .crm-nav-item { padding: 8px 12px; font-size: 11px; }
+    .crm-screen-body { min-height: 220px; }
+
+    /* Implementação grid */
+    #implementacao .wrap > div { grid-template-columns: 1fr !important; gap: 48px !important; }
+
+    /* CTA */
+    .cta-final { padding: 80px 18px; }
+    .cta-final h2 { font-size: clamp(28px, 8vw, 44px); }
+    .cta-final p { font-size: 15px; }
+    .cta-final .btn-primary { width: 100%; max-width: 320px; justify-content: center; }
+
+    /* Footer */
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 18px; }
+  }
+
+  @media (max-width: 400px) {
+    .nav-badge { display: none; }
+    .stats-strip { grid-template-columns: 1fr 1fr; }
+    .stat-num { font-size: 22px; }
+    .crm-sidebar { display: none; }
   }
 </style>
 </head>
@@ -882,26 +983,26 @@
       <tbody>
         <tr>
           <td>💬 IA de Atendimento</td>
-          <td class="tag-orange">R$ 497/mês</td>
-          <td class="tag-yes">R$ 397/mês</td>
-          <td class="tag-yes">R$ 1.200</td>
+          <td data-label="Mensal" class="tag-orange">R$ 497/mês</td>
+          <td data-label="Anual" class="tag-yes">R$ 397/mês</td>
+          <td data-label="Economia" class="tag-yes">R$ 1.200</td>
         </tr>
         <tr>
           <td>🎯 IA de Captação</td>
-          <td class="tag-orange">R$ 1.000/mês</td>
-          <td class="tag-yes">R$ 897/mês</td>
-          <td class="tag-yes">R$ 1.236</td>
+          <td data-label="Mensal" class="tag-orange">R$ 1.000/mês</td>
+          <td data-label="Anual" class="tag-yes">R$ 897/mês</td>
+          <td data-label="Economia" class="tag-yes">R$ 1.236</td>
         </tr>
         <tr>
           <td>🛠️ Implementação Comercial</td>
-          <td colspan="2" style="text-align:center" class="tag-orange">R$ 1.000 único (12× R$ 100)</td>
-          <td class="tag-no">—</td>
+          <td data-label="Investimento" colspan="2" style="text-align:left" class="tag-orange">R$ 1.000 único (12× R$ 100)</td>
+          <td data-label="" class="tag-no">—</td>
         </tr>
         <tr>
-          <td>📦 Combo completo (Atendimento + Captação anual)</td>
-          <td class="tag-no">R$ 1.497/mês</td>
-          <td class="tag-yes">R$ 1.294/mês</td>
-          <td class="tag-yes">R$ 2.436/ano</td>
+          <td>📦 Combo (Atendimento + Captação anual)</td>
+          <td data-label="Mensal" class="tag-no">R$ 1.497/mês</td>
+          <td data-label="Anual" class="tag-yes">R$ 1.294/mês</td>
+          <td data-label="Economia" class="tag-yes">R$ 2.436/ano</td>
         </tr>
       </tbody>
     </table>
