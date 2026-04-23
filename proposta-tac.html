@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanx — Proposta Comercial IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #ff7a01;
+    --orange-dim: rgba(255,122,1,0.15);
+    --orange-glow: rgba(255,122,1,0.35);
+    --bg: #0a0a0b;
+    --bg2: #111114;
+    --bg3: #18181d;
+    --card: #141418;
+    --border: rgba(255,255,255,0.07);
+    --border-orange: rgba(255,122,1,0.3);
+    --text: #f0eeea;
+    --muted: #888885;
+    --muted2: #555553;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── PARTICLES CANVAS ── */
+  #canvas-bg {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── WRAPPER ── */
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px;
+    background: rgba(10,10,11,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav img { height: 36px; }
+  .nav-badge {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    padding: 6px 14px;
+    border: 1px solid var(--border-orange);
+    border-radius: 100px;
+    background: var(--orange-dim);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 120px 32px 80px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(42px, 7vw, 80px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 800px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s forwards;
+  }
+
+  .hero h1 span {
+    color: var(--orange);
+    position: relative;
+  }
+  .hero h1 span::after {
+    content: '';
+    position: absolute;
+    bottom: 4px; left: 0; right: 0;
+    height: 3px;
+    background: var(--orange);
+    border-radius: 2px;
+    opacity: 0.5;
+  }
+
+  .hero-sub {
+    margin-top: 28px;
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 560px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.7s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 52px;
+    display: flex; gap: 16px; flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.9s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--orange);
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 16px 32px;
+    border-radius: 100px;
+    border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(255,122,1,0.4); }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    color: var(--text);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px; font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 16px 32px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    text-decoration: none;
+  }
+  .btn-ghost:hover { border-color: var(--border-orange); color: var(--orange); }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-hint {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeIn 1s 1.5s forwards;
+  }
+  .scroll-hint span { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted2); }
+  .scroll-dot {
+    width: 2px; height: 40px;
+    background: linear-gradient(to bottom, var(--orange), transparent);
+    border-radius: 2px;
+    animation: scrollDot 2s 2s infinite;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 120px 0; }
+  .section-eyebrow {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 20px;
+  }
+  .section-sub {
+    color: var(--muted);
+    font-size: 17px;
+    max-width: 540px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .section-header { margin-bottom: 64px; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-orange), transparent);
+    margin: 0;
+  }
+
+  /* ── PRODUCT CARDS ── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .product-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+    opacity: 0;
+    animation: fadeUp 0.7s forwards;
+  }
+  .product-card:hover {
+    border-color: var(--border-orange);
+    transform: translateY(-4px);
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--orange), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .product-card:hover::before { opacity: 1; }
+
+  .product-card.featured {
+    border-color: var(--border-orange);
+    background: linear-gradient(135deg, #1a1408 0%, #141418 60%);
+  }
+  .product-card.featured::before { opacity: 0.5; }
+
+  .card-badge {
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .badge-orange { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--border-orange); }
+  .badge-blue { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+
+  .card-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+    font-size: 24px;
+  }
+  .icon-orange { background: var(--orange-dim); border: 1px solid var(--border-orange); }
+  .icon-blue { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); }
+
+  .card-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 22px; font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .card-tagline { color: var(--muted); font-size: 14px; font-weight: 300; margin-bottom: 28px; }
+
+  /* ── FEATURE LIST ── */
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+  .feature-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 14px; line-height: 1.5;
+  }
+  .feature-list li .check {
+    width: 18px; height: 18px; min-width: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+    font-size: 10px;
+  }
+  .check-orange { background: var(--orange-dim); color: var(--orange); }
+  .check-blue { background: rgba(59,130,246,0.12); color: #60a5fa; }
+
+  /* ── PRICE BLOCK ── */
+  .price-block {
+    border-top: 1px solid var(--border);
+    padding-top: 28px;
+  }
+  .price-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 8px; }
+  .price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+  .price-main { font-family: 'Open Sans', sans-serif; font-size: 36px; font-weight: 800; color: var(--orange); }
+  .price-period { font-size: 14px; color: var(--muted); }
+  .price-alt { font-size: 13px; color: var(--muted2); }
+  .price-save { font-size: 12px; color: #4ade80; font-weight: 500; }
+
+  /* ── FEATURES DEEP DIVE ── */
+  .features-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .feature-group { }
+  .feature-group-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .feat-item {
+    display: flex; gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    opacity: 0;
+    animation: fadeUp 0.6s forwards;
+  }
+  .feat-icon {
+    font-size: 20px; min-width: 36px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .feat-text h4 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px; font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .feat-text p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ── STATS STRIP ── */
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 80px 0;
+  }
+  .stat-box {
+    background: var(--card);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 36px; font-weight: 800;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label { font-size: 13px; color: var(--muted); }
+
+  /* ── ADICIONAL ── */
+  .adicional-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 48px;
+  }
+  .adicional-card::after {
+    content: 'OPCIONAL';
+    position: absolute; top: 20px; right: 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--muted2);
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+  }
+  .adicional-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px; font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .adicional-desc { font-size: 14px; color: var(--muted); line-height: 1.65; max-width: 480px; }
+  .adicional-price {
+    text-align: center; min-width: 180px;
+  }
+  .adicional-price .price-main { font-size: 42px; }
+  .adicional-price .installment {
+    font-size: 13px; color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* ── COMPARISON ── */
+  .comparison-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 2px;
+    margin-top: 40px;
+  }
+  .comparison-table thead tr th {
+    background: var(--bg2);
+    padding: 16px 24px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-align: left;
+  }
+  .comparison-table thead tr th:first-child { border-radius: 12px 0 0 12px; }
+  .comparison-table thead tr th:last-child { border-radius: 0 12px 12px 0; }
+
+  .comparison-table tbody tr td {
+    background: var(--card);
+    padding: 18px 24px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .comparison-table tbody tr:last-child td { border-bottom: none; }
+  .comparison-table tbody tr td:first-child { border-radius: 10px 0 0 10px; font-weight: 500; }
+  .comparison-table tbody tr td:last-child { border-radius: 0 10px 10px 0; }
+
+  .tag-yes { color: #4ade80; font-weight: 600; }
+  .tag-no { color: var(--muted2); }
+  .tag-orange { color: var(--orange); font-weight: 600; }
+
+  /* ── CTA FINAL ── */
+  .cta-final {
+    text-align: center;
+    padding: 120px 32px;
+    position: relative;
+  }
+  .cta-glow {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(255,122,1,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-final h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .cta-final p {
+    color: var(--muted);
+    font-size: 17px;
+    font-weight: 300;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative; z-index: 1;
+  }
+  footer img { height: 28px; opacity: 0.6; }
+  footer p { font-size: 12px; color: var(--muted2); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes scrollDot {
+    0%, 100% { transform: scaleY(1) translateY(0); opacity: 1; }
+    50% { transform: scaleY(0.6) translateY(6px); opacity: 0.4; }
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 0.4; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* ── REVEAL ON SCROLL ── */
+  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ── GLOW DOT ── */
+  .glow-dot {
+    display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; background: #4ade80;
+    margin-right: 8px;
+    position: relative;
+  }
+  .glow-dot::after {
+    content: '';
+    position: absolute; inset: -4px;
+    border-radius: 50%;
+    background: rgba(74,222,128,0.3);
+    animation: pulse-ring 2s infinite;
+  }
+
+  /* ── CRM SECTION ── */
+  .crm-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+  .crm-screen { background: #0d0d10; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+  .crm-screen-header { background: #1a1a1f; padding: 10px 16px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid var(--border); }
+  .crm-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .crm-screen-body { display: flex; min-height: 280px; }
+  .crm-sidebar { width: 140px; min-width: 140px; background: #111115; border-right: 1px solid var(--border); padding: 16px 0; display: flex; flex-direction: column; gap: 2px; }
+  .crm-nav-item { padding: 10px 16px; font-size: 12px; color: var(--muted); cursor: pointer; }
+  .crm-nav-item.active { background: rgba(255,122,1,0.1); color: var(--orange); border-right: 2px solid var(--orange); }
+  .crm-main { flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 2px; }
+  .crm-conv-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; background: rgba(255,255,255,0.02); }
+  .crm-conv-item:first-child { background: rgba(255,122,1,0.06); }
+  .crm-avatar { width: 34px; height: 34px; min-width: 34px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--muted); }
+  .crm-conv-info { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .crm-conv-name { font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .crm-conv-msg { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .crm-badge { background: var(--orange); color: #fff; font-size: 10px; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; min-width: 18px; }
+
+  /* ── IMPLEMENTACAO TIMELINE ── */
+  .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 17px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--orange), transparent); }
+  .timeline-item { display: flex; gap: 20px; padding-bottom: 28px; position: relative; }
+  .timeline-dot { width: 36px; height: 36px; min-width: 36px; border-radius: 50%; background: var(--orange-dim); border: 1px solid var(--border-orange); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: var(--orange); position: relative; z-index: 1; }
+  .timeline-text h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .timeline-text p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .products-grid { grid-template-columns: 1fr; }
+    .features-container { grid-template-columns: 1fr; }
+    .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    .adicional-card { grid-template-columns: 1fr; }
+    .crm-grid { grid-template-columns: 1fr; }
+    nav { padding: 16px 20px; }
+    .wrap { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="canvas-bg"></canvas>
+
+<!-- NAV -->
+<nav>
+  <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/logo-advanx-transparente.webp" alt="Advanx">
+  <span class="nav-badge">TAC Alimentos — Proposta Advanx</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">⚡ Proposta exclusiva — TAC Alimentos</p>
+  <h1>Seu pão de alho<br>vendendo enquanto<br><span>você dorme.</span></h1>
+  <p class="hero-sub">A TAC perde venda toda semana por falta de follow-up. Distribuidor some, varejista some no WhatsApp e ninguém retoma. Isso para hoje.</p>
+  <div class="hero-cta">
+    <a href="#produtos" class="btn-primary">Ver a solução ↓</a>
+    <a href="#como-funciona" class="btn-ghost">Como funciona</a>
+  </div>
+  <div class="scroll-hint">
+    <span>role para ver</span>
+    <div class="scroll-dot"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="wrap">
+  <div class="stats-strip reveal">
+    <div class="stat-box">
+      <div class="stat-num">50/dia</div>
+      <div class="stat-label">Contatos atendidos sem um humano</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">7×</div>
+      <div class="stat-label">Follow-ups que você nunca faria manualmente</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">1.000</div>
+      <div class="stat-label">Novos prospects abordados por mês</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Sem domingo, sem feriado, sem desculpa</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PRODUTOS -->
+<section id="produtos">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">O que a TAC vai contratar</p>
+      <h2 class="section-title">Dois sistemas.<br>Um problema só: vender mais.</h2>
+      <p class="section-sub">Um cuida dos leads que já chegam até você. O outro vai buscar quem ainda nem sabe que a TAC existe.</p>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- CARD 1: IA ATENDIMENTO -->
+      <div class="product-card featured" style="animation-delay:0.1s">
+        <span class="card-badge badge-orange">Atendimento 24h</span>
+        <div class="card-icon icon-orange">💬</div>
+        <h3 class="card-title">IA de Atendimento</h3>
+        <p class="card-tagline">Distribuidor mandou mensagem às 22h? A IA responde. Às 7h do sábado? A IA responde. Você não precisa.</p>
+
+        <ul class="feature-list">
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>Usuários ilimitados</strong> — todo o time da TAC no sistema, sem cobrar a mais por cabeça</span>
+          </li>
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>API oficial do WhatsApp</strong> — integração homologada, sem risco de ban, sem número voando</span>
+          </li>
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>Até 50 conversas por dia</strong> atendidas pela IA — nenhuma cai no esquecimento</span>
+          </li>
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>Follow-up automático até 7 vezes</strong> — o lead que sumiu recebe nova abordagem até responder</span>
+          </li>
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>Integração com seu estoque</strong> — a IA consulta disponibilidade em tempo real antes de confirmar pedido</span>
+          </li>
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>Suporte humano Advanx</strong> — nossa equipe faz ajustes finos depois que o sistema já está rodando</span>
+          </li>
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>IA que parece gente</strong> — conversa natural, qualifica sem menu numerado, sem robô óbvio</span>
+          </li>
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>No ar em 7 a 14 dias</strong> — da contratação ao primeiro atendimento automático, sem meses esperando</span>
+          </li>
+        </ul>
+
+        <div class="price-block">
+          <p class="price-label">Mensal</p>
+          <div class="price-row">
+            <span class="price-main">R$ 497</span>
+            <span class="price-period">/mês</span>
+          </div>
+          <p class="price-alt">ou <strong style="color:var(--text)">R$ 397/mês</strong> no plano anual</p>
+          <p class="price-save">💰 Economia de R$ 1.200 por ano no anual</p>
+        </div>
+      </div>
+
+      <!-- CARD 2: IA CAPTAÇÃO -->
+      <div class="product-card" style="animation-delay:0.25s">
+        <span class="card-badge badge-blue">Prospecção ativa</span>
+        <div class="card-icon icon-blue">🎯</div>
+        <h3 class="card-title">IA de Captação</h3>
+        <p class="card-tagline">Supermercado, mercearia, atacadista que nunca ouviu falar da TAC. A IA vai lá, pesquisa, aborda e manda a mensagem certa.</p>
+
+        <ul class="feature-list">
+          <li>
+            <span class="check check-blue">✓</span>
+            <span><strong>Até 1.000 prospects por mês</strong> — sem vendedor desperdiçando hora fazendo pesquisa manual</span>
+          </li>
+          <li>
+            <span class="check check-blue">✓</span>
+            <span><strong>IA pesquisa a empresa antes de falar</strong> — segmento, porte, quem decide a compra</span>
+          </li>
+          <li>
+            <span class="check check-blue">✓</span>
+            <span><strong>Mensagem escrita para aquele prospect específico</strong> — não é template, não parece spam</span>
+          </li>
+          <li>
+            <span class="check check-blue">✓</span>
+            <span><strong>Aborda um a um, de forma humana</strong> — como se seu melhor vendedor tivesse escrito cada mensagem</span>
+          </li>
+          <li>
+            <span class="check check-blue">✓</span>
+            <span><strong>Lead quente vai direto pro vendedor certo</strong> — a IA distribui, o time fecha</span>
+          </li>
+          <li>
+            <span class="check check-blue">✓</span>
+            <span><strong>Suporte humano Advanx incluso</strong> — ajustamos abordagem, segmentação e scripts junto com você</span>
+          </li>
+          <li>
+            <span class="check check-blue">✓</span>
+            <span><strong>Rodando em 7 a 14 dias</strong> — depende só da velocidade de envio dos seus materiais para nossa equipe</span>
+          </li>
+        </ul>
+
+        <div class="price-block">
+          <p class="price-label">Mensal</p>
+          <div class="price-row">
+            <span class="price-main" style="color:#60a5fa">R$ 1.000</span>
+            <span class="price-period">/mês</span>
+          </div>
+          <p class="price-alt">ou <strong style="color:var(--text)">R$ 897/mês</strong> no plano anual</p>
+          <p class="price-save">💰 Economia de R$ 1.236 por ano no anual</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADICIONAL -->
+      <div class="adicional-card reveal">
+        <div>
+          <span class="card-badge badge-orange" style="margin-bottom:16px">Serviço adicional</span>
+          <h3 class="adicional-title">Não tem processo comercial estruturado?<br>A gente monta do zero pra você.</h3>
+          <p class="adicional-desc">Se a TAC ainda não tem um processo de vendas claro — scripts definidos, etapas de qualificação, fluxo de follow-up — nossa equipe estrutura tudo isso antes de ligar na IA. Não adianta automatizar bagunça. A gente organiza primeiro, depois coloca pra rodar.</p>
+          <br>
+          <ul class="feature-list" style="margin-bottom:0">
+            <li><span class="check check-orange">✓</span><span>Processo comercial montado do zero pela Advanx</span></li>
+            <li><span class="check check-orange">✓</span><span>IA de atendimento configurada com os dados da TAC</span></li>
+            <li><span class="check check-orange">✓</span><span>Entregue funcionando. Sem "tá em desenvolvimento".</span></li>
+          </ul>
+        </div>
+        <div class="adicional-price">
+          <p class="price-label" style="text-align:center">Investimento único</p>
+          <p class="price-main">R$ 1.000</p>
+          <p class="installment">Ou em 12× de <strong style="color:var(--text)">R$ 100</strong><br>no cartão de crédito</p>
+        </div>
+      </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMO FUNCIONA -->
+<section id="como-funciona">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Nos detalhes</p>
+      <h2 class="section-title">O que cada sistema<br>faz de verdade.</h2>
+    </div>
+
+    <div class="features-container">
+      <!-- IA ATENDIMENTO -->
+      <div class="feature-group">
+        <p class="feature-group-title">IA de Atendimento — detalhes</p>
+
+        <div class="feat-item" style="animation-delay:0.1s">
+          <div class="feat-icon">🤖</div>
+          <div class="feat-text">
+            <h4>Conversa como gente, não como bot</h4>
+            <p>A IA da TAC pergunta o que precisa saber, responde dúvidas sobre produtos e qualifica o interesse — sem roteiro engessado, sem menu numerado.</p>
+          </div>
+        </div>
+
+        <div class="feat-item" style="animation-delay:0.2s">
+          <div class="feat-icon">🔁</div>
+          <div class="feat-text">
+            <h4>7 follow-ups antes de desistir</h4>
+            <p>Lead não respondeu? A IA retoma o contato com outra abordagem, em outro horário, até 7 vezes. A maioria das vendas perdidas some nessa etapa — agora você recupera.</p>
+          </div>
+        </div>
+
+        <div class="feat-item" style="animation-delay:0.3s">
+          <div class="feat-icon">✅</div>
+          <div class="feat-text">
+            <h4>API oficial do WhatsApp</h4>
+            <p>Integração homologada pela Meta. Sem número correndo risco de ban, sem gambiarra. O número da TAC fica protegido e profissional.</p>
+          </div>
+        </div>
+
+        <div class="feat-item" style="animation-delay:0.4s">
+          <div class="feat-icon">📦</div>
+          <div class="feat-text">
+            <h4>Integração com seu banco de estoque</h4>
+            <p>A IA consulta a disponibilidade dos produtos antes de confirmar qualquer pedido. Sem prometer o que não tem. Sem retrabalho pós-venda.</p>
+          </div>
+        </div>
+
+        <div class="feat-item" style="animation-delay:0.5s">
+          <div class="feat-icon">🛠️</div>
+          <div class="feat-text">
+            <h4>Suporte humano da Advanx depois do go-live</h4>
+            <p>Não entregamos e sumimos. Nossa equipe faz ajustes finos — tom de voz, fluxos, respostas — enquanto o sistema vai aprendendo com a TAC.</p>
+          </div>
+        </div>
+
+        <div class="feat-item" style="animation-delay:0.6s">
+          <div class="feat-icon">🗓️</div>
+          <div class="feat-text">
+            <h4>No ar em 7 a 14 dias</h4>
+            <p>Esse é o prazo médio da contratação até o primeiro atendimento automático. Depende só da velocidade com que a TAC envia os materiais para nossa equipe técnica.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- IA CAPTAÇÃO -->
+      <div class="feature-group">
+        <p class="feature-group-title" style="color:#60a5fa">IA de Captação — detalhes</p>
+
+        <div class="feat-item" style="animation-delay:0.15s">
+          <div class="feat-icon">🔍</div>
+          <div class="feat-text">
+            <h4>1.000 novos prospects todo mês</h4>
+            <p>Supermercados, padarias, atacadistas, revendas — a IA busca o perfil certo e monta a lista. Nenhum vendedor gasta hora fazendo isso no Google.</p>
+          </div>
+        </div>
+
+        <div class="feat-item" style="animation-delay:0.25s">
+          <div class="feat-icon">🏢</div>
+          <div class="feat-text">
+            <h4>Pesquisa antes de falar</h4>
+            <p>Antes de mandar qualquer mensagem, a IA levanta dados do negócio: segmento, porte, quem decide a compra. Abordagem certa, para a pessoa certa.</p>
+          </div>
+        </div>
+
+        <div class="feat-item" style="animation-delay:0.35s">
+          <div class="feat-icon">✍️</div>
+          <div class="feat-text">
+            <h4>Mensagem única para cada prospect</h4>
+            <p>Não é um template copiado 1.000 vezes. A IA escreve uma mensagem diferente para cada contato com base no que pesquisou. É o que faz a pessoa responder.</p>
+          </div>
+        </div>
+
+        <div class="feat-item" style="animation-delay:0.45s">
+          <div class="feat-icon">💬</div>
+          <div class="feat-text">
+            <h4>Um a um. Sem spam.</h4>
+            <p>Cada prospect recebe uma abordagem individual, como se o seu vendedor tivesse escrito. Lista de transmissão mata a resposta. Aqui não usamos.</p>
+          </div>
+        </div>
+
+        <div class="feat-item" style="animation-delay:0.55s">
+          <div class="feat-icon">🔀</div>
+          <div class="feat-text">
+            <h4>Lead interessado vai pro vendedor certo</h4>
+            <p>Quando o prospect sinaliza interesse, a IA já distribui para o representante ou vendedor responsável por aquela região ou canal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPARATIVO DE PLANOS -->
+<section id="planos">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Investimento</p>
+      <h2 class="section-title">Quanto custa parar<br>de perder venda?</h2>
+      <p class="section-sub">Menos do que um vendedor CLT que não faz follow-up. No anual você ainda economiza mais de R$ 2.400.</p>
+    </div>
+
+    <table class="comparison-table reveal">
+      <thead>
+        <tr>
+          <th>Solução</th>
+          <th>Plano Mensal</th>
+          <th>Plano Anual</th>
+          <th>Economia anual</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>💬 IA de Atendimento</td>
+          <td class="tag-orange">R$ 497/mês</td>
+          <td class="tag-yes">R$ 397/mês</td>
+          <td class="tag-yes">R$ 1.200</td>
+        </tr>
+        <tr>
+          <td>🎯 IA de Captação</td>
+          <td class="tag-orange">R$ 1.000/mês</td>
+          <td class="tag-yes">R$ 897/mês</td>
+          <td class="tag-yes">R$ 1.236</td>
+        </tr>
+        <tr>
+          <td>🛠️ Implementação Comercial</td>
+          <td colspan="2" style="text-align:center" class="tag-orange">R$ 1.000 único (12× R$ 100)</td>
+          <td class="tag-no">—</td>
+        </tr>
+        <tr>
+          <td>📦 Combo completo (Atendimento + Captação anual)</td>
+          <td class="tag-no">R$ 1.497/mês</td>
+          <td class="tag-yes">R$ 1.294/mês</td>
+          <td class="tag-yes">R$ 2.436/ano</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CRM BÔNUS -->
+<section id="crm">
+  <div class="wrap">
+    <div class="section-header reveal" style="text-align:center; max-width:680px; margin:0 auto 64px;">
+      <p class="section-eyebrow">Bônus exclusivo para a TAC</p>
+      <h2 class="section-title">Contrate os dois.<br><span style="color:var(--orange)">Leve o CRM junto.</span></h2>
+      <p class="section-sub" style="max-width:100%">Quem contrata a IA de Atendimento e a IA de Captação juntas recebe o CRM completo de gestão sem custo adicional. É onde você acompanha cada lead, cada conversa, cada etapa do funil — tudo em um lugar só.</p>
+    </div>
+
+    <div class="crm-grid reveal">
+      <div class="crm-screen">
+        <div class="crm-screen-header">
+          <div class="crm-dot" style="background:#ff5f57"></div>
+          <div class="crm-dot" style="background:#ffbd2e"></div>
+          <div class="crm-dot" style="background:#28c840"></div>
+          <span style="font-size:12px; color:var(--muted); margin-left:8px;">Conversas — CRM Advanx</span>
+        </div>
+        <div class="crm-screen-body">
+          <div class="crm-sidebar">
+            <div class="crm-nav-item active">💬 Conversas</div>
+            <div class="crm-nav-item">📊 Dashboard</div>
+            <div class="crm-nav-item">🗂️ Kanban</div>
+            <div class="crm-nav-item">👥 Equipe</div>
+          </div>
+          <div class="crm-main">
+            <div class="crm-conv-item">
+              <div class="crm-avatar">CS</div>
+              <div class="crm-conv-info">
+                <span class="crm-conv-name">Carlos Silva — Supermercado</span>
+                <span class="crm-conv-msg">Preciso de 500 unidades do pão de alho...</span>
+              </div>
+              <div class="crm-badge">2</div>
+            </div>
+            <div class="crm-conv-item">
+              <div class="crm-avatar">MA</div>
+              <div class="crm-conv-info">
+                <span class="crm-conv-name">Maria Atacado</span>
+                <span class="crm-conv-msg">Qual o prazo de entrega para Salvador?</span>
+              </div>
+              <div class="crm-badge">1</div>
+            </div>
+            <div class="crm-conv-item muted">
+              <div class="crm-avatar" style="opacity:0.5">JR</div>
+              <div class="crm-conv-info">
+                <span class="crm-conv-name" style="opacity:0.6">Joao Restaurante</span>
+                <span class="crm-conv-msg" style="opacity:0.4">Obrigado, vou fechar semana que vem</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="crm-benefits">
+        <h3 style="font-size:22px; font-weight:700; margin-bottom:24px; line-height:1.3">O CRM que vem junto<br>no combo.</h3>
+        <ul class="feature-list">
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>Todas as conversas do WhatsApp</strong> num painel único — sem precisar ficar no celular</span>
+          </li>
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>Dashboard com dados reais</strong> — quantos leads entraram, quantos avançaram, onde travou</span>
+          </li>
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>Kanban visual</strong> — cada contato na etapa certa, do primeiro "oi" até o pedido fechado</span>
+          </li>
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>Gestão da equipe</strong> — distribua atendimentos, veja quem fechou o quê</span>
+          </li>
+          <li>
+            <span class="check check-orange">✓</span>
+            <span><strong>Histórico completo</strong> de cada cliente em um clique</span>
+          </li>
+        </ul>
+        <div style="margin-top:28px; padding:20px; background:var(--orange-dim); border:1px solid var(--border-orange); border-radius:14px;">
+          <p style="font-size:13px; color:var(--orange); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:6px;">Só no combo</p>
+          <p style="font-size:15px; line-height:1.55; color:var(--text)">Contrate a IA de Atendimento + IA de Captação e o CRM entra sem custo adicional. Você paga pelos dois sistemas e gerencia tudo em um lugar só.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- IMPLEMENTAÇÃO -->
+<section id="implementacao">
+  <div class="wrap">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;">
+      <div>
+        <div class="section-header reveal" style="margin-bottom:40px">
+          <p class="section-eyebrow">Como acontece</p>
+          <h2 class="section-title">De 0 a funcionando<br>em até 14 dias.</h2>
+          <p class="section-sub">Não é promessa vaga. Esse é o prazo real — e depende mais da TAC do que da gente.</p>
+        </div>
+        <div class="timeline reveal">
+          <div class="timeline-item">
+            <div class="timeline-dot">1</div>
+            <div class="timeline-text">
+              <h4>Contratação e briefing</h4>
+              <p>Assinatura, acesso ao sistema e reunião de briefing para entender os fluxos, produtos e perfil de cliente da TAC.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">2</div>
+            <div class="timeline-text">
+              <h4>Envio dos materiais pela TAC</h4>
+              <p>Catálogo, tabela de preços, informações do estoque e dados de acesso ao WhatsApp. Quanto mais rápido a TAC envia, mais rápido vai ao ar.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">3</div>
+            <div class="timeline-text">
+              <h4>Configuração e integração</h4>
+              <p>Nossa equipe configura a IA, integra com a API oficial do WhatsApp e conecta no banco de dados do estoque.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">4</div>
+            <div class="timeline-text">
+              <h4>Testes e ajustes finos</h4>
+              <p>Simulamos conversas reais, ajustamos tom, respostas e fluxos com base no que a TAC aprovar.</p>
+            </div>
+          </div>
+          <div class="timeline-item" style="padding-bottom:0">
+            <div class="timeline-dot" style="background:var(--orange); color:#fff">✓</div>
+            <div class="timeline-text">
+              <h4>Go-live — sistema no ar</h4>
+              <p>Primeiro atendimento automático rodando. Suporte da Advanx ativo para os primeiros ajustes pós-lançamento.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:36px; margin-bottom:24px;">
+          <p style="font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--orange); margin-bottom:16px;">Suporte humano incluso</p>
+          <p style="font-size:15px; line-height:1.7; color:var(--muted)">Depois do go-live, nossa equipe continua disponível para ajustes finos — tom de voz, novos fluxos, integração de novos produtos. Não é um chatbot de suporte. É gente da Advanx respondendo.</p>
+        </div>
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:36px; margin-bottom:24px;">
+          <p style="font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#60a5fa; margin-bottom:16px;">API oficial — sem risco</p>
+          <p style="font-size:15px; line-height:1.7; color:var(--muted)">Usamos a API oficial do WhatsApp homologada pela Meta. O número da TAC fica protegido. Sem gambiarra, sem risco de ban, sem surpresa no meio do mês.</p>
+        </div>
+        <div style="background:linear-gradient(135deg,#1a1408,#141418); border:1px solid var(--border-orange); border-radius:20px; padding:36px;">
+          <p style="font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--orange); margin-bottom:16px;">Integração com estoque</p>
+          <p style="font-size:15px; line-height:1.7; color:var(--muted)">A IA consulta o banco de dados de produtos da TAC antes de confirmar pedido. Sem prometer o que não tem. Sem o cliente comprar e descobrir depois que acabou.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<section class="cta-final">
+  <div class="cta-glow"></div>
+  <p style="margin-bottom:16px; font-size:13px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted2); position:relative">
+    <span class="glow-dot"></span> TAC Alimentos — próximo passo
+  </p>
+  <h2>Cada dia sem isso<br>é venda que some.</h2>
+  <p>Nenhuma reunião longa. Nenhum contrato confuso. Fala com a gente agora e a gente mostra exatamente como funciona para a TAC.</p>
+  <a href="https://wa.me/5571999999999" class="btn-primary" style="font-size:16px; padding:20px 48px;">
+    Falar com a Advanx →
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/logo-advanx-transparente.webp" alt="Advanx">
+  <p>© 2025 Advanx. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+// ── PARTICLES ──
+const canvas = document.getElementById('canvas-bg');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = (Math.random() - 0.5) * 0.3;
+    this.size = Math.random() * 1.5 + 0.5;
+    this.alpha = Math.random() * 0.5 + 0.1;
+    this.color = Math.random() > 0.7 ? '#ff7a01' : '#ffffff';
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = this.alpha;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+function drawLines() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 100) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = '#ff7a01';
+        ctx.globalAlpha = (1 - dist/100) * 0.08;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  ctx.globalAlpha = 1;
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawLines();
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 60);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(r => obs.observe(r));
+
+// ── FEAT ITEMS ──
+const featItems = document.querySelectorAll('.feat-item');
+const featObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+      featObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+featItems.forEach(f => {
+  f.style.transform = 'translateY(20px)';
+  f.style.transition = 'opacity 0.6s, transform 0.6s';
+  featObs.observe(f);
+});
+
+// ── COUNTER ANIMATION ──
+function animateCount(el, target, suffix) {
+  let start = 0;
+  const duration = 1500;
+  const startTime = performance.now();
+  function update(now) {
+    const t = Math.min((now - startTime) / duration, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(ease * target) + (suffix || '');
+    if (t < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+const statsObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      statsObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-box').forEach(s => statsObs.observe(s));
+</script>
+</body>
+</html>
