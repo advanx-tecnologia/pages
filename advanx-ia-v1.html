@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanx IA — Automação com Inteligência Artificial para Empresas</title>
+    <meta name="description" content="Reduza custos, elimine gargalos e escale sua operação com IA aplicada. Diagnóstico, implementação e acompanhamento completo.">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-98EL5GXG5F');
+    </script>
+
+    <!-- Facebook Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '502759528362336');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/></noscript>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --orange: #ff7a01;
+            --orange-dark: #cc6200;
+            --black: #0a0a0a;
+            --gray-900: #111111;
+            --gray-800: #1a1a1a;
+            --gray-700: #2a2a2a;
+            --gray-400: #888888;
+            --gray-200: #d4d4d4;
+            --white: #f5f5f0;
+            --base: 8px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(10,10,10,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,122,1,0.15);
+        }
+
+        .nav-logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-logo span { color: var(--orange); }
+
+        .nav-cta {
+            background: var(--orange);
+            color: var(--black);
+            font-weight: 700;
+            font-size: 14px;
+            padding: 10px 24px;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            transition: background 180ms ease, transform 180ms ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--orange-dark);
+            transform: translateY(-1px);
+        }
+
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 120px 40px 80px;
+            gap: 64px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: -200px; right: -200px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(255,122,1,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--orange);
+            border: 1px solid rgba(255,122,1,0.4);
+            padding: 6px 14px;
+            margin-bottom: 32px;
+        }
+
+        .hero-headline {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(44px, 5.5vw, 76px);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            color: var(--white);
+            margin-bottom: 24px;
+        }
+
+        .hero-headline em {
+            font-style: normal;
+            color: var(--orange);
+        }
+
+        .hero-sub {
+            font-size: 18px;
+            color: var(--gray-400);
+            line-height: 1.7;
+            max-width: 480px;
+            margin-bottom: 48px;
+            font-weight: 400;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--orange);
+            color: var(--black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 16px 36px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 180ms ease;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-primary:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            color: var(--gray-200);
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 180ms ease;
+        }
+
+        .btn-ghost:hover { color: var(--white); }
+
+        .hero-visual {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-card {
+            background: var(--gray-800);
+            border: 1px solid var(--gray-700);
+            padding: 32px;
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 40%; height: 2px;
+            background: var(--orange);
+        }
+
+        .metric-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .metric {
+            padding: 20px;
+            background: var(--gray-900);
+            border: 1px solid var(--gray-700);
+        }
+
+        .metric-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--orange);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--gray-400);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-pulse {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px;
+            background: rgba(255,122,1,0.08);
+            border: 1px solid rgba(255,122,1,0.2);
+            font-size: 13px;
+            color: var(--gray-200);
+        }
+
+        .pulse-dot {
+            width: 8px; height: 8px;
+            background: var(--orange);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* ── SECTION BASE ── */
+        section {
+            padding: 96px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-full {
+            max-width: none;
+            padding: 96px 0;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(32px, 4vw, 52px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 24px;
+        }
+
+        .section-sub {
+            font-size: 17px;
+            color: var(--gray-400);
+            max-width: 560px;
+            line-height: 1.7;
+        }
+
+        /* ── PROBLEMA ── */
+        #problema {
+            background: var(--gray-900);
+            max-width: none;
+        }
+
+        .problema-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .problema-list {
+            list-style: none;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .problema-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            border: 1px solid var(--gray-700);
+            background: var(--gray-800);
+            transition: border-color 220ms ease;
+        }
+
+        .problema-item:hover { border-color: rgba(255,122,1,0.3); }
+
+        .problema-icon {
+            width: 40px; height: 40px;
+            background: rgba(255,122,1,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .problema-text strong {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .problema-text span {
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        .problema-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .stat-block {
+            padding: 32px;
+            border: 1px solid var(--gray-700);
+            background: var(--gray-800);
+            position: relative;
+        }
+
+        .stat-block::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 30%; height: 2px;
+            background: var(--orange);
+        }
+
+        .stat-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 56px;
+            font-weight: 800;
+            color: var(--orange);
+            line-height: 1;
+        }
+
+        .stat-desc {
+            font-size: 14px;
+            color: var(--gray-400);
+            margin-top: 8px;
+        }
+
+        /* ── SERVIÇOS ── */
+        .servicos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin-top: 64px;
+            background: var(--gray-700);
+        }
+
+        .servico-card {
+            background: var(--gray-900);
+            padding: 40px 32px;
+            position: relative;
+            transition: background 220ms ease;
+            cursor: default;
+        }
+
+        .servico-card:hover { background: var(--gray-800); }
+
+        .servico-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--orange);
+            margin-bottom: 20px;
+        }
+
+        .servico-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .servico-desc {
+            font-size: 14px;
+            color: var(--gray-400);
+            line-height: 1.7;
+        }
+
+        .servico-line {
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 2px;
+            background: var(--orange);
+            transition: width 300ms ease;
+        }
+
+        .servico-card:hover .servico-line { width: 100%; }
+
+        /* ── COMO FUNCIONA ── */
+        #como-funciona {
+            background: var(--gray-900);
+            max-width: none;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            margin-top: 64px;
+            position: relative;
+        }
+
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 28px; left: 16.6%;
+            right: 16.6%;
+            height: 1px;
+            background: var(--orange);
+            opacity: 0.4;
+        }
+
+        .step {
+            padding: 0 32px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 56px; height: 56px;
+            background: var(--orange);
+            color: var(--black);
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .step-desc {
+            font-size: 14px;
+            color: var(--gray-400);
+            line-height: 1.7;
+        }
+
+        /* ── DEPOIMENTOS ── */
+        .depo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin-top: 64px;
+            background: var(--gray-700);
+        }
+
+        .depo-card {
+            background: var(--gray-900);
+            padding: 40px 32px;
+        }
+
+        .depo-stars {
+            color: var(--orange);
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .depo-text {
+            font-size: 15px;
+            color: var(--gray-200);
+            line-height: 1.75;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .depo-author strong {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .depo-author span {
+            font-size: 12px;
+            color: var(--gray-400);
+        }
+
+        /* ── PREÇOS ── */
+        #precos { background: var(--black); max-width: none; }
+
+        .precos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin-top: 64px;
+            background: var(--gray-700);
+        }
+
+        .preco-card {
+            background: var(--gray-900);
+            padding: 48px 36px;
+            position: relative;
+        }
+
+        .preco-card.destaque {
+            background: var(--gray-800);
+        }
+
+        .preco-card.destaque::before {
+            content: 'MAIS POPULAR';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            background: var(--orange);
+            color: var(--black);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-align: center;
+            padding: 6px;
+        }
+
+        .preco-card.destaque { padding-top: 56px; }
+
+        .preco-name {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 16px;
+        }
+
+        .preco-valor {
+            font-family: 'Syne', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .preco-periodo {
+            font-size: 13px;
+            color: var(--gray-400);
+            margin-bottom: 32px;
+        }
+
+        .preco-features {
+            list-style: none;
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .preco-features li {
+            font-size: 14px;
+            color: var(--gray-200);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .preco-features li::before {
+            content: '';
+            width: 16px; height: 16px;
+            background: rgba(255,122,1,0.15);
+            border: 1px solid rgba(255,122,1,0.4);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L3.5 6.5L9 1' stroke='%23ff7a01' stroke-width='1.5' stroke-linecap='square'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .btn-preco {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 14px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 180ms ease;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-preco-outline {
+            border: 1px solid var(--gray-600, #444);
+            color: var(--white);
+        }
+
+        .btn-preco-outline:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .btn-preco-solid {
+            background: var(--orange);
+            color: var(--black);
+        }
+
+        .btn-preco-solid:hover {
+            background: var(--orange-dark);
+            transform: translateY(-1px);
+        }
+
+        /* ── FAQ ── */
+        .faq-list {
+            margin-top: 64px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .faq-item {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-700);
+        }
+
+        .faq-question {
+            padding: 24px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            user-select: none;
+        }
+
+        .faq-icon {
+            width: 24px; height: 24px;
+            border: 1px solid var(--gray-600, #444);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--orange);
+            font-size: 18px;
+            transition: transform 220ms ease;
+        }
+
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+        .faq-answer {
+            display: none;
+            padding: 0 28px 24px;
+            font-size: 15px;
+            color: var(--gray-400);
+            line-height: 1.75;
+            border-top: 1px solid var(--gray-700);
+            padding-top: 20px;
+        }
+
+        .faq-item.open .faq-answer { display: block; }
+
+        /* ── CTA FINAL ── */
+        #cta-final {
+            background: var(--orange);
+            max-width: none;
+            padding: 96px 40px;
+        }
+
+        .cta-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 800;
+            color: var(--black);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+        }
+
+        .cta-sub {
+            font-size: 18px;
+            color: rgba(0,0,0,0.65);
+            margin-bottom: 48px;
+        }
+
+        .btn-cta-dark {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 17px;
+            padding: 18px 48px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 180ms ease;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-cta-dark:hover {
+            background: var(--gray-800);
+            transform: translateY(-2px);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--black);
+            border-top: 1px solid var(--gray-800);
+            padding: 48px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .footer-logo span { color: var(--orange); }
+
+        .footer-copy {
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        /* ── RESPONSIVO ── */
+        @media (max-width: 900px) {
+            nav { padding: 16px 20px; }
+            #hero { grid-template-columns: 1fr; padding: 100px 20px 60px; }
+            .hero-visual { display: none; }
+            section { padding: 64px 20px; }
+            .problema-grid, .servicos-grid, .steps-grid,
+            .depo-grid, .precos-grid { grid-template-columns: 1fr; }
+            .steps-grid::before { display: none; }
+            footer { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="#" class="nav-logo">Advanx<span> IA</span></a>
+    <a href="https://wa.me/5511999999999?text=Quero+saber+mais+sobre+a+Advanx+IA" class="nav-cta" target="_blank" rel="noopener">Falar com especialista</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-content">
+        <span class="hero-label">Inteligência Artificial Aplicada</span>
+        <h1 class="hero-headline">
+            Sua empresa<br>
+            opera com <em>IA</em><br>
+            ou ainda no<br>
+            manual?
+        </h1>
+        <p class="hero-sub">
+            Diagnosticamos, implementamos e acompanhamos automações com IA que reduzem custos, eliminam gargalos e escalam sua operação — sem improviso.
+        </p>
+        <div class="hero-actions">
+            <a href="https://wa.me/5511999999999?text=Quero+um+diagn%C3%B3stico+gratuito+da+Advanx+IA" class="btn-primary" target="_blank" rel="noopener">
+                Quero meu diagnóstico gratuito
+            </a>
+            <a href="#servicos" class="btn-ghost">
+                Ver serviços
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+            </a>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="hero-card">
+            <div class="metric-row">
+                <div class="metric">
+                    <div class="metric-number">73%</div>
+                    <div class="metric-label">Redução de retrabalho</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-number">4×</div>
+                    <div class="metric-label">Velocidade operacional</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-number">R$0</div>
+                    <div class="metric-label">Custo do diagnóstico</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-number">30d</div>
+                    <div class="metric-label">Primeira entrega</div>
+                </div>
+            </div>
+            <div class="hero-pulse">
+                <div class="pulse-dot"></div>
+                Sistema de IA ativo — 12 clientes integrados agora
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROBLEMA -->
+<section id="problema" class="section-full">
+    <div class="section-inner">
+        <div class="problema-grid">
+            <div>
+                <span class="section-label">O Diagnóstico</span>
+                <h2 class="section-title">Você reconhece<br>esses sintomas?</h2>
+                <ul class="problema-list">
+                    <li class="problema-item">
+                        <div class="problema-icon">⚡</div>
+                        <div class="problema-text">
+                            <strong>Processos manuais que consomem horas</strong>
+                            <span>Tarefas repetitivas que sua equipe faz todos os dias — e que uma IA faria em segundos.</span>
+                        </div>
+                    </li>
+                    <li class="problema-item">
+                        <div class="problema-icon">📉</div>
+                        <div class="problema-text">
+                            <strong>Custo operacional crescendo, margem encolhendo</strong>
+                            <span>Mais funcionários para manter o mesmo nível de serviço não é escala — é desperdício.</span>
+                        </div>
+                    </li>
+                    <li class="problema-item">
+                        <div class="problema-icon">🔄</div>
+                        <div class="problema-text">
+                            <strong>Sistemas que não se comunicam</strong>
+                            <span>CRM, ERP, WhatsApp e planilhas em silos. Dados fragmentados, decisões no escuro.</span>
+                        </div>
+                    </li>
+                    <li class="problema-item">
+                        <div class="problema-icon">⏳</div>
+                        <div class="problema-text">
+                            <strong>Concorrência já usa IA, você ainda não</strong>
+                            <span>Cada mês sem automação é vantagem competitiva cedida ao mercado.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="problema-visual">
+                <div class="stat-block">
+                    <div class="stat-number">68%</div>
+                    <div class="stat-desc">das PMEs brasileiras perdem eficiência por processos manuais evitáveis — Sebrae, 2024</div>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-number">3,2×</div>
+                    <div class="stat-desc">empresas com IA implementada crescem 3,2× mais rápido que a média do setor</div>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-number">R$47k</div>
+                    <div class="stat-desc">custo médio anual de um processo manual que poderia ser automatizado</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+    <span class="section-label">O que entregamos</span>
+    <h2 class="section-title">Seis frentes.<br>Um objetivo: resultado.</h2>
+    <div class="servicos-grid">
+        <div class="servico-card">
+            <div class="servico-line"></div>
+            <div class="servico-number">01</div>
+            <h3 class="servico-title">Diagnóstico e Mapeamento</h3>
+            <p class="servico-desc">Radiografia completa dos seus processos. Identificamos onde a IA gera maior retorno e priorizamos por impacto financeiro.</p>
+        </div>
+        <div class="servico-card">
+            <div class="servico-line"></div>
+            <div class="servico-number">02</div>
+            <h3 class="servico-title">Automação de Processos</h3>
+            <p class="servico-desc">Eliminamos tarefas manuais repetitivas com agentes de IA e automações robustas que operam 24/7 sem erro humano.</p>
+        </div>
+        <div class="servico-card">
+            <div class="servico-line"></div>
+            <div class="servico-number">03</div>
+            <h3 class="servico-title">Integração de Sistemas</h3>
+            <p class="servico-desc">Conectamos seu CRM, ERP, WhatsApp e ferramentas em um ecossistema unificado. Dados fluindo, decisões em tempo real.</p>
+        </div>
+        <div class="servico-card">
+            <div class="servico-line"></div>
+            <div class="servico-number">04</div>
+            <h3 class="servico-title">Consultoria Estratégica em IA</h3>
+            <p class="servico-desc">Não vendemos tecnologia, vendemos estratégia. Definimos o roadmap de IA alinhado aos seus objetivos de negócio.</p>
+        </div>
+        <div class="servico-card">
+            <div class="servico-line"></div>
+            <div class="servico-number">05</div>
+            <h3 class="servico-title">Treinamento de Equipes</h3>
+            <p class="servico-desc">Capacitamos seu time para trabalhar com IA — não contra ela. Adoção real, não projeto-piloto que morre na gaveta.</p>
+        </div>
+        <div class="servico-card">
+            <div class="servico-line"></div>
+            <div class="servico-number">06</div>
+            <h3 class="servico-title">Acompanhamento Contínuo</h3>
+            <p class="servico-desc">Monitoramos, otimizamos e evoluímos as automações. IA não é projeto, é produto — e produto precisa de manutenção.</p>
+        </div>
+    </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="como-funciona" class="section-full">
+    <div class="section-inner">
+        <span class="section-label">Metodologia</span>
+        <h2 class="section-title">Do diagnóstico ao<br>resultado em 30 dias.</h2>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-number">01</div>
+                <h3 class="step-title">Diagnóstico Gratuito</h3>
+                <p class="step-desc">Reunião de 60 minutos para mapear processos, identificar gargalos e calcular o ROI potencial das automações.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">02</div>
+                <h3 class="step-title">Arquitetura e Implementação</h3>
+                <p class="step-desc">Desenho da solução, desenvolvimento das automações e integrações com seus sistemas atuais. Sem substituição de stack.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">03</div>
+                <h3 class="step-title">Go-live e Otimização</h3>
+                <p class="step-desc">Ativação com suporte completo, treinamento do time e ciclos mensais de melhoria baseados em dados reais.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos">
+    <span class="section-label">Resultados reais</span>
+    <h2 class="section-title">Clientes que pararam<br>de operar no manual.</h2>
+    <div class="depo-grid">
+        <div class="depo-card">
+            <div class="depo-stars">★★★★★</div>
+            <p class="depo-text">"Em 45 dias, automatizamos todo o processo de qualificação de leads. Hoje meu time foca em fechar, não em triagem. Faturamento subiu 40% no trimestre."</p>
+            <div class="depo-author">
+                <strong>Marcos Oliveira</strong>
+                <span>Diretor Comercial — Escritório Oliveira & Associados</span>
+            </div>
+        </div>
+        <div class="depo-card">
+            <div class="depo-stars">★★★★★</div>
+            <p class="depo-text">"A integração entre WhatsApp, CRM e sistema jurídico foi cirúrgica. Reduzimos 3 funcionários administrativos e a operação ficou mais rápida e precisa."</p>
+            <div class="depo-author">
+                <strong>Camila Ferreira</strong>
+                <span>Sócia-gestora — Ferreira Advocacia Digital</span>
+            </div>
+        </div>
+        <div class="depo-card">
+            <div class="depo-stars">★★★★★</div>
+            <p class="depo-text">"Saí do diagnóstico com um plano claro e ROI projetado. Em 2 meses o investimento já estava pago. A Advanx entrega o que promete — sem enrolação."</p>
+            <div class="depo-author">
+                <strong>Rafael Gomes</strong>
+                <span>CEO — Gomes & Prado Consultoria Jurídica</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PREÇOS -->
+<section id="precos" class="section-full">
+    <div class="section-inner">
+        <span class="section-label">Investimento</span>
+        <h2 class="section-title">Planos que cabem<br>no seu momento.</h2>
+        <p class="section-sub">Comece com diagnóstico gratuito. Sem contratos longos até você ver resultado.</p>
+        <div class="precos-grid">
+            <div class="preco-card">
+                <div class="preco-name">Essencial</div>
+                <div class="preco-valor">Sob consulta</div>
+                <div class="preco-periodo">para operações de até 5 usuários</div>
+                <ul class="preco-features">
+                    <li>Diagnóstico completo</li>
+                    <li>1 automação principal</li>
+                    <li>Integração de até 2 sistemas</li>
+                    <li>Treinamento da equipe</li>
+                    <li>Suporte por 30 dias</li>
+                </ul>
+                <a href="https://wa.me/5511999999999?text=Tenho+interesse+no+plano+Essencial+da+Advanx+IA" class="btn-preco btn-preco-outline" target="_blank" rel="noopener">Falar com especialista</a>
+            </div>
+            <div class="preco-card destaque">
+                <div class="preco-name">Escala</div>
+                <div class="preco-valor">Sob consulta</div>
+                <div class="preco-periodo">para operações de 5 a 30 usuários</div>
+                <ul class="preco-features">
+                    <li>Diagnóstico completo</li>
+                    <li>Automações ilimitadas</li>
+                    <li>Integrações completas</li>
+                    <li>Treinamento + documentação</li>
+                    <li>Acompanhamento por 90 dias</li>
+                    <li>Relatórios mensais de ROI</li>
+                </ul>
+                <a href="https://wa.me/5511999999999?text=Tenho+interesse+no+plano+Escala+da+Advanx+IA" class="btn-preco btn-preco-solid" target="_blank" rel="noopener">Falar com especialista</a>
+            </div>
+            <div class="preco-card">
+                <div class="preco-name">Enterprise</div>
+                <div class="preco-valor">Personalizado</div>
+                <div class="preco-periodo">para grandes operações e franquias</div>
+                <ul class="preco-features">
+                    <li>Tudo do plano Escala</li>
+                    <li>Arquitetura dedicada</li>
+                    <li>SLA garantido</li>
+                    <li>Squad exclusivo</li>
+                    <li>Retainer mensal de evolução</li>
+                    <li>NDA e contrato customizado</li>
+                </ul>
+                <a href="https://wa.me/5511999999999?text=Tenho+interesse+no+plano+Enterprise+da+Advanx+IA" class="btn-preco btn-preco-outline" target="_blank" rel="noopener">Falar com especialista</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+    <span class="section-label">Dúvidas frequentes</span>
+    <h2 class="section-title">Perguntas que todo<br>cliente faz antes de começar.</h2>
+    <div class="faq-list">
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Preciso trocar meus sistemas atuais para usar IA?
+                <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-answer">
+                Não. Nossa abordagem é integrativa — trabalhamos em cima dos sistemas que você já usa. CRM, ERP, WhatsApp, planilhas. A IA se adapta à sua operação, não o contrário.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Em quanto tempo vejo resultado?
+                <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-answer">
+                As primeiras automações entram em produção em até 30 dias. Resultados mensuráveis (redução de tempo, custo, erros) aparecem já no primeiro mês de operação.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                O diagnóstico é realmente gratuito?
+                <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-answer">
+                Sim, sem pegadinha. É uma reunião de 60 minutos onde mapeamos sua operação e calculamos o ROI potencial. Você sai com um plano claro — independente de contratar ou não.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Para quais setores vocês atendem?
+                <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-answer">
+                Advocacia, saúde, indústria, logística, educação, agências, e-commerce e serviços locais. Se sua empresa tem processos repetitivos e dados fragmentados, temos solução.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                E se a automação parar de funcionar depois?
+                <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-answer">
+                Todos os planos incluem período de acompanhamento com suporte. No plano Escala e Enterprise, mantemos retainer mensal de manutenção e evolução contínua.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final" class="section-full">
+    <div class="cta-inner">
+        <h2 class="cta-title">Chega de operar<br>no improviso.</h2>
+        <p class="cta-sub">Diagnóstico gratuito. Resultado em 30 dias. Sem burocracia.</p>
+        <a href="https://wa.me/5511999999999?text=Quero+meu+diagn%C3%B3stico+gratuito+da+Advanx+IA" class="btn-cta-dark" target="_blank" rel="noopener">
+            Agendar diagnóstico gratuito
+        </a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <a href="#" class="footer-logo">Advanx<span> IA</span></a>
+    <span class="footer-copy">© 2026 Advanx IA. Todos os direitos reservados.</span>
+</footer>
+
+<script>
+    function toggleFaq(el) {
+        const item = el.parentElement;
+        item.classList.toggle('open');
+    }
+
+    // Scroll suave para links internos
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Animação de entrada dos cards
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.servico-card, .depo-card, .preco-card, .step').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(24px)';
+        el.style.transition = 'opacity 400ms ease, transform 400ms ease';
+        observer.observe(el);
+    });
+</script>
+
+</body>
+</html>
