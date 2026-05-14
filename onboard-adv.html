@@ -1149,13 +1149,42 @@ function collectData(){
     "Data/Hora":new Date().toLocaleString('pt-BR')
   };
 }
+const DEV_MOCK={
+  "Nome completo":"Teste Rafael Silva",
+  "WhatsApp":"5571987792684",
+  "E-mail":"teste@advocacia.com.br",
+  "Link do Instagram":"https://instagram.com/teste",
+  "Qual área jurídica você quer escalar primeiro?":"Criminal",
+  "Tipo específico de caso que deseja captar":"Tráfico de drogas",
+  "Esse serviço é cobrado como…":"Honorários fixos",
+  "Ticket médio dos contratos":"R$ 8.000",
+  "Ticket máximo":"R$ 20.000",
+  "Quanto pretende investir por mês em tráfego?":"R$ 3.000 – R$ 5.000",
+  "Está ciente do investimento mínimo para a área criminal?":"Sim",
+  "Atua sozinho ou possui equipe?":"Equipe de 3 pessoas",
+  "Está disposto a seguir orientação comercial estratégica?":"Sim",
+  "Pode atender ligações quando acionado pela IA?":"Sim",
+  "Está disposto a gravar vídeos estratégicos?":"Sim",
+  "Qual é o seu maior diferencial?":"Atendimento humanizado e resposta rápida",
+  "Formato de atendimento":"Presencial e online",
+  "Atende quais estados?":"BA, SE",
+  "Já rodou tráfego pago antes?":"Sim",
+  "Qual foi o resultado dos seus esforços anteriores?":"Poucos leads qualificados",
+  "Já perdeu cliente por demora na resposta?":"Sim",
+  "Quantos contratos deseja fechar por mês?":"10",
+  "Qual meta de faturamento mensal?":"R$ 80.000",
+  "Prefere validar primeiro ou escalar direto?":"Escalar direto",
+  "Observações finais":"Teste via modal dev",
+  "Data/Hora":new Date().toLocaleString('pt-BR')
+};
 async function testWebhook(){
   const btn=document.getElementById('dev-btn');
   const res=document.getElementById('dev-res');
   btn.disabled=true;
   btn.textContent='⏳ Enviando…';
   res.style.display='none';
-  const data=collectData();
+  const filled=collectData();
+  const data=filled["Nome completo"]?filled:DEV_MOCK;
   try{
     const r=await fetch('https://n8n.advfunnel.com.br/webhook/0ef36613-369e-4245-9f9d-665027fc5791/:PORCENTAGEM',{
       method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)
