@@ -385,7 +385,7 @@ input.err,textarea.err{border-color:#e03358!important;}
   <!-- ════ INÍCIO ════ -->
   <div id="pane-0" class="pane show">
     <div class="card">
-      <div class="gem">⚡</div>
+      <div class="gem" id="gem-btn" onclick="devTap()">⚡</div>
       <h1 class="start-title">Seu planejamento<br><em>estratégico</em> começa aqui</h1>
       <p class="start-sub">Responda com calma. Cada detalhe que você compartilhar vira estratégia real de crescimento. 🎯</p>
       <div class="tags">
@@ -781,6 +781,17 @@ input.err,textarea.err{border-color:#e03358!important;}
 
 </div>
 
+<!-- ════ DEV TEST MODAL ════ -->
+<div id="dev-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(7,9,14,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#0d1017;border:1px solid rgba(255,122,1,.4);border-radius:16px;padding:28px 24px;max-width:460px;width:100%;box-shadow:0 0 60px rgba(255,122,1,.18);position:relative;">
+    <button onclick="closeDevModal()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#7a8499;font-size:20px;cursor:pointer;line-height:1;">✕</button>
+    <div style="font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#ff7a01;margin-bottom:6px;">🧪 Modo Teste</div>
+    <div style="font-size:12px;color:#7a8499;margin-bottom:20px;">Envia os dados preenchidos no formulário para o webhook sem validação.</div>
+    <button onclick="testWebhook()" id="dev-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#ff7a01,#ff9a35);border:none;border-radius:10px;color:#fff;font-weight:700;font-size:14px;cursor:pointer;letter-spacing:.05em;">⚡ Disparar Webhook</button>
+    <pre id="dev-res" style="display:none;margin-top:16px;padding:14px;background:#07090e;border:1px solid rgba(255,255,255,.06);border-radius:8px;font-size:11px;color:#e8eaf2;white-space:pre-wrap;word-break:break-all;max-height:260px;overflow-y:auto;"></pre>
+  </div>
+</div>
+
 <script>
 /* ── HUD HEIGHT CSS VAR ── */
 function syncHudHeight(){
@@ -1047,7 +1058,7 @@ function submitForm(){
   if(typeof fbq!=='undefined')fbq('track','Lead',{content_name:'Planejamento Estratégico'});
   if(typeof gtag!=='undefined')gtag('event','generate_lead',{currency:'BRL'});
 
-  fetch('https://n8n.advfunnel.com.br/webhook/f63bf3e6-18c5-41a2-82f2-e13972c84f4f',{
+  fetch('https://n8n.advfunnel.com.br/webhook/0ef36613-369e-4245-9f9d-665027fc5791/:PORCENTAGEM',{
     method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)
   }).then(()=>showOk()).catch(()=>showOk());
 }
@@ -1089,6 +1100,77 @@ function maskTel(inp){let v=inp.value.replace(/\D/g,'').substring(0,11);if(v.len
 function cnt(el,cid,max){if(el.value.length>max)el.value=el.value.slice(0,max);document.getElementById(cid).textContent=el.value.length;}
 function spawn(icons){icons.forEach((ic,i)=>{setTimeout(()=>{const el=document.createElement('span');el.className='floater';el.textContent=ic;el.style.cssText='left:'+(25+Math.random()*50)+'%;top:'+(50+Math.random()*30)+'%;font-size:'+(17+Math.random()*12)+'px;';document.body.appendChild(el);setTimeout(()=>el.remove(),1200);},i*110);});}
 function celebrationConfetti(){const ic=['🎉','🚀','⚡','💎','🔥','🎯','✨','💪','🏆','⚖️','🏛️'];for(let i=0;i<18;i++){setTimeout(()=>{const el=document.createElement('span');el.className='floater';el.textContent=ic[Math.floor(Math.random()*ic.length)];el.style.cssText='left:'+(5+Math.random()*90)+'%;top:'+(15+Math.random()*65)+'%;font-size:'+(16+Math.random()*20)+'px;';document.body.appendChild(el);setTimeout(()=>el.remove(),1400);},i*65);}}
+
+/* ── DEV TEST MODAL ── */
+let _devTaps=0,_devTimer=null;
+function devTap(){
+  _devTaps++;
+  clearTimeout(_devTimer);
+  if(_devTaps>=3){_devTaps=0;openDevModal();return;}
+  _devTimer=setTimeout(()=>{_devTaps=0;},1200);
+}
+function openDevModal(){
+  const m=document.getElementById('dev-modal');
+  m.style.display='flex';
+  document.getElementById('dev-res').style.display='none';
+  document.getElementById('dev-res').textContent='';
+  document.getElementById('dev-btn').disabled=false;
+  document.getElementById('dev-btn').textContent='⚡ Disparar Webhook';
+}
+function closeDevModal(){document.getElementById('dev-modal').style.display='none';}
+function collectData(){
+  const wpRaw='55'+(document.getElementById('f_wp')?.value||'').replace(/\D/g,'');
+  return{
+    "Nome completo":document.getElementById('f_nome')?.value||'',
+    "WhatsApp":wpRaw,
+    "E-mail":document.getElementById('f_em')?.value||'',
+    "Link do Instagram":document.getElementById('f_ig')?.value||'',
+    "Qual área jurídica você quer escalar primeiro?":document.querySelector('input[name="area"]:checked')?.value||'',
+    "Tipo específico de caso que deseja captar":document.getElementById('f_caso')?.value||'',
+    "Esse serviço é cobrado como…":document.querySelector('input[name="cobranca"]:checked')?.value||'',
+    "Ticket médio dos contratos":document.getElementById('f_ticket_med')?.value||'',
+    "Ticket máximo":document.getElementById('f_ticket_max')?.value||'',
+    "Quanto pretende investir por mês em tráfego?":document.querySelector('input[name="invest"]:checked')?.value||'',
+    "Está ciente do investimento mínimo para a área criminal?":document.querySelector('input[name="criminal_aware"]:checked')?.value||'N/A',
+    "Atua sozinho ou possui equipe?":document.querySelector('input[name="equipe"]:checked')?.value||'',
+    "Está disposto a seguir orientação comercial estratégica?":document.querySelector('input[name="orient"]:checked')?.value||'',
+    "Pode atender ligações quando acionado pela IA?":document.querySelector('input[name="ligacao"]:checked')?.value||'',
+    "Está disposto a gravar vídeos estratégicos?":document.querySelector('input[name="video"]:checked')?.value||'',
+    "Qual é o seu maior diferencial?":document.getElementById('f_dif')?.value||'',
+    "Formato de atendimento":document.querySelector('input[name="atend"]:checked')?.value||'',
+    "Atende quais estados?":document.getElementById('f_estados')?.value||'',
+    "Já rodou tráfego pago antes?":document.querySelector('input[name="trafego"]:checked')?.value||'',
+    "Qual foi o resultado dos seus esforços anteriores?":document.getElementById('f_tr_det')?.value||document.getElementById('f_resultado')?.value||'',
+    "Já perdeu cliente por demora na resposta?":document.querySelector('input[name="demora"]:checked')?.value||'',
+    "Quantos contratos deseja fechar por mês?":document.getElementById('f_contratos')?.value||'',
+    "Qual meta de faturamento mensal?":document.getElementById('f_fat')?.value||'',
+    "Prefere validar primeiro ou escalar direto?":document.querySelector('input[name="estrat"]:checked')?.value||'',
+    "Observações finais":document.getElementById('f_obs')?.value||'',
+    "Data/Hora":new Date().toLocaleString('pt-BR')
+  };
+}
+async function testWebhook(){
+  const btn=document.getElementById('dev-btn');
+  const res=document.getElementById('dev-res');
+  btn.disabled=true;
+  btn.textContent='⏳ Enviando…';
+  res.style.display='none';
+  const data=collectData();
+  try{
+    const r=await fetch('https://lhbwfbquxkutcyqazpnw.supabase.co/functions/v1/onboard-lead',{
+      method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)
+    });
+    const json=await r.json();
+    res.textContent=JSON.stringify(json,null,2);
+    res.style.color=json.success?'#4ade80':'#f87171';
+  }catch(e){
+    res.textContent='Erro: '+e;
+    res.style.color='#f87171';
+  }
+  res.style.display='block';
+  btn.disabled=false;
+  btn.textContent='⚡ Disparar Webhook';
+}
 </script>
 </body>
 </html>
