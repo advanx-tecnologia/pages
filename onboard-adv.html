@@ -1157,7 +1157,7 @@ async function testWebhook(){
   res.style.display='none';
   const data=collectData();
   try{
-    const r=await fetch('https://lhbwfbquxkutcyqazpnw.supabase.co/functions/v1/onboard-lead',{
+    const r=await fetch('https://n8n.advfunnel.com.br/webhook/0ef36613-369e-4245-9f9d-665027fc5791/:PORCENTAGEM',{
       method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)
     });
     const json=await r.json();
