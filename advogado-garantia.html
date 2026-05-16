@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análise Estratégica Jurídica</title>
+    <title>Advanx IA - Análise Estratégica Jurídica</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -13,6 +13,17 @@
             font-family: 'Inter', sans-serif;
             background-color: #F8F9FA;
             color: #202124;
+            /* Desabilita seleção de texto em todo o corpo */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Garante que imagens não sejam arrastadas */
+        img {
+            -webkit-user-drag: none;
+            user-drag: none;
         }
 
         .google-doc {
@@ -145,6 +156,46 @@
     </div>
 
     <script>
+        
+        // Bloqueia o menu de contexto (botão direito)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        }, false);
+
+        // Bloqueia atalhos de teclado comuns para inspeção e cópia
+        document.addEventListener('keydown', function(e) {
+            // Bloqueia F12
+            if (e.keyCode == 123) {
+                e.preventDefault();
+                return false;
+            }
+            // Bloqueia Ctrl+Shift+I (Inspetor)
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+                e.preventDefault();
+                return false;
+            }
+            // Bloqueia Ctrl+Shift+J (Console)
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
+                e.preventDefault();
+                return false;
+            }
+            // Bloqueia Ctrl+U (Ver Código Fonte)
+            if (e.ctrlKey && e.keyCode == 85) {
+                e.preventDefault();
+                return false;
+            }
+            // Bloqueia Ctrl+S (Salvar Página)
+            if (e.ctrlKey && e.keyCode == 83) {
+                e.preventDefault();
+                return false;
+            }
+            // Bloqueia Ctrl+C e Ctrl+V (Cópia/Cola)
+            if (e.ctrlKey && (e.keyCode == 67 || e.keyCode == 86)) {
+                e.preventDefault();
+                return false;
+            }
+        }, false);
+
         // CONFIGURAÇÕES RÁPIDAS
         const WEBHOOK_URL = ""; // ADICIONE SEU WEBHOOK AQUI
         const DISQUALIFIED_REDIRECT_URL = "https://seulinkaqui.com"; // REDIRECIONAMENTO PARA DESQUALIFICADOS
