@@ -1,1 +1,705 @@
-fora
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCI Start — Advanx IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- ── GA4 ── -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-98EL5GXG5F');
+</script>
+
+<!-- ── META PIXEL ── -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','502759528362336');
+  fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/></noscript>
+
+<!-- ── GA4 PageView (explícito) ── -->
+<script>
+  window.addEventListener('load', function() {
+    if(window.gtag) gtag('event', 'page_view', { page_title: 'SCI Start', page_location: window.location.href });
+  });
+</script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+  :root {
+    --accent:       #d97757;
+    --accent-dark:  #b85e3c;
+    --accent-light: #fdf0eb;
+    --text:         #1a1a1a;
+    --text-muted:   #6b7280;
+    --border:       #e5e7eb;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #ffffff;
+    color: var(--text);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  img { -webkit-user-drag:none; user-drag:none; }
+
+  /* ── PAGE ── */
+  .page-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── BRAND ── */
+  .brand { margin-bottom: 24px; }
+  .brand-main  { font-size:20px; font-weight:900; color:#111; letter-spacing:-0.3px; }
+  .brand-accent{ font-size:20px; font-weight:700; color:var(--accent); letter-spacing:-0.3px; }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-light);
+    border: 1px solid rgba(217,119,87,0.25);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  /* ── HEADLINE ── */
+  .headline {
+    font-family: 'Lora', serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 700;
+    line-height: 1.3;
+    color: #111;
+    margin-bottom: 20px;
+  }
+  .headline .accent { color: var(--accent); }
+
+  .divider-line {
+    width: 48px; height: 2px;
+    background: var(--accent);
+    opacity: 0.35;
+    margin-bottom: 24px;
+  }
+
+  /* ── SUBHEADLINE ── */
+  .subhead {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #555;
+    margin-bottom: 36px;
+    font-weight: 500;
+  }
+
+  .subhead strong { color: #111; font-weight: 700; }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 36px 0;
+  }
+
+  /* ── VIDEO WRAPPER ── */
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    margin-bottom: 8px;
+  }
+
+  .video-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  /* ── TIMER BADGE ── */
+  .timer-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    padding: 10px 14px;
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .timer-badge .progress-track {
+    flex: 1;
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .timer-badge .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 99px;
+    transition: width 1s linear;
+    width: 0%;
+  }
+
+  .timer-badge .timer-txt { white-space: nowrap; font-size: 11px; }
+
+  /* ── HIDDEN CONTENT ── */
+  .locked-content {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .locked-content.revealed {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  /* ── CTA BUTTON ── */
+  .cta-wrap { padding: 8px 0 8px; }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 18px 32px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(37,211,102,0.45);
+    opacity: 0.93;
+  }
+
+  .cta-btn:active { transform: scale(0.98); }
+
+  .cta-btn svg { flex-shrink: 0; }
+
+  .cta-note {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* ── BODY TEXT ── */
+  .body-text p {
+    font-size: 15.5px;
+    line-height: 1.85;
+    color: #2d2d2d;
+    margin-bottom: 18px;
+  }
+
+  .body-text p strong { font-weight: 700; color: #111; }
+  .body-text p.bold-lead { font-weight: 700; font-size: 16px; color: #111; }
+
+  /* ── SECTION LABEL ── */
+  .sec-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sec-label::before,
+  .sec-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── FEATURE CARDS ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 480px) {
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+
+  .feature-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .feature-card .fc-icon {
+    width: 32px; height: 32px;
+    background: var(--accent-light);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .feature-card .fc-text {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.4;
+    padding-top: 4px;
+  }
+
+  /* ── PROBLEM LIST ── */
+  .problem-list {
+    border-left: 3px solid var(--border);
+    padding: 4px 0 4px 20px;
+    margin: 24px 0;
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  .problem-list ul { list-style: none; }
+  .problem-list ul li { font-size: 14.5px; line-height: 1.9; }
+
+  /* ── PRICING BOX ── */
+  .pricing-box {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    text-align: center;
+    background: #fafafa;
+    margin: 8px 0;
+  }
+
+  .pricing-box .price-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .pricing-box .price-amount {
+    font-family: 'Lora', serif;
+    font-size: clamp(32px, 6vw, 44px);
+    font-weight: 700;
+    color: #111;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .pricing-box .price-period {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .pricing-box .price-note {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.65;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .pricing-box .price-note strong { color: var(--accent); }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    background: var(--accent-light);
+    border: 1px solid rgba(217,119,87,0.2);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+
+  .highlight-box p {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #7c3a1e !important;
+    line-height: 1.7 !important;
+    margin: 0 !important;
+  }
+
+  /* ── FINAL CTA SECTION ── */
+  .final-cta {
+    padding: 36px 0 8px;
+    text-align: center;
+  }
+
+  .final-cta .fc-eyebrow {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .final-cta h3 {
+    font-family: 'Lora', serif;
+    font-size: clamp(18px, 3vw, 22px);
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 20px;
+    line-height: 1.35;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- BRAND -->
+  <div class="brand">
+    <span class="brand-main">Advanx</span><span class="brand-accent"> IA</span>
+  </div>
+
+  <!-- BADGE -->
+  <div class="badge">
+    <i data-lucide="zap" style="width:11px;height:11px;"></i>
+    SCI Start
+  </div>
+
+  <!-- H1 -->
+  <h1 class="headline">
+    Talvez seu escritório ainda não esteja pronto para uma operação completa com <span class="accent">garantia de contratos.</span><br>
+    Mas isso não significa continuar no improviso.
+  </h1>
+  <div class="divider-line"></div>
+
+  <!-- SUBHEADLINE -->
+  <p class="subhead">
+    Conheça o <strong>SCI Start</strong>: a estrutura inicial de aquisição inteligente criada para escritórios que ainda estão construindo previsibilidade.
+  </p>
+
+  <hr class="section-divider" style="margin-top:0;">
+
+  <!-- VIDEO -->
+  <div class="video-wrap">
+    <!--
+      ════════════════════════════════════════════════
+      SUBSTITUA "SEU_VIDEO_ID_AQUI" pelo ID do vídeo
+      YouTube. Ex: se a URL é youtube.com/watch?v=abc123
+      use  src="https://www.youtube.com/embed/abc123?..."
+      ════════════════════════════════════════════════
+    -->
+    <iframe
+      id="ytPlayer"
+      src="https://www.youtube.com/embed/SEU_VIDEO_ID_AQUI?enablejsapi=1&rel=0&modestbranding=1&controls=1&fs=0&disablekb=0&playsinline=1"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen="false"
+      title="SCI Start — Apresentação">
+    </iframe>
+  </div>
+
+  <!-- TIMER BADGE -->
+  <div class="timer-badge" id="timerBadge">
+    <i data-lucide="clock" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i>
+    <div class="progress-track">
+      <div class="progress-fill" id="timerFill"></div>
+    </div>
+    <span class="timer-txt" id="timerTxt">Assista para liberar o conteúdo</span>
+  </div>
+
+  <!-- ══════════ CONTEÚDO BLOQUEADO ══════════ -->
+  <div class="locked-content" id="lockedContent">
+
+    <!-- CTA PRINCIPAL -->
+    <div class="cta-wrap">
+      <a
+        id="mainCtaBtn"
+        href="https://wa.me/5571982470873?text=Quero%20contratar%20SCI%20Start%2C%20ainda%20existe%20a%20condi%C3%A7%C3%A3o%20especial%20de%20contrata%C3%A7%C3%A3o%3F"
+        target="_blank"
+        class="cta-btn"
+        onclick="trackLead()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.532 5.845L.06 23.5l5.823-1.448A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.37l-.36-.214-3.714.924.99-3.62-.234-.373A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+        </svg>
+        QUERO CONTRATAR O SCI START
+      </a>
+      <p class="cta-note">Ao clicar, você será direcionado ao WhatsApp da nossa equipe.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- SEÇÃO 1 -->
+    <div class="sec-label">Seção 1</div>
+    <div class="body-text">
+      <p class="bold-lead">Pare de tentar crescer no improviso.</p>
+      <p>O <strong>SCI Start</strong> foi criado para escritórios que ainda não estão prontos para uma operação completa com garantia de contratos… mas precisam começar a estruturar aquisição da forma certa.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- SEÇÃO 2 — O QUE VOCÊ RECEBE -->
+    <div class="sec-label">O que você recebe</div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="fc-icon"><i data-lucide="file-text" style="width:16px;height:16px;"></i></div>
+        <span class="fc-text">12 conteúdos estratégicos por mês</span>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i data-lucide="subtitles" style="width:16px;height:16px;"></i></div>
+        <span class="fc-text">Criação automática de legendas</span>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i data-lucide="send" style="width:16px;height:16px;"></i></div>
+        <span class="fc-text">Publicação automatizada</span>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i data-lucide="cpu" style="width:16px;height:16px;"></i></div>
+        <span class="fc-text">IA de apoio para campanhas Meta Ads</span>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i data-lucide="bot" style="width:16px;height:16px;"></i></div>
+        <span class="fc-text">Automação básica de atendimento</span>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i data-lucide="layers" style="width:16px;height:16px;"></i></div>
+        <span class="fc-text">Estrutura inicial de aquisição</span>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i data-lucide="users" style="width:16px;height:16px;"></i></div>
+        <span class="fc-text">Organização da entrada de leads</span>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- SEÇÃO 3 -->
+    <div class="sec-label">O objetivo</div>
+    <div class="highlight-box">
+      <p>O objetivo não é apenas "postar". É começar a transformar a aquisição do escritório em uma <strong>operação previsível.</strong></p>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- SEÇÃO 4 -->
+    <div class="sec-label">O problema que resolvemos</div>
+    <div class="body-text">
+      <p>Hoje muitos escritórios:</p>
+    </div>
+    <div class="problem-list">
+      <ul>
+        <li>— dependem exclusivamente de indicação</li>
+        <li>— postam sem estratégia</li>
+        <li>— não possuem acompanhamento</li>
+        <li>— não têm previsibilidade nenhuma</li>
+      </ul>
+    </div>
+    <div class="body-text">
+      <p>O <strong>SCI Start</strong> foi criado justamente para começar a corrigir isso.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- SEÇÃO 5 — PREÇO -->
+    <div class="sec-label">Assinatura mensal</div>
+    <div class="pricing-box">
+      <p class="price-label">SCI Start</p>
+      <p class="price-amount">R$797</p>
+      <p class="price-period">por mês</p>
+      <p class="price-note">
+        Dependendo do perfil do escritório, nossa equipe pode liberar uma <strong>condição estratégica de entrada.</strong>
+      </p>
+    </div>
+
+    <!-- BOTÃO FINAL -->
+    <div class="final-cta">
+      <p class="fc-eyebrow">Próximo passo</p>
+      <h3>Fale com a nossa equipe<br>e garanta sua condição de entrada.</h3>
+      <a
+        href="https://wa.me/5571982470873?text=Quero%20contratar%20SCI%20Start%2C%20ainda%20existe%20a%20condi%C3%A7%C3%A3o%20especial%20de%20contrata%C3%A7%C3%A3o%3F"
+        target="_blank"
+        class="cta-btn"
+        onclick="trackLead()"
+        style="margin: 0 auto;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.532 5.845L.06 23.5l5.823-1.448A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.37l-.36-.214-3.714.924.99-3.62-.234-.373A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+        </svg>
+        FALAR COM A EQUIPE
+      </a>
+      <p class="cta-note" style="text-align:center;">Vagas limitadas. Condição especial sujeita a disponibilidade.</p>
+    </div>
+
+  </div><!-- /locked-content -->
+
+</div><!-- /page-wrap -->
+
+
+<!-- ── YouTube IFrame API ── -->
+<script>
+  /* ── Bloqueios ── */
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('copy',        e => e.preventDefault());
+  document.addEventListener('cut',         e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if ([123].includes(e.keyCode)) { e.preventDefault(); return false; }
+    if (e.ctrlKey && e.shiftKey && [73,74].includes(e.keyCode)) { e.preventDefault(); return false; }
+    if (e.ctrlKey && [85,83,67,86,65,80].includes(e.keyCode)) { e.preventDefault(); return false; }
+  });
+
+  /* ── Config ── */
+  const UNLOCK_AT = 130; // segundos (2:10)
+  let watchedSeconds = 0;
+  let playerReady    = false;
+  let isPlaying      = false;
+  let tickInterval   = null;
+  let unlocked       = false;
+
+  /* ── Elementos ── */
+  const lockedContent = document.getElementById('lockedContent');
+  const timerFill     = document.getElementById('timerFill');
+  const timerTxt      = document.getElementById('timerTxt');
+  const timerBadge    = document.getElementById('timerBadge');
+
+  /* ── Formata mm:ss ── */
+  function fmtTime(s) {
+    const m = Math.floor(s / 60);
+    const sec = String(s % 60).padStart(2, '0');
+    return `${m}:${sec}`;
+  }
+
+  /* ── Unlock ── */
+  function unlockContent() {
+    if (unlocked) return;
+    unlocked = true;
+    clearInterval(tickInterval);
+
+    timerTxt.textContent  = '✓ Conteúdo liberado!';
+    timerFill.style.width = '100%';
+    timerFill.style.background = '#22c55e';
+
+    lockedContent.classList.add('revealed');
+    lockedContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    /* GA4 + Pixel: conteúdo desbloqueado */
+    if (window.fbq) fbq('trackCustom', 'VideoUnlocked', { seconds: watchedSeconds });
+    if (window.gtag) gtag('event', 'video_unlock', { event_category: 'video', watched_seconds: watchedSeconds });
+  }
+
+  /* ── Tick a cada segundo ── */
+  function startTick() {
+    if (tickInterval) return;
+    tickInterval = setInterval(() => {
+      if (!isPlaying || unlocked) return;
+      watchedSeconds++;
+      const pct = Math.min((watchedSeconds / UNLOCK_AT) * 100, 100);
+      timerFill.style.width  = pct + '%';
+      const remaining = Math.max(UNLOCK_AT - watchedSeconds, 0);
+      timerTxt.textContent   = remaining > 0
+        ? `Faltam ${fmtTime(remaining)} para liberar`
+        : '';
+      if (watchedSeconds >= UNLOCK_AT) unlockContent();
+    }, 1000);
+  }
+
+  /* ── YouTube IFrame API ── */
+  window.onYouTubeIframeAPIReady = function() {
+    new YT.Player('ytPlayer', {
+      events: {
+        onReady: function(e) {
+          playerReady = true;
+          startTick();
+        },
+        onStateChange: function(e) {
+          if (e.data === YT.PlayerState.PLAYING) {
+            isPlaying = true;
+          } else {
+            isPlaying = false;
+          }
+        }
+      }
+    });
+  };
+
+  /* Carrega a API do YT dinamicamente */
+  (function() {
+    const tag = document.createElement('script');
+    tag.src   = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+  })();
+
+  /* ── Track Lead (WhatsApp click) ── */
+  function trackLead() {
+    if (window.fbq) fbq('track', 'Lead', { content_name: 'SCI_Start_WhatsApp' });
+    if (window.gtag) gtag('event', 'generate_lead', { event_category: 'whatsapp_click', event_label: 'SCI_Start' });
+  }
+
+  /* ── ViewContent ao rolar 50% ── */
+  let viewContentFired = false;
+  window.addEventListener('scroll', function() {
+    if (viewContentFired) return;
+    const scrolled = window.scrollY + window.innerHeight;
+    const total    = document.documentElement.scrollHeight;
+    if (scrolled / total >= 0.5) {
+      viewContentFired = true;
+      if (window.fbq) fbq('track', 'ViewContent', { content_name: 'SCI_Start_Page' });
+      if (window.gtag) gtag('event', 'view_content', { event_category: 'scroll', event_label: '50_percent' });
+    }
+  });
+
+  window.addEventListener('load', () => lucide.createIcons());
+</script>
+</body>
+</html>
