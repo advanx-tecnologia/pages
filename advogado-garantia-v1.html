@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise Estratégica Jurídica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-98EL5GXG5F');
+</script>
+
+<!-- Meta Pixel -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','502759528362336');
+  fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/></noscript>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  :root {
+    --accent: #d97757;
+    --accent-dark: #b85e3c;
+    --accent-light: #fdf0eb;
+    --text: #1a1a1a;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #f4f1ed;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #ffffff;
+    color: var(--text);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  img { -webkit-user-drag: none; user-drag: none; }
+
+  /* ── PAGE WRAPPER ── */
+  .page-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── DOCUMENT CARD ── */
+  .doc-card {
+    background: #fff;
+    padding: 0;
+  }
+
+  @media (max-width: 600px) {
+    .doc-card { padding: 0; }
+  }
+
+  /* ── EYEBROW ── */
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  /* ── HEADLINE ── */
+  .headline {
+    font-family: 'Lora', serif;
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 700;
+    line-height: 1.3;
+    color: #111;
+    margin-bottom: 16px;
+  }
+
+  .headline .accent { color: var(--accent); }
+
+  .divider-line {
+    width: 48px;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0.35;
+    margin-bottom: 36px;
+  }
+
+  /* ── AUTOR ── */
+  .author-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+  }
+
+  .author-name { font-size: 13px; font-weight: 700; color: #111; }
+  .author-role { font-size: 12px; color: var(--text-muted); }
+
+  /* ── HR ── */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 36px 0;
+  }
+
+  /* ── PARÁGRAFOS ── */
+  .body-text p {
+    font-size: 15.5px;
+    line-height: 1.85;
+    color: #2d2d2d;
+    margin-bottom: 18px;
+  }
+
+  .body-text p strong { font-weight: 700; color: #111; }
+  .body-text p.bold-lead { font-weight: 700; font-size: 16px; color: #111; }
+  .body-text p.red { font-weight: 700; color: #b91c1c; }
+  .body-text p.meta {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #374151;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+  }
+
+  /* ── BLOCKQUOTE ── */
+  .pullquote {
+    border-left: 3px solid var(--border);
+    padding: 4px 0 4px 20px;
+    margin: 28px 0;
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  .pullquote .pq-title {
+    font-weight: 700;
+    font-style: normal;
+    color: #111;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .pullquote ul { list-style: none; }
+  .pullquote ul li { font-size: 14.5px; line-height: 1.8; }
+
+  /* ── IMAGEM INLINE ── */
+  .inline-img {
+    width: 100%;
+    border-radius: 6px;
+    margin: 28px 0;
+    border: 1px solid var(--border);
+    display: block;
+  }
+
+  /* ── SEÇÃO TÍTULO ── */
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  /* ── DEPOIMENTOS GRID ── */
+  .dep-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .dep-grid .dep-item {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+
+  .dep-grid .dep-item.full { grid-column: span 2; }
+
+  .dep-grid .dep-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 500px) {
+    .dep-grid { grid-template-columns: 1fr; }
+    .dep-grid .dep-item.full { grid-column: span 1; }
+  }
+
+  /* ── CTA BUTTON ── */
+  .cta-wrap { padding: 40px 0 8px; }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 18px 36px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(217,119,87,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(217,119,87,0.45);
+  }
+
+  .cta-btn:active { transform: scale(0.98); }
+
+  .cta-note {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+
+  /* ══════════════════════════════
+     MODAL
+  ══════════════════════════════ */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(15,15,15,0.45);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal-box {
+    position: relative;
+    width: 100%;
+    max-width: 540px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.18);
+    overflow: hidden;
+    animation: modalIn 0.25s ease-out;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-progress-track {
+    height: 3px;
+    background: #f0f0f0;
+    width: 100%;
+  }
+
+  .modal-progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .modal-body {
+    padding: 40px 40px 36px;
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+
+  @media (max-width: 500px) { .modal-body { padding: 28px 20px 24px; } }
+
+  .modal-body::-webkit-scrollbar { width: 4px; }
+  .modal-body::-webkit-scrollbar-thumb { background: #e0d8d0; border-radius: 4px; }
+
+  .modal-close {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: none; border: none;
+    cursor: pointer;
+    color: #bbb;
+    padding: 6px;
+    border-radius: 50%;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .modal-close:hover { color: #555; background: #f5f5f5; }
+
+  /* Step label */
+  .step-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  /* Question title */
+  .q-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 700;
+    color: #111;
+    line-height: 1.35;
+    margin-bottom: 28px;
+  }
+
+  /* Option buttons */
+  .opt-btn {
+    width: 100%;
+    text-align: left;
+    padding: 14px 18px;
+    background: #fafafa;
+    border: 2px solid #f0f0f0;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: border-color 0.15s, background 0.15s;
+    margin-bottom: 10px;
+  }
+
+  .opt-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+  .opt-btn.selected { border-color: var(--accent); background: var(--accent-light); }
+
+  /* Back button */
+  .back-btn {
+    background: none; border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #bbb; cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 24px;
+    transition: color 0.15s;
+  }
+
+  .back-btn:hover { color: #555; }
+
+  /* Form inputs */
+  .input-group { margin-bottom: 16px; }
+  .input-label {
+    display: block;
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: #aaa; margin-bottom: 6px; margin-left: 2px;
+  }
+
+  .input-wrap {
+    position: relative;
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 14px; top: 50%;
+    transform: translateY(-50%);
+    width: 16px; height: 16px;
+    color: #ccc;
+    pointer-events: none;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 14px 16px 14px 42px;
+    background: #f8f8f8;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 600;
+    color: #111;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .form-input:focus { border-color: var(--accent); background: #fff; }
+  .form-input::placeholder { color: #ccc; font-weight: 500; }
+
+  .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 440px) { .input-row { grid-template-columns: 1fr; } }
+
+  /* Submit btn */
+  .submit-btn {
+    width: 100%;
+    padding: 17px;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 900;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    border: none; border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(217,119,87,0.3);
+    transition: opacity 0.15s, transform 0.15s;
+    margin-top: 8px;
+  }
+
+  .submit-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+
+  /* Loading spinner */
+  .spinner {
+    width: 44px; height: 44px;
+    border: 3px solid #f0f0f0;
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 20px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Success state */
+  .success-icon {
+    width: 72px; height: 72px;
+    background: var(--accent-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--accent);
+  }
+
+  .fade-in {
+    animation: fadeIn 0.25s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="doc-card">
+
+    <!-- BRAND -->
+    <div style="margin-bottom:20px;">
+      <span style="font-family:'DM Sans',sans-serif;font-size:20px;font-weight:900;color:#111;letter-spacing:-0.3px;">Advanx</span><span style="font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;color:var(--accent);letter-spacing:-0.3px;"> IA</span>
+    </div>
+
+    <!-- HEADLINE -->
+    <h1 class="headline">
+      Entenda como vamos gerar 30 novos contratos com <span class="accent">GARANTIA</span> de resultado para seu escritório.
+    </h1>
+    <div class="divider-line"></div>
+
+    <!-- AUTOR -->
+    <div class="author-row">
+      <div>
+        <div class="author-name">De: Rafael Batista</div>
+        <div class="author-role">São Paulo → Salvador, Bahia.</div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- COPY BODY -->
+    <div class="body-text">
+
+      <p class="bold-lead">Advogado, deixa eu te falar uma coisa desconfortável:</p>
+      <p>o mercado jurídico já mudou.</p>
+      <p>E muitos escritórios ainda não perceberam isso.</p>
+
+      <!-- FOTO RAFAEL -->
+      <img
+        src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/rafael-escritorio.webp"
+        alt="Rafael no escritório"
+        class="inline-img"
+        referrerpolicy="no-referrer"
+        loading="lazy"
+      >
+
+      <!-- BLOCKQUOTE -->
+      <div class="pullquote">
+        <div class="pq-title">Enquanto alguns continuam dependendo:</div>
+        <ul>
+          <li>— de indicação,</li>
+          <li>— de sorte,</li>
+          <li>— ou de um WhatsApp completamente desorganizado…</li>
+        </ul>
+      </div>
+
+      <p>outros já transformaram aquisição de clientes em uma operação previsível.</p>
+
+      <p>E talvez essa seja a parte mais frustrante de tudo. Porque no fundo… você sabe que muitos escritórios tecnicamente inferiores estão crescendo mais simplesmente porque possuem estrutura melhor.</p>
+
+      <p class="meta">Mais velocidade &nbsp;•&nbsp; Mais processo &nbsp;•&nbsp; Mais acompanhamento &nbsp;•&nbsp; Mais previsibilidade</p>
+
+      <p>Enquanto isso… a maioria dos advogados continua presa no mesmo ciclo: meses bons, meses ruins, lead perdido, e a sensação constante de que o escritório nunca entra completamente em ordem.</p>
+
+      <p class="red">E sabe o pior? Muita gente ainda acha que o problema é: "falta de lead." Não é.</p>
+
+      <p>Porque lead sem estrutura vira: demora, caos, desorganização, e contrato fechado pelo concorrente. O problema da maioria dos escritórios não é falta de capacidade técnica. É falta de uma <strong>estrutura previsível de aquisição e operação.</strong></p>
+
+      <p>Foi exatamente por isso que criamos o <strong>Sistema de Aquisição Inteligente</strong>. Não estamos falando de "mais uma agência." Nem de "rodar anúncio e torcer." Estamos falando de implementar uma estrutura operacional desenhada para transformar a captação do escritório em uma operação previsível.</p>
+
+      <p><strong>Uma estrutura que une:</strong></p>
+      <p style="padding-left:16px; font-style:italic; color:#555; font-size:14.5px; line-height:1.9;">
+        aquisição, automação, IA de atendimento, CRM jurídico, acompanhamento operacional, qualificação inteligente, velocidade de resposta, conteúdo e organização comercial.
+      </p>
+
+      <p>Porque crescimento sem estrutura normalmente vira: mais caos. Mais incêndio. Mais dependência do advogado. E sinceramente? A maioria dos escritórios hoje não tem empresa. Tem apenas um advogado sobrecarregado tentando manter tudo funcionando ao mesmo tempo.</p>
+
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- DEPOIMENTOS -->
+    <div class="section-title">Olha isso…</div>
+    <div class="dep-grid">
+      <div class="dep-item"><img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/depoimento/geovane-40-contratos.webp" alt="Depoimento" referrerpolicy="no-referrer" loading="lazy"></div>
+      <div class="dep-item"><img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/depoimento/geovane-50-contratos.webp" alt="Depoimento" referrerpolicy="no-referrer" loading="lazy"></div>
+      <div class="dep-item"><img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/depoimento/igor-6-contratos.webp" alt="Depoimento" referrerpolicy="no-referrer" loading="lazy"></div>
+      <div class="dep-item"><img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/depoimento/jair-7-contratos.webp" alt="Depoimento" referrerpolicy="no-referrer" loading="lazy"></div>
+      <div class="dep-item"><img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/depoimento/leandro-freire.webp" alt="Depoimento" referrerpolicy="no-referrer" loading="lazy"></div>
+      <div class="dep-item"><img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/depoimento/dr-erick-28k.webp" alt="Depoimento" referrerpolicy="no-referrer" loading="lazy"></div>
+      <div class="dep-item full"><img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/depoimento/vinicius-10-contratos.png" alt="Depoimento" referrerpolicy="no-referrer" loading="lazy" style="max-width:340px;margin:0 auto;display:block;"></div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- COPY FINAL -->
+    <div class="body-text">
+      <p>Agora deixa eu deixar uma coisa clara: nós <strong>NÃO</strong> trabalhamos com promessa milagrosa. O mercado jurídico já está cheio demais disso. Foi justamente por isso que decidimos assumir parte do risco junto com o escritório. Hoje a implementação funciona com <strong>garantia operacional de performance baseada em meta de contratos.</strong></p>
+
+      <p>Justamente por envolver estrutura, automação, acompanhamento, e implementação operacional… não trabalhamos com qualquer escritório.</p>
+
+      <p>Hoje buscamos escritórios que: já possuem capacidade técnica, querem previsibilidade, estão cansados de depender exclusivamente de indicação e entenderam que crescimento sem estrutura vira caos.</p>
+
+      <p class="bold-lead">Então preencha a aplicação estratégica abaixo.</p>
+
+      <p>Com base nas suas respostas, nossa equipe vai analisar se existe perfil para implementação do Sistema de Aquisição Inteligente com garantia de contratos no seu escritório.</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-wrap">
+      <button class="cta-btn" onclick="openModal()">
+        SOLICITAR ANÁLISE ESTRATÉGICA
+      </button>
+      <p class="cta-note">
+        Aplicação gratuita para escritórios de advocacia que desejam estruturar uma operação previsível de aquisição e crescimento.
+      </p>
+    </div>
+
+  </div><!-- /doc-card -->
+</div><!-- /page-wrap -->
+
+
+<!-- ══════════════ MODAL ══════════════ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-progress-track">
+      <div class="modal-progress-bar" id="progressBar"></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()" aria-label="Fechar">
+      <i data-lucide="x" style="width:18px;height:18px;"></i>
+    </button>
+    <div class="modal-body" id="modalContent"></div>
+  </div>
+</div>
+
+
+<script>
+  /* ── BLOQUEIOS ── */
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('copy', e => e.preventDefault());
+  document.addEventListener('cut', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if ([123].includes(e.keyCode)) { e.preventDefault(); return false; }
+    if (e.ctrlKey && e.shiftKey && [73,74].includes(e.keyCode)) { e.preventDefault(); return false; }
+    if (e.ctrlKey && [85,83,67,86,65,80].includes(e.keyCode)) { e.preventDefault(); return false; }
+  });
+
+  /* ── CONFIG ── */
+  const WEBHOOK_URL = "https://n8n.advfunnel.com.br/webhook/381facfc-aa3f-43d8-bb90-eed765fd84b3";
+  const REDIRECT_DISQ = "https://seulinkaqui.com";
+
+  /* ── PERGUNTAS ── */
+  const questions = [
+    { id: 'tamanhoTime',        label: 'Hoje seu escritório possui:',                                options: ['Apenas eu','1-2 pessoas','3-5 pessoas','5+'] },
+    { id: 'faturamento',        label: 'Hoje seu faturamento mensal está mais próximo de:',          options: ['Abaixo de 10k','10k-20k','20k-50k','50k-100k','100k+'] },
+    { id: 'fonteClientes',      label: 'Hoje sua principal fonte de clientes é:',                    options: ['Indicação','Tráfego pago','Instagram','Parcerias','Orgânico'] },
+    { id: 'principalProblema',  label: 'Hoje qual o principal problema da sua captação?',           options: ['Falta de previsibilidade','Poucos contratos','Leads ruins','Atendimento lento','Operação desorganizada','Dependência de indicação'] },
+    { id: 'investimentoTrafego',label: 'Quanto você investe em tráfego pago mensalmente?',          options: ['Não invisto','Até R$500','R$1k a R$2k','R$2k a R$5k','R$5k a R$10k','Mais de R$10k'] },
+    { id: 'prazoEstruturacao',  label: 'Quando pretende estruturar uma operação previsível?',       options: ['Imediatamente','Próximos 30 dias','Próximos 3 meses','Ainda avaliando'] }
+  ];
+
+  let step = 0;
+  let formData = {};
+  let submitting = false;
+
+  function openModal() {
+    step = 0; formData = {}; submitting = false;
+    document.getElementById('modalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    renderStep();
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  function setProgress(val) {
+    document.getElementById('progressBar').style.width = val + '%';
+  }
+
+  function selectOption(id, val) {
+    formData[id] = val;
+    document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+    setTimeout(() => { step++; renderStep(); }, 260);
+  }
+
+  function goBack() { if (step > 0) { step--; renderStep(); } }
+
+  function renderStep() {
+    setProgress((step / (questions.length + 1)) * 100);
+    const c = document.getElementById('modalContent');
+
+    if (step < questions.length) {
+      const q = questions[step];
+      c.innerHTML = `
+        <div class="fade-in">
+          <p class="step-label">Etapa ${step + 1} de 7</p>
+          <h2 class="q-title">${q.label}</h2>
+          <div>
+            ${q.options.map(opt => `
+              <button class="opt-btn" onclick="selectOption('${q.id}', '${opt}')">
+                <span>${opt}</span>
+                <i data-lucide="chevron-right" style="width:16px;height:16px;color:#ddd;flex-shrink:0;"></i>
+              </button>
+            `).join('')}
+          </div>
+          ${step > 0 ? `<button class="back-btn" onclick="goBack()">
+            <i data-lucide="chevron-left" style="width:13px;height:13px;"></i> Voltar
+          </button>` : ''}
+        </div>`;
+      lucide.createIcons();
+      return;
+    }
+
+    if (step === questions.length && !submitting) {
+      c.innerHTML = `
+        <div class="fade-in">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;color:var(--accent)">
+            <i data-lucide="shield-check" style="width:20px;height:20px;"></i>
+            <span style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;">Finalização</span>
+          </div>
+          <h2 class="q-title">Dados de Contato</h2>
+          <p style="font-size:13.5px;color:#888;margin-bottom:24px;line-height:1.6;">Quase lá. Preencha seus dados reais para enviarmos o diagnóstico.</p>
+
+          <div class="input-group">
+            <label class="input-label">Nome Completo</label>
+            <div class="input-wrap">
+              <i data-lucide="user" class="input-icon"></i>
+              <input type="text" id="f-nome" class="form-input" placeholder="Seu nome completo" required>
+            </div>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group">
+              <label class="input-label">WhatsApp</label>
+              <div class="input-wrap">
+                <i data-lucide="phone" class="input-icon"></i>
+                <input type="text" id="f-wpp" class="form-input" placeholder="(00) 00000-0000" oninput="maskWpp(this)" required>
+              </div>
+            </div>
+            <div class="input-group">
+              <label class="input-label">E-mail</label>
+              <div class="input-wrap">
+                <i data-lucide="mail" class="input-icon"></i>
+                <input type="email" id="f-email" class="form-input" placeholder="seu@email.com" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group">
+              <label class="input-label">Instagram</label>
+              <div class="input-wrap">
+                <i data-lucide="instagram" class="input-icon"></i>
+                <input type="text" id="f-ig" class="form-input" placeholder="@seuuser">
+              </div>
+            </div>
+            <div class="input-group">
+              <label class="input-label">Área Principal</label>
+              <div class="input-wrap">
+                <i data-lucide="briefcase" class="input-icon"></i>
+                <input type="text" id="f-area" class="form-input" placeholder="Ex: Trabalhista" required>
+              </div>
+            </div>
+          </div>
+
+          <button class="submit-btn" onclick="finalSubmit()">SOLICITAR DIAGNÓSTICO</button>
+          <button class="back-btn" onclick="goBack()" style="margin:16px auto 0;display:flex;">
+            <i data-lucide="chevron-left" style="width:13px;height:13px;"></i> Voltar
+          </button>
+        </div>`;
+      lucide.createIcons();
+    }
+  }
+
+  function maskWpp(input) {
+    let v = input.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+    if (v.length > 10) v = `${v.slice(0,10)}-${v.slice(10)}`;
+    input.value = v;
+  }
+
+  async function finalSubmit() {
+    const nome  = document.getElementById('f-nome').value.trim();
+    const wpp   = document.getElementById('f-wpp').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const ig    = document.getElementById('f-ig').value.trim();
+    const area  = document.getElementById('f-area').value.trim();
+
+    if (!nome || !wpp || !email || !area) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
+
+    Object.assign(formData, { nome, wpp, email, ig, area });
+    submitting = true;
+
+    document.getElementById('modalContent').innerHTML = `
+      <div style="padding:48px 0;text-align:center;" class="fade-in">
+        <div class="spinner"></div>
+        <p style="font-weight:700;color:#888;font-size:14px;">Validando aplicação estratégica…</p>
+      </div>`;
+
+    const payload = {
+      "Nome": formData.nome,
+      "WhatsApp": formData.wpp,
+      "Email": formData.email,
+      "Instagram": formData.ig,
+      "Area Juridica": formData.area,
+      "Tamanho do Time": formData.tamanhoTime,
+      "Faturamento": formData.faturamento,
+      "Fonte de Clientes": formData.fonteClientes,
+      "Principal Problema": formData.principalProblema,
+      "Investimento Trafego": formData.investimentoTrafego,
+      "Prazo": formData.prazoEstruturacao
+    };
+
+    if (WEBHOOK_URL) {
+      try {
+        await fetch(WEBHOOK_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+      } catch(e) { console.error(e); }
+    }
+
+    const fatDisq   = formData.faturamento === 'Abaixo de 10k';
+    const prazoDisq = ['Próximos 3 meses','Ainda avaliando'].includes(formData.prazoEstruturacao);
+    const fatQual   = !['Abaixo de 10k','10k-20k'].includes(formData.faturamento);
+    const prazoQual = ['Imediatamente','Próximos 30 dias'].includes(formData.prazoEstruturacao);
+
+    // Pixel: Lead — todo lead que submeteu o formulário
+    if(window.fbq) fbq('track', 'Lead', { email: formData.email });
+    if(window.gtag) gtag('event', 'generate_lead', { event_category: 'formulario', event_label: formData.faturamento });
+
+    // Pixel: LeadQualificado — faturamento >= 20k E prazo imediato ou 30 dias
+    if(fatQual && prazoQual) {
+      if(window.fbq) fbq('trackCustom', 'LeadQualificado', { faturamento: formData.faturamento, prazo: formData.prazoEstruturacao });
+      if(window.gtag) gtag('event', 'lead_qualificado', { event_category: 'formulario', faturamento: formData.faturamento, prazo: formData.prazoEstruturacao });
+    }
+
+    setTimeout(() => {
+      // Desqualificados → redireciona
+      if (fatDisq || prazoDisq) { window.location.href = REDIRECT_DISQ; return; }
+
+      // Qualificados → tela de confirmação com link WhatsApp
+      setProgress(100);
+
+      const msg = encodeURIComponent(
+        `Quero fechar contratos com garantia de resultado em até 41 dias.\n\n` +
+        `📋 *Resumo da minha aplicação:*\n` +
+        `• Nome: ${formData.nome}\n` +
+        `• Área: ${formData.area}\n` +
+        `• Time: ${formData.tamanhoTime}\n` +
+        `• Faturamento: ${formData.faturamento}\n` +
+        `• Principal fonte: ${formData.fonteClientes}\n` +
+        `• Problema: ${formData.principalProblema}\n` +
+        `• Investimento tráfego: ${formData.investimentoTrafego}\n` +
+        `• Prazo: ${formData.prazoEstruturacao}`
+      );
+      const waLink = `https://wa.me/5571982470873?text=${msg}`;
+
+      document.getElementById('modalContent').innerHTML = `
+        <div style="padding:24px 0 8px;text-align:center;" class="fade-in">
+          <div class="success-icon" style="margin-bottom:20px;">
+            <i data-lucide="check-circle-2" style="width:36px;height:36px;"></i>
+          </div>
+          <h2 style="font-family:'Lora',serif;font-size:22px;font-weight:700;color:#111;line-height:1.3;margin-bottom:14px;">
+            Contratos com garantia<br>de resultado!
+          </h2>
+          <p style="font-size:14.5px;color:#555;line-height:1.75;max-width:340px;margin:0 auto 28px;">
+            Confirme sua aplicação enviando uma mensagem no WhatsApp. Vamos te ligar na sequência.
+          </p>
+          <a href="${waLink}" target="_blank"
+            style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:800;letter-spacing:0.5px;padding:16px 32px;border-radius:10px;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.35);transition:opacity 0.15s;"
+            onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.532 5.845L.06 23.5l5.823-1.448A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.37l-.36-.214-3.714.924.99-3.62-.234-.373A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+            CONFIRMAR VIA WHATSAPP
+          </a>
+          <p style="margin-top:16px;font-size:11px;color:#bbb;">Ao clicar, você será redirecionado ao WhatsApp</p>
+        </div>`;
+      lucide.createIcons();
+    }, 1400);
+  }
+
+  // Pixel: ViewContent — dispara ao rolar 50% da página
+  let viewContentFired = false;
+  window.addEventListener('scroll', function() {
+    if(viewContentFired) return;
+    const scrolled = window.scrollY + window.innerHeight;
+    const total    = document.documentElement.scrollHeight;
+    if(scrolled / total >= 0.5) {
+      viewContentFired = true;
+      if(window.fbq) fbq('track', 'ViewContent', { content_name: 'Pagina_Captacao' });
+      if(window.gtag) gtag('event', 'view_content', { event_category: 'scroll', event_label: '50_percent' });
+    }
+  });
+
+  window.addEventListener('load', () => lucide.createIcons());
+</script>
+</body>
+</html>
