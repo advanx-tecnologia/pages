@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #d97757;
+    --accent-dark: #b85e3c;
+    --accent-light: #fdf0eb;
+    --text: #1a1a1a;
+    --text-muted: #6b7280;
+    --border: #e8e4df;
+    --bg: #f7f4f0;
+    --card: #ffffff;
+    --shadow: 0 2px 16px rgba(0,0,0,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+
+  /* ── PROFILE HEADER ── */
+  .profile {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .logo-wrap {
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .logo-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .logo-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+
+  .logo-text span {
+    color: var(--accent);
+  }
+
+  .logo-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-top: 6px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .logo-dot.v1 { opacity: 0.3; }
+  .logo-dot.v2 { opacity: 0.6; }
+  .logo-dot.v3 { opacity: 1; }
+
+  /* tap ripple on logo */
+  .logo-wrap .tap-ring {
+    position: absolute;
+    inset: -12px;
+    border-radius: 12px;
+    border: 2px solid var(--accent);
+    opacity: 0;
+    pointer-events: none;
+    animation: none;
+  }
+
+  .logo-wrap.tapped .tap-ring {
+    animation: tapRing 0.4s ease-out forwards;
+  }
+
+  @keyframes tapRing {
+    0%   { opacity: 0.6; transform: scale(0.9); }
+    100% { opacity: 0;   transform: scale(1.15); }
+  }
+
+  .profile-name {
+    font-family: 'Lora', serif;
+    font-size: clamp(20px, 4vw, 26px);
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 8px;
+  }
+
+  .profile-bio {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #bbb;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* ── LINK CARDS ── */
+  .links-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow);
+    transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .link-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.18s;
+  }
+
+  .link-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    border-color: #d8d2cc;
+  }
+
+  .link-card:hover::before { opacity: 1; }
+  .link-card:active { transform: scale(0.99); }
+
+  .link-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--accent-light);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .link-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .link-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .link-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+
+  .link-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .link-arrow {
+    color: #ddd;
+    flex-shrink: 0;
+  }
+
+  /* ── TEXT BLOCK ── */
+  .text-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    box-shadow: var(--shadow);
+    margin-bottom: 10px;
+  }
+
+  .text-block-title {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 6px;
+  }
+
+  .text-block-content {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* ── DIVIDER BLOCK ── */
+  .divider-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    margin-bottom: 4px;
+  }
+
+  .divider-block::before,
+  .divider-block::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .divider-block span {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ccc;
+  }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    text-align: center;
+    padding-top: 16px;
+  }
+
+  .footer-brand {
+    font-size: 11px;
+    color: #ccc;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  /* ══════════════════════════════
+     PASSWORD MODAL
+  ══════════════════════════════ */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(15,15,15,0.5);
+    backdrop-filter: blur(6px);
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal-box {
+    width: 100%;
+    max-width: 380px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.2);
+    overflow: hidden;
+    animation: modalIn 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(12px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-header {
+    background: var(--accent);
+    padding: 24px 28px 20px;
+  }
+
+  .modal-header h3 {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .modal-header p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .modal-body-inner {
+    padding: 28px;
+  }
+
+  .pw-input-wrap {
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .pw-input {
+    width: 100%;
+    padding: 14px 48px 14px 16px;
+    background: #f7f4f0;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 6px;
+    color: #111;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .pw-input:focus { border-color: var(--accent); background: #fff; }
+  .pw-input.error { border-color: #ef4444; animation: shake 0.3s ease; }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+
+  .pw-submit {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .pw-submit:hover { opacity: 0.9; }
+
+  .pw-cancel {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #bbb;
+    cursor: pointer;
+    background: none;
+    border: none;
+    letter-spacing: 0.5px;
+  }
+
+  .pw-cancel:hover { color: #888; }
+
+  /* ══════════════════════════════
+     ADMIN PANEL
+  ══════════════════════════════ */
+  .admin-panel {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: var(--bg);
+    overflow-y: auto;
+  }
+
+  .admin-panel.active { display: block; }
+
+  .admin-wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 36px;
+  }
+
+  .admin-title {
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111;
+  }
+
+  .admin-title span { color: var(--accent); }
+
+  .admin-close-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #f0ece8;
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #555;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .admin-close-btn:hover { background: #e8e2dc; }
+
+  /* ── ADMIN SECTION ── */
+  .admin-section {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .admin-section-title {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  /* profile edit */
+  .a-input-group { margin-bottom: 14px; }
+
+  .a-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 6px;
+  }
+
+  .a-input {
+    width: 100%;
+    padding: 12px 14px;
+    background: #f7f4f0;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .a-input:focus { border-color: var(--accent); background: #fff; }
+
+  textarea.a-input {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.6;
+  }
+
+  .a-btn {
+    padding: 10px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+
+  .a-btn:active { transform: scale(0.97); }
+  .a-btn.primary { background: var(--accent); color: #fff; }
+  .a-btn.primary:hover { opacity: 0.9; }
+  .a-btn.ghost { background: #f0ece8; color: #555; }
+  .a-btn.ghost:hover { background: #e8e2dc; }
+  .a-btn.danger { background: #fee2e2; color: #b91c1c; }
+  .a-btn.danger:hover { background: #fecaca; }
+
+  /* ── ITEMS LIST (admin) ── */
+  .admin-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .admin-item-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f7f4f0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+  }
+
+  .drag-handle {
+    color: #ccc;
+    cursor: grab;
+    flex-shrink: 0;
+    font-size: 18px;
+    line-height: 1;
+    padding: 0 2px;
+  }
+
+  .drag-handle:active { cursor: grabbing; }
+
+  .admin-item-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .admin-item-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .admin-item-sub {
+    font-size: 11px;
+    color: #aaa;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .admin-item-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .icon-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.15s;
+  }
+
+  .icon-btn.edit { background: #e8f4fd; color: #2563eb; }
+  .icon-btn.edit:hover { background: #d0eafa; }
+  .icon-btn.del { background: #fee2e2; color: #b91c1c; }
+  .icon-btn.del:hover { background: #fecaca; }
+
+  /* ── MINI FORM (add/edit item) ── */
+  .item-form {
+    background: #fdf9f6;
+    border: 1px dashed #e0d8d0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 12px;
+  }
+
+  .item-form.hidden { display: none; }
+
+  .item-form-title {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 460px) { .form-row { grid-template-columns: 1fr; } }
+
+  .type-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .type-btn {
+    flex: 1;
+    padding: 9px 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    color: #aaa;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+  }
+
+  .type-btn.active {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .form-actions { display: flex; gap: 8px; margin-top: 16px; }
+
+  /* ── BADGE TYPE ── */
+  .type-badge {
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-left: 6px;
+  }
+
+  .type-badge.link { background: #e8f4fd; color: #2563eb; }
+  .type-badge.text { background: #f0fdf4; color: #16a34a; }
+  .type-badge.divider { background: #fef9c3; color: #a16207; }
+
+  /* ── TOGGLE SWITCH ── */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 10px;
+  }
+
+  .toggle-label { font-size: 13px; font-weight: 600; color: #555; }
+
+  .toggle {
+    position: relative;
+    width: 40px;
+    height: 22px;
+  }
+
+  .toggle input { opacity: 0; width: 0; height: 0; }
+
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: #ddd;
+    border-radius: 22px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 3px;
+    top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: 0.2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+
+  input:checked + .toggle-slider { background: var(--accent); }
+  input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 32px 0;
+    color: #ccc;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #111;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px 22px;
+    border-radius: 100px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    opacity: 0;
+    z-index: 500;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── DRAG OVER ── */
+  .admin-item-row.drag-over {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .admin-item-row.dragging {
+    opacity: 0.4;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ PUBLIC PAGE ══ -->
+<div class="page" id="publicPage">
+
+  <!-- PROFILE -->
+  <div class="profile">
+    <div class="logo-wrap" id="logoBtn">
+      <div class="logo-inner">
+        <div class="logo-text">Advanx<span> IA</span></div>
+      </div>
+      <div class="tap-ring"></div>
+    </div>
+
+    <!-- tap dots -->
+    <div id="tapDotsRow" style="display:flex;justify-content:center;gap:5px;margin-bottom:20px;height:10px;">
+      <div class="logo-dot" id="dot1"></div>
+      <div class="logo-dot" id="dot2"></div>
+      <div class="logo-dot" id="dot3"></div>
+    </div>
+
+    <div id="profileName" class="profile-name">Rafael Batista</div>
+    <div id="profileBio" class="profile-bio">Sistema de Aquisição Inteligente para escritórios de advocacia.</div>
+  </div>
+
+  <!-- LINKS -->
+  <div id="publicLinks"></div>
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <div class="footer-brand">Advanx IA</div>
+  </div>
+
+</div>
+
+<!-- ══ PASSWORD MODAL ══ -->
+<div class="modal-overlay" id="pwModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Área Restrita</h3>
+      <p>Digite a senha de acesso ao painel</p>
+    </div>
+    <div class="modal-body-inner">
+      <div class="pw-input-wrap">
+        <input type="password" class="pw-input" id="pwInput" placeholder="••••" maxlength="20" autocomplete="off">
+      </div>
+      <button class="pw-submit" onclick="checkPassword()">ENTRAR</button>
+      <button class="pw-cancel" onclick="closePwModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN PANEL ══ -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-wrap">
+
+    <!-- HEADER -->
+    <div class="admin-header">
+      <div class="admin-title">Painel <span>Admin</span></div>
+      <button class="admin-close-btn" onclick="closeAdmin()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Fechar
+      </button>
+    </div>
+
+    <!-- PROFILE SECTION -->
+    <div class="admin-section">
+      <div class="admin-section-title">Perfil</div>
+      <div class="a-input-group">
+        <label class="a-label">Nome / Título</label>
+        <input type="text" class="a-input" id="editName" placeholder="Seu nome ou nome do escritório">
+      </div>
+      <div class="a-input-group">
+        <label class="a-label">Descrição / Bio</label>
+        <textarea class="a-input" id="editBio" placeholder="Uma frase sobre você ou seu negócio"></textarea>
+      </div>
+      <button class="a-btn primary" onclick="saveProfile()">Salvar Perfil</button>
+    </div>
+
+    <!-- ITEMS SECTION -->
+    <div class="admin-section">
+      <div class="admin-section-title">Links &amp; Blocos</div>
+
+      <div class="admin-items-list" id="adminItemsList"></div>
+
+      <!-- ADD BUTTON -->
+      <button class="a-btn ghost" id="addItemBtn" onclick="toggleAddForm()">
+        + Adicionar item
+      </button>
+
+      <!-- ADD/EDIT FORM -->
+      <div class="item-form hidden" id="itemForm">
+        <div class="item-form-title" id="formTitle">Novo Item</div>
+
+        <!-- TYPE SELECTOR -->
+        <div class="type-selector">
+          <button class="type-btn active" data-type="link" onclick="setType('link')">🔗 Link</button>
+          <button class="type-btn" data-type="text" onclick="setType('text')">📝 Texto</button>
+          <button class="type-btn" data-type="divider" onclick="setType('divider')">— Divisor</button>
+        </div>
+
+        <!-- LINK FIELDS -->
+        <div id="linkFields">
+          <div class="a-input-group">
+            <label class="a-label">Título</label>
+            <input type="text" class="a-input" id="fTitle" placeholder="Ex: Solicitar Análise Estratégica">
+          </div>
+          <div class="a-input-group">
+            <label class="a-label">Subtexto (opcional)</label>
+            <input type="text" class="a-input" id="fSub" placeholder="Ex: Diagnóstico gratuito para seu escritório">
+          </div>
+          <div class="a-input-group">
+            <label class="a-label">URL</label>
+            <input type="url" class="a-input" id="fUrl" placeholder="https://">
+          </div>
+          <div class="a-input-group">
+            <label class="a-label">Ícone (emoji ou símbolo)</label>
+            <input type="text" class="a-input" id="fIcon" placeholder="Ex: 📋 ou 🔗 ou ⚡">
+          </div>
+        </div>
+
+        <!-- TEXT FIELDS -->
+        <div id="textFields" style="display:none;">
+          <div class="a-input-group">
+            <label class="a-label">Título do bloco</label>
+            <input type="text" class="a-input" id="fTextTitle" placeholder="Ex: Sobre nós">
+          </div>
+          <div class="a-input-group">
+            <label class="a-label">Conteúdo</label>
+            <textarea class="a-input" id="fTextContent" placeholder="Escreva seu texto aqui…"></textarea>
+          </div>
+        </div>
+
+        <!-- DIVIDER FIELDS -->
+        <div id="dividerFields" style="display:none;">
+          <div class="a-input-group">
+            <label class="a-label">Rótulo do divisor (opcional)</label>
+            <input type="text" class="a-input" id="fDividerLabel" placeholder="Ex: Redes Sociais">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="a-btn primary" onclick="saveItem()">Salvar</button>
+          <button class="a-btn ghost" onclick="cancelForm()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /admin-wrap -->
+</div><!-- /admin-panel -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════
+   STATE
+═══════════════════════════════════ */
+const PASSWORD = '2112';
+
+let state = {
+  profile: {
+    name: 'Rafael Batista',
+    bio: 'Sistema de Aquisição Inteligente para escritórios de advocacia.'
+  },
+  items: [
+    { id: uid(), type: 'link', title: 'Solicitar Análise Estratégica', sub: 'Diagnóstico gratuito · 100% online', url: 'https://seulinkaqui.com', icon: '📋' },
+    { id: uid(), type: 'divider', label: 'Redes Sociais' },
+    { id: uid(), type: 'link', title: 'Instagram', sub: '@advanxia', url: 'https://instagram.com', icon: '📸' },
+    { id: uid(), type: 'link', title: 'WhatsApp', sub: 'Fale direto conosco', url: 'https://wa.me/', icon: '💬' },
+    { id: uid(), type: 'text', title: 'Nosso Propósito', content: 'Transformamos a captação de escritórios de advocacia em uma operação previsível, com estrutura, automação e garantia de resultado.' }
+  ]
+};
+
+function uid() { return '_' + Math.random().toString(36).slice(2,9); }
+
+/* ═══════════════════════════════════
+   LOGO TAP (3×)
+═══════════════════════════════════ */
+let tapCount = 0;
+let tapTimer = null;
+
+document.getElementById('logoBtn').addEventListener('click', function() {
+  clearTimeout(tapTimer);
+  tapCount++;
+
+  // visual tap ring
+  this.classList.remove('tapped');
+  void this.offsetWidth;
+  this.classList.add('tapped');
+
+  // dots
+  ['dot1','dot2','dot3'].forEach((id, i) => {
+    const d = document.getElementById(id);
+    d.className = 'logo-dot';
+    if (i < tapCount) d.className = 'logo-dot v' + (i + 1);
+  });
+
+  if (tapCount >= 3) {
+    tapCount = 0;
+    ['dot1','dot2','dot3'].forEach(id => { document.getElementById(id).className = 'logo-dot'; });
+    setTimeout(() => openPwModal(), 200);
+    return;
+  }
+
+  tapTimer = setTimeout(() => {
+    tapCount = 0;
+    ['dot1','dot2','dot3'].forEach(id => { document.getElementById(id).className = 'logo-dot'; });
+  }, 2000);
+});
+
+/* ═══════════════════════════════════
+   PASSWORD MODAL
+═══════════════════════════════════ */
+function openPwModal() {
+  document.getElementById('pwModal').classList.add('active');
+  document.getElementById('pwInput').value = '';
+  setTimeout(() => document.getElementById('pwInput').focus(), 100);
+}
+
+function closePwModal() {
+  document.getElementById('pwModal').classList.remove('active');
+}
+
+document.getElementById('pwInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkPassword();
+});
+
+document.getElementById('pwModal').addEventListener('click', function(e) {
+  if (e.target === this) closePwModal();
+});
+
+function checkPassword() {
+  const val = document.getElementById('pwInput').value;
+  if (val === PASSWORD) {
+    closePwModal();
+    openAdmin();
+  } else {
+    const inp = document.getElementById('pwInput');
+    inp.classList.add('error');
+    inp.value = '';
+    setTimeout(() => inp.classList.remove('error'), 500);
+  }
+}
+
+/* ═══════════════════════════════════
+   ADMIN PANEL
+═══════════════════════════════════ */
+function openAdmin() {
+  const panel = document.getElementById('adminPanel');
+  panel.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  loadAdminFields();
+}
+
+function closeAdmin() {
+  document.getElementById('adminPanel').classList.remove('active');
+  document.body.style.overflow = '';
+  renderPublic();
+}
+
+function loadAdminFields() {
+  document.getElementById('editName').value = state.profile.name;
+  document.getElementById('editBio').value = state.profile.bio;
+  renderAdminList();
+}
+
+function saveProfile() {
+  state.profile.name = document.getElementById('editName').value.trim() || state.profile.name;
+  state.profile.bio  = document.getElementById('editBio').value.trim();
+  toast('Perfil salvo ✓');
+}
+
+/* ═══════════════════════════════════
+   RENDER PUBLIC PAGE
+═══════════════════════════════════ */
+function renderPublic() {
+  document.getElementById('profileName').textContent = state.profile.name;
+  document.getElementById('profileBio').textContent  = state.profile.bio;
+
+  const wrap = document.getElementById('publicLinks');
+  wrap.innerHTML = '';
+
+  state.items.forEach(item => {
+    if (item.type === 'link') {
+      const a = document.createElement('a');
+      a.href = item.url || '#';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.className = 'link-card';
+      a.innerHTML = `
+        <div class="link-icon">${item.icon || '🔗'}</div>
+        <div class="link-info">
+          <div class="link-title">${esc(item.title)}</div>
+          ${item.sub ? `<div class="link-sub">${esc(item.sub)}</div>` : ''}
+        </div>
+        <div class="link-arrow">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </div>`;
+      wrap.appendChild(a);
+    } else if (item.type === 'text') {
+      const d = document.createElement('div');
+      d.className = 'text-block';
+      d.innerHTML = `
+        ${item.title ? `<div class="text-block-title">${esc(item.title)}</div>` : ''}
+        <div class="text-block-content">${esc(item.content || '')}</div>`;
+      wrap.appendChild(d);
+    } else if (item.type === 'divider') {
+      const d = document.createElement('div');
+      d.className = 'divider-block';
+      d.innerHTML = item.label ? `<span>${esc(item.label)}</span>` : '<span></span>';
+      wrap.appendChild(d);
+    }
+  });
+}
+
+function esc(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ═══════════════════════════════════
+   RENDER ADMIN LIST
+═══════════════════════════════════ */
+function renderAdminList() {
+  const list = document.getElementById('adminItemsList');
+  list.innerHTML = '';
+
+  if (!state.items.length) {
+    list.innerHTML = '<div class="empty-state">Nenhum item ainda. Adicione abaixo.</div>';
+    return;
+  }
+
+  state.items.forEach((item, idx) => {
+    const row = document.createElement('div');
+    row.className = 'admin-item-row';
+    row.draggable = true;
+    row.dataset.idx = idx;
+
+    let badgeClass = item.type === 'link' ? 'link' : item.type === 'text' ? 'text' : 'divider';
+    let badgeLabel = item.type === 'link' ? 'Link' : item.type === 'text' ? 'Texto' : 'Divisor';
+    let titleDisplay = item.type === 'link' ? item.title :
+                       item.type === 'text' ? (item.title || 'Bloco de texto') :
+                       (item.label || 'Divisor');
+    let subDisplay = item.type === 'link' ? (item.url || '') :
+                     item.type === 'text' ? (item.content || '') : '';
+
+    row.innerHTML = `
+      <span class="drag-handle" title="Arrastar">⠿</span>
+      <div class="admin-item-info">
+        <div class="admin-item-title">
+          ${item.icon ? item.icon + ' ' : ''}${esc(titleDisplay)}
+          <span class="type-badge ${badgeClass}">${badgeLabel}</span>
+        </div>
+        ${subDisplay ? `<div class="admin-item-sub">${esc(subDisplay)}</div>` : ''}
+      </div>
+      <div class="admin-item-actions">
+        <button class="icon-btn edit" title="Editar" onclick="editItem(${idx})">✏️</button>
+        <button class="icon-btn del" title="Remover" onclick="deleteItem(${idx})">🗑</button>
+      </div>`;
+
+    // drag events
+    row.addEventListener('dragstart', onDragStart);
+    row.addEventListener('dragover', onDragOver);
+    row.addEventListener('drop', onDrop);
+    row.addEventListener('dragend', onDragEnd);
+
+    list.appendChild(row);
+  });
+}
+
+/* ═══════════════════════════════════
+   DRAG & DROP
+═══════════════════════════════════ */
+let dragIdx = null;
+
+function onDragStart(e) {
+  dragIdx = parseInt(e.currentTarget.dataset.idx);
+  e.currentTarget.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+}
+
+function onDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  document.querySelectorAll('.admin-item-row').forEach(r => r.classList.remove('drag-over'));
+  e.currentTarget.classList.add('drag-over');
+}
+
+function onDrop(e) {
+  e.preventDefault();
+  const targetIdx = parseInt(e.currentTarget.dataset.idx);
+  if (dragIdx === null || dragIdx === targetIdx) return;
+  const items = [...state.items];
+  const [moved] = items.splice(dragIdx, 1);
+  items.splice(targetIdx, 0, moved);
+  state.items = items;
+  renderAdminList();
+}
+
+function onDragEnd(e) {
+  document.querySelectorAll('.admin-item-row').forEach(r => {
+    r.classList.remove('dragging', 'drag-over');
+  });
+  dragIdx = null;
+}
+
+/* ═══════════════════════════════════
+   ADD / EDIT FORM
+═══════════════════════════════════ */
+let editingIdx = null;
+let currentType = 'link';
+
+function setType(type) {
+  currentType = type;
+  document.querySelectorAll('.type-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.type === type);
+  });
+  document.getElementById('linkFields').style.display = type === 'link' ? '' : 'none';
+  document.getElementById('textFields').style.display = type === 'text' ? '' : 'none';
+  document.getElementById('dividerFields').style.display = type === 'divider' ? '' : 'none';
+}
+
+function toggleAddForm() {
+  editingIdx = null;
+  currentType = 'link';
+  document.getElementById('formTitle').textContent = 'Novo Item';
+  clearForm();
+  setType('link');
+  const form = document.getElementById('itemForm');
+  const isHidden = form.classList.contains('hidden');
+  form.classList.toggle('hidden', !isHidden);
+  if (isHidden) form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function editItem(idx) {
+  editingIdx = idx;
+  const item = state.items[idx];
+  document.getElementById('formTitle').textContent = 'Editar Item';
+
+  setType(item.type);
+
+  if (item.type === 'link') {
+    document.getElementById('fTitle').value = item.title || '';
+    document.getElementById('fSub').value   = item.sub || '';
+    document.getElementById('fUrl').value   = item.url || '';
+    document.getElementById('fIcon').value  = item.icon || '';
+  } else if (item.type === 'text') {
+    document.getElementById('fTextTitle').value   = item.title || '';
+    document.getElementById('fTextContent').value = item.content || '';
+  } else if (item.type === 'divider') {
+    document.getElementById('fDividerLabel').value = item.label || '';
+  }
+
+  document.getElementById('itemForm').classList.remove('hidden');
+  document.getElementById('itemForm').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function cancelForm() {
+  document.getElementById('itemForm').classList.add('hidden');
+  editingIdx = null;
+  clearForm();
+}
+
+function clearForm() {
+  ['fTitle','fSub','fUrl','fIcon','fTextTitle','fTextContent','fDividerLabel'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+}
+
+function saveItem() {
+  let item;
+
+  if (currentType === 'link') {
+    const title = document.getElementById('fTitle').value.trim();
+    if (!title) { toast('Adicione um título'); return; }
+    item = {
+      id: editingIdx !== null ? state.items[editingIdx].id : uid(),
+      type: 'link',
+      title,
+      sub:  document.getElementById('fSub').value.trim(),
+      url:  document.getElementById('fUrl').value.trim(),
+      icon: document.getElementById('fIcon').value.trim() || '🔗'
+    };
+  } else if (currentType === 'text') {
+    item = {
+      id: editingIdx !== null ? state.items[editingIdx].id : uid(),
+      type: 'text',
+      title:   document.getElementById('fTextTitle').value.trim(),
+      content: document.getElementById('fTextContent').value.trim()
+    };
+  } else if (currentType === 'divider') {
+    item = {
+      id: editingIdx !== null ? state.items[editingIdx].id : uid(),
+      type: 'divider',
+      label: document.getElementById('fDividerLabel').value.trim()
+    };
+  }
+
+  if (editingIdx !== null) {
+    state.items[editingIdx] = item;
+    toast('Item atualizado ✓');
+  } else {
+    state.items.push(item);
+    toast('Item adicionado ✓');
+  }
+
+  cancelForm();
+  renderAdminList();
+}
+
+function deleteItem(idx) {
+  if (!confirm('Remover este item?')) return;
+  state.items.splice(idx, 1);
+  renderAdminList();
+  toast('Item removido');
+}
+
+/* ═══════════════════════════════════
+   TOAST
+═══════════════════════════════════ */
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+}
+
+/* ═══════════════════════════════════
+   INIT
+═══════════════════════════════════ */
+renderPublic();
+</script>
+</body>
+</html>
