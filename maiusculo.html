@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor de Maiúsculas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translate(-50%, 10px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.3s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 flex flex-col items-center py-10 px-4 font-sans text-gray-800">
+
+  <!-- Cabeçalho -->
+  <div class="max-w-4xl w-full mb-8 text-center">
+    <div class="inline-flex items-center justify-center p-3 bg-blue-600 rounded-full mb-4 shadow-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="4 7 4 4 20 4 20 7"></polyline>
+        <line x1="9" x2="15" y1="20" y2="20"></line>
+        <line x1="12" x2="12" y1="4" y2="20"></line>
+      </svg>
+    </div>
+    <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">
+      Conversor de Maiúsculas
+    </h1>
+    <p class="mt-2 text-gray-600">
+      Digite ou cole seu texto abaixo. A conversão ocorre em tempo real com suporte a caracteres acentuados.
+    </p>
+  </div>
+
+  <!-- Container Principal -->
+  <div class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+    
+    <!-- Painel de Entrada -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+      <div class="bg-gray-100 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+        <h2 class="font-semibold text-gray-700 text-sm uppercase tracking-wider">Texto Original</h2>
+        <button id="clearBtn" class="text-gray-500 hover:text-red-600 transition-colors flex items-center text-sm gap-1 focus:outline-none" title="Limpar tudo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" x2="10" y1="11" y2="17"></line><line x1="14" x2="14" y1="11" y2="17"></line>
+          </svg>
+          <span class="hidden sm:inline">Limpar</span>
+        </button>
+      </div>
+      <textarea id="inputArea" class="w-full flex-grow p-4 min-h-[300px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="Cole ou digite seu texto aqui..."></textarea>
+    </div>
+
+    <!-- Painel de Saída -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col relative">
+      <div class="bg-blue-50 px-4 py-3 border-b border-blue-100 flex justify-between items-center">
+        <h2 class="font-semibold text-blue-800 text-sm uppercase tracking-wider">Resultado (Maiúsculas)</h2>
+        <button id="copyBtn" disabled class="flex items-center text-sm gap-1 focus:outline-none transition-colors text-gray-400 cursor-not-allowed" title="Copiar para área de transferência">
+          
+          <!-- Ícone Copiar -->
+          <svg id="iconCopy" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          
+          <!-- Ícone Checado (Oculto por padrão) -->
+          <svg id="iconCheck" class="hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+          
+          <span id="copyTextSpan" class="hidden sm:inline">Copiar</span>
+        </button>
+      </div>
+      <textarea id="outputArea" class="w-full flex-grow p-4 min-h-[300px] resize-y bg-gray-50 text-gray-800 focus:outline-none" placeholder="O TEXTO CONVERTIDO APARECERÁ AQUI..." readonly></textarea>
+      
+      <!-- Alerta flutuante de sucesso ao copiar -->
+      <div id="toastAlert" class="hidden absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
+        Texto copiado para a área de transferência!
+      </div>
+    </div>
+  </div>
+
+  <!-- Estatísticas -->
+  <div class="max-w-4xl w-full mt-6 bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-wrap justify-center gap-6 text-sm text-gray-600">
+    <div class="flex flex-col items-center">
+      <span id="charCount" class="font-semibold text-gray-900 text-lg">0</span>
+      <span class="uppercase text-xs tracking-wider">Caracteres</span>
+    </div>
+    <div class="w-px bg-gray-200 hidden sm:block"></div>
+    <div class="flex flex-col items-center">
+      <span id="wordCount" class="font-semibold text-gray-900 text-lg">0</span>
+      <span class="uppercase text-xs tracking-wider">Palavras</span>
+    </div>
+  </div>
+
+  <!-- Lógica JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputArea = document.getElementById('inputArea');
+      const outputArea = document.getElementById('outputArea');
+      const clearBtn = document.getElementById('clearBtn');
+      const copyBtn = document.getElementById('copyBtn');
+      const charCount = document.getElementById('charCount');
+      const wordCount = document.getElementById('wordCount');
+      
+      const iconCopy = document.getElementById('iconCopy');
+      const iconCheck = document.getElementById('iconCheck');
+      const copyTextSpan = document.getElementById('copyTextSpan');
+      const toastAlert = document.getElementById('toastAlert');
+
+      // Função central de atualização da UI
+      function updateUI() {
+        const text = inputArea.value;
+        const upper = text.toLocaleUpperCase('pt-BR');
+        outputArea.value = upper;
+
+        // Atualiza estatísticas
+        charCount.textContent = text.length;
+        const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+        wordCount.textContent = words;
+
+        // Habilita/desabilita botão de copiar
+        if (text.length > 0) {
+          copyBtn.disabled = false;
+          copyBtn.classList.remove('text-gray-400', 'cursor-not-allowed');
+          copyBtn.classList.add('text-blue-600', 'hover:text-blue-800');
+        } else {
+          copyBtn.disabled = true;
+          copyBtn.classList.add('text-gray-400', 'cursor-not-allowed');
+          copyBtn.classList.remove('text-blue-600', 'hover:text-blue-800');
+        }
+      }
+
+      // Evento de digitação em tempo real
+      inputArea.addEventListener('input', updateUI);
+
+      // Evento de limpar tudo
+      clearBtn.addEventListener('click', () => {
+        inputArea.value = '';
+        updateUI();
+        inputArea.focus();
+      });
+
+      // Evento de copiar texto
+      copyBtn.addEventListener('click', () => {
+        const textToCopy = outputArea.value;
+        if (!textToCopy) return;
+
+        const textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        document.body.appendChild(textArea);
+        textArea.select();
+
+        try {
+          document.execCommand('copy');
+          
+          // Animação de sucesso
+          copyBtn.classList.remove('text-blue-600', 'hover:text-blue-800');
+          copyBtn.classList.add('text-green-600');
+          iconCopy.classList.add('hidden');
+          iconCheck.classList.remove('hidden');
+          copyTextSpan.textContent = 'Copiado!';
+          
+          toastAlert.classList.remove('hidden');
+          toastAlert.classList.add('animate-fade-in-up');
+
+          // Reseta após 2 segundos
+          setTimeout(() => {
+            copyBtn.classList.add('text-blue-600', 'hover:text-blue-800');
+            copyBtn.classList.remove('text-green-600');
+            iconCopy.classList.remove('hidden');
+            iconCheck.classList.add('hidden');
+            copyTextSpan.textContent = 'Copiar';
+            
+            toastAlert.classList.add('hidden');
+            toastAlert.classList.remove('animate-fade-in-up');
+          }, 2000);
+
+        } catch (err) {
+          console.error('Erro ao copiar: ', err);
+        }
+
+        document.body.removeChild(textArea);
+      });
+    });
+  </script>
+</body>
+</html>
