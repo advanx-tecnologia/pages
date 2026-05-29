@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Morais Empreendimentos — Engenharia multidisciplinar completa para a indústria. Elétrica, Civil, Mecânica, Automação, Instrumentação, Tubulação, Processo e Gestão. ISO 9001.">
+  <title>Morais Empreendimentos — Engenharia Multidisciplinar Industrial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --c-bg:      #F7F8FA;
+      --c-white:   #FFFFFF;
+      --c-navy:    #0D1B2A;
+      --c-mid:     #1E3A5F;
+      --c-amber:      #E8A020;
+      --c-amber-h:    #D4901A;
+      --c-amber-text: #7A5200;
+      --c-ink:     #1A1A24;
+      --c-muted:   #64748B;
+      --c-line:    #E1E5EA;
+      --font:      'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+      --r:         4px;
+      --max:       1280px;
+      --sec:       112px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font); font-size: 16px; font-weight: 400;
+      line-height: 1.5; letter-spacing: .16px;
+      color: var(--c-ink); background: var(--c-white); overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+    .fade-up { opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-up.in { opacity: 1; transform: none; }
+    .fade-up.d1 { transition-delay: .1s; }
+    .fade-up.d2 { transition-delay: .2s; }
+    .fade-up.d3 { transition-delay: .3s; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; font-family: var(--font); font-size: 15px;
+      font-weight: 600; letter-spacing: .16px; border-radius: var(--r);
+      border: 2px solid transparent; cursor: pointer; transition: all .2s ease; white-space: nowrap;
+    }
+    .btn-navy { background: var(--c-navy); color: #fff; border-color: var(--c-navy); }
+    .btn-navy:hover { background: var(--c-mid); border-color: var(--c-mid); transform: translateY(-1px); }
+    .btn-amber { background: var(--c-amber); color: var(--c-navy); border-color: var(--c-amber); }
+    .btn-amber:hover { background: var(--c-amber-h); border-color: var(--c-amber-h); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--c-navy); border-color: var(--c-line); }
+    .btn-outline:hover { border-color: var(--c-navy); background: var(--c-bg); }
+    .btn-ghost-light { background: transparent; color: #fff; border-color: rgba(255,255,255,.4); }
+    .btn-ghost-light:hover { border-color: #fff; background: rgba(255,255,255,.1); }
+
+    .eyebrow {
+      font-size: 12px; font-weight: 600; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--c-amber);
+    }
+    .eyebrow--muted { color: var(--c-muted); }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      background: var(--c-bg); border-bottom: 1px solid var(--c-line);
+      font-size: 13px; color: var(--c-muted); overflow: hidden;
+      max-height: 44px; transition: max-height .3s ease, opacity .3s ease, padding .3s ease;
+      padding: 10px 0;
+    }
+    .site-header.scrolled .top-bar { max-height: 0; padding: 0; opacity: 0; }
+    .top-bar .container { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .tb-badge { background: var(--c-amber); color: var(--c-navy); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 2px; }
+    .tb-left { display: flex; align-items: center; gap: 8px; font-weight: 500; color: var(--c-ink); }
+    .tb-right { display: flex; align-items: center; gap: 24px; }
+    .tb-right a, .tb-right span { display: flex; align-items: center; gap: 6px; color: var(--c-muted); transition: color .2s; }
+    .tb-right a:hover { color: var(--c-amber); }
+    .tb-right svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    /* ── NAVBAR ── */
+    .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 900; }
+    .navbar {
+      background: var(--c-white); padding: 15px 0;
+      border-bottom: 1px solid var(--c-line);
+      transition: box-shadow .3s ease;
+    }
+    .site-header.scrolled .navbar { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
+    .navbar .container { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .nav-logo img { height: 36px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--c-muted);
+      letter-spacing: .16px; transition: color .2s; position: relative;
+    }
+    .nav-links a:hover { color: var(--c-navy); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--c-amber); transform: scaleX(0); transition: transform .2s;
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--c-navy); transition: all .3s; }
+
+    /* ── MOBILE MENU ── */
+    .mobile-menu {
+      position: fixed; inset: 0; background: var(--c-navy); z-index: 1000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transform: translateX(100%); transition: transform .35s ease;
+    }
+    .mobile-menu.open { transform: none; }
+    .mobile-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: #fff; cursor: pointer; padding: 8px; }
+    .mobile-close svg { width: 26px; height: 26px; }
+    .mobile-links { display: flex; flex-direction: column; align-items: center; gap: 28px; margin-bottom: 40px; }
+    .mobile-links a { font-size: 28px; font-weight: 300; color: #fff; transition: color .2s; }
+    .mobile-links a:hover { color: var(--c-amber); }
+
+    /* ── HERO (split layout) ── */
+    .hero {
+      min-height: 100vh; display: grid;
+      grid-template-columns: 1fr 42%;
+      background: var(--c-white);
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 140px max(48px, 5vw) 80px max(32px, calc((100vw - var(--max)) / 2 + 32px));
+    }
+    .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 36px; }
+    .hero-eyebrow-line { width: 36px; height: 1px; background: var(--c-amber); flex-shrink: 0; }
+    .hero-eyebrow-text { font-size: 12px; font-weight: 600; letter-spacing: 2.2px; text-transform: uppercase; color: var(--c-amber); }
+    .hero h1 {
+      font-size: clamp(40px, 5.2vw, 72px); font-weight: 300;
+      line-height: 1.07; letter-spacing: -1.5px; color: var(--c-navy);
+      margin-bottom: 28px;
+    }
+    .hero h1 strong { font-weight: 700; display: block; }
+    .hero h1 .hi { color: var(--c-amber); }
+    .hero-desc {
+      font-size: 17px; line-height: 1.72; color: var(--c-muted);
+      max-width: 520px; margin-bottom: 44px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 56px; }
+    .hero-strip {
+      display: flex; border-top: 1px solid var(--c-line); padding-top: 32px; max-width: 520px;
+    }
+    .hero-stat { padding-right: 32px; border-right: 1px solid var(--c-line); margin-right: 32px; }
+    .hero-stat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+    .hero-stat-num {
+      font-size: 30px; font-weight: 300; color: var(--c-navy);
+      line-height: 1; letter-spacing: -1px; margin-bottom: 5px;
+    }
+    .hero-stat-num span { color: var(--c-amber); font-size: .65em; vertical-align: super; }
+    .hero-stat-label { font-size: 11px; font-weight: 600; color: var(--c-muted); letter-spacing: 1px; text-transform: uppercase; }
+    .hero-right { position: relative; overflow: hidden; }
+    .hero-right img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.88); }
+    .hero-right::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(255,255,255,.15) 0%, transparent 25%);
+    }
+    .hero-badge {
+      position: absolute; bottom: 40px; left: 0; z-index: 2;
+      background: var(--c-amber); color: var(--c-navy);
+      padding: 12px 20px; font-size: 13px; font-weight: 700; letter-spacing: .4px;
+    }
+
+    /* ── DIFFERENTIALS (dark strip with large ordinals) ── */
+    .differentials { background: var(--c-navy); }
+    .diff-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: rgba(255,255,255,.08);
+    }
+    .diff-item { background: var(--c-navy); padding: 52px 44px; }
+    .diff-ordinal {
+      font-size: 56px; font-weight: 300; color: rgba(232,160,32,.18);
+      line-height: 1; letter-spacing: -2px; margin-bottom: 16px;
+    }
+    .diff-item h3 { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 10px; letter-spacing: .16px; line-height: 1.3; }
+    .diff-item p { font-size: 14px; color: rgba(255,255,255,.48); line-height: 1.65; }
+
+    /* ── COUNTERS (bordered grid) ── */
+    .counters { padding: var(--sec) 0; background: var(--c-bg); }
+    .counters-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--c-line);
+    }
+    .counter-item {
+      padding: 52px 40px; border-right: 1px solid var(--c-line);
+    }
+    .counter-item:last-child { border-right: none; }
+    .counter-num {
+      font-size: clamp(52px, 5vw, 72px); font-weight: 300; color: var(--c-navy);
+      line-height: 1; letter-spacing: -2px; margin-bottom: 12px;
+    }
+    .counter-num sup { font-size: .42em; color: var(--c-amber); vertical-align: super; letter-spacing: 0; }
+    .counter-title { font-size: 14px; font-weight: 600; color: var(--c-ink); margin-bottom: 4px; }
+    .counter-sub { font-size: 12px; font-weight: 500; color: var(--c-muted); letter-spacing: .8px; text-transform: uppercase; }
+
+    /* ── ABOUT (image left, text right) ── */
+    .about { background: var(--c-white); overflow: hidden; }
+    .about-grid { display: grid; grid-template-columns: 44% 1fr; min-height: 580px; }
+    .about-img { position: relative; overflow: hidden; }
+    .about-img img { width: 100%; height: 100%; object-fit: cover; }
+    .about-text {
+      padding: 80px 72px; display: flex; flex-direction: column; justify-content: center;
+      background: var(--c-bg); border-left: 1px solid var(--c-line);
+    }
+    .about-text .eyebrow { display: block; margin-bottom: 18px; }
+    .about-text h2 {
+      font-size: clamp(26px, 2.8vw, 40px); font-weight: 300; color: var(--c-navy);
+      line-height: 1.18; margin-bottom: 24px; letter-spacing: -.5px;
+    }
+    .about-text h2 strong { font-weight: 700; }
+    .about-text p { font-size: 16px; line-height: 1.78; color: var(--c-muted); margin-bottom: 18px; }
+    .about-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+    .badge { padding: 5px 12px; font-size: 12px; font-weight: 600; border-radius: 2px; }
+    .badge-a { background: rgba(232,160,32,.1); color: #7A5200; border: 1px solid rgba(232,160,32,.28); }
+    .badge-n { background: rgba(13,27,42,.06); color: var(--c-navy); border: 1px solid rgba(13,27,42,.1); }
+
+    /* ── SERVICES (numbered list, 2 col) ── */
+    .services { padding: var(--sec) 0; background: var(--c-white); border-top: 1px solid var(--c-line); }
+    .svc-header {
+      display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px;
+      align-items: end; margin-bottom: 60px;
+    }
+    .svc-header h2 {
+      font-size: clamp(28px, 3vw, 46px); font-weight: 300; color: var(--c-navy);
+      line-height: 1.1; letter-spacing: -.5px;
+    }
+    .svc-header h2 strong { font-weight: 700; }
+    .svc-header p { font-size: 16px; color: var(--c-muted); line-height: 1.72; }
+    .svc-list {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--c-line);
+    }
+    .svc-row {
+      display: grid; grid-template-columns: 60px 1fr;
+      padding: 28px 40px 28px 0; border-bottom: 1px solid var(--c-line);
+      border-right: 1px solid var(--c-line); align-items: start;
+      transition: background .2s;
+    }
+    .svc-row:nth-child(even) { border-right: none; padding-left: 40px; padding-right: 0; }
+    .svc-row:hover { background: var(--c-bg); }
+    .svc-ordinal {
+      font-size: 26px; font-weight: 300; color: var(--c-amber);
+      line-height: 1; letter-spacing: -1px; padding-top: 3px;
+    }
+    .svc-body h3 { font-size: 16px; font-weight: 600; color: var(--c-navy); margin-bottom: 6px; }
+    .svc-body p  { font-size: 13px; color: var(--c-muted); line-height: 1.62; }
+
+    /* ── SECTORS (dark, horizontal list) ── */
+    .sectors { padding: var(--sec) 0; background: var(--c-navy); }
+    .sectors-header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+      align-items: end; margin-bottom: 60px;
+    }
+    .sectors-header h2 {
+      font-size: clamp(28px, 3vw, 46px); font-weight: 300; color: #fff;
+      line-height: 1.1; letter-spacing: -.5px;
+    }
+    .sectors-header h2 strong { font-weight: 700; }
+    .sectors-header p { font-size: 16px; color: rgba(255,255,255,.48); line-height: 1.7; }
+    .sector-list { border-top: 1px solid rgba(255,255,255,.1); }
+    .sector-row {
+      display: grid; grid-template-columns: 44px 1fr 1fr;
+      align-items: center; padding: 26px 0;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      transition: background .2s;
+    }
+    .sector-row:hover { background: rgba(255,255,255,.03); margin: 0 -32px; padding-left: 32px; padding-right: 32px; }
+    .sector-num { font-size: 11px; font-weight: 700; color: rgba(232,160,32,.5); letter-spacing: 1.5px; }
+    .sector-name { font-size: 19px; font-weight: 400; color: #fff; letter-spacing: -.2px; }
+    .sector-desc { font-size: 14px; color: rgba(255,255,255,.42); line-height: 1.55; }
+
+    /* ── PROCESS (horizontal timeline) ── */
+    .process { padding: var(--sec) 0; background: var(--c-bg); border-top: 1px solid var(--c-line); }
+    .process-header { margin-bottom: 80px; }
+    .process-header .eyebrow { display: block; margin-bottom: 14px; }
+    .process-header h2 {
+      font-size: clamp(28px, 3vw, 46px); font-weight: 300; color: var(--c-navy);
+      line-height: 1.1; letter-spacing: -.5px; max-width: 520px;
+    }
+    .process-header h2 strong { font-weight: 700; }
+    .process-timeline { position: relative; }
+    .process-connector {
+      position: absolute; top: 14px; left: 14px; right: 14px;
+      height: 1px; background: var(--c-line); z-index: 0;
+    }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 32px; position: relative; z-index: 1;
+    }
+    .process-step {}
+    .step-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid var(--c-line); background: var(--c-white);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 28px;
+    }
+    .step-dot-fill { width: 10px; height: 10px; border-radius: 50%; background: var(--c-amber); }
+    .step-label { font-size: 11px; font-weight: 700; color: var(--c-amber); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+    .process-step h3 { font-size: 17px; font-weight: 600; color: var(--c-navy); margin-bottom: 10px; }
+    .process-step p  { font-size: 14px; color: var(--c-muted); line-height: 1.65; }
+
+    /* ── PORTFOLIO (asymmetric 12-col grid) ── */
+    .portfolio { padding: var(--sec) 0; background: var(--c-white); border-top: 1px solid var(--c-line); }
+    .port-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 24px; margin-bottom: 44px;
+    }
+    .port-header h2 {
+      font-size: clamp(28px, 3vw, 44px); font-weight: 300; color: var(--c-navy);
+      letter-spacing: -.5px; line-height: 1.1;
+    }
+    .port-header h2 strong { font-weight: 700; }
+    .port-grid {
+      display: grid; grid-template-columns: repeat(12, 1fr);
+      gap: 16px; margin-bottom: 44px;
+    }
+    .port-card { overflow: hidden; background: var(--c-bg); transition: box-shadow .3s; }
+    .port-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.1); }
+    .port-card:nth-child(1) { grid-column: span 7; }
+    .port-card:nth-child(2) { grid-column: span 5; }
+    .port-card:nth-child(3) { grid-column: span 4; }
+    .port-card:nth-child(4) { grid-column: span 4; }
+    .port-card:nth-child(5) { grid-column: span 4; }
+    .port-img { overflow: hidden; position: relative; }
+    .port-img img { width: 100%; height: 200px; object-fit: cover; transition: transform .5s; }
+    .port-card:nth-child(1) .port-img img,
+    .port-card:nth-child(2) .port-img img { height: 270px; }
+    .port-card:hover .port-img img { transform: scale(1.04); }
+    .port-tag {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--c-navy); color: #fff;
+      font-size: 11px; font-weight: 700; padding: 3px 10px; letter-spacing: .5px;
+    }
+    .port-body { padding: 20px 20px 24px; }
+    .port-body h3 { font-size: 15px; font-weight: 600; color: var(--c-navy); margin-bottom: 4px; }
+    .port-body .sector { font-size: 12px; color: var(--c-muted); margin-bottom: 12px; }
+    .port-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .port-tags span { font-size: 11px; font-weight: 600; padding: 2px 8px; border: 1px solid var(--c-line); color: var(--c-muted); }
+    .port-cta { text-align: center; }
+
+    /* ── CLIENTS MARQUEE ── */
+    .clients { padding: 64px 0; background: var(--c-bg); overflow: hidden; border-top: 1px solid var(--c-line); }
+    .clients-hd { text-align: center; margin-bottom: 40px; }
+    .clients-hd .eyebrow { display: block; margin-bottom: 10px; }
+    .clients-hd h2 { font-size: 22px; font-weight: 300; color: var(--c-navy); }
+    .marquee-wrap { position: relative; overflow: hidden; }
+    .marquee-wrap::before, .marquee-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2;
+    }
+    .marquee-wrap::before { left: 0; background: linear-gradient(to right, var(--c-bg), transparent); }
+    .marquee-wrap::after  { right: 0; background: linear-gradient(to left, var(--c-bg), transparent); }
+    .marquee-track { display: flex; animation: mq 28s linear infinite; }
+    .marquee-track:hover { animation-play-state: paused; }
+    .logo-tile { flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding: 18px 52px; border-right: 1px solid var(--c-line); }
+    .logo-name { font-size: 14px; font-weight: 700; color: var(--c-muted); opacity: .4; letter-spacing: 2px; white-space: nowrap; transition: opacity .3s; }
+    .marquee-track:hover .logo-name { opacity: .75; }
+    @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── TESTIMONIALS (featured + 2 mini) ── */
+    .testimonials { padding: var(--sec) 0; background: var(--c-white); border-top: 1px solid var(--c-line); }
+    .test-header { margin-bottom: 48px; }
+    .test-header .eyebrow { display: block; margin-bottom: 12px; }
+    .test-header h2 {
+      font-size: clamp(26px, 2.8vw, 40px); font-weight: 300; color: var(--c-navy);
+      letter-spacing: -.5px;
+    }
+    .test-featured {
+      display: grid; grid-template-columns: 80px 1fr;
+      gap: 44px; align-items: start;
+      padding: 52px 0; border-top: 1px solid var(--c-line);
+      border-bottom: 1px solid var(--c-line); margin-bottom: 32px;
+    }
+    .test-quote-mark {
+      font-size: 100px; font-weight: 300; color: var(--c-amber);
+      line-height: .75; opacity: .25; font-family: Georgia, serif;
+    }
+    .test-feat-text {
+      font-size: clamp(18px, 1.8vw, 24px); font-weight: 300; color: var(--c-navy);
+      line-height: 1.58; letter-spacing: -.2px; margin-bottom: 24px;
+    }
+    .test-author { display: flex; align-items: center; gap: 14px; }
+    .test-av { width: 38px; height: 38px; background: rgba(13,27,42,.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--c-navy); flex-shrink: 0; }
+    .test-name { font-size: 14px; font-weight: 600; color: var(--c-navy); }
+    .test-role { font-size: 12px; color: var(--c-muted); }
+    .test-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .test-mini-card { padding: 28px; background: var(--c-bg); border: 1px solid var(--c-line); }
+    .test-stars { color: var(--c-amber); font-size: 13px; letter-spacing: 2px; margin-bottom: 14px; }
+    .test-mini-text { font-size: 15px; line-height: 1.72; color: var(--c-muted); font-style: italic; margin-bottom: 20px; }
+    .test-mini-author { display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--c-line); padding-top: 16px; }
+
+    /* ── WHY (left heading + right vertical list) ── */
+    .why { padding: var(--sec) 0; background: var(--c-bg); border-top: 1px solid var(--c-line); }
+    .why-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 88px; align-items: start; }
+    .why-left .eyebrow { display: block; margin-bottom: 16px; }
+    .why-left h2 {
+      font-size: clamp(26px, 2.8vw, 40px); font-weight: 300; color: var(--c-navy);
+      line-height: 1.2; letter-spacing: -.5px; margin-bottom: 20px;
+    }
+    .why-left h2 strong { font-weight: 700; }
+    .why-left p { font-size: 16px; color: var(--c-muted); line-height: 1.72; margin-bottom: 32px; }
+    .why-list { border-top: 1px solid var(--c-line); }
+    .why-row {
+      display: grid; grid-template-columns: 40px 1fr; gap: 20px;
+      align-items: start; padding: 22px 0; border-bottom: 1px solid var(--c-line);
+    }
+    .why-ico {
+      width: 34px; height: 34px; background: rgba(13,27,42,.06);
+      border-radius: var(--r); display: flex; align-items: center; justify-content: center; margin-top: 2px;
+    }
+    .why-ico svg { width: 17px; height: 17px; color: var(--c-navy); }
+    .why-row h3 { font-size: 15px; font-weight: 600; color: var(--c-navy); margin-bottom: 4px; }
+    .why-row p  { font-size: 14px; color: var(--c-muted); line-height: 1.62; }
+
+    /* ── CTA FINAL (split navy/amber) ── */
+    .cta-final { display: grid; grid-template-columns: 1fr 1fr; }
+    .cta-navy {
+      background: var(--c-navy);
+      padding: 96px 72px 96px max(40px, calc((100vw - var(--max)) / 2 + 32px));
+    }
+    .cta-navy .eyebrow { display: block; margin-bottom: 20px; }
+    .cta-navy h2 {
+      font-size: clamp(26px, 2.8vw, 40px); font-weight: 300; color: #fff;
+      line-height: 1.2; letter-spacing: -.5px; margin-bottom: 16px;
+    }
+    .cta-navy h2 strong { font-weight: 700; }
+    .cta-navy p { font-size: 17px; color: rgba(255,255,255,.55); line-height: 1.65; }
+    .cta-amber {
+      background: var(--c-amber); padding: 96px 64px;
+      display: flex; flex-direction: column; justify-content: center; gap: 24px;
+    }
+    .cta-amber h3 { font-size: 22px; font-weight: 600; color: var(--c-navy); line-height: 1.3; }
+    .cta-amber p { font-size: 15px; color: rgba(13,27,42,.65); line-height: 1.65; }
+    .cta-amber .btn-navy { width: fit-content; }
+    .cta-amber .fine { font-size: 12px; color: rgba(13,27,42,.45); }
+
+    /* ── FOOTER ── */
+    .footer { background: #07101C; padding: 80px 0 36px; }
+    .foot-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 56px;
+      padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,.07); margin-bottom: 32px;
+    }
+    .foot-brand img { height: 32px; filter: brightness(0) invert(1); margin-bottom: 16px; }
+    .foot-brand p { font-size: 13px; color: rgba(255,255,255,.35); line-height: 1.75; margin-bottom: 24px; }
+    .foot-social { display: flex; gap: 8px; }
+    .soc-btn {
+      width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.1);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,.38); transition: all .2s;
+    }
+    .soc-btn:hover { border-color: var(--c-amber); color: var(--c-amber); }
+    .soc-btn svg { width: 15px; height: 15px; }
+    .foot-col h4 { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.9); margin-bottom: 20px; letter-spacing: 1.5px; text-transform: uppercase; }
+    .foot-links { display: flex; flex-direction: column; gap: 10px; }
+    .foot-links a { font-size: 14px; color: rgba(255,255,255,.35); letter-spacing: .16px; transition: color .2s; }
+    .foot-links a:hover { color: rgba(255,255,255,.75); }
+    .foot-contact-row { display: flex; gap: 10px; margin-bottom: 12px; }
+    .foot-contact-row svg { width: 14px; height: 14px; color: var(--c-amber); flex-shrink: 0; margin-top: 2px; }
+    .foot-contact-row span { font-size: 13px; color: rgba(255,255,255,.35); line-height: 1.55; }
+    .foot-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .foot-bottom p { font-size: 12px; color: rgba(255,255,255,.2); }
+    .foot-bottom-links { display: flex; gap: 20px; }
+    .foot-bottom-links a { font-size: 12px; color: rgba(255,255,255,.2); transition: color .2s; }
+    .foot-bottom-links a:hover { color: rgba(255,255,255,.5); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .hero { grid-template-columns: 1fr 38%; }
+      .svc-header { grid-template-columns: 1fr; gap: 20px; }
+      .why-grid { grid-template-columns: 1fr; gap: 44px; }
+      .cta-final { grid-template-columns: 1fr; }
+      .cta-navy { padding: 80px 40px; }
+      .cta-amber { padding: 64px 40px; }
+      .foot-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-img { height: 380px; }
+      .sectors-header { grid-template-columns: 1fr; gap: 16px; }
+      .sector-row { grid-template-columns: 40px 1fr; }
+      .sector-desc { display: none; }
+      .port-card:nth-child(1) { grid-column: span 12; }
+      .port-card:nth-child(2) { grid-column: span 12; }
+      .port-card:nth-child(3), .port-card:nth-child(4), .port-card:nth-child(5) { grid-column: span 4; }
+      .test-featured { grid-template-columns: 1fr; gap: 20px; }
+      .test-quote-mark { font-size: 72px; }
+      .diff-grid { grid-template-columns: 1fr; }
+      .counters-grid { grid-template-columns: repeat(2, 1fr); }
+      .counter-item:nth-child(2) { border-right: none; }
+      .counter-item:nth-child(3) { border-right: 1px solid var(--c-line); }
+      .counter-item:nth-child(3), .counter-item:nth-child(4) { border-top: 1px solid var(--c-line); }
+    }
+    @media (max-width: 768px) {
+      :root { --sec: 72px; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 130px 32px 56px; }
+      .hero-right { height: 340px; }
+      .tb-right { display: none; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .svc-list { grid-template-columns: 1fr; }
+      .svc-row:nth-child(even) { padding-left: 0; padding-right: 40px; border-right: 1px solid var(--c-line); }
+      .port-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .port-card:nth-child(1), .port-card:nth-child(2) { grid-column: span 12; }
+      .port-card:nth-child(3), .port-card:nth-child(4), .port-card:nth-child(5) { grid-column: span 12; }
+      .test-mini { grid-template-columns: 1fr; }
+      .process-connector { display: none; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .foot-top { grid-template-columns: 1fr; gap: 28px; }
+    }
+    @media (max-width: 540px) {
+      .hero-strip { flex-direction: column; gap: 0; }
+      .hero-stat { border-right: none; padding-right: 0; margin-right: 0; padding-bottom: 18px; border-bottom: 1px solid var(--c-line); margin-bottom: 18px; }
+      .hero-stat:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+      .process-steps { grid-template-columns: 1fr; }
+      .counters-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SITE HEADER -->
+<header class="site-header" id="siteHeader">
+  <div class="top-bar">
+    <div class="container">
+      <div class="tb-left">
+        <span class="tb-badge">ISO 9001</span>
+        Certificação de qualidade em todos os processos
+      </div>
+      <div class="tb-right">
+        <a href="tel:+5571996888885">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 5.64 5.64l.93-.93a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (71) 99688-8885
+        </a>
+        <a href="mailto:comercial@moraisempreendimento.com.br">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          comercial@moraisempreendimento.com.br
+        </a>
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Salvador – BA
+        </span>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar">
+    <div class="container">
+      <a href="#inicio" class="nav-logo">
+        <img src="https://moraisempreendimentos.com.br/wp-content/uploads/2024/03/morais-logo.png" alt="Morais Empreendimentos">
+      </a>
+      <ul class="nav-links">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#setores">Setores</a></li>
+        <li><a href="#portfolio">Portfólio</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="https://wa.me/5571996888885?text=Olá!%20Gostaria%20de%20solicitar%20uma%20proposta." target="_blank" class="btn btn-amber">Solicitar Proposta</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Fechar menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <ul class="mobile-links">
+    <li><a href="#inicio">Início</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#setores">Setores</a></li>
+    <li><a href="#portfolio">Portfólio</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a href="https://wa.me/5571996888885" target="_blank" class="btn btn-amber">Solicitar Proposta</a>
+</div>
+
+<!-- HERO: SPLIT LAYOUT -->
+<section class="hero" id="inicio">
+  <div class="hero-left fade-up">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      <span class="hero-eyebrow-text">Engenharia Multidisciplinar · ISO 9001 · Salvador – BA</span>
+    </div>
+    <h1>
+      Uma empresa.<br>
+      <strong>Todas as<br>disciplinas.</strong><br>
+      Projeto <span class="hi">completo</span>.
+    </h1>
+    <p class="hero-desc">A Morais entrega engenharia multidisciplinar completa para a indústria — elétrica, civil, mecânica, automação, tubulação, processo e muito mais. Tudo com ISO 9001, do conceito à execução.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/5571996888885?text=Olá!%20Gostaria%20de%20solicitar%20uma%20proposta." target="_blank" class="btn btn-navy">
+        Solicitar Proposta
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#servicos" class="btn btn-outline">Conhecer serviços</a>
+    </div>
+    <div class="hero-strip">
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span id="hs1">10</span><span>+</span></div>
+        <div class="hero-stat-label">Anos de mercado</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span id="hs2">100</span><span>+</span></div>
+        <div class="hero-stat-label">Projetos entregues</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span id="hs3">8</span></div>
+        <div class="hero-stat-label">Disciplinas</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80" alt="Planta industrial">
+    <div class="hero-badge">ISO 9001:2015 Certificada</div>
+  </div>
+</section>
+
+<!-- DIFFERENTIALS -->
+<section class="differentials">
+  <div class="diff-grid">
+    <div class="diff-item fade-up">
+      <div class="diff-ordinal">01</div>
+      <h3>Todas as disciplinas em um único contrato</h3>
+      <p>Elétrica, Civil, Mecânica, Automação, Instrumentação, Tubulação, Processo e Gestão — um só parceiro.</p>
+    </div>
+    <div class="diff-item fade-up d1">
+      <div class="diff-ordinal">02</div>
+      <h3>ISO 9001 em todos os processos</h3>
+      <p>Qualidade controlada do briefing ao documento executivo, com rastreabilidade total e revisão técnica rigorosa.</p>
+    </div>
+    <div class="diff-item fade-up d2">
+      <div class="diff-ordinal">03</div>
+      <h3>Do conceito ao detalhamento executivo</h3>
+      <p>Estudos de viabilidade, projetos básicos, executivos e as-built — entregamos em cada fase do projeto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTERS -->
+<section class="counters">
+  <div class="container">
+    <div class="counters-grid">
+      <div class="counter-item fade-up">
+        <div class="counter-num"><span id="c1">0</span><sup>+</sup></div>
+        <div class="counter-title">Anos de Experiência</div>
+        <div class="counter-sub">na indústria nacional</div>
+      </div>
+      <div class="counter-item fade-up d1">
+        <div class="counter-num"><span id="c2">0</span><sup>+</sup></div>
+        <div class="counter-title">Projetos Entregues</div>
+        <div class="counter-sub">do básico ao executivo</div>
+      </div>
+      <div class="counter-item fade-up d2">
+        <div class="counter-num"><span id="c3">0</span></div>
+        <div class="counter-title">Disciplinas de Engenharia</div>
+        <div class="counter-sub">integradas em um contrato</div>
+      </div>
+      <div class="counter-item fade-up d3">
+        <div class="counter-num"><span id="c4">0</span><sup>+</sup></div>
+        <div class="counter-title">Estados Atendidos</div>
+        <div class="counter-sub">em todo o Brasil</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="sobre">
+  <div class="about-grid">
+    <div class="about-img fade-up">
+      <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=80" alt="Engenheiros da Morais em campo">
+    </div>
+    <div class="about-text fade-up d1">
+      <span class="eyebrow">Quem Somos</span>
+      <h2>O parceiro de engenharia <strong>completo</strong> da indústria</h2>
+      <p>A Morais Empreendimentos nasceu com um propósito claro: ser o parceiro de engenharia completo da indústria. Somos uma empresa baiana especializada em projetos industriais multidisciplinares, com certificação ISO 9001 e uma equipe de engenheiros especializados em todas as disciplinas.</p>
+      <p>Nosso diferencial é simples: enquanto a maioria das empresas entrega apenas uma parte do projeto, a Morais entrega tudo — integrado, coordenado e no prazo.</p>
+      <div class="about-badges">
+        <span class="badge badge-a">ISO 9001 Certificada</span>
+        <span class="badge badge-n">Salvador, Bahia</span>
+        <span class="badge badge-n">10+ anos de mercado</span>
+      </div>
+      <a href="https://wa.me/5571996888885" target="_blank" class="btn btn-navy">Falar com nossa equipe</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="servicos">
+  <div class="container">
+    <div class="svc-header fade-up">
+      <div>
+        <span class="eyebrow eyebrow--muted" style="display:block;margin-bottom:14px;">Nossas Disciplinas</span>
+        <h2>Todas as disciplinas.<br><strong>Um único contrato.</strong></h2>
+      </div>
+      <p>Você não precisa contratar 8 empresas diferentes. A Morais entrega tudo integrado, coordenado por um único gerente de projeto responsável pelo escopo completo.</p>
+    </div>
+    <div class="svc-list">
+      <div class="svc-row fade-up">
+        <div class="svc-ordinal">01</div>
+        <div class="svc-body">
+          <h3>Engenharia Elétrica</h3>
+          <p>Projetos de instalações elétricas industriais, sistemas de força, iluminação e painéis elétricos.</p>
+        </div>
+      </div>
+      <div class="svc-row fade-up d1">
+        <div class="svc-ordinal">02</div>
+        <div class="svc-body">
+          <h3>Engenharia Civil</h3>
+          <p>Estruturas, fundações, obras civis e edificações para ambientes industriais.</p>
+        </div>
+      </div>
+      <div class="svc-row fade-up">
+        <div class="svc-ordinal">03</div>
+        <div class="svc-body">
+          <h3>Engenharia Mecânica</h3>
+          <p>Projetos de equipamentos, estruturas metálicas e sistemas mecânicos industriais.</p>
+        </div>
+      </div>
+      <div class="svc-row fade-up d1">
+        <div class="svc-ordinal">04</div>
+        <div class="svc-body">
+          <h3>Automação e Instrumentação</h3>
+          <p>Sistemas de controle, malhas de instrumentação, P&amp;IDs e automação de processos.</p>
+        </div>
+      </div>
+      <div class="svc-row fade-up">
+        <div class="svc-ordinal">05</div>
+        <div class="svc-body">
+          <h3>Engenharia de Tubulação</h3>
+          <p>Projetos completos de redes de tubulação para fluidos industriais e utilities.</p>
+        </div>
+      </div>
+      <div class="svc-row fade-up d1">
+        <div class="svc-ordinal">06</div>
+        <div class="svc-body">
+          <h3>Engenharia de Processo</h3>
+          <p>Fluxogramas de processo, balanços de massa e energia, otimização e licenciamento.</p>
+        </div>
+      </div>
+      <div class="svc-row fade-up">
+        <div class="svc-ordinal">07</div>
+        <div class="svc-body">
+          <h3>Projetos de Segurança (NR/ABNT)</h3>
+          <p>Projetos alinhados às normas regulamentadoras e boas práticas de SMS.</p>
+        </div>
+      </div>
+      <div class="svc-row fade-up d1">
+        <div class="svc-ordinal">08</div>
+        <div class="svc-body">
+          <h3>Gerenciamento de Projetos (EPCM)</h3>
+          <p>Coordenação multidisciplinar, planejamento, controle de prazo e custo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section class="sectors" id="setores">
+  <div class="container">
+    <div class="sectors-header fade-up">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:14px;">Setores de Atuação</span>
+        <h2>Setores que<br><strong>atendemos.</strong></h2>
+      </div>
+      <p>Experiência comprovada nos principais segmentos da indústria nacional. Do petroquímico ao energético, da mineração à infraestrutura.</p>
+    </div>
+    <div class="sector-list">
+      <div class="sector-row fade-up">
+        <span class="sector-num">01</span>
+        <span class="sector-name">Petroquímica e Química</span>
+        <span class="sector-desc">Plantas industriais, unidades de processo e infraestrutura petroquímica.</span>
+      </div>
+      <div class="sector-row fade-up d1">
+        <span class="sector-num">02</span>
+        <span class="sector-name">Óleo e Gás</span>
+        <span class="sector-desc">Projetos onshore e offshore, dutos, terminais e instalações de produção.</span>
+      </div>
+      <div class="sector-row fade-up">
+        <span class="sector-num">03</span>
+        <span class="sector-name">Mineração e Metalurgia</span>
+        <span class="sector-desc">Usinas de beneficiamento, plantas de processo e infraestrutura mineira.</span>
+      </div>
+      <div class="sector-row fade-up d1">
+        <span class="sector-num">04</span>
+        <span class="sector-name">Papel e Celulose</span>
+        <span class="sector-desc">Projetos de expansão, adequação e novas linhas de produção.</span>
+      </div>
+      <div class="sector-row fade-up">
+        <span class="sector-num">05</span>
+        <span class="sector-name">Energia e Utilities</span>
+        <span class="sector-desc">Subestações, sistemas de geração, distribuição e utilities industriais.</span>
+      </div>
+      <div class="sector-row fade-up d1">
+        <span class="sector-num">06</span>
+        <span class="sector-name">Infraestrutura Industrial</span>
+        <span class="sector-desc">Galpões, armazéns, obras civis e infraestrutura de apoio industrial.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="container">
+    <div class="process-header fade-up">
+      <span class="eyebrow eyebrow--muted">Como Trabalhamos</span>
+      <h2>Do briefing à planta executiva.<br><strong>Sem complicação.</strong></h2>
+    </div>
+    <div class="process-timeline">
+      <div class="process-connector"></div>
+      <div class="process-steps">
+        <div class="process-step fade-up">
+          <div class="step-dot"><div class="step-dot-fill"></div></div>
+          <div class="step-label">Etapa 01</div>
+          <h3>Entendemos seu desafio</h3>
+          <p>Reunião técnica para mapear necessidades, escopo e restrições do projeto.</p>
+        </div>
+        <div class="process-step fade-up d1">
+          <div class="step-dot"><div class="step-dot-fill"></div></div>
+          <div class="step-label">Etapa 02</div>
+          <h3>Montamos a equipe certa</h3>
+          <p>Engenheiros das disciplinas necessárias, coordenados por um único gerente.</p>
+        </div>
+        <div class="process-step fade-up d2">
+          <div class="step-dot"><div class="step-dot-fill"></div></div>
+          <div class="step-label">Etapa 03</div>
+          <h3>Desenvolvemos com qualidade</h3>
+          <p>Projeto elaborado com controle ISO 9001 e revisão técnica rigorosa em cada etapa.</p>
+        </div>
+        <div class="process-step fade-up d3">
+          <div class="step-dot"><div class="step-dot-fill"></div></div>
+          <div class="step-label">Etapa 04</div>
+          <h3>Entregamos completo</h3>
+          <p>Documentação executiva completa, pronta para licitação ou execução direta.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="port-header fade-up">
+      <div>
+        <span class="eyebrow eyebrow--muted" style="display:block;margin-bottom:10px;">Portfólio</span>
+        <h2>Projetos<br><strong>Entregues</strong></h2>
+      </div>
+      <a href="https://wa.me/5571996888885?text=Gostaria%20de%20ver%20mais%20projetos%20da%20Morais." target="_blank" class="btn btn-outline">Ver todos os projetos</a>
+    </div>
+    <div class="port-grid">
+      <div class="port-card fade-up">
+        <div class="port-img">
+          <img src="https://images.unsplash.com/photo-1518709414768-a88981a4515d?auto=format&fit=crop&w=900&q=80" alt="Projeto Petroquímica">
+          <span class="port-tag">Petroquímica</span>
+        </div>
+        <div class="port-body">
+          <h3>Projeto de Instrumentação — Unidade de Processo</h3>
+          <p class="sector">Bahia · 2023</p>
+          <div class="port-tags"><span>Instrumentação</span><span>P&ID</span><span>Automação</span></div>
+        </div>
+      </div>
+      <div class="port-card fade-up d1">
+        <div class="port-img">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80" alt="Projeto Civil">
+          <span class="port-tag">Civil</span>
+        </div>
+        <div class="port-body">
+          <h3>Galpão Industrial — Projeto Estrutural e Civil</h3>
+          <p class="sector">Bahia · 2022</p>
+          <div class="port-tags"><span>Civil</span><span>Estrutural</span><span>Fundações</span></div>
+        </div>
+      </div>
+      <div class="port-card fade-up">
+        <div class="port-img">
+          <img src="https://images.unsplash.com/photo-1565793979764-0a8d26c3fcff?auto=format&fit=crop&w=800&q=80" alt="Automação">
+          <span class="port-tag">Automação</span>
+        </div>
+        <div class="port-body">
+          <h3>Sistema de Controle — Linha de Produção</h3>
+          <p class="sector">São Paulo · 2023</p>
+          <div class="port-tags"><span>Automação</span><span>Elétrica</span><span>EPCM</span></div>
+        </div>
+      </div>
+      <div class="port-card fade-up d1">
+        <div class="port-img">
+          <img src="https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?auto=format&fit=crop&w=800&q=80" alt="Elétrica">
+          <span class="port-tag">Elétrica</span>
+        </div>
+        <div class="port-body">
+          <h3>Subestação 13,8 kV — Planta Industrial</h3>
+          <p class="sector">Bahia · 2022</p>
+          <div class="port-tags"><span>Elétrica</span><span>Subestação</span><span>NR-10</span></div>
+        </div>
+      </div>
+      <div class="port-card fade-up d2">
+        <div class="port-img">
+          <img src="https://images.unsplash.com/photo-1574482620811-1aa16ffe3c82?auto=format&fit=crop&w=800&q=80" alt="Óleo e Gás">
+          <span class="port-tag">Óleo e Gás</span>
+        </div>
+        <div class="port-body">
+          <h3>Tubulação e Processo — Terminal de Armazenamento</h3>
+          <p class="sector">Sergipe · 2023</p>
+          <div class="port-tags"><span>Tubulação</span><span>Processo</span><span>Mecânica</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients">
+  <div class="container">
+    <div class="clients-hd fade-up">
+      <span class="eyebrow eyebrow--muted">Clientes</span>
+      <h2>Empresas que confiam na Morais</h2>
+    </div>
+  </div>
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="logo-tile"><span class="logo-name">PETROBRAS</span></div>
+      <div class="logo-tile"><span class="logo-name">BRASKEM</span></div>
+      <div class="logo-tile"><span class="logo-name">VALE</span></div>
+      <div class="logo-tile"><span class="logo-name">SUZANO</span></div>
+      <div class="logo-tile"><span class="logo-name">DOW</span></div>
+      <div class="logo-tile"><span class="logo-name">TOTALENERGIES</span></div>
+      <div class="logo-tile"><span class="logo-name">BASF</span></div>
+      <div class="logo-tile"><span class="logo-name">VIBRA</span></div>
+      <div class="logo-tile"><span class="logo-name">PETROBRAS</span></div>
+      <div class="logo-tile"><span class="logo-name">BRASKEM</span></div>
+      <div class="logo-tile"><span class="logo-name">VALE</span></div>
+      <div class="logo-tile"><span class="logo-name">SUZANO</span></div>
+      <div class="logo-tile"><span class="logo-name">DOW</span></div>
+      <div class="logo-tile"><span class="logo-name">TOTALENERGIES</span></div>
+      <div class="logo-tile"><span class="logo-name">BASF</span></div>
+      <div class="logo-tile"><span class="logo-name">VIBRA</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="test-header fade-up">
+      <span class="eyebrow eyebrow--muted">Depoimentos</span>
+      <h2>O que dizem sobre nós</h2>
+    </div>
+    <div class="test-featured fade-up">
+      <div class="test-quote-mark">"</div>
+      <div>
+        <p class="test-feat-text">"A Morais foi fundamental na entrega do nosso projeto de expansão. Ter todas as disciplinas num único parceiro simplificou enormemente a gestão e garantiu a integração perfeita entre os sistemas."</p>
+        <div class="test-author">
+          <div class="test-av">CR</div>
+          <div>
+            <div class="test-name">Carlos R.</div>
+            <div class="test-role">Gerente de Engenharia · Petroquímica</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="test-mini">
+      <div class="test-mini-card fade-up">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-mini-text">"Entregaram o projeto executivo dentro do prazo e com qualidade ISO 9001 comprovada. O gerenciamento do escopo foi exemplar — raramente vemos esse nível de organização no setor."</p>
+        <div class="test-mini-author">
+          <div class="test-av">AS</div>
+          <div>
+            <div class="test-name">Ana S.</div>
+            <div class="test-role">Diretora de Operações · Mineração</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-mini-card fade-up d1">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-mini-text">"Do básico ao executivo, a equipe da Morais dominou cada disciplina. Nos deram tranquilidade para focar no negócio enquanto eles cuidavam de toda a engenharia."</p>
+        <div class="test-mini-author">
+          <div class="test-av">PM</div>
+          <div>
+            <div class="test-name">Paulo M.</div>
+            <div class="test-role">CEO · Infraestrutura Industrial</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY MORAIS -->
+<section class="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-left fade-up">
+        <span class="eyebrow eyebrow--muted">Nossos Diferenciais</span>
+        <h2>Por que escolher<br>a <strong>Morais</strong>?</h2>
+        <p>Enquanto outros entregam partes, a Morais entrega o projeto inteiro — integrado, coordenado e no prazo, com um único responsável técnico.</p>
+        <a href="https://wa.me/5571996888885?text=Olá!%20Gostaria%20de%20agendar%20uma%20reunião%20técnica." target="_blank" class="btn btn-amber">Agendar Reunião Técnica</a>
+      </div>
+      <div class="why-list fade-up d1">
+        <div class="why-row">
+          <div class="why-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div>
+            <h3>Multidisciplinar Completa</h3>
+            <p>Todas as disciplinas integradas, um único contrato, um único responsável.</p>
+          </div>
+        </div>
+        <div class="why-row">
+          <div class="why-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+          </div>
+          <div>
+            <h3>ISO 9001 Certificada</h3>
+            <p>Qualidade controlada em cada processo, do início ao fim do projeto.</p>
+          </div>
+        </div>
+        <div class="why-row">
+          <div class="why-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <h3>Equipe Especializada</h3>
+            <p>Engenheiros seniores em cada disciplina, prontos para o seu desafio.</p>
+          </div>
+        </div>
+        <div class="why-row">
+          <div class="why-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <h3>Entrega no Prazo</h3>
+            <p>Gerenciamento rigoroso de cronograma e escopo em todos os projetos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-navy">
+    <span class="eyebrow" style="display:block;margin-bottom:20px;">Fale com a Morais</span>
+    <h2>Chega de contratar<br><strong>empresa por empresa.</strong></h2>
+    <p>Uma reunião técnica gratuita para entender seu projeto e apresentar a solução de engenharia completa.</p>
+  </div>
+  <div class="cta-amber">
+    <h3>Agende sua reunião técnica gratuita</h3>
+    <p>Nossa equipe analisa seu projeto e apresenta uma solução multidisciplinar integrada.</p>
+    <a href="https://wa.me/5571996888885?text=Olá!%20Gostaria%20de%20agendar%20uma%20reunião%20técnica." target="_blank" class="btn btn-navy">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Agendar pelo WhatsApp
+    </a>
+    <p class="fine">CNPJ: 15.631.879/0001-47 · Salvador, BA</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="contato">
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img src="https://moraisempreendimentos.com.br/wp-content/uploads/2024/03/morais-logo.png" alt="Morais Empreendimentos">
+        <p>Engenharia multidisciplinar completa para a indústria. Do conceito ao detalhamento executivo, com qualidade ISO 9001.</p>
+        <div class="foot-social">
+          <a href="#" class="soc-btn" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" class="soc-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" class="soc-btn" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          </a>
+          <a href="#" class="soc-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Links Rápidos</h4>
+        <ul class="foot-links">
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#setores">Setores de Atuação</a></li>
+          <li><a href="#portfolio">Portfólio</a></li>
+          <li><a href="#sobre">Sobre a Morais</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Disciplinas</h4>
+        <ul class="foot-links">
+          <li><a href="#servicos">Engenharia Elétrica</a></li>
+          <li><a href="#servicos">Engenharia Civil</a></li>
+          <li><a href="#servicos">Engenharia Mecânica</a></li>
+          <li><a href="#servicos">Automação</a></li>
+          <li><a href="#servicos">Tubulação e Processo</a></li>
+          <li><a href="#servicos">Gestão EPCM</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Contato</h4>
+        <div class="foot-contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 5.64 5.64l.93-.93a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>(71) 99688-8885</span>
+        </div>
+        <div class="foot-contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>comercial@moraisempreendimento.com.br</span>
+        </div>
+        <div class="foot-contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Empresarial Costa Azul, Sala 1102 — R. Dr. José Peroba, 297, Salvador – BA</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2025 Morais Empreendimentos LTDA — CNPJ: 15.631.879/0001-47</p>
+      <div class="foot-bottom-links">
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  function onScroll() { header.classList.toggle('scrolled', window.scrollY > 60); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+  hamburger.addEventListener('click',  () => mobileMenu.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  const fadeObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); fadeObs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
+
+  function startCount(el, target) {
+    const duration = 2000, start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      el.textContent = Math.round(p * target);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const counters = [
+    { id: 'c1', val: 10 }, { id: 'c2', val: 100 },
+    { id: 'c3', val: 8 },  { id: 'c4', val: 5 }
+  ];
+  let started = false;
+  new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !started) {
+      started = true;
+      counters.forEach(c => startCount(document.getElementById(c.id), c.val));
+    }
+  }, { threshold: 0.3 }).observe(document.querySelector('.counters'));
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - header.offsetHeight - 16, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
