@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form Adv V6 | Advanx IA</title>
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '502759528362336');
+    fbq('track', 'PageView');
+  </script>
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-98EL5GXG5F');
+  </script>
+
+  <style>
+    :root{--bg:#f7f7fb;--card:#fff;--text:#171725;--muted:#656b7a;--line:#e7e9f1;--primary:#5b5bd6;--primary2:#4444b8}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .card{width:min(860px,100%);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px;box-shadow:0 12px 32px rgba(23,23,37,.08)}
+    .progress{height:8px;background:#eef0f8;border-radius:999px;overflow:hidden;margin-bottom:26px}
+    .bar{height:100%;width:0%;background:linear-gradient(90deg,var(--primary),var(--primary2));transition:width .25s ease}
+    .step{display:none}
+    .step.active{display:block}
+    h1{font-size:clamp(24px,3.1vw,38px);line-height:1.15;margin:0 0 8px}
+    p{margin:0 0 18px;color:var(--muted)}
+    .small{font-size:14px}
+    .strong{font-weight:800;color:#111}
+    .options{display:grid;gap:12px;margin-top:14px}
+    .opt{padding:14px 16px;border:1px solid #d9dceb;border-radius:12px;background:#fff;cursor:pointer;font-weight:600;transition:.2s}
+    .opt:hover{border-color:#b8bde0;background:#f6f7ff}
+    .opt.sel{border-color:var(--primary);background:#eef0ff}
+    .input,.select{width:100%;padding:14px;border:1px solid #d9dceb;border-radius:12px;font-size:16px}
+    .input:focus,.select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(91,91,214,.16)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .actions{display:flex;gap:10px;margin-top:22px}
+    .btn{border:0;border-radius:12px;padding:12px 18px;font-weight:700;cursor:pointer}
+    .btn.prev{background:#eef0f6;color:#202335}
+    .btn.next{background:linear-gradient(90deg,var(--primary),var(--primary2));color:white}
+    .hint{font-size:13px;color:#7a8091;margin-top:8px}
+    @media (max-width:700px){.card{padding:22px}.grid2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div class="progress"><div class="bar" id="bar"></div></div>
+
+      <div class="step active" data-step="1">
+        <h1>Preencha para conhecer quais das nossas soluções de ia Autônoma pode te ajudar a gerar mais receita e reduzir custos.</h1>
+        <p class="small">Com <span class="strong">garantia de resultado em contrato em até 41 dias.</span></p>
+        <div class="actions">
+          <button class="btn next" id="startBtn" type="button">Começar</button>
+        </div>
+      </div>
+
+      <div class="step" data-step="2">
+        <h1>Quantidade de colaboradores</h1>
+        <div class="options" data-name="colaboradores">
+          <button class="opt" type="button">Apenas eu</button>
+          <button class="opt" type="button">1 a 3</button>
+          <button class="opt" type="button">3 a 10</button>
+          <button class="opt" type="button">10 a 50</button>
+          <button class="opt" type="button">Mais de 50</button>
+        </div>
+      </div>
+
+      <div class="step" data-step="3">
+        <h1>O que vc busca resolver ?</h1>
+        <div class="options" data-name="problema">
+          <button class="opt" type="button">Marketing e vendas</button>
+          <button class="opt" type="button">Leads desqualificados</button>
+          <button class="opt" type="button">Comercial ineficiente</button>
+          <button class="opt" type="button">Atendimento sem processo</button>
+          <button class="opt" type="button">Produção de conteúdo todos os dias</button>
+          <button class="opt" type="button">Seu clone Cria e pública por vc</button>
+          <button class="opt" type="button">Protocolar mais rápido</button>
+          <button class="opt" type="button">Acompanhar prazos e audiências</button>
+          <button class="opt" type="button">Análise de documentos mais rápida e eficiente.</button>
+          <button class="opt" type="button">Outro</button>
+        </div>
+        <div id="outroWrap" style="display:none;margin-top:12px">
+          <input class="input" id="outroProblema" placeholder="Digite aqui o que você busca resolver" />
+        </div>
+      </div>
+
+      <div class="step" data-step="4">
+        <h1>Quando você pretende resolver (problemas que listou na pergunta anterior)?</h1>
+        <div class="options" data-name="prazo">
+          <button class="opt" type="button">O quanto antes</button>
+          <button class="opt" type="button">Nos próximos 30d</button>
+          <button class="opt" type="button">Ainda não sei</button>
+        </div>
+      </div>
+
+      <div class="step" data-step="5">
+        <h1>Quanto você reservou para investir mensalmente para resolver o seu problema?</h1>
+        <p class="small">O valor não influencia em nada nossos preços, o valor que vc pode investir vai apenas direcionar qual a solução ideal para o seu momento.</p>
+        <input class="input" id="investimento" placeholder="Digite o valor mensal (ex: 2.500)" />
+      </div>
+
+      <div class="step" data-step="6">
+        <h1>Qual o faturamento médio mensal?</h1>
+        <div class="options" data-name="faturamento">
+          <button class="opt" type="button">Abaixo de 10 mil</button>
+          <button class="opt" type="button">10 a 15 mil</button>
+          <button class="opt" type="button">15 a 20 mil</button>
+          <button class="opt" type="button">20 a 50 mil</button>
+          <button class="opt" type="button">50 a 100 mil</button>
+          <button class="opt" type="button">100 a 500 mil</button>
+          <button class="opt" type="button">500 a 1 mm</button>
+          <button class="opt" type="button">+ de 1mm</button>
+        </div>
+      </div>
+
+      <div class="step" data-step="7">
+        <h1>Qual seu Instagram pessoal ou comercial para análise.</h1>
+        <input class="input" id="instagram" placeholder="@seuinstagram" />
+      </div>
+
+      <div class="step" data-step="8">
+        <h1>Última página</h1>
+        <p>Nome completo, WhatsApp, e-mail e nicho.</p>
+        <div class="grid2">
+          <input class="input" id="nome" placeholder="Nome completo" />
+          <input class="input" id="whatsapp" placeholder="WhatsApp com DDD" />
+        </div>
+        <div class="grid2" style="margin-top:12px">
+          <input class="input" id="email" placeholder="E-mail" type="email" />
+          <select class="select" id="nicho">
+            <option value="" selected disabled>Selecione o nicho</option>
+            <option>Trabalhista</option>
+            <option>Tributário</option>
+            <option>Bancário</option>
+            <option>Civil</option>
+            <option>Criminal</option>
+            <option>Imobiliário</option>
+            <option>Outros</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="actions" id="navActions" style="display:none">
+        <button class="btn prev" type="button" id="prevBtn">Voltar</button>
+        <button class="btn next" type="button" id="nextBtn">Continuar</button>
+      </div>
+      <div class="hint" id="hint"></div>
+    </section>
+  </main>
+
+  <script>
+    const totalSteps = 8;
+    let step = 1;
+    const answers = {};
+
+    const bar = document.getElementById('bar');
+    const nav = document.getElementById('navActions');
+    const hint = document.getElementById('hint');
+
+    function track(name, params={}) {
+      try { fbq('trackCustom', name, params); } catch {}
+      try { gtag('event', name, params); } catch {}
+    }
+
+    function render() {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.querySelector(`.step[data-step="${step}"]`).classList.add('active');
+      bar.style.width = `${(step/totalSteps)*100}%`;
+      nav.style.display = step === 1 ? 'none' : 'flex';
+      document.getElementById('nextBtn').textContent = step === 8 ? 'Finalizar' : 'Continuar';
+      hint.textContent = '';
+      track('step_view', { step });
+    }
+
+    function chooseOption(groupEl, value) {
+      groupEl.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+      [...groupEl.querySelectorAll('.opt')].find(o => o.textContent === value)?.classList.add('sel');
+    }
+
+    document.querySelectorAll('.options').forEach(group => {
+      group.querySelectorAll('.opt').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const name = group.dataset.name;
+          const value = btn.textContent.trim();
+          answers[name] = value;
+          chooseOption(group, value);
+          if (name === 'problema') {
+            document.getElementById('outroWrap').style.display = value === 'Outro' ? 'block' : 'none';
+          }
+          track('answer_select', { question: name, answer: value, step });
+        });
+      });
+    });
+
+    document.getElementById('startBtn').addEventListener('click', () => {
+      step = 2;
+      track('quiz_start', { step });
+      render();
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      if (step > 2) step--;
+      render();
+    });
+
+    function validateStep() {
+      if (step === 2 && !answers.colaboradores) return 'Selecione a quantidade de colaboradores.';
+      if (step === 3) {
+        if (!answers.problema) return 'Selecione o que você busca resolver.';
+        if (answers.problema === 'Outro') {
+          const txt = document.getElementById('outroProblema').value.trim();
+          if (!txt) return 'Digite o problema no campo Outro.';
+          answers.problema_outro = txt;
+        }
+      }
+      if (step === 4 && !answers.prazo) return 'Selecione quando pretende resolver.';
+      if (step === 5) {
+        const v = document.getElementById('investimento').value.trim();
+        if (!v) return 'Digite o investimento mensal.';
+        answers.investimento = v;
+      }
+      if (step === 6 && !answers.faturamento) return 'Selecione o faturamento médio.';
+      if (step === 7) {
+        const ig = document.getElementById('instagram').value.trim();
+        if (!ig) return 'Digite seu Instagram para análise.';
+        answers.instagram = ig;
+      }
+      if (step === 8) {
+        const nome = document.getElementById('nome').value.trim();
+        const whatsapp = document.getElementById('whatsapp').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const nicho = document.getElementById('nicho').value.trim();
+        if (!nome || !whatsapp || !email || !nicho) return 'Preencha todos os campos da última página.';
+        answers.nome = nome;
+        answers.whatsapp = whatsapp;
+        answers.email = email;
+        answers.nicho = nicho;
+      }
+      return '';
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      const err = validateStep();
+      if (err) {
+        hint.textContent = err;
+        track('validation_error', { step, error: err });
+        return;
+      }
+      if (step < 8) {
+        step++;
+        render();
+        return;
+      }
+
+      const payload = {
+        ...answers,
+        problema_final: answers.problema === 'Outro' ? (answers.problema_outro || 'Outro') : answers.problema,
+        origem: 'form-adv-v6',
+        ts: new Date().toISOString()
+      };
+
+      sessionStorage.setItem('advanx_form_adv_v6', JSON.stringify(payload));
+      const q = encodeURIComponent(JSON.stringify(payload));
+      track('quiz_submit', { step: 8, nicho: payload.nicho });
+      window.location.href = `/form-adv-v6-obrigado.html?d=${q}`;
+    });
+
+    render();
+  </script>
+</body>
+</html>
