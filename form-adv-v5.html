@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diagnóstico Advanx</title>
   <style>
-    :root{--bg:#0b0b0f;--card:#14141c;--text:#f5f7ff;--muted:#aeb3c2;--primary:#6d5cff;--primary2:#8f84ff;--ok:#28d17c}
-    *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#09090d,#12121a);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}
+    :root{--bg:#0b0b0f;--card:#14141c;--text:#f5f7ff;--muted:#aeb3c2;--primary:#6d5cff;--primary2:#8f84ff}
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#09090d,#12121a);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}
     .wrap{max-width:760px;margin:32px auto;padding:16px}
     .card{background:var(--card);border:1px solid #242436;border-radius:18px;padding:26px;box-shadow:0 10px 40px rgba(0,0,0,.35)}
-    h1{font-size:clamp(24px,3vw,34px);margin:0 0 8px} p{color:var(--muted);margin:0 0 22px}
+    h1{font-size:clamp(24px,3vw,34px);margin:0 0 8px}
+    p{color:var(--muted);margin:0 0 22px}
+    .hidden{display:none}
     label{display:block;font-weight:600;margin:14px 0 8px}
     input,select{width:100%;padding:14px;border-radius:12px;border:1px solid #30344a;background:#0f1018;color:#fff;font-size:16px}
     input:focus,select:focus{outline:none;border-color:var(--primary2);box-shadow:0 0 0 3px rgba(109,92,255,.2)}
@@ -19,15 +22,21 @@
 </head>
 <body>
   <main class="wrap">
-    <section class="card">
-      <h1>Preencha para liberar seu diagnóstico</h1>
-      <p>Leva menos de 1 minuto.</p>
+    <section class="card" id="step1">
+      <h1>Diagnóstico rápido Advanx</h1>
+      <p>Clique em continuar para ir para a última página e preencher seus dados.</p>
+      <button id="goLastPage" type="button">Continuar</button>
+    </section>
+
+    <section class="card hidden" id="step2">
+      <h1>Última página: seus dados</h1>
+      <p>Preencha e avance para a página com vídeo + botão do WhatsApp.</p>
 
       <form id="leadForm">
         <label for="nome">Nome completo</label>
         <input id="nome" name="nome" type="text" required placeholder="Ex: João da Silva" />
 
-        <label for="whatsapp">WhatsApp</label>
+        <label for="whatsapp">Telefone / WhatsApp</label>
         <input id="whatsapp" name="whatsapp" type="tel" required placeholder="(71) 99999-9999" />
 
         <label for="email">E-mail</label>
@@ -45,13 +54,22 @@
           <option>Outros</option>
         </select>
 
-        <button type="submit">Continuar</button>
-        <div class="tiny">Ao continuar, você será redirecionado para a página com vídeo e botão de WhatsApp.</div>
+        <button type="submit">Ir para o vídeo</button>
+        <div class="tiny">Você será redirecionado para a página final com vídeo e botão do WhatsApp com texto preenchido.</div>
       </form>
     </section>
   </main>
 
   <script>
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+
+    document.getElementById('goLastPage').addEventListener('click', () => {
+      step1.classList.add('hidden');
+      step2.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
     document.getElementById('leadForm').addEventListener('submit', function (e) {
       e.preventDefault();
       const data = new FormData(e.target);
