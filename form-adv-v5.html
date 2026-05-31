@@ -1,520 +1,67 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanx IA - Inteligência Comercial para Advocacia</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
-    
-    <!-- ==========================================
-         TRACKING SCRIPTS
-    =========================================== -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-98EL5GXG5F');
-    </script>
-
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '502759528362336'); 
-    fbq('track', 'PageView');
-    </script>
-
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --text-main: #1a1a1a;
-            --text-muted: #6b7280;
-            --highlight: #fef3c7;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        .serif { font-family: 'Merriweather', serif; }
-
-        input, textarea, select {
-            -webkit-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
-        }
-
-        .container-doc {
-            max-width: 780px;
-            margin: 0 auto;
-            padding: 60px 24px;
-        }
-
-        .headline-main {
-            font-family: 'Merriweather', serif;
-            font-weight: 900;
-            color: #000000;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            text-transform: uppercase;
-        }
-
-        .subheadline-grey {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            font-weight: 400;
-            line-height: 1.5;
-        }
-
-        .highlight-tag {
-            background-color: var(--highlight);
-            padding: 2px 8px;
-            font-weight: 700;
-            border-radius: 2px;
-            color: #000;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .section-divider {
-            border-top: 1px solid #f3f4f6;
-            margin: 60px 0;
-        }
-
-        .doc-list li {
-            position: relative;
-            padding-left: 1.75rem;
-            margin-bottom: 0.75rem;
-        }
-        .doc-list li::before {
-            content: "—";
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            color: #000;
-        }
-
-        .cta-button {
-            background-color: #000000;
-            color: #ffffff;
-            padding: 18px 32px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 1rem;
-            display: inline-block;
-            transition: all 0.2s ease;
-            text-align: center;
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border: none;
-            cursor: pointer;
-        }
-        .cta-button:hover { opacity: 0.85; transform: translateY(-1px); }
-
-        @keyframes pulse-elegant {
-            0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1); }
-            70% { box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
-        }
-        .btn-pulse { animation: pulse-elegant 2s infinite; }
-
-        /* Modal / Form - FIX PARA NÃO CORTAR E BLOQUEAR SAÍDA */
-        #modalOverlay { 
-            display: none; 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(255, 255, 255, 1); 
-            z-index: 100; 
-            align-items: flex-start; 
-            justify-content: center; 
-            padding: 40px 20px; 
-            overflow-y: auto; 
-        }
-        #modalContent { 
-            background: #ffffff; 
-            width: 100%; 
-            max-width: 550px; 
-            position: relative;
-            margin: auto;
-        }
-        
-        .form-label { display: block; font-size: 11px; font-weight: 800; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
-        .form-input { width: 100%; padding: 10px 0; border-bottom: 1px solid #f3f4f6; margin-bottom: 24px; font-size: 16px; outline: none; transition: border-color 0.3s; background: transparent; border-radius: 0; }
-        .form-input:focus { border-color: #000; }
-        
-        .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(0,0,0,0.1); border-radius: 50%; border-top-color: #000; animation: spin 1s infinite linear; margin-right: 10px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Estilo Texto Rejeição */
-        .rejection-text { display: none; text-align: left; animation: fadeIn 0.4s ease; }
-        .rejection-title { font-family: 'Merriweather', serif; font-weight: 800; font-size: 1.4rem; line-height: 1.3; color: #000; margin-bottom: 24px; }
-        .rejection-body { font-family: 'Merriweather', serif; font-style: italic; font-size: 1.05rem; color: #374151; line-height: 1.6; }
-        .rejection-quote { border-left: 3px solid #000; padding-left: 20px; margin: 30px 0; font-family: 'Merriweather', serif; font-weight: 700; font-style: italic; color: #000; font-size: 1.05rem; line-height: 1.7; }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        @media (max-width: 480px) {
-            .rejection-title { font-size: 1.25rem; }
-            .rejection-body, .rejection-quote { font-size: 0.95rem; }
-            .container-doc { padding: 40px 20px; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnóstico Advanx</title>
+  <style>
+    :root{--bg:#0b0b0f;--card:#14141c;--text:#f5f7ff;--muted:#aeb3c2;--primary:#6d5cff;--primary2:#8f84ff;--ok:#28d17c}
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#09090d,#12121a);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}
+    .wrap{max-width:760px;margin:32px auto;padding:16px}
+    .card{background:var(--card);border:1px solid #242436;border-radius:18px;padding:26px;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+    h1{font-size:clamp(24px,3vw,34px);margin:0 0 8px} p{color:var(--muted);margin:0 0 22px}
+    label{display:block;font-weight:600;margin:14px 0 8px}
+    input,select{width:100%;padding:14px;border-radius:12px;border:1px solid #30344a;background:#0f1018;color:#fff;font-size:16px}
+    input:focus,select:focus{outline:none;border-color:var(--primary2);box-shadow:0 0 0 3px rgba(109,92,255,.2)}
+    button{margin-top:22px;width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(90deg,var(--primary),var(--primary2));color:#fff;font-weight:700;font-size:16px;cursor:pointer}
+    .tiny{margin-top:10px;color:#8e93a6;font-size:13px}
+  </style>
 </head>
 <body>
+  <main class="wrap">
+    <section class="card">
+      <h1>Preencha para liberar seu diagnóstico</h1>
+      <p>Leva menos de 1 minuto.</p>
 
-    <div class="container-doc">
-        <!-- HEADLINE -->
-        <header class="mb-10">
-            <h1 class="headline-main text-3xl md:text-5xl mb-8">
-                VOCÊ JÁ FEZ TUDO “CERTO”.<br>
-                E MESMO ASSIM, OS CONTRATOS<br>
-                NÃO VÊM COMO DEVERIAM.
-            </h1>
-            
-            <div class="subheadline-grey mb-10 space-y-4 max-w-2xl">
-                <p>Isso não significa que seu escritório é fraco. Significa que você tentou resolver um problema comercial usando soluções que nunca foram feitas para vender advocacia.</p>
-            </div>
+      <form id="leadForm">
+        <label for="nome">Nome completo</label>
+        <input id="nome" name="nome" type="text" required placeholder="Ex: João da Silva" />
 
-            <div class="flex flex-wrap gap-3 mb-8">
-                <span class="highlight-tag">Sem aparecer</span>
-                <span class="highlight-tag">Sem gravar vídeos</span>
-                <span class="highlight-tag">Sem curiosos</span>
-            </div>
-        </header>
+        <label for="whatsapp">WhatsApp</label>
+        <input id="whatsapp" name="whatsapp" type="tel" required placeholder="(71) 99999-9999" />
 
-        <!-- FOTO -->
-        <div class="mb-10">
-            <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/outro/eu-escritorio.webp" 
-                 alt="Rafael Batista - Advanx IA" 
-                 class="w-full h-auto rounded-sm border border-gray-100 shadow-sm grayscale-[10%]">
-        </div>
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" required placeholder="voce@exemplo.com" />
 
-        <!-- INTRO TEXT -->
-        <section class="mb-16 text-lg text-gray-800 space-y-6">
-            <p>A Advanx IA existe porque tudo o que você tentou antes atua no lugar errado.</p>
-            <p>Se você já investiu dinheiro, tempo e paciência e saiu com a sensação de que “quase funcionou”, <strong>continue lendo.</strong></p>
-            <p>Se você ainda acredita que o próximo gestor, a próxima campanha ou o próximo ajuste vai resolver sozinho, <strong>pare aqui.</strong></p>
-        </section>
+        <label for="nicho">Nicho</label>
+        <select id="nicho" name="nicho" required>
+          <option value="" selected disabled>Selecione</option>
+          <option>Trabalhista</option>
+          <option>Tributário</option>
+          <option>Bancário</option>
+          <option>Civil</option>
+          <option>Criminal</option>
+          <option>Imobiliário</option>
+          <option>Outros</option>
+        </select>
 
-        <!-- PRÁTICA -->
-        <section class="mb-16">
-            <h2 class="text-xl font-bold mb-6 serif">Você é advogado. Você estudou anos para dominar o direito.</h2>
-            <p class="text-lg text-gray-700 mb-6">Mas, na prática:</p>
-            <ul class="doc-list text-lg text-gray-700 mb-10">
-                <li>Você depende de gente que some</li>
-                <li>Conversa com quem não pode pagar</li>
-                <li>Explica seu trabalho para quem não decide</li>
-                <li>Atende muito</li>
-                <li>Fecha pouco</li>
-                <li>E no fim do mês, o esforço não se converte como deveria</li>
-            </ul>
+        <button type="submit">Continuar</button>
+        <div class="tiny">Ao continuar, você será redirecionado para a página com vídeo e botão de WhatsApp.</div>
+      </form>
+    </section>
+  </main>
 
-            <div class="border-l-4 border-black pl-6 py-2 my-12">
-                <p class="text-xl font-bold uppercase italic">E o mais irritante: 👉 você já tentou resolver isso.</p>
-            </div>
-        </section>
-
-        <!-- INVESTIMENTOS -->
-        <section class="mb-16">
-            <p class="text-lg font-bold mb-6">Você já:</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 mb-10 text-gray-700 text-lg italic font-light">
-                <p>• Colocou dinheiro em anúncios</p>
-                <p>• Confiou em agência</p>
-                <p>• Confiou em gestor</p>
-                <p>• Produziu conteúdo</p>
-                <p>• Mudou abordagem</p>
-                <p>• Mudou discurso</p>
-                <p>• Mudou promessa</p>
-            </div>
-            
-            <p class="text-lg font-bold mb-6">E teve três possíveis resultados:</p>
-            <div class="space-y-4 text-lg font-semibold mb-12 pl-4">
-                <p>1️⃣ Não fechou nada</p>
-                <p>2️⃣ Fechou pouco</p>
-                <p>3️⃣ Fechou, mas quando somou tudo… empatou</p>
-            </div>
-            
-            <div class="text-lg text-gray-800 space-y-6">
-                <p>Se identifica com qualquer um deles, o problema não é execução.</p>
-                <p>Advogados não perdem contratos porque “o mercado está difícil”. <strong>Perdem porque ninguém filtra o cliente antes de chegar até você.</strong></p>
-            </div>
-        </section>
-
-        <div class="section-divider"></div>
-
-        <!-- CONTROLE DA CONVERSA -->
-        <section class="mb-16">
-            <p class="text-lg font-bold mb-6 uppercase tracking-wider">Enquanto você:</p>
-            <ul class="doc-list text-lg text-gray-700 mb-8">
-                <li>Atende qualquer contato</li>
-                <li>Responde qualquer mensagem</li>
-                <li>Explica tudo do zero</li>
-                <li>Perde tempo com gente errada</li>
-            </ul>
-            <p class="text-2xl font-black text-black uppercase serif leading-tight mb-10">O bom cliente se perde no meio do lixo.</p>
-            
-            <div class="text-lg text-gray-700 space-y-6">
-                <p>E nenhuma campanha resolve isso. Nenhuma landing resolve isso. Nenhum gestor resolve isso.</p>
-                <p>Porque o erro não é gerar interesse. <strong>É não controlar a conversa.</strong></p>
-                <p class="text-xl font-bold text-black border-b-2 border-black inline-block">A Advanx IA não melhora seu marketing. Ela SUBSTITUI a parte que sempre falhou.</p>
-            </div>
-        </section>
-
-        <!-- O QUE ASSUMIMOS -->
-        <section class="mb-20">
-            <p class="text-lg mb-8">Nós assumimos o que você nunca deveria ter feito:</p>
-            <div class="flex flex-wrap gap-x-12 gap-y-4 text-xl font-bold text-black mb-12 uppercase italic serif tracking-tighter">
-                <span>👉 atender</span>
-                <span>👉 explicar</span>
-                <span>👉 filtrar</span>
-                <span>👉 convencer</span>
-            </div>
-
-            <div class="text-lg text-gray-800 space-y-6">
-                <p>Antes do cliente falar com você, ele já passou por uma <strong>Secretária IA jurídica</strong>, treinada por tese, não por script genérico. A conversa não começa do zero.</p>
-                
-                <p class="font-bold text-sm uppercase tracking-widest text-gray-400">Nossa Secretária IA já sabe lidar com casos como:</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2 text-gray-900 font-medium serif italic">
-                    <p>— Reclamação trabalhista</p>
-                    <p>— Reconhecimento de vínculo</p>
-                    <p>— Rescisão indireta</p>
-                    <p>— Auxílio-acidente</p>
-                    <p>— BPC/LOAS</p>
-                    <p>— Direito do passageiro aéreo</p>
-                    <p>— RMC, RCC e tarifas bancárias</p>
-                    <p>— Superendividamento</p>
-                    <p>— Salário-maternidade</p>
-                </div>
-                <p class="text-lg text-gray-600 font-light italic">Ela entende a dor. Sabe o que perguntar. Sabe quando encerrar a conversa. Quando o contato chega até você, não é curiosidade. <strong>É intenção real.</strong></p>
-            </div>
-        </section>
-
-        <!-- NÃO APARECER -->
-        <section class="mb-16 bg-gray-50 p-10 md:p-14">
-            <h2 class="text-2xl font-black text-black uppercase serif mb-6">“MAS EU NÃO QUERO APARECER”</h2>
-            <div class="text-lg text-gray-800 space-y-6">
-                <p>Perfeito. Você não aparece.</p>
-                <p>Se necessário, atores representam o escritório, com linguagem jurídica, postura adequada e narrativa alinhada ao seu posicionamento. O cliente confia. Você não se expõe. O contrato anda.</p>
-            </div>
-        </section>
-
-        <!-- GARANTIA 41 DIAS -->
-        <section class="mb-20 py-20 border-y border-gray-100 text-center">
-            <p class="text-xs uppercase tracking-[0.3em] text-gray-400 font-black mb-6">Aqui está a diferença que separa conversa de realidade:</p>
-            <h2 class="text-7xl md:text-9xl font-black text-black mb-10 serif italic tracking-tighter">41 DIAS.</h2>
-            <div class="text-xl md:text-2xl text-gray-800 max-w-2xl mx-auto space-y-6 leading-relaxed font-light">
-                <p>Se, em até 41 dias, os contatos gerados não se convertem em contratos, <strong>você fica isento. Você não paga.</strong> Simples.</p>
-                <p class="text-lg text-gray-400 italic">Porque quando a conversa é certa, com a pessoa certa, no momento certo, o contrato acontece. Se não acontecer, o erro é nosso.</p>
-            </div>
-        </section>
-
-        <!-- CTA FINAL -->
-        <section class="mb-20 text-center">
-            <div class="max-w-xl mx-auto space-y-12">
-                <p class="text-lg text-gray-700 leading-relaxed">Essa página não é para convencer você. É para evitar perda de tempo dos dois lados. Se você já tentou de tudo e sentiu que sempre travava no mesmo ponto:</p>
-                
-                <button onclick="openModal()" class="cta-button btn-pulse shadow-xl">
-                    👉 clique no botão abaixo e vá para o WhatsApp.
-                </button>
-                
-                <div class="text-sm text-gray-400 uppercase tracking-widest space-y-3 font-medium">
-                    <p>Lá, nós mostramos como funciona na prática.</p>
-                    <p>Sem promessa. Sem empurrar.</p>
-                    <p class="text-black font-bold border-b border-black inline-block">Se fizer sentido, você continua. Se não fizer, você sai ileso.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- FOOTER RAFAEL -->
-        <footer class="mt-20 pt-16 border-t border-gray-100 text-[11px] text-gray-400 uppercase tracking-widest leading-loose">
-            <p class="mb-4 font-black text-gray-500">RAFAEL BATISTA, FUNDADOR DA ADVANX.</p>
-            <p>Nos últimos 5 anos atendi mais de 400 escritórios de advocacia. Vi bons advogados perdendo R$50k, R$80k, R$120k por mês simplesmente porque o lead esfriou ou o filtro era inexistente. Construímos este sistema para devolver o tempo e a rentabilidade ao advogado sério.</p>
-            <p class="mt-12 text-center text-[9px] text-gray-300">
-                &copy; 2024 ADVANX SYSTEM. INTELIGÊNCIA COMERCIAL ESPECIALIZADA.
-            </p>
-        </footer>
-    </div>
-
-    <!-- MODAL -->
-    <div id="modalOverlay">
-        <div id="modalContent">
-            <!-- FORMULÁRIO -->
-            <div id="formSection">
-                <h2 class="text-2xl md:text-3xl serif font-bold mb-2 italic">Preencha para falar conosco.</h2>
-                <p class="text-gray-400 text-[10px] mb-10 uppercase tracking-[0.2em] font-bold">Atendimento prioritário via WhatsApp</p>
-                
-                <form id="leadForm" onsubmit="handleForm(event)">
-                    <label class="form-label">Nome Completo</label>
-                    <input type="text" name="nome" required class="form-input" placeholder="DIGITE SEU NOME">
-                    
-                    <label class="form-label">WhatsApp (DDD + Número)</label>
-                    <input type="tel" name="telefone" required class="form-input" placeholder="EX: 11 99999-9999" maxlength="11" oninput="this.value = this.value.replace(/\D/g, '')">
-                    
-                    <label class="form-label">Principal área de atuação</label>
-                    <input type="text" name="area_direito" required class="form-input" placeholder="EX: TRABALHISTA, PREVIDENCIÁRIO...">
-
-                    <label class="form-label">Faturamento mensal médio</label>
-                    <select name="faturamento" required class="form-input" id="faturamento">
-                        <option value="" disabled selected>SELECIONE O FATURAMENTO</option>
-                        <option value="0 a 5 mil reais">0 a 5 mil reais</option>
-                        <option value="5 a 10 mil reais">5 a 10 mil reais</option>
-                        <option value="10 a 20 mil reais">10 a 20 mil reais</option>
-                        <option value="20 a 50 mil reais">20 a 50 mil reais</option>
-                        <option value="50 a 100 mil reais">50 a 100 mil reais</option>
-                        <option value="100 a 500 mil reais">100 a 500 mil reais</option>
-                        <option value="500 mil reais a 1 mm">500 mil reais a 1 mm</option>
-                        <option value="+ de 1mm">+ de 1mm</option>
-                    </select>
-
-                    <label class="form-label">Doutor, quando você pretende resolver esse problema?</label>
-                    <select name="tempo_resolucao" required class="form-input" id="tempoResolucao">
-                        <option value="" disabled selected>SELECIONE O PRAZO</option>
-                        <option value="O quanto antes!">O quanto antes!</option>
-                        <option value="Nos Próximos dias">Nos Próximos dias</option>
-                        <option value="Não sei ainda.">Não sei ainda.</option>
-                    </select>
-                    
-                    <button type="submit" class="cta-button w-full mt-4 !bg-black !text-white shadow-xl">
-                        <span id="btnText">CONTINUAR NO WHATSAPP</span>
-                    </button>
-                </form>
-                <p class="text-[9px] text-gray-300 text-center mt-12 uppercase tracking-widest font-medium">Privacidade absoluta. Dados protegidos pela LGPD.</p>
-            </div>
-
-            <!-- MENSAGEM DE REJEIÇÃO -->
-            <div id="rejectionSection" class="rejection-text">
-                <h3 class="rejection-title">Nós não trabalhamos com advogados que ainda “não sabem” quando querem resolver um problema que já custou dinheiro, tempo e energia.</h3>
-                
-                <div class="rejection-body space-y-6">
-                    <p>Se depois de ler esta carta você ainda não tem urgência, está tudo bem.</p>
-                    <p>Só significa que este ainda não é o seu momento para ter resultados sólidos e consistentes.</p>
-                    
-                    <div class="rejection-quote">
-                        <p>Continue como está.</p>
-                        <p>Consuma mais conteúdo.</p>
-                        <p>Observe outros fecharem contratos enquanto você adia decisões.</p>
-                    </div>
-                    
-                    <p class="pt-4 text-black border-t border-gray-100">Quando a dor ficar clara o suficiente, talvez faça sentido conversar.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const WA_NUMBER = '5571992894634';
-        const WEBHOOK_URL = 'https://n8n.advfunnel.com.br/webhook/cb33d994-f6ab-446a-9ba7-fc6f4fd24e0e/:leads';
-        
-        let viewContentFired = false;
-        window.addEventListener('scroll', () => {
-            if (!viewContentFired && window.scrollY > 150) {
-                if (typeof fbq === 'function') fbq('track', 'ViewContent');
-                if (typeof gtag === 'function') gtag('event', 'view_content');
-                viewContentFired = true;
-            }
-        });
-
-        function getUTMs() {
-            const params = new URLSearchParams(window.location.search);
-            const utms = {};
-            ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(key => {
-                if (params.has(key)) utms[key] = params.get(key);
-            });
-            return utms;
-        }
-
-        function openModal() {
-            document.getElementById('modalOverlay').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            document.getElementById('formSection').style.display = 'block';
-            document.getElementById('rejectionSection').style.display = 'none';
-        }
-
-        async function handleForm(event) {
-            event.preventDefault();
-            const form = event.target;
-            const btnText = document.getElementById('btnText');
-            const urgency = document.getElementById('tempoResolucao').value;
-            const fatValue = document.getElementById('faturamento').value;
-            
-            if (form.telefone.value.length < 10) {
-                alert("Por favor, insira um número válido.");
-                return;
-            }
-
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-            const utms = getUTMs();
-            const finalData = { ...data, ...utms, origem: window.location.href, ts: new Date().toISOString() };
-
-            try {
-                fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(finalData)
-                });
-            } catch (e) { console.error('Log error'); }
-
-            if (urgency === "Não sei ainda.") {
-                document.getElementById('formSection').style.display = 'none';
-                document.getElementById('rejectionSection').style.display = 'block';
-                return; 
-            }
-
-            btnText.innerHTML = '<div class="spinner"></div> PROCESSANDO...';
-            form.querySelector('button').disabled = true;
-
-            // RASTREAMENTO CONDICIONAL PADRÃO (Lead)
-            if (typeof fbq === 'function') fbq('track', 'Lead');
-            if (typeof gtag === 'function') gtag('event', 'generate_lead');
-
-            // LÓGICA LEAD QUALIFICADO (Extra)
-            // Se Faturamento > 20k E (Urgência Imediata ou Próximos dias)
-            const qualifiedBilling = [
-                "20 a 50 mil reais",
-                "50 a 100 mil reais",
-                "100 a 500 mil reais",
-                "500 mil reais a 1 mm",
-                "+ de 1mm"
-            ].includes(fatValue);
-
-            const qualifiedUrgency = ["O quanto antes!", "Nos Próximos dias"].includes(urgency);
-
-            if (qualifiedBilling && qualifiedUrgency) {
-                if (typeof fbq === 'function') fbq('trackCustom', 'Lead Qualificado');
-                if (typeof gtag === 'function') gtag('event', 'lead_qualificado');
-            }
-
-            btnText.innerText = "DADOS RECEBIDOS. REDIRECIONANDO...";
-
-            const utmMsg = Object.entries(utms).map(([k, v]) => `${k}: ${v}`).join('\n');
-            const msg = `Olá, vim da página Advanx IA.\n\n*Dados do Lead:*\nNome: ${finalData.nome}\nTelefone: ${finalData.telefone}\nÁrea: ${finalData.area_direito}\nFaturamento: ${finalData.faturamento}\nUrgência: ${urgency}\n\n${utmMsg}`;
-            
-            setTimeout(() => {
-                window.location.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-            }, 1200);
-        }
-
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if ((e.ctrlKey && ['c','u','s','p'].includes(e.key.toLowerCase())) || e.key === 'F12') e.preventDefault();
-        });
-    </script>
+  <script>
+    document.getElementById('leadForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const params = new URLSearchParams();
+      params.set('nome', (data.get('nome') || '').toString().trim());
+      params.set('whatsapp', (data.get('whatsapp') || '').toString().trim());
+      params.set('email', (data.get('email') || '').toString().trim());
+      params.set('nicho', (data.get('nicho') || '').toString().trim());
+      window.location.href = '/form-adv-v5-obrigado.html?' + params.toString();
+    });
+  </script>
 </body>
 </html>
