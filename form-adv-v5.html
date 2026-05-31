@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diagnóstico IA Autônoma | Advanx</title>
+  <title>Contato | Advanx</title>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
   <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','502759528362336');fbq('track','PageView');</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-98EL5GXG5F');</script>
@@ -38,7 +40,7 @@
   <div class="progress"><div class="bar" id="bar"></div></div>
 
   <div class="step active" data-step="1">
-    <h1>Preencha para descobrir como acelerar o seu operacional até suas vendas,</h1>
+    <h1>Preencha para descobrir como acelerar o seu operacional até suas vendas</h1>
     <p>aplicando IA Autônoma, Automações, controle de dados e Aquisição de clientes qualificados.</p>
     <p class="small"><span class="strong">Com garantia de resultados em até 41 dias.</span></p>
     <div class="actions"><button class="btn next" id="btnStart" type="button">Continuar</button></div>
@@ -99,6 +101,13 @@ document.querySelectorAll('.options').forEach(g=>{
   }));
 });
 
+const WEBHOOK_URL='https://n8n.advfunnel.com.br/webhook/cb33d994-f6ab-446a-9ba7-fc6f4fd24e0e/:leads';
+
+async function notifyLead(payload){
+  const msg={origem:'form-adv-v5',pagina:'Contato',nome:payload.nome,whatsapp:payload.whatsapp_normalizado,email:payload.email,nicho:payload.nicho,colaboradores:payload.colaboradores,problema:payload.problema_final,prazo:payload.prazo,investimento:payload.investimento,faturamento:payload.faturamento,instagram:payload.instagram,ts:new Date().toISOString()};
+  try{ await fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(msg)}); }catch(e){ console.error('notifyLead error',e); }
+}
+
 async function saveLead(payload){
   const body={nome:payload.nome||null,telefone:payload.whatsapp_normalizado||null,email:payload.email||null,area:payload.nicho||null,colaborador:payload.colaboradores||null,faturamento:payload.faturamento||null,prazo_implementacao:payload.prazo||null,instagram:payload.instagram||null,nicho:'Jurídico',kanban_stage:'novo',origem:'form-adv-v5',funil_lead:'Advanx',empresa_fonte:'Advanx',pipeline_type:'inbound',observacoes:`problema=${payload.problema_final||''} | investimento=${payload.investimento||''}`,created_at:new Date().toISOString()};
   const r=await fetch('https://lhbwfbquxkutcyqazpnw.supabase.co/rest/v1/dados_cliente',{method:'POST',headers:{'Content-Type':'application/json','apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10','Prefer':'return=representation'},body:JSON.stringify(body)});
@@ -121,12 +130,19 @@ $('#next').addEventListener('click',async()=>{
   if(step<8){step++;show(step);return;}
   const payload={...a,problema_final:a.problema==='Outro'?(a.problema_outro||'Outro'):a.problema,origem:'form-adv-v5',ts:new Date().toISOString()};
   try{await saveLead(payload);}catch(ex){console.error(ex);err.textContent='Erro ao salvar lead. Tente novamente.';return;}
+  notifyLead(payload);
   sessionStorage.setItem('advanx_form_adv_v5',JSON.stringify(payload));
   track('quiz_submit',{nicho:payload.nicho});
   window.location.href='/form-adv-v5-obrigado.html?d='+encodeURIComponent(JSON.stringify(payload));
 });
 
 show(step);
+
+document.addEventListener('contextmenu',(e)=>e.preventDefault());
+document.addEventListener('keydown',(e)=>{
+  const k=e.key.toLowerCase();
+  if(k==='f12' || ((e.ctrlKey||e.metaKey)&&e.shiftKey&&['i','j','c'].includes(k)) || ((e.ctrlKey||e.metaKey)&&['u','s'].includes(k))) e.preventDefault();
+});
 </script>
 </body>
 </html>
