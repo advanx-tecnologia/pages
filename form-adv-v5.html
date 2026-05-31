@@ -54,7 +54,7 @@
   </div>
 
   <div class="step" data-step="2"><h2>Quantidade de colaboradores</h2><div class="options" data-k="colaboradores"><button class="opt" type="button">Apenas eu</button><button class="opt" type="button">1 a 3</button><button class="opt" type="button">3 a 10</button><button class="opt" type="button">10 a 50</button><button class="opt" type="button">Mais de 50</button></div></div>
-  <div class="step" data-step="3"><h2>O que vc busca resolver?</h2><div class="options" data-k="problema"><button class="opt" type="button">Leads desqualificados</button><button class="opt" type="button">Baixa taxa de conversão dos clientes.</button><button class="opt" type="button">Atendimento lento</button><button class="opt" type="button">Produção de conteúdo todos os dias com o seu clone.</button><button class="opt" type="button">Acompanhar prazos e audiências automaticamente.</button><button class="opt" type="button">Análise de documentos mais rápida e eficiente.</button><button class="opt" type="button">Preciso de mais clientes chegando.</button><button class="opt" type="button">Outro</button></div><div id="outroBox" style="display:none;margin-top:10px"><input id="outro" placeholder="Digite aqui" /></div></div>
+  <div class="step" data-step="3"><h2>O que vc busca resolver?</h2><div class="options" data-k="problema"><button class="opt" type="button">Leads desqualificados.</button><button class="opt" type="button">Baixa taxa de conversão dos clientes.</button><button class="opt" type="button">Atendimento lento.</button><button class="opt" type="button">Produção de conteúdo todos os dias com o seu clone.</button><button class="opt" type="button">Acompanhar prazos e audiências automaticamente.</button><button class="opt" type="button">Análise de documentos mais rápida e eficiente.</button><button class="opt" type="button">Preciso de mais clientes chegando.</button><button class="opt" type="button">Outro.</button></div><div id="outroBox" style="display:none;margin-top:10px"><input id="outro" placeholder="Digite aqui" /></div></div>
   <div class="step" data-step="4"><h2 id="q4Title">Quando você pretende resolver?</h2><div class="options" data-k="prazo"><button class="opt" type="button">O quanto antes</button><button class="opt" type="button">Nos próximos 30d</button><button class="opt" type="button">Ainda não sei</button></div></div>
   <div class="step" data-step="5"><h2 id="q5Title">Quanto você reservou para investir mensalmente para resolver o seu problema?</h2><p class="small">O valor não influencia em nada nossos preços, o valor que vc pode investir vai apenas direcionar qual a solução ideal para o seu momento.</p><input id="investimento" placeholder="Digite o valor" /></div>
   <div class="step" data-step="6"><h2>Qual o faturamento médio mensal?</h2><div class="options two-cols" data-k="faturamento"><button class="opt" type="button">Abaixo de 10 mil</button><button class="opt" type="button">10 a 15 mil</button><button class="opt" type="button">15 a 20 mil</button><button class="opt" type="button">20 a 50 mil</button><button class="opt" type="button">50 a 100 mil</button><button class="opt" type="button">100 a 500 mil</button><button class="opt" type="button">500 a 1 mm</button><button class="opt" type="button">+ de 1mm</button></div></div>
@@ -70,7 +70,8 @@ const total=8; let step=1; const a={};
 const $=(s)=>document.querySelector(s);
 const bar=$('#bar'), err=$('#err'), nav=$('#nav');
 const track=(n,p={})=>{try{fbq('trackCustom',n,p)}catch(e){} try{gtag('event',n,p)}catch(e){}};
-const problemText=()=>a.problema==='Outro'?(a.problema_outro||'Outro'):(a.problema||'seu problema');
+const isOutro=()=>a.problema==='Outro.';
+const problemText=()=>isOutro()?(a.problema_outro||'Outro'):(a.problema||'seu problema');
 const updateDynamic=()=>{$('#q4Title').textContent=`Quando você pretende resolver seu problema de ${problemText()}?`;$('#q5Title').textContent=`Quanto você reservou para investir mensalmente para resolver o seu problema com ${problemText()}?`;};
 const show=(s)=>{document.querySelectorAll('.step').forEach(x=>x.classList.remove('active'));document.querySelector(`.step[data-step="${s}"]`).classList.add('active');bar.style.width=(s/total*100)+'%';nav.style.display=s===1?'none':'flex';$('#next').textContent=s===8?'Finalizar':'Continuar';err.textContent='';updateDynamic();track('step_view',{step:s});};
 const goNext=()=>{if(step<8){step++;show(step);}};
@@ -101,8 +102,8 @@ document.querySelectorAll('.options').forEach(g=>{
     g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
     a[g.dataset.k]=b.textContent.trim();
     if(g.dataset.k==='problema'){
-      $('#outroBox').style.display=a.problema==='Outro'?'block':'none'; updateDynamic();
-      if(a.problema!=='Outro') setTimeout(goNext,150);
+      $('#outroBox').style.display=isOutro()?'block':'none'; updateDynamic();
+      if(!isOutro()) setTimeout(goNext,150);
     } else setTimeout(goNext,150);
     track('answer_select',{step,question:g.dataset.k,answer:a[g.dataset.k]});
   }));
@@ -123,7 +124,7 @@ async function saveLead(payload){
 
 function validate(){
   if(step===2&&!a.colaboradores) return 'Selecione a quantidade de colaboradores.';
-  if(step===3){if(!a.problema) return 'Selecione o problema.'; if(a.problema==='Outro'){const v=$('#outro').value.trim(); if(!v) return 'Digite o campo Outro.'; a.problema_outro=v; updateDynamic();}}
+  if(step===3){if(!a.problema) return 'Selecione o problema.'; if(isOutro()){const v=$('#outro').value.trim(); if(!v) return 'Digite o campo Outro.'; a.problema_outro=v; updateDynamic();}}
   if(step===4&&!a.prazo) return 'Selecione o prazo.';
   if(step===5){const v=$('#investimento').value.trim(); if(!v) return 'Digite o investimento.'; a.investimento=v;}
   if(step===6&&!a.faturamento) return 'Selecione o faturamento.';
@@ -135,7 +136,7 @@ function validate(){
 $('#next').addEventListener('click',async()=>{
   const e=validate(); if(e){err.textContent=e;track('validation_error',{step,error:e});return;}
   if(step<8){step++;show(step);return;}
-  const payload={...a,problema_final:a.problema==='Outro'?(a.problema_outro||'Outro'):a.problema,origem:'form-adv-v5',ts:new Date().toISOString()};
+  const payload={...a,problema_final:isOutro()?(a.problema_outro||'Outro'):a.problema,origem:'form-adv-v5',ts:new Date().toISOString()};
   try{await saveLead(payload);}catch(ex){console.error(ex);err.textContent='Erro ao salvar lead. Tente novamente.';return;}
   notifyLead(payload);
   sessionStorage.setItem('advanx_form_adv_v5',JSON.stringify(payload));
