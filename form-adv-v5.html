@@ -3,83 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diagnóstico Advanx</title>
+  <title>Form Adv V5 | Advanx IA</title>
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','502759528362336');fbq('track','PageView');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-98EL5GXG5F');</script>
   <style>
-    :root{--bg:#0b0b0f;--card:#14141c;--text:#f5f7ff;--muted:#aeb3c2;--primary:#6d5cff;--primary2:#8f84ff}
-    *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#09090d,#12121a);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}
-    .wrap{max-width:760px;margin:32px auto;padding:16px}
-    .card{background:var(--card);border:1px solid #242436;border-radius:18px;padding:26px;box-shadow:0 10px 40px rgba(0,0,0,.35)}
-    h1{font-size:clamp(24px,3vw,34px);margin:0 0 8px}
-    p{color:var(--muted);margin:0 0 22px}
-    .hidden{display:none}
-    label{display:block;font-weight:600;margin:14px 0 8px}
-    input,select{width:100%;padding:14px;border-radius:12px;border:1px solid #30344a;background:#0f1018;color:#fff;font-size:16px}
-    input:focus,select:focus{outline:none;border-color:var(--primary2);box-shadow:0 0 0 3px rgba(109,92,255,.2)}
-    button{margin-top:22px;width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(90deg,var(--primary),var(--primary2));color:#fff;font-weight:700;font-size:16px;cursor:pointer}
-    .tiny{margin-top:10px;color:#8e93a6;font-size:13px}
+    :root{--bg:#f6f7fb;--card:#fff;--text:#141625;--muted:#666d80;--line:#e4e7f2;--p:#5a5ee6}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+    .card{width:min(880px,100%);background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:0 10px 30px rgba(0,0,0,.07)}
+    .progress{height:8px;background:#eceffd;border-radius:999px;overflow:hidden;margin-bottom:20px}.bar{height:100%;width:0;background:linear-gradient(90deg,#6b6fff,#4f53df);transition:.2s}
+    .step{display:none}.step.active{display:block}h1{font-size:clamp(24px,3vw,38px);line-height:1.15;margin:0 0 10px}p{margin:0 0 16px;color:var(--muted)}.small{font-size:14px}.strong{font-weight:800;color:#101220}
+    .options{display:grid;gap:10px} .options.two-cols{grid-template-columns:1fr 1fr} @media(max-width:700px){.options.two-cols{grid-template-columns:1fr}}
+    .opt{padding:13px 14px;border:1px solid #d9deed;background:#fff;border-radius:12px;cursor:pointer;text-align:left;font-weight:600} .opt.sel{border-color:#5a5ee6;background:#eef0ff}
+    input,select{width:100%;padding:13px;border:1px solid #d9deed;border-radius:12px;font-size:16px} .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px} @media(max-width:700px){.grid2{grid-template-columns:1fr}.card{padding:20px}}
+    .actions{display:flex;gap:10px;margin-top:16px} .btn{border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer} .btn.prev{background:#eceff8} .btn.next{background:#5a5ee6;color:#fff}
+    .err{margin-top:8px;color:#c02626;font-size:14px} .email-suggest{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px} .chip{font-size:12px;padding:6px 10px;border:1px solid #d9deed;border-radius:999px;cursor:pointer;background:#fff}
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <section class="card" id="step1">
-      <h1>Diagnóstico rápido Advanx</h1>
-      <p>Clique em continuar para ir para a última página e preencher seus dados.</p>
-      <button id="goLastPage" type="button">Continuar</button>
-    </section>
+<main class="wrap"><section class="card">
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="step active" data-step="1">
+<h1>Preencha para conhecer quais das nossas soluções de ia Autônoma pode te ajudar a gerar mais receita e reduzir custos.</h1>
+<p class="small"><span class="strong">Com garantia de resultado em contrato em até 41 dias.</span></p>
+<div class="actions"><button class="btn next" id="btnStart" type="button">Continuar</button></div>
+</div>
+<div class="step" data-step="2"><h1>Quantidade de colaboradores</h1><div class="options" data-k="colaboradores"><button class="opt" type="button">Apenas eu</button><button class="opt" type="button">1 a 3</button><button class="opt" type="button">3 a 10</button><button class="opt" type="button">10 a 50</button><button class="opt" type="button">Mais de 50</button></div></div>
+<div class="step" data-step="3"><h1>O que vc busca resolver ?</h1><div class="options" data-k="problema"><button class="opt" type="button">Marketing e vendas</button><button class="opt" type="button">Leads desqualificados</button><button class="opt" type="button">Comercial ineficiente</button><button class="opt" type="button">Atendimento lento</button><button class="opt" type="button">Produção de conteúdo todos os dias</button><button class="opt" type="button">Seu clone Cria e pública por vc</button><button class="opt" type="button">Protocolar mais rápido</button><button class="opt" type="button">Acompanhar prazos e audiências</button><button class="opt" type="button">Análise de documentos mais rápida e eficiente.</button><button class="opt" type="button">Outro</button></div><div id="outroBox" style="display:none;margin-top:10px"><input id="outro" placeholder="Digite aqui" /></div></div>
+<div class="step" data-step="4"><h1 id="q4Title">Quando você pretende resolver?</h1><div class="options" data-k="prazo"><button class="opt" type="button">O quanto antes</button><button class="opt" type="button">Nos próximos 30d</button><button class="opt" type="button">Ainda não sei</button></div></div>
+<div class="step" data-step="5"><h1 id="q5Title">Quanto você reservou para investir mensalmente para resolver o seu problema?</h1><p class="small">O valor não influencia em nada nossos preços, o valor que vc pode investir vai apenas direcionar qual a solução ideal para o seu momento.</p><input id="investimento" placeholder="Digite o valor" /></div>
+<div class="step" data-step="6"><h1>Qual o faturamento médio mensal?</h1><div class="options two-cols" data-k="faturamento"><button class="opt" type="button">Abaixo de 10 mil</button><button class="opt" type="button">10 a 15 mil</button><button class="opt" type="button">15 a 20 mil</button><button class="opt" type="button">20 a 50 mil</button><button class="opt" type="button">50 a 100 mil</button><button class="opt" type="button">100 a 500 mil</button><button class="opt" type="button">500 a 1 mm</button><button class="opt" type="button">+ de 1mm</button></div></div>
+<div class="step" data-step="7"><h1>Qual seu Instagram pessoal ou comercial para análise.</h1><input id="instagram" placeholder="@instagram" /></div>
+<div class="step" data-step="8"><h1>Última página</h1><p>Nome completo, WhatsApp e e-mail e nicho.</p><div class="grid2"><input id="nome" placeholder="Nome completo" /><input id="whatsapp" placeholder="(71) 99999-9999" /></div><div class="grid2" style="margin-top:10px"><div><input id="email" type="email" placeholder="email@provedor.com" /><div id="emailSuggest" class="email-suggest"></div></div><select id="nicho"><option value="" selected disabled>Selecione</option><option>Trabalhista</option><option>Tributário</option><option>Bancário</option><option>Civil</option><option>Criminal</option><option>Imobiliário</option><option>Outros</option></select></div></div>
+<div class="actions" id="nav" style="display:none"><button class="btn prev" id="prev" type="button">Voltar</button><button class="btn next" id="next" type="button">Continuar</button></div><div class="err" id="err"></div>
+</section></main>
+<script>
+const total=8; let step=1; const a={};
+const bar=document.getElementById('bar'), err=document.getElementById('err'), nav=document.getElementById('nav');
+const track=(n,p={})=>{try{fbq('trackCustom',n,p)}catch(e){} try{gtag('event',n,p)}catch(e){}};
+const problemText=()=>a.problema==='Outro'?(a.problema_outro||'Outro'):(a.problema||'seu problema');
+const updateDynamic=()=>{document.getElementById('q4Title').textContent=`Quando você pretende resolver "${problemText()}"?`;document.getElementById('q5Title').textContent=`Quanto você reservou para investir mensalmente para resolver o seu problema com "${problemText()}"?`;};
+const show=s=>{document.querySelectorAll('.step').forEach(x=>x.classList.remove('active'));document.querySelector(`.step[data-step="${s}"]`).classList.add('active');bar.style.width=(s/total*100)+'%';nav.style.display=s===1?'none':'flex';document.getElementById('next').textContent=s===8?'Finalizar':'Continuar';err.textContent='';updateDynamic();track('step_view',{step:s});};
+const goNext=()=>{if(step<8){step++;show(step);}};
+document.getElementById('btnStart').onclick=()=>{step=2;track('quiz_start');show(step)};
+document.getElementById('prev').onclick=()=>{if(step>2){step--;show(step)}};
+function normalizePhoneBR(v){const d=(v||'').replace(/\D/g,'');if(!d)return '';if(d.startsWith('55'))return d;return '55'+d;}
+function formatPhone(v){let d=(v||'').replace(/\D/g,'');if(d.startsWith('55'))d=d.slice(2);if(d.length>11)d=d.slice(0,11);if(d.length<=2)return `(${d}`;if(d.length<=7)return `(${d.slice(0,2)}) ${d.slice(2)}`;if(d.length<=11)return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;return d;}
+const w=document.getElementById('whatsapp');w.addEventListener('input',()=>{w.value=formatPhone(w.value)});
 
-    <section class="card hidden" id="step2">
-      <h1>Última página: seus dados</h1>
-      <p>Preencha e avance para a página com vídeo + botão do WhatsApp.</p>
+function renderEmailSuggestions(){const el=document.getElementById('email');const box=document.getElementById('emailSuggest');const v=el.value.trim();box.innerHTML='';const providers=['gmail.com','outlook.com','hotmail.com','yahoo.com','icloud.com'];if(!v||v.includes('@')){if(v.includes('@')){const [n,d]=v.split('@');if(n&&d){providers.filter(p=>p.startsWith(d.toLowerCase())).forEach(p=>{const c=document.createElement('button');c.type='button';c.className='chip';c.textContent=`${n}@${p}`;c.onclick=()=>{el.value=`${n}@${p}`;box.innerHTML='';};box.appendChild(c);});}} else {providers.forEach(p=>{const c=document.createElement('button');c.type='button';c.className='chip';c.textContent=`${v}@${p}`;c.onclick=()=>{el.value=`${v}@${p}`;box.innerHTML='';};box.appendChild(c);});}}
+document.getElementById('email').addEventListener('input',renderEmailSuggestions);
 
-      <form id="leadForm">
-        <label for="nome">Nome completo</label>
-        <input id="nome" name="nome" type="text" required placeholder="Ex: João da Silva" />
+document.querySelectorAll('.options').forEach(g=>{g.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');a[g.dataset.k]=b.textContent.trim();if(g.dataset.k==='problema'){document.getElementById('outroBox').style.display=a.problema==='Outro'?'block':'none';updateDynamic();if(a.problema!=='Outro')setTimeout(goNext,180);} else {setTimeout(goNext,180);}track('answer_select',{step,question:g.dataset.k,answer:a[g.dataset.k]});});});
 
-        <label for="whatsapp">Telefone / WhatsApp</label>
-        <input id="whatsapp" name="whatsapp" type="tel" required placeholder="(71) 99999-9999" />
+async function saveLead(payload){
+  const body={
+    nome:payload.nome||null,
+    telefone:payload.whatsapp_normalizado||null,
+    email:payload.email||null,
+    area:payload.nicho||null,
+    colaborador:payload.colaboradores||null,
+    faturamento:payload.faturamento||null,
+    prazo_implementacao:payload.prazo||null,
+    instagram:payload.instagram||null,
+    nicho:'Jurídico', kanban_stage:'novo', origem:'form-adv-v5', funil_lead:'Advanx', empresa_fonte:'Advanx', pipeline_type:'inbound',
+    observacoes:`problema=${payload.problema_final||''} | investimento=${payload.investimento||''}`,
+    created_at:new Date().toISOString()
+  };
+  try{
+    await fetch('https://lhbwfbquxkutcyqazpnw.supabase.co/rest/v1/dados_cliente',{method:'POST',headers:{'Content-Type':'application/json','apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10','Prefer':'return=minimal'},body:JSON.stringify(body)});
+  }catch(e){console.error('saveLead error',e);}
+}
 
-        <label for="email">E-mail</label>
-        <input id="email" name="email" type="email" required placeholder="voce@exemplo.com" />
+function validate(){
+ if(step===2&&!a.colaboradores) return 'Selecione a quantidade de colaboradores.';
+ if(step===3){ if(!a.problema) return 'Selecione o problema.'; if(a.problema==='Outro'){const v=document.getElementById('outro').value.trim(); if(!v) return 'Digite o campo Outro.'; a.problema_outro=v; updateDynamic();} }
+ if(step===4&&!a.prazo) return 'Selecione o prazo.';
+ if(step===5){const v=document.getElementById('investimento').value.trim(); if(!v) return 'Digite o investimento.'; a.investimento=v;}
+ if(step===6&&!a.faturamento) return 'Selecione o faturamento.';
+ if(step===7){const v=document.getElementById('instagram').value.trim(); if(!v) return 'Digite o Instagram.'; a.instagram=v;}
+ if(step===8){a.nome=document.getElementById('nome').value.trim();a.whatsapp=document.getElementById('whatsapp').value.trim();a.email=document.getElementById('email').value.trim();a.nicho=document.getElementById('nicho').value.trim(); if(!a.nome||!a.whatsapp||!a.email||!a.nicho) return 'Preencha todos os dados da última página.'; if(!/^\S+@\S+\.\S+$/.test(a.email)) return 'Digite um e-mail válido.'; a.whatsapp_normalizado=normalizePhoneBR(a.whatsapp); if(a.whatsapp_normalizado.length<12) return 'WhatsApp inválido.';}
+ return '';
+}
 
-        <label for="nicho">Nicho</label>
-        <select id="nicho" name="nicho" required>
-          <option value="" selected disabled>Selecione</option>
-          <option>Trabalhista</option>
-          <option>Tributário</option>
-          <option>Bancário</option>
-          <option>Civil</option>
-          <option>Criminal</option>
-          <option>Imobiliário</option>
-          <option>Outros</option>
-        </select>
-
-        <button type="submit">Ir para o vídeo</button>
-        <div class="tiny">Você será redirecionado para a página final com vídeo e botão do WhatsApp com texto preenchido.</div>
-      </form>
-    </section>
-  </main>
-
-  <script>
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
-
-    document.getElementById('goLastPage').addEventListener('click', () => {
-      step1.classList.add('hidden');
-      step2.classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    document.getElementById('leadForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const data = new FormData(e.target);
-      const params = new URLSearchParams();
-      params.set('nome', (data.get('nome') || '').toString().trim());
-      params.set('whatsapp', (data.get('whatsapp') || '').toString().trim());
-      params.set('email', (data.get('email') || '').toString().trim());
-      params.set('nicho', (data.get('nicho') || '').toString().trim());
-      window.location.href = '/form-adv-v5-obrigado.html?' + params.toString();
-    });
-  </script>
-</body>
-</html>
+document.getElementById('next').onclick=async()=>{const e=validate(); if(e){err.textContent=e;track('validation_error',{step,error:e});return;} if(step<8){step++;show(step);return;} const payload={...a,problema_final:a.problema==='Outro'?(a.problema_outro||'Outro'):a.problema,origem:'form-adv-v5',ts:new Date().toISOString()}; sessionStorage.setItem('advanx_form_adv_v5',JSON.stringify(payload)); await saveLead(payload); track('quiz_submit',{nicho:payload.nicho}); window.location.href='/form-adv-v5-obrigado.html?d='+encodeURIComponent(JSON.stringify(payload));};
+show(step);
+</script>
+</body></html>

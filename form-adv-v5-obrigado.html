@@ -1,58 +1,15 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Obrigado - Próximo passo</title>
-  <style>
-    :root{--bg:#0b0b0f;--card:#14141c;--text:#f5f7ff;--muted:#aeb3c2;--primary:#20c15a}
-    *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#09090d,#12121a);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}
-    .wrap{max-width:920px;margin:28px auto;padding:16px}
-    .card{background:var(--card);border:1px solid #242436;border-radius:18px;padding:24px;box-shadow:0 10px 40px rgba(0,0,0,.35)}
-    h1{font-size:clamp(24px,3vw,34px);margin:0 0 10px;text-align:center}
-    p{color:var(--muted);text-align:center;margin:0 0 20px}
-    .video{position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000}
-    iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-    .cta{display:block;margin:22px auto 6px;max-width:420px;text-align:center;text-decoration:none;background:var(--primary);color:#fff;font-weight:800;padding:15px 16px;border-radius:12px}
-    .mini{color:#8e93a6;text-align:center;font-size:13px}
-  </style>
-</head>
-<body>
-  <main class="wrap">
-    <section class="card">
-      <h1>Assista ao vídeo e fale com nosso time</h1>
-      <p>Ao clicar no botão abaixo, suas respostas já irão preenchidas no WhatsApp.</p>
-
-      <div class="video">
-        <iframe src="https://www.youtube.com/embed/Mr7ijm9Cigk?rel=0&modestbranding=1" allowfullscreen></iframe>
-      </div>
-
-      <a id="btnWhatsapp" class="cta" target="_blank" rel="noopener">Falar no WhatsApp agora</a>
-      <div class="mini">Se o botão não abrir, atualize a página e tente novamente.</div>
-    </section>
-  </main>
-
-  <script>
-    const WHATSAPP_NUMBER = '5571982470873';
-
-    const p = new URLSearchParams(window.location.search);
-    const nome = (p.get('nome') || '').trim();
-    const whatsapp = (p.get('whatsapp') || '').trim();
-    const email = (p.get('email') || '').trim();
-    const nicho = (p.get('nicho') || '').trim();
-
-    const texto = [
-      'Olá, vim da página form-adv-v5.',
-      '',
-      '*Dados do formulário*',
-      `• Nome completo: ${nome || '-'}`,
-      `• WhatsApp: ${whatsapp || '-'}`,
-      `• E-mail: ${email || '-'}`,
-      `• Nicho: ${nicho || '-'}`
-    ].join('\n');
-
-    const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
-    document.getElementById('btnWhatsapp').href = link;
-  </script>
-</body>
-</html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Obrigado | Advanx IA</title>
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','502759528362336');fbq('track','PageView');</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-98EL5GXG5F');</script>
+<style>:root{--bg:#0b0b0f;--card:#14141c;--text:#f5f7ff;--muted:#aeb3c2;--ok:#20c15a}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#09090d,#12121a);font-family:Inter,system-ui,sans-serif;color:var(--text)}.wrap{max-width:920px;margin:28px auto;padding:16px}.card{background:var(--card);border:1px solid #242436;border-radius:18px;padding:24px}.video{position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000}iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.cta{display:block;margin:22px auto 6px;max-width:420px;text-align:center;text-decoration:none;background:var(--ok);color:#fff;font-weight:800;padding:15px 16px;border-radius:12px}h1{text-align:center}p{text-align:center;color:var(--muted)}</style></head>
+<body><main class="wrap"><section class="card"><h1>Perfeito. Assista ao vídeo e fale com nosso time.</h1><p>Seu WhatsApp vai abrir com tudo que você respondeu.</p><div class="video"><iframe src="https://www.youtube.com/embed/Mr7ijm9Cigk?rel=0&modestbranding=1" allowfullscreen></iframe></div><a id="btnWhatsapp" class="cta" target="_blank" rel="noopener">Ir para o WhatsApp</a></section></main>
+<script>
+const W='5571982470873';
+function tr(n,p={}){try{fbq('trackCustom',n,p)}catch(e){} try{gtag('event',n,p)}catch(e){}}
+function rp(){const s=sessionStorage.getItem('advanx_form_adv_v5'); if(s)try{return JSON.parse(s)}catch(e){} const d=new URLSearchParams(location.search).get('d'); if(d)try{return JSON.parse(decodeURIComponent(d))}catch(e){} return {};}
+const a=rp();
+const t=['Olá, vim da página form-adv-v5.','','*Respostas do formulário*',`• Nome completo: ${a.nome||'-'}`,`• WhatsApp: ${a.whatsapp_normalizado||a.whatsapp||'-'}`,`• E-mail: ${a.email||'-'}`,`• Nicho: ${a.nicho||'-'}`,`• Colaboradores: ${a.colaboradores||'-'}`,`• Problema: ${a.problema_final||a.problema||'-'}`,`• Quando pretende resolver: ${a.prazo||'-'}`,`• Investimento mensal: ${a.investimento||'-'}`,`• Faturamento médio: ${a.faturamento||'-'}`,`• Instagram: ${a.instagram||'-'}`].join('\n');
+const link=`https://wa.me/${W}?text=${encodeURIComponent(t)}`; const b=document.getElementById('btnWhatsapp'); b.href=link; b.onclick=()=>tr('whatsapp_click',{origem:'form-adv-v5-obrigado',nicho:a.nicho||''}); tr('obrigado_view',{origem:'form-adv-v5'});
+</script></body></html>
