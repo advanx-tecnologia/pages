@@ -48,7 +48,7 @@
 
   <div class="step active" data-step="1">
     <h1>Preencha para descobrir como acelerar do operacional até suas vendas em 41 dias.</h1>
-    <p>aplicando IA Autônoma, Automações, controle de dados e Aquisição de clientes qualificados.</p>
+    <p>Aplicando o SCI, nossa metodologia de captação inteligente com IA Autônoma, Automações, controle de dados e aquisição de clientes qualificados.</p>
     <p class="small"><span class="strong">Com garantia de resultados em até 41 dias.</span></p>
     <div class="actions"><button class="btn next" id="btnStart" type="button">Continuar</button></div>
   </div>
@@ -84,7 +84,7 @@ const updateDynamic=()=>{$('#q4Title').textContent=`Quando você pretende resolv
 const show=(s)=>{document.querySelectorAll('.step').forEach(x=>x.classList.remove('active'));document.querySelector(`.step[data-step="${s}"]`).classList.add('active');bar.style.width=(s/total*100)+'%';nav.style.display=s===1?'none':'flex';$('#next').textContent=s===8?'Finalizar':'Continuar';err.textContent='';updateDynamic();track('step_view',{step:s});};
 const goNext=()=>{if(step<8){step++;show(step);}};
 $('#btnStart').addEventListener('click',()=>{step=2;show(step);track('quiz_start');});
-$('#prev').addEventListener('click',()=>{if(step>2){step--;show(step);}});
+$('#prev').addEventListener('click',()=>{if(step>1){step--;show(step);}});
 
 function normalizePhoneBR(v){const d=(v||'').replace(/\D/g,'');if(!d)return '';return d.startsWith('55')?d:'55'+d;}
 function formatPhone(v){let d=(v||'').replace(/\D/g,'');if(d.startsWith('55'))d=d.slice(2);d=d.slice(0,11);if(d.length<=2)return `(${d}`;if(d.length<=7)return `(${d.slice(0,2)}) ${d.slice(2)}`;return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;}

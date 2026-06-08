@@ -48,7 +48,7 @@
 
   <div class="step active" data-step="1">
     <h1>⚖️ 8 Contratos nos primeiros 41 dias trabalhando conosco!</h1>
-    <p>Com SETUP implementado, conseguimos te garantir pelo menos 8 contratos fechados a mais já nos primeiros 41 dias trabalhando conosco, e se isso não acontecer você não paga nosso plano de captação.</p>
+    <p>Com o SCI, nossa metodologia de captação inteligente, e o SETUP implementado, conseguimos te garantir pelo menos 8 contratos fechados a mais já nos primeiros 41 dias trabalhando conosco, e se isso não acontecer você não paga nosso plano de captação.</p>
     <div class="actions"><button class="btn next" id="btnStart" type="button">Continuar</button></div>
   </div>
 
@@ -79,7 +79,7 @@ const UTM={
 const show=(s)=>{document.querySelectorAll('.step').forEach(x=>x.classList.remove('active'));document.querySelector(`.step[data-step="${s}"]`).classList.add('active');bar.style.width=(s/total*100)+'%';nav.style.display=s===1?'none':'flex';$('#next').textContent=s===7?'Finalizar':'Continuar';err.textContent='';track('step_view',{step:s});};
 const goNext=()=>{if(step<total){step++;show(step);}};
 $('#btnStart').addEventListener('click',()=>{step=2;show(step);track('quiz_start');});
-$('#prev').addEventListener('click',()=>{if(step>2){step--;show(step);}});
+$('#prev').addEventListener('click',()=>{if(step>1){step--;show(step);}});
 
 function normalizePhoneBR(v){const d=(v||'').replace(/\D/g,'');if(!d)return '';return d.startsWith('55')?d:'55'+d;}
 function formatPhone(v){let d=(v||'').replace(/\D/g,'');if(d.startsWith('55'))d=d.slice(2);d=d.slice(0,11);if(d.length<=2)return `(${d}`;if(d.length<=7)return `(${d.slice(0,2)}) ${d.slice(2)}`;return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;}
