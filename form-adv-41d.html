@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form Adv 41D | Advanx</title>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','502759528362336');fbq('track','PageView');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-98EL5GXG5F');</script>
+  <style>
+    :root{--canvas:#f5f4ed;--primary:#c96442;--text:#141413;--muted:#5e5d59;--line:#f0eee6;--radius:12px}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--canvas);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.65}
+    .wrap{min-height:100vh;display:grid;place-items:center;padding:16px}
+    .card{width:min(820px,100%);background:#f8f7f1;border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+    .progress{height:6px;background:#ece9df;border-radius:999px;overflow:hidden;margin-bottom:24px}.bar{height:100%;width:0;background:var(--primary);transition:.2s}
+    .step{display:none}.step.active{display:block;animation:fadeIn .22s ease}
+    @keyframes fadeIn{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+    h1{font-family:Charter,Georgia,"Times New Roman",serif;font-weight:500;line-height:1.15;letter-spacing:-.01em;margin:0 0 10px;font-size:clamp(26px,4vw,42px)}
+    h2{font-family:Charter,Georgia,"Times New Roman",serif;font-weight:500;line-height:1.15;margin:0 0 10px;font-size:clamp(22px,3vw,30px)}
+    p{margin:0 0 16px;color:var(--muted)} .small{font-size:14px}
+    .strong{font-weight:700;color:var(--text)}
+    .options{display:grid;gap:10px}.options.two-cols{grid-template-columns:1fr 1fr}
+    @media(max-width:720px){
+      .options.two-cols{grid-template-columns:1fr}
+      .card{padding:16px}
+      h1{font-size:30px}
+      h2{font-size:24px}
+      p{font-size:15px}
+    }
+    .opt{width:100%;text-align:left;padding:14px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;color:var(--text);font:inherit;font-weight:500;cursor:pointer;min-height:48px}
+    .opt.sel{border-color:var(--primary);background:#fff7f4}
+    input{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:var(--radius);font:inherit;background:#fff}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+    .actions{display:flex;gap:10px;margin-top:18px}
+    .btn{border:1px solid var(--line);border-radius:var(--radius);padding:13px 16px;font:inherit;font-weight:600;cursor:pointer;background:#fff;color:var(--text);min-height:48px}
+    .btn.next{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .err{margin-top:8px;color:#b42318;font-size:14px}
+    .email-suggest{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .chip{font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;cursor:pointer}
+  </style>
+</head>
+<body>
+<main class="wrap"><section class="card">
+  <div class="progress"><div class="bar" id="bar"></div></div>
+
+  <div class="step active" data-step="1">
+    <h1>⚖️ 8 Contratos nos primeiros 41 dias trabalhando conosco!</h1>
+    <p>Com SETUP implementado, conseguimos te garantir pelo menos 8 contratos fechados a mais já nos primeiros 41 dias trabalhando conosco, e se isso não acontecer você não paga nosso plano de captação.</p>
+    <div class="actions"><button class="btn next" id="btnStart" type="button">Continuar</button></div>
+  </div>
+
+  <div class="step" data-step="2"><h2>Quantidade de colaboradores</h2><div class="options" data-k="colaboradores"><button class="opt" type="button">Apenas eu</button><button class="opt" type="button">1 a 3</button><button class="opt" type="button">3 a 10</button><button class="opt" type="button">10 a 50</button><button class="opt" type="button">Mais de 50</button></div></div>
+  <div class="step" data-step="3"><h2>Quando você pretende começar?</h2><div class="options" data-k="prazo"><button class="opt" type="button">O quanto antes</button><button class="opt" type="button">Nos próximos 30d</button><button class="opt" type="button">Ainda não sei</button></div></div>
+  <div class="step" data-step="4"><h2>Qual o faturamento médio mensal?</h2><div class="options two-cols" data-k="faturamento"><button class="opt" type="button">Abaixo de 10 mil</button><button class="opt" type="button">10 a 15 mil</button><button class="opt" type="button">15 a 20 mil</button><button class="opt" type="button">20 a 50 mil</button><button class="opt" type="button">50 a 100 mil</button><button class="opt" type="button">100 a 500 mil</button><button class="opt" type="button">500 a 1 mm</button><button class="opt" type="button">+ de 1mm</button></div></div>
+  <div class="step" data-step="5"><h2>Qual seu Instagram pessoal ou comercial para análise.</h2><input id="instagram" placeholder="@instagram" /></div>
+  <div class="step" data-step="6"><h2>Preencha corretamente para receber nosso contato e ter direito à garantia de resultados em 41 dias.</h2><p>Nome completo, WhatsApp, e-mail e nicho.</p><div class="grid2"><input id="nome" placeholder="Nome completo" /><input id="whatsapp" placeholder="(71) 99999-9999" /></div><div class="grid2" style="margin-top:10px"><div><input id="email" type="email" placeholder="email@provedor.com" /><div id="emailSuggest" class="email-suggest"></div></div><input id="nicho" placeholder="Digite seu nicho" /></div></div>
+  <div class="step" data-step="7"><h2>Pra começar o projeto com a gente, é necessário um investimento inicial de R$ 2.000.</h2><p>Você não precisa ter esse valor pra ir pra reunião, mas ele será necessário pra fazer o Setup do projeto, normalmente esse pagamento é feito em até 5 dias após o fechamento. Você está disposto a investir esse valor pra vender 4 novos projetos na sua empresa?</p><div class="options" data-k="disposto_investir_setup"><button class="opt" type="button">Sim, consigo investir</button><button class="opt" type="button">Não consigo ainda</button></div></div>
+
+  <div class="actions" id="nav" style="display:none"><button class="btn" id="prev" type="button">Voltar</button><button class="btn next" id="next" type="button">Continuar</button></div>
+  <div class="err" id="err"></div>
+</section></main>
+
+<script>
+const total=7; let step=1; const a={};
+const $=(s)=>document.querySelector(s);
+const bar=$('#bar'), err=$('#err'), nav=$('#nav');
+const track=(n,p={})=>{try{fbq('trackCustom',n,p)}catch(e){} try{gtag('event',n,p)}catch(e){}};
+const qs=new URLSearchParams(window.location.search);
+const UTM={
+  source:qs.get('utm_source')||null,
+  campaign:qs.get('utm_campaign')||null,
+  medium:qs.get('utm_medium')||null,
+  content:qs.get('utm_content')||null,
+  term:qs.get('utm_term')||null
+};
+const show=(s)=>{document.querySelectorAll('.step').forEach(x=>x.classList.remove('active'));document.querySelector(`.step[data-step="${s}"]`).classList.add('active');bar.style.width=(s/total*100)+'%';nav.style.display=s===1?'none':'flex';$('#next').textContent=s===7?'Finalizar':'Continuar';err.textContent='';track('step_view',{step:s});};
+const goNext=()=>{if(step<total){step++;show(step);}};
+$('#btnStart').addEventListener('click',()=>{step=2;show(step);track('quiz_start');});
+$('#prev').addEventListener('click',()=>{if(step>2){step--;show(step);}});
+
+function normalizePhoneBR(v){const d=(v||'').replace(/\D/g,'');if(!d)return '';return d.startsWith('55')?d:'55'+d;}
+function formatPhone(v){let d=(v||'').replace(/\D/g,'');if(d.startsWith('55'))d=d.slice(2);d=d.slice(0,11);if(d.length<=2)return `(${d}`;if(d.length<=7)return `(${d.slice(0,2)}) ${d.slice(2)}`;return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;}
+$('#whatsapp').addEventListener('input',e=>e.target.value=formatPhone(e.target.value));
+
+const providers=['gmail.com','outlook.com','hotmail.com','yahoo.com','icloud.com'];
+function renderEmailSuggestions(){
+  const el=$('#email'), box=$('#emailSuggest'); const v=el.value.trim(); box.innerHTML='';
+  if(!v) return;
+  if(v.includes('@')){
+    const [name,domain='']=v.split('@'); if(!name) return;
+    providers.filter(p=>p.startsWith(domain.toLowerCase())).forEach(p=>{const c=document.createElement('button');c.type='button';c.className='chip';c.textContent=`${name}@${p}`;c.onclick=()=>{el.value=`${name}@${p}`;box.innerHTML='';};box.appendChild(c);});
+  } else {
+    providers.forEach(p=>{const c=document.createElement('button');c.type='button';c.className='chip';c.textContent=`${v}@${p}`;c.onclick=()=>{el.value=`${v}@${p}`;box.innerHTML='';};box.appendChild(c);});
+  }
+}
+$('#email').addEventListener('input',renderEmailSuggestions);
+
+document.querySelectorAll('.options').forEach(g=>{
+  g.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
+    g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
+    a[g.dataset.k]=b.textContent.trim();
+    if(step<7) setTimeout(goNext,150);
+    track('answer_select',{step,question:g.dataset.k,answer:a[g.dataset.k]});
+  }));
+});
+
+const WEBHOOK_URL='https://n8n.advfunnel.com.br/webhook/cb33d994-f6ab-446a-9ba7-fc6f4fd24e0e/:leads';
+
+async function notifyLead(payload){
+  const msg={origem:'form-adv-41d',pagina:'Contato',nome:payload.nome,whatsapp:payload.whatsapp_normalizado,email:payload.email,nicho_digitado:payload.nicho,colaboradores:payload.colaboradores,prazo:payload.prazo,faturamento:payload.faturamento,instagram:payload.instagram,disposto_investir_setup:payload.disposto_investir_setup,utm_source:UTM.source,utm_campaign:UTM.campaign,utm_medium:UTM.medium,utm_content:UTM.content,utm_term:UTM.term,ts:new Date().toISOString()};
+  try{ await fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(msg)}); }catch(e){ console.error('notifyLead error',e); }
+}
+
+async function saveLead(payload){
+  const body={nome:payload.nome||null,telefone:payload.whatsapp_normalizado||null,email:payload.email||null,area:payload.nicho||null,colaborador:payload.colaboradores||null,faturamento:payload.faturamento||null,prazo_implementacao:payload.prazo||null,instagram:payload.instagram||null,nicho:'Jurídico',kanban_stage:'Novo Lead',origem:'form-adv-41d',funil_lead:'Advanx',empresa_fonte:'Advanx',pipeline_type:'inbound',fonte:UTM.source||'organico',campanha:UTM.campaign||null,conjunto:UTM.medium||null,anuncio:UTM.content||null,posicionamento:UTM.term||null};
+  const r=await fetch('https://lhbwfbquxkutcyqazpnw.supabase.co/rest/v1/dados_cliente',{method:'POST',headers:{'Content-Type':'application/json','apikey':'eyJhbG...sa10','Authorization':'Bearer eyJhbG...sa10','Prefer':'return=representation'},body:JSON.stringify(body)});
+  if(!r.ok){const t=await r.text(); throw new Error(`Supabase ${r.status}: ${t}`);} return await r.json();
+}
+
+function validate(){
+  if(step===2&&!a.colaboradores) return 'Selecione a quantidade de colaboradores.';
+  if(step===3&&!a.prazo) return 'Selecione quando pretende começar.';
+  if(step===4&&!a.faturamento) return 'Selecione o faturamento.';
+  if(step===5){const v=$('#instagram').value.trim(); if(!v) return 'Digite o Instagram.'; a.instagram=v;}
+  if(step===6){a.nome=$('#nome').value.trim();a.whatsapp=$('#whatsapp').value.trim();a.email=$('#email').value.trim();a.nicho=$('#nicho').value.trim();if(!a.nome||!a.whatsapp||!a.email||!a.nicho) return 'Preencha todos os dados da página.';if(!/^\S+@\S+\.\S+$/.test(a.email)) return 'Digite um e-mail válido.';a.whatsapp_normalizado=normalizePhoneBR(a.whatsapp);if(a.whatsapp_normalizado.length<12) return 'WhatsApp inválido.';if(a.nicho.length<2) return 'Digite seu nicho corretamente.';}
+  if(step===7&&!a.disposto_investir_setup) return 'Selecione uma das opções para continuar.';
+  return '';
+}
+
+$('#next').addEventListener('click',async()=>{
+  const e=validate(); if(e){err.textContent=e;track('validation_error',{step,error:e});return;}
+  if(step<7){step++;show(step);return;}
+  const payload={...a,origem:'form-adv-41d',ts:new Date().toISOString()};
+  try{await saveLead(payload);}catch(ex){console.error(ex);err.textContent='Erro ao salvar lead. Tente novamente.';return;}
+  notifyLead(payload);
+  sessionStorage.setItem('advanx_form_adv_41d',JSON.stringify(payload));
+  track('quiz_submit',{nicho:payload.nicho,disposto_investir_setup:payload.disposto_investir_setup});
+  if(payload.disposto_investir_setup==='Sim, consigo investir'){
+    window.location.href='/form-adv-41d-obrigado.html?d='+encodeURIComponent(JSON.stringify(payload));
+    return;
+  }
+  window.location.href='/form-adv-41d-sem-investimento.html?d='+encodeURIComponent(JSON.stringify(payload));
+});
+
+show(step);
+
+document.addEventListener('contextmenu',(e)=>e.preventDefault());
+document.addEventListener('keydown',(e)=>{
+  const k=e.key.toLowerCase();
+  if(k==='f12' || ((e.ctrlKey||e.metaKey)&&e.shiftKey&&['i','j','c'].includes(k)) || ((e.ctrlKey||e.metaKey)&&['u','s'].includes(k))) e.preventDefault();
+});
+</script>
+</body>
+</html>
