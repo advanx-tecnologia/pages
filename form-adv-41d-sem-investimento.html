@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gestor de Tráfego com IA para Advocacia | Advanx IA</title>
-  <meta name="description" content="Se o Método SCI ainda não cabe no seu momento, existe um caminho mais leve: um gestor de tráfego com IA, treinado para advocacia, para colocar você na frente de quem procura um advogado agora." />
+  <title>Advanx Leads | Gestor de Tráfego com IA para Advocacia</title>
+  <meta name="description" content="Se o Método SCI ainda não é o momento, existe um caminho mais leve: a Advanx Leads, um gestor de tráfego com IA treinado para advocacia, para colocar você na frente de quem procura um advogado agora." />
   <script>
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('init','502759528362336');
@@ -19,19 +19,20 @@
   </script>
   <style>
     :root{
-      --bg:#07080b;
-      --panel:#10131a;
-      --panel-2:#121723;
-      --panel-3:#171d2b;
+      --bg:#07090d;
+      --bg-2:#0e131b;
+      --panel:#121924;
+      --panel-2:#171f2d;
       --line:rgba(255,255,255,.08);
       --text:#f5f7fb;
-      --muted:#a8b1c4;
-      --muted-2:#c8d0e0;
+      --muted:#b6bfd1;
+      --muted-2:#d3daea;
       --accent:#c96442;
       --accent-2:#ffb089;
-      --ok:#27c26b;
-      --shadow:0 20px 60px rgba(0,0,0,.36);
-      --radius:24px;
+      --ok:#2dc975;
+      --danger:#ff6b57;
+      --shadow:0 24px 70px rgba(0,0,0,.38);
+      --radius:26px;
       --max:1180px;
     }
     *{box-sizing:border-box}
@@ -40,41 +41,45 @@
       margin:0;
       color:var(--text);
       background:
-        radial-gradient(circle at top, rgba(201,100,66,.16), transparent 28%),
-        linear-gradient(180deg,#07080b 0%,#0d1016 35%,#0a0d13 100%);
+        radial-gradient(circle at top, rgba(201,100,66,.15), transparent 30%),
+        linear-gradient(180deg,#07090d 0%,#0d1219 40%,#090c12 100%);
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      line-height:1.6;
+      line-height:1.65;
     }
+    img{max-width:100%;display:block}
     a{color:inherit}
     .container{width:min(calc(100% - 32px),var(--max));margin:0 auto}
-    .section{padding:72px 0}
-    .hero{padding:28px 0 48px}
+    .section{padding:76px 0}
+    .hero{padding:28px 0 54px}
     .hero-card,
     .panel,
-    .proof-card,
     .faq-item,
     .guarantee,
-    .investment-card,
-    .sticky-bar{
-      background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015));
+    .proof-card,
+    .sticky-bar,
+    .final-box,
+    .stat,
+    .testimonial-card,
+    .cta-strip{
+      background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.018));
       border:1px solid var(--line);
       box-shadow:var(--shadow);
-      backdrop-filter:blur(10px);
+      backdrop-filter:blur(12px);
     }
     .hero-card{
-      border-radius:32px;
-      padding:28px;
-      overflow:hidden;
+      border-radius:34px;
+      padding:30px;
       position:relative;
+      overflow:hidden;
     }
     .hero-card:before{
       content:"";
       position:absolute;
-      inset:-20% auto auto -10%;
-      width:320px;
-      height:320px;
+      inset:-15% auto auto -10%;
+      width:360px;
+      height:360px;
       border-radius:50%;
-      background:radial-gradient(circle, rgba(201,100,66,.22), transparent 70%);
+      background:radial-gradient(circle, rgba(201,100,66,.22), transparent 68%);
       pointer-events:none;
     }
     .eyebrow{
@@ -82,10 +87,10 @@
       align-items:center;
       gap:10px;
       padding:8px 14px;
-      border:1px solid rgba(201,100,66,.28);
       border-radius:999px;
-      background:rgba(201,100,66,.09);
-      color:#ffd9c9;
+      border:1px solid rgba(201,100,66,.28);
+      background:rgba(201,100,66,.1);
+      color:#ffd8ca;
       font-size:13px;
       font-weight:700;
       letter-spacing:.02em;
@@ -93,7 +98,7 @@
     }
     .hero-grid{
       display:grid;
-      grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);
+      grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);
       gap:28px;
       align-items:start;
       position:relative;
@@ -101,44 +106,23 @@
     }
     h1,h2,h3{margin:0 0 18px;line-height:1.08;letter-spacing:-.03em}
     h1{font-size:clamp(2.2rem,5vw,4.4rem);max-width:13ch}
-    h2{font-size:clamp(1.65rem,3vw,2.75rem);max-width:18ch}
-    h3{font-size:1.15rem}
-    .lead,
-    .hero-copy p,
-    .content p,
-    .faq-answer,
-    .legend,
-    .subtle,
-    .body-copy p,
-    .proof-lead,
-    .price-note,
-    .guarantee p{font-size:1.05rem;color:var(--muted-2)}
-    .hero-copy p,
-    .content p,
-    .body-copy p,
-    .faq-answer,
-    .proof-lead,
-    .guarantee p{margin:0 0 18px}
-    .hero-copy p strong,
-    .content p strong,
-    .faq-answer strong,
-    .body-copy p strong{color:var(--text)}
+    h2{font-size:clamp(1.7rem,3vw,2.9rem);max-width:19ch}
+    h3{font-size:1.14rem}
+    p{margin:0 0 18px;color:var(--muted-2);font-size:1.04rem}
+    strong{color:var(--text)}
     .section-label{
-      color:var(--accent-2);
-      font-size:.86rem;
-      font-weight:800;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      margin-bottom:16px;
       display:block;
+      margin-bottom:16px;
+      color:var(--accent-2);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:.82rem;
+      font-weight:800;
     }
-    .hero-bullets{
-      display:grid;
-      gap:12px;
-      margin:26px 0 0;
-      padding:0;
-      list-style:none;
-    }
+    .lead{font-size:1.1rem}
+    .hero-bullets,
+    .bullet-list,
+    .faq-list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
     .hero-bullets li,
     .bullet-list li,
     .faq-list li{
@@ -147,50 +131,24 @@
       align-items:flex-start;
       color:var(--muted-2);
     }
-    .dot,
+    .hero-bullets li:before,
     .bullet-list li:before,
     .faq-list li:before{
       content:"";
       width:9px;
       height:9px;
-      border-radius:50%;
       flex:0 0 9px;
+      border-radius:50%;
       margin-top:10px;
       background:linear-gradient(135deg,var(--accent),var(--accent-2));
       box-shadow:0 0 0 6px rgba(201,100,66,.12);
     }
-    .hero-side{
-      display:grid;
-      gap:18px;
-    }
-    .signal-card,
-    .mini-card,
-    .proof-card,
-    .faq-item,
-    .guarantee,
-    .investment-card,
-    .sticky-bar,
-    .print{
-      border-radius:24px;
-      padding:22px;
-    }
-    .signal-card{
-      background:linear-gradient(180deg,rgba(19,25,38,.96),rgba(12,16,24,.96));
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:var(--shadow);
-    }
-    .signal-card h3{font-size:1rem;color:#fff;margin-bottom:10px}
-    .signal-card p{margin:0;color:var(--muted)}
-    .mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-    .mini-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
-    .mini-card strong{display:block;font-size:1.8rem;line-height:1;color:#fff;margin-bottom:8px}
-    .mini-card span{color:var(--muted);font-size:.92rem}
     .cta-group{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
     .btn{
       appearance:none;
       border:0;
-      text-decoration:none;
       cursor:pointer;
+      text-decoration:none;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -199,13 +157,13 @@
       border-radius:16px;
       font-weight:800;
       letter-spacing:-.01em;
-      transition:transform .18s ease, box-shadow .18s ease, opacity .18s ease, background .18s ease;
+      transition:transform .18s ease, box-shadow .18s ease, opacity .18s ease;
     }
     .btn:hover{transform:translateY(-1px)}
     .btn-primary{
       background:linear-gradient(135deg,var(--accent),#d97f5f);
       color:#fff;
-      box-shadow:0 18px 40px rgba(201,100,66,.28);
+      box-shadow:0 18px 44px rgba(201,100,66,.28);
     }
     .btn-secondary{
       background:rgba(255,255,255,.04);
@@ -213,470 +171,401 @@
       color:#fff;
     }
     .btn-full{width:100%}
-    .price-box{
-      position:relative;
-      overflow:hidden;
-      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+    .signal-card,
+    .proof-card,
+    .faq-item,
+    .guarantee,
+    .final-box,
+    .testimonial-card,
+    .cta-strip,
+    .sticky-bar,
+    .stat{
+      border-radius:24px;
+      padding:22px;
+    }
+    .hero-side{display:grid;gap:16px}
+    .signal-card{
+      background:linear-gradient(180deg,rgba(18,24,36,.98),rgba(11,15,23,.98));
       border:1px solid rgba(255,255,255,.08);
-      border-radius:28px;
-      padding:24px;
     }
-    .price-box:after{
-      content:"Fundadores";
-      position:absolute;
-      top:18px;
-      right:-44px;
-      transform:rotate(32deg);
-      padding:8px 50px;
-      background:rgba(39,194,107,.16);
-      border:1px solid rgba(39,194,107,.25);
-      color:#aef0c9;
-      font-size:.76rem;
-      font-weight:800;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-    .overline{
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      font-size:.78rem;
-      font-weight:800;
-      margin-bottom:12px;
+    .signal-card h3{margin-bottom:10px;color:#fff}
+    .signal-card p:last-child{margin-bottom:0}
+    .mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .stat strong{
       display:block;
-    }
-    .price-compare{
-      display:flex;
-      align-items:flex-end;
-      gap:10px;
-      color:var(--muted);
-      margin-bottom:14px;
-    }
-    .price-compare .installments{
-      font-size:.92rem;
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      opacity:.88;
-    }
-    .price-compare .amount{
-      font-size:1.4rem;
-      text-decoration:line-through;
-      color:#d5dae5;
-      opacity:.78;
-    }
-    .price-current{margin:8px 0 8px}
-    .price-current .installments{
-      display:block;
-      font-size:.85rem;
-      font-weight:800;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:var(--accent-2);
+      font-size:1.75rem;
+      line-height:1;
       margin-bottom:8px;
-    }
-    .price-current .amount{
-      display:block;
-      font-size:clamp(3rem,7vw,5rem);
-      line-height:.92;
-      letter-spacing:-.05em;
-      font-weight:900;
       color:#fff;
     }
-    .price-current .suffix{
-      display:block;
-      margin-top:10px;
-      color:var(--muted);
-      font-size:1rem;
-      letter-spacing:.01em;
-    }
-    .badge-row{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-      color:#dbe2f1;
-      font-size:.92rem;
-      font-weight:700;
-    }
-    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
-    .panel{border-radius:28px;padding:28px}
-    .bullet-list,
-    .faq-list{display:grid;gap:12px;margin:18px 0 0;padding:0;list-style:none}
-    .quote-band{
-      border-left:3px solid rgba(201,100,66,.8);
-      padding-left:18px;
-      color:#fff;
-      font-size:clamp(1.25rem,2.2vw,1.8rem);
-      line-height:1.3;
-      letter-spacing:-.03em;
-      margin:26px 0 0;
-    }
-    .proof-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:26px}
-    .print{
-      background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.02));
-      border:1px dashed rgba(255,255,255,.12);
-      min-height:180px;
+    .stat span{color:var(--muted);font-size:.92rem}
+    .content-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
+    .side-stack{display:grid;gap:16px;position:sticky;top:24px}
+    .proof-card h3,.testimonial-head h3,.guarantee h2{max-width:none}
+    .cta-strip{display:grid;gap:12px;background:linear-gradient(180deg,rgba(39,201,117,.09),rgba(255,255,255,.02))}
+    .cta-strip strong{font-size:1.05rem}
+    .testimonial-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .testimonial-card{padding:14px}
+    .testimonial-card img{width:100%;border-radius:18px;border:1px solid rgba(255,255,255,.08)}
+    .testimonial-card span{display:block;margin-top:10px;color:var(--muted);font-size:.94rem}
+    .offer-list{display:grid;gap:14px;margin-top:26px}
+    .offer-item{
       display:flex;
-      flex-direction:column;
-      justify-content:space-between;
+      gap:14px;
+      align-items:flex-start;
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
     }
-    .print strong{font-size:1rem;margin-bottom:12px;display:block}
-    .legend{margin:14px 0 0;color:var(--muted)}
-    .faq-stack{display:grid;gap:14px;margin-top:26px}
-    .faq-item h3{margin-bottom:10px;font-size:1.05rem}
-    .guarantee{
-      padding:32px;
-      border-radius:28px;
-      background:linear-gradient(180deg,rgba(39,194,107,.12),rgba(255,255,255,.02));
-      border:1px solid rgba(39,194,107,.2);
+    .offer-item:before{
+      content:"";
+      width:11px;
+      height:11px;
+      flex:0 0 11px;
+      border-radius:50%;
+      margin-top:8px;
+      background:linear-gradient(135deg,var(--ok),#9ef0be);
+      box-shadow:0 0 0 6px rgba(45,201,117,.12);
     }
-    .guarantee strong{color:#bdf4d1}
-    .closing-box{
-      border-radius:30px;
-      padding:36px 28px;
-      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:var(--shadow);
-    }
-    .ps{
-      margin-top:20px;
-      color:var(--muted);
-      font-size:.98rem;
-    }
-    .sticky-wrap{position:sticky;bottom:16px;z-index:30}
+    .offer-item p{margin:0}
+    .guarantee{background:linear-gradient(180deg,rgba(45,201,117,.1),rgba(255,255,255,.02))}
+    .faq-grid{display:grid;gap:16px}
+    .faq-item h3{margin-bottom:12px}
+    .faq-item p:last-child{margin-bottom:0}
+    .final-box{padding:28px}
+    .sticky-wrap{padding:0 0 28px}
     .sticky-bar{
-      margin-top:24px;
-      padding:14px 16px;
-      border-radius:22px;
       display:flex;
-      flex-wrap:wrap;
-      gap:12px;
+      gap:18px;
       align-items:center;
       justify-content:space-between;
+      position:sticky;
+      bottom:16px;
+      background:rgba(10,14,21,.92);
+      backdrop-filter:blur(16px);
     }
-    .sticky-copy strong{display:block;font-size:1rem}
-    .sticky-copy span{display:block;color:var(--muted);font-size:.92rem}
-    .sticky-actions{display:flex;gap:10px;flex-wrap:wrap}
-    .sticky-actions .btn{min-height:50px;padding:0 18px}
-    .subtle{color:var(--muted)}
-    @media (max-width:960px){
-      .hero-grid,.grid-2,.proof-grid{grid-template-columns:1fr}
-      .hero-card{padding:22px}
-      .price-box:after{right:-52px;top:16px}
-      .sticky-bar{justify-content:center;text-align:center}
+    .sticky-copy strong{display:block;font-size:1.02rem;margin-bottom:4px}
+    .sticky-copy span{color:var(--muted);font-size:.95rem}
+    .sticky-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .ps{color:var(--muted);font-size:.96rem}
+    .divider{
+      height:1px;
+      margin:10px 0 0;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);
     }
-    @media (max-width:640px){
+    @media (max-width: 980px){
+      .hero-grid,
+      .content-grid,
+      .testimonial-grid{grid-template-columns:1fr}
+      .side-stack{position:static}
+      h1{max-width:none}
+      h2{max-width:none}
+      .sticky-bar{flex-direction:column;align-items:stretch}
+      .sticky-actions .btn{width:100%}
+    }
+    @media (max-width: 640px){
+      .hero-card,.final-box{padding:22px}
       .section{padding:58px 0}
-      .hero{padding-top:18px}
-      .container{width:min(calc(100% - 20px),var(--max))}
-      .hero-card,.panel,.proof-card,.faq-item,.guarantee,.investment-card,.sticky-bar,.print{padding:20px}
-      h1{max-width:unset}
-      .mini-grid{grid-template-columns:1fr}
-      .cta-group,.sticky-actions{flex-direction:column}
-      .btn,.sticky-actions .btn{width:100%}
-      .price-current .amount{font-size:3.25rem}
-      .price-compare{gap:8px}
-      .price-compare .amount{font-size:1.15rem}
-      .quote-band{padding-left:14px}
+      .mini-grid{grid-template-columns:1fr 1fr}
+      .cta-group .btn{width:100%}
+      .offer-item{padding:16px}
+      .eyebrow{font-size:12px}
+      p{font-size:1rem}
     }
   </style>
 </head>
 <body>
   <main>
     <section class="hero">
-      <div class="container">
-        <div class="hero-card">
-          <div class="hero-grid">
-            <div class="hero-copy">
-              <div class="eyebrow">Você respondeu que ainda não é o momento de investir no Método SCI.</div>
-              <h1>Tudo bem. Esse não é o momento do caminho com garantia. Mas é o momento de parar de depender da sorte.</h1>
-              <p class="lead"><strong>O Método SCI é o nosso caminho com garantia de contratos fechados em 41 dias, para quem já está pronto pra investir pesado e escalar rápido.</strong> No seu caso, agora, ele não cabe. E está tudo certo. Mas você não vai sair daqui sem solução. Existe um caminho mais leve, no seu ritmo: um gestor de tráfego com IA, treinado só pra advocacia, que faz uma coisa muito bem feita, colocar na sua frente gente que está procurando um advogado agora. É dele que essa página fala.</p>
-              <ul class="hero-bullets">
-                <li><span class="dot"></span><span>Você continua no controle do caixa e da verba de anúncio.</span></li>
-                <li><span class="dot"></span><span>Um operador que monitora, otimiza e alerta sem depender de horário comercial.</span></li>
-                <li><span class="dot"></span><span>Feito para advocacia, dentro das regras da OAB e focado em gente pedindo ajuda agora.</span></li>
-              </ul>
-              <div class="cta-group">
-                <a id="btnCheckoutHero" class="btn btn-primary" href="#investimento">Quero meu gestor por 12x R$ 397</a>
-                <a id="btnWhatsappHero" class="btn btn-secondary" target="_blank" rel="noopener">Tenho uma dúvida antes de assinar</a>
+      <div class="container hero-card">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">Você respondeu que ainda não é o momento de investir no Método SCI.</div>
+            <h1>Tudo bem. Esse não é o momento do caminho com garantia. Mas é o momento de parar de depender da sorte.</h1>
+            <p class="lead">O Método SCI é o nosso caminho com garantia de contratos fechados em 41 dias, para quem já está pronto pra investir pesado e escalar rápido. No seu caso, agora, ele não cabe. E está tudo certo. Mas você não vai sair daqui sem solução. Existe um caminho mais leve, no seu ritmo: um gestor de tráfego com IA, treinado só pra advocacia, que faz uma coisa muito bem feita, colocar na sua frente gente que está procurando um advogado agora. É dele que essa página fala.</p>
+            <ul class="hero-bullets">
+              <li>Sem gravar vídeo, sem aparecer na câmera, sem virar criador de conteúdo.</li>
+              <li>Campanha no Google ou no Meta em até 24 horas após o onboarding.</li>
+              <li>Contato de gente procurando advogado caindo direto no seu WhatsApp.</li>
+            </ul>
+            <div class="cta-group">
+              <a id="btnWhatsappHero" class="btn btn-primary" target="_blank" rel="noopener">Agendar minha demonstração no WhatsApp</a>
+              <a href="#depoimentos" class="btn btn-secondary">Ver resultados reais</a>
+            </div>
+          </div>
+          <div class="hero-side">
+            <div class="signal-card">
+              <h3>O caminho leve pra sair do silêncio</h3>
+              <p>Advanx Leads é um gestor de tráfego com IA feito só pra advocacia. A gente coloca você na frente de quem está procurando um advogado agora, sem depender de indicação, sorte ou conteúdo diário.</p>
+            </div>
+            <div class="mini-grid">
+              <div class="stat">
+                <strong>24h</strong>
+                <span>pra sua campanha entrar no ar após o onboarding</span>
+              </div>
+              <div class="stat">
+                <strong>500+</strong>
+                <span>copys e criativos já validados no mercado jurídico</span>
+              </div>
+              <div class="stat">
+                <strong>24/7</strong>
+                <span>monitoramento sem folga, sem feriado e sem fim de semana</span>
+              </div>
+              <div class="stat">
+                <strong>OAB</strong>
+                <span>operação pensada pra advocacia e dentro das regras</span>
               </div>
             </div>
-            <aside class="hero-side">
-              <div class="price-box investment-card">
-                <span class="overline">Oferta de fundador</span>
-                <div class="price-compare">
-                  <span class="installments">12x</span>
-                  <span class="amount">R$ 497</span>
-                </div>
-                <div class="price-current">
-                  <span class="installments">12x de</span>
-                  <span class="amount">R$ 397</span>
-                  <span class="suffix">valor travado por todo o plano de 12 meses</span>
-                </div>
-                <div class="badge-row">
-                  <span class="badge">300 vagas de fundador</span>
-                  <span class="badge">Sem verba mínima de anúncio</span>
-                  <span class="badge">Gestor ativo em até 7 dias</span>
-                </div>
-              </div>
-              <div class="signal-card">
-                <h3>O silêncio entre um cliente e o próximo tem um custo</h3>
-                <p>O objetivo aqui não é vender um sonho. É colocar previsibilidade na sua entrada de oportunidades sem te empurrar para o caminho que hoje não cabe no seu caixa.</p>
-              </div>
-              <div class="mini-grid">
-                <div class="mini-card"><strong>24h</strong><span>monitorando campanha, verba e alertas</span></div>
-                <div class="mini-card"><strong>+500</strong><span>copys validadas no mercado jurídico</span></div>
-              </div>
-            </aside>
+            <div class="cta-strip">
+              <strong>Você escolhe a área e o quanto quer investir.</strong>
+              <p>O resto é com a gente. A campanha sobe. O WhatsApp recebe. Você fecha.</p>
+              <a id="btnWhatsappSide" class="btn btn-primary btn-full" target="_blank" rel="noopener">Quero agendar minha demonstração</a>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container grid-2">
-        <div class="panel body-copy">
-          <span class="section-label">O problema</span>
-          <h2>Você abre a agenda do mês e conta. Três causas. Duas. Às vezes nenhuma nova.</h2>
+      <div class="container content-grid">
+        <div>
+          <span class="section-label">O cenário</span>
+          <h2>Tem advogado que nunca apareceu numa câmera. E o WhatsApp dele vive cheio.</h2>
+          <p>Pensa num advogado previdenciário que odeia gravar vídeo. Nunca postou um stories, nunca fez uma live, nunca mostrou o rosto na internet. E mesmo assim, toda semana chega gente no WhatsApp dele pedindo análise de benefício. BPC, auxílio doença, salário maternidade. Um atrás do outro.</p>
+          <p>Como? Ele não virou influencer. Não vende conteúdo. Ele só colocou tráfego pago bem feito pra trabalhar, mandando pra dentro do WhatsApp dele exatamente quem está procurando um advogado previdenciário agora. O time faz a análise de viabilidade e fecha com quem realmente tem direito.</p>
+          <p>E não é só no previdenciário. Funciona em qualquer área onde existe gente com um problema jurídico procurando quem resolva. Ou seja, em quase todas.</p>
+          <p><strong>A pergunta não é se isso funciona. É por que ainda não está funcionando pra você.</strong></p>
+          <div class="divider"></div>
+          <p>Enquanto isso, você abre a agenda do mês e conta. Três causas. Duas. Às vezes nenhuma nova.</p>
           <p>E você sabe que não é falta de competência. Quando o cliente senta na sua frente, você resolve. Você fecha. O problema nunca foi o que acontece dentro do escritório. O problema é o silêncio entre um cliente e o próximo.</p>
           <p>Indicação é ótima. Mas indicação não tem botão. Você não acorda numa segunda e decide que esse mês quer o dobro de gente batendo na sua porta. Ela vem quando vem. E quando não vem, o caixa sente, a conta do mês sente, e você sente, naquela noite em que faz a conta e percebe que o mês foi fraco de novo.</p>
           <p>No fundo você já sabe qual é a saída. Tráfego. Anúncio. Um canal que você liga e desliga, que cresce quando você decide crescer, que não depende de você ficar pedindo indicação pra ninguém.</p>
           <p>Talvez você já tenha tentado. E talvez seja exatamente aí que a história tenha azedado.</p>
         </div>
-        <div class="panel body-copy">
-          <span class="section-label">O erro do modelo antigo</span>
+        <aside class="side-stack">
+          <div class="proof-card">
+            <span class="section-label">Sem depender de sorte</span>
+            <h3>Indicação não escala no seu comando.</h3>
+            <p>Tráfego é o canal que você liga quando quer previsibilidade. Sem esperar a boa vontade do mercado ou o humor do mês.</p>
+          </div>
+          <div class="proof-card">
+            <span class="section-label">No seu ritmo</span>
+            <h3>Começa pequeno. Aumenta quando quiser.</h3>
+            <p>Sem verba mínima travada. Sem obrigação artificial. Você controla o investimento do começo ao fim.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container content-grid">
+        <div>
+          <span class="section-label">O problema real</span>
           <h2>Você não pagou por resultado. Pagou pra ter dor de cabeça.</h2>
           <p>Você contratou alguém pra cuidar disso. Pagou. E começou o calvário.</p>
-          <ul class="bullet-list">
-            <li>Você pediu uma correção simples numa terça. Uma frase do anúncio, um ajuste de público. Ela só foi feita no domingo seguinte.</li>
-            <li>A campanha ficava dias rodando sem ninguém olhar, queimando verba em público errado enquanto o gestor só ia conferir uma vez por semana.</li>
-            <li>Quando você perguntava como estava, vinha um print confuso. Números soltos. Palavra que você não entendia.</li>
-            <li>Um problema de pagamento parava a conta e ninguém te avisava antes do telefone parar de tocar.</li>
-            <li>Ideia nova pra melhorar o resultado nunca vinha. O gestor fazia o mínimo e sumia até a próxima fatura.</li>
-            <li>E o pior: não entendia advocacia, nem OAB, nem a urgência real de quem procura um advogado.</li>
-          </ul>
+          <p>Você pediu uma correção simples numa terça. Uma frase do anúncio, um ajuste de público. Ela só foi feita no domingo seguinte. Cinco dias com a campanha errada no ar, gastando o seu dinheiro.</p>
+          <p>A campanha ficava dias rodando sem ninguém olhar. Queimando verba num público que não trazia ninguém, enquanto o gestor só ia conferir uma vez por semana, se conferisse.</p>
+          <p>Quando você perguntava como estava, vinha um print confuso. Números soltos, palavra que você não entendia, e no fim você desligava sem saber se estava ganhando ou perdendo dinheiro.</p>
+          <p>Um dia a conta de anúncio teve um problema no pagamento e parou. Ninguém te avisou. Você só percebeu quando o telefone, que já tocava pouco, parou de tocar de vez.</p>
+          <p>Ideia nova pra melhorar o resultado? Nunca veio. O gestor fazia o mínimo e sumia até a hora da próxima fatura.</p>
+          <p>E o pior de tudo: a pessoa não entendia nada de advocacia. Anunciava o seu escritório como quem vende tênis. Não sabia o que a OAB permite. Não entendia que o seu cliente não está passeando pela internet querendo comprar. Ele está com uma dívida sufocando o nome, um benefício negado, uma rescisão que o deixou sem chão. Ele está procurando socorro. E o anúncio falava com ele como se fosse promoção de loja.</p>
+        </div>
+        <aside class="side-stack">
+          <div class="proof-card">
+            <span class="section-label">Enquanto isso...</span>
+            <h3>O concorrente já estava no ar.</h3>
+            <p>A pessoa que ia te procurar hoje não some do mundo. Ela só procura outro. O escritório que apareceu, respondeu rápido e estava lá na hora certa.</p>
+          </div>
+          <div class="proof-card">
+            <span class="section-label">A culpa não foi sua</span>
+            <h3>Foi do modelo.</h3>
+            <p>Uma pessoa tem horário, folga, fila, fim de semana e sono. Você precisava de algo que exige olho aberto o tempo inteiro.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <span class="section-label">A solução</span>
+        <h2>Conheça o gestor que não dorme.</h2>
+        <p>O <strong>Advanx Leads</strong> é uma IA que cuida do seu tráfego do começo ao fim. E ela faz o oposto exato de tudo que te deixou frustrado.</p>
+        <div class="offer-list">
+          <div class="offer-item"><p>Ela monitora suas campanhas as 24 horas, todos os dias, sem fim de semana e sem feriado. No segundo em que algo começa a desandar, ela ajusta. Não em sete dias. Na hora.</p></div>
+          <div class="offer-item"><p>Se o pagamento da conta falha, você é avisado na hora, antes de perder um real à toa.</p></div>
+          <div class="offer-item"><p>Ela não espera você cobrar otimização. Está o tempo todo testando, ajustando, procurando onde tem mais resultado pra extrair do seu investimento.</p></div>
+          <div class="offer-item"><p>E ela entende advocacia, porque foi feita só pra isso. Sabe falar com quem está desesperado atrás de um advogado. Sabe operar dentro das regras da OAB, sem prometer resultado, sem transformar a sua profissão em vitrine de promoção.</p></div>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container panel body-copy">
-        <span class="section-label">A conta invisível</span>
-        <h2>Enquanto a sua correção de cinco minutos esperava sete dias na fila, o concorrente já estava no ar.</h2>
-        <p>Pensa nisso por um segundo.</p>
-        <p>A pessoa que ia te procurar hoje não some do mundo. Ela só procura outro. O escritório do outro lado da cidade, que está aparecendo agora, que respondeu rápido, que estava lá no momento exato em que ela precisou.</p>
-        <p>O mercado não te espera enquanto o seu gestor está de folga. Cada dia que a sua campanha fica parada, errada ou sem ninguém olhando é gente entrando pela porta de outro advogado. Você não vê isso acontecer. Mas acontece. Todo dia.</p>
-        <div class="quote-band">A culpa não foi sua. Foi do modelo.</div>
-        <p>Você fez a parte certa. Entendeu que precisava de tráfego, foi atrás, investiu. O que falhou foi colocar uma pessoa nesse lugar. Uma pessoa tem horário. Tem folga. Tem fila de tarefa, outros clientes, fim de semana, sono. E você estava pedindo a ela que cuidasse de algo que precisa de olho aberto 24 horas por dia. Era pedir o impossível pra alguém que precisa dormir.</p>
-        <p>Por isso a gente parou de colocar gente nesse lugar.</p>
+      <div class="container content-grid">
+        <div>
+          <span class="section-label">Como funciona</span>
+          <h2>Você escolhe. A gente ativa. Em 24 horas está no ar.</h2>
+          <p>Aqui você não precisa saber nada de marketing. Não precisa gravar vídeo, não precisa aparecer na câmera, não precisa fazer reels, stories ou live. Se mostrar o rosto na internet sempre te travou, esquece. Não é mais problema seu.</p>
+          <p>Você faz duas escolhas: a sua área de atuação e quanto quer investir em tráfego. O resto é com a gente.</p>
+          <p>Nosso time ativa o seu funil usando o banco com mais de 500 copys e criativos já validados no mercado jurídico. Em até 24 horas depois do onboarding, a sua campanha está no ar, no Google ou no Meta, configurada pra sua área. A partir daí, é o seu WhatsApp recebendo contato de gente procurando um advogado.</p>
+          <p>E o quanto investir é sempre decisão sua. Sem verba mínima travada. Começa pequeno, aumenta quando quiser, segura numa semana apertada e volta depois. Você no comando do seu dinheiro, do começo ao fim.</p>
+        </div>
+        <aside class="side-stack">
+          <div class="proof-card">
+            <span class="section-label">Promessa honesta</span>
+            <h3>A gente traz. Você fecha.</h3>
+            <p>O Advanx Leads não fecha contrato por você. Ele coloca na sua frente pessoas que estão procurando um advogado agora. O fechamento continua sendo seu.</p>
+          </div>
+          <div class="cta-strip">
+            <strong>O que faltava não era a sua competência.</strong>
+            <p>Era volume de gente chegando até você. É isso que essa IA resolve: o silêncio.</p>
+            <a id="btnWhatsappMiddle" class="btn btn-primary btn-full" target="_blank" rel="noopener">Agendar minha demonstração no WhatsApp</a>
+          </div>
+        </aside>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container grid-2">
-        <div class="panel body-copy">
-          <span class="section-label">A solução</span>
-          <h2>Conheça o gestor que não dorme.</h2>
-          <p>O <strong>Gestor de Tráfego com IA para Advocacia</strong> cuida do seu tráfego do começo ao fim. E ele faz o oposto exato de tudo que te deixou frustrado.</p>
-          <p>Ele monitora suas campanhas as 24 horas, todos os dias, sem fim de semana e sem feriado. No segundo em que algo começa a desandar, ajusta. Não em sete dias. Na hora.</p>
-          <p>Se o pagamento da conta falha, você é avisado na hora, antes de perder um real à toa.</p>
-          <p>Ele não espera você cobrar otimização. Está o tempo todo testando, ajustando, procurando onde tem mais resultado pra extrair do seu investimento.</p>
-          <p>E entende advocacia, porque foi feito só pra isso. Sabe falar com quem está desesperado atrás de um advogado. Sabe operar dentro das regras da OAB, sem prometer resultado, sem transformar a sua profissão em vitrine de promoção.</p>
-        </div>
-        <div class="panel body-copy">
-          <span class="section-label">O papel dele</span>
-          <h2>A gente traz. Você fecha.</h2>
-          <p>Deixa uma coisa clara, porque honestidade aqui importa.</p>
-          <p>O gestor de tráfego com IA não fecha contrato por você. Ele faz uma coisa só, e faz muito bem: coloca na sua frente pessoas que estão procurando um advogado agora. O telefone toca. A mensagem chega. A pessoa pede ajuda.</p>
-          <p>O fechamento continua sendo seu, do jeito que você já sabe fazer. Porque o que faltava nunca foi a sua competência de fechar. Era volume de gente chegando até você.</p>
-          <p>É isso que essa IA resolve: o silêncio. Ela enche a sua entrada de oportunidades. O que você faz com cada uma delas, você já sabe.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container grid-2">
-        <div class="panel body-copy">
-          <span class="section-label">Base validada</span>
-          <h2>Ela não chuta no seu dinheiro. Ela parte do que já funcionou.</h2>
-          <p>Por trás dela existe um banco com mais de 500 copys validadas, de todas as áreas do direito. Trabalhista, previdenciário, bancário, família, criminal. Anúncios que já provaram, na prática, que trazem gente pedindo o serviço.</p>
-          <p>Ela não começa do zero olhando pra uma tela em branco. Ela começa do que já deu certo e ajusta pra sua área, pra sua cidade, pro seu tipo de causa.</p>
-          <p>Ela cria o criativo. Escreve a copy. Sobe a campanha. Otimiza. Monitora. Você não precisa aprender Meta Ads, não precisa entender de público ou de lance, não precisa virar gestor de tráfego nas horas vagas que você não tem. Você cuida das causas. Ela cuida de fazer o telefone tocar.</p>
-        </div>
-        <div class="panel body-copy">
-          <span class="section-label">Sem amarra</span>
-          <h2>Você no comando do seu dinheiro. Sempre.</h2>
-          <p>Aqui não tem verba mínima travada. Você coloca em anúncio o valor que quiser, quando quiser.</p>
-          <p>Quer começar pequeno esse mês pra sentir e dobrar no próximo? Pode. Quer segurar numa semana mais apertada e voltar depois? Pode. Sem amarra, sem obrigação de gastar o que você não tem.</p>
-          <p>O que você paga é pela inteligência que gerencia tudo. Quanto investir em anúncio é decisão sua, do começo ao fim.</p>
-          <ul class="bullet-list">
-            <li>Você controla a verba de anúncio.</li>
-            <li>Você decide quando acelerar e quando segurar.</li>
-            <li>Você mantém o escritório como escritório, sem virar gestor de tráfego nas horas vagas.</li>
-          </ul>
+    <section id="depoimentos" class="section">
+      <div class="container">
+        <span class="section-label">Resultados reais</span>
+        <h2>Olha o que acontece quando o telefone do advogado começa a tocar.</h2>
+        <p>Esses são advogados que pararam de esperar a indicação chegar. A gente coloca o cliente na frente deles. O resto, eles fecham.</p>
+        <div class="testimonial-grid">
+          <div class="testimonial-card">
+            <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/depoimento/dinah-3-contratos.webp" alt="Depoimento Dinah" loading="lazy" referrerpolicy="no-referrer">
+            <span>Dinah — 3 contratos</span>
+          </div>
+          <div class="testimonial-card">
+            <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/depoimento/geovane-40-contratos.webp" alt="Depoimento Geovane" loading="lazy" referrerpolicy="no-referrer">
+            <span>Geovane — 40 contratos</span>
+          </div>
+          <div class="testimonial-card">
+            <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/depoimento/dr-erick-28k.webp" alt="Depoimento Dr. Erick" loading="lazy" referrerpolicy="no-referrer">
+            <span>Dr. Erick — 28k</span>
+          </div>
+          <div class="testimonial-card">
+            <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/depoimento/vinicius-10-contratos.png" alt="Depoimento Vinícius" loading="lazy" referrerpolicy="no-referrer">
+            <span>Vinícius — 10 contratos</span>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="panel proof-card body-copy">
-          <span class="section-label">Prova social</span>
-          <h2>Olha o que acontece quando o telefone do advogado começa a tocar.</h2>
-          <p class="proof-lead">Espaço para os prints de feedback. Coloque de 1 a 4 ou mais conversas reais de advogados que receberam contatos e fecharam. Cada print pode ter uma legenda curta de uma linha embaixo.</p>
-          <div class="proof-grid">
-            <div class="print">
-              <div>
-                <strong>[PRINT 1]</strong>
-                <p class="subtle">Legenda opcional: ex. Dr. fulano, área trabalhista, primeira semana de campanha.</p>
-              </div>
-            </div>
-            <div class="print">
-              <div>
-                <strong>[PRINT 2]</strong>
-                <p class="subtle">Legenda opcional.</p>
-              </div>
-            </div>
-            <div class="print">
-              <div>
-                <strong>[PRINT 3]</strong>
-                <p class="subtle">Legenda opcional.</p>
-              </div>
-            </div>
-            <div class="print">
-              <div>
-                <strong>[PRINT 4]</strong>
-                <p class="subtle">Legenda opcional.</p>
-              </div>
-            </div>
-          </div>
-          <p class="legend">Esses são advogados que pararam de esperar a indicação chegar. Hoje a gente coloca o cliente na frente deles. O resto, eles fecham.</p>
+        <span class="section-label">O que entra</span>
+        <h2>Tudo que entra quando você liga o seu gestor de tráfego.</h2>
+        <div class="offer-list">
+          <div class="offer-item"><p>Um gestor de tráfego com IA cuidando das suas campanhas 24 horas por dia, todo dia, sem folga e sem feriado.</p></div>
+          <div class="offer-item"><p>Criativos e copy criados pra você, sem precisar gravar vídeo, aparecer na câmera ou saber nada de marketing.</p></div>
+          <div class="offer-item"><p>Sua campanha no ar em até 24 horas após o onboarding, no Google ou no Meta.</p></div>
+          <div class="offer-item"><p>Banco com mais de 500 copys e criativos já validados no mercado jurídico, pra não chutar no seu dinheiro.</p></div>
+          <div class="offer-item"><p>Otimização contínua e automática, ajustando na hora o que precisa, não daqui a uma semana.</p></div>
+          <div class="offer-item"><p>Monitoramento de falhas e do pagamento da conta, com aviso na hora antes de você perder verba.</p></div>
+          <div class="offer-item"><p>Tudo dentro do seu segmento e das regras da OAB, feito por quem entende advocacia.</p></div>
+          <div class="offer-item"><p>Contato de gente procurando advogado caindo direto no seu WhatsApp. A gente traz, você fecha.</p></div>
+          <div class="offer-item"><p>Controle total do investimento, sem verba mínima de anúncio pra começar.</p></div>
+          <div class="offer-item"><p>Garantia: campanha no ar e otimizada em até 24 horas após o onboarding, ou o seu dinheiro de volta.</p></div>
         </div>
       </div>
     </section>
 
-    <section id="investimento" class="section">
-      <div class="container grid-2">
-        <div class="panel body-copy">
-          <span class="section-label">O investimento</span>
-          <h2>Você tem esse gestor trabalhando por você por 12 meses.</h2>
-          <p>O valor normal é 12x R$ 497.</p>
-          <p>A plataforma está abrindo agora, e os 300 primeiros entram como fundadores: 12x R$ 397, com o valor travado pelo tempo do seu plano. Quando essas 300 vagas fecharem, a tabela vai pra 497 pra todo mundo que vier depois.</p>
-          <p>Entrar cedo aqui não é desvantagem. É o contrário. É pagar menos pelo mesmo gestor, pelo tempo inteiro, enquanto os próximos vão pagar a tabela cheia.</p>
-          <p>Pensa no que um único cliente novo te paga. Uma ação trabalhista. Um benefício previdenciário. Uma revisão bancária. Quase sempre, um cliente fechado cobre o ano inteiro disso. Todo o resto que essa máquina trouxer pra sua entrada é seu.</p>
+    <section class="section">
+      <div class="container content-grid">
+        <div>
+          <span class="section-label">Condição de fundador</span>
+          <h2>A condição de fundador é pras primeiras 300 contratações.</h2>
+          <p>A gente não joga o valor numa página fria, porque a condição certa depende da sua área, do seu momento e de quando você entra.</p>
+          <p>A plataforma está abrindo agora. As primeiras 300 contratações entram com a condição de fundador, e ela só é garantida na reunião. Quando essas vagas fecharem, o valor sobe pra todo mundo que vier depois.</p>
+          <p>Na conversa, o time entende o seu caso, te mostra a plataforma funcionando de verdade e te passa a condição na hora. Sem compromisso de fechar ali. Você sai sabendo exatamente o que vai receber e o que vai investir.</p>
           <div class="cta-group">
-            <a id="btnCheckoutMain" class="btn btn-primary" target="_blank" rel="noopener">Quero meu gestor por 12x R$ 397</a>
-            <a id="btnWhatsappMain" class="btn btn-secondary" target="_blank" rel="noopener">Tenho uma dúvida antes de assinar</a>
+            <a id="btnWhatsappFounder" class="btn btn-primary" target="_blank" rel="noopener">Agendar minha demonstração no WhatsApp</a>
           </div>
-          <p class="price-note">Tocou em assinar, você vai direto pro checkout. Ainda com dúvida, o botão do WhatsApp te leva pra uma conversa rápida com o time.</p>
+          <p class="ps">Tocou no botão, você vai pro WhatsApp escolher um horário com o time. Rápido e sem compromisso.</p>
         </div>
-        <div class="price-box investment-card">
-          <span class="overline">Condição de fundador</span>
-          <div class="price-compare">
-            <span class="installments">12x</span>
-            <span class="amount">R$ 497</span>
+        <aside class="side-stack">
+          <div class="guarantee">
+            <span class="section-label">Garantia</span>
+            <h3>A sua campanha no ar em 24 horas, ou o seu dinheiro de volta.</h3>
+            <p>Em até 24 horas após o onboarding, a sua campanha está ativada e no ar, no Google ou no Meta, configurada pra sua área de atuação.</p>
+            <p>Se isso não acontecer, o seu dinheiro volta. Sem letra miúda. Sem verba mínima de anúncio pra começar. O risco é nosso, não seu.</p>
           </div>
-          <div class="price-current">
-            <span class="installments">12x de</span>
-            <span class="amount">R$ 397</span>
-            <span class="suffix">com valor travado durante todo o plano</span>
-          </div>
-          <ul class="bullet-list">
-            <li>12 meses de gestão com IA focada em advocacia.</li>
-            <li>Entrada como fundador antes da tabela cheia.</li>
-            <li>Mesma inteligência, pagando menos do que quem entrar depois.</li>
-          </ul>
-        </div>
+        </aside>
       </div>
     </section>
 
     <section class="section">
-      <div class="container guarantee">
-        <span class="section-label">Garantia</span>
-        <h2>A garantia de 7 dias. O risco é nosso, não seu.</h2>
-        <p>Em até <strong>7 dias</strong> o seu gestor de tráfego com IA está ativado, configurado e otimizado pra sua necessidade, cuidando das suas campanhas 24 horas por dia.</p>
-        <p>Se isso não acontecer, o seu dinheiro volta. Sem letra miúda.</p>
-        <p>Sem verba mínima de anúncio pra começar. Sem risco pra você testar. A única coisa que você arrisca ao não fazer nada é mais um mês de agenda na mão da sorte.</p>
+      <div class="container">
+        <span class="section-label">A conta de verdade</span>
+        <h2>A pergunta de verdade não é quanto custa.</h2>
+        <p>É quanto está te custando continuar parado.</p>
+        <p>Quantas pessoas vão bater na porta de outro escritório enquanto você decide. Quantas noites de conta apertada você ainda vai aceitar porque "esse mês o cliente não apareceu".</p>
+        <p>O silêncio entre um cliente e outro sempre teve um preço. Você só nunca recebeu a fatura dele.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="container grid-2">
-        <div class="panel body-copy">
-          <span class="section-label">A pergunta real</span>
-          <h2>A pergunta de verdade não é se R$ 397 cabe no seu mês.</h2>
-          <p>É quanto mais um mês de agenda vazia vai te custar.</p>
-          <p>Quantas pessoas vão bater na porta de outro escritório enquanto você decide. Quantas noites de conta apertada você ainda vai aceitar porque o cliente não apareceu esse mês.</p>
-          <p>O silêncio entre um cliente e outro sempre teve um preço. Você só nunca recebeu a fatura dele.</p>
-        </div>
-        <div class="panel body-copy">
-          <span class="section-label">Antes que você pense</span>
-          <div class="faq-stack">
-            <div class="faq-item">
-              <h3>Já tentei tráfego e não funcionou.</h3>
-              <p class="faq-answer">Quase todo advogado diz isso na primeira conversa. O que não funcionou foi gestão genérica, lenta, feita por quem nunca entendeu o seu mercado. Aqui é outro jogo, e você sente a diferença nas primeiras semanas.</p>
-            </div>
-            <div class="faq-item">
-              <h3>Não entendo nada de anúncio.</h3>
-              <p class="faq-answer">Não precisa. Esse é o ponto inteiro. Você não vai virar gestor de tráfego. Vai continuar advogado, só que com mais gente pedindo o seu serviço.</p>
-            </div>
-            <div class="faq-item">
-              <h3>Confiar o meu dinheiro a uma IA?</h3>
-              <p class="faq-answer">A IA não improvisa. Ela trabalha em cima de mais de 500 anúncios que já foram validados no mercado jurídico, e te mostra pra onde o dinheiro está indo. Você não perde o controle. Você ganha um operador que não erra por cansaço, distração ou esquecimento.</p>
-            </div>
-            <div class="faq-item">
-              <h3>Vocês garantem que eu vou fechar contrato?</h3>
-              <p class="faq-answer">Não, e quem promete isso está te enganando. O que a gente garante é colocar gente interessada na sua frente, com o gestor ativo e otimizado em até 7 dias ou o seu dinheiro de volta. O fechamento é seu. Você já sabe fazer essa parte.</p>
-            </div>
-            <div class="faq-item">
-              <h3>E a OAB? Posso anunciar?</h3>
-              <p class="faq-answer">Pode, dentro das regras. A IA foi construída pra operar dentro delas, sem promessa de resultado e sem mercantilizar a profissão. Qualquer dúvida específica, é só falar com a gente no WhatsApp.</p>
-            </div>
-            <div class="faq-item">
-              <h3>E se eu não puder investir muito num mês?</h3>
-              <p class="faq-answer">Você define quanto colocar em anúncio, quando quiser, sem mínimo. O mês apertado é seu pra administrar, não uma obrigação que alguém te impôs.</p>
-            </div>
+      <div class="container">
+        <span class="section-label">Antes que você pense</span>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>Já tentei tráfego e não funcionou.</h3>
+            <p>Quase todo advogado diz isso na primeira conversa. O que não funcionou foi gestão genérica, lenta, feita por quem nunca entendeu o seu mercado. Aqui é outro jogo, e você sente a diferença nas primeiras semanas.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Não entendo nada de anúncio.</h3>
+            <p>Não precisa. Esse é o ponto inteiro. Você não vai virar gestor de tráfego. Vai continuar advogado, só que com mais gente pedindo o seu serviço.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Confiar o meu dinheiro a uma IA?</h3>
+            <p>A IA não improvisa. Ela trabalha em cima de mais de 500 anúncios que já foram validados no mercado jurídico, e te mostra pra onde o dinheiro está indo. Você não perde o controle. Você ganha um operador que não erra por cansaço, distração ou esquecimento.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Vocês garantem que eu vou fechar contrato?</h3>
+            <p>Não, e quem promete isso está te enganando. O que a gente garante é colocar gente interessada na sua frente, com a campanha no ar e otimizada em até 24 horas ou o seu dinheiro de volta. O fechamento é seu. Você já sabe fazer essa parte.</p>
+          </div>
+          <div class="faq-item">
+            <h3>E a OAB? Posso anunciar?</h3>
+            <p>Pode, dentro das regras. A IA foi construída pra operar dentro delas, sem promessa de resultado e sem mercantilizar a profissão. Qualquer dúvida específica, é só levar pra reunião.</p>
+          </div>
+          <div class="faq-item">
+            <h3>E se eu não puder investir muito num mês?</h3>
+            <p>Você define quanto colocar em anúncio, quando quiser, sem mínimo. O mês apertado é seu pra administrar, não uma obrigação que alguém te impôs.</p>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container closing-box body-copy">
+      <div class="container final-box">
         <span class="section-label">Fechamento</span>
         <h2>Você chegou aqui cansado de depender da sorte.</h2>
         <p>Cansado de torcer pra que o mês seja bom. De olhar o telefone como quem espera notícia. De ver o caixa subir e descer sem você ter controle de nada.</p>
         <p>Tem outro jeito. Um gestor que não dorme, treinado pro seu mercado, trabalhando pra colocar gente pedindo o seu serviço enquanto você cuida das causas que já tem na mesa.</p>
-        <p>Os 300 primeiros entram por 12x R$ 397, valor travado. Depois disso, a tabela vai pra 497.</p>
+        <p>A plataforma está abrindo agora, e quem entra pela reunião pega a condição de fundador. Agenda a sua demonstração, conhece a plataforma funcionando e sai sabendo exatamente o que vai receber.</p>
         <div class="cta-group">
-          <a id="btnCheckoutFinal" class="btn btn-primary" target="_blank" rel="noopener">Quero garantir meu valor de fundador</a>
-          <a id="btnWhatsappFinal" class="btn btn-secondary" target="_blank" rel="noopener">Falar com o time no WhatsApp</a>
+          <a id="btnWhatsappFinal" class="btn btn-primary" target="_blank" rel="noopener">Quero agendar minha demonstração no WhatsApp</a>
         </div>
-        <p class="ps">P.S. O mês que vem começa a ser decidido hoje. Como o gestor entra no ar em até 7 dias e a campanha ainda leva alguns dias pra calibrar, cada dia que você adia é um dia a mais da sua agenda na mão da sorte. As 300 vagas de fundador travam o valor de 12x R$ 397. Depois, 497. Toque em assinar pra ir direto ao checkout, ou no WhatsApp se ainda tiver qualquer dúvida.</p>
+        <p class="ps">P.S. O mês que vem começa a ser decidido hoje. Como a campanha entra no ar em até 24 horas após o onboarding, cada dia que você adia é um dia a mais da sua agenda na mão da sorte. A condição de fundador é pra quem entra agora, pela reunião. Toque no botão, escolhe um horário e fala com o time. Sem compromisso de fechar.</p>
       </div>
     </section>
 
     <div class="container sticky-wrap">
       <div class="sticky-bar">
         <div class="sticky-copy">
-          <strong>12x de R$ 397 para os 300 fundadores</strong>
-          <span>Condição de fundador com valor travado enquanto houver vagas.</span>
+          <strong>Condição de fundador para as primeiras 300 contratações</strong>
+          <span>Agende a demonstração, veja a plataforma funcionando e receba a condição na reunião.</span>
         </div>
         <div class="sticky-actions">
-          <a id="btnCheckoutSticky" class="btn btn-primary" target="_blank" rel="noopener">Assinar agora</a>
-          <a id="btnWhatsappSticky" class="btn btn-secondary" target="_blank" rel="noopener">Tirar dúvida</a>
+          <a id="btnWhatsappSticky" class="btn btn-primary" target="_blank" rel="noopener">Agendar minha demonstração</a>
         </div>
       </div>
     </div>
   </main>
 
   <script>
-    const WHATSAPP_NUMBER = '5571982470873';
-    const CHECKOUT_URL = '#checkout-configurar';
+    const WHATSAPP_NUMBER = '5571992894634';
+    const BASE_WHATSAPP_MESSAGE = 'Quero garantir meu valor com desconto para reunião de apresentacao da Advanx Leads que capta clientes para mim sem precisar criar nada.';
 
     function tr(name,payload={}){
       try{fbq('trackCustom',name,payload)}catch(e){}
@@ -697,7 +586,7 @@
 
     const answers = readPayload();
     const whatsappText = [
-      'Olá, vim da página form-adv-41d-sem-investimento e quero entender melhor o gestor de tráfego com IA para advocacia.',
+      BASE_WHATSAPP_MESSAGE,
       '',
       '*Respostas do formulário*',
       `• Nome completo: ${answers.nome || '-'}`,
@@ -712,7 +601,6 @@
     ].join('\n');
 
     const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappText)}`;
-    const resolvedCheckoutUrl = CHECKOUT_URL !== '#checkout-configurar' ? CHECKOUT_URL : whatsappLink;
 
     document.querySelectorAll('[id^="btnWhatsapp"]').forEach((btn)=>{
       btn.href = whatsappLink;
@@ -720,20 +608,8 @@
         tr('whatsapp_click',{
           origem:'form-adv-41d-sem-investimento',
           nicho:answers.nicho || '',
-          disposto_investir_setup:answers.disposto_investir_setup || ''
-        });
-      });
-    });
-
-    document.querySelectorAll('[id^="btnCheckout"]').forEach((btn)=>{
-      btn.href = resolvedCheckoutUrl;
-      btn.addEventListener('click',()=>{
-        tr('checkout_click',{
-          origem:'form-adv-41d-sem-investimento',
-          nicho:answers.nicho || '',
           disposto_investir_setup:answers.disposto_investir_setup || '',
-          checkout_configurado: CHECKOUT_URL !== '#checkout-configurar',
-          checkout_destino: CHECKOUT_URL !== '#checkout-configurar' ? 'checkout' : 'whatsapp_fallback'
+          destino:'advanxia_comercial'
         });
       });
     });
