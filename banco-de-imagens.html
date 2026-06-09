@@ -1740,9 +1740,33 @@ function updateStats() {
 }
 
 async function deleteImage(id) {
-    if (!confirm('Tem certeza?')) return;
+    if (!confirm('Tem certeza? O arquivo será apagado permanentemente.')) return;
+
+    const img = allImages.find(i => String(i.id) === String(id));
+
     try {
+        // 1. Apaga o arquivo do Storage (extrai o path da URL pública)
+        if (img && img.url) {
+            const marker = '/storage/v1/object/public/images/';
+            const idx = img.url.indexOf(marker);
+            if (idx !== -1) {
+                const storagePath = img.url.substring(idx + marker.length);
+                await fetch(`${SUPABASE_URL}/storage/v1/object/images/${storagePath}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+                });
+            }
+        }
+
+        // 2. Apaga o registro da tabela
         await supabaseRequest(`images?id=eq.${id}`, 'DELETE');
+
+        showAlert('Imagem apagada (arquivo + registro)!', 'success');
+        loadImages();
+    } catch (error) {
+        showAlert(`Erro: ${error.message}`, 'error');
+    }
+}
         showAlert('Imagem deletada!', 'success');
         loadImages();
     } catch (error) {
