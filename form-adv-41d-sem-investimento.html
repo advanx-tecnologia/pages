@@ -165,6 +165,9 @@
       color:#fff;
       box-shadow:0 18px 44px rgba(201,100,66,.28);
     }
+    .btn.is-locked{
+      opacity:.9;
+    }
     .btn-secondary{
       background:rgba(255,255,255,.04);
       border:1px solid rgba(255,255,255,.1);
@@ -464,10 +467,10 @@
       </div>
     </section>
 
-    <section class="section">
+    <section id="secao-valor" class="section">
       <div class="container content-grid">
         <div>
-          <h2>O valor normal 12x R$497. Mas você que participar da reunião recebe uma condição diferenciada para os 300 novos assinantes!</h2>
+          <h2>O valor normal 12x R$497. Mas você que participar da reunião recebe uma condição diferenciada, válida apenas na reunião, para os 300 novos assinantes!</h2>
           <p>A gente não joga o número com desconto numa página fria de propósito. Na conversa, o time entende o seu caso, te mostra a plataforma funcionando de verdade e te passa a sua condição na hora. Sem compromisso de fechar ali. Você sai sabendo exatamente o que vai receber e o que vai investir.</p>
           <p class="ps">Tocou no botão, você vai pro WhatsApp escolher um horário com o time. Rápido e sem compromisso.</p>
         </div>
@@ -530,13 +533,22 @@
         <h2>Você chegou aqui cansado de depender da sorte.</h2>
         <p>Cansado de torcer pra que o mês seja bom. De olhar o telefone como quem espera notícia. De ver o caixa subir e descer sem você ter controle de nada.</p>
         <p>Tem outro jeito. Um gestor que não dorme, treinado pro seu mercado, trabalhando pra colocar gente pedindo o seu serviço enquanto você cuida das causas que já tem na mesa.</p>
-        <p>A plataforma está abrindo agora, e quem entra pela reunião pega a condição de fundador. Agenda a sua demonstração, conhece a plataforma funcionando e sai sabendo exatamente o que vai receber.</p>
-        <div class="cta-group">
-          <a id="btnWhatsappFinal" class="btn btn-primary" target="_blank" rel="noopener">Quero agendar minha demonstração no WhatsApp</a>
-        </div>
-        <p class="ps">P.S. O mês que vem começa a ser decidido hoje. Como a campanha entra no ar em até 24 horas após o onboarding, cada dia que você adia é um dia a mais da sua agenda na mão da sorte. A condição de fundador é pra quem entra agora, pela reunião. Toque no botão, escolhe um horário e fala com o time. Sem compromisso de fechar.</p>
+        <p>A plataforma está abrindo agora, e quem participa da reunião vê a condição diferenciada válida naquele momento. Role até o valor, entenda a lógica e use o botão flutuante para falar com o time.</p>
+        <p class="ps">P.S. O mês que vem começa a ser decidido hoje. Como a campanha entra no ar em até 24 horas após o onboarding, cada dia que você adia é um dia a mais da sua agenda na mão da sorte. A condição diferenciada é apresentada na reunião. Toque no botão flutuante, veja o valor e fale com o time. Sem compromisso de fechar.</p>
       </div>
     </section>
+
+    <div class="container sticky-wrap">
+      <div class="sticky-bar">
+        <div class="sticky-copy">
+          <strong>Toque para ver o valor e liberar seu WhatsApp</strong>
+          <span id="stickyStatus">Antes de abrir o WhatsApp, veja a seção do valor.</span>
+        </div>
+        <div class="sticky-actions">
+          <a id="btnWhatsappSticky" class="btn btn-primary is-locked" target="_blank" rel="noopener">Ver valor e liberar WhatsApp</a>
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -578,18 +590,56 @@
     ].join('\n');
 
     const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappText)}`;
+    const priceSection = document.getElementById('secao-valor');
+    const stickyButton = document.getElementById('btnWhatsappSticky');
+    const stickyStatus = document.getElementById('stickyStatus');
+    let whatsappUnlocked = false;
 
-    document.querySelectorAll('[id^="btnWhatsapp"]').forEach((btn)=>{
-      btn.href = whatsappLink;
-      btn.addEventListener('click',()=>{
-        tr('whatsapp_click',{
-          origem:'form-adv-41d-sem-investimento',
-          nicho:answers.nicho || '',
-          disposto_investir_setup:answers.disposto_investir_setup || '',
-          destino:'advanxia_comercial'
-        });
+    function trackWhatsappClick(){
+      tr('whatsapp_click',{
+        origem:'form-adv-41d-sem-investimento',
+        nicho:answers.nicho || '',
+        disposto_investir_setup:answers.disposto_investir_setup || '',
+        destino:'advanxia_comercial'
       });
+    }
+
+    function unlockWhatsapp(){
+      if(whatsappUnlocked) return;
+      whatsappUnlocked = true;
+      stickyButton.href = whatsappLink;
+      stickyButton.textContent = 'Quero agendar minha demonstração no WhatsApp';
+      stickyButton.classList.remove('is-locked');
+      stickyStatus.textContent = 'Valor visto. Agora o WhatsApp está liberado.';
+      tr('valor_view',{
+        origem:'form-adv-41d-sem-investimento',
+        nicho:answers.nicho || ''
+      });
+    }
+
+    stickyButton.addEventListener('click',(event)=>{
+      if(!whatsappUnlocked){
+        event.preventDefault();
+        priceSection.scrollIntoView({behavior:'smooth',block:'start'});
+        stickyStatus.textContent = 'Veja o valor nesta seção para liberar o WhatsApp.';
+        tr('cta_redirect_to_price',{
+          origem:'form-adv-41d-sem-investimento',
+          nicho:answers.nicho || ''
+        });
+        return;
+      }
+      trackWhatsappClick();
     });
+
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach((entry)=>{
+        if(entry.isIntersecting){
+          unlockWhatsapp();
+        }
+      });
+    },{threshold:.45});
+
+    observer.observe(priceSection);
 
     tr('obrigado_view',{
       origem:'form-adv-41d',
