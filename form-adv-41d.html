@@ -108,6 +108,11 @@ document.querySelectorAll('.options').forEach(g=>{
 });
 
 const WEBHOOK_URL='https://n8n.advfunnel.com.br/webhook/cb33d994-f6ab-446a-9ba7-fc6f4fd24e0e/:leads';
+const leadState={saved:false,record:null,promise:null};
+
+function buildLeadPayload(){
+  return {...a,origem:'form-adv-41d',ts:new Date().toISOString()};
+}
 
 async function notifyLead(payload){
   const msg={origem:'form-adv-41d',pagina:'Contato',nome:payload.nome,whatsapp:payload.whatsapp_normalizado,email:payload.email,nicho_digitado:payload.nicho,colaboradores:payload.colaboradores,prazo:payload.prazo,faturamento:payload.faturamento,instagram:payload.instagram,disposto_investir_setup:payload.disposto_investir_setup,utm_source:UTM.source,utm_campaign:UTM.campaign,utm_medium:UTM.medium,utm_content:UTM.content,utm_term:UTM.term,ts:new Date().toISOString()};
@@ -116,8 +121,25 @@ async function notifyLead(payload){
 
 async function saveLead(payload){
   const body={nome:payload.nome||null,telefone:payload.whatsapp_normalizado||null,email:payload.email||null,area:payload.nicho||null,colaborador:payload.colaboradores||null,faturamento:payload.faturamento||null,prazo_implementacao:payload.prazo||null,instagram:payload.instagram||null,nicho:'Jurídico',kanban_stage:'Novo Lead',origem:'form-adv-41d',funil_lead:'Advanx',empresa_fonte:'Advanx',pipeline_type:'inbound',fonte:UTM.source||'organico',campanha:UTM.campaign||null,conjunto:UTM.medium||null,anuncio:UTM.content||null,posicionamento:UTM.term||null};
-  const r=await fetch('https://lhbwfbquxkutcyqazpnw.supabase.co/rest/v1/dados_cliente',{method:'POST',headers:{'Content-Type':'application/json','apikey':'eyJhbG...sa10','Authorization':'Bearer eyJhbG...sa10','Prefer':'return=representation'},body:JSON.stringify(body)});
-  if(!r.ok){const t=await r.text(); throw new Error(`Supabase ${r.status}: ${t}`);} return await r.json();
+  const r=await fetch('https://lhbwfbquxkutcyqazpnw.supabase.co/rest/v1/dados_cliente',{method:'POST',headers:{'Content-Type':'application/json','apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10','Prefer':'return=representation'},body:JSON.stringify(body)});
+  if(!r.ok){const t=await r.text(); throw new Error(`Supabase ${r.status}: ${t}`);}
+  return await r.json();
+}
+
+async function ensureLeadSaved(payload){
+  if(leadState.saved) return leadState.record;
+  if(leadState.promise) return leadState.promise;
+  leadState.promise = saveLead(payload).then((result)=>{
+    leadState.saved = true;
+    leadState.record = Array.isArray(result) ? result[0] || null : result;
+    sessionStorage.setItem('advanx_form_adv_41d',JSON.stringify(payload));
+    track('lead_saved',{step,origem:'form-adv-41d'});
+    return result;
+  }).catch((error)=>{
+    leadState.promise = null;
+    throw error;
+  });
+  return leadState.promise;
 }
 
 function validate(){
@@ -132,9 +154,13 @@ function validate(){
 
 $('#next').addEventListener('click',async()=>{
   const e=validate(); if(e){err.textContent=e;track('validation_error',{step,error:e});return;}
+  if(step===6){
+    const payload=buildLeadPayload();
+    try{await ensureLeadSaved(payload);}catch(ex){console.error(ex);err.textContent='Erro ao salvar lead. Tente novamente.';return;}
+  }
   if(step<7){step++;show(step);return;}
-  const payload={...a,origem:'form-adv-41d',ts:new Date().toISOString()};
-  try{await saveLead(payload);}catch(ex){console.error(ex);err.textContent='Erro ao salvar lead. Tente novamente.';return;}
+  const payload=buildLeadPayload();
+  try{await ensureLeadSaved(payload);}catch(ex){console.error(ex);err.textContent='Erro ao salvar lead. Tente novamente.';return;}
   notifyLead(payload);
   sessionStorage.setItem('advanx_form_adv_41d',JSON.stringify(payload));
   track('quiz_submit',{nicho:payload.nicho,disposto_investir_setup:payload.disposto_investir_setup});
