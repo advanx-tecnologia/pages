@@ -1970,16 +1970,7 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('cancelVideoUploadBtn').addEventListener('click', cancelVideoUpload);
     document.getElementById('copyVideoUrlBtn').addEventListener('click', copyVideoUrl);
 
-    document.getElementById('submitImageBtn').addEventListener('click', (e) => {
-    e.preventDefault();
-    submitImageForm();
-});
-
-// E na função, remover o parâmetro e o e.preventDefault() interno:
-async function submitImageForm() { // sem parâmetro
-    // sem e.preventDefault()
-    ...
-}
+    document.getElementById('submitImageBtn').addEventListener('click', submitImageForm);
 
     document.getElementById('closeModalBtn').addEventListener('click', closeCodeModal);
     document.getElementById('copyCodeBtn').addEventListener('click', copyCodeFromModal);
