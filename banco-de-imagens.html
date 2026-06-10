@@ -1751,9 +1751,13 @@ async function deleteImage(id) {
             const idx = img.url.indexOf(marker);
             if (idx !== -1) {
                 const storagePath = img.url.substring(idx + marker.length);
-                await fetch(`${SUPABASE_URL}/storage/v1/object/images/${storagePath}`, {
+                await fetch(`${SUPABASE_URL}/storage/v1/object/images`, {
                     method: 'DELETE',
-                    headers: { 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+                    headers: {
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ prefixes: [storagePath] })
                 });
             }
         }
