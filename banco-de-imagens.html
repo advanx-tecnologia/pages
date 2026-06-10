@@ -1761,13 +1761,7 @@ async function deleteImage(id) {
         // 2. Apaga o registro da tabela
         await supabaseRequest(`images?id=eq.${id}`, 'DELETE');
 
-        showAlert('Imagem apagada (arquivo + registro)!', 'success');
-        loadImages();
-    } catch (error) {
-        showAlert(`Erro: ${error.message}`, 'error');
-    }
-}
-        showAlert('Imagem deletada!', 'success');
+        showAlert('Imagem apagada!', 'success');
         loadImages();
     } catch (error) {
         showAlert(`Erro: ${error.message}`, 'error');
