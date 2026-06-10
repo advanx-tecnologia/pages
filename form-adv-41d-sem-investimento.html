@@ -56,7 +56,6 @@
     .faq-item,
     .guarantee,
     .proof-card,
-    .sticky-bar,
     .final-box,
     .stat,
     .testimonial-card,
@@ -181,7 +180,6 @@
     .final-box,
     .testimonial-card,
     .cta-strip,
-    .sticky-bar,
     .stat{
       border-radius:24px;
       padding:22px;
@@ -237,35 +235,19 @@
     .faq-item h3{margin-bottom:12px}
     .faq-item p:last-child{margin-bottom:0}
     .final-box{padding:28px}
-    .sticky-wrap{padding:0 0 28px}
-    .sticky-bar{
-      display:flex;
-      gap:18px;
-      align-items:center;
-      justify-content:space-between;
-      position:sticky;
-      bottom:16px;
-      background:rgba(10,14,21,.92);
-      backdrop-filter:blur(16px);
-    }
-    .sticky-copy strong{display:block;font-size:1.02rem;margin-bottom:4px}
-    .sticky-copy span{color:var(--muted);font-size:.95rem}
-    .sticky-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .price-cta{display:grid;gap:12px;margin:26px 0 18px}
+    .price-cta .btn{width:fit-content;max-width:100%}
     .ps{color:var(--muted);font-size:.96rem}
     .divider{
       height:1px;
-      margin:10px 0 0;
-      background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);
+      background:rgba(255,255,255,.08);
+      margin:26px 0;
     }
     @media (max-width: 980px){
-      .hero-grid,
-      .content-grid,
-      .testimonial-grid{grid-template-columns:1fr}
+      .content-grid{grid-template-columns:1fr}
       .side-stack{position:static}
       h1{max-width:none}
       h2{max-width:none}
-      .sticky-bar{flex-direction:column;align-items:stretch}
-      .sticky-actions .btn{width:100%}
     }
     @media (max-width: 640px){
       .hero-card,.final-box{padding:22px}
@@ -274,6 +256,7 @@
       .cta-group .btn{width:100%}
       .offer-item{padding:16px}
       .eyebrow{font-size:12px}
+      .price-cta .btn{width:100%}
       p{font-size:1rem}
     }
   </style>
@@ -472,6 +455,9 @@
         <div>
           <h2>O valor normal 12x R$497. Mas você que participar da reunião recebe uma condição diferenciada, válida apenas na reunião, para os 300 novos assinantes!</h2>
           <p>A gente não joga o número com desconto numa página fria de propósito. Na conversa, o time entende o seu caso, te mostra a plataforma funcionando de verdade e te passa a sua condição na hora. Sem compromisso de fechar ali. Você sai sabendo exatamente o que vai receber e o que vai investir.</p>
+          <div class="price-cta">
+            <a id="btnWhatsappSticky" class="btn btn-primary" target="_blank" rel="noopener">Quero agendar minha demonstração no WhatsApp</a>
+          </div>
           <p class="ps">Tocou no botão, você vai pro WhatsApp escolher um horário com o time. Rápido e sem compromisso.</p>
         </div>
         <aside class="side-stack">
@@ -538,18 +524,6 @@
       </div>
     </section>
 
-    <div class="container sticky-wrap">
-      <div class="sticky-bar">
-        <div class="sticky-copy">
-          <strong>Toque para ver o valor e liberar seu WhatsApp</strong>
-          <span id="stickyStatus">Antes de abrir o WhatsApp, veja a seção do valor.</span>
-        </div>
-        <div class="sticky-actions">
-          <a id="btnWhatsappSticky" class="btn btn-primary is-locked" target="_blank" rel="noopener">Ver valor e liberar WhatsApp</a>
-        </div>
-      </div>
-    </div>
-
   </main>
 
   <script>
@@ -590,10 +564,7 @@
     ].join('\n');
 
     const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappText)}`;
-    const priceSection = document.getElementById('secao-valor');
     const stickyButton = document.getElementById('btnWhatsappSticky');
-    const stickyStatus = document.getElementById('stickyStatus');
-    let whatsappUnlocked = false;
 
     function trackWhatsappClick(){
       tr('whatsapp_click',{
@@ -604,42 +575,15 @@
       });
     }
 
-    function unlockWhatsapp(){
-      if(whatsappUnlocked) return;
-      whatsappUnlocked = true;
-      stickyButton.href = whatsappLink;
-      stickyButton.textContent = 'Quero agendar minha demonstração no WhatsApp';
-      stickyButton.classList.remove('is-locked');
-      stickyStatus.textContent = 'Valor visto. Agora o WhatsApp está liberado.';
-      tr('valor_view',{
-        origem:'form-adv-41d-sem-investimento',
-        nicho:answers.nicho || ''
-      });
-    }
-
-    stickyButton.addEventListener('click',(event)=>{
-      if(!whatsappUnlocked){
-        event.preventDefault();
-        priceSection.scrollIntoView({behavior:'smooth',block:'start'});
-        stickyStatus.textContent = 'Veja o valor nesta seção para liberar o WhatsApp.';
-        tr('cta_redirect_to_price',{
-          origem:'form-adv-41d-sem-investimento',
-          nicho:answers.nicho || ''
-        });
-        return;
-      }
+    stickyButton.href = whatsappLink;
+    stickyButton.addEventListener('click',()=>{
       trackWhatsappClick();
     });
 
-    const observer = new IntersectionObserver((entries)=>{
-      entries.forEach((entry)=>{
-        if(entry.isIntersecting){
-          unlockWhatsapp();
-        }
-      });
-    },{threshold:.45});
-
-    observer.observe(priceSection);
+    tr('valor_view',{
+      origem:'form-adv-41d-sem-investimento',
+      nicho:answers.nicho || ''
+    });
 
     tr('obrigado_view',{
       origem:'form-adv-41d',
