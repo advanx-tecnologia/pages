@@ -250,13 +250,26 @@
       h2{max-width:none}
     }
     @media (max-width: 640px){
-      .hero-grid{grid-template-columns:1fr;gap:18px}
+      .container{width:min(calc(100% - 24px),var(--max))}
+      .hero{padding:16px 0 36px}
+      .hero-grid{grid-template-columns:1fr;gap:24px}
       .hero-card,.final-box{padding:22px}
+      .hero-card{border-radius:28px}
       .section{padding:58px 0}
-      .mini-grid{grid-template-columns:1fr 1fr}
+      h1{font-size:clamp(1.95rem,8vw,2.7rem);line-height:1.04;letter-spacing:-.04em;max-width:none}
+      .lead{font-size:1rem;line-height:1.72}
+      .hero-bullets{gap:10px}
+      .hero-bullets li{font-size:.98rem;line-height:1.55}
+      .hero-side{gap:14px}
+      .signal-card,.stat,.cta-strip{padding:18px}
+      .signal-card h3{font-size:1.12rem;line-height:1.2;margin-bottom:8px}
+      .mini-grid{grid-template-columns:1fr;gap:12px}
+      .stat strong{font-size:1.5rem}
+      .stat span{font-size:.95rem;line-height:1.5}
+      .cta-strip strong{font-size:1rem;line-height:1.35}
       .cta-group .btn{width:100%}
       .offer-item{padding:16px}
-      .eyebrow{font-size:12px}
+      .eyebrow{font-size:12px;line-height:1.45;margin-bottom:16px;padding:9px 12px}
       .price-cta .btn{width:100%}
       p{font-size:1rem}
     }
