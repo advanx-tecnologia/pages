@@ -110,15 +110,51 @@ document.querySelectorAll('.options').forEach(g=>{
 const WEBHOOK_URL='https://n8n.advfunnel.com.br/webhook/cb33d994-f6ab-446a-9ba7-fc6f4fd24e0e/:leads';
 const SUPABASE_URL='https://lhbwfbquxkutcyqazpnw.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10';
-const leadState={saved:false,record:null,promise:null};
+const LEAD_SESSION_KEY='advanx_form_adv_41d';
+const LEAD_ID_SESSION_KEY='advanx_form_adv_41d_lead_id';
+const LEAD_NOTIFIED_SESSION_KEY='advanx_form_adv_41d_notified';
+const leadState={saved:false,record:null,promise:null,notified:false};
 
 function buildLeadPayload(){
   return {...a,origem:'form-adv-41d',ts:new Date().toISOString()};
 }
 
+function readLeadSession(){
+  try{
+    const raw=sessionStorage.getItem(LEAD_SESSION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  }catch(_){
+    return null;
+  }
+}
+
 function persistLeadSession(payload){
-  sessionStorage.setItem('advanx_form_adv_41d',JSON.stringify(payload));
-  if(leadState.record?.id) sessionStorage.setItem('advanx_form_adv_41d_lead_id',String(leadState.record.id));
+  sessionStorage.setItem(LEAD_SESSION_KEY,JSON.stringify(payload));
+  if(leadState.record?.id) sessionStorage.setItem(LEAD_ID_SESSION_KEY,String(leadState.record.id));
+  if(leadState.notified) sessionStorage.setItem(LEAD_NOTIFIED_SESSION_KEY,'1');
+}
+
+function hydrateLeadState(){
+  const savedPayload=readLeadSession();
+  if(savedPayload&&typeof savedPayload==='object'){
+    Object.assign(a,savedPayload);
+  }
+  const savedLeadId=sessionStorage.getItem(LEAD_ID_SESSION_KEY);
+  if(savedLeadId){
+    leadState.record={...(leadState.record||{}),id:Number(savedLeadId)};
+    leadState.saved=true;
+  }
+  leadState.notified=sessionStorage.getItem(LEAD_NOTIFIED_SESSION_KEY)==='1';
+}
+
+function resetNotificationState(){
+  leadState.notified=false;
+  sessionStorage.removeItem(LEAD_NOTIFIED_SESSION_KEY);
+}
+
+function markLeadNotified(payload){
+  leadState.notified=true;
+  persistLeadSession(payload);
 }
 
 function buildLeadRow(payload,{includeDecision=false}={}){
@@ -220,17 +256,24 @@ function validate(){
   return '';
 }
 
+hydrateLeadState();
+
 $('#next').addEventListener('click',async()=>{
   const e=validate(); if(e){err.textContent=e;track('validation_error',{step,error:e});return;}
   if(step===6){
     const payload=buildLeadPayload();
+    resetNotificationState();
     try{await syncLead(payload);}catch(ex){console.error(ex);err.textContent='Erro ao salvar lead. Tente novamente.';return;}
   }
   if(step<7){step++;show(step);return;}
   const payload=buildLeadPayload();
   try{await syncLead(payload,{includeDecision:true});}catch(ex){console.error(ex);err.textContent='Erro ao atualizar lead. Tente novamente.';return;}
-  try{await notifyLead(payload);}catch(ex){console.error(ex);err.textContent='Erro ao notificar o time comercial. Tente novamente.';return;}
-  persistLeadSession(payload);
+  if(!leadState.notified){
+    try{await notifyLead(payload);}catch(ex){console.error(ex);err.textContent='Erro ao notificar o time comercial. Tente novamente.';return;}
+    markLeadNotified(payload);
+  } else {
+    persistLeadSession(payload);
+  }
   track('quiz_submit',{nicho:payload.nicho,disposto_investir_setup:payload.disposto_investir_setup});
   if(payload.disposto_investir_setup==='Sim, consigo investir'){
     window.location.href='/form-adv-41d-obrigado.html?d='+encodeURIComponent(JSON.stringify(payload));
