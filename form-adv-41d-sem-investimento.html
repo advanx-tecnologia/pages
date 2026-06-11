@@ -51,9 +51,9 @@
     }
     img{max-width:100%;display:block}
     a{color:inherit}
-    .container{width:min(calc(100% - 32px),var(--max));margin:0 auto}
-    .section{padding:76px 0}
-    .hero{padding:28px 0 54px}
+    .container{width:min(calc(100% - 40px),var(--max));margin:0 auto}
+    .section{padding:88px 0}
+    .hero{padding:34px 0 68px}
     .hero-card,
     .panel,
     .faq-item,
@@ -70,7 +70,7 @@
     }
     .hero-card{
       border-radius:34px;
-      padding:30px;
+      padding:44px;
       position:relative;
       overflow:hidden;
     }
@@ -100,17 +100,17 @@
     }
     .hero-grid{
       display:grid;
-      grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);
-      gap:28px;
+      grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);
+      gap:42px;
       align-items:start;
       position:relative;
       z-index:1;
     }
-    h1,h2,h3{margin:0 0 18px;line-height:1.08;letter-spacing:-.03em}
-    h1{font-size:clamp(2.2rem,5vw,4.4rem);max-width:13ch}
-    h2{font-size:clamp(1.7rem,3vw,2.9rem);max-width:19ch}
+    h1,h2,h3{margin:0 0 18px;line-height:1.04;letter-spacing:-.035em}
+    h1{font-size:clamp(2.5rem,5.2vw,4.8rem);max-width:10.5ch}
+    h2{font-size:clamp(1.8rem,3.2vw,3rem);max-width:15ch}
     h3{font-size:1.14rem}
-    p{margin:0 0 18px;color:var(--muted-2);font-size:1.04rem}
+    p{margin:0 0 18px;color:var(--muted-2);font-size:1.03rem}
     strong{color:var(--text)}
     .section-label{
       display:block;
@@ -121,7 +121,7 @@
       font-size:.82rem;
       font-weight:800;
     }
-    .lead{font-size:1.1rem}
+    .lead{font-size:1.11rem;line-height:1.72;color:#eef2fb;max-width:60ch}
     .hero-bullets,
     .bullet-list,
     .faq-list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
@@ -185,7 +185,7 @@
     .cta-strip,
     .stat{
       border-radius:24px;
-      padding:22px;
+      padding:24px;
     }
     .hero-side{display:grid;gap:16px}
     .signal-card{
@@ -203,8 +203,9 @@
       color:#fff;
     }
     .stat span{color:var(--muted);font-size:.92rem}
-    .content-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
-    .side-stack{display:grid;gap:16px;position:sticky;top:24px}
+    .content-grid{display:grid;grid-template-columns:minmax(0,1.08fr) 340px;gap:36px;align-items:start}
+    .content-grid--wide{grid-template-columns:minmax(0,1fr) 320px}
+    .side-stack{display:grid;gap:16px;position:sticky;top:32px}
     .proof-card h3,.testimonial-head h3,.guarantee h2{max-width:none}
     .cta-strip{display:grid;gap:12px;background:linear-gradient(180deg,rgba(39,201,117,.09),rgba(255,255,255,.02))}
     .cta-strip strong{font-size:1.05rem}
@@ -234,13 +235,66 @@
     }
     .offer-item p{margin:0}
     .guarantee{background:linear-gradient(180deg,rgba(45,201,117,.1),rgba(255,255,255,.02))}
-    .faq-grid{display:grid;gap:16px}
+    .faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
     .faq-item h3{margin-bottom:12px}
     .faq-item p:last-child{margin-bottom:0}
-    .final-box{padding:28px}
+    .final-box{padding:34px}
     .price-cta{display:grid;gap:12px;margin:26px 0 18px}
     .price-cta .btn{width:fit-content;max-width:100%}
     .ps{color:var(--muted);font-size:.96rem}
+    .section-head{display:grid;gap:14px;margin-bottom:26px}
+    .section-head h2{margin-bottom:0}
+    .section-head p:last-child{margin-bottom:0}
+    .narrative{max-width:720px}
+    .impact-line{font-size:1.22rem;line-height:1.5;color:#fff;font-weight:600;max-width:56ch}
+    .pain-grid,
+    .benefit-grid,
+    .check-grid,
+    .process-grid{display:grid;gap:16px}
+    .pain-grid,
+    .benefit-grid,
+    .check-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .pain-card,
+    .benefit-card,
+    .step-card,
+    .price-card{
+      background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.018));
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      border-radius:24px;
+    }
+    .pain-card,
+    .benefit-card{padding:22px}
+    .pain-card strong,
+    .benefit-card strong{display:block;margin-bottom:10px;font-size:1.02rem;color:#fff}
+    .pain-card p,
+    .benefit-card p{margin:0;color:var(--muted)}
+    .proof-intro{max-width:760px;color:#dde5f5}
+    .process-grid{grid-template-columns:repeat(5,minmax(0,1fr));margin-top:28px}
+    .step-card{padding:22px;position:relative;overflow:hidden}
+    .step-card:before{
+      content:"";
+      position:absolute;
+      inset:auto -18% -42% auto;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(201,100,66,.2), transparent 70%);
+      pointer-events:none;
+    }
+    .step-index{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:rgba(201,100,66,.14);border:1px solid rgba(201,100,66,.22);color:#ffd9cc;font-weight:800;font-size:.92rem;margin-bottom:18px}
+    .step-card h3{font-size:1.02rem;line-height:1.24;margin-bottom:10px}
+    .step-card p{margin:0;color:var(--muted)}
+    .price-card{padding:26px;background:linear-gradient(180deg,rgba(201,100,66,.12),rgba(255,255,255,.03));margin:22px 0 0}
+    .price-badge{display:inline-flex;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffe1d6}
+    .price-row{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin:16px 0 8px}
+    .parcel-count{font-size:1rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
+    .parcel-value{font-size:clamp(2.6rem,6vw,4.4rem);line-height:.95;letter-spacing:-.05em;color:#fff}
+    .price-cash{font-size:1.06rem;color:#fff;font-weight:600}
+    .final-box--center{max-width:900px;text-align:center;margin:0 auto}
+    .final-box--center h2,
+    .final-box--center h3{max-width:none}
+    .final-box--center .divider{margin-left:auto;margin-right:auto;max-width:180px}
     .divider{
       height:1px;
       background:rgba(255,255,255,.08);
@@ -249,6 +303,8 @@
     @media (max-width: 980px){
       .content-grid{grid-template-columns:1fr}
       .side-stack{position:static}
+      .pain-grid,.benefit-grid,.check-grid,.faq-grid{grid-template-columns:1fr}
+      .process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       h1{max-width:none}
       h2{max-width:none}
     }
@@ -261,19 +317,25 @@
       .section{padding:58px 0}
       h1{font-size:clamp(1.95rem,8vw,2.7rem);line-height:1.04;letter-spacing:-.04em;max-width:none}
       .lead{font-size:1rem;line-height:1.72}
+      .impact-line{font-size:1.08rem;line-height:1.58}
       .hero-bullets{gap:10px}
       .hero-bullets li{font-size:.98rem;line-height:1.55}
       .hero-side{gap:14px}
       .signal-card,.stat,.cta-strip{padding:18px}
       .signal-card h3{font-size:1.12rem;line-height:1.2;margin-bottom:8px}
       .mini-grid{grid-template-columns:1fr;gap:12px}
+      .process-grid{grid-template-columns:1fr}
       .stat strong{font-size:1.5rem}
       .stat span{font-size:.95rem;line-height:1.5}
       .cta-strip strong{font-size:1rem;line-height:1.35}
       .cta-group .btn{width:100%}
       .offer-item{padding:16px}
+      .pain-card,.benefit-card,.step-card,.price-card{padding:18px}
       .eyebrow{font-size:12px;line-height:1.45;margin-bottom:16px;padding:9px 12px}
       .price-cta .btn{width:100%}
+      .price-row{gap:8px}
+      .parcel-count{font-size:.92rem}
+      .parcel-value{font-size:2.5rem}
       p{font-size:1rem}
     }
   </style>
@@ -327,15 +389,14 @@
     </section>
 
     <section class="section">
-      <div class="container content-grid">
-        <div>
+      <div class="container content-grid content-grid--wide">
+        <div class="narrative">
           <span class="section-label">O problema</span>
           <h2>O advogado que depende apenas de indicação não controla o próprio crescimento.</h2>
-          <p>O problema nunca foi a sua competência.</p>
+          <p class="impact-line">O problema nunca foi a sua competência. Foi a falta de previsibilidade.</p>
           <p>Quando o cliente senta na sua frente, você resolve. Você orienta. Você fecha.</p>
           <p>O problema acontece antes disso. É o silêncio entre um cliente e outro. É abrir a agenda e perceber que poucas oportunidades novas apareceram. É torcer para que esse mês seja melhor.</p>
           <p>Só que indicação não tem botão. Você não decide quantas pessoas vão procurar o seu escritório no próximo mês.</p>
-          <p>Enquanto isso, quem está procurando ajuda jurídica continua contratando alguém.</p>
           <p><strong>A única pergunta é: esse alguém será você ou outro escritório?</strong></p>
         </div>
         <aside class="side-stack">
@@ -354,74 +415,109 @@
     </section>
 
     <section class="section">
-      <div class="container content-grid">
-        <div>
+      <div class="container">
+        <div class="section-head">
           <span class="section-label">Se você já tentou tráfego</span>
           <h2>Talvez o problema nunca tenha sido o tráfego.</h2>
-          <p>Talvez você já tenha tentado tráfego. E talvez tenha vivido exatamente isso:</p>
-          <div class="offer-list">
-            <div class="offer-item"><p>Campanhas rodando sem otimização.</p></div>
-            <div class="offer-item"><p>Gestores que demoravam dias para fazer ajustes simples.</p></div>
-            <div class="offer-item"><p>Relatórios que mais confundiam do que ajudavam.</p></div>
-            <div class="offer-item"><p>Estratégias genéricas feitas por quem nunca entendeu advocacia.</p></div>
-            <div class="offer-item"><p>Dinheiro investido sem clareza do que realmente estava acontecendo.</p></div>
-          </div>
-          <p>Se foi assim, o problema não era o tráfego. Era o modelo.</p>
+          <p class="proof-intro">Se você já tentou antes e saiu com a sensação de que o dinheiro sumiu sem clareza, normalmente o problema não era o canal. Era a forma como ele estava sendo operado.</p>
         </div>
-        <aside class="side-stack">
-          <div class="proof-card">
-            <span class="section-label">Diagnóstico certo</span>
-            <h3>Não faltou esforço.</h3>
-            <p>Faltou uma operação pensada para o mercado jurídico, com leitura correta de campanha, resposta rápida e execução constante.</p>
-          </div>
-        </aside>
+        <div class="pain-grid">
+          <article class="pain-card">
+            <strong>Campanhas rodando sem otimização</strong>
+            <p>O anúncio fica no ar, mas ninguém ajusta rápido o suficiente para corrigir desperdício e puxar performance.</p>
+          </article>
+          <article class="pain-card">
+            <strong>Ajustes lentos demais</strong>
+            <p>Pedidos simples demoram dias, e a campanha segue errada enquanto o seu dinheiro continua sendo gasto.</p>
+          </article>
+          <article class="pain-card">
+            <strong>Relatórios que confundem</strong>
+            <p>Você recebe print, número solto e linguagem técnica, mas termina sem saber se está ganhando ou perdendo.</p>
+          </article>
+          <article class="pain-card">
+            <strong>Estratégia genérica</strong>
+            <p>Quem não entende advocacia fala com o cliente errado e não respeita a lógica real do seu mercado.</p>
+          </article>
+        </div>
+        <div class="cta-strip" style="margin-top:18px;">
+          <strong>Se foi assim, o problema não era o tráfego. Era o modelo.</strong>
+          <p>Faltou uma operação pensada para o mercado jurídico, com leitura correta de campanha, resposta rápida e execução constante.</p>
+        </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <span class="section-label">A solução</span>
-        <h2>Conheça o gestor que não dorme.</h2>
-        <p>O Advanx Leads é uma IA desenvolvida exclusivamente para o mercado jurídico.</p>
-        <div class="offer-list">
-          <div class="offer-item"><p>Ela acompanha suas campanhas continuamente.</p></div>
-          <div class="offer-item"><p>Identifica oportunidades de melhoria.</p></div>
-          <div class="offer-item"><p>Opera utilizando estratégias construídas especificamente para advocacia.</p></div>
-          <div class="offer-item"><p>Tudo isso respeitando as regras da OAB.</p></div>
-          <div class="offer-item"><p>Sem improviso. Sem gestão genérica. Sem exigir que você se torne especialista em marketing.</p></div>
+        <div class="section-head">
+          <span class="section-label">A solução</span>
+          <h2>Conheça o gestor que não dorme.</h2>
+          <p class="proof-intro">O Advanx Leads é uma IA desenvolvida exclusivamente para o mercado jurídico. Em vez de uma operação genérica, você passa a ter uma estrutura desenhada para atrair oportunidades com mais consistência.</p>
+        </div>
+        <div class="benefit-grid">
+          <article class="benefit-card">
+            <strong>Acompanha continuamente</strong>
+            <p>Suas campanhas ficam sob monitoramento constante, sem depender do ritmo de um gestor humano para perceber problema.</p>
+          </article>
+          <article class="benefit-card">
+            <strong>Enxerga oportunidade de melhoria</strong>
+            <p>A operação busca ajuste e evolução o tempo todo, em vez de esperar o próximo ciclo para agir.</p>
+          </article>
+          <article class="benefit-card">
+            <strong>Foi pensada para advocacia</strong>
+            <p>As estratégias são construídas considerando a realidade do mercado jurídico e a forma certa de abordar esse público.</p>
+          </article>
+          <article class="benefit-card">
+            <strong>Respeita as regras da OAB</strong>
+            <p>Sem improviso, sem promessa indevida e sem transformar o escritório em algo que não combina com a sua posição.</p>
+          </article>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container content-grid">
-        <div>
+      <div class="container">
+        <div class="section-head">
           <span class="section-label">Como funciona</span>
           <h2>Você escolhe a área. Define o investimento. A gente coloca no ar.</h2>
-          <div class="offer-list">
-            <div class="offer-item"><p>Você escolhe sua área de atuação.</p></div>
-            <div class="offer-item"><p>Define quanto deseja investir em anúncios.</p></div>
-            <div class="offer-item"><p>Nosso time realiza o onboarding.</p></div>
-            <div class="offer-item"><p>Em até 24 horas, sua campanha entra no ar.</p></div>
-            <div class="offer-item"><p>Pessoas procurando um advogado começam a chegar ao seu WhatsApp.</p></div>
-          </div>
-          <p><strong>A gente traz. Você fecha.</strong></p>
+          <p class="proof-intro">Sem virar especialista em marketing, sem rotina de conteúdo e sem depender de aparecer. A operação foi desenhada para ser simples de entender e rápida de ativar.</p>
         </div>
-        <aside class="side-stack">
-          <div class="proof-card">
-            <span class="section-label">Sem complicação</span>
-            <h3>Você não precisa virar expert em marketing.</h3>
-            <p>O foco continua sendo o seu trabalho jurídico. A operação de tráfego é desenhada para funcionar sem exigir rotina de conteúdo e sem depender de câmera.</p>
-          </div>
-        </aside>
+        <div class="process-grid">
+          <article class="step-card">
+            <span class="step-index">01</span>
+            <h3>Escolha sua área</h3>
+            <p>Você define a frente jurídica em que quer atrair mais oportunidades.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-index">02</span>
+            <h3>Defina o investimento</h3>
+            <p>Você decide quanto quer colocar em anúncios, com controle total do orçamento.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-index">03</span>
+            <h3>Onboarding com o time</h3>
+            <p>Nosso time coleta o necessário para configurar sua operação com a lógica certa.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-index">04</span>
+            <h3>Campanha no ar em até 24h</h3>
+            <p>Depois do onboarding, sua campanha entra no ar rapidamente para começar a gerar tração.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-index">05</span>
+            <h3>Leads no WhatsApp</h3>
+            <p>Pessoas procurando um advogado começam a chegar até você. A gente traz. Você fecha.</p>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <span class="section-label">O que você recebe</span>
-        <h2>Uma operação estruturada para gerar oportunidades com previsibilidade.</h2>
-        <div class="offer-list">
+        <div class="section-head">
+          <span class="section-label">O que você recebe</span>
+          <h2>Uma operação estruturada para gerar oportunidades com previsibilidade.</h2>
+        </div>
+        <div class="check-grid">
           <div class="offer-item"><p>IA especializada em tráfego jurídico.</p></div>
           <div class="offer-item"><p>Campanhas no Google ou Meta.</p></div>
           <div class="offer-item"><p>Monitoramento contínuo.</p></div>
@@ -436,9 +532,11 @@
 
     <section id="depoimentos" class="section">
       <div class="container">
-        <span class="section-label">Resultados reais</span>
-        <h2>Advogados que decidiram parar de depender exclusivamente da indicação.</h2>
-        <p>O que muda não é a capacidade do advogado. É o número de oportunidades chegando até ele.</p>
+        <div class="section-head">
+          <span class="section-label">Resultados reais</span>
+          <h2>Advogados que decidiram parar de depender exclusivamente da indicação.</h2>
+          <p class="proof-intro">O que muda não é a capacidade do advogado. É o número de oportunidades chegando até ele.</p>
+        </div>
         <div class="testimonial-grid">
           <div class="testimonial-card">
             <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/depoimento/dinah-3-contratos.webp" alt="Depoimento Dinah" loading="lazy" referrerpolicy="no-referrer">
@@ -466,8 +564,15 @@
           <span class="section-label">Investimento</span>
           <h2>O valor normal do Advanx Leads é 12 parcelas de R$697 ou R$6.970 à vista.</h2>
           <p>Mas existe uma condição especial para advogados que agendarem e participarem da demonstração com o nosso time.</p>
-          <p>Essa condição não é divulgada nesta página. Porque antes de qualquer decisão, precisamos entender se essa solução faz sentido para o momento atual do seu escritório.</p>
-          <p>Durante a reunião você verá:</p>
+          <div class="price-card">
+            <span class="price-badge">Investimento normal</span>
+            <div class="price-row">
+              <span class="parcel-count">12x</span>
+              <strong class="parcel-value">R$697</strong>
+            </div>
+            <div class="price-cash">ou R$6.970 à vista</div>
+            <p style="margin-top:14px;">A condição especial não é exibida aqui porque primeiro precisamos entender se essa solução faz sentido para o momento do seu escritório.</p>
+          </div>
           <div class="offer-list">
             <div class="offer-item"><p>Como a plataforma funciona.</p></div>
             <div class="offer-item"><p>Como as campanhas são estruturadas.</p></div>
@@ -486,6 +591,11 @@
             <h3>Sua campanha no ar em até 24 horas após o onboarding.</h3>
             <p>Ou devolvemos o valor investido na contratação.</p>
             <p>Sem burocracia. Sem letra miúda. O risco operacional é nosso.</p>
+          </div>
+          <div class="proof-card">
+            <span class="section-label">Por que a reunião importa</span>
+            <h3>Você sai com clareza, não com pressão.</h3>
+            <p>Na demonstração, o time mostra a lógica da operação, o encaixe no seu momento e a condição disponível para o seu caso.</p>
           </div>
         </aside>
       </div>
@@ -516,13 +626,12 @@
     </section>
 
     <section class="section">
-      <div class="container final-box">
+      <div class="container final-box final-box--center">
         <span class="section-label">Fechamento</span>
         <h2>A pergunta não é quanto custa.</h2>
-        <p>A pergunta é: quanto custa continuar dependendo da sorte?</p>
+        <p class="impact-line">A pergunta é: quanto custa continuar dependendo da sorte?</p>
         <p>Daqui a 30 dias, uma destas duas situações vai acontecer.</p>
         <p>Você terá mais pessoas entrando em contato pelo WhatsApp ou continuará esperando a próxima indicação aparecer.</p>
-        <p>A diferença entre esses dois cenários pode começar com uma simples conversa.</p>
         <div class="divider"></div>
         <h3>Agende sua demonstração.</h3>
         <p>Veja a plataforma funcionando. Entenda como o Advanx Leads pode se encaixar na realidade do seu escritório. E descubra a condição especial disponível para quem participa da apresentação.</p>
