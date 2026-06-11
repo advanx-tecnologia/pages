@@ -231,57 +231,61 @@
     .faq-item h3{margin-bottom:12px}
     .faq-item p:last-child{margin-bottom:0}
     .final-box{padding:34px}
-    .price-cta{display:grid;gap:12px;margin:26px 0 18px}
-    .price-cta .btn{width:fit-content;max-width:100%}
     .floating-demo-cta{
       position:fixed;
-      right:22px;
-      bottom:22px;
+      right:20px;
+      bottom:20px;
       z-index:50;
       opacity:0;
-      transform:translateY(18px);
+      transform:translateY(22px) scale(.96);
       pointer-events:none;
-      min-width:min(360px,calc(100vw - 32px));
+      min-width:min(320px,calc(100vw - 28px));
+      padding:16px 24px;
+      border-radius:999px;
       justify-content:center;
-      box-shadow:0 24px 50px rgba(201,100,66,.34);
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(135deg,#ff9e79 0%, #c96442 100%);
+      color:#fff;
+      font-size:.98rem;
+      font-weight:800;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      box-shadow:0 18px 48px rgba(201,100,66,.28);
+      backdrop-filter:blur(10px);
+      transition:transform .24s ease, opacity .24s ease, box-shadow .24s ease, background .24s ease, border-color .24s ease;
     }
     .floating-demo-cta.is-visible{
       opacity:1;
-      transform:translateY(0);
+      transform:translateY(0) scale(1);
       pointer-events:auto;
+    }
+    .floating-demo-cta:hover{
+      transform:translateY(-2px) scale(1.01);
+      box-shadow:0 22px 56px rgba(201,100,66,.34);
     }
     .floating-demo-cta.is-primed{
       background:linear-gradient(135deg,var(--ok),#44d68d);
-      box-shadow:0 24px 50px rgba(45,201,117,.26);
-      animation:ctaPulse 1.5s ease-in-out infinite;
+      border-color:rgba(146,255,201,.38);
+      box-shadow:0 20px 54px rgba(45,201,117,.28);
+      animation:ctaPulse 2s ease-in-out infinite;
     }
-    .floating-demo-cta.is-primed::after{
-      content:"2º toque abre no WhatsApp";
+    .floating-demo-cta::before{
+      content:"";
       position:absolute;
-      top:-38px;
-      left:50%;
-      transform:translateX(-50%);
-      white-space:nowrap;
-      font-size:.78rem;
-      padding:8px 12px;
-      border-radius:999px;
-      color:#fff;
-      background:rgba(8,12,18,.92);
-      border:1px solid rgba(255,255,255,.1);
-      box-shadow:0 12px 30px rgba(0,0,0,.24);
+      inset:-8px;
+      border-radius:inherit;
+      background:radial-gradient(circle, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 72%);
+      opacity:0;
+      transition:opacity .24s ease;
+      pointer-events:none;
     }
-    .floating-demo-cta .cta-subtext{
-      display:block;
-      font-size:.82rem;
-      font-weight:600;
-      letter-spacing:0;
-      text-transform:none;
-      opacity:.88;
-      margin-top:4px;
+    .floating-demo-cta.is-primed::before,
+    .floating-demo-cta:hover::before{
+      opacity:1;
     }
     @keyframes ctaPulse{
       0%,100%{transform:translateY(0) scale(1)}
-      50%{transform:translateY(-1px) scale(1.015)}
+      50%{transform:translateY(-2px) scale(1.02)}
     }
     .ps{color:var(--muted);font-size:.96rem}
     .section-head{display:grid;gap:14px;margin-bottom:26px}
@@ -327,41 +331,32 @@
     .step-index{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:rgba(201,100,66,.14);border:1px solid rgba(201,100,66,.22);color:#ffd9cc;font-weight:800;font-size:.92rem;margin-bottom:18px}
     .step-card h3{font-size:1.02rem;line-height:1.24;margin-bottom:10px}
     .step-card p{margin:0;color:var(--muted)}
-    .price-card{padding:28px;background:linear-gradient(180deg,rgba(201,100,66,.16),rgba(255,255,255,.03));margin:22px 0 0}
-    .price-row{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin:10px 0 8px}
-    .price-kicker{display:block;font-size:.86rem;letter-spacing:.12em;text-transform:uppercase;color:#ffd8cc;font-weight:800}
+    .price-card{padding:26px 28px;background:linear-gradient(180deg,rgba(201,100,66,.16),rgba(255,255,255,.03));margin:18px 0 0}
+    .price-row{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin:0}
     .parcel-count{font-size:1rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
     .parcel-value{font-size:clamp(3rem,6.4vw,4.9rem);line-height:.92;letter-spacing:-.06em;color:#fff}
-    .price-cash{font-size:1.06rem;color:#fff;font-weight:600}
     .access-note{
-      margin:16px 0 0;
+      margin:14px 0 0;
       color:#fff;
       font-weight:700;
       font-size:1.04rem;
     }
     .special-condition-card{
-      margin-top:20px;
-      padding:24px;
+      margin-top:18px;
+      padding:22px 24px;
       border-radius:24px;
       background:linear-gradient(180deg,rgba(45,201,117,.2),rgba(255,255,255,.035));
       border:1px solid rgba(45,201,117,.3);
       box-shadow:0 18px 42px rgba(45,201,117,.16);
     }
-    .special-condition-card h3{
-      margin:0 0 12px;
-      font-size:1.35rem;
-      line-height:1.15;
-      color:#fff;
-      max-width:18ch;
-    }
     .special-condition-card strong{
       display:block;
-      margin-bottom:10px;
-      font-size:1rem;
-      color:#d9ffe9;
-      letter-spacing:.02em;
+      margin:0;
+      font-size:1.18rem;
+      line-height:1.35;
+      color:#f3fff8;
     }
-    .special-condition-card p:last-child{margin-bottom:0}
+    .special-condition-card p{margin:10px 0 0;color:#d6f6e5}
     .final-box--center{max-width:900px;text-align:center;margin:0 auto}
     .final-box--center h2,
     .final-box--center h3{max-width:none}
@@ -414,11 +409,6 @@
         bottom:14px;
         min-width:auto;
         width:auto;
-      }
-      .floating-demo-cta.is-primed::after{
-        top:-34px;
-        font-size:.72rem;
-        padding:7px 10px;
       }
     }
   </style>
@@ -622,30 +612,24 @@
       <div class="container content-grid">
         <div>
           <h2>INVESTIMENTO</h2>
-          <p class="impact-line">O valor normal é 12x de R$697 para 1 ano de acesso ao Advanx Leads.</p>
+          <p class="impact-line">O valor normal para ter a Advanx Leads é de:</p>
           <div class="price-card">
-            <span class="price-kicker">Valor normal</span>
             <div class="price-row">
               <span class="parcel-count">12x de</span>
               <strong class="parcel-value">R$697</strong>
             </div>
-            <div class="price-cash">ou R$6.970 à vista</div>
-            <p class="access-note">Esse valor corresponde a 1 ano completo de acesso.</p>
+            <p class="access-note">Esse valor corresponde a 1 ano completo de acesso, sem valor mínimo de investimento.</p>
           </div>
           <div class="special-condition-card">
-            <strong>Condição especial para quem comparece na reunião</strong>
-            <h3>Quem participa da demonstração recebe uma condição mais vantajosa para contratar.</h3>
-            <p>O valor normal continua sendo 12x de R$697 para 1 ano de acesso.</p>
-            <p>Mas quem comparece na reunião conhece uma condição melhor, apresentada exclusivamente durante a conversa com o nosso time.</p>
+            <strong>Mas temos uma condição especial para quem comparece na reunião de apresentação.</strong>
+            <p>Quem participa da reunião recebe uma condição mais vantajosa para contratar nosso app.</p>
           </div>
-          <p style="margin-top:18px;">Sem obrigação de fechar. Sem pressão. Primeiro você entende a plataforma, o encaixe no seu escritório e a condição disponível para o seu caso.</p>
         </div>
       </div>
     </section>
 
     <a id="btnWhatsappSticky" class="btn btn-primary floating-demo-cta" target="_blank" rel="noopener" aria-label="Quero ver a demonstração do Advanx Leads">
       <span>QUERO VER A DEMONSTRAÇÃO</span>
-      <span class="cta-subtext">Toque para ver o investimento primeiro</span>
     </a>
 
     <section class="section">
@@ -742,8 +726,7 @@
     const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappText)}`;
     const stickyButton = document.getElementById('btnWhatsappSticky');
     const investimentoSection = document.getElementById('secao-valor');
-    const ctaPrimaryText = stickyButton?.querySelector('span:first-child');
-    const ctaSubtext = stickyButton?.querySelector('.cta-subtext');
+    const ctaPrimaryText = stickyButton?.querySelector('span');
     let ctaPrimed = false;
 
     function shouldBlockInteraction(target){
@@ -794,17 +777,13 @@
       ctaPrimed = true;
       stickyButton.classList.add('is-primed');
       stickyButton.href = whatsappLink;
-      if(ctaPrimaryText) ctaPrimaryText.textContent = 'TOQUE NOVAMENTE PARA IR AO WHATSAPP';
-      if(ctaSubtext) ctaSubtext.textContent = 'Agora sim abrir a conversa com a condição especial';
+      if(ctaPrimaryText) ctaPrimaryText.textContent = 'TOQUE PARA AGENDAR';
     }
 
     if(stickyButton){
-      stickyButton.removeAttribute('href');
+      stickyButton.href = '#secao-valor';
       stickyButton.addEventListener('click',(event)=>{
         if(!ctaPrimed){
-          event.preventDefault();
-          const investimentoTop = Math.max((investimentoSection?.getBoundingClientRect().top || 0) + window.scrollY - 24, 0);
-          window.scrollTo({top: investimentoTop, behavior:'smooth'});
           primeCta();
           tr('cta_scroll_to_investimento',{
             origem:'form-adv-41d-sem-investimento',
