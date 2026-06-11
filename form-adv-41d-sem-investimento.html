@@ -784,6 +784,9 @@
       stickyButton.href = '#secao-valor';
       stickyButton.addEventListener('click',(event)=>{
         if(!ctaPrimed){
+          event.preventDefault();
+          const investimentoTop = Math.max((investimentoSection?.getBoundingClientRect().top || 0) + window.scrollY - 24, 0);
+          window.scrollTo({top: investimentoTop, behavior:'smooth'});
           primeCta();
           tr('cta_scroll_to_investimento',{
             origem:'form-adv-41d-sem-investimento',
