@@ -45,6 +45,9 @@
         linear-gradient(180deg,#07090d 0%,#0d1219 40%,#090c12 100%);
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       line-height:1.65;
+      -webkit-touch-callout:none;
+      -webkit-user-select:none;
+      user-select:none;
     }
     img{max-width:100%;display:block}
     a{color:inherit}
@@ -579,6 +582,34 @@
 
     const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappText)}`;
     const stickyButton = document.getElementById('btnWhatsappSticky');
+
+    function shouldBlockInteraction(target){
+      if(!target) return true;
+      return !target.closest('a, button, input, textarea, select, label');
+    }
+
+    function blockPageProtection(event){
+      if(!shouldBlockInteraction(event.target)) return;
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    document.addEventListener('contextmenu', blockPageProtection);
+    document.addEventListener('copy', blockPageProtection);
+    document.addEventListener('cut', blockPageProtection);
+    document.addEventListener('selectstart', blockPageProtection);
+    document.addEventListener('dragstart', blockPageProtection);
+
+    document.addEventListener('keydown', (event) => {
+      const key = (event.key || '').toLowerCase();
+      const ctrlOrMeta = event.ctrlKey || event.metaKey;
+      const blockedCombo = ctrlOrMeta && ['c', 'x', 'u', 's', 'p'].includes(key);
+      const blockedDevtools = key === 'f12' || (ctrlOrMeta && event.shiftKey && ['i', 'j', 'c'].includes(key));
+
+      if (blockedCombo || blockedDevtools) {
+        blockPageProtection(event);
+      }
+    });
 
     function trackWhatsappClick(){
       tr('whatsapp_click',{
