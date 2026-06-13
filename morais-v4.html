@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Morais Empreendimentos — Engenharia multidisciplinar completa para a indústria. Elétrica, Civil, Mecânica, Automação, Instrumentação, Tubulação, Processo e Gestão. ISO 9001.">
+  <title>Morais Empreendimentos — Engenharia Multidisciplinar Industrial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --navy:       #08111C;
+      --navy-mid:   #0D1B2A;
+      --navy-light: #1E3A5F;
+      --gold:       #E8A020;
+      --gold-h:     #D4901A;
+      --gold-dim:   rgba(232,160,32,.12);
+      --surface:    #F4F5F7;
+      --white:      #FFFFFF;
+      --ink:        #111827;
+      --muted:      #6B7280;
+      --line:       #E5E7EB;
+      --font-display: 'Barlow Condensed', 'Impact', sans-serif;
+      --font-body:    'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+      --sec:        104px;
+      --max:        1300px;
+    }
+
+    /* ── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 17px; font-weight: 400; line-height: 1.6;
+      color: var(--ink); background: var(--white); overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+    /* ── ANIMATIONS ─────────────────────────────────────────── */
+    .fade-up { opacity: 0; transform: translateY(36px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+    .fade-up.in { opacity: 1; transform: none; }
+    .fade-left { opacity: 0; transform: translateX(-36px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+    .fade-left.in { opacity: 1; transform: none; }
+    .fade-right { opacity: 0; transform: translateX(36px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+    .fade-right.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; } .d4 { transition-delay: .4s; }
+    .d5 { transition-delay: .5s; } .d6 { transition-delay: .6s; }
+
+    /* ── LABELS ─────────────────────────────────────────────── */
+    .sec-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-body); font-size: 11px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .sec-label::before {
+      content: ''; display: block; width: 28px; height: 2px; background: var(--gold);
+    }
+
+    /* ── BUTTONS ─────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 36px; font-family: var(--font-body); font-size: 15px;
+      font-weight: 600; letter-spacing: .3px;
+      border: 2px solid transparent; cursor: pointer;
+      transition: all .25s cubic-bezier(.22,1,.36,1);
+      white-space: nowrap; position: relative; overflow: hidden;
+    }
+    .btn::after {
+      content: ''; position: absolute; inset: 0; background: rgba(255,255,255,.06);
+      transform: translateX(-100%); transition: transform .3s ease;
+    }
+    .btn:hover::after { transform: translateX(0); }
+    .btn-gold { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+    .btn-gold:hover { background: var(--gold-h); border-color: var(--gold-h); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,160,32,.35); }
+    .btn-outline-white { background: transparent; color: #fff; border-color: rgba(255,255,255,.45); }
+    .btn-outline-white:hover { border-color: #fff; transform: translateY(-2px); }
+    .btn-outline-dark { background: transparent; color: var(--navy); border-color: var(--navy); }
+    .btn-outline-dark:hover { background: var(--navy); color: #fff; transform: translateY(-2px); }
+
+    /* ── HEADER ─────────────────────────────────────────────── */
+    .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 900; }
+
+    .top-bar {
+      background: var(--navy); color: rgba(255,255,255,.65);
+      font-size: 12.5px; letter-spacing: .2px;
+      overflow: hidden; max-height: 40px;
+      transition: max-height .4s ease, opacity .4s ease, padding .4s ease;
+      padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .site-header.scrolled .top-bar { max-height: 0; padding: 0; opacity: 0; }
+    .top-bar .container { display: flex; align-items: center; justify-content: space-between; }
+    .tb-left { display: flex; align-items: center; gap: 8px; }
+    .tb-iso {
+      background: var(--gold); color: var(--navy); font-size: 10px;
+      font-weight: 800; padding: 2px 8px; letter-spacing: 1px;
+    }
+    .tb-right { display: flex; gap: 24px; }
+    .tb-right a, .tb-right span {
+      display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,.65);
+      transition: color .2s;
+    }
+    .tb-right a:hover { color: var(--gold); }
+    .tb-right svg { width: 12px; height: 12px; }
+
+    .navbar {
+      background: transparent; padding: 20px 0;
+      transition: background .35s ease, padding .35s ease, box-shadow .35s ease;
+      border-bottom: 1px solid transparent;
+      transition: all .35s ease;
+    }
+    .site-header.scrolled .navbar {
+      background: rgba(8,17,28,.96); padding: 14px 0;
+      box-shadow: 0 2px 32px rgba(0,0,0,.3);
+      border-bottom-color: rgba(255,255,255,.06);
+      backdrop-filter: blur(12px);
+    }
+    .navbar .container { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+    .nav-logo img { height: 36px; width: auto; filter: brightness(0) invert(1); }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500; letter-spacing: .5px;
+      color: rgba(255,255,255,.8); transition: color .2s; position: relative;
+      text-transform: uppercase;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0;
+      height: 2px; background: var(--gold); transition: width .25s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta .btn { padding: 10px 24px; font-size: 13px; }
+    .hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 26px; height: 2px; background: #fff; transition: all .3s; }
+
+    /* ── MOBILE MENU ─────────────────────────────────────────── */
+    .mobile-menu {
+      position: fixed; inset: 0; background: var(--navy); z-index: 1000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transform: translateX(100%); transition: transform .4s cubic-bezier(.22,1,.36,1);
+    }
+    .mobile-menu.open { transform: none; }
+    .mobile-close { position: absolute; top: 28px; right: 28px; background: none; border: none; color: #fff; cursor: pointer; }
+    .mobile-close svg { width: 30px; height: 30px; }
+    .mobile-links { display: flex; flex-direction: column; align-items: center; gap: 36px; margin-bottom: 48px; }
+    .mobile-links a {
+      font-family: var(--font-display); font-size: 48px; font-weight: 700;
+      color: #fff; letter-spacing: 1px; text-transform: uppercase; transition: color .2s;
+    }
+    .mobile-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── split layout, diagonal image panel ─────────── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: grid; grid-template-columns: 58% 42%;
+      background: var(--navy); overflow: hidden;
+    }
+
+    /* left content panel */
+    .hero-left {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 160px 64px 100px 0;
+    }
+
+    /* CSS grid-line pattern */
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(232,160,32,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,160,32,.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 11px; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 28px;
+    }
+    .hero-eyebrow-line { display: block; width: 40px; height: 2px; background: var(--gold); }
+
+    /* V4: Barlow Condensed display type — muito maior */
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(72px, 8vw, 112px);
+      font-weight: 800; line-height: .95; letter-spacing: -1px;
+      color: #fff; margin-bottom: 32px; text-transform: uppercase;
+    }
+    .hero h1 em { font-style: normal; color: var(--gold); }
+
+    .hero-desc {
+      font-size: 18px; line-height: 1.7; color: rgba(255,255,255,.7);
+      max-width: 540px; margin-bottom: 48px; letter-spacing: .2px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 56px; }
+
+    /* stats strip */
+    .hero-stats {
+      display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,.1); padding-top: 36px;
+    }
+    .hero-stat {
+      padding-right: 36px; margin-right: 36px;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num {
+      font-family: var(--font-display); font-size: 40px; font-weight: 800;
+      color: #fff; line-height: 1; letter-spacing: -1px;
+    }
+    .hero-stat-num strong { color: var(--gold); }
+    .hero-stat-label { font-size: 11px; color: rgba(255,255,255,.45); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
+
+    /* right image panel with diagonal clip */
+    .hero-right {
+      position: relative; overflow: hidden;
+      clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+    }
+    .hero-right-img {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1200&q=80');
+      background-size: cover; background-position: center;
+      filter: brightness(.55) saturate(.8);
+    }
+    /* gold accent strip along diagonal cut */
+    .hero-right::before {
+      content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px;
+      background: var(--gold); z-index: 2;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      transform: skewX(-6deg);
+    }
+    /* ghosted text overlay on image */
+    .hero-right-label {
+      position: absolute; bottom: 48px; right: 40px; z-index: 3;
+      font-family: var(--font-display); font-size: 11px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.5);
+      writing-mode: vertical-rl; transform: rotate(180deg);
+    }
+
+    .hero-scroll {
+      position: absolute; bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,.3); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+      animation: bob 2.4s ease-in-out infinite; z-index: 3;
+    }
+    .hero-scroll svg { width: 18px; height: 18px; }
+    @keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+
+    /* ── DIFFERENTIALS ── dark, ghosted numbers ──────────────── */
+    .differentials { background: #050C14; padding: 80px 0; position: relative; overflow: hidden; }
+    .diff-ghost-num {
+      position: absolute; top: -40px; right: -20px; z-index: 0;
+      font-family: var(--font-display); font-size: 300px; font-weight: 900;
+      color: rgba(255,255,255,.018); line-height: 1; pointer-events: none; user-select: none;
+    }
+    .diff-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,.06); position: relative; z-index: 1; }
+    .diff-item {
+      background: #050C14; padding: 52px 44px;
+      display: flex; flex-direction: column; gap: 0;
+      transition: background .3s;
+    }
+    .diff-item:hover { background: rgba(232,160,32,.04); }
+    .diff-num {
+      font-family: var(--font-display); font-size: 72px; font-weight: 900;
+      color: rgba(232,160,32,.15); line-height: 1; margin-bottom: 16px;
+    }
+    .diff-ico { color: var(--gold); margin-bottom: 20px; }
+    .diff-ico svg { width: 28px; height: 28px; }
+    .diff-body h3 { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+    .diff-body p { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.65; }
+
+    /* ── COUNTERS ─────────────────────────────────────────────── */
+    .counters { padding: var(--sec) 0; background: var(--white); }
+    .counters-grid {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 0;
+      border: 2px solid var(--ink); overflow: hidden;
+    }
+    .counter-card {
+      padding: 56px 32px; text-align: left;
+      border-right: 1px solid var(--line); position: relative; overflow: hidden;
+      transition: background .3s;
+    }
+    .counter-card:last-child { border-right: none; }
+    .counter-card:hover { background: var(--surface); }
+    .counter-card::before {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--gold); transform: scaleX(0);
+      transform-origin: left; transition: transform .35s ease;
+    }
+    .counter-card:hover::before { transform: scaleX(1); }
+    .counter-num {
+      font-family: var(--font-display);
+      font-size: clamp(56px,5.5vw,84px); font-weight: 800;
+      color: var(--navy); line-height: 1; margin-bottom: 8px; letter-spacing: -2px;
+    }
+    .counter-num span { color: var(--gold); }
+    .counter-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .counter-sub { font-size: 13px; color: var(--muted); }
+
+    /* ── ABOUT ─────────────────────────────────────────────────── */
+    .about { padding: var(--sec) 0; background: var(--surface); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-img { position: relative; }
+    .about-img-wrap {
+      aspect-ratio: 4/3; overflow: hidden; position: relative;
+      box-shadow: 0 24px 80px rgba(0,0,0,.18);
+    }
+    .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    /* gold accent box offset */
+    .about-img::before {
+      content: ''; position: absolute;
+      bottom: -16px; right: -16px;
+      width: 60%; height: 60%;
+      border: 3px solid var(--gold); z-index: 0;
+    }
+    .about-img-wrap { position: relative; z-index: 1; }
+    .about-img-badge {
+      position: absolute; bottom: -20px; left: 24px; z-index: 2;
+      background: var(--gold); color: var(--navy);
+      padding: 12px 20px; font-size: 13px; font-weight: 700; letter-spacing: .5px;
+    }
+    .about-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(44px,4.5vw,68px); font-weight: 800;
+      color: var(--navy); line-height: 1.05; margin-bottom: 28px;
+      text-transform: uppercase; letter-spacing: -1px;
+    }
+    .about-content p { font-size: 17px; line-height: 1.75; color: var(--muted); margin-bottom: 28px; }
+    .about-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; font-size: 13px; font-weight: 600;
+      border: 1.5px solid;
+    }
+    .badge-a { color: #7A5200; border-color: var(--gold); background: rgba(232,160,32,.08); }
+    .badge-p { color: var(--navy); border-color: rgba(13,27,42,.2); background: transparent; }
+
+    /* ── SERVICES — dark bg, editorial numbered ──────────────── */
+    .services { padding: var(--sec) 0; background: var(--navy-mid); position: relative; overflow: hidden; }
+    .services-ghost {
+      position: absolute; bottom: -60px; right: -40px;
+      font-family: var(--font-display); font-size: 280px; font-weight: 900;
+      color: rgba(255,255,255,.02); line-height: 1; pointer-events: none; user-select: none;
+    }
+    .services .sec-header { text-align: left; position: relative; z-index: 1; }
+    .services .sec-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(40px,4vw,60px); font-weight: 800; color: #fff;
+      text-transform: uppercase; letter-spacing: -1px; line-height: 1.05; margin-bottom: 16px;
+    }
+    .services .sec-header p { font-size: 17px; color: rgba(255,255,255,.55); max-width: 480px; margin: 0; }
+
+    .svc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,.08); margin-top: 64px; position: relative; z-index: 1; }
+    .svc-card {
+      background: rgba(255,255,255,.03); padding: 40px 30px;
+      transition: background .3s; position: relative; overflow: hidden;
+    }
+    .svc-card:hover { background: rgba(232,160,32,.06); }
+    .svc-card-num {
+      font-family: var(--font-display); font-size: 64px; font-weight: 900;
+      color: rgba(232,160,32,.12); line-height: 1; margin-bottom: 20px;
+    }
+    .svc-ico { color: var(--gold); margin-bottom: 16px; }
+    .svc-ico svg { width: 26px; height: 26px; }
+    .svc-card h3 { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+    .svc-card p { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.65; }
+    /* gold left border reveal on hover */
+    .svc-card::after {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: var(--gold); transform: scaleY(0); transform-origin: bottom;
+      transition: transform .3s ease;
+    }
+    .svc-card:hover::after { transform: scaleY(1); }
+
+    /* ── SECTORS ─────────────────────────────────────────────── */
+    .sectors { padding: var(--sec) 0; background: var(--surface); }
+    .sec-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .sec-card {
+      background: var(--white); padding: 44px 32px;
+      border-bottom: 3px solid transparent;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .sec-card:hover { border-color: var(--gold); transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,.1); }
+    .sec-ico { font-size: 40px; margin-bottom: 20px; }
+    .sec-card h3 { font-size: 19px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+    .sec-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* ── PROCESS — horizontal timeline ─────────────────────── */
+    .process { padding: var(--sec) 0; background: var(--navy); position: relative; overflow: hidden; }
+    .process::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(232,160,32,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,160,32,.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .process .sec-header { position: relative; z-index: 1; }
+    .process .sec-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px,4vw,56px); font-weight: 800; color: #fff;
+      text-transform: uppercase; letter-spacing: -1px; margin-bottom: 14px;
+    }
+    .process .sec-header p { color: rgba(255,255,255,.55); }
+
+    /* connecting line */
+    .process-timeline {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 0; margin-top: 72px;
+    }
+    .process-timeline::before {
+      content: ''; position: absolute; top: 38px; left: 10%; right: 10%;
+      height: 2px; background: linear-gradient(90deg, var(--gold), rgba(232,160,32,.2));
+      z-index: 0;
+    }
+    .step { padding: 0 20px; position: relative; z-index: 1; }
+    .step-dot {
+      width: 20px; height: 20px; background: var(--gold); border-radius: 50%;
+      margin: 28px auto 28px; position: relative; z-index: 1;
+      box-shadow: 0 0 0 6px rgba(232,160,32,.2);
+    }
+    .step-num {
+      font-family: var(--font-display); font-size: 88px; font-weight: 900;
+      color: rgba(232,160,32,.08); line-height: 1; text-align: center;
+      position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .step-ico {
+      width: 52px; height: 52px; background: rgba(232,160,32,.15); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; color: var(--gold);
+    }
+    .step-ico svg { width: 24px; height: 24px; }
+    .step h3 { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 10px; text-align: center; }
+    .step p { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.65; text-align: center; }
+
+    /* ── PORTFOLIO — assimétrico ─────────────────────────────── */
+    .portfolio { padding: var(--sec) 0; background: var(--white); }
+    .portfolio .sec-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px,4vw,56px); font-weight: 800; color: var(--navy);
+      text-transform: uppercase; letter-spacing: -1px; margin-bottom: 14px;
+    }
+
+    /* row 1: 1 large + 2 small */
+    .port-row-a { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+    /* row 2: 3 equal */
+    .port-row-b { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 48px; }
+
+    .port-card {
+      overflow: hidden; position: relative;
+      transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
+    }
+    .port-card:hover { transform: translateY(-6px); box-shadow: 0 16px 56px rgba(0,0,0,.15); }
+    .port-img {
+      overflow: hidden; position: relative; background: var(--navy-mid);
+    }
+    .port-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.22,1,.36,1); }
+    .port-card:hover .port-img img { transform: scale(1.07); }
+    .port-img-large { aspect-ratio: 16/10; }
+    .port-img-sm { aspect-ratio: 4/3; }
+
+    /* placeholder 3D */
+    .port-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      min-height: 220px;
+    }
+    .port-placeholder-ico { font-size: 48px; opacity: .4; }
+    .port-placeholder-txt {
+      font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,.35); text-align: center;
+    }
+
+    .port-tag {
+      position: absolute; top: 14px; left: 14px; background: var(--gold); color: var(--navy);
+      font-size: 10px; font-weight: 800; padding: 4px 12px; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .port-body { padding: 22px 24px 24px; border: 1px solid var(--line); border-top: none; }
+    .port-body h3 { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+    .port-body .sector { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+    .port-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .port-tags span { font-size: 11px; font-weight: 600; padding: 3px 10px; background: var(--surface); color: var(--navy); }
+    .port-cta { text-align: center; }
+
+    /* ── CLIENTS ─────────────────────────────────────────────── */
+    .clients { padding: 72px 0; background: var(--navy); overflow: hidden; }
+    .clients-hd { text-align: center; margin-bottom: 48px; }
+    .clients-hd h2 {
+      font-family: var(--font-display);
+      font-size: 36px; font-weight: 800; color: #fff;
+      text-transform: uppercase; letter-spacing: -1px;
+    }
+    .marquee-wrap { position: relative; overflow: hidden; }
+    .marquee-wrap::before, .marquee-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2;
+    }
+    .marquee-wrap::before { left: 0; background: linear-gradient(to right, var(--navy), transparent); }
+    .marquee-wrap::after  { right: 0; background: linear-gradient(to left,  var(--navy), transparent); }
+    .marquee-track { display: flex; animation: mq 30s linear infinite; }
+    .marquee-track:hover { animation-play-state: paused; }
+    .logo-tile { flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding: 18px 56px; border-right: 1px solid rgba(255,255,255,.07); }
+    .logo-name {
+      font-family: var(--font-display); font-size: 22px; font-weight: 700;
+      color: rgba(255,255,255,.28); letter-spacing: 2px; white-space: nowrap; transition: color .3s;
+    }
+    .marquee-track:hover .logo-name { color: rgba(255,255,255,.55); }
+    @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── TESTIMONIALS — featured large + 2 cards ─────────────── */
+    .testimonials { padding: var(--sec) 0; background: var(--surface); }
+    .testimonials .sec-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px,4vw,56px); font-weight: 800; color: var(--navy);
+      text-transform: uppercase; letter-spacing: -1px; margin-bottom: 14px;
+    }
+
+    .test-featured {
+      background: var(--navy); padding: 64px 68px; margin-bottom: 24px;
+      display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .test-featured::before {
+      content: '"'; position: absolute; top: -48px; left: 44px;
+      font-family: var(--font-display); font-size: 280px; font-weight: 900;
+      color: rgba(232,160,32,.06); line-height: 1; pointer-events: none;
+    }
+    .test-featured-stars { color: var(--gold); font-size: 22px; letter-spacing: 3px; margin-bottom: 24px; }
+    .test-featured-text {
+      font-size: clamp(20px,2vw,26px); font-weight: 300; line-height: 1.55;
+      color: rgba(255,255,255,.9); font-style: italic; position: relative; z-index: 1;
+      margin-bottom: 36px;
+    }
+    .test-featured-author { display: flex; align-items: center; gap: 16px; position: relative; z-index: 1; }
+    .test-featured-av {
+      width: 54px; height: 54px; background: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 800; color: var(--navy); flex-shrink: 0;
+    }
+    .test-featured-name { font-size: 16px; font-weight: 600; color: #fff; }
+    .test-featured-role { font-size: 12px; color: rgba(255,255,255,.45); margin-top: 2px; letter-spacing: .5px; }
+
+    .test-featured-aside {
+      flex-shrink: 0; width: 220px; text-align: center;
+      border-left: 1px solid rgba(255,255,255,.1); padding-left: 60px;
+    }
+    .test-featured-aside .big-num {
+      font-family: var(--font-display); font-size: 80px; font-weight: 900;
+      color: var(--gold); line-height: 1; letter-spacing: -2px;
+    }
+    .test-featured-aside p { font-size: 13px; color: rgba(255,255,255,.45); letter-spacing: .5px; margin-top: 8px; }
+
+    .test-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+    .test-card {
+      background: var(--white); padding: 36px 32px;
+      border-bottom: 3px solid transparent; transition: border-color .3s, box-shadow .3s;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .test-card:hover { border-color: var(--gold); box-shadow: 0 8px 32px rgba(0,0,0,.1); }
+    .test-stars { color: var(--gold); font-size: 18px; margin-bottom: 18px; letter-spacing: 2px; }
+    .test-text { font-size: 16px; line-height: 1.72; color: var(--muted); margin-bottom: 28px; font-style: italic; }
+    .test-author { display: flex; align-items: center; gap: 14px; border-top: 1px solid var(--line); padding-top: 20px; }
+    .test-av {
+      width: 44px; height: 44px; background: var(--navy); display: flex;
+      align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .test-name { font-size: 15px; font-weight: 600; color: var(--navy); }
+    .test-role { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ── WHY CHOOSE — dark, icon-forward ────────────────────── */
+    .why { padding: var(--sec) 0; background: var(--navy-mid); position: relative; overflow: hidden; }
+    .why::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(232,160,32,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,160,32,.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .why .sec-header { position: relative; z-index: 1; }
+    .why .sec-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px,4vw,56px); font-weight: 800; color: #fff;
+      text-transform: uppercase; letter-spacing: -1px; margin-bottom: 14px;
+    }
+    .why .sec-header p { color: rgba(255,255,255,.5); }
+
+    .why-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,.07); position: relative; z-index: 1; margin-top: 64px; }
+    .why-card {
+      background: rgba(255,255,255,.03); padding: 48px 32px;
+      text-align: center; transition: background .3s;
+      position: relative; overflow: hidden;
+    }
+    .why-card:hover { background: rgba(232,160,32,.07); }
+    .why-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--gold); transform: scaleX(0); transition: transform .3s ease;
+    }
+    .why-card:hover::after { transform: scaleX(1); }
+    .why-ico {
+      width: 72px; height: 72px; background: rgba(232,160,32,.1);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px; transition: background .3s;
+    }
+    .why-ico svg { width: 32px; height: 32px; color: var(--gold); }
+    .why-card:hover .why-ico { background: var(--gold); }
+    .why-card:hover .why-ico svg { color: var(--navy); }
+    .why-card h3 { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 12px; }
+    .why-card p { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.65; }
+
+    /* ── CTA FINAL ───────────────────────────────────────────── */
+    .cta-final {
+      padding: 120px 0; background: var(--gold); text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-final::before {
+      content: 'MORAIS'; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: var(--font-display); font-size: 22vw; font-weight: 900;
+      color: rgba(0,0,0,.05); white-space: nowrap; pointer-events: none; line-height: 1;
+    }
+    .cta-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+    .cta-inner .sec-label { color: var(--navy); }
+    .cta-inner .sec-label::before { background: var(--navy); }
+    .cta-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(44px,6vw,84px); font-weight: 900; color: var(--navy);
+      text-transform: uppercase; letter-spacing: -2px; line-height: .95; margin-bottom: 20px;
+    }
+    .cta-inner p { font-size: 19px; color: rgba(8,17,28,.65); margin-bottom: 52px; line-height: 1.65; }
+    .btn-cta-dark { background: var(--navy); color: #fff; border-color: var(--navy); font-size: 16px; padding: 18px 44px; }
+    .btn-cta-dark:hover { background: #0D1B2A; transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,.25); }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    .footer { background: #040A11; padding: 88px 0 44px; border-top: 1px solid rgba(255,255,255,.04); }
+    .foot-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1.6fr; gap: 60px;
+      padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,.07); margin-bottom: 36px;
+    }
+    .foot-brand img { height: 32px; filter: brightness(0) invert(1); margin-bottom: 20px; }
+    .foot-brand p { font-size: 14px; color: rgba(255,255,255,.38); line-height: 1.75; margin-bottom: 28px; }
+    .foot-social { display: flex; gap: 10px; }
+    .soc-btn {
+      width: 38px; height: 38px; background: rgba(255,255,255,.07);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,.45); transition: all .2s;
+    }
+    .soc-btn:hover { background: var(--gold); color: var(--navy); }
+    .soc-btn svg { width: 15px; height: 15px; }
+    .foot-col h4 { font-size: 11px; font-weight: 700; color: #fff; margin-bottom: 22px; letter-spacing: 2px; text-transform: uppercase; }
+    .foot-links { display: flex; flex-direction: column; gap: 12px; }
+    .foot-links a { font-size: 14px; color: rgba(255,255,255,.38); transition: color .2s; }
+    .foot-links a:hover { color: var(--gold); }
+    .foot-contact-row { display: flex; gap: 12px; margin-bottom: 16px; }
+    .foot-contact-row svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+    .foot-contact-row span { font-size: 13px; color: rgba(255,255,255,.38); line-height: 1.6; }
+    .foot-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .foot-bottom p { font-size: 12px; color: rgba(255,255,255,.22); letter-spacing: .3px; }
+    .foot-bottom-links { display: flex; gap: 24px; }
+    .foot-bottom-links a { font-size: 12px; color: rgba(255,255,255,.22); transition: color .2s; }
+    .foot-bottom-links a:hover { color: var(--gold); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 140px 0 100px; }
+      .svc-grid { grid-template-columns: repeat(2,1fr); }
+      .why-grid { grid-template-columns: repeat(2,1fr); }
+      .process-timeline { grid-template-columns: repeat(2,1fr); }
+      .foot-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .test-featured { grid-template-columns: 1fr; gap: 36px; }
+      .test-featured-aside { width: auto; border-left: none; border-top: 1px solid rgba(255,255,255,.1); padding-left: 0; padding-top: 36px; }
+    }
+    @media (max-width: 900px) {
+      .counters-grid { grid-template-columns: repeat(2,1fr); }
+      .sec-grid { grid-template-columns: repeat(2,1fr); }
+      .port-row-a { grid-template-columns: 1fr; }
+      .port-row-b { grid-template-columns: repeat(2,1fr); }
+      .test-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-wrap: wrap; gap: 20px; }
+      .hero-stat { border-right: none; }
+    }
+    @media (max-width: 768px) {
+      :root { --sec: 72px; }
+      .tb-right { display: none; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .diff-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 60px; }
+      .foot-top { grid-template-columns: 1fr; gap: 32px; }
+      .test-featured { padding: 40px 28px; }
+      .process-timeline::before { display: none; }
+    }
+    @media (max-width: 540px) {
+      .svc-grid { grid-template-columns: 1fr; }
+      .sec-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .counters-grid { grid-template-columns: repeat(2,1fr); }
+      .process-timeline { grid-template-columns: 1fr; }
+      .port-row-b { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ────────────────────────────────────────────────── -->
+<header class="site-header" id="siteHeader">
+  <div class="top-bar">
+    <div class="container">
+      <div class="tb-left">
+        <span class="tb-iso">ISO 9001</span>
+        Certificação de qualidade em todos os processos
+      </div>
+      <div class="tb-right">
+        <a href="tel:+5571996888885">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 5.64 5.64l.93-.93a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          (71) 99688-8885
+        </a>
+        <a href="mailto:comercial@moraisempreendimento.com.br">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          comercial@moraisempreendimento.com.br
+        </a>
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          Salvador – BA
+        </span>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar">
+    <div class="container">
+      <a href="#inicio" class="nav-logo">
+        <img src="https://moraisempreendimentos.com.br/wp-content/uploads/2024/03/morais-logo.png" alt="Morais Empreendimentos">
+      </a>
+      <ul class="nav-links">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#setores">Setores</a></li>
+        <li><a href="#portfolio">Portfólio</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="https://wa.me/5571996888885?text=Olá!%20Gostaria%20de%20solicitar%20uma%20proposta." target="_blank" class="btn btn-gold">Solicitar Proposta</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- ── MOBILE MENU ───────────────────────────────────────────── -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Fechar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+  <ul class="mobile-links">
+    <li><a href="#inicio">Início</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#setores">Setores</a></li>
+    <li><a href="#portfolio">Portfólio</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a href="https://wa.me/5571996888885" target="_blank" class="btn btn-gold">Solicitar Proposta</a>
+</div>
+
+<!-- ── HERO — split layout ───────────────────────────────────── -->
+<section class="hero" id="inicio">
+  <div class="hero-grid"></div>
+
+  <div class="hero-left container" style="padding-left:32px;">
+    <div class="fade-up" style="max-width:640px;">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-line"></span>
+        Engenharia Multidisciplinar · ISO 9001 · Salvador – BA
+      </div>
+      <h1>Uma<br>empresa.<br><em>Todas as</em><br>disciplinas.</h1>
+      <p class="hero-desc">A Morais entrega engenharia multidisciplinar completa para a indústria — elétrica, civil, mecânica, automação, tubulação e muito mais. Do conceito à execução.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/5571996888885?text=Olá!%20Gostaria%20de%20solicitar%20uma%20proposta." target="_blank" class="btn btn-gold">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          Solicitar Proposta
+        </a>
+        <a href="#servicos" class="btn btn-outline-white">
+          Ver serviços
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num"><strong>10</strong>+</div>
+          <div class="hero-stat-label">Anos</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num"><strong>100</strong>+</div>
+          <div class="hero-stat-label">Projetos</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num"><strong>8</strong></div>
+          <div class="hero-stat-label">Disciplinas</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num"><strong>ISO</strong> 9001</div>
+          <div class="hero-stat-label">Certificada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- right image panel with diagonal clip -->
+  <div class="hero-right">
+    <div class="hero-right-img"></div>
+    <div class="hero-right-label">Engenharia Industrial · Salvador BA</div>
+  </div>
+
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+    scroll
+  </div>
+</section>
+
+<!-- ── DIFFERENTIALS ─────────────────────────────────────────── -->
+<section class="differentials">
+  <div class="diff-ghost-num">03</div>
+  <div class="container">
+    <div class="diff-grid">
+      <div class="diff-item fade-up">
+        <div class="diff-num">01</div>
+        <div class="diff-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 11 12 14 22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
+        <div class="diff-body">
+          <h3>Todas as disciplinas. Um contrato.</h3>
+          <p>Elétrica, Civil, Mecânica, Automação, Instrumentação, Tubulação, Processo e Gestão — um único parceiro responsável.</p>
+        </div>
+      </div>
+      <div class="diff-item fade-up d2">
+        <div class="diff-num">02</div>
+        <div class="diff-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="6"/>
+            <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/>
+          </svg>
+        </div>
+        <div class="diff-body">
+          <h3>ISO 9001 em cada etapa.</h3>
+          <p>Qualidade controlada do briefing ao documento executivo — rastreabilidade total e revisões técnicas rigorosas.</p>
+        </div>
+      </div>
+      <div class="diff-item fade-up d4">
+        <div class="diff-num">03</div>
+        <div class="diff-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </div>
+        <div class="diff-body">
+          <h3>Do conceito ao executivo.</h3>
+          <p>Estudos de viabilidade, projetos básicos, executivos e as-built — presença em cada fase do ciclo do projeto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COUNTERS ──────────────────────────────────────────────── -->
+<section class="counters">
+  <div class="container">
+    <div class="counters-grid">
+      <div class="counter-card fade-up">
+        <div class="counter-num"><span id="c1">0</span><span>+</span></div>
+        <div class="counter-title">Anos de Experiência</div>
+        <div class="counter-sub">atuando na indústria nacional</div>
+      </div>
+      <div class="counter-card fade-up d1">
+        <div class="counter-num"><span id="c2">0</span><span>+</span></div>
+        <div class="counter-title">Projetos Entregues</div>
+        <div class="counter-sub">do básico ao executivo</div>
+      </div>
+      <div class="counter-card fade-up d2">
+        <div class="counter-num"><span id="c3">0</span></div>
+        <div class="counter-title">Disciplinas de Engenharia</div>
+        <div class="counter-sub">integradas em um único contrato</div>
+      </div>
+      <div class="counter-card fade-up d3">
+        <div class="counter-num"><span id="c4">0</span><span>+</span></div>
+        <div class="counter-title">Estados Atendidos</div>
+        <div class="counter-sub">em todo o Brasil</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ─────────────────────────────────────────────────── -->
+<section class="about" id="sobre">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img fade-right">
+        <div class="about-img-wrap">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Equipe Morais Empreendimentos">
+        </div>
+        <div class="about-img-badge">CNPJ 15.631.879/0001-47</div>
+      </div>
+      <div class="about-content fade-left">
+        <span class="sec-label">Quem Somos</span>
+        <h2>O parceiro completo da indústria</h2>
+        <p>A Morais Empreendimentos nasceu com um propósito claro: ser o parceiro de engenharia completo da indústria. Somos especialistas em projetos industriais multidisciplinares, com certificação ISO 9001 e equipe sênior em todas as disciplinas.</p>
+        <p>Enquanto a maioria das empresas entrega apenas uma parte do projeto, a Morais entrega tudo — integrado, coordenado e no prazo.</p>
+        <div class="about-badges">
+          <span class="badge badge-a">✓ ISO 9001 Certificada</span>
+          <span class="badge badge-p">📍 Salvador, Bahia</span>
+          <span class="badge badge-p">10+ anos de mercado</span>
+        </div>
+        <a href="https://wa.me/5571996888885" target="_blank" class="btn btn-outline-dark">Falar com nossa equipe</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES — dark, editorial ────────────────────────────── -->
+<section class="services" id="servicos">
+  <div class="services-ghost">ENG</div>
+  <div class="container">
+    <div class="sec-header fade-up">
+      <span class="sec-label">Nossas Disciplinas</span>
+      <h2>Todas as Disciplinas<br>de Engenharia</h2>
+      <p>Você não precisa contratar 8 empresas diferentes. A Morais entrega tudo.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card fade-up">
+        <div class="svc-card-num">01</div>
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <h3>Engenharia Elétrica</h3>
+        <p>Instalações industriais, força, iluminação e painéis elétricos.</p>
+      </div>
+      <div class="svc-card fade-up d1">
+        <div class="svc-card-num">02</div>
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <h3>Engenharia Civil</h3>
+        <p>Estruturas, fundações, obras civis e edificações industriais.</p>
+      </div>
+      <div class="svc-card fade-up d2">
+        <div class="svc-card-num">03</div>
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.07 4.93a10 10 0 0 0-14.14 0"/>
+            <path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-9-9 9 9 0 0 1 9-9 9 9 0 0 1 9 9"/>
+          </svg>
+        </div>
+        <h3>Engenharia Mecânica</h3>
+        <p>Equipamentos, estruturas metálicas e sistemas mecânicos.</p>
+      </div>
+      <div class="svc-card fade-up d3">
+        <div class="svc-card-num">04</div>
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <rect x="9" y="9" width="6" height="6"/>
+            <line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/>
+            <line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/>
+            <line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/>
+            <line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
+          </svg>
+        </div>
+        <h3>Automação e Instrumentação</h3>
+        <p>Controle, malhas de instrumentação, P&IDs e automação.</p>
+      </div>
+      <div class="svc-card fade-up">
+        <div class="svc-card-num">05</div>
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17"/>
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          </svg>
+        </div>
+        <h3>Engenharia de Tubulação</h3>
+        <p>Redes completas de tubulação para fluidos e utilities.</p>
+      </div>
+      <div class="svc-card fade-up d1">
+        <div class="svc-card-num">06</div>
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <h3>Engenharia de Processo</h3>
+        <p>Fluxogramas, balanços de massa e energia, licenciamento.</p>
+      </div>
+      <div class="svc-card fade-up d2">
+        <div class="svc-card-num">07</div>
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3>Segurança (NR/ABNT)</h3>
+        <p>Projetos alinhados às normas regulamentadoras e SMS.</p>
+      </div>
+      <div class="svc-card fade-up d3">
+        <div class="svc-card-num">08</div>
+        <div class="svc-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+        </div>
+        <h3>Gerenciamento EPCM</h3>
+        <p>Coordenação multidisciplinar, prazo e controle de custo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTORS ───────────────────────────────────────────────── -->
+<section class="sectors" id="setores">
+  <div class="container">
+    <div class="sec-header fade-up" style="text-align:center;margin-bottom:64px;">
+      <span class="sec-label">Setores de Atuação</span>
+      <h2 style="font-family:var(--font-display);font-size:clamp(36px,4vw,56px);font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:-1px;line-height:1.05;margin-bottom:14px;">Setores que Atendemos</h2>
+      <p style="font-size:18px;color:var(--muted);max-width:580px;margin:0 auto;">Experiência comprovada nos principais segmentos da indústria nacional.</p>
+    </div>
+    <div class="sec-grid">
+      <div class="sec-card fade-up">
+        <div class="sec-ico">🏭</div>
+        <h3>Petroquímica e Química</h3>
+        <p>Plantas industriais, unidades de processo e infraestrutura petroquímica.</p>
+      </div>
+      <div class="sec-card fade-up d1">
+        <div class="sec-ico">🛢️</div>
+        <h3>Óleo e Gás</h3>
+        <p>Projetos onshore e offshore, dutos, terminais e instalações de produção.</p>
+      </div>
+      <div class="sec-card fade-up d2">
+        <div class="sec-ico">⛏️</div>
+        <h3>Mineração e Metalurgia</h3>
+        <p>Usinas de beneficiamento, plantas de processo e infraestrutura mineira.</p>
+      </div>
+      <div class="sec-card fade-up">
+        <div class="sec-ico">📄</div>
+        <h3>Papel e Celulose</h3>
+        <p>Projetos de expansão, adequação e novas linhas de produção.</p>
+      </div>
+      <div class="sec-card fade-up d1">
+        <div class="sec-ico">⚡</div>
+        <h3>Energia e Utilities</h3>
+        <p>Subestações, sistemas de geração, distribuição e utilities industriais.</p>
+      </div>
+      <div class="sec-card fade-up d2">
+        <div class="sec-ico">🏗️</div>
+        <h3>Infraestrutura Industrial</h3>
+        <p>Galpões, armazéns, obras civis e infraestrutura de apoio industrial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ───────────────────────────────────────────────── -->
+<section class="process">
+  <div class="container">
+    <div class="sec-header sec-header--light fade-up" style="text-align:center;">
+      <span class="sec-label">Como Trabalhamos</span>
+      <h2>Do briefing à planta executiva</h2>
+      <p style="color:rgba(255,255,255,.55);font-size:18px;max-width:520px;margin:0 auto;">4 etapas claras. Uma equipe completa. Resultado garantido.</p>
+    </div>
+    <div class="process-timeline">
+      <div class="step fade-up">
+        <div class="step-dot"></div>
+        <div class="step-num">01</div>
+        <div class="step-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <h3>Entendemos seu desafio</h3>
+        <p>Reunião técnica para mapear necessidades, escopo e restrições do projeto.</p>
+      </div>
+      <div class="step fade-up d1">
+        <div class="step-dot"></div>
+        <div class="step-num">02</div>
+        <div class="step-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3>Montamos a equipe certa</h3>
+        <p>Engenheiros das disciplinas necessárias, coordenados por um único gerente.</p>
+      </div>
+      <div class="step fade-up d2">
+        <div class="step-dot"></div>
+        <div class="step-num">03</div>
+        <div class="step-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 11 12 14 22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
+        <h3>Desenvolvemos com qualidade</h3>
+        <p>Controle ISO 9001 em cada etapa e revisão técnica rigorosa.</p>
+      </div>
+      <div class="step fade-up d3">
+        <div class="step-dot"></div>
+        <div class="step-num">04</div>
+        <div class="step-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <h3>Entregamos completo</h3>
+        <p>Documentação executiva pronta para licitação ou execução.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PORTFOLIO ─────────────────────────────────────────────── -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="sec-header fade-up" style="text-align:center;margin-bottom:64px;">
+      <span class="sec-label">Portfólio</span>
+      <h2>Projetos Entregues</h2>
+      <p style="font-size:18px;color:var(--muted);max-width:520px;margin:0 auto;">Resultados reais para clientes reais em todo o Brasil.</p>
+    </div>
+
+    <!-- Row A: 1 large + 1 smaller -->
+    <div class="port-row-a">
+      <div class="port-card fade-up">
+        <div class="port-img port-img-large">
+          <img src="https://images.unsplash.com/photo-1518709414768-a88981a4515d?auto=format&fit=crop&w=1000&q=80" alt="Petroquímica">
+          <span class="port-tag">Petroquímica</span>
+        </div>
+        <div class="port-body">
+          <h3>Instrumentação — Unidade de Processo</h3>
+          <p class="sector">📍 Bahia · 2023</p>
+          <div class="port-tags"><span>Instrumentação</span><span>P&ID</span><span>Automação</span></div>
+        </div>
+      </div>
+      <div class="port-card fade-up d2">
+        <div class="port-img port-img-sm">
+          <!-- Placeholder aguardando render 3D do Mateus -->
+          <div class="port-placeholder">
+            <div class="port-placeholder-ico">🏗️</div>
+            <div class="port-placeholder-txt">Render 3D<br>em preparação</div>
+          </div>
+          <span class="port-tag">Civil</span>
+        </div>
+        <div class="port-body">
+          <h3>Galpão Industrial — Estrutural e Civil</h3>
+          <p class="sector">📍 Bahia · 2022</p>
+          <div class="port-tags"><span>Civil</span><span>Estrutural</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row B: 3 equal -->
+    <div class="port-row-b">
+      <div class="port-card fade-up">
+        <div class="port-img port-img-sm">
+          <img src="https://images.unsplash.com/photo-1565793979764-0a8d26c3fcff?auto=format&fit=crop&w=600&q=80" alt="Automação">
+          <span class="port-tag">Automação</span>
+        </div>
+        <div class="port-body">
+          <h3>Sistema de Controle — Linha de Produção</h3>
+          <p class="sector">📍 São Paulo · 2023</p>
+          <div class="port-tags"><span>Automação</span><span>Elétrica</span></div>
+        </div>
+      </div>
+      <div class="port-card fade-up d1">
+        <div class="port-img port-img-sm">
+          <!-- Placeholder aguardando render 3D do Mateus -->
+          <div class="port-placeholder">
+            <div class="port-placeholder-ico">⚡</div>
+            <div class="port-placeholder-txt">Render 3D<br>em preparação</div>
+          </div>
+          <span class="port-tag">Elétrica</span>
+        </div>
+        <div class="port-body">
+          <h3>Subestação 13,8 kV — Planta Industrial</h3>
+          <p class="sector">📍 Bahia · 2022</p>
+          <div class="port-tags"><span>Elétrica</span><span>NR-10</span></div>
+        </div>
+      </div>
+      <div class="port-card fade-up d2">
+        <div class="port-img port-img-sm">
+          <!-- Placeholder aguardando render 3D do Mateus -->
+          <div class="port-placeholder">
+            <div class="port-placeholder-ico">🏛️</div>
+            <div class="port-placeholder-txt">Render 3D<br>em preparação</div>
+          </div>
+          <span class="port-tag">EPCM</span>
+        </div>
+        <div class="port-body">
+          <h3>Gerenciamento Multidisciplinar — Expansão</h3>
+          <p class="sector">📍 Minas Gerais · 2024</p>
+          <div class="port-tags"><span>EPCM</span><span>Mineração</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-cta fade-up">
+      <a href="https://wa.me/5571996888885?text=Gostaria%20de%20ver%20mais%20projetos%20da%20Morais." target="_blank" class="btn btn-outline-dark">Ver Todos os Projetos</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── CLIENTS ───────────────────────────────────────────────── -->
+<section class="clients">
+  <div class="container">
+    <div class="clients-hd fade-up">
+      <span class="sec-label" style="color:var(--gold);justify-content:center;">Clientes</span>
+      <h2>Empresas que Confiam na Morais</h2>
+    </div>
+  </div>
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="logo-tile"><span class="logo-name">PETROBRAS</span></div>
+      <div class="logo-tile"><span class="logo-name">BRASKEM</span></div>
+      <div class="logo-tile"><span class="logo-name">VALE</span></div>
+      <div class="logo-tile"><span class="logo-name">SUZANO</span></div>
+      <div class="logo-tile"><span class="logo-name">DOW</span></div>
+      <div class="logo-tile"><span class="logo-name">TOTALENERGIES</span></div>
+      <div class="logo-tile"><span class="logo-name">BASF</span></div>
+      <div class="logo-tile"><span class="logo-name">VIBRA</span></div>
+      <div class="logo-tile"><span class="logo-name">PETROBRAS</span></div>
+      <div class="logo-tile"><span class="logo-name">BRASKEM</span></div>
+      <div class="logo-tile"><span class="logo-name">VALE</span></div>
+      <div class="logo-tile"><span class="logo-name">SUZANO</span></div>
+      <div class="logo-tile"><span class="logo-name">DOW</span></div>
+      <div class="logo-tile"><span class="logo-name">TOTALENERGIES</span></div>
+      <div class="logo-tile"><span class="logo-name">BASF</span></div>
+      <div class="logo-tile"><span class="logo-name">VIBRA</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ──────────────────────────────────────────── -->
+<section class="testimonials">
+  <div class="container">
+    <div class="sec-header fade-up" style="text-align:center;margin-bottom:56px;">
+      <span class="sec-label">Depoimentos</span>
+      <h2>O que dizem sobre nós</h2>
+      <p style="font-size:18px;color:var(--muted);max-width:480px;margin:0 auto;">A opinião de quem trabalhou com a Morais.</p>
+    </div>
+
+    <!-- Featured testimonial — SUBSTITUIR pelo real mais forte -->
+    <div class="test-featured fade-up">
+      <div>
+        <div class="test-featured-stars">★★★★★</div>
+        <p class="test-featured-text">"A Morais foi fundamental na entrega do nosso projeto de expansão. Ter todas as disciplinas num único parceiro simplificou enormemente a gestão e garantiu a integração perfeita entre os sistemas — algo raro de encontrar no mercado."</p>
+        <div class="test-featured-author">
+          <div class="test-featured-av">CR</div>
+          <div>
+            <div class="test-featured-name">Carlos R.</div>
+            <div class="test-featured-role">Gerente de Engenharia · Petroquímica</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-featured-aside">
+        <div class="big-num">5★</div>
+        <p>100+ projetos entregues com avaliação máxima</p>
+      </div>
+    </div>
+
+    <!-- 2 cards — SUBSTITUIR pelos reais -->
+    <div class="test-grid">
+      <div class="test-card fade-up">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"Entregaram o projeto executivo dentro do prazo e com qualidade ISO 9001 comprovada. O gerenciamento do escopo foi exemplar."</p>
+        <div class="test-author">
+          <div class="test-av">AS</div>
+          <div>
+            <div class="test-name">Ana S.</div>
+            <div class="test-role">Diretora de Operações · Mineração</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card fade-up d1">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"Do básico ao executivo, a equipe da Morais dominou cada disciplina. Nos deram tranquilidade para focar no negócio enquanto eles cuidavam de toda a engenharia."</p>
+        <div class="test-author">
+          <div class="test-av">PM</div>
+          <div>
+            <div class="test-name">Paulo M.</div>
+            <div class="test-role">CEO · Infraestrutura Industrial</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY CHOOSE ────────────────────────────────────────────── -->
+<section class="why">
+  <div class="container">
+    <div class="sec-header fade-up" style="text-align:center;">
+      <span class="sec-label">Nossos Diferenciais</span>
+      <h2>Por que escolher a Morais?</h2>
+      <p style="color:rgba(255,255,255,.5);font-size:18px;max-width:520px;margin:0 auto;">Vantagens que só um parceiro multidisciplinar completo pode oferecer.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-up">
+        <div class="why-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <h3>Multidisciplinar Completa</h3>
+        <p>Todas as disciplinas integradas, um único contrato, um único responsável.</p>
+      </div>
+      <div class="why-card fade-up d1">
+        <div class="why-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="6"/>
+            <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/>
+          </svg>
+        </div>
+        <h3>ISO 9001 Certificada</h3>
+        <p>Qualidade controlada em cada processo, do início ao fim do projeto.</p>
+      </div>
+      <div class="why-card fade-up d2">
+        <div class="why-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3>Equipe Especializada</h3>
+        <p>Engenheiros seniores em cada disciplina, prontos para o seu desafio.</p>
+      </div>
+      <div class="why-card fade-up d3">
+        <div class="why-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>Entrega no Prazo</h3>
+        <p>Gerenciamento rigoroso de cronograma e escopo em todos os projetos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL — gold background ──────────────────────────── -->
+<section class="cta-final">
+  <div class="container">
+    <div class="cta-inner fade-up">
+      <span class="sec-label">Fale com a Morais</span>
+      <h2>Chega de contratar empresa por empresa.</h2>
+      <p>Uma reunião técnica gratuita para entender seu projeto e apresentar a solução completa.</p>
+      <a href="https://wa.me/5571996888885?text=Olá!%20Gostaria%20de%20agendar%20uma%20reunião%20técnica." target="_blank" class="btn btn-cta-dark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Agendar Reunião Técnica
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer class="footer" id="contato">
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img src="https://moraisempreendimentos.com.br/wp-content/uploads/2024/03/morais-logo.png" alt="Morais Empreendimentos">
+        <p>Engenharia multidisciplinar completa para a indústria. Do conceito ao detalhamento executivo, com qualidade ISO 9001.</p>
+        <div class="foot-social">
+          <a href="#" class="soc-btn" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <a href="#" class="soc-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="#" class="soc-btn" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+              <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+            </svg>
+          </a>
+          <a href="#" class="soc-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Links Rápidos</h4>
+        <ul class="foot-links">
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#setores">Setores de Atuação</a></li>
+          <li><a href="#portfolio">Portfólio</a></li>
+          <li><a href="#sobre">Sobre a Morais</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Disciplinas</h4>
+        <ul class="foot-links">
+          <li><a href="#servicos">Engenharia Elétrica</a></li>
+          <li><a href="#servicos">Engenharia Civil</a></li>
+          <li><a href="#servicos">Engenharia Mecânica</a></li>
+          <li><a href="#servicos">Automação</a></li>
+          <li><a href="#servicos">Tubulação e Processo</a></li>
+          <li><a href="#servicos">Gestão EPCM</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Contato</h4>
+        <div class="foot-contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 5.64 5.64l.93-.93a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span>(71) 99688-8885</span>
+        </div>
+        <div class="foot-contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <span>comercial@moraisempreendimento.com.br</span>
+        </div>
+        <div class="foot-contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <span>Empresarial Costa Azul, Sala 1102 — R. Dr. José Peroba, 297, Costa Azul, Salvador – BA</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2025 Morais Empreendimentos LTDA — CNPJ: 15.631.879/0001-47</p>
+      <div class="foot-bottom-links">
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ────────────────────────────────────────────────── -->
+<script>
+  // Navbar scroll
+  const header = document.getElementById('siteHeader');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 60);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile menu
+  const hamburger   = document.getElementById('hamburger');
+  const mobileMenu  = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+  hamburger.addEventListener('click',  () => mobileMenu.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // Scroll animations
+  const animEls = document.querySelectorAll('.fade-up, .fade-left, .fade-right');
+  const animObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); animObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  animEls.forEach(el => animObs.observe(el));
+
+  // Counters
+  const counters = [
+    { id: 'c1', target: 10 },
+    { id: 'c2', target: 100 },
+    { id: 'c3', target: 8 },
+    { id: 'c4', target: 5 },
+  ];
+  function animateCount(el, target) {
+    const duration = 2200;
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 4);
+      el.textContent = Math.round(ease * target);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+  const counterSection = document.querySelector('.counters');
+  let countStarted = false;
+  const countObs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !countStarted) {
+      countStarted = true;
+      counters.forEach(c => animateCount(document.getElementById(c.id), c.target));
+      countObs.disconnect();
+    }
+  }, { threshold: 0.3 });
+  countObs.observe(counterSection);
+
+  // Smooth anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - header.offsetHeight - 16;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
