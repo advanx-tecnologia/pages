@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Onboarding de Cliente | Advanx</title>
+  <style>
+    :root{--canvas:#f5f4ed;--card:#f8f7f1;--primary:#c96442;--text:#141413;--muted:#5e5d59;--line:#ece7da;--ok:#0f766e;--okbg:#ecfdf5;--err:#b42318;--radius:14px}
+    *{box-sizing:border-box} body{margin:0;background:var(--canvas);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55}
+    .wrap{min-height:100vh;display:grid;place-items:center;padding:16px}.card{width:min(860px,100%);background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+    .progress{height:6px;background:#ece9df;border-radius:999px;overflow:hidden;margin-bottom:24px}.bar{height:100%;width:0;background:var(--primary);transition:.2s}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:12px}
+    h1,h2{font-family:Charter,Georgia,"Times New Roman",serif;font-weight:500;line-height:1.12;letter-spacing:-.01em;margin:0 0 12px} h1{font-size:clamp(28px,4vw,42px)} h2{font-size:clamp(22px,3vw,30px)}
+    p{margin:0 0 16px;color:var(--muted)} .small{font-size:14px}.strong{font-weight:700;color:var(--text)}
+    .step{display:none}.step.active{display:block;animation:fadeIn .22s ease} @keyframes fadeIn{from{opacity:.45;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+    .grid2,.grid3{display:grid;gap:12px}.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}
+    @media(max-width:780px){.grid2,.grid3{grid-template-columns:1fr}.card{padding:18px}}
+    label{display:block;font-size:14px;font-weight:600;margin:0 0 6px}.field{margin-bottom:14px}
+    input,textarea,select{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--text);font:inherit} textarea{min-height:120px;resize:vertical}
+    .actions{display:flex;gap:10px;margin-top:18px}.btn{border:1px solid var(--line);border-radius:12px;padding:13px 16px;font:inherit;font-weight:600;cursor:pointer;background:#fff;color:var(--text);min-height:48px}.btn.next{background:var(--primary);color:#fff;border-color:var(--primary)} .btn[disabled]{opacity:.65;cursor:wait}
+    .err{margin-top:10px;color:var(--err);font-size:14px}.hint{font-size:13px;color:var(--muted)}
+    .success{padding:18px;border:1px solid #bbf7d0;background:var(--okbg);border-radius:14px;margin-top:18px}.success h3{margin:0 0 10px;font-size:20px;color:var(--ok)} .success p,.success li{color:#14532d}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid #bbf7d0;font-size:12px;font-weight:700;color:var(--ok)}
+    .hide{display:none!important}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <section class="card">
+    <div class="progress"><div class="bar" id="bar"></div></div>
+
+    <div class="step active" data-step="1">
+      <div class="eyebrow">Advanx</div>
+      <h1>Preencha seus dados para iniciarmos seu onboarding.</h1>
+      <p>Este formulário reúne as informações iniciais do seu projeto. Assim que ele for enviado, nosso time organiza o cadastro e prepara os próximos passos.</p>
+      <p class="small">Leva poucos minutos. Campos obrigatórios: <span class="strong">nome, telefone e e-mail</span>.</p>
+      <div class="actions"><button class="btn next" type="button" id="btnStart">Iniciar preenchimento</button></div>
+    </div>
+
+    <form id="onboardingForm">
+      <input type="text" name="hp" id="hp" class="hide" tabindex="-1" autocomplete="off" />
+
+      <div class="step" data-step="2">
+        <h2>Quem é o cliente?</h2>
+        <div class="grid2">
+          <div class="field"><label for="nome_empresa">Empresa ou escritório</label><input id="nome_empresa" name="nome_empresa" placeholder="Ex.: Silva & Associados" /></div>
+          <div class="field"><label for="nome">Nome do responsável *</label><input id="nome" name="nome" placeholder="Nome completo" required /></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="nicho">Nicho</label><input id="nicho" name="nicho" placeholder="Ex.: Direito previdenciário" /></div>
+          <div class="field"><label for="cpf_cnpj">CPF ou CNPJ</label><input id="cpf_cnpj" name="cpf_cnpj" placeholder="Somente números ou formato padrão" /></div>
+        </div>
+        <div class="field"><label for="endereco">Endereço</label><input id="endereco" name="endereco" placeholder="Rua, número, bairro, cidade e estado" /></div>
+      </div>
+
+      <div class="step" data-step="3">
+        <h2>Como entramos em contato?</h2>
+        <div class="grid2">
+          <div class="field"><label for="telefone">WhatsApp principal *</label><input id="telefone" name="telefone" placeholder="(71) 99999-9999" required /></div>
+          <div class="field"><label for="telefone_leads">WhatsApp que recebe os leads</label><input id="telefone_leads" name="telefone_leads" placeholder="Se for diferente do principal" /></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="email">E-mail principal *</label><input id="email" name="email" type="email" placeholder="email@provedor.com" required /></div>
+          <div class="field"><label for="pagamento">Forma de pagamento preferida</label><select id="pagamento" name="pagamento"><option value="">Selecione</option><option>Boleto</option><option>PIX</option><option>Cartão</option><option>Transferência</option><option>Outro</option></select></div>
+        </div>
+      </div>
+
+      <div class="step" data-step="4">
+        <h2>O que vamos rodar?</h2>
+        <div class="grid2">
+          <div class="field"><label for="service_primary">Serviço principal</label><input id="service_primary" name="service_primary" placeholder="Ex.: Captação para advogado" /></div>
+          <div class="field"><label for="objective_primary">Objetivo principal</label><input id="objective_primary" name="objective_primary" placeholder="Ex.: Mais reuniões qualificadas" /></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="publico_alvo">Público-alvo</label><input id="publico_alvo" name="publico_alvo" placeholder="Quem esse cliente quer atingir" /></div>
+          <div class="field"><label for="cidades_atendidas">Cidades ou regiões atendidas</label><input id="cidades_atendidas" name="cidades_atendidas" placeholder="Ex.: Salvador e RMS" /></div>
+        </div>
+        <div class="field"><label for="observacoes">Observações importantes</label><textarea id="observacoes" name="observacoes" placeholder="Contexto, restrições, diferenciais, oferta ou qualquer detalhe útil"></textarea></div>
+      </div>
+
+      <div class="step" data-step="5">
+        <h2>Estrutura atual</h2>
+        <div class="grid2">
+          <div class="field"><label for="site">Site</label><input id="site" name="site" placeholder="https://..." /></div>
+          <div class="field"><label for="instagram">Instagram</label><input id="instagram" name="instagram" placeholder="@perfil" /></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="crm_atual">CRM ou sistema atual</label><input id="crm_atual" name="crm_atual" placeholder="Ex.: Kommo, PipeRun, planilha" /></div>
+          <div class="field"><label for="equipe_comercial">Equipe comercial</label><input id="equipe_comercial" name="equipe_comercial" placeholder="Ex.: 2 closers, 1 SDR" /></div>
+        </div>
+      </div>
+
+      <div class="step" data-step="6">
+        <h2>Tráfego e contas</h2>
+        <p class="small">Tudo abaixo é opcional. Se o cliente já tiver, acelera o setup.</p>
+        <div class="grid2">
+          <div class="field"><label for="verba_ads">Verba mensal de anúncios</label><input id="verba_ads" name="verba_ads" placeholder="Ex.: 3000" /></div>
+          <div class="field"><label for="meta_business_id">Meta Business ID</label><input id="meta_business_id" name="meta_business_id" placeholder="Se já tiver em mãos" /></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="conta_anuncio_meta">Conta de anúncio Meta</label><input id="conta_anuncio_meta" name="conta_anuncio_meta" placeholder="Ex.: act_123456789" /></div>
+          <div class="field"><label for="conta_anuncio_google">Conta Google Ads</label><input id="conta_anuncio_google" name="conta_anuncio_google" placeholder="Ex.: 123-456-7890" /></div>
+        </div>
+      </div>
+
+      <div class="step" data-step="7">
+        <h2>Confirmação final</h2>
+        <p>Depois do envio, nosso time usa essas informações para organizar seu onboarding e alinhar os próximos passos do projeto.</p>
+        <p class="hint">Se faltar algum detalhe, nossa equipe complementa com você na sequência.</p>
+      </div>
+    </form>
+
+    <div class="actions hide" id="nav">
+      <button class="btn" id="prev" type="button">Voltar</button>
+      <button class="btn next" id="next" type="button">Continuar</button>
+    </div>
+    <div class="err" id="err"></div>
+    <div id="result"></div>
+  </section>
+</main>
+
+<script>
+const TOTAL_STEPS = 7;
+let step = 1;
+const form = document.getElementById('onboardingForm');
+const bar = document.getElementById('bar');
+const err = document.getElementById('err');
+const nav = document.getElementById('nav');
+const result = document.getElementById('result');
+const btnNext = document.getElementById('next');
+const btnPrev = document.getElementById('prev');
+const btnStart = document.getElementById('btnStart');
+
+const SUPABASE_URL = 'https://lhbwfbquxkutcyqazpnw.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQxMjg5NTcsImV4cCI6MjA1OTcwNDk1N30.p1TNh46QbFnvzG1tD0YmVw3le7sN6WqeMnLxyw7H_oQ';
+const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/client-onboarding`;
+
+function showStep(target){
+  document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+  document.querySelector(`.step[data-step="${target}"]`).classList.add('active');
+  bar.style.width = `${(target / TOTAL_STEPS) * 100}%`;
+  nav.classList.toggle('hide', target === 1);
+  btnNext.textContent = target === TOTAL_STEPS ? 'Enviar onboarding' : 'Continuar';
+  err.textContent = '';
+}
+
+function normalizePhoneInput(value){
+  let digits = (value || '').replace(/\D/g, '');
+  if (digits.startsWith('55')) digits = digits.slice(2);
+  digits = digits.slice(0, 11);
+  if (digits.length <= 2) return `(${digits}`;
+  if (digits.length <= 7) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+}
+
+['telefone','telefone_leads'].forEach(id => {
+  document.getElementById(id).addEventListener('input', e => {
+    e.target.value = normalizePhoneInput(e.target.value);
+  });
+});
+
+function validateStep(){
+  if (step === 2) {
+    if (!document.getElementById('nome').value.trim()) return 'Informe o nome do responsável.';
+  }
+  if (step === 3) {
+    if (!document.getElementById('telefone').value.trim()) return 'Informe o WhatsApp principal.';
+    if (!document.getElementById('email').value.trim()) return 'Informe o e-mail principal.';
+  }
+  return '';
+}
+
+async function submitForm(){
+  const payload = Object.fromEntries(new FormData(form).entries());
+  payload.dryRun = false;
+
+  if (!payload.nome || !payload.telefone || !payload.email) {
+    err.textContent = 'Nome, telefone e e-mail são obrigatórios.';
+    return;
+  }
+
+  err.textContent = '';
+  btnNext.disabled = true;
+  btnPrev.disabled = true;
+  result.innerHTML = '';
+
+  try {
+    const response = await fetch(FUNCTION_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+    if (!response.ok || !data.ok) throw new Error(data.error || 'Falha ao concluir onboarding.');
+
+    result.innerHTML = `
+      <div class="success">
+        <span class="badge">Onboarding criado</span>
+        <h3>Cliente salvo e grupo processado com sucesso.</h3>
+        <p><strong>ID do cliente:</strong> ${data.clienteId}</p>
+        <p><strong>ID do grupo:</strong> ${data.id_grupo || 'não retornado'}</p>
+        ${data.inviteUrl ? `<p><strong>Convite:</strong> <a href="${data.inviteUrl}" target="_blank" rel="noopener">abrir link do grupo</a></p>` : ''}
+        <p class="small">Se o cliente não entrou automaticamente no grupo, use o link acima para concluir a entrada.</p>
+      </div>
+    `;
+    nav.classList.add('hide');
+    form.classList.add('hide');
+    document.querySelector('.step.active')?.classList.remove('active');
+    bar.style.width = '100%';
+  } catch (error) {
+    err.textContent = error.message || 'Falha ao concluir onboarding.';
+  } finally {
+    btnNext.disabled = false;
+    btnPrev.disabled = false;
+  }
+}
+
+btnStart.addEventListener('click', () => {
+  step = 2;
+  showStep(step);
+});
+
+btnPrev.addEventListener('click', () => {
+  if (step > 2) {
+    step -= 1;
+    showStep(step);
+  }
+});
+
+btnNext.addEventListener('click', async () => {
+  const validationError = validateStep();
+  if (validationError) {
+    err.textContent = validationError;
+    return;
+  }
+
+  if (step === TOTAL_STEPS) {
+    await submitForm();
+    return;
+  }
+
+  step += 1;
+  showStep(step);
+});
+
+showStep(step);
+</script>
+</body>
+</html>
