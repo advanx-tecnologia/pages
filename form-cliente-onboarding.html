@@ -63,7 +63,7 @@
           <div class="field"><label for="telefone_leads">WhatsApp que recebe os leads</label><input id="telefone_leads" name="telefone_leads" placeholder="Se for diferente do principal" /></div>
         </div>
         <div class="grid2">
-          <div class="field"><label for="email">E-mail principal *</label><input id="email" name="email" type="email" placeholder="email@provedor.com" required /></div>
+          <div class="field"><label for="email">E-mail principal *</label><input id="email" name="email" type="email" placeholder="email@provedor.com" autocomplete="email" list="emailSuggestions" required /><datalist id="emailSuggestions"></datalist><div class="hint">Depois do @, sugerimos os provedores mais usados para agilizar o preenchimento.</div></div>
           <div class="field"><label for="pagamento">Forma de pagamento preferida</label><select id="pagamento" name="pagamento"><option value="">Selecione</option><option>Boleto</option><option>PIX</option><option>Cartão</option><option>Transferência</option><option>Outro</option></select></div>
         </div>
       </div>
@@ -133,6 +133,9 @@ const result = document.getElementById('result');
 const btnNext = document.getElementById('next');
 const btnPrev = document.getElementById('prev');
 const btnStart = document.getElementById('btnStart');
+const emailInput = document.getElementById('email');
+const emailSuggestions = document.getElementById('emailSuggestions');
+const COMMON_EMAIL_PROVIDERS = ['gmail.com','hotmail.com','outlook.com','icloud.com','yahoo.com','uol.com.br','bol.com.br'];
 
 const SUPABASE_URL = 'https://lhbwfbquxkutcyqazpnw.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQxMjg5NTcsImV4cCI6MjA1OTcwNDk1N30.p1TNh46QbFnvzG1tD0YmVw3le7sN6WqeMnLxyw7H_oQ';
@@ -179,6 +182,31 @@ function normalizeCpfCnpjInput(value){
 
 document.getElementById('cpf_cnpj').addEventListener('input', e => {
   e.target.value = normalizeCpfCnpjInput(e.target.value);
+});
+
+function updateEmailSuggestions(value){
+  const raw = (value || '').trim().toLowerCase();
+  const [localPart, domainPart = ''] = raw.split('@');
+  emailSuggestions.innerHTML = '';
+  if (!localPart || !raw.includes('@')) return;
+
+  const matches = COMMON_EMAIL_PROVIDERS
+    .filter(provider => provider.startsWith(domainPart))
+    .slice(0, 6);
+
+  matches.forEach(provider => {
+    const option = document.createElement('option');
+    option.value = `${localPart}@${provider}`;
+    emailSuggestions.appendChild(option);
+  });
+}
+
+emailInput.addEventListener('input', e => {
+  updateEmailSuggestions(e.target.value);
+});
+
+emailInput.addEventListener('focus', e => {
+  updateEmailSuggestions(e.target.value);
 });
 
 function validateStep(){
