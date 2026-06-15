@@ -108,6 +108,9 @@ document.querySelectorAll('.options').forEach(g=>{
 });
 
 const WEBHOOK_URL='https://n8n.advfunnel.com.br/webhook/cb33d994-f6ab-446a-9ba7-fc6f4fd24e0e/:leads';
+const COMMERCIAL_GROUP_NAME='Advanx IA COMERCIAL';
+const COMMERCIAL_INSTANCE_PRIMARY='advanxia';
+const COMMERCIAL_INSTANCE_FALLBACK='jessica';
 const SUPABASE_URL='https://lhbwfbquxkutcyqazpnw.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10';
 const LEAD_SESSION_KEY='advanx_form_adv_41d';
@@ -117,6 +120,57 @@ const leadState={saved:false,record:null,promise:null,notified:false};
 
 function buildLeadPayload(){
   return {...a,origem:'form-adv-41d',ts:new Date().toISOString()};
+}
+
+function formatWebhookValue(v){
+  return v ? String(v) : 'Não informado';
+}
+
+function formatWebhookDateBRT(iso){
+  try{
+    return new Intl.DateTimeFormat('pt-BR',{
+      timeZone:'America/Sao_Paulo',
+      day:'2-digit',month:'2-digit',year:'numeric',
+      hour:'2-digit',minute:'2-digit',second:'2-digit'
+    }).format(new Date(iso));
+  }catch(_){
+    return iso;
+  }
+}
+
+function buildCommercialGroupMessage(payload){
+  const ts=payload.ts||new Date().toISOString();
+  const utmSource=UTM.source||'organico';
+  const utmCampaign=UTM.campaign||'—';
+  const utmMedium=UTM.medium||'—';
+  const utmContent=UTM.content||'—';
+  const utmTerm=UTM.term||'—';
+  return [
+    '*Novo lead — Form 41D*',
+    '',
+    `*Nome:* ${formatWebhookValue(payload.nome)}`,
+    `*WhatsApp:* ${formatWebhookValue(payload.whatsapp_normalizado)}`,
+    `*E-mail:* ${formatWebhookValue(payload.email)}`,
+    `*Instagram:* ${formatWebhookValue(payload.instagram)}`,
+    `*Nicho digitado:* ${formatWebhookValue(payload.nicho)}`,
+    '',
+    '*Qualificação*',
+    `• Colaboradores: ${formatWebhookValue(payload.colaboradores)}`,
+    `• Prazo: ${formatWebhookValue(payload.prazo)}`,
+    `• Faturamento: ${formatWebhookValue(payload.faturamento)}`,
+    `• Investe no setup: ${formatWebhookValue(payload.disposto_investir_setup)}`,
+    '',
+    '*Rastreamento*',
+    `• Lead ID: ${formatWebhookValue(leadState.record?.id)}`,
+    `• Origem: form-adv-41d`,
+    `• Página: ${location.href}`,
+    `• UTM Source: ${utmSource}`,
+    `• UTM Campaign: ${utmCampaign}`,
+    `• UTM Medium: ${utmMedium}`,
+    `• UTM Content: ${utmContent}`,
+    `• UTM Term: ${utmTerm}`,
+    `• Enviado em: ${formatWebhookDateBRT(ts)} BRT`
+  ].join('\n');
 }
 
 function readLeadSession(){
@@ -236,7 +290,35 @@ async function syncLead(payload,{includeDecision=false}={}){
 }
 
 async function notifyLead(payload){
-  const msg={origem:'form-adv-41d',pagina:'Contato',nome:payload.nome,whatsapp:payload.whatsapp_normalizado,email:payload.email,nicho_digitado:payload.nicho,colaboradores:payload.colaboradores,prazo:payload.prazo,faturamento:payload.faturamento,instagram:payload.instagram,disposto_investir_setup:payload.disposto_investir_setup,lead_id:leadState.record?.id||null,destino:'advanxia_comercial',utm_source:UTM.source,utm_campaign:UTM.campaign,utm_medium:UTM.medium,utm_content:UTM.content,utm_term:UTM.term,ts:new Date().toISOString()};
+  const ts=payload.ts||new Date().toISOString();
+  const mensagem_formatada=buildCommercialGroupMessage(payload);
+  const msg={
+    origem:'form-adv-41d',
+    pagina:'Contato',
+    nome:payload.nome,
+    whatsapp:payload.whatsapp_normalizado,
+    email:payload.email,
+    nicho_digitado:payload.nicho,
+    colaboradores:payload.colaboradores,
+    prazo:payload.prazo,
+    faturamento:payload.faturamento,
+    instagram:payload.instagram,
+    disposto_investir_setup:payload.disposto_investir_setup,
+    lead_id:leadState.record?.id||null,
+    destino:'advanxia_comercial',
+    grupo_destino:COMMERCIAL_GROUP_NAME,
+    canal:'whatsapp_grupo_comercial',
+    instancia_preferida:COMMERCIAL_INSTANCE_PRIMARY,
+    instancias_permitidas:[COMMERCIAL_INSTANCE_PRIMARY,COMMERCIAL_INSTANCE_FALLBACK],
+    mensagem_formatada,
+    page_url:location.href,
+    utm_source:UTM.source,
+    utm_campaign:UTM.campaign,
+    utm_medium:UTM.medium,
+    utm_content:UTM.content,
+    utm_term:UTM.term,
+    ts
+  };
   const response = await fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(msg)});
   if(!response.ok){
     const text = await response.text();
