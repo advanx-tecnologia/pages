@@ -37,6 +37,8 @@
     .actions{display:flex;gap:10px;margin-top:18px}
     .btn{border:1px solid var(--line);border-radius:var(--radius);padding:13px 16px;font:inherit;font-weight:600;cursor:pointer;background:#fff;color:var(--text);min-height:48px}
     .btn.next{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .btn-danger{background:#bf3b33;color:#fff;border-color:#bf3b33}
+    .step-downsell .actions{flex-wrap:wrap}
     .err{margin-top:8px;color:#b42318;font-size:14px}
     .email-suggest{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
     .chip{font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;cursor:pointer}
@@ -58,16 +60,29 @@
   <div class="step" data-step="5"><h2>Qual seu Instagram pessoal ou comercial para análise.</h2><input id="instagram" placeholder="@instagram" /></div>
   <div class="step" data-step="6"><h2>Preencha corretamente para receber nosso contato e ter direito à garantia de resultados em 41 dias.</h2><p>Nome completo, WhatsApp, e-mail e nicho.</p><div class="grid2"><input id="nome" placeholder="Nome completo" /><input id="whatsapp" placeholder="(71) 99999-9999" /></div><div class="grid2" style="margin-top:10px"><div><input id="email" type="email" placeholder="email@provedor.com" /><div id="emailSuggest" class="email-suggest"></div></div><input id="nicho" placeholder="Digite seu nicho" /></div></div>
   <div class="step" data-step="7"><h2>Pra começar o projeto com a gente, é necessário um investimento inicial de R$2.000 a R$ 3.000.</h2><p>Você não precisa ter esse valor pra ir pra reunião, mas ele será necessário pra fazer o Setup do projeto, normalmente esse pagamento é feito em até 5 dias após o fechamento. Você está disposto a investir esse valor para fechar no minimo 8 novos contratos nos próximos 41 dias?</p><div class="options" data-k="disposto_investir_setup"><button class="opt" type="button">Sim, consigo investir</button><button class="opt" type="button">Não consigo ainda</button></div></div>
+  <div class="step step-downsell" data-step="8">
+    <h2>Outras soluções para o seu momento.</h2>
+    <p>Pela sua resposta, nosso modelo SCI com garantia de contratos fechados talvez não seja o seu momento ideal, mas temos outras soluções para quem está começando com investimento mais acessível.</p>
+    <p>Produção de conteúdo a partir de R$297 mensal, e captação de clientes a partir de R$497 mensal. Se estiver dentro da sua realidade e quiser agendar uma demonstração para conhecer mais, toque no botão e fale conosco.</p>
+    <p>Ou aperte no vermelho para encerrar.</p>
+    <div class="actions">
+      <a id="btnWhatsappDownsell" class="btn next" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      <button id="btnEncerrarDownsell" class="btn btn-danger" type="button">Encerrar</button>
+    </div>
+  </div>
 
   <div class="actions" id="nav" style="display:none"><button class="btn" id="prev" type="button">Voltar</button><button class="btn next" id="next" type="button">Continuar</button></div>
   <div class="err" id="err"></div>
 </section></main>
 
 <script>
-const total=7; let step=1; const a={};
+const total=8; let step=1; const a={};
 const $=(s)=>document.querySelector(s);
 const bar=$('#bar'), err=$('#err'), nav=$('#nav');
 const track=(n,p={})=>{try{fbq('trackCustom',n,p)}catch(e){} try{gtag('event',n,p)}catch(e){}};
+const fireMetaEvent=(n,p={})=>{try{fbq('track',n,p)}catch(e){}};
+const fireGaEvent=(n,p={})=>{try{gtag('event',n,p)}catch(e){}};
+let viewContentFired=false, leadEventFired=false, contactEventFired=false;
 const qs=new URLSearchParams(window.location.search);
 const UTM={
   source:qs.get('utm_source')||null,
@@ -76,9 +91,9 @@ const UTM={
   content:qs.get('utm_content')||null,
   term:qs.get('utm_term')||null
 };
-const show=(s)=>{document.querySelectorAll('.step').forEach(x=>x.classList.remove('active'));document.querySelector(`.step[data-step="${s}"]`).classList.add('active');bar.style.width=(s/total*100)+'%';nav.style.display=s===1?'none':'flex';$('#next').textContent=s===7?'Finalizar':'Continuar';err.textContent='';track('step_view',{step:s});};
+const show=(s)=>{document.querySelectorAll('.step').forEach(x=>x.classList.remove('active'));document.querySelector(`.step[data-step="${s}"]`).classList.add('active');bar.style.width=(s/total*100)+'%';nav.style.display=(s===1||s===8)?'none':'flex';$('#next').textContent=s===7?'Finalizar':'Continuar';err.textContent='';track('step_view',{step:s});};
 const goNext=()=>{if(step<total){step++;show(step);}};
-$('#btnStart').addEventListener('click',()=>{step=2;show(step);track('quiz_start');});
+$('#btnStart').addEventListener('click',()=>{step=2;show(step);track('quiz_start');fireViewContent();});
 $('#prev').addEventListener('click',()=>{if(step>1){step--;show(step);}});
 
 function normalizePhoneBR(v){const d=(v||'').replace(/\D/g,'');if(!d)return '';return d.startsWith('55')?d:'55'+d;}
@@ -122,6 +137,36 @@ function buildLeadPayload(){
   return {...a,origem:'form-adv-41d',ts:new Date().toISOString()};
 }
 
+function isQualifiedLead(payload){
+  return payload.prazo!=='Ainda não sei' && payload.faturamento!=='Abaixo de 10 mil' && payload.disposto_investir_setup!=='Não consigo ainda';
+}
+
+function fireViewContent(){
+  if(viewContentFired) return;
+  viewContentFired=true;
+  const params={origem:'form-adv-41d',step_inicio:2};
+  fireMetaEvent('ViewContent',params);
+  fireGaEvent('view_content',params);
+}
+
+function fireLeadEvent(payload){
+  if(leadEventFired || !isQualifiedLead(payload)) return false;
+  leadEventFired=true;
+  const params={origem:'form-adv-41d',prazo:payload.prazo,faturamento:payload.faturamento,investimento_setup:payload.disposto_investir_setup};
+  fireMetaEvent('Lead',params);
+  fireGaEvent('lead',params);
+  return true;
+}
+
+function fireContactEvent(payload){
+  if(contactEventFired) return false;
+  contactEventFired=true;
+  const params={origem:'form-adv-41d',canal:'whatsapp',caminho:'sem_investimento',lead_id:leadState.record?.id||null,prazo:payload?.prazo||null,faturamento:payload?.faturamento||null};
+  fireMetaEvent('Contact',params);
+  fireGaEvent('contact',params);
+  return true;
+}
+
 function formatWebhookValue(v){
   return v ? String(v) : 'Não informado';
 }
@@ -135,6 +180,35 @@ function formatWebhookDateBRT(iso){
     }).format(new Date(iso));
   }catch(_){
     return iso;
+  }
+}
+
+const DOWNSELL_WHATSAPP_NUMBER='5571982470873';
+const DOWNSELL_WHATSAPP_TEXT='Oi, por enquanto o SCI com garantia de contratos em 41d não é pra mim, mas quero conhecer as soluções de captação e conteúdo.';
+
+function buildDownsellWhatsappLink(){
+  return `https://wa.me/${DOWNSELL_WHATSAPP_NUMBER}?text=${encodeURIComponent(DOWNSELL_WHATSAPP_TEXT)}`;
+}
+
+function renderDownsellStep(payload){
+  const btnWhatsapp=$('#btnWhatsappDownsell');
+  const btnEncerrar=$('#btnEncerrarDownsell');
+  if(btnWhatsapp){
+    btnWhatsapp.href=buildDownsellWhatsappLink();
+    btnWhatsapp.onclick=()=>{
+      fireContactEvent(payload);
+      track('whatsapp_click',{origem:'form-adv-41d',caminho:'sem_investimento'});
+    };
+  }
+  if(btnEncerrar && !btnEncerrar.dataset.bound){
+    btnEncerrar.dataset.bound='1';
+    btnEncerrar.addEventListener('click',()=>{
+      track('close_click',{origem:'form-adv-41d',caminho:'sem_investimento'});
+      const stepDownsell=document.querySelector('.step[data-step="8"]');
+      if(stepDownsell){
+        stepDownsell.innerHTML='<h2>Atendimento encerrado.</h2><p>Você pode fechar esta página com segurança.</p>';
+      }
+    });
   }
 }
 
@@ -356,11 +430,14 @@ $('#next').addEventListener('click',async()=>{
     persistLeadSession(payload);
   }
   track('quiz_submit',{nicho:payload.nicho,disposto_investir_setup:payload.disposto_investir_setup});
+  fireLeadEvent(payload);
   if(payload.disposto_investir_setup==='Sim, consigo investir'){
     window.location.replace('/form-adv-41d-obrigado.html?d='+encodeURIComponent(JSON.stringify(payload)));
     return;
   }
-  window.location.replace('/form-adv-41d-sem-investimento.html?d='+encodeURIComponent(JSON.stringify(payload)));
+  step=8;
+  show(step);
+  renderDownsellStep(payload);
 });
 
 show(step);
