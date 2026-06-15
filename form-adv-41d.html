@@ -137,6 +137,12 @@ function buildLeadPayload(){
   return {...a,origem:'form-adv-41d',ts:new Date().toISOString()};
 }
 
+function getSelectedOptionValue(key){
+  const group=document.querySelector(`.options[data-k="${key}"]`);
+  const selected=group?.querySelector('.opt.sel');
+  return selected ? selected.textContent.trim() : '';
+}
+
 function isQualifiedLead(payload){
   return payload.prazo!=='Ainda não sei' && payload.faturamento!=='Abaixo de 10 mil' && payload.disposto_investir_setup!=='Não consigo ainda';
 }
@@ -256,6 +262,12 @@ function readLeadSession(){
   }
 }
 
+function clearLeadSession(){
+  sessionStorage.removeItem(LEAD_SESSION_KEY);
+  sessionStorage.removeItem(LEAD_ID_SESSION_KEY);
+  sessionStorage.removeItem(LEAD_NOTIFIED_SESSION_KEY);
+}
+
 function persistLeadSession(payload){
   sessionStorage.setItem(LEAD_SESSION_KEY,JSON.stringify(payload));
   if(leadState.record?.id) sessionStorage.setItem(LEAD_ID_SESSION_KEY,String(leadState.record.id));
@@ -263,16 +275,11 @@ function persistLeadSession(payload){
 }
 
 function hydrateLeadState(){
-  const savedPayload=readLeadSession();
-  if(savedPayload&&typeof savedPayload==='object'){
-    Object.assign(a,savedPayload);
-  }
-  const savedLeadId=sessionStorage.getItem(LEAD_ID_SESSION_KEY);
-  if(savedLeadId){
-    leadState.record={...(leadState.record||{}),id:Number(savedLeadId)};
-    leadState.saved=true;
-  }
-  leadState.notified=sessionStorage.getItem(LEAD_NOTIFIED_SESSION_KEY)==='1';
+  clearLeadSession();
+  leadState.saved=false;
+  leadState.record=null;
+  leadState.promise=null;
+  leadState.notified=false;
 }
 
 function resetNotificationState(){
@@ -402,12 +409,12 @@ async function notifyLead(payload){
 }
 
 function validate(){
-  if(step===2&&!a.colaboradores) return 'Selecione a quantidade de colaboradores.';
-  if(step===3&&!a.prazo) return 'Selecione quando pretende começar.';
-  if(step===4&&!a.faturamento) return 'Selecione o faturamento.';
+  if(step===2){a.colaboradores=getSelectedOptionValue('colaboradores'); if(!a.colaboradores) return 'Selecione a quantidade de colaboradores.';}
+  if(step===3){a.prazo=getSelectedOptionValue('prazo'); if(!a.prazo) return 'Selecione quando pretende começar.';}
+  if(step===4){a.faturamento=getSelectedOptionValue('faturamento'); if(!a.faturamento) return 'Selecione o faturamento.';}
   if(step===5){const v=$('#instagram').value.trim(); if(!v) return 'Digite o Instagram.'; a.instagram=v;}
   if(step===6){a.nome=$('#nome').value.trim();a.whatsapp=$('#whatsapp').value.trim();a.email=$('#email').value.trim();a.nicho=$('#nicho').value.trim();if(!a.nome||!a.whatsapp||!a.email||!a.nicho) return 'Preencha todos os dados da página.';if(!/^\S+@\S+\.\S+$/.test(a.email)) return 'Digite um e-mail válido.';a.whatsapp_normalizado=normalizePhoneBR(a.whatsapp);if(a.whatsapp_normalizado.length<12) return 'WhatsApp inválido.';if(a.nicho.length<2) return 'Digite seu nicho corretamente.';}
-  if(step===7&&!a.disposto_investir_setup) return 'Selecione uma das opções para continuar.';
+  if(step===7){a.disposto_investir_setup=getSelectedOptionValue('disposto_investir_setup'); if(!a.disposto_investir_setup) return 'Selecione uma das opções para continuar.';}
   return '';
 }
 
