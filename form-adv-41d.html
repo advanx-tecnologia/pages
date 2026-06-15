@@ -431,8 +431,13 @@ $('#next').addEventListener('click',async()=>{
   const payload=buildLeadPayload();
   try{await syncLead(payload,{includeDecision:true});}catch(ex){console.error(ex);err.textContent='Erro ao atualizar lead. Tente novamente.';return;}
   if(!leadState.notified){
-    try{await notifyLead(payload);}catch(ex){console.error(ex);err.textContent='Erro ao notificar o time comercial. Tente novamente.';return;}
-    markLeadNotified(payload);
+    try{
+      await notifyLead(payload);
+      markLeadNotified(payload);
+    }catch(ex){
+      console.error('Falha ao notificar time comercial:', ex);
+      persistLeadSession(payload);
+    }
   } else {
     persistLeadSession(payload);
   }
