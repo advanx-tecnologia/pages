@@ -51,7 +51,7 @@
           <div class="field"><label for="cpf_cnpj">CPF *</label><input id="cpf_cnpj" name="cpf_cnpj" placeholder="000.000.000-00" required /></div>
         </div>
         <div class="grid2">
-          <div class="field"><label for="data_nascimento">Data de nascimento *</label><input id="data_nascimento" name="data_nascimento" type="date" required /></div>
+          <div class="field"><label for="nascimento">Data de nascimento *</label><input id="nascimento" name="nascimento" type="date" required /></div>
           <div class="field"><label for="endereco">Endereço</label><input id="endereco" name="endereco" placeholder="Rua, número, bairro, cidade e estado" /></div>
         </div>
       </div>
@@ -69,31 +69,6 @@
       </div>
 
       <div class="step" data-step="4">
-        <h2>Sobre o projeto</h2>
-        <div class="grid2">
-          <div class="field"><label for="service_primary">Serviço principal</label><input id="service_primary" name="service_primary" placeholder="Ex.: Captação para advogado" /></div>
-          <div class="field"><label for="objective_primary">Objetivo principal</label><input id="objective_primary" name="objective_primary" placeholder="Ex.: Mais reuniões qualificadas" /></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label for="publico_alvo">Público-alvo</label><input id="publico_alvo" name="publico_alvo" placeholder="Quem esse cliente quer atingir" /></div>
-          <div class="field"><label for="cidades_atendidas">Cidades ou regiões atendidas</label><input id="cidades_atendidas" name="cidades_atendidas" placeholder="Ex.: Salvador e RMS" /></div>
-        </div>
-        <div class="field"><label for="observacoes">Observações importantes</label><textarea id="observacoes" name="observacoes" placeholder="Contexto, restrições, diferenciais, oferta ou qualquer detalhe útil"></textarea></div>
-      </div>
-
-      <div class="step" data-step="5">
-        <h2>Estrutura atual</h2>
-        <div class="grid2">
-          <div class="field"><label for="site">Site</label><input id="site" name="site" placeholder="https://..." /></div>
-          <div class="field"><label for="instagram">Instagram</label><input id="instagram" name="instagram" placeholder="@perfil" /></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label for="crm_atual">CRM ou sistema atual</label><input id="crm_atual" name="crm_atual" placeholder="Ex.: Kommo, PipeRun, planilha" /></div>
-          <div class="field"><label for="equipe_comercial">Equipe comercial</label><input id="equipe_comercial" name="equipe_comercial" placeholder="Ex.: 2 closers, 1 SDR" /></div>
-        </div>
-      </div>
-
-      <div class="step" data-step="6">
         <h2>Tráfego e contas</h2>
         <p class="small">Se você já tiver essas informações em mãos, o setup fica mais rápido.</p>
         <div class="grid2">
@@ -106,7 +81,7 @@
         </div>
       </div>
 
-      <div class="step" data-step="7">
+      <div class="step" data-step="5">
         <h2>Confirmar envio</h2>
         <p>Revise os dados e envie. Nossa equipe usa esse cadastro para abrir seu onboarding e seguir com os próximos passos.</p>
         <p class="hint">Se faltar alguma informação, a gente fala com você na sequência.</p>
@@ -123,7 +98,7 @@
 </main>
 
 <script>
-const TOTAL_STEPS = 7;
+const TOTAL_STEPS = 5;
 let step = 1;
 const form = document.getElementById('onboardingForm');
 const bar = document.getElementById('bar');
@@ -178,7 +153,7 @@ function validateStep(){
   if (step === 2) {
     if (!document.getElementById('nome').value.trim()) return 'Informe o nome do responsável.';
     if (!document.getElementById('cpf_cnpj').value.trim()) return 'Informe o CPF.';
-    if (!document.getElementById('data_nascimento').value.trim()) return 'Informe a data de nascimento.';
+    if (!document.getElementById('nascimento').value.trim()) return 'Informe a data de nascimento.';
   }
   if (step === 3) {
     if (!document.getElementById('telefone').value.trim()) return 'Informe o WhatsApp principal.';
@@ -191,7 +166,7 @@ async function submitForm(){
   const payload = Object.fromEntries(new FormData(form).entries());
   payload.dryRun = false;
 
-  if (!payload.nome || !payload.telefone || !payload.email || !payload.cpf_cnpj || !payload.data_nascimento) {
+  if (!payload.nome || !payload.telefone || !payload.email || !payload.cpf_cnpj || !payload.nascimento) {
     err.textContent = 'Nome, CPF, data de nascimento, telefone e e-mail são obrigatórios.';
     return;
   }
