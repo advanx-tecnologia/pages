@@ -4,11 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Form Adv 41D | Advanx</title>
+  <link rel="dns-prefetch" href="//www.googletagmanager.com">
+  <link rel="dns-prefetch" href="//connect.facebook.net">
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
-  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','502759528362336');fbq('track','PageView');</script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-98EL5GXG5F');</script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments)}
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','502759528362336');
+    fbq('track','PageView');
+    gtag('js',new Date());
+    gtag('config','G-98EL5GXG5F');
+
+    (function(){
+      var analyticsLoaded=false;
+      var analyticsScheduled=false;
+      function loadScript(src){
+        var s=document.createElement('script');
+        s.async=true;
+        s.src=src;
+        document.head.appendChild(s);
+      }
+      function loadAnalytics(){
+        if(analyticsLoaded) return;
+        analyticsLoaded=true;
+        loadScript('https://connect.facebook.net/en_US/fbevents.js');
+        loadScript('https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F');
+      }
+      function scheduleAnalyticsLoad(){
+        if(analyticsScheduled) return;
+        analyticsScheduled=true;
+        if('requestIdleCallback' in window){
+          requestIdleCallback(loadAnalytics,{timeout:2500});
+        }else{
+          setTimeout(loadAnalytics,1200);
+        }
+      }
+      ['pointerdown','touchstart','keydown','scroll'].forEach(function(evt){
+        window.addEventListener(evt,scheduleAnalyticsLoad,{once:true,passive:true});
+      });
+      window.addEventListener('load',scheduleAnalyticsLoad,{once:true});
+    })();
+  </script>
   <style>
     :root{--canvas:#f5f4ed;--primary:#c96442;--text:#141413;--muted:#5e5d59;--line:#f0eee6;--radius:12px}
     *{box-sizing:border-box}
