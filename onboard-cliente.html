@@ -48,7 +48,7 @@
         </div>
         <div class="grid2">
           <div class="field"><label for="nicho">Nicho</label><input id="nicho" name="nicho" placeholder="Ex.: Direito previdenciário" /></div>
-          <div class="field"><label for="cpf_cnpj">CPF *</label><input id="cpf_cnpj" name="cpf_cnpj" placeholder="000.000.000-00" required /></div>
+          <div class="field"><label for="cpf_cnpj">CPF / CNPJ *</label><input id="cpf_cnpj" name="cpf_cnpj" placeholder="000.000.000-00 ou 00.000.000/0000-00" required /></div>
         </div>
         <div class="grid2">
           <div class="field"><label for="nascimento">Data de nascimento *</label><input id="nascimento" name="nascimento" type="date" required /></div>
@@ -131,12 +131,19 @@ function normalizePhoneInput(value){
   return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
 }
 
-function normalizeCpfInput(value){
-  const digits = (value || '').replace(/\D/g, '').slice(0, 11);
+function normalizeCpfCnpjInput(value){
+  const digits = (value || '').replace(/\D/g, '').slice(0, 14);
+  if (digits.length <= 11) {
+    return digits
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  }
   return digits
+    .replace(/(\d{2})(\d)/, '$1.$2')
     .replace(/(\d{3})(\d)/, '$1.$2')
-    .replace(/(\d{3})(\d)/, '$1.$2')
-    .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    .replace(/(\d{3})(\d)/, '$1/$2')
+    .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
 }
 
 ['telefone','telefone_leads'].forEach(id => {
@@ -146,13 +153,13 @@ function normalizeCpfInput(value){
 });
 
 document.getElementById('cpf_cnpj').addEventListener('input', e => {
-  e.target.value = normalizeCpfInput(e.target.value);
+  e.target.value = normalizeCpfCnpjInput(e.target.value);
 });
 
 function validateStep(){
   if (step === 2) {
     if (!document.getElementById('nome').value.trim()) return 'Informe o nome do responsável.';
-    if (!document.getElementById('cpf_cnpj').value.trim()) return 'Informe o CPF.';
+    if (!document.getElementById('cpf_cnpj').value.trim()) return 'Informe o CPF ou CNPJ.';
     if (!document.getElementById('nascimento').value.trim()) return 'Informe a data de nascimento.';
   }
   if (step === 3) {
@@ -167,7 +174,7 @@ async function submitForm(){
   payload.dryRun = false;
 
   if (!payload.nome || !payload.telefone || !payload.email || !payload.cpf_cnpj || !payload.nascimento) {
-    err.textContent = 'Nome, CPF, data de nascimento, telefone e e-mail são obrigatórios.';
+    err.textContent = 'Nome, CPF ou CNPJ, data de nascimento, telefone e e-mail são obrigatórios.';
     return;
   }
 
