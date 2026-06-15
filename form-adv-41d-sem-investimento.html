@@ -21,10 +21,10 @@
   </style>
 </head>
 <body>
-  <main class="card">
-    <h1>Temos outras soluções para o seu momento.</h1>
-    <p>Pela sua resposta, nosso modelo SCI com garantia de contratos fechados talvez não seja o seu momento ideal, temos outras soluções para quem está começando com investimento mais acessível.</p>
-    <p>Produção de conteúdo a partir de R$297 mensal, e captação de clientes a partir de R$497 mensal. Se estiver dentro da sua realidade e quiser agendar uma demonstração para conhecer mais, toque no botão e fale conosco.</p>
+  <main class="card" id="cardRoot">
+    <h1>Outras soluções para o seu momento.</h1>
+    <p>Pela sua resposta, nosso modelo SCI com garantia de contratos fechados talvez não seja o seu momento ideal, temos outras soluções para quem esta começando com investimento mais acessivel.</p>
+    <p>Produção de conteúdo a partir de R$297 mensal, e captação de clientes a partir de R$497 mensal, se estiver dentro da sua realidade e quiser agendar uma demonstração para conhecer mais toque no botão e fale conosco.</p>
     <p>Ou aperte no vermelho para encerrar.</p>
     <div class="actions">
       <a id="btnWhatsapp" class="btn btn-primary" target="_blank" rel="noopener">Falar no WhatsApp</a>
@@ -38,13 +38,18 @@
     const link=`https://wa.me/${W}?text=${encodeURIComponent(text)}`;
     const btnWhatsapp=document.getElementById('btnWhatsapp');
     const btnEncerrar=document.getElementById('btnEncerrar');
+    const cardRoot=document.getElementById('cardRoot');
+    if (history.replaceState) history.replaceState({ final:true, flow:'sem_investimento' }, '', location.pathname + location.search);
     btnWhatsapp.href=link;
     btnWhatsapp.onclick=()=>tr('whatsapp_click',{origem:'form-adv-41d-sem-investimento',caminho:'sem_investimento'});
     btnEncerrar.addEventListener('click',()=>{
       tr('close_click',{origem:'form-adv-41d-sem-investimento'});
-      window.open('','_self');
-      window.close();
-      setTimeout(()=>{location.replace('about:blank');},120);
+      if (cardRoot) {
+        cardRoot.innerHTML = '<h1>Atendimento encerrado.</h1><p>Você pode fechar esta página com segurança.</p>';
+      }
+      try { history.pushState(null, '', location.pathname + '#encerrado'); } catch (e) {}
+      try { window.open('', '_self'); } catch (e) {}
+      try { window.close(); } catch (e) {}
     });
     tr('sem_investimento_view',{origem:'form-adv-41d',caminho:'sem_investimento'});
   </script>

@@ -276,10 +276,10 @@ $('#next').addEventListener('click',async()=>{
   }
   track('quiz_submit',{nicho:payload.nicho,disposto_investir_setup:payload.disposto_investir_setup});
   if(payload.disposto_investir_setup==='Sim, consigo investir'){
-    window.location.href='/form-adv-41d-obrigado.html?d='+encodeURIComponent(JSON.stringify(payload));
+    window.location.replace('/form-adv-41d-obrigado.html?d='+encodeURIComponent(JSON.stringify(payload)));
     return;
   }
-  window.location.href='/form-adv-41d-sem-investimento.html?d='+encodeURIComponent(JSON.stringify(payload));
+  window.location.replace('/form-adv-41d-sem-investimento.html?d='+encodeURIComponent(JSON.stringify(payload)));
 });
 
 show(step);
