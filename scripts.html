@@ -116,13 +116,10 @@
         gap: 0.75rem;
       }
       .mobile-selects {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
       }
       .mobile-chip-row {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        padding-bottom: 0.2rem;
+        display: none;
       }
       .mobile-list {
         max-height: 42vh;
@@ -206,7 +203,7 @@
               class="w-full bg-dark-bg border border-dark-border rounded-xl p-3 pl-9 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all">
           </div>
 
-          <div class="mobile-selects grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="mobile-selects grid grid-cols-2 gap-3">
             <div class="relative">
               <select id="niche-select" class="w-full appearance-none bg-dark-bg border border-dark-border rounded-xl p-3 text-sm text-gray-300 focus:outline-none focus:border-brand transition-all cursor-pointer">
                 <option value="all">📁 Todos os Nichos</option>
