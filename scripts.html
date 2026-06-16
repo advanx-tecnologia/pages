@@ -181,12 +181,16 @@
       { from: 'Bancário', to: 'Trabalhista', patterns: ['bancario trabalhista'] },
       { from: 'Bancário', to: 'Empresarial', patterns: ['direito empresarial defesa empresarial'] },
       { from: 'Bancário', to: 'Trânsito', patterns: ['renuncia de propriedade de veiculo'] },
-      { from: 'Consumidor', to: 'Saúde', patterns: ['plano de saude', 'violencia obstetrica', 'bomba de insulina'] },
+      { from: 'Consumidor', to: 'Saúde', patterns: ['plano de saude', 'violencia obstetrica', 'bomba de insulina', 'negativa de medicamento', 'bariatrica', 'reembolso de parto', 'parto normal', 'reparadora de bariatrica', 'adequacao de planos de saude', 'clinica medica'] },
       { from: 'Consumidor', to: 'Imobiliário', patterns: ['distrato'] },
+      { from: 'Consumidor', to: 'Tributario', patterns: ['isencao ipva'] },
+      { from: 'Empresarial', to: 'Tributario', patterns: ['reducao de imposto', 'reducao de impostos'] },
+      { from: 'Imobiliário', to: 'Tributario', patterns: ['itbi'] },
       { from: 'Previdenciário', to: 'Trabalhista', patterns: ['direito previdenciario e trabalhista acidente de trabalho', 'acidente de trabalho', 'doenca ocupacional'] },
       { from: 'Previdenciário', to: 'Trânsito', patterns: ['acidente de transito com vitima'] },
       { from: 'Previdenciário', to: 'Tributario', patterns: ['isencao de ir'] },
       { from: 'Securitário', to: 'Imobiliário', patterns: ['usucapiao'] },
+      { from: 'Sucessões', to: 'Imobiliário', patterns: ['regularizacao de propriedade rural'] },
       { from: 'Trabalhista', to: 'Previdenciário', patterns: ['direito previdenciario', 'auxilio acidente', 'salario maternidade'] },
       { from: 'Trabalhista', to: 'Tributario', patterns: ['restituicao inss'] },
       { from: 'Tributario', to: 'Empresarial', patterns: ['direito empresarial', 'holding', 'recuperacao judicial'] },
@@ -206,34 +210,44 @@
         { name: 'Justa causa', titlePatterns: ['reversao de justa causa', 'justa causa'] },
         { name: 'Defesa trabalhista', titlePatterns: ['defesa trabalhista', 'defesa contra acao trabalhista'] },
         { name: 'Caminhoneiros e motoristas', titlePatterns: ['caminhoneiro', 'caminhoneiros', 'motoristas', 'motoboy', 'vale pedagio'] },
-        { name: 'Residentes médicos', titlePatterns: ['residentes medicos', 'residentes de medicina'] }
+        { name: 'Residentes médicos', titlePatterns: ['residentes medicos', 'residentes de medicina'] },
+        { name: 'Garis e limpeza pública', titlePatterns: ['garis', 'limpeza publica'] },
+        { name: 'PCD no trabalho', titlePatterns: ['reprovados pcd'] }
       ],
       'Previdenciário': [
-        { name: 'Aposentadoria', titlePatterns: ['aposentadoria'] },
+        { name: 'Aposentadoria', titlePatterns: ['aposentadoria', 'revisao de aposentadoria'] },
+        { name: 'Aposentadoria PCD', titlePatterns: ['aposentadoria para pcd', 'pcd diabeticos'] },
         { name: 'BPC/LOAS', titlePatterns: ['bpc', 'loas'] },
         { name: 'Auxílio-doença', titlePatterns: ['auxilio doenca', 'beneficio por incapacidade'] },
-        { name: 'Auxílio-acidente', titlePatterns: ['auxilio acidente'] },
+        { name: 'Auxílio-acidente', titlePatterns: ['auxilio acidente', 'acidente do trabalho criciuma', 'trabalhador da construcao civil'] },
         { name: 'Pensão por morte', titlePatterns: ['pensao por morte'] },
-        { name: 'Salário maternidade', titlePatterns: ['salario maternidade'] },
-        { name: 'Planejamento previdenciário', titlePatterns: ['planejamento previdenciario'] },
+        { name: 'Salário maternidade', titlePatterns: ['salario maternidade', 'auxilio maternidade', 'direito da gestante'] },
+        { name: 'Planejamento previdenciário', titlePatterns: ['planejamento previdenciario', 'planejamento prev', 'professores funil de palestra'] },
         { name: 'Benefício negado', titlePatterns: ['beneficio negado', 'beneficio indeferido', 'bpc suspenso'] },
-        { name: 'Isenção de IR', titlePatterns: ['isencao de ir'] }
+        { name: 'Isenção de IR', titlePatterns: ['isencao de ir'] },
+        { name: 'Oncológico', titlePatterns: ['oncologico', 'pacientes oncologicos'] },
+        { name: 'TEA e autismo', titlePatterns: ['tea', 'autista', 'diabetes', 'zika virus'] }
       ],
       'Bancário': [
         { name: 'Busca e apreensão', titlePatterns: ['busca e apreensao', 'dba'] },
         { name: 'Revisão bancária', titlePatterns: ['revisional', 'juros abusivos', 'passivo bancario', 'financiamento', 'quitacao financiamento'] },
         { name: 'Negativação indevida', titlePatterns: ['negativado', 'nome sujo', 'serasa', 'spc'] },
-        { name: 'Superendividamento', titlePatterns: ['superendividamento'] }
+        { name: 'Superendividamento', titlePatterns: ['superendividamento'] },
+        { name: 'Consignado e golpes', titlePatterns: ['consignado', 'golpes do pix', 'golpe de emprestimo'] },
+        { name: 'Crédito rural e agrícola', titlePatterns: ['agricola', 'rurais', 'divida rural', 'credito agricola'] }
       ],
       'Consumidor': [
         { name: 'Atraso de voo', titlePatterns: ['atraso de voo', 'cancelamento de voo'] },
         { name: 'Milhas e aéreo', titlePatterns: ['milhas', 'bagagem', 'companhia aerea', 'passageiros'] },
         { name: 'Cobrança indevida', titlePatterns: ['cobranca indevida'] },
-        { name: 'Casas de apostas', titlePatterns: ['casas de apostas'] }
+        { name: 'Casas de apostas', titlePatterns: ['casas de apostas'] },
+        { name: 'Golpes em plataformas', titlePatterns: ['golpes em plataformas'] },
+        { name: 'Falta de luz', titlePatterns: ['falta de luz'] },
+        { name: 'Consórcio', titlePatterns: ['consorcio'] }
       ],
       'Família': [
         { name: 'Divórcio', titlePatterns: ['divorcio'] },
-        { name: 'Pensão alimentícia', titlePatterns: ['pensao alimenticia', 'pensao mulher'] },
+        { name: 'Pensão alimentícia', titlePatterns: ['pensao alimenticia', 'pensao mulher', 'pensao acumulada'] },
         { name: 'Guarda', titlePatterns: ['guarda'] },
         { name: 'Alienação parental', titlePatterns: ['alienacao parental'] },
         { name: 'Holding familiar', titlePatterns: ['holding familiar'] }
@@ -248,29 +262,43 @@
         { name: 'Distrato imobiliário', titlePatterns: ['distrato'] },
         { name: 'Atraso na obra', titlePatterns: ['atraso na obra'] },
         { name: 'Despejo', titlePatterns: ['despejo'] },
-        { name: 'Regularização de imóveis', titlePatterns: ['regularizacao de imoveis', 'legalizacao de imoveis'] },
-        { name: 'Defeitos construtivos', titlePatterns: ['defeitos construtivos'] }
+        { name: 'Regularização de imóveis', titlePatterns: ['regularizacao de imoveis', 'legalizacao de imoveis', 'regularizacao de propriedade rural'] },
+        { name: 'Defeitos construtivos', titlePatterns: ['defeitos construtivos'] },
+        { name: 'Leilão e posse', titlePatterns: ['leilao', 'reintegracao de posse'] },
+        { name: 'Aluguel', titlePatterns: ['aluguel'] }
       ],
       'Trânsito': [
-        { name: 'Suspensão/Cassação de CNH', titlePatterns: ['suspensao cnh', 'suspensao e cassacao cnh', 'cassacao cnh'] },
+        { name: 'Suspensão/Cassação de CNH', titlePatterns: ['suspensao cnh', 'suspensao de cnh', 'suspensao e cassacao cnh', 'cassacao cnh'] },
         { name: 'Bafômetro', titlePatterns: ['bafometro', 'recusa de bafometro'] },
         { name: 'Renúncia de propriedade', titlePatterns: ['renuncia de propriedade de veiculo'] },
-        { name: 'Recurso administrativo', titlePatterns: ['recurso administrativo'] }
+        { name: 'Recurso administrativo', titlePatterns: ['recurso administrativo'] },
+        { name: 'Acidente com vítima', titlePatterns: ['acidente de transito com vitima'] }
       ],
       'Tributario': [
-        { name: 'Dívidas fiscais', titlePatterns: ['dividas fiscais'] },
+        { name: 'Dívidas fiscais', titlePatterns: ['dividas fiscais', 'debitos fiscais', 'debitos federais', 'passivo fiscal'] },
         { name: 'Auto de infração', titlePatterns: ['auto de infracao'] },
         { name: 'Exclusão de ICMS', titlePatterns: ['icms'] },
         { name: 'Reforma tributária', titlePatterns: ['reforma tributaria'] },
         { name: 'Isenção de IR', titlePatterns: ['isencao de ir'] },
         { name: 'PASEP', titlePatterns: ['pasep'] },
-        { name: 'Restituição INSS', titlePatterns: ['restituicao inss'] }
+        { name: 'Restituição INSS', titlePatterns: ['restituicao inss'] },
+        { name: 'ITBI', titlePatterns: ['itbi'] },
+        { name: 'IPVA autista', titlePatterns: ['isencao de ipva autista', 'ipva autista'] },
+        { name: 'Execução fiscal', titlePatterns: ['execucao fiscal'] },
+        { name: 'Redução de impostos', titlePatterns: ['reducao de imposto', 'reducao de impostos'] },
+        { name: 'Tributário para clínicas', titlePatterns: ['clinicas medicas'] },
+        { name: 'Revenda de carros', titlePatterns: ['revenda de carros', 'revenda de veiculos'] },
+        { name: 'IR sobre aluguéis', titlePatterns: ['imoveis para alugar'] }
       ],
       'Servidor Público': [
         { name: 'Auxílio alimentação', titlePatterns: ['auxilio alimentacao'] },
         { name: 'Férias prêmio', titlePatterns: ['ferias premio'] },
         { name: 'Aposentadoria de servidor', titlePatterns: ['aposentadoria servidores publicos', 'aposentadoria servidor'] },
-        { name: 'Abatimento de dívida do SUS', titlePatterns: ['divida de medicos que atuam no sus'] }
+        { name: 'Abatimento de dívida do SUS', titlePatterns: ['divida de medicos que atuam no sus'] },
+        { name: 'Isenção de IR do servidor', titlePatterns: ['isencao de ir cancer servidor publico'] },
+        { name: 'PASEP do servidor', titlePatterns: ['revisao pasep'] },
+        { name: 'Superendividamento do servidor', titlePatterns: ['superendividamento servidores'] },
+        { name: 'Direito do servidor', titlePatterns: ['direito do servidor'] }
       ],
       'Empresarial': [
         { name: 'Defesa empresarial', titlePatterns: ['defesa empresarial'] },
@@ -278,26 +306,37 @@
         { name: 'Passivo bancário PJ', titlePatterns: ['passivo bancario'] },
         { name: 'Recuperação judicial', titlePatterns: ['recuperacao judicial'] },
         { name: 'Holding', titlePatterns: ['holding'] },
-        { name: 'Assessoria empresarial', titlePatterns: ['assessoria juridica', 'diagnostico para empresas'] }
+        { name: 'Assessoria empresarial', titlePatterns: ['assessoria juridica', 'diagnostico para empresas'] },
+        { name: 'Autuações empresariais', titlePatterns: ['autuacoes', 'autuacoes'] },
+        { name: 'Oficinas de caminhão', titlePatterns: ['oficinas de caminhao', 'donos de oficina de caminhao'] },
+        { name: 'Restaurantes', titlePatterns: ['restaurantes'] },
+        { name: 'Marcas e ativos', titlePatterns: ['marcas', 'ativos intangiveis'] },
+        { name: 'Representação comercial', titlePatterns: ['representacao comercial'] }
       ],
       'Saúde': [
-        { name: 'Plano de saúde', titlePatterns: ['plano de saude'] },
+        { name: 'Plano de saúde', titlePatterns: ['plano de saude', 'adequacao de planos de saude'] },
         { name: 'Violência obstétrica', titlePatterns: ['violencia obstetrica'] },
-        { name: 'Bomba de insulina', titlePatterns: ['bomba de insulina'] }
+        { name: 'Bomba de insulina', titlePatterns: ['bomba de insulina'] },
+        { name: 'Negativa de medicamento', titlePatterns: ['negativa de medicamento'] },
+        { name: 'Bariátrica e reparadora', titlePatterns: ['bariatrica', 'reparadora de bariatrica'] },
+        { name: 'Reembolso de parto', titlePatterns: ['reembolso de parto', 'parto normal'] },
+        { name: 'Clínicas médicas', titlePatterns: ['clinica medica'] }
       ],
       'Cidadania': [
         { name: 'Portugal / AIMA', titlePatterns: ['portugal', 'aima', 'legalizacao em portugal'] },
         { name: 'Cidadania italiana', titlePatterns: ['cidadania italiana'] },
+        { name: 'Cidadania portuguesa', titlePatterns: ['cidadania portuguesa'] },
         { name: 'Nacionalidade portuguesa', titlePatterns: ['nacionalidade portuguesa'] },
         { name: 'Naturalização brasileira', titlePatterns: ['naturalizacao brasileira'] },
-        { name: 'Consultoria imigratória', titlePatterns: ['consultoria imigratoria'] }
+        { name: 'Consultoria imigratória', titlePatterns: ['consultoria imigratoria'] },
+        { name: 'Visto de trabalho português', titlePatterns: ['visto de trabalho portugues'] }
       ],
       'Concurso': [
         { name: 'Cotas raciais', titlePatterns: ['cota racial', 'cotas raciais'] },
         { name: 'PAD policial militar', titlePatterns: ['pad policial militar'] }
       ],
       'Securitário': [
-        { name: 'Seguro de automóvel', titlePatterns: ['seguro de automoveis'] },
+        { name: 'Seguro de automóvel', titlePatterns: ['seguro de automoveis', 'securitario veiculo'] },
         { name: 'Seguro de vida', titlePatterns: ['seguro de vida'] }
       ],
       'Civil': [
@@ -363,8 +402,8 @@
         .replace(/melhores scripts?/gi, ' ')
         .replace(/script\s*-/gi, ' ')
         .replace(/novo\s+/gi, ' ')
-        .replace(/direito\s+(do\s+trabalho|trabalhista|previdenci[áa]rio|empresarial)/gi, ' ')
-        .replace(/trabalhista|previdenci[áa]rio/gi, ' ')
+        .replace(/direito\s+(do\s+trabalho|trabalhista|previdenci[áa]rio|empresarial|tribut[áa]rio|imobili[áa]rio|internacional|de\s+fam[íi]lia|de\s+tr[âa]nsito|do\s+consumidor|penal|banc[áa]rio|civil|da\s+sa[úu]de)/gi, ' ')
+        .replace(/trabalhista|previdenci[áa]rio|tribut[áa]rio|imobili[áa]rio|banc[áa]rio/gi, ' ')
         .replace(/\s+/g, ' ')
         .trim();
       const firstPart = clean.split(/[-–—|:]/)[0]?.trim();
