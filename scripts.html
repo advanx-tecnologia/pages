@@ -3,32 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hub Advanx | Scripts de Alta Conversão</title>
+  <title>Hub Advanx | Catálogo de Copys e Roteiros</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
           colors: {
-            brand: {
-              DEFAULT: '#ff7a01',
-              light: '#ffa040',
-              dark: '#cc6200',
-              subtle: 'rgba(255, 122, 1, 0.1)'
-            },
-            dark: {
-              bg: '#0a0a0c',
-              surface: '#121316',
-              border: '#2a2b30'
-            }
+            brand: { DEFAULT: '#ff7a01', light: '#ffa040', dark: '#cc6200', subtle: 'rgba(255,122,1,0.12)' },
+            dark: { bg: '#0a0a0c', surface: '#121316', border: '#2a2b30', text: '#e5e7eb', muted: '#9ca3af' }
+          },
+          boxShadow: {
+            brand: '0 10px 30px rgba(255,122,1,0.18)'
           }
         }
       }
@@ -37,253 +29,401 @@
   <style>
     body {
       background-color: #0a0a0c;
-      color: #e2e8f0;
-      background-image: 
+      color: #e5e7eb;
+      background-image:
         radial-gradient(circle at 15% 50%, rgba(255, 122, 1, 0.05), transparent 25%),
         radial-gradient(circle at 85% 30%, rgba(255, 122, 1, 0.03), transparent 25%);
       background-attachment: fixed;
     }
     .glass-nav {
-      background: rgba(18, 19, 22, 0.7);
+      background: rgba(18, 19, 22, 0.74);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid #2a2b30;
     }
     .glass-panel {
-      background: rgba(18, 19, 22, 0.6);
+      background: rgba(18, 19, 22, 0.64);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid #2a2b30;
-      border-radius: 16px;
+      border-radius: 18px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     }
-    
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #2a2b30;
-      border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #ff7a01;
-    }
-
     .script-item.active {
-      background-color: rgba(255, 122, 1, 0.1);
-      border-left: 3px solid #ff7a01;
+      background-color: rgba(255, 122, 1, 0.10);
+      border-color: rgba(255, 122, 1, 0.35);
+      box-shadow: inset 3px 0 0 #ff7a01;
     }
-
-    /* Content Typography */
     .content-body pre {
       white-space: pre-wrap;
       font-family: inherit;
       line-height: 1.7;
-      color: #cbd5e1;
+      color: #d1d5db;
     }
-    .content-body strong {
-      color: #fff;
-      font-weight: 600;
+    .content-body strong { color: #fff; font-weight: 700; }
+    .clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    
-    /* Animation */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade {
-      animation: fadeIn 0.3s ease-out forwards;
-    }
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #2a2b30; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #ff7a01; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col h-screen overflow-hidden">
-
-  <!-- Navbar -->
   <nav class="glass-nav sticky top-0 z-50 flex-shrink-0 h-16 flex items-center px-6 justify-between">
     <div class="flex items-center gap-3">
-      <div class="w-8 h-8 rounded bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-bold shadow-[0_0_10px_rgba(255,122,1,0.4)]">A</div>
-      <span class="font-bold text-lg tracking-tight">Hub <span class="text-brand">Advanx</span></span>
-    </div>
-    
-    <div class="flex items-center gap-4">
-      <div class="hidden md:flex items-center gap-2 text-xs text-gray-400 bg-dark-surface px-3 py-1.5 rounded-full border border-dark-border">
-        <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-        <span>Sync Auto: Ativo</span>
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-extrabold shadow-brand">A</div>
+      <div>
+        <div class="font-bold text-lg tracking-tight">Hub <span class="text-brand">Advanx</span></div>
+        <div class="text-[11px] text-gray-500 -mt-0.5">Catálogo vivo de copys por nicho e tese</div>
       </div>
-      <span class="text-sm font-medium text-gray-400 bg-dark-border px-3 py-1 rounded">Roteiros e Copys</span>
+    </div>
+    <div class="flex items-center gap-3 text-xs">
+      <div class="hidden md:flex items-center gap-2 text-gray-400 bg-dark-surface px-3 py-1.5 rounded-full border border-dark-border">
+        <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+        <span id="sync-status">Sync Auto: carregando…</span>
+      </div>
+      <div class="text-gray-400 bg-dark-surface px-3 py-1.5 rounded-full border border-dark-border">
+        Fonte: <span class="text-brand font-semibold">scripts_data.json</span>
+      </div>
     </div>
   </nav>
 
-  <!-- Main Workspace -->
   <main class="flex-1 p-4 lg:p-6 flex flex-col lg:flex-row gap-6 overflow-hidden h-[calc(100vh-4rem)]">
-
-    <!-- Sidebar / Filtros -->
-    <aside class="glass-panel w-full lg:w-[380px] flex flex-col h-full flex-shrink-0">
-      
-      <!-- Top Filters -->
+    <aside class="glass-panel w-full lg:w-[420px] flex flex-col h-full flex-shrink-0 overflow-hidden">
       <div class="p-5 border-b border-dark-border shrink-0">
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-lg font-semibold text-white">Explorar</h2>
-          <span id="total-count" class="text-xs font-bold bg-brand-subtle text-brand px-2 py-1 rounded-full">0 roteiros</span>
+        <div class="flex justify-between items-center mb-4 gap-3">
+          <h2 class="text-lg font-semibold text-white">Explorar catálogo</h2>
+          <span id="total-count" class="text-xs font-bold bg-brand-subtle text-brand px-2 py-1 rounded-full">0 itens</span>
         </div>
-        
-        <div class="space-y-4">
+
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          <div class="bg-dark-bg border border-dark-border rounded-xl p-3">
+            <div class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">Nichos</div>
+            <div id="stat-niches" class="text-xl font-bold text-white">0</div>
+          </div>
+          <div class="bg-dark-bg border border-dark-border rounded-xl p-3">
+            <div class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">Teses detectadas</div>
+            <div id="stat-theses" class="text-xl font-bold text-white">0</div>
+          </div>
+        </div>
+
+        <div class="space-y-3">
           <div class="relative">
             <i class="fa-solid fa-search absolute left-3 top-3 text-gray-500 text-sm"></i>
-            <input type="text" id="search-input" placeholder="Buscar tese, palavra-chave..." 
-              class="w-full bg-dark-bg border border-dark-border rounded-lg p-2.5 pl-9 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all">
+            <input type="text" id="search-input" placeholder="Buscar tese, nicho, palavra-chave..."
+              class="w-full bg-dark-bg border border-dark-border rounded-xl p-2.5 pl-9 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all">
           </div>
 
-          <div class="relative">
-            <select id="niche-select" class="w-full appearance-none bg-dark-bg border border-dark-border rounded-lg p-2.5 text-sm text-gray-300 focus:outline-none focus:border-brand transition-all cursor-pointer">
-              <option value="all">📁 Todos os Nichos</option>
-            </select>
-            <i class="fa-solid fa-chevron-down absolute right-3 top-3.5 text-gray-500 text-xs pointer-events-none"></i>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="relative">
+              <select id="niche-select" class="w-full appearance-none bg-dark-bg border border-dark-border rounded-xl p-2.5 text-sm text-gray-300 focus:outline-none focus:border-brand transition-all cursor-pointer">
+                <option value="all">📁 Todos os Nichos</option>
+              </select>
+              <i class="fa-solid fa-chevron-down absolute right-3 top-3.5 text-gray-500 text-xs pointer-events-none"></i>
+            </div>
+            <div class="relative">
+              <select id="thesis-select" class="w-full appearance-none bg-dark-bg border border-dark-border rounded-xl p-2.5 text-sm text-gray-300 focus:outline-none focus:border-brand transition-all cursor-pointer">
+                <option value="all">🧠 Todas as Teses</option>
+              </select>
+              <i class="fa-solid fa-chevron-down absolute right-3 top-3.5 text-gray-500 text-xs pointer-events-none"></i>
+            </div>
           </div>
+
+          <div id="top-theses" class="flex flex-wrap gap-2"></div>
         </div>
       </div>
 
-      <!-- List Container -->
-      <div class="flex-1 overflow-y-auto p-3 space-y-1" id="scripts-list">
-        <!-- Loader -->
+      <div class="flex-1 overflow-y-auto p-3 space-y-2" id="scripts-list">
         <div class="flex justify-center items-center h-32 text-brand">
           <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
         </div>
       </div>
-      
     </aside>
 
-    <!-- Editor / Visualizador -->
     <section class="glass-panel w-full flex flex-col h-full relative overflow-hidden flex-1">
-      
-      <!-- View Header -->
-      <header class="p-6 border-b border-dark-border bg-dark-surface/30 shrink-0 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-        <div class="flex-1">
-          <div class="flex items-center gap-2 mb-2">
-            <span id="view-niche" class="text-xs font-bold bg-dark-border text-gray-300 px-2 py-1 rounded">Selecione</span>
+      <header class="p-6 border-b border-dark-border bg-dark-surface/30 shrink-0 flex flex-col gap-4">
+        <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span id="view-niche" class="text-xs font-bold bg-dark-border text-gray-300 px-2 py-1 rounded-full">Selecione</span>
+              <div id="view-theses" class="flex flex-wrap gap-2"></div>
+            </div>
+            <h1 id="view-title" class="text-xl md:text-2xl font-bold text-white leading-tight">Catálogo de Copys Advanx</h1>
+            <p id="view-subtitle" class="text-sm text-gray-400 mt-2">Escolha um item ao lado para consultar a tese, copiar a estrutura e reaproveitar mais rápido.</p>
           </div>
-          <h1 id="view-title" class="text-xl md:text-2xl font-bold text-white leading-tight">Painel de Scripts Advanx</h1>
+          <div class="flex flex-wrap gap-2 shrink-0">
+            <button id="copy-btn" class="hidden h-fit bg-brand hover:bg-brand-light text-white px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 text-sm font-semibold shadow-brand hover:-translate-y-0.5">
+              <i class="fa-regular fa-copy"></i> <span>Copiar Texto</span>
+            </button>
+          </div>
         </div>
-        
-        <button id="copy-btn" class="hidden shrink-0 h-fit bg-brand hover:bg-brand-light text-white px-5 py-2.5 rounded-lg transition-all flex items-center gap-2 text-sm font-semibold shadow-[0_4px_14px_rgba(255,122,1,0.3)] hover:shadow-[0_6px_20px_rgba(255,122,1,0.4)] hover:-translate-y-0.5">
-          <i class="fa-regular fa-copy"></i> <span>Copiar Texto</span>
-        </button>
       </header>
-      
-      <!-- View Content -->
-      <div class="flex-1 overflow-y-auto p-6 md:p-10 content-body relative" id="view-content">
-        
-        <!-- Empty State -->
-        <div class="h-full flex flex-col items-center justify-center text-gray-500 text-center animate-fade">
-          <div class="w-16 h-16 mb-4 rounded-2xl bg-dark-border flex items-center justify-center">
-            <i class="fa-solid fa-wand-magic-sparkles text-2xl text-brand/50"></i>
-          </div>
-          <h3 class="text-lg font-medium text-gray-300 mb-2">Nenhum roteiro selecionado</h3>
-          <p class="max-w-xs text-sm">Selecione uma tese no menu lateral para visualizar e copiar a estrutura do anúncio.</p>
-        </div>
 
+      <div class="flex-1 overflow-y-auto p-6 md:p-10 content-body relative" id="view-content">
+        <div class="h-full flex flex-col items-center justify-center text-gray-500 text-center">
+          <div class="w-16 h-16 mb-4 rounded-2xl bg-dark-border flex items-center justify-center">
+            <i class="fa-solid fa-layer-group text-2xl text-brand/60"></i>
+          </div>
+          <h3 class="text-lg font-medium text-gray-300 mb-2">Nenhuma copy selecionada</h3>
+          <p class="max-w-md text-sm">Filtre por nicho, tese ou termo. Quando uma nova copy entrar no <code>scripts_data.json</code>, a página reconhece a tese automaticamente e atualiza sozinha.</p>
+        </div>
       </div>
     </section>
-
   </main>
 
   <script>
+    const THESIS_RULES = [
+      { name: 'Busca e apreensão', patterns: ['busca e apreensão', 'busca e apreensao', 'apreender o seu carro', 'guincho'] },
+      { name: 'Aposentadoria', patterns: ['aposentadoria', 'aposentar'] },
+      { name: 'BPC/LOAS', patterns: ['bpc', 'loas'] },
+      { name: 'Auxílio-doença', patterns: ['auxílio-doença', 'auxilio-doenca', 'auxilio doença', 'incapacidade temporária'] },
+      { name: 'Pensão por morte', patterns: ['pensão por morte', 'pensao por morte'] },
+      { name: 'FGTS', patterns: ['fgts'] },
+      { name: 'Horas extras', patterns: ['horas extras', 'hora extra'] },
+      { name: 'Rescisão trabalhista', patterns: ['rescisão', 'rescisao', 'verbas rescisórias', 'demissão', 'demissao'] },
+      { name: 'Acidente de trabalho', patterns: ['acidente de trabalho', 'acidente no trabalho'] },
+      { name: 'Revisão bancária', patterns: ['revisional', 'juros abusivos', 'revisão de contrato', 'revisao de contrato'] },
+      { name: 'Negativação indevida', patterns: ['negativado', 'negativação', 'negativacao', 'nome sujo', 'serasa', 'spc'] },
+      { name: 'Indenização', patterns: ['indenização', 'indenizacao', 'danos morais'] },
+      { name: 'Atraso de voo', patterns: ['atraso de voo', 'voo atrasado', 'cancelamento de voo'] },
+      { name: 'Milhas e aéreo', patterns: ['milhas', 'companhia aérea', 'companhia aerea', 'bagagem extraviada'] },
+      { name: 'Divórcio', patterns: ['divórcio', 'divorcio'] },
+      { name: 'Inventário', patterns: ['inventário', 'inventario'] },
+      { name: 'Pensão alimentícia', patterns: ['pensão alimentícia', 'pensao alimenticia', 'alimentos'] },
+      { name: 'Guarda', patterns: ['guarda dos filhos', 'guarda compartilhada', 'guarda unilateral'] },
+      { name: 'Usucapião', patterns: ['usucapião', 'usucapiao'] },
+      { name: 'Distrato imobiliário', patterns: ['distrato', 'imóvel na planta', 'imovel na planta'] },
+      { name: 'CNH e trânsito', patterns: ['cnh', 'suspensão da cnh', 'suspensao da cnh', 'multa'] },
+      { name: 'Servidor público', patterns: ['servidor público', 'servidor publico', 'concurso público', 'concurso publico'] },
+      { name: 'Tributário', patterns: ['tributário', 'tributario', 'imposto', 'tributo'] },
+      { name: 'Planejamento previdenciário', patterns: ['planejamento previdenciário', 'planejamento previdenciario'] },
+      { name: 'Consumidor', patterns: ['consumidor', 'produto com defeito', 'cobrança indevida', 'cobranca indevida'] },
+      { name: 'Plano de saúde', patterns: ['plano de saúde', 'plano de saude'] },
+      { name: 'Benefício negado', patterns: ['benefício negado', 'beneficio negado', 'benefício indeferido', 'beneficio indeferido'] },
+      { name: 'Criminal', patterns: ['criminal', 'prisão', 'prisao', 'inquérito', 'inquerito'] }
+    ];
+
     let allScripts = [];
     let currentScripts = [];
+    let activeContent = '';
+    let activeChecksum = '';
 
-    // DOM Elements
     const nicheSelect = document.getElementById('niche-select');
+    const thesisSelect = document.getElementById('thesis-select');
     const searchInput = document.getElementById('search-input');
     const scriptsList = document.getElementById('scripts-list');
     const viewNiche = document.getElementById('view-niche');
+    const viewTheses = document.getElementById('view-theses');
     const viewTitle = document.getElementById('view-title');
+    const viewSubtitle = document.getElementById('view-subtitle');
     const viewContent = document.getElementById('view-content');
     const copyBtn = document.getElementById('copy-btn');
     const totalCount = document.getElementById('total-count');
+    const syncStatus = document.getElementById('sync-status');
+    const statNiches = document.getElementById('stat-niches');
+    const statTheses = document.getElementById('stat-theses');
+    const topTheses = document.getElementById('top-theses');
 
-    // Init
-    fetch('scripts_data.json')
-      .then(res => res.json())
-      .then(data => {
-        allScripts = data;
-        currentScripts = data;
-        
-        // Count niches
-        const nicheCount = {};
-        data.forEach(s => {
-          nicheCount[s.niche] = (nicheCount[s.niche] || 0) + 1;
-        });
+    function normalize(value) {
+      return (value || '')
+        .toString()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    }
 
-        const niches = Object.keys(nicheCount).sort();
-        niches.forEach(n => {
-          const opt = document.createElement('option');
-          opt.value = n;
-          opt.textContent = `${n} (${nicheCount[n]})`;
-          nicheSelect.appendChild(opt);
-        });
+    function fallbackThesisFromTitle(title) {
+      const clean = (title || '').replace(/\[[^\]]+\]/g, '').trim();
+      const firstPart = clean.split(/[-–—|:]/)[0]?.trim();
+      if (!firstPart) return 'Geral';
+      if (firstPart.length > 42) return 'Geral';
+      return firstPart;
+    }
 
-        renderList();
-      })
-      .catch(err => {
-        console.error("Erro", err);
-        scriptsList.innerHTML = `<div class="p-4 text-red-400 text-sm flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i> Banco de dados indisponível.</div>`;
+    function detectTheses(item) {
+      const text = normalize(`${item.title}\n${item.content}`);
+      const found = [];
+      THESIS_RULES.forEach(rule => {
+        if (rule.patterns.some(pattern => text.includes(normalize(pattern)))) {
+          found.push(rule.name);
+        }
       });
+      if (!found.length) found.push(fallbackThesisFromTitle(item.title));
+      return [...new Set(found)];
+    }
+
+    function enrichItem(item, index) {
+      const theses = detectTheses(item);
+      return {
+        ...item,
+        id: `${normalize(item.niche)}::${normalize(item.title)}::${index}`,
+        theses,
+        preview: (item.content || '').replace(/\s+/g, ' ').trim().slice(0, 170),
+        searchBlob: normalize([item.niche, item.title, item.content, theses.join(' ')].join(' '))
+      };
+    }
+
+    function computeChecksum(data) {
+      return JSON.stringify(data.map(item => [item.niche, item.title, item.content.length]));
+    }
+
+    function updateSyncStatus(message) {
+      syncStatus.textContent = message;
+    }
+
+    async function loadData(initial = false) {
+      try {
+        const res = await fetch(`scripts_data.json?ts=${Date.now()}`, { cache: 'no-store' });
+        const raw = await res.json();
+        const enriched = raw.map(enrichItem).sort((a, b) => {
+          const nicheCmp = a.niche.localeCompare(b.niche, 'pt-BR');
+          if (nicheCmp !== 0) return nicheCmp;
+          return a.title.localeCompare(b.title, 'pt-BR');
+        });
+        const newChecksum = computeChecksum(enriched);
+        const changed = newChecksum !== activeChecksum;
+        allScripts = enriched;
+        activeChecksum = newChecksum;
+        rebuildFilters();
+        applyFilters(false);
+        const now = new Date();
+        updateSyncStatus(`Sync Auto: ativo · ${now.toLocaleTimeString('pt-BR')}`);
+        if (!initial && changed) {
+          totalCount.classList.add('ring-2', 'ring-brand');
+          setTimeout(() => totalCount.classList.remove('ring-2', 'ring-brand'), 1600);
+        }
+      } catch (err) {
+        console.error(err);
+        scriptsList.innerHTML = `<div class="p-4 text-red-400 text-sm flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i> Banco de dados indisponível.</div>`;
+        updateSyncStatus('Sync Auto: erro no carregamento');
+      }
+    }
+
+    function rebuildFilters() {
+      const nicheCounter = new Map();
+      const thesisCounter = new Map();
+      allScripts.forEach(item => {
+        nicheCounter.set(item.niche, (nicheCounter.get(item.niche) || 0) + 1);
+        item.theses.forEach(thesis => thesisCounter.set(thesis, (thesisCounter.get(thesis) || 0) + 1));
+      });
+
+      statNiches.textContent = nicheCounter.size;
+      statTheses.textContent = thesisCounter.size;
+
+      const prevNiche = nicheSelect.value || 'all';
+      nicheSelect.innerHTML = '<option value="all">📁 Todos os Nichos</option>';
+      [...nicheCounter.entries()].sort((a,b) => a[0].localeCompare(b[0],'pt-BR')).forEach(([niche,count]) => {
+        const opt = document.createElement('option');
+        opt.value = niche;
+        opt.textContent = `${niche} (${count})`;
+        nicheSelect.appendChild(opt);
+      });
+      nicheSelect.value = [...nicheSelect.options].some(o => o.value === prevNiche) ? prevNiche : 'all';
+
+      const prevThesis = thesisSelect.value || 'all';
+      thesisSelect.innerHTML = '<option value="all">🧠 Todas as Teses</option>';
+      [...thesisCounter.entries()].sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0],'pt-BR')).forEach(([thesis,count]) => {
+        const opt = document.createElement('option');
+        opt.value = thesis;
+        opt.textContent = `${thesis} (${count})`;
+        thesisSelect.appendChild(opt);
+      });
+      thesisSelect.value = [...thesisSelect.options].some(o => o.value === prevThesis) ? prevThesis : 'all';
+
+      topTheses.innerHTML = '';
+      [...thesisCounter.entries()].sort((a,b) => b[1] - a[1]).slice(0, 8).forEach(([thesis,count]) => {
+        const btn = document.createElement('button');
+        btn.className = 'px-2.5 py-1 rounded-full text-xs border border-dark-border bg-dark-bg text-gray-300 hover:border-brand hover:text-white transition-all';
+        btn.textContent = `${thesis} · ${count}`;
+        btn.onclick = () => {
+          thesisSelect.value = thesis;
+          applyFilters();
+        };
+        topTheses.appendChild(btn);
+      });
+    }
 
     function renderList() {
       scriptsList.innerHTML = '';
-      totalCount.textContent = `${currentScripts.length} roteiros`;
-      
-      if(currentScripts.length === 0) {
-        scriptsList.innerHTML = `<div class="p-8 text-gray-500 text-sm text-center">Nenhum resultado encontrado.</div>`;
+      totalCount.textContent = `${currentScripts.length} itens`;
+
+      if (!currentScripts.length) {
+        scriptsList.innerHTML = `<div class="p-8 text-gray-500 text-sm text-center">Nenhum resultado encontrado para esse nicho/tese.</div>`;
         return;
       }
 
       currentScripts.forEach(script => {
         const div = document.createElement('div');
-        div.className = 'script-item p-3.5 rounded-lg border border-transparent hover:border-dark-border cursor-pointer transition-all duration-200 group';
-        
+        div.className = 'script-item p-3.5 rounded-xl border border-dark-border/40 hover:border-dark-border cursor-pointer transition-all duration-200 group';
+        const badges = script.theses.slice(0, 2).map(thesis => `<span class="text-[10px] px-2 py-1 rounded-full bg-brand-subtle text-brand font-semibold">${escapeHTML(thesis)}</span>`).join('');
         div.innerHTML = `
-          <div class="flex items-start justify-between gap-2">
+          <div class="flex items-start justify-between gap-3">
             <div class="flex-1 min-w-0">
-              <div class="text-[11px] font-semibold tracking-wide text-brand mb-1.5 uppercase">${script.niche}</div>
-              <div class="font-medium text-sm text-gray-200 leading-snug group-hover:text-white transition-colors line-clamp-2">${script.title}</div>
+              <div class="text-[11px] font-semibold tracking-wide text-brand mb-1 uppercase">${escapeHTML(script.niche)}</div>
+              <div class="font-semibold text-sm text-gray-100 leading-snug group-hover:text-white transition-colors clamp-2">${escapeHTML(script.title)}</div>
+              <div class="flex flex-wrap gap-1.5 mt-2 mb-2">${badges}</div>
+              <div class="text-xs text-gray-500 clamp-2">${escapeHTML(script.preview)}</div>
             </div>
             <i class="fa-solid fa-chevron-right text-xs text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity mt-5"></i>
           </div>
         `;
-        
         div.onclick = () => {
           document.querySelectorAll('.script-item').forEach(el => el.classList.remove('active'));
           div.classList.add('active');
           selectScript(script);
         };
-        
         scriptsList.appendChild(div);
       });
     }
 
-    let activeContent = "";
     function selectScript(script) {
       viewNiche.textContent = script.niche;
       viewTitle.textContent = script.title;
+      viewSubtitle.textContent = `${script.theses.length} tese(s) reconhecida(s) automaticamente neste item.`;
       activeContent = script.content;
 
-      // Basic markdown-like parsing for bold titles
+      viewTheses.innerHTML = '';
+      script.theses.forEach(thesis => {
+        const span = document.createElement('span');
+        span.className = 'text-xs font-semibold bg-brand-subtle text-brand px-2 py-1 rounded-full';
+        span.textContent = thesis;
+        viewTheses.appendChild(span);
+      });
+
       let formattedText = escapeHTML(script.content)
         .replace(/^(Anúncio \d+|HEADLINE PADRÃO|\[.*?\]):?/gm, '<strong class="text-brand">$1</strong>')
         .replace(/^>> (.*)/gm, '<span class="text-brand-light italic">>> $1</span>');
 
-      viewContent.innerHTML = `<div class="animate-fade"><pre>${formattedText}</pre></div>`;
+      viewContent.innerHTML = `<div><pre>${formattedText}</pre></div>`;
       copyBtn.classList.remove('hidden');
-      
-      // Mobile smooth scroll to content
-      if(window.innerWidth < 1024) {
-        viewContent.parentElement.scrollIntoView({ behavior: 'smooth' });
+      if (window.innerWidth < 1024) viewContent.parentElement.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function applyFilters(resetSelection = true) {
+      const niche = nicheSelect.value;
+      const thesis = thesisSelect.value;
+      const term = normalize(searchInput.value);
+
+      currentScripts = allScripts.filter(s => {
+        const matchNiche = niche === 'all' || s.niche === niche;
+        const matchThesis = thesis === 'all' || s.theses.includes(thesis);
+        const matchTerm = !term || s.searchBlob.includes(term);
+        return matchNiche && matchThesis && matchTerm;
+      });
+
+      renderList();
+      if (resetSelection) {
+        viewNiche.textContent = 'Selecione';
+        viewTheses.innerHTML = '';
+        viewTitle.textContent = 'Catálogo de Copys Advanx';
+        viewSubtitle.textContent = 'Escolha um item ao lado para consultar a tese, copiar a estrutura e reaproveitar mais rápido.';
+        viewContent.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-gray-500 text-center"><div class="w-16 h-16 mb-4 rounded-2xl bg-dark-border flex items-center justify-center"><i class="fa-solid fa-layer-group text-2xl text-brand/60"></i></div><h3 class="text-lg font-medium text-gray-300 mb-2">Nenhuma copy selecionada</h3><p class="max-w-md text-sm">Filtre por nicho, tese ou termo. Quando uma nova copy entrar no <code>scripts_data.json</code>, a página reconhece a tese automaticamente e atualiza sozinha.</p></div>`;
+        copyBtn.classList.add('hidden');
       }
     }
 
@@ -291,45 +431,26 @@
       navigator.clipboard.writeText(activeContent).then(() => {
         const originalHtml = copyBtn.innerHTML;
         copyBtn.innerHTML = `<i class="fa-solid fa-check"></i> <span>Copiado!</span>`;
-        copyBtn.classList.replace('bg-brand', 'bg-green-500');
-        copyBtn.classList.replace('hover:bg-brand-light', 'hover:bg-green-400');
-        copyBtn.classList.replace('shadow-[0_4px_14px_rgba(255,122,1,0.3)]', 'shadow-[0_4px_14px_rgba(34,197,94,0.3)]');
-        
+        copyBtn.classList.remove('bg-brand', 'hover:bg-brand-light');
+        copyBtn.classList.add('bg-green-600', 'hover:bg-green-500');
         setTimeout(() => {
           copyBtn.innerHTML = originalHtml;
-          copyBtn.classList.replace('bg-green-500', 'bg-brand');
-          copyBtn.classList.replace('hover:bg-green-400', 'hover:bg-brand-light');
-          copyBtn.classList.replace('shadow-[0_4px_14px_rgba(34,197,94,0.3)]', 'shadow-[0_4px_14px_rgba(255,122,1,0.3)]');
-        }, 2000);
+          copyBtn.classList.remove('bg-green-600', 'hover:bg-green-500');
+          copyBtn.classList.add('bg-brand', 'hover:bg-brand-light');
+        }, 1800);
       });
     };
 
-    function applyFilters() {
-      const niche = nicheSelect.value;
-      const term = searchInput.value.toLowerCase();
-
-      currentScripts = allScripts.filter(s => {
-        const matchNiche = niche === 'all' || s.niche === niche;
-        const matchTerm = s.title.toLowerCase().includes(term) || s.content.toLowerCase().includes(term);
-        return matchNiche && matchTerm;
-      });
-      renderList();
-    }
-
-    nicheSelect.addEventListener('change', applyFilters);
-    searchInput.addEventListener('input', applyFilters);
-
     function escapeHTML(str) {
-      return str.replace(/[&<>'"]/g, 
-        tag => ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            "'": '&#39;',
-            '"': '&quot;'
-          }[tag] || tag)
-      );
+      return (str || '').replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
     }
+
+    nicheSelect.addEventListener('change', () => applyFilters());
+    thesisSelect.addEventListener('change', () => applyFilters());
+    searchInput.addEventListener('input', () => applyFilters());
+
+    loadData(true);
+    setInterval(() => loadData(false), 60000);
   </script>
 </body>
 </html>
