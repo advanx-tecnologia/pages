@@ -177,36 +177,68 @@
   </main>
 
   <script>
-    const THESIS_RULES = [
-      { name: 'Busca e apreensão', patterns: ['busca e apreensão', 'busca e apreensao', 'apreender o seu carro', 'guincho'] },
-      { name: 'Aposentadoria', patterns: ['aposentadoria', 'aposentar'] },
-      { name: 'BPC/LOAS', patterns: ['bpc', 'loas'] },
-      { name: 'Auxílio-doença', patterns: ['auxílio-doença', 'auxilio-doenca', 'auxilio doença', 'incapacidade temporária'] },
-      { name: 'Pensão por morte', patterns: ['pensão por morte', 'pensao por morte'] },
-      { name: 'FGTS', patterns: ['fgts'] },
-      { name: 'Horas extras', patterns: ['horas extras', 'hora extra'] },
-      { name: 'Rescisão trabalhista', patterns: ['rescisão', 'rescisao', 'verbas rescisórias', 'demissão', 'demissao'] },
-      { name: 'Acidente de trabalho', patterns: ['acidente de trabalho', 'acidente no trabalho'] },
-      { name: 'Revisão bancária', patterns: ['revisional', 'juros abusivos', 'revisão de contrato', 'revisao de contrato'] },
-      { name: 'Negativação indevida', patterns: ['negativado', 'negativação', 'negativacao', 'nome sujo', 'serasa', 'spc'] },
-      { name: 'Indenização', patterns: ['indenização', 'indenizacao', 'danos morais'] },
-      { name: 'Atraso de voo', patterns: ['atraso de voo', 'voo atrasado', 'cancelamento de voo'] },
-      { name: 'Milhas e aéreo', patterns: ['milhas', 'companhia aérea', 'companhia aerea', 'bagagem extraviada'] },
-      { name: 'Divórcio', patterns: ['divórcio', 'divorcio'] },
-      { name: 'Inventário', patterns: ['inventário', 'inventario'] },
-      { name: 'Pensão alimentícia', patterns: ['pensão alimentícia', 'pensao alimenticia', 'alimentos'] },
-      { name: 'Guarda', patterns: ['guarda dos filhos', 'guarda compartilhada', 'guarda unilateral'] },
-      { name: 'Usucapião', patterns: ['usucapião', 'usucapiao'] },
-      { name: 'Distrato imobiliário', patterns: ['distrato', 'imóvel na planta', 'imovel na planta'] },
-      { name: 'CNH e trânsito', patterns: ['cnh', 'suspensão da cnh', 'suspensao da cnh', 'multa'] },
-      { name: 'Servidor público', patterns: ['servidor público', 'servidor publico', 'concurso público', 'concurso publico'] },
-      { name: 'Tributário', patterns: ['tributário', 'tributario', 'imposto', 'tributo'] },
-      { name: 'Planejamento previdenciário', patterns: ['planejamento previdenciário', 'planejamento previdenciario'] },
-      { name: 'Consumidor', patterns: ['consumidor', 'produto com defeito', 'cobrança indevida', 'cobranca indevida'] },
-      { name: 'Plano de saúde', patterns: ['plano de saúde', 'plano de saude'] },
-      { name: 'Benefício negado', patterns: ['benefício negado', 'beneficio negado', 'benefício indeferido', 'beneficio indeferido'] },
-      { name: 'Criminal', patterns: ['criminal', 'prisão', 'prisao', 'inquérito', 'inquerito'] }
+    const NICHE_OVERRIDES = [
+      { from: 'Trabalhista', to: 'Previdenciário', patterns: ['direito previdenciario', 'auxilio acidente', 'salario maternidade'] },
+      { from: 'Trabalhista', to: 'Tributario', patterns: ['restituicao inss'] }
     ];
+
+    const NICHE_THESIS_RULES = {
+      'Trabalhista': [
+        { name: 'Acidente de trabalho', titlePatterns: ['acidente de trabalho', 'acidente trabalho'] },
+        { name: 'Doença ocupacional', titlePatterns: ['doenca ocupacional', 'doencas ocupacionais', 'burnout'] },
+        { name: 'Insalubridade', titlePatterns: ['insalubridade'] },
+        { name: 'Horas extras', titlePatterns: ['hora extra', 'horas extras', 'equiparacao salarial'] },
+        { name: 'Rescisão indireta', titlePatterns: ['rescisao indireta', 'recisao indireta'] },
+        { name: 'Verbas rescisórias', titlePatterns: ['verbas rescisorias', 'verbas recisorias', 'demissao sem justa causa'] },
+        { name: 'Gestante demitida', titlePatterns: ['gestante demitida', 'demitida gravida', 'gestantes demitidas', 'gestante domestica', 'contrato temporario gestante'] },
+        { name: 'Vínculo empregatício', titlePatterns: ['reconhecimento de vinculo', 'sem carteira assinada'] },
+        { name: 'Justa causa', titlePatterns: ['reversao de justa causa', 'justa causa'] },
+        { name: 'Defesa trabalhista', titlePatterns: ['defesa trabalhista', 'defesa contra acao trabalhista'] },
+        { name: 'Caminhoneiros e motoristas', titlePatterns: ['caminhoneiro', 'caminhoneiros', 'motoristas', 'motoboy', 'vale pedagio'] },
+        { name: 'Residentes médicos', titlePatterns: ['residentes medicos', 'residentes de medicina'] }
+      ],
+      'Previdenciário': [
+        { name: 'Aposentadoria', titlePatterns: ['aposentadoria'] },
+        { name: 'BPC/LOAS', titlePatterns: ['bpc', 'loas'] },
+        { name: 'Auxílio-doença', titlePatterns: ['auxilio doenca', 'auxílio-doença', 'beneficio por incapacidade'] },
+        { name: 'Auxílio-acidente', titlePatterns: ['auxilio acidente', 'auxílio acidente'] },
+        { name: 'Pensão por morte', titlePatterns: ['pensao por morte', 'pensão por morte'] },
+        { name: 'Salário maternidade', titlePatterns: ['salario maternidade'] },
+        { name: 'Planejamento previdenciário', titlePatterns: ['planejamento previdenciario'] },
+        { name: 'Benefício negado', titlePatterns: ['beneficio negado', 'beneficio indeferido'] }
+      ],
+      'Bancário': [
+        { name: 'Busca e apreensão', titlePatterns: ['busca e apreensao'] },
+        { name: 'Revisão bancária', titlePatterns: ['revisional', 'juros abusivos', 'passivo bancario', 'financiamento'] },
+        { name: 'Negativação indevida', titlePatterns: ['negativado', 'nome sujo', 'serasa', 'spc'] }
+      ],
+      'Consumidor': [
+        { name: 'Atraso de voo', titlePatterns: ['atraso de voo', 'cancelamento de voo'] },
+        { name: 'Milhas e aéreo', titlePatterns: ['milhas', 'bagagem', 'companhia aerea'] },
+        { name: 'Cobrança indevida', titlePatterns: ['cobranca indevida'] }
+      ],
+      'Família': [
+        { name: 'Divórcio', titlePatterns: ['divorcio'] },
+        { name: 'Pensão alimentícia', titlePatterns: ['pensao alimenticia'] },
+        { name: 'Guarda', titlePatterns: ['guarda'] }
+      ],
+      'Sucessões': [
+        { name: 'Inventário', titlePatterns: ['inventario'] }
+      ],
+      'Imobiliário': [
+        { name: 'Usucapião', titlePatterns: ['usucapiao'] },
+        { name: 'Distrato imobiliário', titlePatterns: ['distrato'] }
+      ],
+      'Trânsito': [
+        { name: 'CNH e trânsito', titlePatterns: ['cnh', 'suspensao da cnh'] }
+      ],
+      'Tributario': [
+        { name: 'Tributário', titlePatterns: ['tributario', 'imposto', 'tributo', 'restituicao inss'] }
+      ],
+      'Servidor Público': [
+        { name: 'Servidor público', titlePatterns: ['servidor publico', 'concurso publico'] }
+      ]
+    };
 
     let allScripts = [];
     let currentScripts = [];
@@ -238,33 +270,58 @@
     }
 
     function fallbackThesisFromTitle(title) {
-      const clean = (title || '').replace(/\[[^\]]+\]/g, '').trim();
+      const clean = (title || '')
+        .replace(/\[[^\]]+\]/g, ' ')
+        .replace(/an[úu]ncios? de capta[cç][aã]o/gi, ' ')
+        .replace(/melhores scripts?/gi, ' ')
+        .replace(/script\s*-/gi, ' ')
+        .replace(/novo\s+/gi, ' ')
+        .replace(/direito\s+(do\s+trabalho|trabalhista|previdenci[áa]rio|empresarial)/gi, ' ')
+        .replace(/trabalhista|previdenci[áa]rio/gi, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
       const firstPart = clean.split(/[-–—|:]/)[0]?.trim();
       if (!firstPart) return 'Geral';
       if (firstPart.length > 42) return 'Geral';
       return firstPart;
     }
 
-    function detectTheses(item) {
+    function detectCatalogNiche(item) {
+      const rawNiche = (item.niche || '').trim();
+      const titleText = normalize(item.title);
+      const override = NICHE_OVERRIDES.find(rule =>
+        rule.from === rawNiche && rule.patterns.some(pattern => titleText.includes(normalize(pattern)))
+      );
+      return override ? override.to : rawNiche;
+    }
+
+    function detectTheses(item, catalogNiche) {
+      const titleText = normalize(item.title);
       const text = normalize(`${item.title}\n${item.content}`);
-      const found = [];
-      THESIS_RULES.forEach(rule => {
-        if (rule.patterns.some(pattern => text.includes(normalize(pattern)))) {
-          found.push(rule.name);
-        }
-      });
-      if (!found.length) found.push(fallbackThesisFromTitle(item.title));
-      return [...new Set(found)];
+      const rules = NICHE_THESIS_RULES[catalogNiche] || [];
+      const titleHits = rules
+        .filter(rule => (rule.titlePatterns || []).some(pattern => titleText.includes(normalize(pattern))))
+        .map(rule => rule.name);
+      if (titleHits.length) return [...new Set(titleHits)];
+
+      const contentHits = rules
+        .filter(rule => (rule.contentPatterns || []).some(pattern => text.includes(normalize(pattern))))
+        .map(rule => rule.name);
+      if (contentHits.length) return [...new Set(contentHits)];
+
+      return [fallbackThesisFromTitle(item.title)];
     }
 
     function enrichItem(item, index) {
-      const theses = detectTheses(item);
+      const catalogNiche = detectCatalogNiche(item);
+      const theses = detectTheses(item, catalogNiche);
       return {
         ...item,
         id: `${normalize(item.niche)}::${normalize(item.title)}::${index}`,
+        catalogNiche,
         theses,
         preview: (item.content || '').replace(/\s+/g, ' ').trim().slice(0, 170),
-        searchBlob: normalize([item.niche, item.title, item.content, theses.join(' ')].join(' '))
+        searchBlob: normalize([catalogNiche, item.niche, item.title, item.content, theses.join(' ')].join(' '))
       };
     }
 
@@ -306,14 +363,11 @@
 
     function rebuildFilters() {
       const nicheCounter = new Map();
-      const thesisCounter = new Map();
       allScripts.forEach(item => {
-        nicheCounter.set(item.niche, (nicheCounter.get(item.niche) || 0) + 1);
-        item.theses.forEach(thesis => thesisCounter.set(thesis, (thesisCounter.get(thesis) || 0) + 1));
+        nicheCounter.set(item.catalogNiche, (nicheCounter.get(item.catalogNiche) || 0) + 1);
       });
 
       statNiches.textContent = nicheCounter.size;
-      statTheses.textContent = thesisCounter.size;
 
       const prevNiche = nicheSelect.value || 'all';
       nicheSelect.innerHTML = '<option value="all">📁 Todos os Nichos</option>';
@@ -325,7 +379,21 @@
       });
       nicheSelect.value = [...nicheSelect.options].some(o => o.value === prevNiche) ? prevNiche : 'all';
 
+      rebuildThesisOptions();
+    }
+
+    function rebuildThesisOptions() {
+      const selectedNiche = nicheSelect.value || 'all';
       const prevThesis = thesisSelect.value || 'all';
+      const scopedScripts = selectedNiche === 'all'
+        ? allScripts
+        : allScripts.filter(item => item.catalogNiche === selectedNiche);
+      const thesisCounter = new Map();
+      scopedScripts.forEach(item => {
+        item.theses.forEach(thesis => thesisCounter.set(thesis, (thesisCounter.get(thesis) || 0) + 1));
+      });
+
+      statTheses.textContent = thesisCounter.size;
       thesisSelect.innerHTML = '<option value="all">🧠 Todas as Teses</option>';
       [...thesisCounter.entries()].sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0],'pt-BR')).forEach(([thesis,count]) => {
         const opt = document.createElement('option');
@@ -364,7 +432,7 @@
         div.innerHTML = `
           <div class="flex items-start justify-between gap-3">
             <div class="flex-1 min-w-0">
-              <div class="text-[11px] font-semibold tracking-wide text-brand mb-1 uppercase">${escapeHTML(script.niche)}</div>
+              <div class="text-[11px] font-semibold tracking-wide text-brand mb-1 uppercase">${escapeHTML(script.catalogNiche)}</div>
               <div class="font-semibold text-sm text-gray-100 leading-snug group-hover:text-white transition-colors clamp-2">${escapeHTML(script.title)}</div>
               <div class="flex flex-wrap gap-1.5 mt-2 mb-2">${badges}</div>
               <div class="text-xs text-gray-500 clamp-2">${escapeHTML(script.preview)}</div>
@@ -382,7 +450,7 @@
     }
 
     function selectScript(script) {
-      viewNiche.textContent = script.niche;
+      viewNiche.textContent = script.catalogNiche;
       viewTitle.textContent = script.title;
       viewSubtitle.textContent = `${script.theses.length} tese(s) reconhecida(s) automaticamente neste item.`;
       activeContent = script.content;
@@ -410,7 +478,7 @@
       const term = normalize(searchInput.value);
 
       currentScripts = allScripts.filter(s => {
-        const matchNiche = niche === 'all' || s.niche === niche;
+        const matchNiche = niche === 'all' || s.catalogNiche === niche;
         const matchThesis = thesis === 'all' || s.theses.includes(thesis);
         const matchTerm = !term || s.searchBlob.includes(term);
         return matchNiche && matchThesis && matchTerm;
@@ -445,7 +513,10 @@
       return (str || '').replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
     }
 
-    nicheSelect.addEventListener('change', () => applyFilters());
+    nicheSelect.addEventListener('change', () => {
+      rebuildThesisOptions();
+      applyFilters();
+    });
     thesisSelect.addEventListener('change', () => applyFilters());
     searchInput.addEventListener('input', () => applyFilters());
 
