@@ -172,7 +172,7 @@
         <span id="sync-status">Sync Auto: carregando…</span>
       </div>
       <div class="hidden sm:block text-gray-400 bg-dark-surface px-3 py-1.5 rounded-full border border-dark-border">
-        Fonte: <span class="text-brand font-semibold">scripts_data.json</span>
+        Fonte: <span class="text-brand font-semibold">scripts_index.json</span>
       </div>
     </div>
   </nav>
@@ -437,6 +437,8 @@
     let currentScripts = [];
     let activeContent = '';
     let activeChecksum = '';
+    let activeScriptId = '';
+    let searchDebounceTimer = null;
 
     const nicheSelect = document.getElementById('niche-select');
     const thesisSelect = document.getElementById('thesis-select');
@@ -534,7 +536,7 @@
     }
 
     function computeChecksum(data) {
-      return JSON.stringify(data.map(item => [item.niche, item.title, item.content.length]));
+      return JSON.stringify(data.map(item => [item.niche, item.title, item.contentUrl, (item.theses || []).join('|')]));
     }
 
     function updateSyncStatus(message) {
@@ -543,13 +545,9 @@
 
     async function loadData(initial = false) {
       try {
-        const res = await fetch(`scripts_data.json?ts=${Date.now()}`, { cache: 'no-store' });
-        const raw = await res.json();
-        const enriched = raw.map(enrichItem).sort((a, b) => {
-          const nicheCmp = a.catalogNiche.localeCompare(b.catalogNiche, 'pt-BR');
-          if (nicheCmp !== 0) return nicheCmp;
-          return a.title.localeCompare(b.title, 'pt-BR');
-        });
+        const url = initial ? 'scripts_index.json' : `scripts_index.json?ts=${Date.now()}`;
+        const res = await fetch(url, { cache: initial ? 'default' : 'no-store' });
+        const enriched = await res.json();
         const newChecksum = computeChecksum(enriched);
         const changed = newChecksum !== activeChecksum;
         allScripts = enriched;
@@ -645,11 +643,20 @@
       });
     }
 
-    function selectScript(script) {
+    async function ensureScriptContent(script) {
+      if (typeof script.content === 'string') return script.content;
+      const response = await fetch(script.contentUrl, { cache: 'force-cache' });
+      if (!response.ok) throw new Error(`Falha ao carregar conteúdo: ${response.status}`);
+      script.content = await response.text();
+      return script.content;
+    }
+
+    async function selectScript(script) {
+      activeScriptId = script.id;
       viewNiche.textContent = script.catalogNiche;
       viewTitle.textContent = script.title;
       viewSubtitle.textContent = `${script.theses.length} tese(s) reconhecida(s) automaticamente neste item.`;
-      activeContent = script.content;
+      activeContent = '';
 
       viewTheses.innerHTML = '';
       script.theses.forEach(thesis => {
@@ -659,13 +666,26 @@
         viewTheses.appendChild(span);
       });
 
-      let formattedText = escapeHTML(script.content)
-        .replace(/^(Anúncio \d+|HEADLINE PADRÃO|\[.*?\]):?/gm, '<strong class="text-brand">$1</strong>')
-        .replace(/^>> (.*)/gm, '<span class="text-brand-light italic">>> $1</span>');
+      viewContent.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-gray-500 text-center"><div class="w-16 h-16 mb-4 rounded-2xl bg-dark-border flex items-center justify-center"><i class="fa-solid fa-circle-notch fa-spin text-2xl text-brand/60"></i></div><h3 class="text-lg font-medium text-gray-300 mb-2">Carregando copy</h3><p class="max-w-md text-sm">Estamos puxando o conteúdo completo desse item.</p></div>`;
+      copyBtn.classList.add('hidden');
 
-      viewContent.innerHTML = `<div><pre>${formattedText}</pre></div>`;
-      copyBtn.classList.remove('hidden');
-      if (window.innerWidth < 1024) viewContent.parentElement.scrollIntoView({ behavior: 'smooth' });
+      try {
+        const content = await ensureScriptContent(script);
+        if (activeScriptId !== script.id) return;
+        activeContent = content;
+
+        let formattedText = escapeHTML(content)
+          .replace(/^(Anúncio \d+|HEADLINE PADRÃO|\[.*?\]):?/gm, '<strong class="text-brand">$1</strong>')
+          .replace(/^>> (.*)/gm, '<span class="text-brand-light italic">>> $1</span>');
+
+        viewContent.innerHTML = `<div><pre>${formattedText}</pre></div>`;
+        copyBtn.classList.remove('hidden');
+        if (window.innerWidth < 1024) viewContent.parentElement.scrollIntoView({ behavior: 'smooth' });
+      } catch (err) {
+        console.error(err);
+        if (activeScriptId !== script.id) return;
+        viewContent.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-red-400 text-center"><div class="w-16 h-16 mb-4 rounded-2xl bg-red-500/10 flex items-center justify-center"><i class="fa-solid fa-triangle-exclamation text-2xl"></i></div><h3 class="text-lg font-medium mb-2">Não foi possível abrir essa copy</h3><p class="max-w-md text-sm text-gray-400">Tente novamente em alguns segundos.</p></div>`;
+      }
     }
 
     function applyFilters(resetSelection = true) {
@@ -714,10 +734,13 @@
       applyFilters();
     });
     thesisSelect.addEventListener('change', () => applyFilters());
-    searchInput.addEventListener('input', () => applyFilters());
+    searchInput.addEventListener('input', () => {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => applyFilters(), 120);
+    });
 
     loadData(true);
-    setInterval(() => loadData(false), 60000);
+    setInterval(() => loadData(false), 300000);
   </script>
 </body>
 </html>
