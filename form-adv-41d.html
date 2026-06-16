@@ -202,10 +202,10 @@ function fireLeadEvent(payload){
   return true;
 }
 
-function fireContactEvent(payload){
+function fireContactEvent(payload,path='sem_investimento'){
   if(contactEventFired) return false;
   contactEventFired=true;
-  const params={origem:'form-adv-41d',canal:'whatsapp',caminho:'sem_investimento',lead_id:leadState.record?.id||null,prazo:payload?.prazo||null,faturamento:payload?.faturamento||null};
+  const params={origem:'form-adv-41d',canal:'whatsapp',caminho:path,lead_id:leadState.record?.id||null,prazo:payload?.prazo||null,faturamento:payload?.faturamento||null};
   fireMetaEvent('Contact',params);
   fireGaEvent('contact',params);
   return true;
@@ -229,9 +229,15 @@ function formatWebhookDateBRT(iso){
 
 const DOWNSELL_WHATSAPP_NUMBER='5571982470873';
 const DOWNSELL_WHATSAPP_TEXT='Oi, por enquanto o SCI com garantia de contratos em 41d não é pra mim, mas quero conhecer as soluções de captação e conteúdo.';
+const QUALIFIED_WHATSAPP_NUMBER='5571982470873';
+const QUALIFIED_WHATSAPP_TEXT='Oi, Quero implementar o SCI com garantia de contratos fechados em até 41d';
 
 function buildDownsellWhatsappLink(){
   return `https://wa.me/${DOWNSELL_WHATSAPP_NUMBER}?text=${encodeURIComponent(DOWNSELL_WHATSAPP_TEXT)}`;
+}
+
+function buildQualifiedWhatsappLink(){
+  return `https://wa.me/${QUALIFIED_WHATSAPP_NUMBER}?text=${encodeURIComponent(QUALIFIED_WHATSAPP_TEXT)}`;
 }
 
 function renderDownsellStep(payload){
@@ -240,7 +246,7 @@ function renderDownsellStep(payload){
   if(btnWhatsapp){
     btnWhatsapp.href=buildDownsellWhatsappLink();
     btnWhatsapp.onclick=()=>{
-      fireContactEvent(payload);
+      fireContactEvent(payload,'sem_investimento');
       track('whatsapp_click',{origem:'form-adv-41d',caminho:'sem_investimento'});
     };
   }
@@ -482,7 +488,9 @@ $('#next').addEventListener('click',async()=>{
   track('quiz_submit',{nicho:payload.nicho,disposto_investir_setup:payload.disposto_investir_setup});
   fireLeadEvent(payload);
   if(payload.disposto_investir_setup==='Sim, consigo investir'){
-    window.location.replace('/form-adv-41d-obrigado.html?d='+encodeURIComponent(JSON.stringify(payload)));
+    fireContactEvent(payload,'apto_investir');
+    track('whatsapp_click',{origem:'form-adv-41d',caminho:'apto_investir'});
+    window.location.replace(buildQualifiedWhatsappLink());
     return;
   }
   step=8;
