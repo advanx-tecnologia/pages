@@ -71,37 +71,124 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #2a2b30; border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: #ff7a01; }
+
+    @media (max-width: 1023px) {
+      body {
+        background-attachment: scroll;
+      }
+      .mobile-shell {
+        height: auto;
+        overflow: visible;
+      }
+      .mobile-nav {
+        height: auto;
+        min-height: 4.5rem;
+        padding: 0.9rem 1rem;
+        align-items: flex-start;
+        gap: 0.9rem;
+      }
+      .mobile-nav-meta {
+        width: 100%;
+        justify-content: space-between;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .mobile-main {
+        height: auto;
+        overflow: visible;
+        padding: 0.85rem;
+        gap: 1rem;
+      }
+      .mobile-aside,
+      .mobile-content {
+        height: auto;
+        overflow: visible;
+        border-radius: 20px;
+      }
+      .mobile-aside-head {
+        padding: 1rem;
+      }
+      .mobile-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+      .mobile-filters {
+        gap: 0.75rem;
+      }
+      .mobile-selects {
+        grid-template-columns: 1fr;
+      }
+      .mobile-chip-row {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 0.2rem;
+      }
+      .mobile-list {
+        max-height: 42vh;
+        padding: 0.75rem;
+      }
+      .mobile-content-head {
+        padding: 1rem;
+      }
+      .mobile-content-body {
+        padding: 1rem;
+      }
+      .mobile-title {
+        font-size: 1.25rem;
+        line-height: 1.35;
+      }
+      .mobile-copy-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .mobile-nav-brand-subtitle {
+        display: none;
+      }
+      .mobile-stats {
+        grid-template-columns: 1fr;
+      }
+      .mobile-list {
+        max-height: 38vh;
+      }
+      .mobile-content-body {
+        padding: 1rem 0.95rem 1.25rem;
+      }
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col h-screen overflow-hidden">
-  <nav class="glass-nav sticky top-0 z-50 flex-shrink-0 h-16 flex items-center px-6 justify-between">
-    <div class="flex items-center gap-3">
-      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-extrabold shadow-brand">A</div>
-      <div>
+<body class="mobile-shell min-h-screen flex flex-col overflow-x-hidden">
+  <nav class="mobile-nav glass-nav sticky top-0 z-50 flex-shrink-0 flex flex-col lg:flex-row lg:h-16 lg:items-center px-6 justify-between">
+    <div class="flex items-center gap-3 min-w-0">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-extrabold shadow-brand flex-shrink-0">A</div>
+      <div class="min-w-0">
         <div class="font-bold text-lg tracking-tight">Hub <span class="text-brand">Advanx</span></div>
-        <div class="text-[11px] text-gray-500 -mt-0.5">Catálogo vivo de copys por nicho e tese</div>
+        <div class="mobile-nav-brand-subtitle text-[11px] text-gray-500 -mt-0.5">Catálogo vivo de copys por nicho e tese</div>
       </div>
     </div>
-    <div class="flex items-center gap-3 text-xs">
+    <div class="mobile-nav-meta flex items-center gap-3 text-xs">
       <div class="hidden md:flex items-center gap-2 text-gray-400 bg-dark-surface px-3 py-1.5 rounded-full border border-dark-border">
         <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
         <span id="sync-status">Sync Auto: carregando…</span>
       </div>
-      <div class="text-gray-400 bg-dark-surface px-3 py-1.5 rounded-full border border-dark-border">
+      <div class="hidden sm:block text-gray-400 bg-dark-surface px-3 py-1.5 rounded-full border border-dark-border">
         Fonte: <span class="text-brand font-semibold">scripts_data.json</span>
       </div>
     </div>
   </nav>
 
-  <main class="flex-1 p-4 lg:p-6 flex flex-col lg:flex-row gap-6 overflow-hidden h-[calc(100vh-4rem)]">
-    <aside class="glass-panel w-full lg:w-[420px] flex flex-col h-full flex-shrink-0 overflow-hidden">
-      <div class="p-5 border-b border-dark-border shrink-0">
+  <main class="mobile-main flex-1 p-4 lg:p-6 flex flex-col lg:flex-row gap-6 overflow-hidden h-[calc(100vh-4rem)]">
+    <aside class="mobile-aside glass-panel w-full lg:w-[420px] flex flex-col h-full flex-shrink-0 overflow-hidden">
+      <div class="mobile-aside-head p-5 border-b border-dark-border shrink-0">
         <div class="flex justify-between items-center mb-4 gap-3">
           <h2 class="text-lg font-semibold text-white">Explorar catálogo</h2>
           <span id="total-count" class="text-xs font-bold bg-brand-subtle text-brand px-2 py-1 rounded-full">0 itens</span>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 mb-4">
+        <div class="mobile-stats grid grid-cols-2 gap-3 mb-4">
           <div class="bg-dark-bg border border-dark-border rounded-xl p-3">
             <div class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">Nichos</div>
             <div id="stat-niches" class="text-xl font-bold text-white">0</div>
@@ -112,59 +199,59 @@
           </div>
         </div>
 
-        <div class="space-y-3">
+        <div class="mobile-filters space-y-3">
           <div class="relative">
             <i class="fa-solid fa-search absolute left-3 top-3 text-gray-500 text-sm"></i>
             <input type="text" id="search-input" placeholder="Buscar tese, nicho, palavra-chave..."
-              class="w-full bg-dark-bg border border-dark-border rounded-xl p-2.5 pl-9 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all">
+              class="w-full bg-dark-bg border border-dark-border rounded-xl p-3 pl-9 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all">
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="mobile-selects grid grid-cols-1 md:grid-cols-2 gap-3">
             <div class="relative">
-              <select id="niche-select" class="w-full appearance-none bg-dark-bg border border-dark-border rounded-xl p-2.5 text-sm text-gray-300 focus:outline-none focus:border-brand transition-all cursor-pointer">
+              <select id="niche-select" class="w-full appearance-none bg-dark-bg border border-dark-border rounded-xl p-3 text-sm text-gray-300 focus:outline-none focus:border-brand transition-all cursor-pointer">
                 <option value="all">📁 Todos os Nichos</option>
               </select>
-              <i class="fa-solid fa-chevron-down absolute right-3 top-3.5 text-gray-500 text-xs pointer-events-none"></i>
+              <i class="fa-solid fa-chevron-down absolute right-3 top-4 text-gray-500 text-xs pointer-events-none"></i>
             </div>
             <div class="relative">
-              <select id="thesis-select" class="w-full appearance-none bg-dark-bg border border-dark-border rounded-xl p-2.5 text-sm text-gray-300 focus:outline-none focus:border-brand transition-all cursor-pointer">
+              <select id="thesis-select" class="w-full appearance-none bg-dark-bg border border-dark-border rounded-xl p-3 text-sm text-gray-300 focus:outline-none focus:border-brand transition-all cursor-pointer">
                 <option value="all">🧠 Todas as Teses</option>
               </select>
-              <i class="fa-solid fa-chevron-down absolute right-3 top-3.5 text-gray-500 text-xs pointer-events-none"></i>
+              <i class="fa-solid fa-chevron-down absolute right-3 top-4 text-gray-500 text-xs pointer-events-none"></i>
             </div>
           </div>
 
-          <div id="top-theses" class="flex flex-wrap gap-2"></div>
+          <div id="top-theses" class="mobile-chip-row flex flex-wrap gap-2"></div>
         </div>
       </div>
 
-      <div class="flex-1 overflow-y-auto p-3 space-y-2" id="scripts-list">
+      <div class="mobile-list flex-1 overflow-y-auto p-3 space-y-2" id="scripts-list">
         <div class="flex justify-center items-center h-32 text-brand">
           <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
         </div>
       </div>
     </aside>
 
-    <section class="glass-panel w-full flex flex-col h-full relative overflow-hidden flex-1">
-      <header class="p-6 border-b border-dark-border bg-dark-surface/30 shrink-0 flex flex-col gap-4">
+    <section class="mobile-content glass-panel w-full flex flex-col h-full relative overflow-hidden flex-1">
+      <header class="mobile-content-head p-6 border-b border-dark-border bg-dark-surface/30 shrink-0 flex flex-col gap-4">
         <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
-          <div class="flex-1">
+          <div class="flex-1 min-w-0">
             <div class="flex flex-wrap items-center gap-2 mb-2">
               <span id="view-niche" class="text-xs font-bold bg-dark-border text-gray-300 px-2 py-1 rounded-full">Selecione</span>
               <div id="view-theses" class="flex flex-wrap gap-2"></div>
             </div>
-            <h1 id="view-title" class="text-xl md:text-2xl font-bold text-white leading-tight">Catálogo de Copys Advanx</h1>
-            <p id="view-subtitle" class="text-sm text-gray-400 mt-2">Escolha um item ao lado para consultar a tese, copiar a estrutura e reaproveitar mais rápido.</p>
+            <h1 id="view-title" class="mobile-title text-xl md:text-2xl font-bold text-white leading-tight">Catálogo de Copys Advanx</h1>
+            <p id="view-subtitle" class="text-sm text-gray-400 mt-2 max-w-2xl">Escolha um item ao lado para consultar a tese, copiar a estrutura e reaproveitar mais rápido.</p>
           </div>
-          <div class="flex flex-wrap gap-2 shrink-0">
-            <button id="copy-btn" class="hidden h-fit bg-brand hover:bg-brand-light text-white px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 text-sm font-semibold shadow-brand hover:-translate-y-0.5">
+          <div class="flex flex-wrap gap-2 shrink-0 w-full sm:w-auto">
+            <button id="copy-btn" class="mobile-copy-btn hidden h-fit bg-brand hover:bg-brand-light text-white px-5 py-3 sm:py-2.5 rounded-xl transition-all flex items-center gap-2 text-sm font-semibold shadow-brand hover:-translate-y-0.5">
               <i class="fa-regular fa-copy"></i> <span>Copiar Texto</span>
             </button>
           </div>
         </div>
       </header>
 
-      <div class="flex-1 overflow-y-auto p-6 md:p-10 content-body relative" id="view-content">
+      <div class="mobile-content-body flex-1 overflow-y-auto p-6 md:p-10 content-body relative" id="view-content">
         <div class="h-full flex flex-col items-center justify-center text-gray-500 text-center">
           <div class="w-16 h-16 mb-4 rounded-2xl bg-dark-border flex items-center justify-center">
             <i class="fa-solid fa-layer-group text-2xl text-brand/60"></i>
