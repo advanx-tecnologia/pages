@@ -218,7 +218,6 @@
             </div>
           </div>
 
-          <div id="top-theses" class="mobile-chip-row flex flex-wrap gap-2"></div>
         </div>
       </div>
 
@@ -453,7 +452,6 @@
     const syncStatus = document.getElementById('sync-status');
     const statNiches = document.getElementById('stat-niches');
     const statTheses = document.getElementById('stat-theses');
-    const topTheses = document.getElementById('top-theses');
 
     function normalize(value) {
       return (value || '')
@@ -612,18 +610,6 @@
         thesisSelect.appendChild(opt);
       });
       thesisSelect.value = [...thesisSelect.options].some(o => o.value === prevThesis) ? prevThesis : 'all';
-
-      topTheses.innerHTML = '';
-      [...thesisCounter.entries()].sort((a,b) => b[1] - a[1]).slice(0, 8).forEach(([thesis,count]) => {
-        const btn = document.createElement('button');
-        btn.className = 'px-2.5 py-1 rounded-full text-xs border border-dark-border bg-dark-bg text-gray-300 hover:border-brand hover:text-white transition-all';
-        btn.textContent = `${thesis} · ${count}`;
-        btn.onclick = () => {
-          thesisSelect.value = thesis;
-          applyFilters();
-        };
-        topTheses.appendChild(btn);
-      });
     }
 
     function renderList() {
