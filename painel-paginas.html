@@ -337,6 +337,7 @@
     };
 
     const parser = new DOMParser();
+    const CACHE_VERSION = 'v2';
 
     const normalize = (value = '') => value
       .toString()
@@ -414,6 +415,21 @@
         .replace(/\b\w/g, (letter) => letter.toUpperCase());
     }
 
+    function detectRedirectInfo(htmlText = '') {
+      const text = htmlText || '';
+      const metaRegex = new RegExp(`<meta[^>]+http-equiv=["']refresh["'][^>]+content=["'][^"']*url=([^"'>]+)`, 'i');
+      const scriptRegex = new RegExp(`(?:window\\.)?(?:top\\.)?location(?:\\.href|\\.replace\\s*\\(|\\s*=)\\s*\\(?\\s*["'](https?:\\/\\/[^"']+|\\/[^"']+)["']`, 'i');
+      const metaMatch = text.match(metaRegex);
+      const scriptMatch = text.match(scriptRegex);
+      const urlRaw = metaMatch?.[1] || scriptMatch?.[1] || '';
+      const normalizedUrl = urlRaw.replace(/\\\//g, '/').replace(/["')]+$/g, '');
+      if (!normalizedUrl) {
+        return { isRedirectPage: false, redirectTarget: null, redirectKind: null };
+      }
+      const redirectKind = /whatsapp|wa\.me|chat\.whatsapp/i.test(normalizedUrl) ? 'whatsapp' : 'redirect';
+      return { isRedirectPage: true, redirectTarget: normalizedUrl, redirectKind };
+    }
+
     async function fetchRepoPages() {
       const response = await fetch(state.config.repoApi, { cache: 'no-store' });
       if (!response.ok) throw new Error(`GitHub API ${response.status}`);
@@ -423,10 +439,13 @@
     }
 
     async function fetchPageMetadata(item) {
-      const cacheKey = `page-hub:${item.path}:${item.sha}`;
+      const cacheKey = `page-hub:${CACHE_VERSION}:${item.path}:${item.sha}`;
       try {
         const cached = localStorage.getItem(cacheKey);
-        if (cached) return JSON.parse(cached);
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (typeof parsed.isRedirectPage === 'boolean') return parsed;
+        }
       } catch (_) {}
 
       const url = getPageUrl(item.path);
@@ -450,6 +469,7 @@
       }
 
       const domain = inferDomain({ path: item.path, title, description, htmlText });
+      const redirectInfo = detectRedirectInfo(htmlText);
       const metadata = {
         path: item.path,
         name: item.name,
@@ -459,7 +479,10 @@
         url,
         pinned: state.config.pinned.includes(item.path),
         updatedKey: item.sha,
-        searchText: normalize([item.path, title, description, domain].join(' '))
+        isRedirectPage: redirectInfo.isRedirectPage,
+        redirectTarget: redirectInfo.redirectTarget,
+        redirectKind: redirectInfo.redirectKind,
+        searchText: normalize([item.path, title, description, domain, redirectInfo.redirectTarget || '', redirectInfo.redirectKind || ''].join(' '))
       };
 
       try { localStorage.setItem(cacheKey, JSON.stringify(metadata)); } catch (_) {}
@@ -467,7 +490,7 @@
     }
 
     function clearStaleCache(items) {
-      const keep = new Set(items.map((item) => `page-hub:${item.path}:${item.sha}`));
+      const keep = new Set(items.map((item) => `page-hub:${CACHE_VERSION}:${item.path}:${item.sha}`));
       try {
         Object.keys(localStorage)
           .filter((key) => key.startsWith('page-hub:') && !keep.has(key))
@@ -564,6 +587,19 @@
       }, { root: els.cards, threshold: 0.15 });
     }
 
+    function renderRedirectPlaceholder(page, compact = false) {
+      const typeLabel = page.redirectKind === 'whatsapp' ? 'Redireciona para WhatsApp' : 'Página com redirecionamento automático';
+      const targetLabel = page.redirectTarget ? escapeHtml(page.redirectTarget) : 'Destino não identificado';
+      return `
+        <div class="mini-placeholder">
+          <div>
+            <strong>${typeLabel}</strong><br>
+            <small>${targetLabel}</small>
+          </div>
+        </div>
+      `;
+    }
+
     function renderCards() {
       filterPages();
       els.statTotal.textContent = state.pages.length;
@@ -580,8 +616,10 @@
         <article class="card ${state.selectedPath === page.path ? 'active' : ''}" data-path="${escapeHtml(page.path)}">
           <div class="card-preview preview-target">
             <div class="mini-frame-wrap">
-              <div class="mini-placeholder">Thumbnail ao vivo<br><small>${escapeHtml(page.name)}</small></div>
-              <iframe class="mini-frame" title="Prévia miniatura de ${escapeHtml(page.title)}" data-src="${escapeHtml(page.url)}" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
+              ${page.isRedirectPage ? renderRedirectPlaceholder(page, true) : `
+                <div class="mini-placeholder">Thumbnail ao vivo<br><small>${escapeHtml(page.name)}</small></div>
+                <iframe class="mini-frame" title="Prévia miniatura de ${escapeHtml(page.title)}" data-src="${escapeHtml(page.url)}" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
+              `}
             </div>
           </div>
           <div class="card-body">
@@ -595,6 +633,7 @@
             <div class="badges">
               <span class="badge domain">${escapeHtml(getDomainLabel(page.domain))}</span>
               ${page.pinned ? '<span class="badge pinned">Fixada</span>' : ''}
+              ${page.isRedirectPage ? `<span class="badge">${page.redirectKind === 'whatsapp' ? 'Redirect WhatsApp' : 'Auto redirect'}</span>` : ''}
             </div>
             <div class="card-actions">
               <button class="btn primary" type="button" data-open-preview="${escapeHtml(page.path)}">Abrir prévia</button>
@@ -605,7 +644,9 @@
       `).join('');
 
       observerForPreviews();
-      els.cards.querySelectorAll('.preview-target').forEach((target) => state.observer.observe(target));
+      els.cards.querySelectorAll('.preview-target').forEach((target) => {
+        if (target.querySelector('iframe[data-src]')) state.observer.observe(target);
+      });
 
       els.cards.querySelectorAll('[data-path]').forEach((card) => {
         card.addEventListener('click', (event) => {
@@ -637,12 +678,30 @@
         <span class="badge domain">${escapeHtml(getDomainLabel(page.domain))}</span>
         <span class="badge">/${escapeHtml(page.path)}</span>
         ${page.pinned ? '<span class="badge pinned">Fixada</span>' : ''}
+        ${page.isRedirectPage ? `<span class="badge">${page.redirectKind === 'whatsapp' ? 'Redireciona para WhatsApp' : 'Redirecionamento automático'}</span>` : ''}
         <a class="btn primary" href="${escapeHtml(page.url)}" target="_blank" rel="noopener noreferrer">Abrir em nova aba</a>
         <button class="btn" id="copy-link-btn" type="button">Copiar link</button>
       `;
-      els.viewerWrap.innerHTML = `
-        <iframe class="viewer-frame" title="Prévia de ${escapeHtml(page.title)}" src="${escapeHtml(page.url)}" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
-      `;
+
+      if (page.isRedirectPage) {
+        els.viewerWrap.innerHTML = `
+          <div class="empty">
+            <div>
+              <h3 style="margin-top:0">Prévia bloqueada por segurança</h3>
+              <p>Essa página faz redirecionamento automático${page.redirectKind === 'whatsapp' ? ' para WhatsApp' : ''}. Para impedir que o painel seja sequestrado, a renderização embutida foi desativada para esse item.</p>
+              <p><strong>Destino detectado:</strong><br><code>${escapeHtml(page.redirectTarget || 'não identificado')}</code></p>
+              <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px;">
+                <a class="btn primary" href="${escapeHtml(page.url)}" target="_blank" rel="noopener noreferrer">Abrir página mesmo assim</a>
+                ${page.redirectTarget ? `<a class="btn" href="${escapeHtml(page.redirectTarget)}" target="_blank" rel="noopener noreferrer">Abrir destino</a>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        els.viewerWrap.innerHTML = `
+          <iframe class="viewer-frame" title="Prévia de ${escapeHtml(page.title)}" src="${escapeHtml(page.url)}" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
+        `;
+      }
 
       document.getElementById('copy-link-btn')?.addEventListener('click', async () => {
         try {
