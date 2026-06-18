@@ -1,0 +1,93 @@
+{
+  "repoApi": "https://api.github.com/repos/advanx-tecnologia/pages/contents?ref=main",
+  "exclude": [
+    "painel-paginas.html"
+  ],
+  "defaultDomain": "advanx.com.br",
+  "domains": [
+    {
+      "id": "advanx.com.br",
+      "label": "advanx.com.br",
+      "description": "Páginas públicas principais"
+    },
+    {
+      "id": "rafaelbatistaz.com.br",
+      "label": "rafaelbatistaz.com.br",
+      "description": "Links, social e páginas pessoais"
+    },
+    {
+      "id": "interno",
+      "label": "interno",
+      "description": "Ferramentas e páginas operacionais"
+    },
+    {
+      "id": "sem-classificacao",
+      "label": "sem classificação",
+      "description": "Novas páginas sem regra explícita"
+    }
+  ],
+  "overrides": {
+    "links-advanx.html": "rafaelbatistaz.com.br",
+    "links-google.html": "rafaelbatistaz.com.br",
+    "links-instagram.html": "rafaelbatistaz.com.br",
+    "links-tiktok.html": "rafaelbatistaz.com.br",
+    "links-youtube.html": "rafaelbatistaz.com.br",
+    "youtube.html": "rafaelbatistaz.com.br",
+    "scripts.html": "interno",
+    "banco-de-imagens.html": "interno",
+    "brand.html": "interno",
+    "brand-form.html": "interno",
+    "crm.html": "interno",
+    "cadastro-crm-chat.html": "interno",
+    "gerador-de-imagens.html": "interno",
+    "maiusculo.html": "interno"
+  },
+  "domainRules": [
+    {
+      "id": "rafaelbatistaz.com.br",
+      "match": [
+        "links-",
+        "youtube",
+        "instagram.com/rafaelbatistaz",
+        "linkedin.com/in/rafaelbatistaz",
+        "tiktok.com/@rafaelbatistazz"
+      ]
+    },
+    {
+      "id": "interno",
+      "match": [
+        "painel",
+        "dashboard",
+        "catalogo",
+        "catálogo",
+        "brand guidelines",
+        "crm",
+        "gerador",
+        "banco de imagens"
+      ]
+    },
+    {
+      "id": "advanx.com.br",
+      "match": [
+        "advanx",
+        "advogado",
+        "agenda",
+        "form-adv",
+        "form-ia",
+        "onboard",
+        "diagnostico",
+        "diagnóstico",
+        "leads",
+        "captação",
+        "captacao"
+      ]
+    }
+  ],
+  "pinned": [
+    "index.html",
+    "links-advanx.html",
+    "advogado-inteligente.html",
+    "form-adv-v6.html",
+    "form-ia.html"
+  ]
+}
