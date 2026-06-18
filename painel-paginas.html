@@ -39,9 +39,8 @@
     a { color: inherit; }
     .shell { position: relative; z-index: 1; min-height: 100vh; display: grid; grid-template-rows: auto auto 1fr; }
     .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      position: relative;
+      z-index: 2;
       backdrop-filter: blur(18px);
       background: rgba(11,15,20,.85);
       border-bottom: 1px solid var(--border);
@@ -146,7 +145,7 @@
       border: 1px solid var(--border); background: rgba(255,255,255,.03); color: var(--text); border-radius: 12px; padding: 10px 12px;
     }
     .cards {
-      padding: 16px; display: grid; grid-template-columns: 1fr; gap: 14px; max-height: calc(100vh - 250px); overflow: auto;
+      padding: 16px; display: grid; grid-template-columns: 1fr; gap: 14px; max-height: none; overflow: visible;
     }
     .card {
       border: 1px solid var(--border); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); border-radius: 20px;
@@ -188,7 +187,7 @@
     }
     .btn.primary { background: linear-gradient(135deg, rgba(255,122,1,.95), rgba(255,165,77,.95)); border-color: transparent; color: #111; font-weight: 700; }
     .btn:hover { border-color: rgba(255,122,1,.32); }
-    .viewer { display: grid; grid-template-rows: auto auto 1fr; min-height: calc(100vh - 250px); }
+    .viewer { display: grid; grid-template-rows: auto auto 1fr; min-height: auto; }
     .viewer-meta { padding: 18px 20px 0; }
     .viewer-meta h3 { margin: 0; font-size: 1.4rem; }
     .viewer-meta p { margin: 8px 0 0; color: var(--muted); line-height: 1.5; }
@@ -418,16 +417,30 @@
     function detectRedirectInfo(htmlText = '') {
       const text = htmlText || '';
       const metaRegex = new RegExp(`<meta[^>]+http-equiv=["']refresh["'][^>]+content=["'][^"']*url=([^"'>]+)`, 'i');
-      const scriptRegex = new RegExp(`(?:window\\.)?(?:top\\.)?location(?:\\.href|\\.replace\\s*\\(|\\s*=)\\s*\\(?\\s*["'](https?:\\/\\/[^"']+|\\/[^"']+)["']`, 'i');
+      const directNavRegex = new RegExp(`(?:window\\.)?(?:top\\.)?location(?:\\.href\\s*=|\\.replace\\s*\\(|\\s*=)`, 'i');
+      const directUrlRegex = new RegExp(`(?:window\\.)?(?:top\\.)?location(?:\\.href\\s*=|\\.replace\\s*\\(|\\s*=)\\s*\\(?\\s*["'](https?:\\/\\/[^"']+|\\/[^"']+)["']`, 'i');
+      const anyUrlRegex = /(https?:\/\/[^\s"'`<>]+|wa\.me\/[^\s"'`<>]+|chat\.whatsapp\.com\/[^\s"'`<>]+|instagram\.com\/[^\s"'`<>]+)/ig;
       const metaMatch = text.match(metaRegex);
-      const scriptMatch = text.match(scriptRegex);
-      const urlRaw = metaMatch?.[1] || scriptMatch?.[1] || '';
-      const normalizedUrl = urlRaw.replace(/\\\//g, '/').replace(/["')]+$/g, '');
-      if (!normalizedUrl) {
+      const directUrlMatch = text.match(directUrlRegex);
+      const hasAutoNavigation = metaRegex.test(text) || directNavRegex.test(text);
+      const allUrls = Array.from(text.matchAll(anyUrlRegex)).map((match) => match[1]);
+      const externalTarget = allUrls.find((url) => /wa\.me|whatsapp|instagram\.com|chat\.whatsapp/i.test(url)) || allUrls[0] || '';
+      const urlRaw = metaMatch?.[1] || directUrlMatch?.[1] || externalTarget || '';
+      const normalizedUrl = urlRaw
+        .replace(/\\\//g, '/')
+        .replace(/^wa\.me\//i, 'https://wa.me/')
+        .replace(/^chat\.whatsapp/i, 'https://chat.whatsapp')
+        .replace(/^instagram\.com/i, 'https://instagram.com')
+        .replace(/["')]+$/g, '');
+      if (!hasAutoNavigation && !normalizedUrl) {
         return { isRedirectPage: false, redirectTarget: null, redirectKind: null };
       }
-      const redirectKind = /whatsapp|wa\.me|chat\.whatsapp/i.test(normalizedUrl) ? 'whatsapp' : 'redirect';
-      return { isRedirectPage: true, redirectTarget: normalizedUrl, redirectKind };
+      const redirectKind = /whatsapp|wa\.me|chat\.whatsapp/i.test(normalizedUrl || text) ? 'whatsapp' : 'redirect';
+      return {
+        isRedirectPage: hasAutoNavigation,
+        redirectTarget: normalizedUrl || null,
+        redirectKind: hasAutoNavigation ? redirectKind : null
+      };
     }
 
     async function fetchRepoPages() {
@@ -618,7 +631,7 @@
             <div class="mini-frame-wrap">
               ${page.isRedirectPage ? renderRedirectPlaceholder(page, true) : `
                 <div class="mini-placeholder">Thumbnail ao vivo<br><small>${escapeHtml(page.name)}</small></div>
-                <iframe class="mini-frame" title="Prévia miniatura de ${escapeHtml(page.title)}" data-src="${escapeHtml(page.url)}" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
+                <iframe class="mini-frame" title="Prévia miniatura de ${escapeHtml(page.title)}" data-src="${escapeHtml(page.url)}" sandbox=""></iframe>
               `}
             </div>
           </div>
@@ -699,7 +712,7 @@
         `;
       } else {
         els.viewerWrap.innerHTML = `
-          <iframe class="viewer-frame" title="Prévia de ${escapeHtml(page.title)}" src="${escapeHtml(page.url)}" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
+          <iframe class="viewer-frame" title="Prévia de ${escapeHtml(page.title)}" src="${escapeHtml(page.url)}" sandbox=""></iframe>
         `;
       }
 
@@ -739,8 +752,7 @@
         await loadPages();
         renderDomainChips();
         renderCards();
-        const firstPinned = state.filtered.find((page) => page.pinned) || state.filtered[0];
-        if (firstPinned) selectPage(firstPinned.path);
+        renderViewer(null);
       } catch (error) {
         console.error(error);
         els.syncStatus.textContent = 'Falha ao carregar o painel';
