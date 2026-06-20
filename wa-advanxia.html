@@ -2,283 +2,582 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanx IA | Abrindo WhatsApp</title>
-  <meta name="description" content="Redirecionamento rastreável para o WhatsApp da Advanx IA.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Advanx Adv | Redirecionando para o WhatsApp</title>
+  <meta name="description" content="Você está sendo redirecionado para o WhatsApp da Advanxia.">
+  <meta name="theme-color" content="#0b0f14">
+  <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="dns-prefetch" href="//connect.facebook.net">
+  <link rel="dns-prefetch" href="//www.googletagmanager.com">
 
-  <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init','502759528362336');
-    fbq('track','PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/></noscript>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', 'G-98EL5GXG5F');
+    gtag('config', 'G-98EL5GXG5F', { send_page_view: false });
   </script>
+
+  <script>
+    (function(f,b,e,v,n,t,s){
+      if(f.fbq) return;
+      n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq) f._fbq=n;
+      n.push=n;
+      n.loaded=!0;
+      n.version='2.0';
+      n.queue=[];
+      t=b.createElement(e);
+      t.async=!0;
+      t.src=v;
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s);
+    })(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+    window.ADVANX_META_PIXEL_IDS = ['502759528362336'];
+    window.ADVANX_META_PIXEL_IDS.forEach(function(id){ fbq('init', id); });
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1" alt="">
+  </noscript>
 
   <style>
     :root{
-      --bg:#0f1115;
-      --card:#171a21;
-      --muted:#9ca3af;
-      --text:#f9fafb;
-      --brand:#ff7a01;
-      --brand-dark:#e46800;
-      --wa:#25D366;
-      --wa-dark:#1faa52;
+      --bg:#0b0f14;
+      --bg-soft:#111826;
+      --card:rgba(17,24,38,.78);
       --line:rgba(255,255,255,.08);
+      --line-strong:rgba(255,255,255,.14);
+      --text:#f8fafc;
+      --muted:#94a3b8;
+      --brand:#ff7a01;
+      --brand-2:#ff9a3c;
+      --wa:#25d366;
+      --wa-2:#17b557;
+      --shadow:0 30px 80px rgba(0,0,0,.42);
+      --radius:28px;
     }
+
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
       min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-      background:radial-gradient(circle at top, rgba(255,122,1,.18), transparent 32%), var(--bg);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(255,122,1,.18), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(37,211,102,.10), transparent 28%),
+        linear-gradient(180deg, #0a0d12 0%, var(--bg) 100%);
       color:var(--text);
-      font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
-    .card{
-      width:min(100%, 460px);
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      border:1px solid var(--line);
-      border-radius:24px;
-      padding:32px 24px;
-      box-shadow:0 18px 60px rgba(0,0,0,.35);
-      text-align:center;
-    }
-    .brand{
-      font-size:12px;
-      letter-spacing:.24em;
-      text-transform:uppercase;
-      color:var(--muted);
-      margin-bottom:20px;
-    }
-    .brand strong{color:var(--brand)}
-    .icon{
-      width:72px;
-      height:72px;
-      border-radius:999px;
-      margin:0 auto 18px;
       display:flex;
       align-items:center;
       justify-content:center;
-      background:rgba(37,211,102,.12);
-      border:1px solid rgba(37,211,102,.25);
-      box-shadow:0 0 0 10px rgba(37,211,102,.05);
-      font-size:34px;
+      padding:20px;
+      overflow-x:hidden;
     }
-    h1{
-      margin:0 0 12px;
-      font-size:28px;
-      line-height:1.15;
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.035), transparent 24%, transparent 76%, rgba(255,255,255,.03));
+      opacity:.8;
     }
-    p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.6;
-      font-size:15px;
+
+    .shell{
+      width:min(100%, 980px);
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:18px;
+      position:relative;
+      z-index:1;
     }
-    .status{
-      margin-top:18px;
-      font-size:14px;
-      color:#d1d5db;
+
+    .panel,
+    .side{
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      background:var(--card);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
     }
-    .actions{
+
+    .panel{
+      border-radius:var(--radius);
+      padding:30px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .panel::after{
+      content:"";
+      position:absolute;
+      inset:auto -20% -45% auto;
+      width:220px;
+      height:220px;
+      border-radius:999px;
+      background:radial-gradient(circle, rgba(255,122,1,.22), transparent 65%);
+      filter:blur(8px);
+      pointer-events:none;
+    }
+
+    .side{
+      border-radius:var(--radius);
+      padding:24px;
       display:flex;
       flex-direction:column;
-      gap:12px;
-      margin-top:24px;
+      justify-content:space-between;
+      gap:20px;
     }
-    .btn{
-      appearance:none;
-      border:none;
-      border-radius:14px;
-      padding:15px 18px;
-      font-size:15px;
-      font-weight:700;
-      cursor:pointer;
-      text-decoration:none;
-      transition:transform .15s ease, opacity .15s ease, background .15s ease;
-    }
-    .btn:active{transform:scale(.98)}
-    .btn-wa{background:var(--wa);color:#fff}
-    .btn-wa:hover{background:var(--wa-dark)}
-    .btn-alt{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--line)}
-    .meta{
-      margin-top:18px;
-      padding-top:18px;
-      border-top:1px solid var(--line);
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      color:#dbeafe;
       font-size:12px;
-      color:#9ca3af;
-      line-height:1.7;
-      text-align:left;
-      word-break:break-word;
+      font-weight:700;
+      letter-spacing:.16em;
+      text-transform:uppercase;
     }
-    .meta strong{color:#e5e7eb}
-    .loader{
+
+    .eyebrow-dot{
+      width:9px;
+      height:9px;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--brand), var(--wa));
+      box-shadow:0 0 0 8px rgba(255,122,1,.12);
+      flex:none;
+    }
+
+    .hero{
+      margin-top:22px;
+      display:flex;
+      align-items:flex-start;
+      gap:18px;
+    }
+
+    .icon-wrap{
+      width:78px;
+      height:78px;
+      border-radius:24px;
+      flex:none;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(180deg, rgba(37,211,102,.18), rgba(37,211,102,.10));
+      border:1px solid rgba(37,211,102,.20);
+      box-shadow:0 22px 48px rgba(37,211,102,.12);
+      font-size:34px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(2rem, 4vw, 3.4rem);
+      line-height:1.02;
+      letter-spacing:-.04em;
+      max-width:11ch;
+    }
+
+    .lead{
+      margin:18px 0 0;
+      color:var(--muted);
+      font-size:1rem;
+      line-height:1.7;
+      max-width:56ch;
+    }
+
+    .status-card{
+      margin-top:24px;
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      gap:14px;
+      align-items:center;
+      padding:16px 18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+    }
+
+    .spinner{
       width:18px;
       height:18px;
       border-radius:999px;
-      border:2px solid rgba(255,255,255,.15);
+      border:2px solid rgba(255,255,255,.16);
       border-top-color:var(--brand);
-      display:inline-block;
-      vertical-align:-3px;
-      animation:spin .85s linear infinite;
-      margin-right:8px;
+      animation:spin .8s linear infinite;
     }
-    .toast{
-      margin-top:12px;
+
+    .status-title{
+      font-size:15px;
+      font-weight:700;
+      color:var(--text);
+      margin:0;
+    }
+
+    .status-copy{
+      margin:4px 0 0;
+      color:var(--muted);
       font-size:13px;
-      color:#c7f9d7;
-      min-height:18px;
+      line-height:1.55;
     }
-    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .countdown{
+      min-width:56px;
+      text-align:center;
+      padding:10px 12px;
+      border-radius:14px;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      font-weight:800;
+      font-size:14px;
+      color:#fff;
+    }
+
+    .actions{
+      margin-top:22px;
+      display:grid;
+      gap:12px;
+      grid-template-columns:1fr;
+    }
+
+    .btn{
+      appearance:none;
+      border:none;
+      text-decoration:none;
+      width:100%;
+      border-radius:18px;
+      padding:16px 18px;
+      font-size:16px;
+      font-weight:800;
+      line-height:1.2;
+      cursor:pointer;
+      transition:transform .16s ease, opacity .16s ease, background .16s ease, box-shadow .16s ease;
+      text-align:center;
+    }
+
+    .btn:hover{ transform:translateY(-1px); }
+    .btn:active{ transform:translateY(0) scale(.985); }
+
+    .btn-primary{
+      color:#04110a;
+      background:linear-gradient(135deg, var(--wa), #43ef88);
+      box-shadow:0 18px 40px rgba(37,211,102,.22);
+    }
+
+    .btn-secondary{
+      color:var(--text);
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line-strong);
+    }
+
+    .microcopy{
+      margin-top:14px;
+      font-size:12px;
+      color:#90a1b7;
+      line-height:1.7;
+    }
+
+    .grid{
+      display:grid;
+      gap:12px;
+    }
+
+    .stat{
+      padding:16px 18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+    }
+
+    .stat-label{
+      margin:0 0 8px;
+      color:#cbd5e1;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-weight:800;
+    }
+
+    .stat-value{
+      margin:0;
+      color:#fff;
+      font-size:15px;
+      line-height:1.6;
+      word-break:break-word;
+    }
+
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .pill{
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      color:#d8e2f0;
+      font-size:12px;
+      line-height:1.2;
+      word-break:break-word;
+    }
+
+    .preview-badge{
+      display:none;
+      margin-top:16px;
+      padding:12px 14px;
+      border-radius:16px;
+      background:rgba(255,122,1,.10);
+      border:1px solid rgba(255,122,1,.24);
+      color:#ffd5b0;
+      font-size:13px;
+      line-height:1.55;
+    }
+
+    .preview .preview-badge{ display:block; }
+    .preview .countdown{ color:#ffd6b5; }
+
+    @keyframes spin{ to{ transform:rotate(360deg); } }
+
+    @media (max-width: 900px){
+      .shell{ grid-template-columns:1fr; }
+      .panel,.side{ padding:24px; }
+      .hero{ flex-direction:column; }
+      h1{ max-width:none; }
+    }
+
+    @media (max-width: 640px){
+      body{ padding:14px; }
+      .panel,.side{ border-radius:24px; padding:20px; }
+      .icon-wrap{ width:68px; height:68px; border-radius:20px; font-size:30px; }
+      .status-card{ grid-template-columns:auto 1fr; }
+      .countdown{ grid-column:1 / -1; justify-self:start; }
+      .btn{ padding:15px 16px; font-size:15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *, *::before, *::after{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+    }
   </style>
 </head>
 <body>
-  <main class="card">
-    <div class="brand"><strong>Advanx</strong> IA</div>
-    <div class="icon">💬</div>
-    <h1>Estamos abrindo o WhatsApp</h1>
-    <p>Esta página registra a origem do clique, dispara os eventos de tracking e redireciona para o WhatsApp comercial da Advanx IA.</p>
-    <div class="status" id="status"><span class="loader"></span>Preparando redirecionamento…</div>
+  <main class="shell" id="appShell">
+    <section class="panel" aria-labelledby="page-title">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> Advanx Adv · encaminhamento seguro</div>
 
-    <div class="actions">
-      <a class="btn btn-wa" id="openNow" href="#" target="_self" rel="noopener">Abrir WhatsApp agora</a>
-      <button class="btn btn-alt" id="copyMsg" type="button">Copiar mensagem de fallback</button>
-    </div>
+      <div class="hero">
+        <div class="icon-wrap" aria-hidden="true">💬</div>
+        <div>
+          <h1 id="page-title">Estamos abrindo seu WhatsApp agora</h1>
+          <p class="lead">Seu atendimento será redirecionado para a equipe da Advanxia. Mantivemos esta página leve e rápida para registrar os eventos, preservar a origem da campanha e garantir o clique de fallback se necessário.</p>
+        </div>
+      </div>
 
-    <div class="toast" id="toast"></div>
-    <div class="meta" id="meta"></div>
+      <div class="status-card" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
+        <div>
+          <p class="status-title" id="statusTitle">Preparando o redirecionamento</p>
+          <p class="status-copy" id="statusCopy">Aguarde alguns instantes. Se o WhatsApp não abrir automaticamente, toque no botão abaixo.</p>
+        </div>
+        <div class="countdown"><span id="countdownValue">2</span>s</div>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" id="fallbackButton" href="#" rel="noopener">Abrir WhatsApp manualmente</a>
+        <button class="btn btn-secondary" id="retryButton" type="button">Tentar redirecionar novamente</button>
+      </div>
+
+      <div class="preview-badge" id="previewBadge">
+        Modo de validação ativo (`preview=1`): o redirecionamento automático foi bloqueado para teste visual e funcional.
+      </div>
+
+      <p class="microcopy">Mensagem enviada no WhatsApp: <strong>Oi Rafael, tudo certo por ai?</strong></p>
+    </section>
+
+    <aside class="side" aria-label="Dados de rastreamento desta visita">
+      <div class="grid">
+        <div class="stat">
+          <p class="stat-label">Destino</p>
+          <p class="stat-value" id="targetValue">Carregando…</p>
+        </div>
+        <div class="stat">
+          <p class="stat-label">Tracking ativo</p>
+          <div class="pill-row">
+            <span class="pill">Meta Pixel · PageView</span>
+            <span class="pill">Meta Pixel · Lead</span>
+            <span class="pill">GA4 · page_view</span>
+            <span class="pill">GA4 · generate_lead</span>
+          </div>
+        </div>
+        <div class="stat">
+          <p class="stat-label">UTMs detectadas</p>
+          <div class="pill-row" id="utmList">
+            <span class="pill">Nenhuma UTM encontrada</span>
+          </div>
+        </div>
+        <div class="stat">
+          <p class="stat-label">Referência do clique</p>
+          <p class="stat-value" id="clickRefValue">—</p>
+        </div>
+      </div>
+
+      <p class="microcopy">Caso o redirecionamento automático falhe, o botão manual leva exatamente para o mesmo link final.</p>
+    </aside>
   </main>
 
   <script>
-    const WA_NUMBER = '5571982470873';
-    const DEFAULT_MESSAGE = 'Olá! Vim pela página da Advanx IA e quero falar com a equipe.';
-    const REDIRECT_DELAY_MS = 1200;
-    const url = new URL(window.location.href);
-    const params = url.searchParams;
-    const utmKeys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-    const clickKeys = ['fbclid','gclid','ttclid'];
-    const utms = Object.fromEntries(utmKeys.map(key => [key, params.get(key) || '']).filter(([,value]) => value));
-    const clickIds = Object.fromEntries(clickKeys.map(key => [key, params.get(key) || '']).filter(([,value]) => value));
-    const clickRef = 'wa_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+    (function(){
+      var WA_NUMBER = '5571982470873';
+      var EXACT_MESSAGE = 'Oi Rafael, tudo certo por ai?';
+      var REDIRECT_DELAY_MS = 1800;
+      var APP_FALLBACK_DELAY_MS = 550;
+      var url = new URL(window.location.href);
+      var params = url.searchParams;
+      var previewMode = params.get('preview') === '1';
+      var utmKeys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+      var clickKeys = ['fbclid','gclid','ttclid'];
+      var allAttributionKeys = utmKeys.concat(clickKeys);
+      var attribution = {};
+      allAttributionKeys.forEach(function(key){
+        var value = params.get(key);
+        if (value) attribution[key] = value;
+      });
 
-    const statusEl = document.getElementById('status');
-    const toastEl = document.getElementById('toast');
-    const metaEl = document.getElementById('meta');
-    const openNowEl = document.getElementById('openNow');
-    const copyMsgEl = document.getElementById('copyMsg');
+      var clickRef = 'wa_' + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+      var waLink = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(EXACT_MESSAGE);
+      var waAppLink = 'whatsapp://send?phone=' + WA_NUMBER + '&text=' + encodeURIComponent(EXACT_MESSAGE);
 
-    function safeTrackMeta(name, payload){
-      try { if (typeof fbq === 'function') fbq('trackCustom', name, payload || {}); } catch (_) {}
-    }
+      var fallbackButton = document.getElementById('fallbackButton');
+      var retryButton = document.getElementById('retryButton');
+      var countdownValue = document.getElementById('countdownValue');
+      var statusTitle = document.getElementById('statusTitle');
+      var statusCopy = document.getElementById('statusCopy');
+      var utmList = document.getElementById('utmList');
+      var clickRefValue = document.getElementById('clickRefValue');
+      var targetValue = document.getElementById('targetValue');
+      var appShell = document.getElementById('appShell');
 
-    function safeTrackMetaStd(name, payload){
-      try { if (typeof fbq === 'function') fbq('track', name, payload || {}); } catch (_) {}
-    }
+      fallbackButton.href = waLink;
+      targetValue.textContent = waLink;
+      clickRefValue.textContent = clickRef;
 
-    function safeTrackGoogle(name, payload){
-      try { if (typeof gtag === 'function') gtag('event', name, payload || {}); } catch (_) {}
-    }
+      if (previewMode) appShell.classList.add('preview');
 
-    function buildAttributionMessage(){
-      const lines = [params.get('text') || DEFAULT_MESSAGE, '', '*Ref. de origem:*'];
-      if (Object.keys(utms).length) {
-        Object.entries(utms).forEach(([key, value]) => lines.push(`${key}: ${value}`));
-      } else {
-        lines.push('origem_direta: sem_utm');
-      }
-      lines.push(`click_ref: ${clickRef}`);
-      return lines.join('\n');
-    }
-
-    const waMessage = buildAttributionMessage();
-    const waWebUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMessage)}`;
-    const waAppUrl = `whatsapp://send?phone=${WA_NUMBER}&text=${encodeURIComponent(waMessage)}`;
-
-    openNowEl.href = waWebUrl;
-
-    try {
-      localStorage.setItem('advanx_last_whatsapp_redirect', JSON.stringify({
-        click_ref: clickRef,
-        url: window.location.href,
-        utms,
-        click_ids: clickIds,
-        created_at: new Date().toISOString(),
-        destination: WA_NUMBER
-      }));
-    } catch (_) {}
-
-    const trackingPayload = {
-      destination: 'advanxia_comercial',
-      whatsapp_number: WA_NUMBER,
-      click_ref: clickRef,
-      page_path: window.location.pathname,
-      ...utms,
-      ...clickIds
-    };
-
-    safeTrackMeta('ViewContent', {content_name: 'redirect_whatsapp_advanxia'});
-    safeTrackMeta('WhatsAppRedirectPageView', trackingPayload);
-    safeTrackGoogle('view_content', trackingPayload);
-    safeTrackGoogle('whatsapp_redirect_page_view', trackingPayload);
-
-    let redirected = false;
-    function redirectToWhatsApp(source){
-      if (redirected) return;
-      redirected = true;
-      const payload = {...trackingPayload, source_trigger: source};
-      safeTrackMetaStd('Contact', {content_name: 'whatsapp_redirect', ...payload});
-      safeTrackMeta('WhatsAppClick', payload);
-      safeTrackGoogle('generate_lead', payload);
-      safeTrackGoogle('whatsapp_click', payload);
-      statusEl.textContent = 'Abrindo o WhatsApp… Se não abrir, use o botão verde abaixo.';
-
-      window.location.href = waAppUrl;
-      setTimeout(() => {
-        window.location.href = waWebUrl;
-      }, 700);
-    }
-
-    function renderMeta(){
-      const rows = [];
-      rows.push(`<div><strong>Destino:</strong> ${WA_NUMBER}</div>`);
-      rows.push(`<div><strong>click_ref:</strong> ${clickRef}</div>`);
-      if (Object.keys(utms).length) {
-        rows.push(`<div><strong>UTMs capturadas:</strong> ${Object.entries(utms).map(([k,v]) => `${k}=${v}`).join(' | ')}</div>`);
-      } else {
-        rows.push('<div><strong>UTMs capturadas:</strong> nenhuma</div>');
-      }
-      if (Object.keys(clickIds).length) {
-        rows.push(`<div><strong>IDs de clique:</strong> ${Object.keys(clickIds).join(', ')}</div>`);
-      }
-      metaEl.innerHTML = rows.join('');
-    }
-
-    copyMsgEl.addEventListener('click', async () => {
       try {
-        await navigator.clipboard.writeText(waMessage);
-        toastEl.textContent = 'Mensagem copiada. Se precisar, cole manualmente no WhatsApp.';
-      } catch (_) {
-        toastEl.textContent = 'Não consegui copiar automaticamente. Use o botão verde para abrir o WhatsApp.';
+        localStorage.setItem('advanx_last_whatsapp_redirect', JSON.stringify({
+          click_ref: clickRef,
+          destination: WA_NUMBER,
+          page_url: window.location.href,
+          target_url: waLink,
+          message: EXACT_MESSAGE,
+          attribution: attribution,
+          created_at: new Date().toISOString()
+        }));
+      } catch (_) {}
+
+      if (Object.keys(attribution).length) {
+        utmList.innerHTML = '';
+        Object.keys(attribution).forEach(function(key){
+          var span = document.createElement('span');
+          span.className = 'pill';
+          span.textContent = key + '=' + attribution[key];
+          utmList.appendChild(span);
+        });
       }
-    });
 
-    openNowEl.addEventListener('click', (event) => {
-      event.preventDefault();
-      redirectToWhatsApp('manual_button');
-    });
+      function trackMeta(eventName, payload, custom){
+        try {
+          if (typeof fbq === 'function') {
+            if (custom) fbq('trackCustom', eventName, payload || {});
+            else fbq('track', eventName, payload || {});
+          }
+        } catch (_) {}
+      }
 
-    renderMeta();
-    setTimeout(() => redirectToWhatsApp('auto_redirect'), REDIRECT_DELAY_MS);
+      function trackGA(eventName, payload){
+        try {
+          if (typeof gtag === 'function') gtag('event', eventName, payload || {});
+        } catch (_) {}
+      }
+
+      var trackingPayload = Object.assign({
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+        destination_type: 'WHATSAPP',
+        destination_label: 'advanxia',
+        whatsapp_number: WA_NUMBER,
+        click_ref: clickRef,
+        message_template: EXACT_MESSAGE
+      }, attribution);
+
+      trackMeta('PageView', trackingPayload, false);
+      trackMeta('RedirectPageView', trackingPayload, true);
+      trackGA('page_view', trackingPayload);
+      trackGA('redirect_page_view', trackingPayload);
+
+      var redirectFired = false;
+      function openWhatsApp(source){
+        var eventPayload = Object.assign({}, trackingPayload, { trigger_source: source });
+        trackMeta('Lead', eventPayload, false);
+        trackMeta('WhatsAppRedirectLead', eventPayload, true);
+        trackGA('generate_lead', eventPayload);
+        trackGA('whatsapp_redirect_lead', eventPayload);
+
+        statusTitle.textContent = 'Abrindo o WhatsApp';
+        statusCopy.textContent = 'Se o aplicativo não abrir sozinho, use o botão principal para continuar.';
+
+        if (previewMode) return;
+
+        if (source === 'button_fallback') {
+          window.location.href = waLink;
+          return;
+        }
+
+        window.location.href = waAppLink;
+        window.setTimeout(function(){
+          window.location.href = waLink;
+        }, APP_FALLBACK_DELAY_MS);
+      }
+
+      function triggerRedirect(source){
+        if (redirectFired) return;
+        redirectFired = true;
+        openWhatsApp(source);
+      }
+
+      fallbackButton.addEventListener('click', function(event){
+        event.preventDefault();
+        triggerRedirect('button_fallback');
+      });
+
+      retryButton.addEventListener('click', function(){
+        redirectFired = false;
+        triggerRedirect('retry_button');
+      });
+
+      var remaining = Math.ceil(REDIRECT_DELAY_MS / 1000);
+      countdownValue.textContent = String(remaining);
+      var intervalId = window.setInterval(function(){
+        remaining -= 1;
+        countdownValue.textContent = String(Math.max(0, remaining));
+        if (remaining <= 0) window.clearInterval(intervalId);
+      }, 1000);
+
+      if (previewMode) {
+        statusTitle.textContent = 'Modo de validação';
+        statusCopy.textContent = 'O redirecionamento automático foi desativado para que a página possa ser verificada sem sair dela.';
+      } else {
+        window.setTimeout(function(){ triggerRedirect('auto_redirect'); }, REDIRECT_DELAY_MS);
+      }
+    })();
   </script>
 </body>
 </html>
