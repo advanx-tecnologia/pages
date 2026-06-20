@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Advanx IA | Redirecionando para o WhatsApp</title>
   <meta name="description" content="Estamos te redirecionando para o WhatsApp da Advanx IA.">
-  <meta name="theme-color" content="#0b0f14">
+  <meta name="theme-color" content="#090d12">
   <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="dns-prefetch" href="//connect.facebook.net">
@@ -44,238 +44,329 @@
 
   <style>
     :root{
-      --bg:#0b0f14;
-      --card:rgba(17,24,38,.82);
+      --bg:#090d12;
+      --bg-soft:#0d131b;
+      --card:rgba(13,19,27,.88);
+      --card-2:rgba(255,255,255,.045);
       --line:rgba(255,255,255,.08);
+      --line-strong:rgba(255,255,255,.13);
       --text:#f8fafc;
-      --muted:#94a3b8;
+      --muted:#93a4b8;
+      --muted-2:#b6c2d1;
       --brand:#ff7a01;
       --wa:#25d366;
-      --shadow:0 30px 80px rgba(0,0,0,.42);
-      --radius:28px;
+      --wa-2:#43ef88;
+      --shadow:0 28px 90px rgba(0,0,0,.42);
+      --radius:30px;
+      --radius-sm:20px;
     }
-    *{box-sizing:border-box}
+
+    *{ box-sizing:border-box; }
+
+    html, body{
+      min-height:100%;
+    }
+
     body{
       margin:0;
-      min-height:100vh;
       font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top, rgba(255,122,1,.18), transparent 34%),
-        radial-gradient(circle at bottom left, rgba(37,211,102,.10), transparent 28%),
-        linear-gradient(180deg, #0a0d12 0%, var(--bg) 100%);
+        radial-gradient(circle at top, rgba(255,122,1,.14), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(37,211,102,.10), transparent 24%),
+        linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
       color:var(--text);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
+      display:grid;
+      place-items:center;
+      padding:24px 16px;
       overflow-x:hidden;
     }
+
     body::before{
       content:"";
       position:fixed;
       inset:0;
       pointer-events:none;
-      background:linear-gradient(120deg, rgba(255,255,255,.035), transparent 24%, transparent 76%, rgba(255,255,255,.03));
-      opacity:.8;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.028), transparent 26%, transparent 74%, rgba(255,255,255,.018)),
+        radial-gradient(circle at center, transparent 0 58%, rgba(255,255,255,.02) 100%);
+      opacity:.95;
     }
+
     .panel{
-      width:min(100%, 760px);
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:32px;
       position:relative;
+      z-index:1;
+      width:min(100%, 620px);
+      padding:28px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(19,28,39,.96) 0%, rgba(11,17,24,.94) 100%);
+      box-shadow:var(--shadow);
       overflow:hidden;
+    }
+
+    .panel::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,.055), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,.02), transparent 22%, transparent 78%, rgba(255,255,255,.012));
+      opacity:.9;
+    }
+
+    .panel-inner{
+      position:relative;
       z-index:1;
       display:flex;
       flex-direction:column;
-      align-items:stretch;
-      gap:0;
+      align-items:center;
     }
+
     .eyebrow{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding:10px 14px;
+      padding:9px 14px;
       border-radius:999px;
-      background:rgba(255,255,255,.04);
+      background:rgba(255,255,255,.035);
       border:1px solid var(--line);
-      color:#dbeafe;
-      font-size:12px;
+      color:#d9e6f5;
+      font-size:11px;
       font-weight:700;
-      letter-spacing:.16em;
+      letter-spacing:.14em;
       text-transform:uppercase;
-      align-self:center;
+      text-align:center;
     }
+
     .eyebrow-dot{
       width:9px;
       height:9px;
+      flex:none;
       border-radius:999px;
       background:linear-gradient(135deg, var(--brand), var(--wa));
-      box-shadow:0 0 0 8px rgba(255,122,1,.12);
-      flex:none;
+      box-shadow:0 0 0 7px rgba(255,122,1,.10);
     }
+
     .hero{
+      width:100%;
       margin-top:22px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:18px;
-      text-align:center;
-    }
-    .hero-copy{
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:center;
-      min-width:0;
+      gap:18px;
+      text-align:center;
     }
+
     .icon-wrap{
-      width:78px;
-      height:78px;
-      border-radius:24px;
-      flex:none;
+      width:88px;
+      height:88px;
+      border-radius:28px;
       display:grid;
       place-items:center;
-      background:linear-gradient(180deg, rgba(37,211,102,.18), rgba(37,211,102,.10));
-      border:1px solid rgba(37,211,102,.20);
-      box-shadow:0 22px 48px rgba(37,211,102,.12);
-      font-size:34px;
+      background:linear-gradient(180deg, rgba(37,211,102,.20), rgba(37,211,102,.10));
+      border:1px solid rgba(37,211,102,.24);
+      box-shadow:0 18px 48px rgba(37,211,102,.14);
+      font-size:38px;
     }
+
     h1{
       margin:0;
-      font-size:clamp(2rem, 4vw, 3.4rem);
-      line-height:1.02;
-      letter-spacing:-.04em;
-      max-width:13ch;
+      max-width:12ch;
+      font-size:clamp(2rem, 5vw, 2.9rem);
+      line-height:1.01;
+      letter-spacing:-.05em;
       text-wrap:balance;
     }
+
+    .lead{
+      margin:0;
+      max-width:44ch;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.65;
+      text-align:center;
+    }
+
     .status-card{
+      width:100%;
       margin-top:24px;
+      padding:18px;
       display:grid;
       grid-template-columns:auto 1fr;
       gap:14px;
-      align-items:center;
-      padding:16px 18px;
-      border-radius:20px;
-      background:rgba(255,255,255,.04);
+      align-items:flex-start;
+      border-radius:24px;
+      background:var(--card-2);
       border:1px solid var(--line);
-      width:100%;
-      text-align:left;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
     }
+
     .spinner{
       width:18px;
       height:18px;
+      margin-top:3px;
       border-radius:999px;
-      border:2px solid rgba(255,255,255,.16);
+      border:2px solid rgba(255,255,255,.14);
       border-top-color:var(--brand);
       animation:spin .8s linear infinite;
     }
-    .status-title{
-      font-size:15px;
-      font-weight:700;
-      color:var(--text);
-      margin:0;
+
+    .status-copy-wrap{
+      min-width:0;
     }
+
+    .status-kicker{
+      margin:0 0 6px;
+      color:#dce7f6;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .status-title{
+      margin:0;
+      color:var(--text);
+      font-size:17px;
+      font-weight:700;
+      letter-spacing:-.02em;
+      line-height:1.25;
+    }
+
     .status-copy{
-      margin:4px 0 0;
+      margin:6px 0 0;
       color:var(--muted);
       font-size:13px;
-      line-height:1.55;
+      line-height:1.6;
     }
+
     .actions{
-      margin-top:22px;
       width:100%;
+      margin-top:18px;
       display:flex;
-      align-items:stretch;
-      justify-content:center;
     }
+
     .btn{
       appearance:none;
       border:none;
       text-decoration:none;
       width:100%;
+      min-height:58px;
       display:flex;
       align-items:center;
       justify-content:center;
+      padding:16px 20px;
       border-radius:18px;
-      min-height:56px;
-      padding:16px 18px;
       font-size:16px;
       font-weight:800;
       line-height:1.2;
-      cursor:pointer;
-      transition:transform .16s ease, background .16s ease, box-shadow .16s ease;
       text-align:center;
+      cursor:pointer;
+      transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;
     }
-    .btn:hover{ transform:translateY(-1px); }
-    .btn:active{ transform:translateY(0) scale(.985); }
+
+    .btn:hover{ transform:translateY(-1px); filter:saturate(1.04); }
+    .btn:active{ transform:translateY(0) scale(.986); }
+
     .btn-primary{
       color:#04110a;
-      background:linear-gradient(135deg, var(--wa), #43ef88);
-      box-shadow:0 18px 40px rgba(37,211,102,.22);
+      background:linear-gradient(135deg, var(--wa), var(--wa-2));
+      box-shadow:0 18px 42px rgba(37,211,102,.24);
     }
+
     .microcopy{
-      margin-top:14px;
+      margin:14px 0 0;
+      color:var(--muted);
       font-size:12px;
-      color:#90a1b7;
       line-height:1.7;
       text-align:center;
     }
-    .badge{
-      margin-top:16px;
-      padding:12px 14px;
-      border-radius:16px;
-      background:rgba(255,122,1,.10);
-      border:1px solid rgba(255,122,1,.24);
-      color:#ffd5b0;
-      font-size:13px;
-      line-height:1.55;
+
+    .microcopy strong{
+      color:var(--muted-2);
+      font-weight:700;
     }
-    @keyframes spin{ to{ transform:rotate(360deg); } }
-    @media (max-width: 900px){
-      .panel{ padding:24px; }
-      .hero{ flex-direction:column; }
-      h1{ max-width:none; }
+
+    @keyframes spin{
+      to{ transform:rotate(360deg); }
     }
+
     @media (max-width: 640px){
       body{ padding:14px; }
-      .panel{ border-radius:24px; padding:20px; }
-      .icon-wrap{ width:68px; height:68px; border-radius:20px; font-size:30px; }
-      .btn{ padding:15px 16px; font-size:15px; }
+      .panel{
+        width:100%;
+        padding:22px 18px;
+        border-radius:24px;
+      }
+      .eyebrow{
+        font-size:10px;
+        letter-spacing:.12em;
+        padding:8px 12px;
+      }
+      .hero{
+        margin-top:18px;
+        gap:14px;
+      }
+      .icon-wrap{
+        width:74px;
+        height:74px;
+        border-radius:24px;
+        font-size:32px;
+      }
+      h1{
+        font-size:clamp(1.78rem, 8vw, 2.35rem);
+        max-width:11.5ch;
+      }
+      .lead{
+        font-size:13px;
+      }
+      .status-card{
+        margin-top:20px;
+        padding:16px;
+        border-radius:20px;
+      }
+      .btn{
+        min-height:54px;
+        font-size:15px;
+      }
     }
+
     @media (prefers-reduced-motion: reduce){
-      *, *::before, *::after{ animation:none !important; transition:none !important; }
+      *, *::before, *::after{
+        animation:none !important;
+        transition:none !important;
+      }
     }
   </style>
 </head>
 <body>
   <main class="panel">
-    <div class="eyebrow"><span class="eyebrow-dot"></span> Advanx IA · encaminhamento seguro</div>
+    <div class="panel-inner">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> Advanx IA • encaminhamento seguro</div>
 
-    <div class="hero">
-      <div class="icon-wrap" aria-hidden="true">💬</div>
-      <div class="hero-copy">
-        <h1>Estamos te redirecionando para o WhatsApp</h1>
+      <section class="hero" aria-labelledby="redirect-title">
+        <div class="icon-wrap" aria-hidden="true">💬</div>
+        <h1 id="redirect-title">Estamos te redirecionando para o WhatsApp</h1>
+        <p class="lead">A página aguarda o tempo necessário para registrar os eventos e abrir sua conversa com rapidez.</p>
+      </section>
+
+      <section class="status-card" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
+        <div class="status-copy-wrap">
+          <p class="status-kicker">Status do redirecionamento</p>
+          <p class="status-title">Estamos abrindo seu WhatsApp agora</p>
+          <p class="status-copy">Você será redirecionado automaticamente em até 2 segundos. Se não abrir, use o botão abaixo.</p>
+        </div>
+      </section>
+
+      <div class="actions">
+        <a class="btn btn-primary" id="fallbackButton" href="#" rel="noopener">Abrir WhatsApp</a>
       </div>
-    </div>
 
-    <div class="status-card" aria-live="polite">
-      <span class="spinner" aria-hidden="true"></span>
-      <div>
-        <p class="status-title">Estamos abrindo seu WhatsApp agora</p>
-        <p class="status-copy">Você será redirecionado automaticamente em até 2 segundos. Se não abrir, use o botão abaixo.</p>
-      </div>
+      <p class="microcopy">Mensagem do WhatsApp: <strong>Oi Rafael, tudo certo por ai?</strong></p>
     </div>
-
-    <div class="actions">
-      <a class="btn btn-primary" id="fallbackButton" href="#" rel="noopener">Abrir WhatsApp</a>
-    </div>
-
-    <p class="microcopy">Mensagem do WhatsApp: <strong>Oi Rafael, tudo certo por ai?</strong></p>
   </main>
 
   <script>
