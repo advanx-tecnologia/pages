@@ -86,10 +86,14 @@
       border:1px solid var(--line);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
-      padding:30px;
+      padding:32px;
       position:relative;
       overflow:hidden;
       z-index:1;
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      gap:0;
     }
     .eyebrow{
       display:inline-flex;
@@ -104,6 +108,7 @@
       font-weight:700;
       letter-spacing:.16em;
       text-transform:uppercase;
+      align-self:center;
     }
     .eyebrow-dot{
       width:9px;
@@ -116,8 +121,17 @@
     .hero{
       margin-top:22px;
       display:flex;
-      align-items:flex-start;
+      align-items:center;
+      justify-content:center;
       gap:18px;
+      text-align:center;
+    }
+    .hero-copy{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-width:0;
     }
     .icon-wrap{
       width:78px;
@@ -136,7 +150,8 @@
       font-size:clamp(2rem, 4vw, 3.4rem);
       line-height:1.02;
       letter-spacing:-.04em;
-      max-width:11ch;
+      max-width:13ch;
+      text-wrap:balance;
     }
     .status-card{
       margin-top:24px;
@@ -148,6 +163,8 @@
       border-radius:20px;
       background:rgba(255,255,255,.04);
       border:1px solid var(--line);
+      width:100%;
+      text-align:left;
     }
     .spinner{
       width:18px;
@@ -169,13 +186,23 @@
       font-size:13px;
       line-height:1.55;
     }
-    .actions{ margin-top:22px; }
+    .actions{
+      margin-top:22px;
+      width:100%;
+      display:flex;
+      align-items:stretch;
+      justify-content:center;
+    }
     .btn{
       appearance:none;
       border:none;
       text-decoration:none;
       width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       border-radius:18px;
+      min-height:56px;
       padding:16px 18px;
       font-size:16px;
       font-weight:800;
@@ -196,6 +223,7 @@
       font-size:12px;
       color:#90a1b7;
       line-height:1.7;
+      text-align:center;
     }
     .badge{
       margin-top:16px;
@@ -230,7 +258,7 @@
 
     <div class="hero">
       <div class="icon-wrap" aria-hidden="true">💬</div>
-      <div>
+      <div class="hero-copy">
         <h1>Estamos te redirecionando para o WhatsApp</h1>
       </div>
     </div>
