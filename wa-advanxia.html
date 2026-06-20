@@ -6,6 +6,9 @@
   <title>Advanx IA | Redirecionando para o WhatsApp</title>
   <meta name="description" content="Estamos te redirecionando para o WhatsApp da Advanx IA.">
   <meta name="theme-color" content="#090d12">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="dns-prefetch" href="//connect.facebook.net">
@@ -44,19 +47,19 @@
 
   <style>
     :root{
-      --bg:#090d12;
-      --bg-soft:#0d131b;
-      --card:rgba(13,19,27,.88);
-      --card-2:rgba(255,255,255,.045);
-      --line:rgba(255,255,255,.08);
-      --line-strong:rgba(255,255,255,.13);
-      --text:#f8fafc;
-      --muted:#93a4b8;
-      --muted-2:#b6c2d1;
-      --brand:#ff7a01;
+      --bg:#0a0b0d;
+      --bg-soft:#111318;
+      --card:rgba(15,17,21,.90);
+      --card-2:rgba(255,248,236,.045);
+      --line:rgba(244,232,214,.10);
+      --line-strong:rgba(244,232,214,.16);
+      --text:#f7f0e6;
+      --muted:#b0a698;
+      --muted-2:#d8cbba;
+      --brand:#b98552;
       --wa:#25d366;
       --wa-2:#43ef88;
-      --shadow:0 28px 90px rgba(0,0,0,.42);
+      --shadow:0 30px 100px rgba(0,0,0,.46);
       --radius:30px;
       --radius-sm:20px;
     }
@@ -71,8 +74,8 @@
       margin:0;
       font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top, rgba(255,122,1,.14), transparent 28%),
-        radial-gradient(circle at bottom left, rgba(37,211,102,.10), transparent 24%),
+        radial-gradient(circle at top, rgba(185,133,82,.17), transparent 26%),
+        radial-gradient(circle at bottom left, rgba(37,211,102,.08), transparent 20%),
         linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
       color:var(--text);
       display:grid;
@@ -95,12 +98,12 @@
     .panel{
       position:relative;
       z-index:1;
-      width:min(100%, 620px);
-      padding:28px;
+      width:min(100%, 580px);
+      padding:30px;
       border-radius:var(--radius);
       border:1px solid var(--line);
       background:
-        linear-gradient(180deg, rgba(19,28,39,.96) 0%, rgba(11,17,24,.94) 100%);
+        linear-gradient(180deg, rgba(20,18,16,.97) 0%, rgba(13,12,14,.95) 100%);
       box-shadow:var(--shadow);
       overflow:hidden;
     }
@@ -111,9 +114,20 @@
       inset:0;
       pointer-events:none;
       background:
-        radial-gradient(circle at top, rgba(255,255,255,.055), transparent 32%),
-        linear-gradient(180deg, rgba(255,255,255,.02), transparent 22%, transparent 78%, rgba(255,255,255,.012));
+        radial-gradient(circle at top, rgba(255,248,236,.06), transparent 30%),
+        linear-gradient(180deg, rgba(255,248,236,.025), transparent 22%, transparent 78%, rgba(255,248,236,.015));
       opacity:.9;
+    }
+
+    .panel::after{
+      content:"";
+      position:absolute;
+      left:30px;
+      right:30px;
+      top:0;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(185,133,82,.55), transparent);
+      pointer-events:none;
     }
 
     .panel-inner{
@@ -130,12 +144,12 @@
       gap:10px;
       padding:9px 14px;
       border-radius:999px;
-      background:rgba(255,255,255,.035);
+      background:rgba(255,248,236,.035);
       border:1px solid var(--line);
-      color:#d9e6f5;
-      font-size:11px;
+      color:#e1d4c3;
+      font-size:10px;
       font-weight:700;
-      letter-spacing:.14em;
+      letter-spacing:.18em;
       text-transform:uppercase;
       text-align:center;
     }
@@ -146,7 +160,7 @@
       flex:none;
       border-radius:999px;
       background:linear-gradient(135deg, var(--brand), var(--wa));
-      box-shadow:0 0 0 7px rgba(255,122,1,.10);
+      box-shadow:0 0 0 7px rgba(185,133,82,.11);
     }
 
     .hero{
@@ -155,52 +169,54 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      gap:18px;
+      gap:16px;
       text-align:center;
     }
 
     .icon-wrap{
-      width:88px;
-      height:88px;
-      border-radius:28px;
+      width:84px;
+      height:84px;
+      border-radius:26px;
       display:grid;
       place-items:center;
-      background:linear-gradient(180deg, rgba(37,211,102,.20), rgba(37,211,102,.10));
-      border:1px solid rgba(37,211,102,.24);
-      box-shadow:0 18px 48px rgba(37,211,102,.14);
-      font-size:38px;
+      background:linear-gradient(180deg, rgba(185,133,82,.18), rgba(185,133,82,.08));
+      border:1px solid rgba(185,133,82,.22);
+      box-shadow:0 18px 46px rgba(0,0,0,.28);
+      font-size:36px;
     }
 
     h1{
       margin:0;
       max-width:12ch;
-      font-size:clamp(2rem, 5vw, 2.9rem);
-      line-height:1.01;
-      letter-spacing:-.05em;
+      font-family:"Cormorant Garamond", Georgia, serif;
+      font-size:clamp(2.35rem, 6vw, 3.55rem);
+      font-weight:700;
+      line-height:.94;
+      letter-spacing:-.035em;
       text-wrap:balance;
     }
 
     .lead{
       margin:0;
-      max-width:44ch;
+      max-width:38ch;
       color:var(--muted);
-      font-size:14px;
-      line-height:1.65;
+      font-size:13px;
+      line-height:1.72;
       text-align:center;
     }
 
     .status-card{
       width:100%;
       margin-top:24px;
-      padding:18px;
+      padding:18px 18px 17px;
       display:grid;
       grid-template-columns:auto 1fr;
       gap:14px;
       align-items:flex-start;
-      border-radius:24px;
+      border-radius:22px;
       background:var(--card-2);
       border:1px solid var(--line);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
+      box-shadow:inset 0 1px 0 rgba(255,248,236,.02);
     }
 
     .spinner{
@@ -208,7 +224,7 @@
       height:18px;
       margin-top:3px;
       border-radius:999px;
-      border:2px solid rgba(255,255,255,.14);
+      border:2px solid rgba(255,248,236,.14);
       border-top-color:var(--brand);
       animation:spin .8s linear infinite;
     }
@@ -219,17 +235,17 @@
 
     .status-kicker{
       margin:0 0 6px;
-      color:#dce7f6;
+      color:#dcc8b1;
       font-size:11px;
-      font-weight:700;
-      letter-spacing:.12em;
+      font-weight:600;
+      letter-spacing:.14em;
       text-transform:uppercase;
     }
 
     .status-title{
       margin:0;
       color:var(--text);
-      font-size:17px;
+      font-size:16px;
       font-weight:700;
       letter-spacing:-.02em;
       line-height:1.25;
@@ -244,7 +260,7 @@
 
     .actions{
       width:100%;
-      margin-top:18px;
+      margin-top:16px;
       display:flex;
     }
 
@@ -253,14 +269,15 @@
       border:none;
       text-decoration:none;
       width:100%;
-      min-height:58px;
+      min-height:56px;
       display:flex;
       align-items:center;
       justify-content:center;
       padding:16px 20px;
-      border-radius:18px;
-      font-size:16px;
+      border-radius:16px;
+      font-size:15px;
       font-weight:800;
+      letter-spacing:.01em;
       line-height:1.2;
       text-align:center;
       cursor:pointer;
@@ -273,14 +290,14 @@
     .btn-primary{
       color:#04110a;
       background:linear-gradient(135deg, var(--wa), var(--wa-2));
-      box-shadow:0 18px 42px rgba(37,211,102,.24);
+      box-shadow:0 18px 42px rgba(37,211,102,.20);
     }
 
     .microcopy{
       margin:14px 0 0;
       color:var(--muted);
       font-size:12px;
-      line-height:1.7;
+      line-height:1.72;
       text-align:center;
     }
 
@@ -310,13 +327,13 @@
         gap:14px;
       }
       .icon-wrap{
-        width:74px;
-        height:74px;
+        width:72px;
+        height:72px;
         border-radius:24px;
-        font-size:32px;
+        font-size:30px;
       }
       h1{
-        font-size:clamp(1.78rem, 8vw, 2.35rem);
+        font-size:clamp(2.05rem, 10vw, 2.7rem);
         max-width:11.5ch;
       }
       .lead{
