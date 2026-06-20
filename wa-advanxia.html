@@ -238,8 +238,8 @@
     <div class="status-card" aria-live="polite">
       <span class="spinner" aria-hidden="true"></span>
       <div>
-        <p class="status-title">Redirecionamento automático bloqueado para teste</p>
-        <p class="status-copy">Os eventos já foram preparados para disparo. Toque no botão abaixo quando quiser abrir o WhatsApp.</p>
+        <p class="status-title">Estamos abrindo seu WhatsApp agora</p>
+        <p class="status-copy">Você será redirecionado automaticamente em até 2 segundos. Se não abrir, use o botão abaixo.</p>
       </div>
     </div>
 
@@ -247,7 +247,6 @@
       <a class="btn btn-primary" id="fallbackButton" href="#" rel="noopener">Abrir WhatsApp</a>
     </div>
 
-    <div class="badge">Modo de teste ativo: o auto-redirect está desativado para validar velocidade e tracking.</div>
     <p class="microcopy">Mensagem do WhatsApp: <strong>Oi Rafael, tudo certo por ai?</strong></p>
   </main>
 
@@ -255,7 +254,8 @@
     (function(){
       var WA_NUMBER = '5571982470873';
       var EXACT_MESSAGE = 'Oi Rafael, tudo certo por ai?';
-      var AUTO_REDIRECT_ENABLED = false;
+      var AUTO_REDIRECT_ENABLED = true;
+      var REDIRECT_DELAY_MS = 2000;
       var APP_FALLBACK_DELAY_MS = 550;
       var url = new URL(window.location.href);
       var params = url.searchParams;
@@ -339,6 +339,12 @@
         event.preventDefault();
         openWhatsApp('button_fallback');
       });
+
+      if (AUTO_REDIRECT_ENABLED) {
+        window.setTimeout(function(){
+          openWhatsApp('auto_redirect');
+        }, REDIRECT_DELAY_MS);
+      }
     })();
   </script>
 </body>
