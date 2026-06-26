@@ -202,7 +202,6 @@
       var WA_NUMBER = '5571982470873';
       var EXACT_MESSAGE = 'Oi Rafael, tudo certo por aí?';
       var REDIRECT_DELAY_MS = 1800;
-      var APP_FALLBACK_DELAY_MS = 550;
       var url = new URL(window.location.href);
       var params = url.searchParams;
       var isPreview = params.get('preview') === '1';
@@ -214,8 +213,7 @@
         if (value) attribution[key] = value;
       });
 
-      var waLink = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(EXACT_MESSAGE);
-      var waAppLink = 'whatsapp://send?phone=' + WA_NUMBER + '&text=' + encodeURIComponent(EXACT_MESSAGE);
+      var waLink = 'https://api.whatsapp.com/send?phone=' + WA_NUMBER + '&text=' + encodeURIComponent(EXACT_MESSAGE) + '&type=phone_number&app_absent=0';
       var fallbackButton = document.getElementById('fallbackButton');
       var statusTitle = document.getElementById('statusTitle');
       var statusCopy = document.getElementById('statusCopy');
@@ -280,12 +278,7 @@
         trackGA('contact', eventPayload);
         trackGA('whatsapp_contact', eventPayload);
 
-        if (AUTO_REDIRECT_ENABLED) {
-          window.location.href = waAppLink;
-          window.setTimeout(function(){ window.location.href = waLink; }, APP_FALLBACK_DELAY_MS);
-        } else {
-          window.location.href = waLink;
-        }
+        window.location.href = waLink;
       }
 
       fallbackButton.addEventListener('click', function(event){
