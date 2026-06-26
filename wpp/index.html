@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Advanx IA | Redirecionando para o WhatsApp</title>
+  <meta name="description" content="Página de redirecionamento para o WhatsApp da Advanx IA.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#090d12">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="dns-prefetch" href="//connect.facebook.net">
+  <link rel="dns-prefetch" href="//www.googletagmanager.com">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-98EL5GXG5F', { send_page_view: false });
+  </script>
+
+  <script>
+    (function(f,b,e,v,n,t,s){
+      if(f.fbq) return;
+      n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq) f._fbq=n;
+      n.push=n;
+      n.loaded=!0;
+      n.version='2.0';
+      n.queue=[];
+      t=b.createElement(e);
+      t.async=!0;
+      t.src=v;
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s);
+    })(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '502759528362336');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1" alt="">
+  </noscript>
+
+  <style>
+    :root{
+      --bg:#0a0b0d;
+      --bg-soft:#111318;
+      --card:rgba(15,17,21,.90);
+      --card-2:rgba(255,248,236,.045);
+      --line:rgba(244,232,214,.10);
+      --text:#f7f0e6;
+      --muted:#b0a698;
+      --brand:#b98552;
+      --wa:#25d366;
+      --wa-2:#43ef88;
+      --shadow:0 30px 100px rgba(0,0,0,.46);
+      --radius:30px;
+    }
+    *{ box-sizing:border-box; }
+    html, body{ min-height:100%; }
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(185,133,82,.17), transparent 26%),
+        radial-gradient(circle at bottom left, rgba(37,211,102,.08), transparent 20%),
+        linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+      color:var(--text);
+      display:grid;
+      place-items:center;
+      padding:24px 16px;
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.028), transparent 26%, transparent 74%, rgba(255,255,255,.018)),
+        radial-gradient(circle at center, transparent 0 58%, rgba(255,255,255,.02) 100%);
+      opacity:.95;
+    }
+    .panel{
+      position:relative;
+      z-index:1;
+      width:min(100%, 580px);
+      padding:30px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(20,18,16,.97) 0%, rgba(13,12,14,.95) 100%);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .panel::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:radial-gradient(circle at top, rgba(255,248,236,.06), transparent 30%);
+      opacity:.9;
+    }
+    .panel-inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:9px 14px;
+      border-radius:999px;
+      background:rgba(255,248,236,.035);
+      border:1px solid var(--line);
+      color:#e1d4c3;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      text-align:center;
+    }
+    .eyebrow-dot{
+      width:9px; height:9px; flex:none; border-radius:999px;
+      background:linear-gradient(135deg, var(--brand), var(--wa));
+      box-shadow:0 0 0 7px rgba(185,133,82,.11);
+    }
+    .hero{
+      width:100%; margin-top:22px; display:flex; flex-direction:column; align-items:center; gap:16px; text-align:center;
+    }
+    .icon-wrap{
+      width:84px; height:84px; border-radius:26px; display:grid; place-items:center;
+      background:linear-gradient(180deg, rgba(185,133,82,.18), rgba(185,133,82,.08));
+      border:1px solid rgba(185,133,82,.22); box-shadow:0 18px 46px rgba(0,0,0,.28); font-size:36px;
+    }
+    h1{
+      margin:0; max-width:12ch; font-family:"Cormorant Garamond", Georgia, serif;
+      font-size:clamp(2.35rem, 6vw, 3.55rem); font-weight:700; line-height:.94; letter-spacing:-.035em; text-wrap:balance;
+    }
+    .lead{ margin:0; max-width:38ch; color:var(--muted); font-size:13px; line-height:1.72; text-align:center; }
+    .status-card{
+      width:100%; margin-top:24px; padding:18px; display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:flex-start;
+      border-radius:22px; background:var(--card-2); border:1px solid var(--line);
+    }
+    .spinner{
+      width:18px; height:18px; margin-top:3px; border-radius:999px; border:2px solid rgba(255,248,236,.14); border-top-color:var(--brand);
+      animation:spin .8s linear infinite;
+    }
+    .status-kicker{ margin:0 0 6px; color:#dcc8b1; font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
+    .status-title{ margin:0; color:var(--text); font-size:16px; font-weight:700; letter-spacing:-.02em; line-height:1.25; }
+    .status-copy{ margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.6; }
+    .actions{ width:100%; margin-top:22px; display:flex; justify-content:center; }
+    .btn{
+      appearance:none; border:0; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      width:100%; min-height:56px; padding:0 20px; border-radius:18px; text-decoration:none;
+      font-weight:800; font-size:14px; letter-spacing:.02em; transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .btn:hover{ transform:translateY(-1px); filter:brightness(1.04); }
+    .btn-primary{ color:#06120a; background:linear-gradient(135deg, var(--wa), var(--wa-2)); box-shadow:0 16px 34px rgba(37,211,102,.26); }
+    .microcopy{ margin:16px 0 0; color:var(--muted); font-size:12px; line-height:1.55; text-align:center; }
+    .preview-badge{ display:none; margin-top:18px; padding:10px 12px; border-radius:16px; border:1px solid rgba(255,255,255,.08); background:rgba(255,248,236,.04); color:#f2dfc8; font-size:12px; line-height:1.5; text-align:center; }
+    body.preview .preview-badge{ display:block; }
+    body.preview .spinner{ animation:none; border-top-color:var(--wa); }
+    @keyframes spin{ to{ transform:rotate(360deg); } }
+    @media (max-width:640px){
+      .panel{ padding:24px 18px; border-radius:24px; }
+      h1{ max-width:11ch; }
+      .icon-wrap{ width:76px; height:76px; font-size:32px; border-radius:22px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="panel">
+    <div class="panel-inner">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> Advanx IA • encaminhamento seguro</div>
+
+      <section class="hero" aria-labelledby="redirect-title">
+        <div class="icon-wrap" aria-hidden="true">💬</div>
+        <h1 id="redirect-title">Estamos te redirecionando para o WhatsApp</h1>
+        <p class="lead">A página aguarda o tempo necessário para registrar os eventos e abrir sua conversa com rapidez.</p>
+      </section>
+
+      <section class="status-card" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
+        <div class="status-copy-wrap">
+          <p class="status-kicker">Status do redirecionamento</p>
+          <p class="status-title" id="statusTitle">Estamos abrindo seu WhatsApp agora</p>
+          <p class="status-copy" id="statusCopy">Você será redirecionado automaticamente em até 2 segundos. Se não abrir, use o botão abaixo.</p>
+        </div>
+      </section>
+
+      <div class="actions">
+        <a class="btn btn-primary" id="fallbackButton" href="#" rel="noopener">Abrir WhatsApp</a>
+      </div>
+
+      <p class="microcopy">Mensagem do WhatsApp: <strong>Oi Rafael, tudo certo por aí?</strong></p>
+      <div class="preview-badge" id="previewBadge">Modo preview ativo. O redirecionamento automático foi pausado para validação manual.</div>
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      var WA_NUMBER = '5571982470873';
+      var EXACT_MESSAGE = 'Oi Rafael, tudo certo por aí?';
+      var REDIRECT_DELAY_MS = 1800;
+      var APP_FALLBACK_DELAY_MS = 550;
+      var url = new URL(window.location.href);
+      var params = url.searchParams;
+      var isPreview = params.get('preview') === '1';
+      var AUTO_REDIRECT_ENABLED = !isPreview;
+      var attributionKeys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','ttclid'];
+      var attribution = {};
+      attributionKeys.forEach(function(key){
+        var value = params.get(key);
+        if (value) attribution[key] = value;
+      });
+
+      var waLink = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(EXACT_MESSAGE);
+      var waAppLink = 'whatsapp://send?phone=' + WA_NUMBER + '&text=' + encodeURIComponent(EXACT_MESSAGE);
+      var fallbackButton = document.getElementById('fallbackButton');
+      var statusTitle = document.getElementById('statusTitle');
+      var statusCopy = document.getElementById('statusCopy');
+      fallbackButton.href = waLink;
+
+      if (isPreview) {
+        document.body.classList.add('preview');
+        statusTitle.textContent = 'Modo preview ativo';
+        statusCopy.textContent = 'A abertura automática do WhatsApp foi pausada para validação manual. Use o botão abaixo para testar quando quiser.';
+      }
+
+      try {
+        localStorage.setItem('advanx_last_whatsapp_redirect', JSON.stringify({
+          destination: WA_NUMBER,
+          page_url: window.location.href,
+          query_string: window.location.search,
+          target_url: waLink,
+          message: EXACT_MESSAGE,
+          attribution: attribution,
+          created_at: new Date().toISOString()
+        }));
+      } catch (_) {}
+
+      function trackMeta(eventName, payload, custom){
+        try {
+          if (typeof fbq === 'function') {
+            if (custom) fbq('trackCustom', eventName, payload || {});
+            else fbq('track', eventName, payload || {});
+          }
+        } catch (_) {}
+      }
+      function trackGA(eventName, payload){
+        try {
+          if (typeof gtag === 'function') gtag('event', eventName, payload || {});
+        } catch (_) {}
+      }
+
+      var trackingPayload = Object.assign({
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+        page_title: document.title,
+        event_source_url: window.location.href,
+        query_string: window.location.search,
+        destination_type: 'WHATSAPP',
+        destination_label: 'advanx_ia',
+        whatsapp_number: WA_NUMBER,
+        message_template: EXACT_MESSAGE,
+        source_platform: attribution.utm_source || '',
+        source_medium: attribution.utm_medium || '',
+        source_campaign: attribution.utm_campaign || ''
+      }, attribution);
+
+      trackMeta('PageView', trackingPayload, false);
+      trackMeta('WhatsAppPageView', trackingPayload, true);
+      trackGA('page_view', trackingPayload);
+      trackGA('whatsapp_page_view', trackingPayload);
+
+      function openWhatsApp(source){
+        var eventPayload = Object.assign({}, trackingPayload, { trigger_source: source });
+        trackMeta('Contact', eventPayload, false);
+        trackMeta('WhatsAppContact', eventPayload, true);
+        trackGA('contact', eventPayload);
+        trackGA('whatsapp_contact', eventPayload);
+
+        if (AUTO_REDIRECT_ENABLED) {
+          window.location.href = waAppLink;
+          window.setTimeout(function(){ window.location.href = waLink; }, APP_FALLBACK_DELAY_MS);
+        } else {
+          window.location.href = waLink;
+        }
+      }
+
+      fallbackButton.addEventListener('click', function(event){
+        event.preventDefault();
+        openWhatsApp('button_fallback');
+      });
+
+      if (AUTO_REDIRECT_ENABLED) {
+        window.setTimeout(function(){ openWhatsApp('auto_redirect'); }, REDIRECT_DELAY_MS);
+      }
+    })();
+  </script>
+</body>
+</html>
