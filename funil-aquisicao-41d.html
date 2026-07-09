@@ -197,8 +197,8 @@
       QUALIFIED_TEXT: 'Oi, Quero implementar o SCI com garantia de contratos fechados em até 41d',
       DOWNSELL_TEXT: 'Oi, por enquanto o SCI com garantia de contratos em 41d não é pra mim, mas quero conhecer as soluções de captação e conteúdo.',
       STORAGE_KEY: 'advanx_funil_aquisicao_41d_submitted_v1',
-      CTA_DEADLINE_KEY: 'advanx_funil_aquisicao_41d_cta_deadline_session_v3',
       CTA_LEGACY_KEYS: [
+        'advanx_funil_aquisicao_41d_cta_deadline_session_v3',
         'advanx_funil_aquisicao_41d_cta_deadline_v1',
         'advanx_funil_aquisicao_41d_cta_revealed_v1',
         'advanx_funil_aquisicao_41d_cta_started_at_v2',
@@ -291,45 +291,10 @@
         });
       }catch(e){}
     }
-    function getNavigationType(){
-      try{
-        const nav = performance.getEntriesByType('navigation')[0];
-        return nav && nav.type ? nav.type : 'navigate';
-      }catch(e){
-        return 'navigate';
-      }
-    }
-    function getCtaDeadline(){
-      clearLegacyCtaState();
-      const savedDeadline = Number(sessionStorage.getItem(CONFIG.CTA_DEADLINE_KEY) || 0);
-      const navigationType = getNavigationType();
-      if(navigationType === 'reload' && savedDeadline && Number.isFinite(savedDeadline)) return savedDeadline;
-      const deadline = Date.now() + CONFIG.CTA_DELAY_MS;
-      sessionStorage.setItem(CONFIG.CTA_DEADLINE_KEY, String(deadline));
-      return deadline;
-    }
-    const ctaDeadline = getCtaDeadline();
-    function checkCtaUnlock(){
-      if(ctaDeadline <= Date.now()){
-        revealCta();
-        return 0;
-      }
-      return ctaDeadline - Date.now();
-    }
-    const initialRemaining = checkCtaUnlock();
-    let ctaTimeout = null;
-    let ctaTimer = null;
-    if(initialRemaining > 0){
-      ctaTimeout = setTimeout(revealCta, initialRemaining);
-      ctaTimer = setInterval(()=>{
-        if(checkCtaUnlock() <= 0 || state.ctaRevealed){
-          if(ctaTimer) clearInterval(ctaTimer);
-          if(ctaTimeout) clearTimeout(ctaTimeout);
-        }
-      }, 1000);
-    }
-    document.addEventListener('visibilitychange', checkCtaUnlock);
-    window.addEventListener('focus', checkCtaUnlock);
+    // Regra deliberadamente simples: sem memória entre navegações ou reloads.
+    // Em toda abertura da página, o CTA fica oculto por exatamente 2 minutos.
+    clearLegacyCtaState();
+    setTimeout(revealCta, CONFIG.CTA_DELAY_MS);
     window.__forceRevealCta = revealCta;
 
     function setModalStep(step){
