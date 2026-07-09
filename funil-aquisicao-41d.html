@@ -193,7 +193,7 @@
       VIDEO_ID: 'COLOQUE_AQUI_O_ID_DO_VIDEO',
       CTA_DELAY_MS: 2 * 60 * 1000,
       WHATSAPP_NUMBER: '5571982470873',
-      WEBHOOK_URL: 'https://n8n.advfunnel.com.br/webhook/cb33d994-f6ab-446a-9ba7-fc6f4fd24e0e/:leads',
+      WEBHOOK_URL: 'https://n8n.advfunnel.com.br/webhook/lead-funil-41d-comercial-efc4f106bbae40dcb0f4a2fc7bebe72c',
       QUALIFIED_TEXT: 'Oi, Quero implementar o SCI com garantia de contratos fechados em até 41d',
       DOWNSELL_TEXT: 'Oi, por enquanto o SCI com garantia de contratos em 41d não é pra mim, mas quero conhecer as soluções de captação e conteúdo.',
       STORAGE_KEY: 'advanx_funil_aquisicao_41d_submitted_v1',
@@ -205,8 +205,10 @@
         'advanx_funil_aquisicao_41d_cta_started_at_v1'
       ]
     };
+    const SUPABASE_URL='https://lhbwfbquxkutcyqazpnw.supabase.co';
+    const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10';
     const $ = (s) => document.querySelector(s);
-    const state = {step:1, answers:{}, player:null, videoReady:false, playing:false, viewContent:false, ctaRevealed:false, submitting:false};
+    const state = {step:1, answers:{}, player:null, videoReady:false, playing:false, viewContent:false, ctaRevealed:false, submitting:false, leadRecord:null};
     const qs = new URLSearchParams(location.search);
     const UTM = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].reduce((acc,k)=>{acc[k]=qs.get(k)||null;return acc},{});
 
@@ -376,11 +378,57 @@
         `• Enviado em: ${new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(new Date())} BRT`
       ].join('\n');
     }
-    async function notify(payload){
-      if(!CONFIG.WEBHOOK_URL) return null;
+    function buildLeadRow(payload){
+      const investimento = payload.investimento || null;
+      const prazo = payload.prazo || null;
+      return {
+        nome:payload.nome || null,
+        telefone:payload.whatsapp_normalizado || null,
+        telefone_chatwoot:payload.whatsapp_normalizado || null,
+        email:payload.email || null,
+        prazo_implementacao:prazo,
+        investimento_trafego:investimento,
+        nicho:'Jurídico',
+        kanban_stage:'Novo Lead',
+        origem:'funil-aquisicao-41d',
+        funil_lead:'Advanx',
+        empresa_fonte:'Advanx',
+        pipeline_type:'landing_page',
+        fonte:UTM.utm_source || 'organico',
+        campanha:UTM.utm_campaign || null,
+        conjunto:UTM.utm_medium || null,
+        anuncio:UTM.utm_content || null,
+        posicionamento:UTM.utm_term || null,
+        followup_active:true,
+        atendimento_ia:false,
+        ia_active:false,
+        comentario:`Formulário Funil Aquisição 41D | Prazo: ${prazo || '—'} | Investimento mensal equipe + tráfego: ${investimento || '—'}`
+      };
+    }
+    async function saveLead(payload){
+      if(state.leadRecord) return state.leadRecord;
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/dados_cliente`,{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'apikey':SUPABASE_ANON_KEY,
+          'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer':'return=representation'
+        },
+        body:JSON.stringify(buildLeadRow(payload))
+      });
+      if(!res.ok) throw new Error(`Supabase ${res.status}: ${await res.text()}`);
+      const rows=await res.json();
+      state.leadRecord=Array.isArray(rows) ? rows[0] : rows;
+      if(!state.leadRecord || !state.leadRecord.id) throw new Error('Supabase não retornou o ID do lead criado.');
+      return state.leadRecord;
+    }
+    async function notifyLead(payload, lead){
+      if(!CONFIG.WEBHOOK_URL) throw new Error('Webhook comercial não configurado.');
       const body = {
         origem:'funil-aquisicao-41d', pagina:'Video Funil 41D', destino:'advanxia_comercial', canal:'whatsapp_grupo_comercial',
         grupo_destino:'Advanx IA COMERCIAL', instancia_preferida:'advanxia', instancias_permitidas:['advanxia','jessica'],
+        lead_id:lead.id,
         nome:payload.nome, whatsapp:payload.whatsapp_normalizado, email:payload.email, prazo:payload.prazo, investimento:payload.investimento,
         qualificado:payload.qualificado, mensagem_formatada:buildWebhookMessage(payload), page_url:location.href, ...UTM, ts:new Date().toISOString()
       };
@@ -409,11 +457,20 @@
       trackMeta('Lead',{origem:'funil-aquisicao-41d', investimento:payload.investimento, prazo:payload.prazo});
       trackGa('lead',{origem:'funil-aquisicao-41d', investimento:payload.investimento, prazo:payload.prazo});
       if(payload.qualificado){trackMetaCustom('LeadQualificado',payload); trackGa('lead_qualificado',{origem:'funil-aquisicao-41d', investimento:payload.investimento, prazo:payload.prazo});}
-      try{await notify(payload); trackBoth('lead_notified',{origem:'funil-aquisicao-41d', qualificado:payload.qualificado});}
-      catch(e){console.error('Falha ao notificar webhook:', e); trackBoth('lead_notify_error',{origem:'funil-aquisicao-41d', message:String(e.message||e).slice(0,120)});}
-      localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(payload));
-      state.answers = payload;
-      renderThanks(payload);
+      try{
+        const lead=await saveLead(payload);
+        await notifyLead(payload, lead);
+        trackBoth('lead_saved_and_notified',{origem:'funil-aquisicao-41d', lead_id:lead.id, qualificado:payload.qualificado});
+        localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(payload));
+        state.answers = payload;
+        renderThanks(payload);
+      }catch(e){
+        console.error('Falha ao salvar ou notificar lead:', e);
+        trackBoth('lead_save_or_notify_error',{origem:'funil-aquisicao-41d', message:String(e.message||e).slice(0,120)});
+        state.submitting = false;
+        $('#submitLead').disabled = false;
+        $('#formError').textContent = state.leadRecord ? 'Dados salvos, mas não foi possível avisar a equipe comercial. Tente novamente.' : 'Não foi possível salvar seus dados. Tente novamente.';
+      }
     });
 
     (function bootSubmitted(){
