@@ -10,21 +10,36 @@
   <link rel="preconnect" href="https://i.ytimg.com">
   <link rel="dns-prefetch" href="//www.googletagmanager.com">
   <link rel="dns-prefetch" href="//connect.facebook.net">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments)}
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    (function setupMetaPixelQueue(f){
+      if(f.fbq)return;
+      const n = f.fbq = function(){n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)};
+      if(!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = true;
+      n.version = '2.0';
+      n.queue = [];
+    })(window);
     fbq('init','502759528362336');
     fbq('track','PageView');
-    gtag('js', new Date());
-    gtag('config','G-98EL5GXG5F');
-    (function(){
-      var loaded=false;
-      function load(src){var s=document.createElement('script');s.async=true;s.src=src;document.head.appendChild(s)}
-      function boot(){if(loaded)return;loaded=true;load('https://connect.facebook.net/en_US/fbevents.js');load('https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F')}
-      ['pointerdown','touchstart','keydown','scroll'].forEach(function(evt){window.addEventListener(evt,boot,{once:true,passive:true})});
-      window.addEventListener('load',function(){setTimeout(boot,1200)},{once:true});
+    (function scheduleMetaPixel(){
+      let loaded = false;
+      function load(){
+        if(loaded) return;
+        loaded = true;
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        document.head.appendChild(s);
+      }
+      ['pointerdown','touchstart','keydown','scroll'].forEach(evt => window.addEventListener(evt, load, {once:true, passive:true}));
+      window.addEventListener('load', () => setTimeout(load, 8000), {once:true});
     })();
+    gtag('js', new Date());
+    gtag('config','G-98EL5GXG5F', { send_page_view: false });
   </script>
   <style>
     :root{
@@ -90,9 +105,10 @@
   </style>
 </head>
 <body oncopy="return false" oncut="return false" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+  <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"></noscript>
   <main class="page" id="pageRoot">
     <div class="logo-top">
-      <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/logo-advanx-transparente.webp" alt="Advanx">
+      <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/logo-advanx-transparente.webp" width="500" height="500" fetchpriority="high" decoding="async" alt="Advanx">
     </div>
 
     <section class="shell" id="landing">
@@ -181,10 +197,13 @@
       QUALIFIED_TEXT: 'Oi, Quero implementar o SCI com garantia de contratos fechados em até 41d',
       DOWNSELL_TEXT: 'Oi, por enquanto o SCI com garantia de contratos em 41d não é pra mim, mas quero conhecer as soluções de captação e conteúdo.',
       STORAGE_KEY: 'advanx_funil_aquisicao_41d_submitted_v1',
-      CTA_DEADLINE_KEY: 'advanx_funil_aquisicao_41d_cta_deadline_v1',
-      CTA_REVEALED_KEY: 'advanx_funil_aquisicao_41d_cta_revealed_v1',
-      CTA_STARTED_KEY: 'advanx_funil_aquisicao_41d_cta_started_at_v2',
-      CTA_OLD_STARTED_KEY: 'advanx_funil_aquisicao_41d_cta_started_at_v1'
+      CTA_DEADLINE_KEY: 'advanx_funil_aquisicao_41d_cta_deadline_session_v3',
+      CTA_LEGACY_KEYS: [
+        'advanx_funil_aquisicao_41d_cta_deadline_v1',
+        'advanx_funil_aquisicao_41d_cta_revealed_v1',
+        'advanx_funil_aquisicao_41d_cta_started_at_v2',
+        'advanx_funil_aquisicao_41d_cta_started_at_v1'
+      ]
     };
     const $ = (s) => document.querySelector(s);
     const state = {step:1, answers:{}, player:null, videoReady:false, playing:false, viewContent:false, ctaRevealed:false, submitting:false};
@@ -259,37 +278,30 @@
     function revealCta(){
       if(state.ctaRevealed) return;
       state.ctaRevealed = true;
-      localStorage.setItem(CONFIG.CTA_REVEALED_KEY, '1');
       $('#openForm').classList.add('show');
       $('.cta-zone').classList.add('unlocked');
       $('#waitingText').style.display='none';
       trackBoth('cta_revealed',{origem:'funil-aquisicao-41d'});
     }
-    function readMigratedDeadline(){
-      const savedDeadline = Number(localStorage.getItem(CONFIG.CTA_DEADLINE_KEY) || 0);
-      if(savedDeadline && Number.isFinite(savedDeadline)) return savedDeadline;
-      const starts = [
-        Number(localStorage.getItem(CONFIG.CTA_STARTED_KEY) || 0),
-        Number(localStorage.getItem(CONFIG.CTA_OLD_STARTED_KEY) || 0),
-        Number(sessionStorage.getItem(CONFIG.CTA_OLD_STARTED_KEY) || 0)
-      ].filter(v => v && Number.isFinite(v));
-      if(!starts.length) return 0;
-      return Math.min(...starts) + CONFIG.CTA_DELAY_MS;
+    function clearLegacyCtaState(){
+      try{
+        CONFIG.CTA_LEGACY_KEYS.forEach(key => {
+          localStorage.removeItem(key);
+          sessionStorage.removeItem(key);
+        });
+      }catch(e){}
     }
     function getCtaDeadline(){
-      if(localStorage.getItem(CONFIG.CTA_REVEALED_KEY) === '1') return 0;
-      const existing = readMigratedDeadline();
-      if(existing){
-        localStorage.setItem(CONFIG.CTA_DEADLINE_KEY, String(existing));
-        return existing;
-      }
+      clearLegacyCtaState();
+      const savedDeadline = Number(sessionStorage.getItem(CONFIG.CTA_DEADLINE_KEY) || 0);
+      if(savedDeadline && Number.isFinite(savedDeadline)) return savedDeadline;
       const deadline = Date.now() + CONFIG.CTA_DELAY_MS;
-      localStorage.setItem(CONFIG.CTA_DEADLINE_KEY, String(deadline));
+      sessionStorage.setItem(CONFIG.CTA_DEADLINE_KEY, String(deadline));
       return deadline;
     }
     const ctaDeadline = getCtaDeadline();
     function checkCtaUnlock(){
-      if(localStorage.getItem(CONFIG.CTA_REVEALED_KEY) === '1' || ctaDeadline <= Date.now()){
+      if(ctaDeadline <= Date.now()){
         revealCta();
         return 0;
       }
