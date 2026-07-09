@@ -61,14 +61,14 @@
     h1{margin:0 auto 10px;font-size:clamp(19.5px,2.7vw,27px);line-height:1.2;letter-spacing:-.01em;max-width:35ch;font-weight:640;text-wrap:balance}
     .sub{margin:0 auto;color:#303030;font-size:clamp(14px,1.75vw,15.5px);line-height:1.45;max-width:560px;font-weight:500;text-wrap:pretty;text-align:left}
     .family{margin:9px auto 0;color:var(--slate-600);font-size:clamp(12.8px,1.55vw,14px);line-height:1.44;max-width:540px;text-wrap:pretty;text-align:left}
-    .video-card{background:linear-gradient(180deg,#1f1f1f 0%,#111 100%);border:1px solid rgba(17,17,17,.16);border-radius:14px;box-shadow:0 12px 34px rgba(17,17,17,.11);padding:9px;overflow:hidden;color:#fff}
-    .video-frame{position:relative;aspect-ratio:9/16;width:min(220px,100%);height:auto;margin:0 auto;border-radius:12px;overflow:hidden;background:#090909;display:grid;place-items:center}
+    .video-card{width:min(260px,100%);margin:0 auto;background:#090909;border:1px solid rgba(17,17,17,.16);border-radius:16px;box-shadow:0 14px 38px rgba(17,17,17,.16);padding:0;overflow:hidden;color:#fff;cursor:pointer}
+    .video-frame{position:relative;aspect-ratio:9/16;width:100%;height:auto;margin:0;border-radius:16px;overflow:hidden;background:#090909;display:grid;place-items:center}
     .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
     .placeholder{position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;background:linear-gradient(135deg,#111,#262626)}
-    .placeholder strong{display:block;font-size:clamp(16px,2.4vw,22px);margin-bottom:8px}.placeholder span{color:rgba(255,255,255,.68);font-size:13px}
-    .video-controls{display:flex;justify-content:center;gap:8px;align-items:center;padding:9px 4px 0;flex-wrap:wrap}
-    .control{min-height:38px;padding:0 15px;border-radius:var(--radius-control);border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.10);color:#fff;font-weight:800;cursor:pointer}
-    .timer-note{color:rgba(255,255,255,.72);font-size:13px}
+    .placeholder strong{display:block;font-size:clamp(16px,2.4vw,22px);margin-bottom:8px}.placeholder span{color:rgba(255,255,255,.68);font-size:13px}.tap-indicator{position:absolute;inset:auto 14px 14px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:38px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);font-size:12px;font-weight:800;color:#fff;backdrop-filter:blur(8px)}
+    .video-controls{display:none}
+    .control{display:none}
+    .timer-note{display:none}
     .cta-zone{display:grid;place-items:center;min-height:58px}
     .main-cta{display:none;align-items:center;justify-content:center;text-align:center;min-height:52px;padding:0 22px;border-radius:var(--radius-control);border:1px solid transparent;background:var(--copper-600);color:var(--white);font-weight:900;letter-spacing:.02em;text-decoration:none;box-shadow:0 18px 42px rgba(181,106,50,.28);cursor:pointer;animation:rise .32s ease both}
     .main-cta.show{display:inline-flex}@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -86,7 +86,7 @@
     .error{min-height:20px;color:#B42318;font-size:13px;font-weight:650}.lock-note{font-size:12px;color:var(--slate-600);text-align:center;margin-top:2px}
     .thanks{display:none;background:rgba(255,255,255,.82);border:1px solid rgba(17,17,17,.10);border-radius:18px;box-shadow:var(--shadow);padding:clamp(28px,5vw,46px);text-align:center}.thanks.show{display:block}.thanks h2{font-size:clamp(31px,5vw,52px);line-height:1.02;letter-spacing:-.025em;margin:0 0 12px}.thanks p{font-size:18px;color:var(--slate-600);margin:0 auto 22px;max-width:620px}.wa-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:var(--radius-control);background:var(--slate-950);color:#fff;font-weight:900;text-decoration:none}
     .noscript{margin-top:14px;color:#7A2E0E;font-size:13px;text-align:center}
-    @media(max-width:640px){.page{width:min(100% - 14px,680px);padding-top:8px}.logo-top{margin-bottom:7px}.logo-top img{width:68px}.hero{padding:13px 13px;border-radius:13px}h1{font-size:17.2px;line-height:1.24;max-width:36ch;font-weight:620}.sub{font-size:13.4px;line-height:1.43;font-weight:500;text-align:left}.family{font-size:12.6px;line-height:1.42;text-align:left}.video-frame{width:min(196px,100%)}.control{min-height:36px;font-size:13px}.timer-note{font-size:11.5px}.modal-body,.modal-head{padding:18px}.actions{justify-content:stretch}.btn{width:100%}}
+    @media(max-width:640px){.page{width:min(100% - 14px,680px);padding-top:8px}.logo-top{margin-bottom:7px}.logo-top img{width:68px}.hero{padding:13px 13px;border-radius:13px}h1{font-size:17.2px;line-height:1.24;max-width:36ch;font-weight:620}.sub{font-size:13.4px;line-height:1.43;font-weight:500;text-align:left}.family{font-size:12.6px;line-height:1.42;text-align:left}.video-card{width:min(244px,100%)}.video-frame{width:100%}.modal-body,.modal-head{padding:18px}.actions{justify-content:stretch}.btn{width:100%}}
   </style>
 </head>
 <body oncopy="return false" oncut="return false" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
@@ -107,12 +107,9 @@
         <div class="video-frame" id="videoFrame">
           <div id="player"></div>
           <div class="placeholder" id="videoPlaceholder">
-            <div><strong>Vídeo Advanx</strong><span>Toque em play para assistir.</span></div>
+            <div><strong>Vídeo Advanx</strong><span>Toque no vídeo para assistir.</span></div>
           </div>
-        </div>
-        <div class="video-controls">
-          <button class="control" id="playPause" type="button">▶ Dar play</button>
-          <span class="timer-note" id="videoStatus">Controle limitado a play e pause.</span>
+          <div class="tap-indicator" id="tapIndicator">▶ Toque para dar play</div>
         </div>
       </section>
 
@@ -227,8 +224,8 @@
         events: {
           onReady(){state.videoReady=true; $('#videoPlaceholder').style.display='none';},
           onStateChange(event){
-            if(event.data === YT.PlayerState.PLAYING){state.playing=true; $('#playPause').textContent='⏸ Pausar'; fireViewContent();}
-            if(event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED){state.playing=false; $('#playPause').textContent='▶ Dar play';}
+            if(event.data === YT.PlayerState.PLAYING){state.playing=true; const indicator=$('#tapIndicator'); if(indicator) indicator.textContent='⏸ Toque para pausar'; fireViewContent();}
+            if(event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED){state.playing=false; const indicator=$('#tapIndicator'); if(indicator) indicator.textContent='▶ Toque para dar play';}
           }
         }
       });
@@ -240,15 +237,25 @@
       trackMeta('ViewContent', params);
       trackGa('view_content', params);
     }
-    $('#playPause').addEventListener('click',()=>{
+    function toggleVideo(){
       if(isPlaceholderVideo()){
         fireViewContent();
-        $('#videoStatus').textContent='Vídeo ainda sem ID final. Evento ViewContent disparado para teste.';
+        const indicator = $('#tapIndicator');
+        if(indicator) indicator.textContent = 'Vídeo aguardando ID final';
         return;
       }
-      if(!state.videoReady || !state.player){$('#videoStatus').textContent='Carregando vídeo...'; return;}
+      if(!state.videoReady || !state.player){
+        const indicator = $('#tapIndicator');
+        if(indicator) indicator.textContent = 'Carregando vídeo...';
+        return;
+      }
       if(state.playing){state.player.pauseVideo();} else {state.player.playVideo();}
-    });
+    }
+    $('#videoFrame').addEventListener('click', toggleVideo);
+    $('#videoFrame').addEventListener('keydown', (event)=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVideo();}});
+    $('#videoFrame').setAttribute('tabindex','0');
+    $('#videoFrame').setAttribute('role','button');
+    $('#videoFrame').setAttribute('aria-label','Tocar para dar play ou pause no vídeo');
     loadYouTubeApi();
 
     function revealCta(){
