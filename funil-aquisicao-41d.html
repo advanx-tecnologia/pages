@@ -50,26 +50,26 @@
     img,iframe,video{user-select:none;-webkit-user-drag:none}
     button,input{font:inherit}
     a{color:inherit}
-    .page{width:min(760px,calc(100% - 32px));margin:0 auto;padding:22px 0 38px}
-    .logo-top{display:flex;justify-content:center;align-items:center;margin:0 0 18px}
-    .logo-top img{width:min(118px,34vw);height:auto;display:block;filter:drop-shadow(0 16px 34px rgba(17,17,17,.10))}
-    .shell{display:grid;gap:16px}
-    .hero{background:rgba(255,255,255,.78);border:1px solid rgba(17,17,17,.10);border-radius:18px;box-shadow:var(--shadow);padding:clamp(22px,4.6vw,38px);text-align:center;overflow:hidden;position:relative}
+    .page{width:min(680px,calc(100% - 24px));margin:0 auto;padding:8px 0 30px}
+    .logo-top{display:flex;justify-content:center;align-items:center;margin:0 0 8px}
+    .logo-top img{width:min(82px,24vw);height:auto;display:block;filter:drop-shadow(0 8px 18px rgba(17,17,17,.10))}
+    .shell{display:grid;gap:12px}
+    .hero{background:rgba(255,255,255,.78);border:1px solid rgba(17,17,17,.10);border-radius:14px;box-shadow:0 10px 28px rgba(17,17,17,.065);padding:clamp(15px,3vw,24px);text-align:center;overflow:hidden;position:relative}
     .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(181,106,50,.10),transparent 38%,rgba(17,17,17,.04));pointer-events:none}
     .hero > *{position:relative}
-    .eyebrow{margin:0 0 12px;color:var(--copper-700);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-    h1{margin:0 auto 16px;font-size:clamp(32px,5.8vw,54px);line-height:1.03;letter-spacing:-.03em;max-width:12.8ch;font-weight:760;text-wrap:balance}
-    .sub{margin:0 auto;color:#373737;font-size:clamp(18px,2.5vw,22px);line-height:1.38;max-width:640px;font-weight:650;text-wrap:balance}
-    .family{margin:16px auto 0;color:var(--slate-600);font-size:clamp(15.5px,2vw,18px);line-height:1.55;max-width:600px;text-wrap:pretty}
-    .video-card{background:linear-gradient(180deg,#1f1f1f 0%,#111 100%);border:1px solid rgba(17,17,17,.16);border-radius:18px;box-shadow:var(--shadow);padding:12px;overflow:hidden;color:#fff}
-    .video-frame{position:relative;aspect-ratio:9/16;max-height:76vh;width:min(430px,100%);margin:0 auto;border-radius:12px;overflow:hidden;background:#090909;display:grid;place-items:center}
+    .eyebrow{margin:0 0 8px;color:var(--copper-700);font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    h1{margin:0 auto 10px;font-size:clamp(19.5px,2.7vw,27px);line-height:1.2;letter-spacing:-.01em;max-width:35ch;font-weight:640;text-wrap:balance}
+    .sub{margin:0 auto;color:#303030;font-size:clamp(14px,1.75vw,15.5px);line-height:1.45;max-width:560px;font-weight:500;text-wrap:pretty;text-align:left}
+    .family{margin:9px auto 0;color:var(--slate-600);font-size:clamp(12.8px,1.55vw,14px);line-height:1.44;max-width:540px;text-wrap:pretty;text-align:left}
+    .video-card{background:linear-gradient(180deg,#1f1f1f 0%,#111 100%);border:1px solid rgba(17,17,17,.16);border-radius:14px;box-shadow:0 12px 34px rgba(17,17,17,.11);padding:9px;overflow:hidden;color:#fff}
+    .video-frame{position:relative;aspect-ratio:9/16;width:min(220px,100%);height:auto;margin:0 auto;border-radius:12px;overflow:hidden;background:#090909;display:grid;place-items:center}
     .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
-    .placeholder{position:absolute;inset:0;display:grid;place-items:center;padding:28px;text-align:center;background:linear-gradient(135deg,#111,#262626)}
-    .placeholder strong{display:block;font-size:clamp(18px,3vw,28px);margin-bottom:8px}.placeholder span{color:rgba(255,255,255,.68)}
-    .video-controls{display:flex;justify-content:center;gap:10px;align-items:center;padding:12px 4px 2px;flex-wrap:wrap}
-    .control{min-height:42px;padding:0 18px;border-radius:var(--radius-control);border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.10);color:#fff;font-weight:800;cursor:pointer}
+    .placeholder{position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;background:linear-gradient(135deg,#111,#262626)}
+    .placeholder strong{display:block;font-size:clamp(16px,2.4vw,22px);margin-bottom:8px}.placeholder span{color:rgba(255,255,255,.68);font-size:13px}
+    .video-controls{display:flex;justify-content:center;gap:8px;align-items:center;padding:9px 4px 0;flex-wrap:wrap}
+    .control{min-height:38px;padding:0 15px;border-radius:var(--radius-control);border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.10);color:#fff;font-weight:800;cursor:pointer}
     .timer-note{color:rgba(255,255,255,.72);font-size:13px}
-    .cta-zone{display:grid;place-items:center;min-height:76px}
+    .cta-zone{display:grid;place-items:center;min-height:58px}
     .main-cta{display:none;align-items:center;justify-content:center;text-align:center;min-height:52px;padding:0 22px;border-radius:var(--radius-control);border:1px solid transparent;background:var(--copper-600);color:var(--white);font-weight:900;letter-spacing:.02em;text-decoration:none;box-shadow:0 18px 42px rgba(181,106,50,.28);cursor:pointer;animation:rise .32s ease both}
     .main-cta.show{display:inline-flex}@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
     .waiting{font-size:13px;color:var(--slate-600);text-align:center}.waiting strong{color:var(--slate-950)}
@@ -86,7 +86,7 @@
     .error{min-height:20px;color:#B42318;font-size:13px;font-weight:650}.lock-note{font-size:12px;color:var(--slate-600);text-align:center;margin-top:2px}
     .thanks{display:none;background:rgba(255,255,255,.82);border:1px solid rgba(17,17,17,.10);border-radius:18px;box-shadow:var(--shadow);padding:clamp(28px,5vw,46px);text-align:center}.thanks.show{display:block}.thanks h2{font-size:clamp(31px,5vw,52px);line-height:1.02;letter-spacing:-.025em;margin:0 0 12px}.thanks p{font-size:18px;color:var(--slate-600);margin:0 auto 22px;max-width:620px}.wa-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:var(--radius-control);background:var(--slate-950);color:#fff;font-weight:900;text-decoration:none}
     .noscript{margin-top:14px;color:#7A2E0E;font-size:13px;text-align:center}
-    @media(max-width:640px){.page{width:min(100% - 16px,760px);padding-top:16px}.logo-top img{width:92px}.hero{padding:22px 16px}.modal-body,.modal-head{padding:18px}.actions{justify-content:stretch}.btn{width:100%}.sub{font-weight:620}.video-frame{max-height:72vh}}
+    @media(max-width:640px){.page{width:min(100% - 14px,680px);padding-top:8px}.logo-top{margin-bottom:7px}.logo-top img{width:68px}.hero{padding:13px 13px;border-radius:13px}h1{font-size:17.2px;line-height:1.24;max-width:36ch;font-weight:620}.sub{font-size:13.4px;line-height:1.43;font-weight:500;text-align:left}.family{font-size:12.6px;line-height:1.42;text-align:left}.video-frame{width:min(196px,100%)}.control{min-height:36px;font-size:13px}.timer-note{font-size:11.5px}.modal-body,.modal-head{padding:18px}.actions{justify-content:stretch}.btn{width:100%}}
   </style>
 </head>
 <body oncopy="return false" oncut="return false" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
@@ -98,16 +98,16 @@
     <section class="shell" id="landing">
       <article class="hero">
         <p class="eyebrow">Implementação Advanx IA</p>
-        <h1>Desde 2020 implementamos funis de aquisição de clientes qualificados.<br><span>Vamos implementar o seu?</span></h1>
+        <h1>Desde 2020 implementamos funis de aquisição de clientes qualificados,<br><span>vamos implementar o seu ?</span></h1>
         <p class="sub">Receba no min 8 a 16 clientes prontos para fechar contrato, com garantia de resultados em até 41 dias, com a implementação feita.</p>
-        <p class="family">Assista ao vídeo rápido para entender como funciona nosso trabalho: gerar clientes prontos para fechar contrato e mais segurança financeira para sua familia.</p>
+        <p class="family">Assista ao vídeo rápido para entender como funciona o nosso trabalho que gera clientes prontos para fechar contratos, gerando mais segurança financeira para sua familia:</p>
       </article>
 
       <section class="video-card" aria-label="Vídeo explicativo">
         <div class="video-frame" id="videoFrame">
           <div id="player"></div>
           <div class="placeholder" id="videoPlaceholder">
-            <div><strong>Vídeo Advanx</strong><span>Substitua o ID do YouTube na constante <code>VIDEO_ID</code> para publicar o vídeo final.</span></div>
+            <div><strong>Vídeo Advanx</strong><span>Toque em play para assistir.</span></div>
           </div>
         </div>
         <div class="video-controls">
