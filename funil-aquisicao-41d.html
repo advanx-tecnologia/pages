@@ -50,29 +50,29 @@
     img,iframe,video{user-select:none;-webkit-user-drag:none}
     button,input{font:inherit}
     a{color:inherit}
-    .page{width:min(680px,calc(100% - 24px));margin:0 auto;padding:8px 0 30px}
-    .logo-top{display:flex;justify-content:center;align-items:center;margin:0 0 8px}
-    .logo-top img{width:min(82px,24vw);height:auto;display:block;filter:drop-shadow(0 8px 18px rgba(17,17,17,.10))}
-    .shell{display:grid;gap:12px}
-    .hero{background:rgba(255,255,255,.78);border:1px solid rgba(17,17,17,.10);border-radius:14px;box-shadow:0 10px 28px rgba(17,17,17,.065);padding:clamp(15px,3vw,24px);text-align:center;overflow:hidden;position:relative}
-    .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(181,106,50,.10),transparent 38%,rgba(17,17,17,.04));pointer-events:none}
+    .page{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:22px 0 42px}
+    .logo-top{display:flex;justify-content:center;align-items:center;margin:0 0 20px}
+    .logo-top img{width:min(92px,22vw);height:auto;display:block;filter:drop-shadow(0 8px 18px rgba(17,17,17,.10))}
+    .shell{display:grid;grid-template-columns:minmax(0,560px) 320px;gap:46px;align-items:center;justify-content:center;min-height:calc(100vh - 150px)}
+    .hero{background:transparent;border:0;border-radius:0;box-shadow:none;padding:0;text-align:left;overflow:visible;position:relative;max-width:620px}
+    .hero:before{display:none}
     .hero > *{position:relative}
-    .eyebrow{margin:0 0 8px;color:var(--copper-700);font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-    h1{margin:0 auto 10px;font-size:clamp(19.5px,2.7vw,27px);line-height:1.2;letter-spacing:-.01em;max-width:35ch;font-weight:640;text-wrap:balance}
-    .sub{margin:0 auto;color:#303030;font-size:clamp(14px,1.75vw,15.5px);line-height:1.45;max-width:560px;font-weight:500;text-wrap:pretty;text-align:left}
-    .family{margin:9px auto 0;color:var(--slate-600);font-size:clamp(12.8px,1.55vw,14px);line-height:1.44;max-width:540px;text-wrap:pretty;text-align:left}
-    .video-card{width:min(260px,100%);margin:0 auto;background:#090909;border:1px solid rgba(17,17,17,.16);border-radius:16px;box-shadow:0 14px 38px rgba(17,17,17,.16);padding:0;overflow:hidden;color:#fff;cursor:pointer}
-    .video-frame{position:relative;aspect-ratio:9/16;width:100%;height:auto;margin:0;border-radius:16px;overflow:hidden;background:#090909;display:grid;place-items:center}
+    .eyebrow{margin:0 0 14px;color:var(--copper-700);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    h1{margin:0 0 18px;font-size:clamp(34px,3.6vw,48px);line-height:1.06;letter-spacing:-.028em;max-width:520px;font-weight:720;text-wrap:balance}
+    h1 span{color:var(--copper-700)}
+    .sub{margin:0;color:#303030;font-size:clamp(18px,1.55vw,22px);line-height:1.36;max-width:560px;font-weight:620;text-wrap:balance;text-align:left}
+    .family{margin:16px 0 0;color:var(--slate-600);font-size:clamp(15px,1.18vw,17px);line-height:1.58;max-width:540px;text-wrap:pretty;text-align:left}
+    .video-stack{width:320px;max-width:100%;display:grid;gap:14px;justify-items:stretch;margin:0 auto}
+    .video-card{width:100%;margin:0;background:#090909;border:1px solid rgba(17,17,17,.16);border-radius:18px;box-shadow:0 20px 60px rgba(17,17,17,.18);padding:0;overflow:hidden;color:#fff;cursor:pointer}
+    .video-frame{position:relative;aspect-ratio:9/16;width:100%;height:auto;margin:0;border-radius:18px;overflow:hidden;background:#090909;display:grid;place-items:center}
     .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
-    .placeholder{position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;background:linear-gradient(135deg,#111,#262626)}
-    .placeholder strong{display:block;font-size:clamp(16px,2.4vw,22px);margin-bottom:8px}.placeholder span{color:rgba(255,255,255,.68);font-size:13px}
-    .video-controls{display:none}
-    .control{display:none}
-    .timer-note{display:none}
-    .cta-zone{display:grid;place-items:center;min-height:58px}.cta-zone.unlocked{min-height:84px}
-    .main-cta{display:none;align-items:center;justify-content:center;text-align:center;min-height:52px;padding:0 22px;border-radius:var(--radius-control);border:1px solid transparent;background:var(--copper-600);color:var(--white);font-weight:900;letter-spacing:.02em;text-decoration:none;box-shadow:0 18px 42px rgba(181,106,50,.28);cursor:pointer;animation:rise .32s ease both}
-    .main-cta.show{display:inline-flex;position:fixed;left:16px;right:16px;bottom:16px;z-index:80;width:auto;max-width:560px;margin:0 auto}@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-    .waiting{font-size:13px;color:var(--slate-600);text-align:center}.waiting strong{color:var(--slate-950)}
+    .placeholder{position:absolute;inset:0;display:grid;place-items:center;padding:0;text-align:center;background:linear-gradient(150deg,#151515,#050505)}
+    .placeholder strong,.placeholder span{display:none}
+    .video-controls,.control,.timer-note{display:none}
+    .cta-zone{display:grid;place-items:stretch;min-height:0;width:100%;margin:0}.cta-zone.unlocked{min-height:0}
+    .main-cta{display:none;align-items:center;justify-content:center;text-align:center;min-height:54px;width:100%;padding:0 18px;border-radius:12px;border:1px solid rgba(181,106,50,.22);background:var(--copper-600);color:var(--white);font-weight:900;letter-spacing:.015em;text-decoration:none;box-shadow:0 14px 34px rgba(181,106,50,.24);cursor:pointer;animation:rise .28s ease both}
+    .main-cta.show{display:flex}@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .waiting{display:none}
     dialog{width:min(620px,calc(100% - 22px));border:0;border-radius:18px;padding:0;background:transparent;color:var(--slate-950)}
     dialog::backdrop{background:rgba(17,17,17,.74);backdrop-filter:blur(10px)}
     .modal-card{background:var(--white);border:1px solid rgba(17,17,17,.12);border-radius:18px;box-shadow:0 30px 90px rgba(0,0,0,.34);overflow:hidden}
@@ -86,7 +86,7 @@
     .error{min-height:20px;color:#B42318;font-size:13px;font-weight:650}.lock-note{font-size:12px;color:var(--slate-600);text-align:center;margin-top:2px}
     .thanks{display:none;background:rgba(255,255,255,.82);border:1px solid rgba(17,17,17,.10);border-radius:18px;box-shadow:var(--shadow);padding:clamp(28px,5vw,46px);text-align:center}.thanks.show{display:block}.thanks h2{font-size:clamp(31px,5vw,52px);line-height:1.02;letter-spacing:-.025em;margin:0 0 12px}.thanks p{font-size:18px;color:var(--slate-600);margin:0 auto 22px;max-width:620px}.wa-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:var(--radius-control);background:var(--slate-950);color:#fff;font-weight:900;text-decoration:none}
     .noscript{margin-top:14px;color:#7A2E0E;font-size:13px;text-align:center}
-    @media(max-width:640px){.page{width:min(100% - 14px,680px);padding-top:8px}.logo-top{margin-bottom:7px}.logo-top img{width:68px}.hero{padding:13px 13px;border-radius:13px}h1{font-size:17.2px;line-height:1.24;max-width:36ch;font-weight:620}.sub{font-size:13.4px;line-height:1.43;font-weight:500;text-align:left}.family{font-size:12.6px;line-height:1.42;text-align:left}.video-card{width:min(244px,100%)}.video-frame{width:100%}.modal-body,.modal-head{padding:18px}.actions{justify-content:stretch}.btn{width:100%}}
+    @media(max-width:820px){.page{width:min(100% - 22px,520px);padding:12px 0 34px}.logo-top{margin-bottom:12px}.logo-top img{width:72px}.shell{display:grid;grid-template-columns:1fr;gap:18px;min-height:0;align-items:start}.hero{text-align:center;max-width:none}.eyebrow{margin-bottom:9px;font-size:10.5px}h1{margin:0 auto 12px;font-size:clamp(24px,6.2vw,30px);line-height:1.1;max-width:340px;font-weight:680;text-align:center}.sub{font-size:15.5px;line-height:1.42;font-weight:550;text-align:center;margin:0 auto;max-width:350px}.family{font-size:13.7px;line-height:1.44;text-align:center;margin:10px auto 0;max-width:340px}.video-stack{width:min(286px,100%);gap:12px}.video-card,.video-frame{border-radius:16px}.main-cta{min-height:50px;font-size:13.5px;border-radius:11px}.modal-body,.modal-head{padding:18px}.actions{justify-content:stretch}.btn{width:100%}}
   </style>
 </head>
 <body oncopy="return false" oncut="return false" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
@@ -98,21 +98,22 @@
     <section class="shell" id="landing">
       <article class="hero">
         <p class="eyebrow">Implementação Advanx IA</p>
-        <h1>Desde 2020 implementamos funis de aquisição de clientes qualificados,<br><span>vamos implementar o seu ?</span></h1>
+        <h1>Desde 2020 implementamos funis de aquisição de clientes qualificados, <span>vamos implementar o seu&nbsp;?</span></h1>
         <p class="sub">Receba no min 8 a 16 clientes prontos para fechar contrato, com garantia de resultados em até 41 dias, com a implementação feita.</p>
         <p class="family">Assista ao vídeo rápido para entender como funciona o nosso trabalho que gera clientes prontos para fechar contratos, gerando mais segurança financeira para sua familia:</p>
       </article>
 
-      <section class="video-card" aria-label="Vídeo explicativo">
-        <div class="video-frame" id="videoFrame">
-          <div id="player"></div>
-          <div class="placeholder" id="videoPlaceholder" aria-hidden="true"></div>
+      <div class="video-stack">
+        <section class="video-card" aria-label="Vídeo explicativo">
+          <div class="video-frame" id="videoFrame">
+            <div id="player"></div>
+            <div class="placeholder" id="videoPlaceholder" aria-hidden="true"></div>
+          </div>
+        </section>
+        <div class="cta-zone">
+          <button class="main-cta" id="openForm" type="button">QUERO IMPLEMENTAR O FUNIL</button>
+          <div class="waiting" id="waitingText" aria-hidden="true"></div>
         </div>
-      </section>
-
-      <div class="cta-zone">
-        <button class="main-cta" id="openForm" type="button">QUERO IMPLEMENTAR O FUNIL</button>
-        <div class="waiting" id="waitingText" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -180,7 +181,8 @@
       QUALIFIED_TEXT: 'Oi, Quero implementar o SCI com garantia de contratos fechados em até 41d',
       DOWNSELL_TEXT: 'Oi, por enquanto o SCI com garantia de contratos em 41d não é pra mim, mas quero conhecer as soluções de captação e conteúdo.',
       STORAGE_KEY: 'advanx_funil_aquisicao_41d_submitted_v1',
-      CTA_STARTED_KEY: 'advanx_funil_aquisicao_41d_cta_started_at_v1'
+      CTA_STARTED_KEY: 'advanx_funil_aquisicao_41d_cta_started_at_v2',
+      CTA_OLD_STARTED_KEY: 'advanx_funil_aquisicao_41d_cta_started_at_v1'
     };
     const $ = (s) => document.querySelector(s);
     const state = {step:1, answers:{}, player:null, videoReady:false, playing:false, viewContent:false, ctaRevealed:false, submitting:false};
@@ -260,15 +262,27 @@
       $('#waitingText').style.display='none';
       trackBoth('cta_revealed',{origem:'funil-aquisicao-41d'});
     }
+    function readStoredStart(){
+      const candidates = [
+        Number(localStorage.getItem(CONFIG.CTA_STARTED_KEY) || 0),
+        Number(localStorage.getItem(CONFIG.CTA_OLD_STARTED_KEY) || 0),
+        Number(sessionStorage.getItem(CONFIG.CTA_OLD_STARTED_KEY) || 0)
+      ].filter(Boolean);
+      return candidates.length ? Math.min(...candidates) : 0;
+    }
     function getCtaStart(){
-      const existing = Number(sessionStorage.getItem(CONFIG.CTA_STARTED_KEY) || 0);
-      if(existing) return existing;
+      const existing = readStoredStart();
+      if(existing){
+        localStorage.setItem(CONFIG.CTA_STARTED_KEY, String(existing));
+        return existing;
+      }
       const now = Date.now();
-      sessionStorage.setItem(CONFIG.CTA_STARTED_KEY, String(now));
+      localStorage.setItem(CONFIG.CTA_STARTED_KEY, String(now));
       return now;
     }
-    const ctaStartedAt = getCtaStart();
+    let ctaStartedAt = getCtaStart();
     function checkCtaUnlock(){
+      ctaStartedAt = readStoredStart() || ctaStartedAt;
       if(Date.now() - ctaStartedAt >= CONFIG.CTA_DELAY_MS) revealCta();
     }
     checkCtaUnlock();
