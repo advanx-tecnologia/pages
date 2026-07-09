@@ -181,6 +181,8 @@
       QUALIFIED_TEXT: 'Oi, Quero implementar o SCI com garantia de contratos fechados em até 41d',
       DOWNSELL_TEXT: 'Oi, por enquanto o SCI com garantia de contratos em 41d não é pra mim, mas quero conhecer as soluções de captação e conteúdo.',
       STORAGE_KEY: 'advanx_funil_aquisicao_41d_submitted_v1',
+      CTA_DEADLINE_KEY: 'advanx_funil_aquisicao_41d_cta_deadline_v1',
+      CTA_REVEALED_KEY: 'advanx_funil_aquisicao_41d_cta_revealed_v1',
       CTA_STARTED_KEY: 'advanx_funil_aquisicao_41d_cta_started_at_v2',
       CTA_OLD_STARTED_KEY: 'advanx_funil_aquisicao_41d_cta_started_at_v1'
     };
@@ -257,40 +259,54 @@
     function revealCta(){
       if(state.ctaRevealed) return;
       state.ctaRevealed = true;
+      localStorage.setItem(CONFIG.CTA_REVEALED_KEY, '1');
       $('#openForm').classList.add('show');
       $('.cta-zone').classList.add('unlocked');
       $('#waitingText').style.display='none';
       trackBoth('cta_revealed',{origem:'funil-aquisicao-41d'});
     }
-    function readStoredStart(){
-      const candidates = [
+    function readMigratedDeadline(){
+      const savedDeadline = Number(localStorage.getItem(CONFIG.CTA_DEADLINE_KEY) || 0);
+      if(savedDeadline && Number.isFinite(savedDeadline)) return savedDeadline;
+      const starts = [
         Number(localStorage.getItem(CONFIG.CTA_STARTED_KEY) || 0),
         Number(localStorage.getItem(CONFIG.CTA_OLD_STARTED_KEY) || 0),
         Number(sessionStorage.getItem(CONFIG.CTA_OLD_STARTED_KEY) || 0)
-      ].filter(Boolean);
-      return candidates.length ? Math.min(...candidates) : 0;
+      ].filter(v => v && Number.isFinite(v));
+      if(!starts.length) return 0;
+      return Math.min(...starts) + CONFIG.CTA_DELAY_MS;
     }
-    function getCtaStart(){
-      const existing = readStoredStart();
+    function getCtaDeadline(){
+      if(localStorage.getItem(CONFIG.CTA_REVEALED_KEY) === '1') return 0;
+      const existing = readMigratedDeadline();
       if(existing){
-        localStorage.setItem(CONFIG.CTA_STARTED_KEY, String(existing));
+        localStorage.setItem(CONFIG.CTA_DEADLINE_KEY, String(existing));
         return existing;
       }
-      const now = Date.now();
-      localStorage.setItem(CONFIG.CTA_STARTED_KEY, String(now));
-      return now;
+      const deadline = Date.now() + CONFIG.CTA_DELAY_MS;
+      localStorage.setItem(CONFIG.CTA_DEADLINE_KEY, String(deadline));
+      return deadline;
     }
-    let ctaStartedAt = getCtaStart();
+    const ctaDeadline = getCtaDeadline();
     function checkCtaUnlock(){
-      ctaStartedAt = readStoredStart() || ctaStartedAt;
-      if(Date.now() - ctaStartedAt >= CONFIG.CTA_DELAY_MS) revealCta();
+      if(localStorage.getItem(CONFIG.CTA_REVEALED_KEY) === '1' || ctaDeadline <= Date.now()){
+        revealCta();
+        return 0;
+      }
+      return ctaDeadline - Date.now();
     }
-    checkCtaUnlock();
-    const ctaTimer = setInterval(()=>{
-      checkCtaUnlock();
-      if(state.ctaRevealed) clearInterval(ctaTimer);
-    }, 1000);
-    setTimeout(revealCta, Math.max(0, CONFIG.CTA_DELAY_MS - (Date.now() - ctaStartedAt)));
+    const initialRemaining = checkCtaUnlock();
+    let ctaTimeout = null;
+    let ctaTimer = null;
+    if(initialRemaining > 0){
+      ctaTimeout = setTimeout(revealCta, initialRemaining);
+      ctaTimer = setInterval(()=>{
+        if(checkCtaUnlock() <= 0 || state.ctaRevealed){
+          if(ctaTimer) clearInterval(ctaTimer);
+          if(ctaTimeout) clearTimeout(ctaTimeout);
+        }
+      }, 1000);
+    }
     document.addEventListener('visibilitychange', checkCtaUnlock);
     window.addEventListener('focus', checkCtaUnlock);
     window.__forceRevealCta = revealCta;
