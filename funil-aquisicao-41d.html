@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advanx IA — Funil de Aquisição em 41 dias</title>
+  <meta name="description" content="Implementação de funis de aquisição para advogados com garantia de resultados em até 41 dias.">
+  <meta name="theme-color" content="#F6F1E8">
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://i.ytimg.com">
+  <link rel="dns-prefetch" href="//www.googletagmanager.com">
+  <link rel="dns-prefetch" href="//connect.facebook.net">
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)}
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','502759528362336');
+    fbq('track','PageView');
+    gtag('js', new Date());
+    gtag('config','G-98EL5GXG5F');
+    (function(){
+      var loaded=false;
+      function load(src){var s=document.createElement('script');s.async=true;s.src=src;document.head.appendChild(s)}
+      function boot(){if(loaded)return;loaded=true;load('https://connect.facebook.net/en_US/fbevents.js');load('https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F')}
+      ['pointerdown','touchstart','keydown','scroll'].forEach(function(evt){window.addEventListener(evt,boot,{once:true,passive:true})});
+      window.addEventListener('load',function(){setTimeout(boot,1200)},{once:true});
+    })();
+  </script>
+  <style>
+    :root{
+      --copper-700:#A45F2B;
+      --copper-600:#B56A32;
+      --copper-500:#CC7A3B;
+      --orange-600:#FF5600;
+      --cream-50:#F6F1E8;
+      --cream-100:#EFE6D8;
+      --warm-200:#D3CEC6;
+      --slate-950:#111111;
+      --slate-800:#262626;
+      --slate-600:#5B5B5B;
+      --white:#FFFFFF;
+      --line:#D8D1C4;
+      --radius:10px;
+      --radius-control:8px;
+      --shadow:0 22px 70px rgba(17,17,17,.10);
+      color-scheme:light;
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;min-height:100%;background:radial-gradient(circle at 12% -12%,rgba(181,106,50,.16),transparent 30%),radial-gradient(circle at 90% 0,rgba(17,17,17,.07),transparent 24%),var(--cream-50);color:var(--slate-950);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;user-select:none;-webkit-user-select:none}
+    img,iframe,video{user-select:none;-webkit-user-drag:none}
+    button,input{font:inherit}
+    a{color:inherit}
+    .page{width:min(980px,calc(100% - 32px));margin:0 auto;padding:28px 0 42px}
+    .logo-top{display:flex;justify-content:center;align-items:center;margin:4px 0 24px}
+    .logo-top img{width:min(210px,54vw);height:auto;display:block;filter:drop-shadow(0 16px 34px rgba(17,17,17,.10))}
+    .shell{display:grid;gap:20px}
+    .hero{background:rgba(255,255,255,.78);border:1px solid rgba(17,17,17,.10);border-radius:18px;box-shadow:var(--shadow);padding:clamp(24px,5vw,46px);text-align:center;overflow:hidden;position:relative}
+    .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(181,106,50,.10),transparent 38%,rgba(17,17,17,.04));pointer-events:none}
+    .hero > *{position:relative}
+    .eyebrow{margin:0 0 12px;color:var(--copper-700);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    h1{margin:0 auto 18px;font-size:clamp(34px,6vw,60px);line-height:1.02;letter-spacing:-.025em;max-width:13.5ch;font-weight:750}
+    .sub{margin:0 auto;color:#373737;font-size:clamp(18px,2.7vw,23px);line-height:1.42;max-width:780px;font-weight:560}
+    .family{margin:18px auto 0;color:var(--slate-600);font-size:clamp(16px,2vw,18px);max-width:760px}
+    .video-card{background:linear-gradient(180deg,#1f1f1f 0%,#111 100%);border:1px solid rgba(17,17,17,.16);border-radius:18px;box-shadow:var(--shadow);padding:12px;overflow:hidden;color:#fff}
+    .video-frame{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#090909;display:grid;place-items:center}
+    .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+    .placeholder{position:absolute;inset:0;display:grid;place-items:center;padding:28px;text-align:center;background:linear-gradient(135deg,#111,#262626)}
+    .placeholder strong{display:block;font-size:clamp(18px,3vw,28px);margin-bottom:8px}.placeholder span{color:rgba(255,255,255,.68)}
+    .video-controls{display:flex;justify-content:center;gap:10px;align-items:center;padding:12px 4px 2px;flex-wrap:wrap}
+    .control{min-height:42px;padding:0 18px;border-radius:var(--radius-control);border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.10);color:#fff;font-weight:800;cursor:pointer}
+    .timer-note{color:rgba(255,255,255,.72);font-size:13px}
+    .cta-zone{display:grid;place-items:center;min-height:76px}
+    .main-cta{display:none;align-items:center;justify-content:center;text-align:center;min-height:52px;padding:0 22px;border-radius:var(--radius-control);border:1px solid transparent;background:var(--copper-600);color:var(--white);font-weight:900;letter-spacing:.02em;text-decoration:none;box-shadow:0 18px 42px rgba(181,106,50,.28);cursor:pointer;animation:rise .32s ease both}
+    .main-cta.show{display:inline-flex}@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .waiting{font-size:13px;color:var(--slate-600);text-align:center}.waiting strong{color:var(--slate-950)}
+    dialog{width:min(620px,calc(100% - 22px));border:0;border-radius:18px;padding:0;background:transparent;color:var(--slate-950)}
+    dialog::backdrop{background:rgba(17,17,17,.74);backdrop-filter:blur(10px)}
+    .modal-card{background:var(--white);border:1px solid rgba(17,17,17,.12);border-radius:18px;box-shadow:0 30px 90px rgba(0,0,0,.34);overflow:hidden}
+    .modal-head{padding:22px 24px;background:linear-gradient(135deg,var(--cream-50),#fff);border-bottom:1px solid var(--line)}
+    .modal-head h2{margin:0;font-size:clamp(23px,4vw,31px);line-height:1.08;letter-spacing:-.02em}.modal-head p{margin:8px 0 0;color:var(--slate-600);font-size:14px}
+    .progress{height:5px;background:var(--cream-100);overflow:hidden}.bar{height:100%;width:33.33%;background:var(--copper-600);transition:.25s ease}
+    .modal-body{padding:24px;display:grid;gap:16px}.step{display:none}.step.active{display:grid;gap:14px;animation:fade .2s ease}@keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+    label{display:grid;gap:6px;font-weight:750;font-size:14px}.field{width:100%;min-height:46px;border:1px solid var(--line);border-radius:var(--radius-control);background:#fff;padding:0 13px;color:var(--slate-950);outline:none}.field:focus{border-color:var(--copper-600);box-shadow:0 0 0 3px rgba(181,106,50,.16)}
+    .choice-grid{display:grid;gap:10px}.choice{width:100%;min-height:54px;text-align:left;border:1px solid var(--line);background:#fff;border-radius:var(--radius-control);padding:13px 14px;cursor:pointer;font-weight:720;color:var(--slate-950)}.choice small{display:block;color:var(--slate-600);font-weight:560;margin-top:3px}.choice.selected{border-color:var(--copper-600);background:var(--cream-50);box-shadow:0 0 0 3px rgba(181,106,50,.12)}
+    .actions{display:flex;gap:10px;justify-content:flex-end;align-items:center;margin-top:4px}.btn{min-height:46px;padding:0 18px;border-radius:var(--radius-control);border:1px solid var(--line);background:#fff;color:var(--slate-950);font-weight:850;cursor:pointer}.btn.primary{background:var(--copper-600);border-color:var(--copper-600);color:#fff}.btn.primary:hover,.main-cta:hover{background:var(--copper-700)}.btn:disabled{opacity:.55;cursor:not-allowed}
+    .error{min-height:20px;color:#B42318;font-size:13px;font-weight:650}.lock-note{font-size:12px;color:var(--slate-600);text-align:center;margin-top:2px}
+    .thanks{display:none;background:rgba(255,255,255,.82);border:1px solid rgba(17,17,17,.10);border-radius:18px;box-shadow:var(--shadow);padding:clamp(28px,5vw,46px);text-align:center}.thanks.show{display:block}.thanks h2{font-size:clamp(31px,5vw,52px);line-height:1.02;letter-spacing:-.025em;margin:0 0 12px}.thanks p{font-size:18px;color:var(--slate-600);margin:0 auto 22px;max-width:620px}.wa-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:var(--radius-control);background:var(--slate-950);color:#fff;font-weight:900;text-decoration:none}
+    .noscript{margin-top:14px;color:#7A2E0E;font-size:13px;text-align:center}
+    @media(max-width:640px){.page{width:min(100% - 16px,980px);padding-top:18px}.hero{padding:24px 18px}.modal-body,.modal-head{padding:18px}.actions{justify-content:stretch}.btn{width:100%}.sub{font-weight:520}}
+  </style>
+</head>
+<body oncopy="return false" oncut="return false" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+  <main class="page" id="pageRoot">
+    <div class="logo-top">
+      <img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/logo-advanx-transparente.webp" alt="Advanx">
+    </div>
+
+    <section class="shell" id="landing">
+      <article class="hero">
+        <p class="eyebrow">Implementação Advanx IA</p>
+        <h1>Desde 2020 implementamos funis de aquisição de clientes qualificados, vamos implementar o seu ?</h1>
+        <p class="sub">Receba no min 8 a 16 clientes prontos para fechar contrato, com garantia de resultados em até 41 dias, com a implementação feita.</p>
+        <p class="family">Assista ao vídeo rápido para entender como funciona o nosso trabalho que gera clientes prontos para fechar contratos, gerando mais segurança financeira para sua familia:</p>
+      </article>
+
+      <section class="video-card" aria-label="Vídeo explicativo">
+        <div class="video-frame" id="videoFrame">
+          <div id="player"></div>
+          <div class="placeholder" id="videoPlaceholder">
+            <div><strong>Vídeo Advanx</strong><span>Substitua o ID do YouTube na constante <code>VIDEO_ID</code> para publicar o vídeo final.</span></div>
+          </div>
+        </div>
+        <div class="video-controls">
+          <button class="control" id="playPause" type="button">▶ Dar play</button>
+          <span class="timer-note" id="videoStatus">Controle limitado a play e pause.</span>
+        </div>
+      </section>
+
+      <div class="cta-zone">
+        <button class="main-cta" id="openForm" type="button">QUERO IMPLEMENTAR O FUNIL</button>
+        <div class="waiting" id="waitingText">O botão será liberado após <strong>12 minutos</strong> assistindo esta página.</div>
+      </div>
+    </section>
+
+    <section class="thanks" id="thanks" aria-live="polite">
+      <h2>Opa, falta muito pouco <span id="thanksName"></span></h2>
+      <p>Acabamos de receber seu contato.</p>
+      <a class="wa-btn" id="whatsappFinal" target="_blank" rel="noopener">Toque no botão abaixo para falar conosco no whatsapp</a>
+    </section>
+  </main>
+
+  <dialog id="leadDialog" aria-labelledby="modalTitle">
+    <form method="dialog" class="modal-card" id="leadForm" autocomplete="on">
+      <div class="modal-head">
+        <h2 id="modalTitle">Aplicação para implementação do funil</h2>
+        <p>Responda com atenção. Depois do envio, essa aplicação não poderá ser refeita neste navegador.</p>
+      </div>
+      <div class="progress"><div class="bar" id="formBar"></div></div>
+      <div class="modal-body">
+        <div class="step active" data-step="1">
+          <label>Nome completo
+            <input class="field" id="nome" name="nome" autocomplete="name" required>
+          </label>
+          <label>Whatsapp
+            <input class="field" id="whatsapp" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="(71) 99999-9999" required>
+          </label>
+          <label>Email
+            <input class="field" id="email" name="email" type="email" autocomplete="email" required>
+          </label>
+          <div class="actions"><button class="btn primary" id="next1" type="button">Próximo</button></div>
+        </div>
+
+        <div class="step" data-step="2">
+          <p class="eyebrow">Quando pretende implementar esse projeto?</p>
+          <div class="choice-grid" data-field="prazo">
+            <button class="choice" type="button" data-value="O quanto antes">O quanto antes</button>
+            <button class="choice" type="button" data-value="essa semana ainda">essa semana ainda</button>
+            <button class="choice" type="button" data-value="ainda não sei">ainda não sei</button>
+          </div>
+          <div class="actions"><button class="btn primary" id="next2" type="button">Próximo</button></div>
+        </div>
+
+        <div class="step" data-step="3">
+          <p class="eyebrow">Quanto pretende investir mensalmente na equipe e em tráfego [instagram, google, tiktok, youtube)?</p>
+          <div class="choice-grid" data-field="investimento">
+            <button class="choice" type="button" data-value="Menos que R$2.500 mensal"><span>❌ Menos que R$2.500 mensal</span><small>Não temos serviços + tráfego abaixo deste valor, apenas sistemas ou consultorias.</small></button>
+            <button class="choice" type="button" data-value="Acima de R$ 2.500 mensal"><span>✅ Acima de R$ 2.500 mensal</span><small>Ótimo! conseguimos te atender com nossos serviços e consultorias</small></button>
+          </div>
+          <div class="actions"><button class="btn primary" id="submitLead" type="button">Toque para falar conosco agora mesmo.</button></div>
+        </div>
+        <div class="error" id="formError"></div>
+        <div class="lock-note">A janela é bloqueada para evitar envio duplicado e inconsistência nas respostas.</div>
+      </div>
+    </form>
+  </dialog>
+
+  <noscript><p class="noscript">Ative o JavaScript para assistir ao vídeo e preencher a aplicação.</p></noscript>
+
+  <script>
+    'use strict';
+    const CONFIG = {
+      VIDEO_ID: 'COLOQUE_AQUI_O_ID_DO_VIDEO',
+      CTA_DELAY_MS: 12 * 60 * 1000,
+      WHATSAPP_NUMBER: '5571982470873',
+      WEBHOOK_URL: 'https://n8n.advfunnel.com.br/webhook/cb33d994-f6ab-446a-9ba7-fc6f4fd24e0e/:leads',
+      QUALIFIED_TEXT: 'Oi, Quero implementar o SCI com garantia de contratos fechados em até 41d',
+      DOWNSELL_TEXT: 'Oi, por enquanto o SCI com garantia de contratos em 41d não é pra mim, mas quero conhecer as soluções de captação e conteúdo.',
+      STORAGE_KEY: 'advanx_funil_aquisicao_41d_submitted_v1'
+    };
+    const $ = (s) => document.querySelector(s);
+    const state = {step:1, answers:{}, player:null, videoReady:false, playing:false, viewContent:false, ctaRevealed:false, submitting:false};
+    const qs = new URLSearchParams(location.search);
+    const UTM = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].reduce((acc,k)=>{acc[k]=qs.get(k)||null;return acc},{});
+
+    function trackMeta(name, params={}){try{fbq('track', name, params)}catch(e){}}
+    function trackMetaCustom(name, params={}){try{fbq('trackCustom', name, params)}catch(e){}}
+    function trackGa(name, params={}){try{gtag('event', name, params)}catch(e){}}
+    function trackBoth(name, params={}){trackMetaCustom(name, params); trackGa(name, params)}
+    function pageView(){trackGa('page_view',{page_title:document.title,page_location:location.href})}
+    pageView();
+
+    function blockShortcuts(e){
+      const k = String(e.key || '').toLowerCase();
+      if(k === 'f12' || ((e.ctrlKey || e.metaKey) && ['c','x','u','s','p','a'].includes(k)) || ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i','j','c'].includes(k))){
+        e.preventDefault();
+        return false;
+      }
+    }
+    ['contextmenu','copy','cut','selectstart','dragstart'].forEach(evt=>document.addEventListener(evt,e=>e.preventDefault()));
+    document.addEventListener('keydown', blockShortcuts);
+
+    function normalizePhoneBR(v){let d=(v||'').replace(/\D/g,''); if(!d) return ''; return d.startsWith('55') ? d : '55' + d;}
+    function formatPhone(v){let d=(v||'').replace(/\D/g,''); if(d.startsWith('55')) d=d.slice(2); d=d.slice(0,11); if(d.length<=2)return d?`(${d}`:''; if(d.length<=7)return `(${d.slice(0,2)}) ${d.slice(2)}`; return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;}
+    $('#whatsapp').addEventListener('input', e=>{e.target.value=formatPhone(e.target.value)});
+
+    function isPlaceholderVideo(){return !CONFIG.VIDEO_ID || CONFIG.VIDEO_ID.includes('COLOQUE_AQUI')}
+    function loadYouTubeApi(){
+      if(isPlaceholderVideo()) return;
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    }
+    window.onYouTubeIframeAPIReady = function(){
+      state.player = new YT.Player('player', {
+        videoId: CONFIG.VIDEO_ID,
+        playerVars: {autoplay:0,controls:0,disablekb:1,modestbranding:1,rel:0,iv_load_policy:3,playsinline:1,fs:0,origin:location.origin},
+        events: {
+          onReady(){state.videoReady=true; $('#videoPlaceholder').style.display='none';},
+          onStateChange(event){
+            if(event.data === YT.PlayerState.PLAYING){state.playing=true; $('#playPause').textContent='⏸ Pausar'; fireViewContent();}
+            if(event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED){state.playing=false; $('#playPause').textContent='▶ Dar play';}
+          }
+        }
+      });
+    };
+    function fireViewContent(){
+      if(state.viewContent) return;
+      state.viewContent = true;
+      const params = {origem:'funil-aquisicao-41d', video_id: CONFIG.VIDEO_ID, ...UTM};
+      trackMeta('ViewContent', params);
+      trackGa('view_content', params);
+    }
+    $('#playPause').addEventListener('click',()=>{
+      if(isPlaceholderVideo()){
+        fireViewContent();
+        $('#videoStatus').textContent='Vídeo ainda sem ID final. Evento ViewContent disparado para teste.';
+        return;
+      }
+      if(!state.videoReady || !state.player){$('#videoStatus').textContent='Carregando vídeo...'; return;}
+      if(state.playing){state.player.pauseVideo();} else {state.player.playVideo();}
+    });
+    loadYouTubeApi();
+
+    function revealCta(){
+      if(state.ctaRevealed) return;
+      state.ctaRevealed = true;
+      $('#openForm').classList.add('show');
+      $('#waitingText').style.display='none';
+      trackBoth('cta_revealed',{origem:'funil-aquisicao-41d'});
+    }
+    setTimeout(revealCta, CONFIG.CTA_DELAY_MS);
+    window.__forceRevealCta = revealCta;
+
+    function setModalStep(step){
+      state.step = step;
+      document.querySelectorAll('.step').forEach(el=>el.classList.toggle('active', Number(el.dataset.step) === step));
+      $('#formBar').style.width = `${step/3*100}%`;
+      $('#formError').textContent = '';
+      trackBoth('form_step_view',{origem:'funil-aquisicao-41d', step});
+    }
+    function openDialogLocked(){
+      if(localStorage.getItem(CONFIG.STORAGE_KEY)) { renderThanks(JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY))); return; }
+      const d = $('#leadDialog');
+      setModalStep(1);
+      d.showModal();
+      history.pushState({modal:true},'',location.href);
+    }
+    $('#openForm').addEventListener('click', openDialogLocked);
+    $('#leadDialog').addEventListener('cancel', e=>e.preventDefault());
+    window.addEventListener('popstate',()=>{
+      if($('#leadDialog').open) {
+        history.pushState({modal:true},'',location.href);
+      }
+    });
+
+    document.querySelectorAll('.choice-grid').forEach(group=>{
+      group.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+        group.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
+        btn.classList.add('selected');
+        state.answers[group.dataset.field] = btn.dataset.value;
+        trackBoth('answer_select',{origem:'funil-aquisicao-41d', field:group.dataset.field, value:btn.dataset.value});
+      }));
+    });
+
+    function validateStep1(){
+      const nome=$('#nome').value.trim();
+      const whatsapp=$('#whatsapp').value.trim();
+      const email=$('#email').value.trim();
+      if(!nome || !whatsapp || !email) return 'Preencha nome completo, Whatsapp e Email.';
+      if(!/^\S+@\S+\.\S+$/.test(email)) return 'Digite um email válido.';
+      const phone = normalizePhoneBR(whatsapp);
+      if(phone.length < 12) return 'Digite um Whatsapp válido.';
+      Object.assign(state.answers,{nome,whatsapp,whatsapp_normalizado:phone,email});
+      return '';
+    }
+    function validateChoice(field,msg){if(!state.answers[field]) return msg; return '';}
+    $('#next1').addEventListener('click',()=>{const err=validateStep1(); if(err){$('#formError').textContent=err; return;} setModalStep(2);});
+    $('#next2').addEventListener('click',()=>{const err=validateChoice('prazo','Selecione quando pretende implementar esse projeto.'); if(err){$('#formError').textContent=err; return;} setModalStep(3);});
+
+    function isQualified(payload){return payload.prazo !== 'ainda não sei' && payload.investimento === 'Acima de R$ 2.500 mensal';}
+    function buildWhatsappLink(payload){
+      const baseText = isQualified(payload) ? CONFIG.QUALIFIED_TEXT : CONFIG.DOWNSELL_TEXT;
+      const details = `\n\nNome: ${payload.nome}\nWhatsapp: ${payload.whatsapp_normalizado}\nEmail: ${payload.email}\nPrazo: ${payload.prazo}\nInvestimento: ${payload.investimento}`;
+      return `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(baseText + details)}`;
+    }
+    function buildWebhookMessage(payload){
+      return [
+        '*Novo lead — Funil Aquisição 41D*','',
+        `*Nome:* ${payload.nome}`,
+        `*WhatsApp:* ${payload.whatsapp_normalizado}`,
+        `*E-mail:* ${payload.email}`,'',
+        '*Qualificação*',
+        `• Prazo: ${payload.prazo}`,
+        `• Investimento mensal equipe + tráfego: ${payload.investimento}`,
+        `• Lead qualificado: ${payload.qualificado ? 'Sim' : 'Não'}`,'',
+        '*Rastreamento*',
+        `• Origem: funil-aquisicao-41d`,
+        `• Página: ${location.href}`,
+        `• UTM Source: ${payload.utm_source || 'organico'}`,
+        `• UTM Campaign: ${payload.utm_campaign || '—'}`,
+        `• UTM Medium: ${payload.utm_medium || '—'}`,
+        `• UTM Content: ${payload.utm_content || '—'}`,
+        `• UTM Term: ${payload.utm_term || '—'}`,
+        `• Enviado em: ${new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(new Date())} BRT`
+      ].join('\n');
+    }
+    async function notify(payload){
+      if(!CONFIG.WEBHOOK_URL) return null;
+      const body = {
+        origem:'funil-aquisicao-41d', pagina:'Video Funil 41D', destino:'advanxia_comercial', canal:'whatsapp_grupo_comercial',
+        grupo_destino:'Advanx IA COMERCIAL', instancia_preferida:'advanxia', instancias_permitidas:['advanxia','jessica'],
+        nome:payload.nome, whatsapp:payload.whatsapp_normalizado, email:payload.email, prazo:payload.prazo, investimento:payload.investimento,
+        qualificado:payload.qualificado, mensagem_formatada:buildWebhookMessage(payload), page_url:location.href, ...UTM, ts:new Date().toISOString()
+      };
+      const res = await fetch(CONFIG.WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      if(!res.ok) throw new Error(`Webhook ${res.status}: ${await res.text()}`);
+      return res.json().catch(()=>null);
+    }
+    function renderThanks(payload){
+      $('#leadDialog').close();
+      $('#landing').style.display='none';
+      $('#thanks').classList.add('show');
+      $('#thanksName').textContent = payload?.nome ? `, ${payload.nome.split(' ')[0]}` : '';
+      $('#whatsappFinal').href = buildWhatsappLink(payload || state.answers);
+      try{history.replaceState({done:true},'',location.pathname + location.search + '#contato-recebido')}catch(e){}
+    }
+    $('#whatsappFinal').addEventListener('click',()=>trackBoth('whatsapp_click',{origem:'funil-aquisicao-41d', qualificado:!!(state.answers && isQualified(state.answers))}));
+
+    $('#submitLead').addEventListener('click', async()=>{
+      if(state.submitting) return;
+      const err=validateChoice('investimento','Selecione quanto pretende investir mensalmente.');
+      if(err){$('#formError').textContent=err; return;}
+      state.submitting = true;
+      $('#submitLead').disabled = true;
+      $('#formError').textContent = 'Enviando seus dados...';
+      const payload = {...state.answers, qualificado:isQualified(state.answers), origem:'funil-aquisicao-41d', ...UTM, ts:new Date().toISOString()};
+      trackMeta('Lead',{origem:'funil-aquisicao-41d', investimento:payload.investimento, prazo:payload.prazo});
+      trackGa('lead',{origem:'funil-aquisicao-41d', investimento:payload.investimento, prazo:payload.prazo});
+      if(payload.qualificado){trackMetaCustom('LeadQualificado',payload); trackGa('lead_qualificado',{origem:'funil-aquisicao-41d', investimento:payload.investimento, prazo:payload.prazo});}
+      try{await notify(payload); trackBoth('lead_notified',{origem:'funil-aquisicao-41d', qualificado:payload.qualificado});}
+      catch(e){console.error('Falha ao notificar webhook:', e); trackBoth('lead_notify_error',{origem:'funil-aquisicao-41d', message:String(e.message||e).slice(0,120)});}
+      localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(payload));
+      state.answers = payload;
+      renderThanks(payload);
+    });
+
+    (function bootSubmitted(){
+      const raw = localStorage.getItem(CONFIG.STORAGE_KEY);
+      if(raw){try{renderThanks(JSON.parse(raw))}catch(e){localStorage.removeItem(CONFIG.STORAGE_KEY)}}
+    })();
+  </script>
+</body>
+</html>
