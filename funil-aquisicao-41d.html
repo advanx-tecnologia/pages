@@ -36,7 +36,7 @@
         document.head.appendChild(s);
       }
       ['pointerdown','touchstart','keydown','scroll'].forEach(evt => window.addEventListener(evt, load, {once:true, passive:true}));
-      window.addEventListener('load', () => setTimeout(load, 8000), {once:true});
+      window.addEventListener('load', () => setTimeout(load, 15000), {once:true});
     })();
     gtag('js', new Date());
     gtag('config','G-98EL5GXG5F', { send_page_view: false });
