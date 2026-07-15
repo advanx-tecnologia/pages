@@ -99,7 +99,7 @@
     .choice-grid{display:grid;gap:10px}.choice{width:100%;min-height:54px;text-align:left;border:1px solid var(--line);background:#fff;border-radius:var(--radius-control);padding:13px 14px;cursor:pointer;font-weight:720;color:var(--slate-950);touch-action:manipulation}.choice small{display:block;color:var(--slate-600);font-weight:560;margin-top:3px}.choice.selected{border-color:var(--copper-600);background:var(--cream-50);box-shadow:0 0 0 3px rgba(181,106,50,.12)}
     .actions{display:flex;gap:10px;justify-content:flex-end;align-items:center;margin-top:4px}.btn{min-height:46px;padding:0 18px;border-radius:var(--radius-control);border:1px solid var(--line);background:#fff;color:var(--slate-950);font-weight:850;cursor:pointer;touch-action:manipulation}.btn.primary{background:var(--copper-600);border-color:var(--copper-600);color:#fff}.btn.primary:hover,.main-cta:hover{background:var(--copper-700)}.btn:disabled{opacity:.55;cursor:not-allowed}
     .error{min-height:20px;color:#B42318;font-size:13px;font-weight:650}.lock-note{font-size:12px;color:var(--slate-600);text-align:center;margin-top:2px}
-    .thanks{display:none;background:rgba(255,255,255,.82);border:1px solid rgba(17,17,17,.10);border-radius:18px;box-shadow:var(--shadow);padding:clamp(28px,5vw,46px);text-align:center}.thanks.show{display:block}.thanks h2{font-size:clamp(31px,5vw,52px);line-height:1.02;letter-spacing:-.025em;margin:0 0 12px}.thanks p{font-size:18px;color:var(--slate-600);margin:0 auto 22px;max-width:620px}.wa-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:var(--radius-control);background:var(--slate-950);color:#fff;font-weight:900;text-decoration:none}
+    .thanks{display:none;max-width:720px;margin:8vh auto 0;background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(246,241,232,.94));border:1px solid rgba(181,106,50,.24);border-radius:24px;box-shadow:0 28px 90px rgba(17,17,17,.14);padding:clamp(30px,6vw,58px);text-align:center;overflow:hidden;position:relative}.thanks:before{content:"";position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,var(--copper-700),var(--copper-500))}.thanks.show{display:block;animation:rise .35s ease both}.success-mark{width:66px;height:66px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;background:var(--copper-600);color:#fff;font-size:34px;font-weight:900;box-shadow:0 14px 32px rgba(181,106,50,.28)}.thanks-kicker{margin:0 0 9px!important;color:var(--copper-700)!important;font-size:12px!important;font-weight:900!important;letter-spacing:.13em;text-transform:uppercase}.thanks h2{font-size:clamp(30px,5vw,48px);line-height:1.04;letter-spacing:-.026em;margin:0 0 14px}.thanks-lead{font-size:clamp(17px,2.2vw,20px)!important;line-height:1.5;color:#343434!important;margin:0 auto 24px!important;max-width:600px}.redirect-card{max-width:430px;margin:0 auto 22px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:#fff}.redirect-card span{display:block;color:var(--slate-600);font-size:13px;font-weight:720}.redirect-card strong{display:block;margin-top:3px;font-size:21px;color:var(--slate-950)}.redirect-card strong span{display:inline;color:inherit;font-size:inherit}.redirect-track{height:5px;margin-top:12px;border-radius:999px;background:var(--cream-100);overflow:hidden}.redirect-bar{height:100%;width:100%;background:var(--copper-600);transform-origin:left}.redirect-bar.running{animation:countdown-shrink 5s linear forwards}@keyframes countdown-shrink{to{transform:scaleX(0)}}.wa-btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 24px;border-radius:12px;background:var(--slate-950);color:#fff;font-weight:900;text-decoration:none;box-shadow:0 14px 30px rgba(17,17,17,.18)}.wa-btn:hover{background:var(--copper-700)}.thanks-note{font-size:13px!important;color:var(--slate-600)!important;margin:14px auto 0!important}
     .noscript{margin-top:14px;color:#7A2E0E;font-size:13px;text-align:center}
     @media(max-width:820px){.page{width:min(100% - 22px,520px);padding:12px 0 34px}.logo-top{margin-bottom:12px}.logo-top img{width:72px}.shell{display:grid;grid-template-columns:1fr;gap:18px;min-height:0;align-items:start}.hero{text-align:center;max-width:none}.eyebrow{margin-bottom:9px;font-size:10.5px}h1{margin:0 auto 12px;font-size:clamp(24px,6.2vw,30px);line-height:1.1;max-width:340px;font-weight:680;text-align:center}.sub{font-size:15.5px;line-height:1.42;font-weight:550;text-align:center;margin:0 auto;max-width:350px}.family{font-size:13.7px;line-height:1.44;text-align:center;margin:10px auto 0;max-width:340px}.video-stack{width:min(286px,100%);gap:12px}.video-card,.video-frame{border-radius:16px}.main-cta{min-height:50px;font-size:13.5px;border-radius:11px}.modal-head{padding:18px 18px 14px}.modal-body{padding:18px;gap:14px}.actions{justify-content:stretch}.btn{width:100%;font-size:16px}.field{font-size:16px;min-height:50px}.choice{font-size:16px}.modal-head p,.lock-note,label{font-size:13px}}
   </style>
@@ -134,9 +134,17 @@
     </section>
 
     <section class="thanks" id="thanks" aria-live="polite">
-      <h2>Opa, falta muito pouco <span id="thanksName"></span></h2>
-      <p>Acabamos de receber seu contato.</p>
-      <a class="wa-btn" id="whatsappFinal" target="_blank" rel="noopener">Toque no botão abaixo para falar conosco no whatsapp</a>
+      <div class="success-mark" aria-hidden="true">✓</div>
+      <p class="thanks-kicker">Cadastro recebido</p>
+      <h2>Recebemos seus dados<span id="thanksName"></span>.</h2>
+      <p class="thanks-lead">Estamos te redirecionando para o WhatsApp para tirar suas dúvidas e entender os próximos passos.</p>
+      <div class="redirect-card" aria-live="assertive">
+        <span>Redirecionamento automático</span>
+        <strong>Em <span id="redirectCountdown">5</span> segundos</strong>
+        <div class="redirect-track" aria-hidden="true"><div class="redirect-bar" id="redirectBar"></div></div>
+      </div>
+      <a class="wa-btn" id="whatsappFinal" rel="noopener">IR PARA O WHATSAPP AGORA</a>
+      <p class="thanks-note">Se o WhatsApp não abrir automaticamente, toque no botão acima.</p>
     </section>
   </main>
 
@@ -154,9 +162,6 @@
           </label>
           <label>Whatsapp
             <input class="field" id="whatsapp" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="(71) 99999-9999" required>
-          </label>
-          <label>Email
-            <input class="field" id="email" name="email" type="email" autocomplete="email" required>
           </label>
           <div class="actions"><button class="btn primary" id="next1" type="button">Próximo</button></div>
         </div>
@@ -192,10 +197,11 @@
     const CONFIG = {
       VIDEO_ID: 'COLOQUE_AQUI_O_ID_DO_VIDEO',
       CTA_DELAY_MS: 2 * 60 * 1000,
+      REDIRECT_SECONDS: 5,
       WHATSAPP_NUMBER: '5571982470873',
       WEBHOOK_URL: 'https://n8n.advfunnel.com.br/webhook/lead-funil-41d-comercial-efc4f106bbae40dcb0f4a2fc7bebe72c',
-      QUALIFIED_TEXT: 'Oi, Quero implementar o SCI com garantia de contratos fechados em até 41d',
-      DOWNSELL_TEXT: 'Oi, por enquanto o SCI com garantia de contratos em 41d não é pra mim, mas quero conhecer as soluções de captação e conteúdo.',
+      QUALIFIED_TEXT: 'Olá! Acabei de preencher o formulário e quero tirar minhas dúvidas sobre a implementação do Funil de Aquisição em 41 Dias no meu escritório.',
+      DOWNSELL_TEXT: 'Olá! Acabei de preencher o formulário e quero tirar minhas dúvidas sobre as soluções da Advanx IA para o meu escritório.',
       STORAGE_KEY: 'advanx_funil_aquisicao_41d_submitted_v1',
       CTA_LEGACY_KEYS: [
         'advanx_funil_aquisicao_41d_cta_deadline_session_v3',
@@ -208,14 +214,13 @@
     const SUPABASE_URL='https://lhbwfbquxkutcyqazpnw.supabase.co';
     const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10';
     const $ = (s) => document.querySelector(s);
-    const state = {step:1, answers:{}, player:null, videoReady:false, playing:false, viewContent:false, ctaRevealed:false, submitting:false, leadRecord:null};
+    const state = {step:1, answers:{}, player:null, videoReady:false, playing:false, viewContent:false, videoMilestones:new Set(), videoProgressTimer:null, ctaRevealed:false, submitting:false, leadRecord:null, conversionTracked:false, redirectTimer:null};
     const qs = new URLSearchParams(location.search);
     const UTM = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].reduce((acc,k)=>{acc[k]=qs.get(k)||null;return acc},{});
 
     function trackMeta(name, params={}){try{fbq('track', name, params)}catch(e){}}
     function trackMetaCustom(name, params={}){try{fbq('trackCustom', name, params)}catch(e){}}
     function trackGa(name, params={}){try{gtag('event', name, params)}catch(e){}}
-    function trackBoth(name, params={}){trackMetaCustom(name, params); trackGa(name, params)}
     function pageView(){trackGa('page_view',{page_title:document.title,page_location:location.href})}
     pageView();
 
@@ -247,8 +252,9 @@
         events: {
           onReady(){state.videoReady=true; $('#videoPlaceholder').style.display='none';},
           onStateChange(event){
-            if(event.data === YT.PlayerState.PLAYING){state.playing=true; fireViewContent();}
-            if(event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED){state.playing=false;}
+            if(event.data === YT.PlayerState.PLAYING){state.playing=true; fireViewContent(); startVideoProgress();}
+            if(event.data === YT.PlayerState.PAUSED){state.playing=false; stopVideoProgress();}
+            if(event.data === YT.PlayerState.ENDED){state.playing=false; fireVideoProgress(100); stopVideoProgress();}
           }
         }
       });
@@ -259,6 +265,31 @@
       const params = {origem:'funil-aquisicao-41d', video_id: CONFIG.VIDEO_ID, ...UTM};
       trackMeta('ViewContent', params);
       trackGa('view_content', params);
+    }
+    function fireVideoProgress(percent){
+      if(state.videoMilestones.has(percent)) return;
+      state.videoMilestones.add(percent);
+      const params = {origem:'funil-aquisicao-41d', video_id:CONFIG.VIDEO_ID, video_percent:percent, ...UTM};
+      trackMetaCustom('VideoProgress', params);
+      trackGa('video_progress', params);
+    }
+    function checkVideoProgress(){
+      if(!state.playing || !state.player || typeof state.player.getDuration !== 'function') return;
+      const duration=Number(state.player.getDuration());
+      const current=Number(state.player.getCurrentTime());
+      if(!duration || !Number.isFinite(current)) return;
+      const watched=(current/duration)*100;
+      [25,50,75,100].forEach(percent=>{if(watched>=percent) fireVideoProgress(percent)});
+    }
+    function startVideoProgress(){
+      if(state.videoProgressTimer) return;
+      checkVideoProgress();
+      state.videoProgressTimer=setInterval(checkVideoProgress,1000);
+    }
+    function stopVideoProgress(){
+      if(!state.videoProgressTimer) return;
+      clearInterval(state.videoProgressTimer);
+      state.videoProgressTimer=null;
     }
     function toggleVideo(){
       if(isPlaceholderVideo()){
@@ -283,7 +314,6 @@
       $('#openForm').classList.add('show');
       $('.cta-zone').classList.add('unlocked');
       $('#waitingText').style.display='none';
-      trackBoth('cta_revealed',{origem:'funil-aquisicao-41d'});
     }
     function clearLegacyCtaState(){
       try{
@@ -304,7 +334,6 @@
       document.querySelectorAll('.step').forEach(el=>el.classList.toggle('active', Number(el.dataset.step) === step));
       $('#formBar').style.width = `${step/3*100}%`;
       $('#formError').textContent = '';
-      trackBoth('form_step_view',{origem:'funil-aquisicao-41d', step});
     }
     function openDialogLocked(event){
       if(event){
@@ -332,19 +361,16 @@
         group.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
         state.answers[group.dataset.field] = btn.dataset.value;
-        trackBoth('answer_select',{origem:'funil-aquisicao-41d', field:group.dataset.field, value:btn.dataset.value});
       }));
     });
 
     function validateStep1(){
       const nome=$('#nome').value.trim();
       const whatsapp=$('#whatsapp').value.trim();
-      const email=$('#email').value.trim();
-      if(!nome || !whatsapp || !email) return 'Preencha nome completo, Whatsapp e Email.';
-      if(!/^\S+@\S+\.\S+$/.test(email)) return 'Digite um email válido.';
+      if(!nome || !whatsapp) return 'Preencha seu nome completo e WhatsApp.';
       const phone = normalizePhoneBR(whatsapp);
-      if(phone.length < 12) return 'Digite um Whatsapp válido.';
-      Object.assign(state.answers,{nome,whatsapp,whatsapp_normalizado:phone,email});
+      if(phone.length < 12) return 'Digite um WhatsApp válido.';
+      Object.assign(state.answers,{nome,whatsapp,whatsapp_normalizado:phone});
       return '';
     }
     function validateChoice(field,msg){if(!state.answers[field]) return msg; return '';}
@@ -354,15 +380,14 @@
     function isQualified(payload){return payload.prazo !== 'ainda não sei' && payload.investimento === 'Acima de R$ 2.500 mensal';}
     function buildWhatsappLink(payload){
       const baseText = isQualified(payload) ? CONFIG.QUALIFIED_TEXT : CONFIG.DOWNSELL_TEXT;
-      const details = `\n\nNome: ${payload.nome}\nWhatsapp: ${payload.whatsapp_normalizado}\nEmail: ${payload.email}\nPrazo: ${payload.prazo}\nInvestimento: ${payload.investimento}`;
+      const details = `\n\nNome: ${payload.nome}\nWhatsApp: ${payload.whatsapp_normalizado}\nPrazo: ${payload.prazo}\nInvestimento mensal: ${payload.investimento}`;
       return `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(baseText + details)}`;
     }
     function buildWebhookMessage(payload){
       return [
-        '*Novo lead — Funil Aquisição 41D*','',
+        payload.qualificado ? '🟢 *NOVO LEAD QUALIFICADO — FUNIL 41D*' : '🟠 *NOVO CONTATO — FUNIL 41D*','',
         `*Nome:* ${payload.nome}`,
-        `*WhatsApp:* ${payload.whatsapp_normalizado}`,
-        `*E-mail:* ${payload.email}`,'',
+        `*WhatsApp:* ${payload.whatsapp_normalizado}`,'',
         '*Qualificação*',
         `• Prazo: ${payload.prazo}`,
         `• Investimento mensal equipe + tráfego: ${payload.investimento}`,
@@ -385,7 +410,6 @@
         nome:payload.nome || null,
         telefone:payload.whatsapp_normalizado || null,
         telefone_chatwoot:payload.whatsapp_normalizado || null,
-        email:payload.email || null,
         prazo_implementacao:prazo,
         investimento_trafego:investimento,
         nicho:'Jurídico',
@@ -429,7 +453,7 @@
         origem:'funil-aquisicao-41d', pagina:'Video Funil 41D', destino:'advanxia_comercial', canal:'whatsapp_grupo_comercial',
         grupo_destino:'Advanx IA COMERCIAL', instancia_preferida:'advanxia', instancias_permitidas:['advanxia','jessica'],
         lead_id:lead.id,
-        nome:payload.nome, whatsapp:payload.whatsapp_normalizado, email:payload.email, prazo:payload.prazo, investimento:payload.investimento,
+        nome:payload.nome, whatsapp:payload.whatsapp_normalizado, prazo:payload.prazo, investimento:payload.investimento,
         qualificado:payload.qualificado, mensagem_formatada:buildWebhookMessage(payload), page_url:location.href, ...UTM, ts:new Date().toISOString()
       };
       const res = await fetch(CONFIG.WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
@@ -441,10 +465,35 @@
       $('#landing').style.display='none';
       $('#thanks').classList.add('show');
       $('#thanksName').textContent = payload?.nome ? `, ${payload.nome.split(' ')[0]}` : '';
-      $('#whatsappFinal').href = buildWhatsappLink(payload || state.answers);
+      const whatsappUrl = buildWhatsappLink(payload || state.answers);
+      $('#whatsappFinal').href = whatsappUrl;
+      clearInterval(state.redirectTimer);
+      let remaining=CONFIG.REDIRECT_SECONDS;
+      $('#redirectCountdown').textContent=remaining;
+      const bar=$('#redirectBar');
+      bar.classList.remove('running');
+      void bar.offsetWidth;
+      bar.classList.add('running');
+      state.redirectTimer=setInterval(()=>{
+        remaining-=1;
+        $('#redirectCountdown').textContent=Math.max(remaining,0);
+        if(remaining<=0){
+          clearInterval(state.redirectTimer);
+          state.redirectTimer=null;
+          location.assign(whatsappUrl);
+        }
+      },1000);
       try{history.replaceState({done:true},'',location.pathname + location.search + '#contato-recebido')}catch(e){}
     }
-    $('#whatsappFinal').addEventListener('click',()=>trackBoth('whatsapp_click',{origem:'funil-aquisicao-41d', qualificado:!!(state.answers && isQualified(state.answers))}));
+
+    function trackConversion(payload, lead){
+      if(state.conversionTracked) return;
+      state.conversionTracked=true;
+      const eventName=payload.qualificado ? 'Lead' : 'Contact';
+      const params={origem:'funil-aquisicao-41d', lead_id:lead.id, investimento:payload.investimento, prazo:payload.prazo, ...UTM};
+      trackMeta(eventName, params);
+      trackGa(eventName.toLowerCase(), params);
+    }
 
     $('#submitLead').addEventListener('click', async()=>{
       if(state.submitting) return;
@@ -454,19 +503,15 @@
       $('#submitLead').disabled = true;
       $('#formError').textContent = 'Enviando seus dados...';
       const payload = {...state.answers, qualificado:isQualified(state.answers), origem:'funil-aquisicao-41d', ...UTM, ts:new Date().toISOString()};
-      trackMeta('Lead',{origem:'funil-aquisicao-41d', investimento:payload.investimento, prazo:payload.prazo});
-      trackGa('lead',{origem:'funil-aquisicao-41d', investimento:payload.investimento, prazo:payload.prazo});
-      if(payload.qualificado){trackMetaCustom('LeadQualificado',payload); trackGa('lead_qualificado',{origem:'funil-aquisicao-41d', investimento:payload.investimento, prazo:payload.prazo});}
       try{
         const lead=await saveLead(payload);
+        trackConversion(payload, lead);
         await notifyLead(payload, lead);
-        trackBoth('lead_saved_and_notified',{origem:'funil-aquisicao-41d', lead_id:lead.id, qualificado:payload.qualificado});
         localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(payload));
         state.answers = payload;
         renderThanks(payload);
       }catch(e){
         console.error('Falha ao salvar ou notificar lead:', e);
-        trackBoth('lead_save_or_notify_error',{origem:'funil-aquisicao-41d', message:String(e.message||e).slice(0,120)});
         state.submitting = false;
         $('#submitLead').disabled = false;
         $('#formError').textContent = state.leadRecord ? 'Dados salvos, mas não foi possível avisar a equipe comercial. Tente novamente.' : 'Não foi possível salvar seus dados. Tente novamente.';
