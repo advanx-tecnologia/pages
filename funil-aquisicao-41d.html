@@ -208,14 +208,13 @@
     const SUPABASE_URL='https://lhbwfbquxkutcyqazpnw.supabase.co';
     const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10';
     const $ = (s) => document.querySelector(s);
-    const state = {step:1, answers:{}, player:null, videoReady:false, playing:false, viewContent:false, ctaRevealed:false, submitting:false, leadRecord:null};
+    const state = {step:1, answers:{}, player:null, videoReady:false, playing:false, viewContent:false, videoProgress:new Set(), ctaRevealed:false, submitting:false, leadRecord:null, conversionTracked:false};
     const qs = new URLSearchParams(location.search);
     const UTM = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].reduce((acc,k)=>{acc[k]=qs.get(k)||null;return acc},{});
 
     function trackMeta(name, params={}){try{fbq('track', name, params)}catch(e){}}
     function trackMetaCustom(name, params={}){try{fbq('trackCustom', name, params)}catch(e){}}
     function trackGa(name, params={}){try{gtag('event', name, params)}catch(e){}}
-    function trackBoth(name, params={}){trackMetaCustom(name, params); trackGa(name, params)}
     function pageView(){trackGa('page_view',{page_title:document.title,page_location:location.href})}
     pageView();
 
@@ -248,6 +247,7 @@
           onReady(){state.videoReady=true; $('#videoPlaceholder').style.display='none';},
           onStateChange(event){
             if(event.data === YT.PlayerState.PLAYING){state.playing=true; fireViewContent();}
+            if(event.data === YT.PlayerState.ENDED){fireVideoProgress(true);}
             if(event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED){state.playing=false;}
           }
         }
@@ -260,6 +260,21 @@
       trackMeta('ViewContent', params);
       trackGa('view_content', params);
     }
+    function fireVideoProgress(forceComplete=false){
+      if(!state.videoReady || !state.player || typeof state.player.getDuration !== 'function') return;
+      const duration = Number(state.player.getDuration()) || 0;
+      const current = Number(state.player.getCurrentTime()) || 0;
+      if(!duration) return;
+      const watchedPercent = forceComplete ? 100 : Math.floor((current / duration) * 100);
+      [25,50,75,100].forEach(percent => {
+        if(watchedPercent < percent || state.videoProgress.has(percent)) return;
+        state.videoProgress.add(percent);
+        const params = {origem:'funil-aquisicao-41d', video_id:CONFIG.VIDEO_ID, percent, ...UTM};
+        trackMetaCustom('VideoProgress', params);
+        trackGa('video_progress', params);
+      });
+    }
+    setInterval(()=>{if(state.playing && !document.hidden) fireVideoProgress(false);}, 1000);
     function toggleVideo(){
       if(isPlaceholderVideo()){
         fireViewContent();
@@ -283,7 +298,6 @@
       $('#openForm').classList.add('show');
       $('.cta-zone').classList.add('unlocked');
       $('#waitingText').style.display='none';
-      trackBoth('cta_revealed',{origem:'funil-aquisicao-41d'});
     }
     function clearLegacyCtaState(){
       try{
@@ -304,7 +318,6 @@
       document.querySelectorAll('.step').forEach(el=>el.classList.toggle('active', Number(el.dataset.step) === step));
       $('#formBar').style.width = `${step/3*100}%`;
       $('#formError').textContent = '';
-      trackBoth('form_step_view',{origem:'funil-aquisicao-41d', step});
     }
     function openDialogLocked(event){
       if(event){
@@ -332,7 +345,6 @@
         group.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
         state.answers[group.dataset.field] = btn.dataset.value;
-        trackBoth('answer_select',{origem:'funil-aquisicao-41d', field:group.dataset.field, value:btn.dataset.value});
       }));
     });
 
@@ -444,7 +456,15 @@
       $('#whatsappFinal').href = buildWhatsappLink(payload || state.answers);
       try{history.replaceState({done:true},'',location.pathname + location.search + '#contato-recebido')}catch(e){}
     }
-    $('#whatsappFinal').addEventListener('click',()=>trackBoth('whatsapp_click',{origem:'funil-aquisicao-41d', qualificado:!!(state.answers && isQualified(state.answers))}));
+    function fireConversion(payload, lead){
+      if(state.conversionTracked) return;
+      state.conversionTracked = true;
+      const eventName = payload.qualificado ? 'Lead' : 'Contact';
+      const gaEventName = payload.qualificado ? 'lead' : 'contact';
+      const params = {origem:'funil-aquisicao-41d', lead_id:lead.id, investimento:payload.investimento, prazo:payload.prazo};
+      trackMeta(eventName, params);
+      trackGa(gaEventName, params);
+    }
 
     $('#submitLead').addEventListener('click', async()=>{
       if(state.submitting) return;
@@ -454,19 +474,15 @@
       $('#submitLead').disabled = true;
       $('#formError').textContent = 'Enviando seus dados...';
       const payload = {...state.answers, qualificado:isQualified(state.answers), origem:'funil-aquisicao-41d', ...UTM, ts:new Date().toISOString()};
-      trackMeta('Lead',{origem:'funil-aquisicao-41d', investimento:payload.investimento, prazo:payload.prazo});
-      trackGa('lead',{origem:'funil-aquisicao-41d', investimento:payload.investimento, prazo:payload.prazo});
-      if(payload.qualificado){trackMetaCustom('LeadQualificado',payload); trackGa('lead_qualificado',{origem:'funil-aquisicao-41d', investimento:payload.investimento, prazo:payload.prazo});}
       try{
         const lead=await saveLead(payload);
+        fireConversion(payload, lead);
         await notifyLead(payload, lead);
-        trackBoth('lead_saved_and_notified',{origem:'funil-aquisicao-41d', lead_id:lead.id, qualificado:payload.qualificado});
         localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(payload));
         state.answers = payload;
         renderThanks(payload);
       }catch(e){
         console.error('Falha ao salvar ou notificar lead:', e);
-        trackBoth('lead_save_or_notify_error',{origem:'funil-aquisicao-41d', message:String(e.message||e).slice(0,120)});
         state.submitting = false;
         $('#submitLead').disabled = false;
         $('#formError').textContent = state.leadRecord ? 'Dados salvos, mas não foi possível avisar a equipe comercial. Tente novamente.' : 'Não foi possível salvar seus dados. Tente novamente.';
