@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#F6F1E8">
+  <title>Aplicação para Escritórios de Advocacia | Advanx</title>
+  <meta name="description" content="Aplicação para escritórios que buscam atrair clientes e fechar novos contratos com mais previsibilidade.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>▲</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T2CQVN6J');
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-50QK62DG3F"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments)}
+    gtag('js',new Date());
+    gtag('config','G-50QK62DG3F');
+  </script>
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','528107519882911');
+    fbq('track','PageView');
+  </script>
+
+  <style>
+    :root{
+      --bg:#F6F1E8;
+      --surface:#FFFCF7;
+      --ink:#111111;
+      --muted:#625F59;
+      --line:#D9D0C4;
+      --copper:#B56A32;
+      --copper-dark:#85481F;
+      --copper-soft:#EFE0D1;
+      --green:#1F6B47;
+      --error:#A33B32;
+      --shadow:0 22px 70px rgba(38,28,18,.10);
+      --radius:22px;
+      --font-body:"DM Sans",system-ui,sans-serif;
+      --font-display:"Manrope",system-ui,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{background:var(--bg);scroll-behavior:smooth}
+    body{margin:0;min-height:100svh;color:var(--ink);background:
+      radial-gradient(circle at 8% 0%,rgba(181,106,50,.14),transparent 34rem),
+      radial-gradient(circle at 100% 100%,rgba(181,106,50,.09),transparent 30rem),
+      var(--bg);font-family:var(--font-body);overflow-x:hidden}
+    button,input{font:inherit}
+    button{touch-action:manipulation}
+    a{color:inherit}
+    .shell{min-height:100svh;display:grid;grid-template-rows:auto 1fr auto}
+    .topbar{width:min(1120px,calc(100% - 36px));margin:0 auto;padding:24px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .brand-mark{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:var(--ink);color:var(--bg);font-size:17px;transform:rotate(45deg)}
+    .brand-mark span{transform:rotate(-45deg);font-weight:800}
+    .brand-name{font-family:var(--font-display);font-size:20px;font-weight:800;letter-spacing:-.04em}
+    .secure{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:600}
+    .secure-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(31,107,71,.10)}
+    .progress-wrap{position:fixed;left:0;right:0;top:0;height:4px;background:rgba(17,17,17,.08);z-index:20}
+    .progress{height:100%;width:0;background:var(--copper);transition:width .35s ease}
+    main{width:min(1120px,calc(100% - 36px));margin:0 auto;display:grid;align-items:center;padding:24px 0 52px}
+    .stage{display:none;animation:enter .42s cubic-bezier(.2,.75,.2,1)}
+    .stage.active{display:grid}
+    @keyframes enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    .hero{grid-template-columns:minmax(0,1.24fr) minmax(300px,.76fr);gap:clamp(36px,6vw,88px);align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--copper-dark);font-size:13px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:18px}
+    .eyebrow:before{content:"";width:28px;height:2px;background:var(--copper)}
+    h1,h2{font-family:var(--font-display);letter-spacing:-.045em;margin:0;text-wrap:balance}
+    h1{font-size:clamp(38px,5.6vw,72px);line-height:1.02;max-width:900px}
+    h2{font-size:clamp(30px,4vw,54px);line-height:1.08;max-width:790px}
+    .lead-copy{font-size:clamp(17px,1.7vw,20px);line-height:1.58;color:#413E39;margin:24px 0 0;max-width:760px}
+    .hero-aside{border-left:1px solid var(--line);padding-left:clamp(24px,4vw,48px)}
+    .notice{font-size:14px;line-height:1.6;color:var(--muted);margin:0 0 18px}
+    .notice strong{color:var(--ink)}
+    .selection-note{padding:18px 0 0;border-top:1px solid var(--line);font-size:14px;line-height:1.6;color:var(--muted)}
+    .btn{border:0;border-radius:13px;min-height:52px;padding:14px 22px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:transform .18s ease,background .18s ease,opacity .18s ease,box-shadow .18s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn:focus-visible,.option:focus-visible,.slot:focus-visible,input:focus-visible{outline:3px solid rgba(181,106,50,.32);outline-offset:3px}
+    .btn-primary{background:var(--ink);color:white;box-shadow:0 10px 25px rgba(17,17,17,.16)}
+    .btn-primary:hover{background:var(--copper-dark)}
+    .btn-copper{background:var(--copper);color:white;box-shadow:0 10px 25px rgba(181,106,50,.22)}
+    .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+    .btn[disabled]{opacity:.42;cursor:not-allowed;transform:none;box-shadow:none}
+    .hero .btn{margin-top:28px}
+    .question{width:min(860px,100%);margin:0 auto}
+    .question-number{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.11em;color:var(--copper-dark);margin-bottom:14px}
+    .helper{margin:12px 0 0;color:var(--muted);font-size:15px;line-height:1.55}
+    .form-grid{display:grid;gap:18px;margin-top:32px}
+    .field label{display:block;font-size:13px;font-weight:800;margin-bottom:8px;color:#37332E}
+    .field input{width:100%;height:58px;border:1px solid var(--line);border-radius:13px;background:rgba(255,252,247,.82);padding:0 17px;color:var(--ink);font-size:17px;transition:border .2s,box-shadow .2s,background .2s}
+    .field input:focus{border-color:var(--copper);box-shadow:0 0 0 4px rgba(181,106,50,.10);background:white;outline:0}
+    .field input::placeholder{color:#999188}
+    .error{display:none;margin-top:8px;color:var(--error);font-size:13px;font-weight:700}
+    .field.invalid input{border-color:var(--error)}
+    .field.invalid .error{display:block}
+    .options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:30px}
+    .options.areas{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .option{min-height:58px;border:1px solid var(--line);background:rgba(255,252,247,.72);border-radius:13px;padding:14px 16px;text-align:left;font-weight:700;color:#292621;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:border .18s,background .18s,transform .18s,box-shadow .18s}
+    .option:hover{transform:translateY(-2px);border-color:#B7A797;background:white;box-shadow:0 8px 24px rgba(45,31,21,.07)}
+    .option.selected{border-color:var(--copper);background:var(--copper-soft);color:#5D3017;box-shadow:inset 0 0 0 1px var(--copper)}
+    .option-check{width:22px;height:22px;display:grid;place-items:center;border-radius:7px;border:1px solid #CFC4B6;color:transparent;font-size:13px;flex:0 0 auto}
+    .option.selected .option-check{background:var(--copper);border-color:var(--copper);color:white}
+    .actions{display:flex;align-items:center;gap:12px;margin-top:32px}
+    .actions .btn-primary,.actions .btn-copper{min-width:180px}
+    .keyboard{color:var(--muted);font-size:12px;margin-left:4px}
+    .submit-status{min-height:22px;margin-top:14px;font-size:14px;font-weight:700;color:var(--muted)}
+    .submit-status.error-text{color:var(--error)}
+    .schedule{width:min(980px,100%);margin:0 auto}
+    .schedule-head{display:flex;justify-content:space-between;gap:28px;align-items:end;margin-bottom:26px}
+    .identity-pill{border:1px solid var(--line);border-radius:999px;padding:10px 14px;color:var(--muted);font-size:13px;white-space:nowrap;background:rgba(255,252,247,.7)}
+    .agenda-panel{background:rgba(255,252,247,.74);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(18px,3vw,30px);box-shadow:var(--shadow)}
+    .days{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .day{min-width:0}
+    .day-title{font-family:var(--font-display);font-size:16px;font-weight:800;margin:0 0 10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+    .day-date{display:block;color:var(--muted);font-family:var(--font-body);font-weight:600;font-size:12px;margin-top:2px}
+    .slots{display:grid;gap:8px}
+    .slot{min-height:46px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--ink);font-weight:800;cursor:pointer;transition:.18s}
+    .slot:hover{border-color:var(--copper);background:white}
+    .slot.selected{background:var(--ink);color:white;border-color:var(--ink)}
+    .empty{padding:24px;border:1px dashed var(--line);border-radius:13px;text-align:center;color:var(--muted);font-size:14px;grid-column:1/-1}
+    .loading{display:flex;align-items:center;justify-content:center;gap:11px;padding:44px;color:var(--muted);font-weight:700}
+    .spinner{width:20px;height:20px;border:2px solid var(--line);border-top-color:var(--copper);border-radius:50%;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .booking-summary{display:none;margin-top:18px;padding:16px 18px;border-radius:12px;background:var(--copper-soft);color:#542C17;font-weight:700}
+    .booking-summary.visible{display:block}
+    .success{width:min(800px,100%);margin:0 auto;text-align:center}
+    .success-icon{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;margin:0 auto 24px;background:var(--green);color:white;font-size:30px;box-shadow:0 14px 34px rgba(31,107,71,.23)}
+    .success .lead-copy{margin:20px auto 0}
+    .success-card{margin:30px auto 0;width:min(600px,100%);padding:22px;border:1px solid var(--line);border-radius:16px;background:rgba(255,252,247,.72)}
+    .success-card p{margin:0 0 16px;color:var(--muted);line-height:1.55}
+    .btn-whatsapp{width:100%;background:#1F8F55;color:white;text-decoration:none}
+    footer{width:min(1120px,calc(100% - 36px));margin:0 auto;padding:18px 0 28px;border-top:1px solid rgba(17,17,17,.10);display:flex;justify-content:space-between;gap:18px;color:var(--muted);font-size:12px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:860px){
+      .hero{grid-template-columns:1fr;gap:36px}.hero-aside{border-left:0;border-top:1px solid var(--line);padding:26px 0 0}.options.areas{grid-template-columns:repeat(2,minmax(0,1fr))}.schedule-head{align-items:start;flex-direction:column}.days{grid-template-columns:1fr}.identity-pill{white-space:normal}.keyboard{display:none}
+    }
+    @media(max-width:560px){
+      .topbar,main,footer{width:min(100% - 28px,1120px)}.topbar{padding-top:20px}.secure span:last-child{display:none}main{padding-top:16px}.brand-name{font-size:18px}h1{font-size:36px}h2{font-size:31px}.lead-copy{font-size:16px}.options,.options.areas{grid-template-columns:1fr}.actions{position:sticky;bottom:0;margin-left:-14px;margin-right:-14px;padding:14px;background:linear-gradient(180deg,rgba(246,241,232,0),var(--bg) 26%);z-index:8}.actions .btn-primary,.actions .btn-copper{flex:1;min-width:0}.actions .btn-ghost{width:auto;min-width:92px;padding:0 12px}.field input{height:56px}footer{flex-direction:column}.agenda-panel{padding:16px}.stage{padding-bottom:10px}
+    }
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2CQVN6J" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=528107519882911&ev=PageView&noscript=1"></noscript>
+
+  <div class="progress-wrap" role="progressbar" aria-label="Progresso da aplicação" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><div class="progress" id="progress"></div></div>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="https://advanx.com.br" aria-label="Advanx">
+        <span class="brand-mark" aria-hidden="true"><span>A</span></span>
+        <span class="brand-name">advanx</span>
+      </a>
+      <div class="secure"><span class="secure-dot"></span><span>Aplicação segura</span></div>
+    </header>
+
+    <main id="main">
+      <section class="stage hero active" data-step="0" aria-labelledby="hero-title">
+        <div>
+          <div class="eyebrow">Aplicação para escritórios</div>
+          <h1 id="hero-title">Seu escritório pode fechar de 6 a 12 novos contratos por mês com mais previsibilidade e sem depender de achismos.</h1>
+          <p class="lead-copy">Vamos analisar o que pode estar impedindo seu escritório de atrair clientes e fechar novos contratos de forma constante. Com base nas suas respostas, nossa equipe avaliará se o seu escritório tem o perfil ideal para avançar.</p>
+          <button class="btn btn-primary" type="button" id="startBtn">Iniciar minha aplicação <span aria-hidden="true">→</span></button>
+        </div>
+        <aside class="hero-aside">
+          <p class="notice"><strong>🚨 IMPORTANTE:</strong> cada aplicação é analisada individualmente. O preenchimento deste formulário não garante aprovação ou contato da nossa equipe.</p>
+          <p class="selection-note">Selecionamos apenas os escritórios que têm o momento e a estrutura necessários para aproveitar essa oportunidade. Se esse for o seu caso, entraremos em contato para explicar os próximos passos.</p>
+        </aside>
+      </section>
+
+      <section class="stage question" data-step="1" aria-labelledby="contact-title">
+        <div class="question-number">Etapa 1 de 5</div>
+        <h2 id="contact-title">Primeiro, conte como podemos falar com você.</h2>
+        <p class="helper">Usaremos esses dados para registrar sua aplicação e enviar o convite da conversa.</p>
+        <form class="form-grid" id="contactForm" novalidate>
+          <div class="field" id="fieldName">
+            <label for="name">Qual é o seu nome completo?</label>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="Digite seu nome completo" required maxlength="120" aria-describedby="nameError">
+            <div class="error" id="nameError">Digite seu nome completo.</div>
+          </div>
+          <div class="field" id="fieldPhone">
+            <label for="phone">Qual é o seu WhatsApp?</label>
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(71) 99999 9999" required maxlength="16" aria-describedby="phoneError">
+            <div class="error" id="phoneError">Digite um WhatsApp válido com DDD.</div>
+          </div>
+          <div class="field" id="fieldEmail">
+            <label for="email">Qual email devemos usar para enviar o convite?</label>
+            <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="voce@escritorio.com.br" required maxlength="160" aria-describedby="emailError">
+            <div class="error" id="emailError">Digite um email válido.</div>
+          </div>
+          <div class="field sr-only" aria-hidden="true">
+            <label for="website">Website</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+        </form>
+        <div class="actions">
+          <button class="btn btn-ghost" type="button" data-back>← Voltar</button>
+          <button class="btn btn-primary" type="button" id="contactNext">Continuar</button>
+          <span class="keyboard">Enter ↵</span>
+        </div>
+      </section>
+
+      <section class="stage question" data-step="2" aria-labelledby="areas-title">
+        <div class="question-number">Etapa 2 de 5</div>
+        <h2 id="areas-title">Quais áreas você deseja atrair clientes?</h2>
+        <p class="helper">Você pode escolher mais de uma opção.</p>
+        <div class="options areas" id="areasOptions" role="group" aria-label="Áreas de atuação">
+          <button class="option" type="button" data-value="Previdenciário" aria-pressed="false">Previdenciário <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="Trabalhista" aria-pressed="false">Trabalhista <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="Consumidor" aria-pressed="false">Consumidor <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="Criminal" aria-pressed="false">Criminal <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="Família" aria-pressed="false">Família <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="Bancário" aria-pressed="false">Bancário <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="Aéreo" aria-pressed="false">Aéreo <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="Tributário" aria-pressed="false">Tributário <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="Outros" aria-pressed="false">Outros <span class="option-check">✓</span></button>
+        </div>
+        <div class="submit-status error-text" id="areasError" aria-live="polite"></div>
+        <div class="actions">
+          <button class="btn btn-ghost" type="button" data-back>← Voltar</button>
+          <button class="btn btn-primary" type="button" id="areasNext" disabled>Continuar</button>
+        </div>
+      </section>
+
+      <section class="stage question" data-step="3" aria-labelledby="team-title">
+        <div class="question-number">Etapa 3 de 5</div>
+        <h2 id="team-title">Quantos colaboradores você tem?</h2>
+        <p class="helper">Incluindo sócios, advogados e equipe.</p>
+        <div class="options" id="teamOptions" role="radiogroup" aria-label="Quantidade de colaboradores">
+          <button class="option" type="button" data-value="Apenas eu" role="radio" aria-checked="false">Apenas eu <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="1" role="radio" aria-checked="false">1 <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="2 a 5" role="radio" aria-checked="false">2 a 5 <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="5 a 10" role="radio" aria-checked="false">5 a 10 <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="Mais de 10" role="radio" aria-checked="false">Mais de 10 <span class="option-check">✓</span></button>
+        </div>
+        <div class="actions">
+          <button class="btn btn-ghost" type="button" data-back>← Voltar</button>
+          <button class="btn btn-primary" type="button" id="teamNext" disabled>Continuar</button>
+        </div>
+      </section>
+
+      <section class="stage question" data-step="4" aria-labelledby="revenue-title">
+        <div class="question-number">Etapa 4 de 5</div>
+        <h2 id="revenue-title">Qual é o faturamento mensal aproximado?</h2>
+        <p class="helper">Não precisa ser o valor exato.</p>
+        <div class="options" id="revenueOptions" role="radiogroup" aria-label="Faturamento mensal">
+          <button class="option" type="button" data-value="Até R$ 5 mil" data-qualified="false" role="radio" aria-checked="false">Até R$ 5 mil <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="R$ 5 mil a R$ 10 mil" data-qualified="false" role="radio" aria-checked="false">R$ 5 mil a R$ 10 mil <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="R$ 10 mil a R$ 20 mil" data-qualified="true" role="radio" aria-checked="false">R$ 10 mil a R$ 20 mil <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="R$ 20 mil a R$ 50 mil" data-qualified="true" role="radio" aria-checked="false">R$ 20 mil a R$ 50 mil <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="R$ 50 mil a R$ 100 mil" data-qualified="true" role="radio" aria-checked="false">R$ 50 mil a R$ 100 mil <span class="option-check">✓</span></button>
+          <button class="option" type="button" data-value="Acima de R$ 100 mil" data-qualified="true" role="radio" aria-checked="false">Acima de R$ 100 mil <span class="option-check">✓</span></button>
+        </div>
+        <div class="submit-status" id="leadStatus" aria-live="polite"></div>
+        <div class="actions">
+          <button class="btn btn-ghost" type="button" data-back>← Voltar</button>
+          <button class="btn btn-copper" type="button" id="submitLead" disabled>Enviar dados</button>
+        </div>
+      </section>
+
+      <section class="stage schedule" data-step="5" aria-labelledby="schedule-title">
+        <div class="schedule-head">
+          <div>
+            <div class="question-number">Etapa 5 de 5</div>
+            <h2 id="schedule-title">Escolha o melhor horário para sua conversa de 30 minutos.</h2>
+            <p class="helper">Mostramos somente horários realmente disponíveis nos próximos 3 dias. Horário de Brasília.</p>
+          </div>
+          <div class="identity-pill" id="identityPill"></div>
+        </div>
+        <div class="agenda-panel">
+          <div id="agendaLoading" class="loading"><span class="spinner"></span>Consultando a agenda...</div>
+          <div class="days" id="days" hidden></div>
+          <div class="booking-summary" id="bookingSummary"></div>
+          <div class="submit-status" id="bookingStatus" aria-live="polite"></div>
+          <div class="actions">
+            <button class="btn btn-ghost" type="button" data-back>← Voltar</button>
+            <button class="btn btn-copper" type="button" id="confirmBooking" disabled>Confirmar agendamento</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="stage success" data-step="6" aria-labelledby="success-title">
+        <div class="success-icon" aria-hidden="true">✓</div>
+        <div class="eyebrow">Agendamento realizado</div>
+        <h2 id="success-title">Obrigado pelo seu interesse.</h2>
+        <p class="lead-copy">Sua conversa foi registrada. Agora, confirme o agendamento pelo WhatsApp para que nossa equipe possa preparar os próximos passos.</p>
+        <div class="success-card">
+          <p id="finalDate"></p>
+          <a class="btn btn-whatsapp" id="whatsappBtn" target="_blank" rel="noopener" href="https://wa.me/557182470873?text=Quero%20confirmar%20minha%20conversa%20de%2030%20min%20para%20implementar%20captacao%20e%20tecnologia.">Confirmar no WhatsApp</a>
+        </div>
+      </section>
+    </main>
+
+    <footer><span>© 2026 Advanx Tecnologia</span><span>Seus dados são usados apenas para analisar sua aplicação e organizar o contato.</span></footer>
+  </div>
+
+  <script>
+    const API = {
+      lead: 'https://n8n-n8n.yii1gg.easypanel.host/webhook/lead-aplicacao-previsibilidade-7f343841',
+      availability: 'https://n8n-n8n.yii1gg.easypanel.host/webhook/agenda-aplicacao-previsibilidade-7f343841',
+      booking: 'https://n8n-n8n.yii1gg.easypanel.host/webhook/agendar-aplicacao-previsibilidade-7f343841'
+    };
+    const submissionId = sessionStorage.getItem('advanx_submission_id') || (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`);
+    const state = {
+      step: 0,
+      startedAt: Date.now(),
+      name: '', phone: '', email: '', areas: [], team: '', revenue: '', qualified: false,
+      selectedSlot: null,
+      leadSaved: false,
+      viewContentSent: false,
+      leadEventSent: sessionStorage.getItem('advanx_lead_event_id') === submissionId,
+      submissionId
+    };
+    const stages = [...document.querySelectorAll('.stage')];
+    const progress = document.getElementById('progress');
+    const maxProgressStep = 5;
+
+    function track(name, params = {}, metaOptions = {}) {
+      try { if (typeof fbq === 'function') fbq('track', name, params, metaOptions); } catch (_) {}
+      try { if (typeof gtag === 'function') gtag('event', name === 'ViewContent' ? 'view_item' : name === 'Lead' ? 'generate_lead' : name === 'Schedule' ? 'schedule' : name.toLowerCase(), params); } catch (_) {}
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: `advanx_${name.toLowerCase()}`, ...params });
+    }
+    function showStep(step) {
+      state.step = step;
+      stages.forEach(stage => stage.classList.toggle('active', Number(stage.dataset.step) === step));
+      progress.style.width = `${Math.min(step, maxProgressStep) / maxProgressStep * 100}%`;
+      document.querySelector('.progress-wrap').setAttribute('aria-valuenow', String(Math.min(step, maxProgressStep)));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const active = stages.find(stage => Number(stage.dataset.step) === step);
+      requestAnimationFrame(() => active?.querySelector('h1,h2,input,button')?.focus({ preventScroll: true }));
+      history.replaceState(null, '', step > 0 ? `#etapa-${step}` : location.pathname + location.search);
+    }
+    function params() {
+      const p = new URLSearchParams(location.search);
+      return {
+        fonte: p.get('utm_source') || p.get('source') || 'direto',
+        campanha: p.get('utm_campaign') || '',
+        conjunto: p.get('utm_term') || '',
+        anuncio: p.get('utm_content') || '',
+        posicionamento: p.get('placement') || '',
+        fbclid: p.get('fbclid') || '',
+        gclid: p.get('gclid') || ''
+      };
+    }
+    function phoneDigits(value) { return value.replace(/\D/g, '').replace(/^55(?=\d{10,11}$)/, ''); }
+    function normalizePhone(value) { const d = phoneDigits(value); return d.length >= 10 ? `+55${d}` : ''; }
+    function validName(value) { return value.trim().split(/\s+/).length >= 2 && value.trim().length >= 5; }
+    function validEmail(value) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim()); }
+    function formatPhone(value) {
+      const d = phoneDigits(value).slice(0, 11);
+      if (d.length <= 2) return d;
+      if (d.length <= 7) return `(${d.slice(0,2)}) ${d.slice(2)}`;
+      if (d.length <= 10) return `(${d.slice(0,2)}) ${d.slice(2,6)} ${d.slice(6)}`;
+      return `(${d.slice(0,2)}) ${d.slice(2,7)} ${d.slice(7)}`;
+    }
+    document.getElementById('phone').addEventListener('input', e => { e.target.value = formatPhone(e.target.value); });
+
+    sessionStorage.setItem('advanx_submission_id', state.submissionId);
+    if (!state.viewContentSent) { track('ViewContent', { content_name: 'Aplicação Previsibilidade' }); state.viewContentSent = true; }
+    document.getElementById('startBtn').addEventListener('click', () => {
+      window.dataLayer.push({ event: 'advanx_form_start', submission_id: state.submissionId });
+      showStep(1);
+    });
+    document.querySelectorAll('[data-back]').forEach(btn => btn.addEventListener('click', () => showStep(Math.max(0, state.step - 1))));
+
+    function validateContact() {
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value;
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const checks = [
+        ['fieldName', validName(name)],
+        ['fieldPhone', phoneDigits(phone).length >= 10],
+        ['fieldEmail', validEmail(email)]
+      ];
+      checks.forEach(([id, ok]) => {
+        const field = document.getElementById(id);
+        field.classList.toggle('invalid', !ok);
+        field.querySelector('input').setAttribute('aria-invalid', String(!ok));
+      });
+      if (!checks.every(([,ok]) => ok)) return false;
+      state.name = name; state.phone = normalizePhone(phone); state.email = email;
+      return true;
+    }
+    document.getElementById('contactNext').addEventListener('click', () => { if (validateContact()) showStep(2); });
+    document.getElementById('contactForm').addEventListener('submit', e => { e.preventDefault(); if (validateContact()) showStep(2); });
+    document.getElementById('contactForm').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('contactNext').click(); } });
+
+    document.querySelectorAll('#areasOptions .option').forEach(btn => btn.addEventListener('click', () => {
+      btn.classList.toggle('selected');
+      btn.setAttribute('aria-pressed', String(btn.classList.contains('selected')));
+      state.areas = [...document.querySelectorAll('#areasOptions .option.selected')].map(x => x.dataset.value);
+      document.getElementById('areasNext').disabled = state.areas.length === 0;
+      document.getElementById('areasError').textContent = '';
+    }));
+    document.getElementById('areasNext').addEventListener('click', () => {
+      if (!state.areas.length) { document.getElementById('areasError').textContent = 'Escolha pelo menos uma área.'; return; }
+      showStep(3);
+    });
+    function setupSingleChoice(containerId, stateKey, nextId) {
+      document.querySelectorAll(`#${containerId} .option`).forEach(btn => btn.addEventListener('click', () => {
+        document.querySelectorAll(`#${containerId} .option`).forEach(other => { other.classList.remove('selected'); other.setAttribute('aria-checked','false'); });
+        btn.classList.add('selected'); btn.setAttribute('aria-checked','true'); state[stateKey] = btn.dataset.value;
+        if (stateKey === 'revenue') state.qualified = btn.dataset.qualified === 'true';
+        document.getElementById(nextId).disabled = false;
+      }));
+    }
+    setupSingleChoice('teamOptions','team','teamNext');
+    setupSingleChoice('revenueOptions','revenue','submitLead');
+    document.getElementById('teamNext').addEventListener('click', () => { if (state.team) showStep(4); });
+
+    async function postJson(url, body, timeout = 20000) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeout);
+      try {
+        const response = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body), signal:controller.signal });
+        const text = await response.text();
+        let data = {}; try { data = text ? JSON.parse(text) : {}; } catch (_) { data = { message:text }; }
+        if (!response.ok || data.ok === false) throw new Error(data.message || 'Não foi possível concluir agora.');
+        return data;
+      } finally { clearTimeout(timer); }
+    }
+    document.getElementById('submitLead').addEventListener('click', async () => {
+      if (!state.revenue || state.leadSaved) { if (state.leadSaved) showStep(5); return; }
+      const btn = document.getElementById('submitLead');
+      const status = document.getElementById('leadStatus');
+      btn.disabled = true; btn.textContent = 'Enviando...'; status.className = 'submit-status'; status.textContent = 'Salvando sua aplicação com segurança.';
+      const utm = params();
+      try {
+        const data = await postJson(API.lead, {
+          nome: state.name, telefone: state.phone, email: state.email,
+          areas: state.areas, colaboradores: state.team, faturamento: state.revenue,
+          qualificado: state.qualified, website: document.getElementById('website').value,
+          submission_id: state.submissionId, started_at: state.startedAt, page_url: location.href, ...utm
+        });
+        state.leadSaved = true; state.leadId = data.lead_id || null;
+        sessionStorage.setItem('advanx_lead_saved', JSON.stringify({ submissionId: state.submissionId, leadId: state.leadId }));
+        if (state.qualified && !state.leadEventSent) {
+          track('Lead', { content_name:'Aplicação Previsibilidade', currency:'BRL', value:10 }, { eventID: state.submissionId });
+          state.leadEventSent = true;
+          sessionStorage.setItem('advanx_lead_event_id', state.submissionId);
+        }
+        document.getElementById('identityPill').textContent = `${state.name} • ${state.email}`;
+        showStep(5);
+        loadAvailability();
+      } catch (error) {
+        status.className = 'submit-status error-text';
+        status.textContent = error.name === 'AbortError' ? 'A conexão demorou mais que o esperado. Tente novamente.' : error.message;
+        btn.disabled = false; btn.textContent = 'Tentar enviar novamente';
+      }
+    });
+
+    function localDateKey(iso) { return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Bahia',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(iso)); }
+    function dateTitle(iso) {
+      const d = new Date(iso);
+      return {
+        weekday: new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Bahia',weekday:'long'}).format(d),
+        date: new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Bahia',day:'2-digit',month:'long'}).format(d)
+      };
+    }
+    function timeTitle(iso) { return new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Bahia',hour:'2-digit',minute:'2-digit'}).format(new Date(iso)); }
+    function fullDate(iso) { return new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Bahia',weekday:'long',day:'2-digit',month:'long',hour:'2-digit',minute:'2-digit'}).format(new Date(iso)); }
+    async function loadAvailability() {
+      const loading = document.getElementById('agendaLoading');
+      const days = document.getElementById('days');
+      loading.hidden = false; days.hidden = true; days.innerHTML = '';
+      try {
+        const response = await fetch(`${API.availability}?t=${Date.now()}`, { headers:{'Accept':'application/json'} });
+        const data = await response.json();
+        if (!response.ok || data.ok === false) throw new Error(data.message || 'Não foi possível consultar a agenda.');
+        const slots = Array.isArray(data.slots) ? data.slots : [];
+        const groups = slots.reduce((acc, slot) => { const key = localDateKey(slot.inicio_janela); (acc[key] ||= []).push(slot); return acc; }, {});
+        loading.hidden = true; days.hidden = false;
+        if (!slots.length) {
+          days.innerHTML = '<div class="empty">Não encontramos horários livres nessa janela. Nossa equipe pode liberar novos horários em breve.</div>';
+          return;
+        }
+        Object.values(groups).forEach(group => {
+          const title = dateTitle(group[0].inicio_janela);
+          const day = document.createElement('div'); day.className = 'day';
+          day.innerHTML = `<h3 class="day-title">${title.weekday}<span class="day-date">${title.date}</span></h3><div class="slots"></div>`;
+          const slotList = day.querySelector('.slots');
+          group.forEach(slot => {
+            const button = document.createElement('button'); button.type = 'button'; button.className = 'slot'; button.textContent = timeTitle(slot.inicio_janela); button.dataset.iso = slot.inicio_janela;
+            button.addEventListener('click', () => selectSlot(button, slot.inicio_janela)); slotList.appendChild(button);
+          });
+          days.appendChild(day);
+        });
+      } catch (error) {
+        loading.hidden = true; days.hidden = false;
+        days.innerHTML = `<div class="empty">Não conseguimos consultar os horários agora.<br><button type="button" class="btn btn-ghost" id="retryAgenda" style="margin-top:14px">Tentar novamente</button></div>`;
+        document.getElementById('retryAgenda').addEventListener('click', loadAvailability);
+      }
+    }
+    function selectSlot(button, iso) {
+      document.querySelectorAll('.slot').forEach(x => x.classList.remove('selected'));
+      button.classList.add('selected'); state.selectedSlot = iso;
+      const summary = document.getElementById('bookingSummary'); summary.textContent = `Horário escolhido: ${fullDate(iso)}.`; summary.classList.add('visible');
+      document.getElementById('confirmBooking').disabled = false;
+      document.getElementById('bookingStatus').textContent = '';
+    }
+    document.getElementById('confirmBooking').addEventListener('click', async () => {
+      if (!state.selectedSlot) return;
+      const btn = document.getElementById('confirmBooking'); const status = document.getElementById('bookingStatus');
+      btn.disabled = true; btn.textContent = 'Agendando...'; status.className = 'submit-status'; status.textContent = 'Reservando o horário e preparando o convite.';
+      try {
+        const data = await postJson(API.booking, {
+          nome: state.name, telefone: state.phone, email: state.email,
+          areas: state.areas, colaboradores: state.team, faturamento: state.revenue,
+          evento_inicio: state.selectedSlot, lead_id: state.leadId || null, submission_id: state.submissionId
+        }, 30000);
+        track('Schedule', { content_name:'Conversa de 30 minutos' });
+        document.getElementById('finalDate').textContent = `Conversa marcada para ${fullDate(data.evento_inicio || state.selectedSlot)}.`;
+        showStep(6);
+      } catch (error) {
+        status.className = 'submit-status error-text';
+        status.textContent = error.message || 'Esse horário pode ter acabado de ser reservado. Escolha outro horário.';
+        btn.disabled = false; btn.textContent = 'Confirmar agendamento';
+        if (/indisponível|reservado/i.test(status.textContent)) loadAvailability();
+      }
+    });
+    document.getElementById('whatsappBtn').addEventListener('click', () => {
+      window.dataLayer.push({ event: 'advanx_whatsapp_click', context: 'booking_confirmation' });
+      try { if (typeof gtag === 'function') gtag('event', 'whatsapp_click', { context: 'booking_confirmation' }); } catch (_) {}
+    });
+  </script>
+</body>
+</html>
