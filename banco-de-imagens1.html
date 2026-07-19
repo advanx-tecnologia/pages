@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Mídia - Cloudinary</title>
+
+    <script src="https://media-library.cloudinary.com/global/all.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --background: #0a0a0a;
+            --panel: #171717;
+            --border: #2a2a2a;
+            --text: #f4f4f5;
+            --muted: #a1a1aa;
+            --green: #10b981;
+            --green-hover: #059669;
+            --red: #dc2626;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--background);
+            color: var(--text);
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .header {
+            min-height: 76px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            background: var(--panel);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 22px;
+            line-height: 1.2;
+        }
+
+        .header p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 11px 16px;
+            border: 0;
+            border-radius: 8px;
+            background: var(--green);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: var(--green-hover);
+        }
+
+        button.secondary {
+            background: #27272a;
+        }
+
+        button.secondary:hover {
+            background: #3f3f46;
+        }
+
+        #mediaLibrary {
+            width: 100%;
+            height: calc(100vh - 76px);
+            min-height: 620px;
+            background: white;
+        }
+
+        .setup {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(8px);
+        }
+
+        .setup.hidden {
+            display: none;
+        }
+
+        .setup-card {
+            width: 100%;
+            max-width: 460px;
+            padding: 30px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.6);
+        }
+
+        .setup-card h2 {
+            margin-bottom: 8px;
+            font-size: 23px;
+        }
+
+        .setup-card > p {
+            margin-bottom: 24px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .field {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #d4d4d8;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            color: var(--text);
+            background: #09090b;
+            border: 1px solid #3f3f46;
+            border-radius: 8px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+        }
+
+        .hint {
+            margin-top: 6px;
+            color: #71717a;
+            font-size: 12px;
+        }
+
+        .setup-card button {
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .error {
+            display: none;
+            margin-top: 14px;
+            padding: 11px;
+            color: #fecaca;
+            background: rgba(220, 38, 38, 0.15);
+            border: 1px solid rgba(220, 38, 38, 0.35);
+            border-radius: 8px;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .toast {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 1000000;
+            max-width: 420px;
+            padding: 13px 16px;
+            background: #064e3b;
+            border: 1px solid var(--green);
+            border-radius: 9px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+        }
+
+        .toast.hidden {
+            display: none;
+        }
+
+        @media (max-width: 700px) {
+            .header {
+                align-items: flex-start;
+                padding: 13px;
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .header p {
+                display: none;
+            }
+
+            .actions button {
+                padding: 9px 11px;
+                font-size: 12px;
+            }
+
+            #mediaLibrary {
+                height: calc(100vh - 70px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div>
+            <h1>Gerenciador de Mídia</h1>
+            <p id="accountLabel">Cloudinary</p>
+        </div>
+
+        <div class="actions">
+            <button id="openButton" type="button">Abrir biblioteca</button>
+            <button id="settingsButton" class="secondary" type="button">Configuração</button>
+        </div>
+    </header>
+
+    <main id="mediaLibrary"></main>
+
+    <section id="setup" class="setup">
+        <form id="setupForm" class="setup-card">
+            <h2>Conectar ao Cloudinary</h2>
+            <p>Informe o ambiente da sua conta. Depois, o próprio Cloudinary solicitará seu login.</p>
+
+            <div class="field">
+                <label for="cloudName">Cloud name *</label>
+                <input id="cloudName" autocomplete="off" placeholder="exemplo: minha-empresa" required>
+                <div class="hint">Cloudinary → Settings → Product environment credentials</div>
+            </div>
+
+            <div class="field">
+                <label for="apiKey">API key</label>
+                <input id="apiKey" autocomplete="off" inputmode="numeric" placeholder="Opcional">
+                <div class="hint">Pode deixar vazio. O API Secret não é necessário.</div>
+            </div>
+
+            <button type="submit">Conectar e abrir</button>
+            <div id="setupError" class="error"></div>
+        </form>
+    </section>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script>
+        let mediaLibrary = null;
+
+        const setup = document.getElementById('setup');
+        const setupForm = document.getElementById('setupForm');
+        const cloudNameInput = document.getElementById('cloudName');
+        const apiKeyInput = document.getElementById('apiKey');
+        const setupError = document.getElementById('setupError');
+        const accountLabel = document.getElementById('accountLabel');
+        const toastElement = document.getElementById('toast');
+
+        function showToast(message) {
+            toastElement.textContent = message;
+            toastElement.classList.remove('hidden');
+            clearTimeout(showToast.timer);
+            showToast.timer = setTimeout(() => {
+                toastElement.classList.add('hidden');
+            }, 4000);
+        }
+
+        function showError(message) {
+            setupError.textContent = message;
+            setupError.classList.add('show');
+        }
+
+        function saveConfiguration(cloudName, apiKey) {
+            localStorage.setItem('cloudinary_cloud_name', cloudName);
+
+            if (apiKey) {
+                localStorage.setItem('cloudinary_api_key', apiKey);
+            } else {
+                localStorage.removeItem('cloudinary_api_key');
+            }
+        }
+
+        function copySelectedUrls(data) {
+            const assets = Array.isArray(data) ? data : [];
+            const urls = assets
+                .map(asset => asset.derived?.[0]?.secure_url || asset.secure_url || asset.url)
+                .filter(Boolean);
+
+            if (!urls.length) return;
+
+            navigator.clipboard.writeText(urls.join('\n')).then(() => {
+                showToast(urls.length === 1 ? 'URL copiada.' : `${urls.length} URLs copiadas.`);
+            });
+        }
+
+        function connectCloudinary(cloudName, apiKey = '') {
+            if (!window.cloudinary?.createMediaLibrary) {
+                throw new Error('O script do Cloudinary não carregou. Verifique bloqueadores ou CSP do domínio.');
+            }
+
+            const options = {
+                cloud_name: cloudName,
+                inline_container: '#mediaLibrary',
+                remove_header: false,
+                multiple: true,
+                max_files: 50,
+                insert_caption: 'Copiar URL'
+            };
+
+            if (apiKey) options.api_key = apiKey;
+
+            if (mediaLibrary?.hide) {
+                mediaLibrary.hide();
+            }
+
+            mediaLibrary = window.cloudinary.createMediaLibrary(
+                options,
+                {
+                    insertHandler: copySelectedUrls,
+                    showHandler: () => console.log('Biblioteca aberta'),
+                    hideHandler: () => console.log('Biblioteca fechada')
+                }
+            );
+
+            mediaLibrary.on('upload', () => {
+                showToast('Upload concluído no Cloudinary.');
+            });
+
+            mediaLibrary.on('delete', () => {
+                showToast('Arquivo apagado do Cloudinary.');
+            });
+
+            accountLabel.textContent = `Cloudinary: ${cloudName}`;
+            setup.classList.add('hidden');
+            mediaLibrary.show();
+        }
+
+        setupForm.addEventListener('submit', event => {
+            event.preventDefault();
+            setupError.classList.remove('show');
+
+            const cloudName = cloudNameInput.value.trim();
+            const apiKey = apiKeyInput.value.trim();
+
+            if (!cloudName) {
+                showError('Informe o Cloud name.');
+                return;
+            }
+
+            try {
+                saveConfiguration(cloudName, apiKey);
+                connectCloudinary(cloudName, apiKey);
+            } catch (error) {
+                showError(error.message);
+            }
+        });
+
+        document.getElementById('openButton').addEventListener('click', () => {
+            if (mediaLibrary?.show) {
+                mediaLibrary.show();
+            } else {
+                setup.classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('settingsButton').addEventListener('click', () => {
+            cloudNameInput.value = localStorage.getItem('cloudinary_cloud_name') || '';
+            apiKeyInput.value = localStorage.getItem('cloudinary_api_key') || '';
+            setupError.classList.remove('show');
+            setup.classList.remove('hidden');
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedCloudName = localStorage.getItem('cloudinary_cloud_name') || '';
+            const savedApiKey = localStorage.getItem('cloudinary_api_key') || '';
+
+            cloudNameInput.value = savedCloudName;
+            apiKeyInput.value = savedApiKey;
+
+            if (!savedCloudName) return;
+
+            try {
+                connectCloudinary(savedCloudName, savedApiKey);
+            } catch (error) {
+                showError(error.message);
+                setup.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
