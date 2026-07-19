@@ -33,16 +33,16 @@
     }
     *{box-sizing:border-box}
     html{background:var(--cream-50);scroll-behavior:smooth}
-    body{margin:0;min-height:100svh;background:var(--cream-50);color:var(--slate-950);font-family:var(--font);overflow-x:hidden;-webkit-user-select:none;user-select:none}
+    body{margin:0;height:100svh;height:100dvh;background:var(--cream-50);color:var(--slate-950);font-family:var(--font);overflow:hidden;-webkit-user-select:none;user-select:none}
     button,input{font:inherit}button{touch-action:manipulation}a{color:inherit}
     [hidden]{display:none!important}
-    .shell{min-height:100svh;display:grid;grid-template-rows:auto 1fr}
+    .shell{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden}
     .topbar{width:min(1120px,calc(100% - 48px));margin:0 auto;padding:24px 0 16px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--warm-200)}
     .brand{display:inline-flex;align-items:center;text-decoration:none}.brand img{display:block;width:auto;height:34px;object-fit:contain}
     .privacy-note{display:flex;align-items:center;gap:8px;color:var(--slate-600);font-size:13px;font-weight:600}.privacy-note svg{width:16px;height:16px;color:var(--copper-700)}
     .progress-track{width:min(1120px,calc(100% - 48px));height:3px;margin:0 auto;background:var(--cream-100);overflow:hidden}
     .progress-bar{height:100%;width:0;background:var(--copper-700);transition:width .28s ease}
-    main{width:min(960px,calc(100% - 40px));min-height:0;margin:0 auto;padding:24px 0;display:grid;align-items:center}
+    main{width:min(960px,calc(100% - 40px));min-height:0;margin:0 auto;padding:24px 0;display:grid;align-items:center;overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:none}
     .stage{display:none;width:100%}.stage.active{display:block}
     .hero{display:block;width:min(700px,100%);margin:0 auto;padding:16px 0}
     .intro-brand{display:flex;align-items:center;margin-bottom:18px}.intro-brand img{display:block;width:48px;height:48px;object-fit:cover;border-radius:6px}
