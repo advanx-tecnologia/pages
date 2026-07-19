@@ -8,25 +8,28 @@
   <meta name="description" content="Aplicação para escritórios de advocacia que desejam estruturar sua operação comercial com mais previsibilidade.">
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T2CQVN6J');
-  </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-50QK62DG3F"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-50QK62DG3F');</script>
-  <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments)}
+    !function(f){if(f.fbq)return;const n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};f._fbq=n;n.push=n;n.loaded=false;n.version='2.0';n.queue=[]}(window);
     fbq('init','528107519882911');fbq('track','PageView');
+    let trackingLoaded=false;
+    function loadTracking(){
+      if(trackingLoaded)return;trackingLoaded=true;
+      dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});
+      const gtm=document.createElement('script');gtm.async=true;gtm.src='https://www.googletagmanager.com/gtm.js?id=GTM-T2CQVN6J';document.head.appendChild(gtm);
+      const meta=document.createElement('script');meta.async=true;meta.src='https://connect.facebook.net/en_US/fbevents.js';document.head.appendChild(meta);
+    }
+    addEventListener('pointerdown',loadTracking,{once:true,passive:true,capture:true});
+    addEventListener('keydown',loadTracking,{once:true,capture:true});
   </script>
   <style>
     :root{
-      --copper-700:#A45F2B;--copper-600:#B56A32;--copper-500:#CC7A3B;
+      --copper-700:#8A481F;--copper-600:#9B5427;--copper-500:#B56632;
       --cream-50:#F6F1E8;--cream-100:#EFE6D8;--warm-200:#D3CEC6;
       --slate-950:#111111;--slate-800:#262626;--slate-600:#5B5B5B;
       --white:#FFFFFF;--error:#9F2D25;--focus:rgba(164,95,43,.24);
-      --font:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     }
     *{box-sizing:border-box}
     html{background:var(--cream-50);scroll-behavior:smooth}
@@ -95,7 +98,7 @@
     <main id="main">
       <section class="stage active" data-step="0" aria-labelledby="hero-title">
         <div class="hero">
-          <div class="intro-brand"><img src="https://lhbwfbquxkutcyqazpnw.supabase.co/storage/v1/object/public/images/logo/logo-advanx-transparente.webp" alt="Advanx"></div>
+          <div class="intro-brand"><img src="logo-advanx-96.webp" width="48" height="48" alt="Advanx" fetchpriority="high" decoding="async"></div>
           <div class="eyebrow">Aplicação para escritórios</div>
           <h1 id="hero-title">Seu escritório pode fechar de 6 a 12 novos contratos por mês com mais previsibilidade e sem depender de achismos.</h1>
           <p class="lead">Vamos analisar o que pode estar impedindo seu escritório de atrair clientes e fechar novos contratos de forma constante. Com base nas suas respostas, nossa equipe avaliará se o seu escritório tem o perfil ideal para avançar.</p>
