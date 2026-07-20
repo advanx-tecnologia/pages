@@ -32,8 +32,8 @@
       --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     }
     *{box-sizing:border-box}
-    html{background:var(--cream-50);scroll-behavior:smooth}
-    body{margin:0;height:100svh;height:100dvh;background:var(--cream-50);color:var(--slate-950);font-family:var(--font);overflow:hidden;-webkit-user-select:none;user-select:none}
+    html{background:var(--cream-50);scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none}
+    body{margin:0;height:100svh;height:100dvh;background:var(--cream-50);color:var(--slate-950);font-family:var(--font);overflow:hidden;-webkit-user-select:none;user-select:none;scrollbar-width:none;-ms-overflow-style:none}
     button,input{font:inherit}button{touch-action:manipulation}a{color:inherit}
     [hidden]{display:none!important}
     .shell{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden}
@@ -42,7 +42,8 @@
     .privacy-note{display:flex;align-items:center;gap:8px;color:var(--slate-600);font-size:13px;font-weight:600}.privacy-note svg{width:16px;height:16px;color:var(--copper-700)}
     .progress-track{width:min(1120px,calc(100% - 48px));height:3px;margin:0 auto;background:var(--cream-100);overflow:hidden}
     .progress-bar{height:100%;width:0;background:var(--copper-700);transition:width .28s ease}
-    main{width:min(960px,calc(100% - 40px));min-height:0;margin:0 auto;padding:24px 0;display:grid;align-items:center;overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:none}
+    main{width:min(960px,calc(100% - 40px));min-height:0;margin:0 auto;padding:24px 0;display:grid;align-items:center;overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:none;scrollbar-width:none;-ms-overflow-style:none}
+    html::-webkit-scrollbar,body::-webkit-scrollbar,main::-webkit-scrollbar{display:none;width:0;height:0}
     .stage{display:none;width:100%}.stage.active{display:block}
     .hero{display:block;width:min(700px,100%);margin:0 auto;padding:16px 0}
     .intro-brand{display:flex;align-items:center;margin-bottom:18px}.intro-brand img{display:block;width:48px;height:48px;object-fit:cover;border-radius:6px}
