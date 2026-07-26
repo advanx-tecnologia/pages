@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeções Estratégicas - Advanx AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Advanx Brand DNA Tokens */
+            --warm-canvas: #1c1815; /* Fundo quente e escuro, editorial */
+            --soft-ivory: #ffffff; /* Ajustado para ALTO CONTRASTE */
+            --warm-ink: #2b2522; /* Linhas e suportes */
+            --advanx-ember: #e85a1a; /* Laranja primário / Calor mantido */
+            --earth-rail: #a39992; /* Clareado para melhorar contraste secundário */
+            --warm-mist: #e5e0d8; /* Clareado para leitura de corpo de texto */
+            
+            --font-display: 'Sora', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-data: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--warm-canvas);
+            color: var(--warm-mist);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            color: var(--soft-ivory);
+            font-weight: 500;
+        }
+
+        .data-mono {
+            font-family: var(--font-data);
+            color: var(--advanx-ember);
+            font-weight: 500;
+            letter-spacing: -0.5px;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+        }
+
+        .slide {
+            width: 100vw;
+            min-height: 100vh;
+            scroll-snap-align: start;
+            padding: 5rem 10vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            border-bottom: 1px solid var(--warm-ink);
+        }
+
+        .editorial-marker {
+            width: 24px;
+            height: 2px;
+            background-color: var(--advanx-ember);
+            margin-bottom: 2rem;
+        }
+
+        .slide-title {
+            font-size: 2.8rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 850px;
+            letter-spacing: -1px;
+        }
+
+        .slide-subtitle {
+            font-size: 1.25rem;
+            color: var(--earth-rail);
+            font-weight: 300;
+            max-width: 650px;
+            margin-bottom: 4rem;
+        }
+
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .col-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .metrics-list {
+            list-style: none;
+            border-top: 1px solid var(--warm-ink);
+        }
+
+        .metrics-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--warm-ink);
+        }
+
+        .metrics-label {
+            color: var(--earth-rail);
+            font-size: 0.95rem;
+        }
+
+        .metrics-value {
+            font-size: 1.5rem;
+        }
+
+        .editorial-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .editorial-table th, 
+        .editorial-table td {
+            padding: 1.5rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--warm-ink);
+        }
+
+        .editorial-table th {
+            font-family: var(--font-body);
+            color: var(--earth-rail);
+            font-weight: 400;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .editorial-table td {
+            color: var(--soft-ivory);
+            font-size: 1.05rem;
+        }
+
+        .brand-signature {
+            position: absolute;
+            bottom: 3rem;
+            right: 10vw;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--earth-rail);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .brand-signature span {
+            color: var(--advanx-ember);
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+
+    <!-- SLIDE 1: Capa -->
+    <div class="slide">
+        <div class="editorial-marker"></div>
+        <h1 class="slide-title">Viabilidade e Eficiência de Conversão.</h1>
+        <p class="slide-subtitle">Projeções matemáticas para atingimento da meta de 20 contratos para Dr. Alex Neves.</p>
+        
+        <div class="brand-signature">Advanx <span>AI</span></div>
+    </div>
+
+    <!-- SLIDE 2: O Cenário Atual -->
+    <div class="slide">
+        <div class="editorial-marker"></div>
+        <h2 class="slide-title">O raio-x da meta atual.</h2>
+        <p class="slide-subtitle">Baseado no histórico real da conta (Fev a Jun), o custo médio por lead está consolidado em R$ 10,00.</p>
+        
+        <div class="editorial-grid">
+            <div class="col-content">
+                <p>Para que o escritório atinja o objetivo exato de <strong>20 contratos assinados por mês</strong>, a matemática é implacável: a atual ineficiência na etapa de fechamento obriga a compra de um volume massivo de contatos comerciais.</p>
+                <p>Analisando os dados reais de tráfego (fevereiro a junho), cravamos o CPL histórico de <span class="data-mono">R$ 10,00</span>. Com a taxa de conversão atual travada em 3.7%, a operação exige um investimento agressivo apenas para cobrir a ineficiência do funil.</p>
+            </div>
+            
+            <div class="col-metrics">
+                <ul class="metrics-list">
+                    <li class="metrics-item">
+                        <span class="metrics-label">Meta de Contratos/mês</span>
+                        <span class="metrics-value data-mono">20</span>
+                    </li>
+                    <li class="metrics-item">
+                        <span class="metrics-label">Taxa de Conversão (Atual)</span>
+                        <span class="metrics-value data-mono">3.7%</span>
+                    </li>
+                    <li class="metrics-item">
+                        <span class="metrics-label">Leads Necessários</span>
+                        <span class="metrics-value data-mono">541</span>
+                    </li>
+                    <li class="metrics-item">
+                        <span class="metrics-label">Investimento (a R$ 10/lead)</span>
+                        <span class="metrics-value data-mono">R$ 5.410,00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="brand-signature">Advanx <span>AI</span></div>
+    </div>
+
+    <!-- SLIDE 3: A Escada -->
+    <div class="slide">
+        <div class="editorial-marker"></div>
+        <h2 class="slide-title">A escada da conversão.</h2>
+        <p class="slide-subtitle">O impacto direto da melhoria comercial: quanto é necessário investir para fechar os mesmos 20 contratos.</p>
+        
+        <table class="editorial-table">
+            <thead>
+                <tr>
+                    <th>Capacidade de Fechamento</th>
+                    <th>Volume de Leads Exigido</th>
+                    <th>Verba de Mídia Necessária (CPL R$ 10)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="data-mono" style="color: var(--earth-rail);">3.7% (Cenário Atual)</td>
+                    <td class="data-mono" style="color: var(--earth-rail);">541 leads</td>
+                    <td class="data-mono" style="color: var(--earth-rail);">R$ 5.410,00</td>
+                </tr>
+                <tr>
+                    <td class="data-mono">5.0% (Maturidade I)</td>
+                    <td class="data-mono">400 leads</td>
+                    <td class="data-mono">R$ 4.000,00</td>
+                </tr>
+                <tr>
+                    <td class="data-mono">8.0% (Maturidade II)</td>
+                    <td class="data-mono">250 leads</td>
+                    <td class="data-mono">R$ 2.500,00</td>
+                </tr>
+                <tr>
+                    <td class="data-mono" style="color: var(--soft-ivory); font-size: 1.4rem;">10.0% (Ideal)</td>
+                    <td class="data-mono" style="color: var(--soft-ivory); font-size: 1.4rem;">200 leads</td>
+                    <td class="data-mono" style="color: var(--advanx-ember); font-size: 1.4rem;">R$ 2.000,00</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="brand-signature">Advanx <span>AI</span></div>
+    </div>
+
+    <!-- SLIDE 4: Resumo Final -->
+    <div class="slide">
+        <div class="editorial-marker"></div>
+        <h2 class="slide-title">Conclusão Estratégica.</h2>
+        <p class="slide-subtitle">Clareza na alocação de esforço financeiro e operacional.</p>
+        
+        <div class="editorial-grid" style="grid-template-columns: 1fr;">
+            <div class="col-content" style="max-width: 900px;">
+                <p style="font-size: 1.6rem; line-height: 1.4; color: var(--soft-ivory);">
+                    Elevar a conversão de <span class="data-mono">3.7%</span> para <span class="data-mono">10%</span> garante o atingimento da meta de 20 clientes <strong>economizando R$ 3.410,00 todos os meses</strong> em mídia.
+                </p>
+                <p style="margin-top: 2rem; color: var(--warm-mist);">
+                    O foco prioritário da operação não deve ser a injeção excessiva de capital para compensar um CPL alto ou o baixo aproveitamento. O investimento precisa caminhar junto com o amadurecimento do script comercial, para que cada lead comprado por R$ 10 seja convertido com máxima eficiência.
+                </p>
+            </div>
+        </div>
+        
+        <div class="brand-signature">Advanx <span>AI</span></div>
+    </div>
+
+</div>
+
+</body>
+</html>
