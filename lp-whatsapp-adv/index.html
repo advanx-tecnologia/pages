@@ -192,10 +192,11 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 10px;
       padding: 0 24px;
-      border: 1px solid var(--copper-bright);
+      border: 1px solid #25d366;
       border-radius: 9px;
-      background: var(--copper-bright);
+      background: #25d366;
       color: var(--ink);
       font-size: 16px;
       font-weight: 760;
@@ -204,8 +205,23 @@
       text-decoration: none;
       transition: background .16s ease, border-color .16s ease, transform .16s ease;
     }
-    .whatsapp:hover { background: #e0a16b; border-color: #e0a16b; transform: translateY(-1px); }
+    .whatsapp:hover { background: #7fe0a7; border-color: #7fe0a7; transform: translateY(-1px); }
+    .whatsapp svg { width: 20px; height: 20px; flex: 0 0 20px; fill: currentColor; }
     .whatsapp:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .legal {
+      display: grid;
+      justify-items: center;
+      gap: 9px;
+      max-width: 620px;
+      margin: 0 auto;
+      color: rgba(246, 241, 232, .55);
+      font-size: 12px;
+      line-height: 1.45;
+      text-align: center;
+    }
+    .legal p { margin: 0; }
+    .legal a { color: rgba(246, 241, 232, .78); text-underline-offset: 3px; }
+    .legal a:hover { color: var(--paper); }
     @media (max-width: 560px) {
       .page { width: min(100% - 24px, 560px); padding-top: 24px; padding-bottom: 28px; gap: 27px; }
       .brand img { width: 38px; height: 38px; }
@@ -242,8 +258,14 @@
     </section>
 
     <div class="cta-wrap">
-      <a class="whatsapp" id="whatsappCta" href="https://wa.me/5571982470873?text=Oi%2C%20quero%20aumentar%20a%20carteira%20de%20clientes%20do%20escrit%C3%B3rio." target="_blank" rel="noopener">Falar com a Advanx IA no WhatsApp</a>
+      <a class="whatsapp" id="whatsappCta" href="https://wa.me/5571982470873?text=Oi%2C%20quero%20aumentar%20a%20carteira%20de%20clientes%20do%20escrit%C3%B3rio." target="_blank" rel="noopener"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 3.2A12.76 12.76 0 0 0 5.18 22.67L3.2 28.8l6.34-1.93A12.8 12.8 0 1 0 16.04 3.2Zm0 23.25a10.4 10.4 0 0 1-5.3-1.45l-.38-.23-3.76 1.14 1.16-3.66-.25-.38A10.4 10.4 0 1 1 16.04 26.45Zm5.7-7.79c-.31-.16-1.86-.92-2.15-1.03-.29-.1-.5-.16-.71.16-.21.31-.81 1.03-.99 1.24-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.54-.91-.82-1.53-1.84-1.7-2.15-.18-.31-.02-.48.14-.63.14-.14.31-.36.47-.54.16-.18.21-.31.31-.52.1-.2.05-.39-.03-.54-.08-.16-.71-1.71-.97-2.34-.26-.62-.52-.54-.71-.55h-.6c-.21 0-.54.08-.83.39-.29.31-1.09 1.07-1.09 2.61 0 1.54 1.12 3.03 1.28 3.24.16.21 2.2 3.36 5.33 4.71.74.32 1.33.51 1.78.65.75.24 1.43.2 1.97.12.6-.09 1.86-.76 2.12-1.49.26-.73.26-1.36.18-1.49-.08-.13-.29-.21-.6-.36Z"/></svg><span>QUERO CONTINUAR</span></a>
     </div>
+
+    <footer class="legal">
+      <p>© 2026 Advanx. Todos os direitos reservados.</p>
+      <a href="/privacidade.html">Política de privacidade</a>
+      <p>Esta página não possui vínculo, afiliação ou endosso da Meta ou do Google.</p>
+    </footer>
   </main>
 
   <script>
