@@ -17,7 +17,7 @@
         const value = new URLSearchParams(location.search).get(key);
         if (value) result[key] = value;
         return result;
-      }, { page_id: 'cases-advogados', page_path: location.pathname });
+      }, { page_id: 'lp-whatsapp-adv', page_path: location.pathname });
     (function(f){
       if (f.fbq) return;
       const n = f.fbq = function(){ n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
@@ -112,6 +112,15 @@
       letter-spacing: .13em;
       line-height: 1.25;
       text-transform: uppercase;
+    }
+    .audience {
+      display: inline;
+      color: var(--copper-bright);
+      font-size: .64em;
+      font-weight: 780;
+      letter-spacing: .025em;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
     h1, p { margin: 0; }
     h1 {
@@ -223,8 +232,7 @@
     </header>
 
     <section class="intro" aria-labelledby="page-title">
-      <p class="eyebrow">Advogado</p>
-      <h1 id="page-title">Vamos te ajudar a <strong>fechar contratos</strong> com o digital</h1>
+      <h1 id="page-title"><span class="audience">Advogado,</span> vamos te ajudar a <strong>fechar contratos</strong> com o digital</h1>
       <p class="lead">Confira nessa apresentação alguns resultados e o que entregamos para você.</p>
     </section>
 
