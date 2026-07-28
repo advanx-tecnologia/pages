@@ -7,6 +7,7 @@
   <meta name="description" content="Veja resultados da Advanx para escritórios de advocacia e descubra como fechar contratos com o digital.">
   <title>Resultados para advogados | Advanx IA</title>
   <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+  <link rel="preload" as="image" href="https://res.cloudinary.com/dmf4bqbdd/video/upload/so_1/lp_cases_ipymhl.jpg" fetchpriority="high">
   <link rel="dns-prefetch" href="//connect.facebook.net">
   <link rel="dns-prefetch" href="//www.googletagmanager.com">
   <script>
@@ -33,23 +34,25 @@
     gtag('config', 'G-98EL5GXG5F', { send_page_view: false });
     gtag('event', 'page_view', Object.assign({ page_title: document.title, page_location: location.href }, window.__advanxAttribution));
     (function(){
-      let started = false;
-      function loadGoogle(){
-        if (started) return;
-        started = true;
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F';
-        document.head.appendChild(script);
+      let trackersLoaded = false;
+      function loadTrackers(){
+        if (trackersLoaded) return;
+        trackersLoaded = true;
+        const google = document.createElement('script');
+        google.async = true;
+        google.src = 'https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F';
+        document.head.appendChild(google);
+        const meta = document.createElement('script');
+        meta.async = true;
+        meta.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        document.head.appendChild(meta);
       }
-      if ('requestIdleCallback' in window) requestIdleCallback(loadGoogle, { timeout: 2500 });
-      else setTimeout(loadGoogle, 1200);
-    })();
-    (function(){
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://connect.facebook.net/en_US/fbevents.js';
-      document.head.appendChild(script);
+      ['pointerdown', 'keydown', 'scroll'].forEach((eventName) => {
+        addEventListener(eventName, loadTrackers, { once: true, passive: eventName !== 'keydown', capture: true });
+      });
+      if ('requestIdleCallback' in window) requestIdleCallback(loadTrackers, { timeout: 8000 });
+      else setTimeout(loadTrackers, 8000);
+      addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') loadTrackers(); }, { once: true });
     })();
   </script>
   <style>
@@ -144,6 +147,7 @@
     }
     .video-shell {
       width: min(100%, 760px);
+      aspect-ratio: 918 / 720;
       margin: 0 auto;
       overflow: hidden;
       border: 1px solid var(--line);
@@ -155,6 +159,7 @@
       position: relative;
       display: block;
       width: 100%;
+      height: 100%;
       min-height: 0;
       padding: 0;
       border: 0;
@@ -166,8 +171,7 @@
     video {
       display: block;
       width: 100%;
-      height: auto;
-      max-height: min(68dvh, 596px);
+      height: 100%;
       object-fit: contain;
       background: #000;
       pointer-events: none;
@@ -197,10 +201,10 @@
       align-items: center;
       justify-content: center;
       padding: 0 24px;
-      border: 1px solid var(--copper);
+      border: 1px solid var(--copper-bright);
       border-radius: 9px;
-      background: var(--copper);
-      color: #fff;
+      background: var(--copper-bright);
+      color: var(--ink);
       font-size: 16px;
       font-weight: 760;
       line-height: 1;
@@ -208,7 +212,7 @@
       text-decoration: none;
       transition: background .16s ease, border-color .16s ease, transform .16s ease;
     }
-    .whatsapp:hover { background: var(--copper-bright); border-color: var(--copper-bright); transform: translateY(-1px); }
+    .whatsapp:hover { background: #e0a16b; border-color: #e0a16b; transform: translateY(-1px); }
     .whatsapp:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
     @media (max-width: 560px) {
       .page { width: min(100% - 24px, 560px); padding-top: 24px; padding-bottom: 28px; gap: 27px; }
@@ -216,7 +220,6 @@
       h1 { max-width: 18ch; font-size: clamp(29px, 8.2vw, 35px); line-height: 1.1; }
       .lead { max-width: 31ch; margin-top: 15px; font-size: 16px; }
       .video-shell { border-radius: 10px; }
-      video { max-height: 56dvh; }
       .whatsapp { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -238,8 +241,8 @@
 
     <section class="video-shell" aria-label="Apresentação em vídeo">
       <button class="video-toggle" id="videoToggle" type="button" aria-label="Dar play no vídeo" aria-pressed="false">
-        <video id="casesVideo" preload="metadata" playsinline poster="https://res.cloudinary.com/dmf4bqbdd/video/upload/so_1/lp_cases_ipymhl.jpg">
-          <source src="https://res.cloudinary.com/dmf4bqbdd/video/upload/q_auto:eco/v1785251623/lp_cases_ipymhl.mp4" type="video/mp4">
+        <video id="casesVideo" width="918" height="720" preload="none" fetchpriority="high" playsinline poster="https://res.cloudinary.com/dmf4bqbdd/video/upload/so_1/lp_cases_ipymhl.jpg">
+          <source src="https://res.cloudinary.com/dmf4bqbdd/video/upload/w_768,q_auto:eco/v1785251623/lp_cases_ipymhl.mp4" type="video/mp4">
           Seu navegador não suporta vídeo HTML5.
         </video>
         <span class="video-symbol" id="videoSymbol" aria-hidden="true">▶</span>
