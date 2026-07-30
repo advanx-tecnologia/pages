@@ -275,6 +275,7 @@
     const videoSymbol = document.getElementById('videoSymbol');
     const whatsappCta = document.getElementById('whatsappCta');
     const attribution = Object.assign({}, window.__advanxAttribution);
+    const CLICK_ATTRIBUTION_URL = 'https://lhbwfbquxkutcyqazpnw.supabase.co/functions/v1/evolution-webhook';
     const watchedMilestones = new Set();
     let viewedContent = false;
 
@@ -335,7 +336,27 @@
       watchedMilestones.add(100);
       trackCustom('video_complete', { video_title: 'lp_cases_ipymhl', video_percent: 100 });
     });
+    async function recordWhatsappClickAttribution() {
+      const payload = {
+        action: 'record_click_attribution',
+        page_id: attribution.page_id,
+        page_path: attribution.page_path,
+        destination: '5571982470873',
+        attribution
+      };
+      try {
+        await fetch(CLICK_ATTRIBUTION_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true
+        });
+      } catch (_) {
+        // Attribution never blocks the existing WhatsApp handoff.
+      }
+    }
     whatsappCta.addEventListener('click', () => {
+      void recordWhatsappClickAttribution();
       const payload = eventPayload({ content_name: 'WhatsApp Advanx IA', outbound: true });
       meta('Contact', payload);
       analytics('contact', payload);
