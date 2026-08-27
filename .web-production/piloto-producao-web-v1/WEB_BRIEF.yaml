@@ -1,0 +1,44 @@
+project:
+  slug: piloto-producao-web-v1
+  owner: advanx
+  client_name: ""
+  type: landing-page
+  repository: advanx-tecnologia/pages
+  branch: feat/piloto-producao-web-v1
+  route: /piloto-producao-web-v1/
+  public_url: ""
+  mutable_source: piloto-producao-web-v1/index.html
+  immutable_reference: /root/advanx-pages-work/design-system/ADVANX_DESIGN_SYSTEM.md
+objective:
+  primary: validar de ponta a ponta a linha de produção web Advanx
+  conversion: aprovação interna do padrão visual e técnico
+  audience: Rafael e equipe Advanx
+  traffic_source: preview controlada
+  awareness: product-aware
+content:
+  offer: um padrão operacional que transforma briefing em página rápida, acessível e verificável
+  proof_policy: usar somente métricas reais obtidas pelo próprio harness
+  copy_status: pilot-approved
+brand:
+  source: ADVANX_DESIGN_SYSTEM.md
+  palette: ["#111111", "#B56A32", "#F6F1E8", "#FFFFFF"]
+  assets: inline SVG próprio da marca piloto, sem alegar ser o logo oficial
+integrations:
+  tracking: disabled-in-pilot
+  crm: none
+  calendar: none
+  whatsapp: none
+constraints:
+  - não publicar nem mesclar sem autorização
+  - não alterar raiz, CNAME, DNS ou páginas existentes
+  - sem dados falsos, depoimentos ou números inventados
+  - mobile-first, zero dependências de runtime
+acceptance:
+  - HTML e JavaScript válidos
+  - zero erro de console e overflow horizontal
+  - axe sem violações sérias ou críticas
+  - Lighthouse mobile performance >= 95
+  - accessibility = 100
+  - best practices >= 95
+  - SEO >= 95
+  - screenshots nos quatro viewports
