@@ -1,0 +1,32 @@
+route: /gestor-de-trafego-salvador/
+canonical: https://advanx.com.br/gestor-de-trafego-salvador/
+status: draft_ready_for_approval
+objective: iniciar conversas qualificadas no WhatsApp para gestão de tráfego pago
+conversion_action: whatsapp_click
+seo_geo_aeo:
+  indexable: true
+  page_type: local_service_landing_page
+  primary_intent_query: gestor de trafego salvador
+  semantic_variations:
+    - gestor de trafego pago salvador
+    - gestao de trafego pago salvador
+    - google ads salvador
+    - meta ads salvador
+  location: Salvador, BA
+  demand_evidence: "SERP comercial local amostrada em 04/09/2026; sem acesso a Google Search Console ou volume de palavras-chave."
+  claims_sources: "Sem dados de cases, endereço físico ou GBP verificados; a página não faz promessas de resultado nem declara NAP."
+  author: Advanx
+  reviewed_date: 2026-09-04
+  direct_answer: "Gestão de tráfego pago em Salvador para estruturar e acompanhar campanhas de Google Ads e Meta Ads conforme objetivo, oferta, atendimento e dados disponíveis."
+  internal_links: "Home e política de privacidade; não foram adicionados links semânticos para páginas legadas não verificadas."
+  schema_types:
+    - Organization
+    - Service
+    - WebPage
+    - FAQPage
+  crawler_policy: "index,follow; robots.txt inclui sitemap."
+  llms_policy: "Sem llms.txt nesta alteração; criar somente com inventário editorial mantido."
+  measurement_hypothesis: "Cliques no WhatsApp por origem e campanha orientam otimizações posteriores."
+  pseo:
+    enabled: false
+    rationale: "Página local única. Escala programática somente com fonte de dados, owner, páginas distintas e revisão anti-thin-content."
