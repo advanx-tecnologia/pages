@@ -34,6 +34,9 @@ class SeoTags(HTMLParser):
         super().__init__()
         self.canonical = ""
         self.robots = ""
+        self.schema_types: set[str] = set()
+        self._inside_jsonld = False
+        self._jsonld_parts: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         data = {key.lower(): (value or "") for key, value in attrs}
@@ -41,6 +44,29 @@ class SeoTags(HTMLParser):
             self.canonical = data.get("href", "")
         if tag.lower() == "meta" and data.get("name", "").lower() == "robots":
             self.robots = data.get("content", "")
+        if tag.lower() == "script" and data.get("type", "").lower() == "application/ld+json":
+            self._inside_jsonld = True
+            self._jsonld_parts = []
+
+    def handle_data(self, data: str) -> None:
+        if self._inside_jsonld:
+            self._jsonld_parts.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() != "script" or not self._inside_jsonld:
+            return
+        self._inside_jsonld = False
+        try:
+            schema = json.loads("".join(self._jsonld_parts))
+            graph = schema.get("@graph", [schema]) if isinstance(schema, dict) else schema
+            for node in graph:
+                value = node.get("@type") if isinstance(node, dict) else None
+                if isinstance(value, list):
+                    self.schema_types.update(item for item in value if isinstance(item, str))
+                elif isinstance(value, str):
+                    self.schema_types.add(value)
+        except (json.JSONDecodeError, TypeError):
+            pass
 
 
 def get_sitemap_urls() -> set[str]:
@@ -104,13 +130,20 @@ def main() -> None:
             failures.append(f"URL fora do sitemap: {url}")
         try:
             status, tags = fetch_live(url)
-            item.update({"live_status": status, "canonical": tags.canonical, "robots": tags.robots})
+            item.update({
+                "live_status": status,
+                "canonical": tags.canonical,
+                "robots": tags.robots,
+                "schema_types": sorted(tags.schema_types),
+            })
             if status != 200:
                 failures.append(f"URL live não respondeu 200: {url} ({status})")
             if tags.canonical != url:
                 failures.append(f"Canonical divergente: {url} -> {tags.canonical or 'ausente'}")
             if "index" not in tags.robots.lower() or "follow" not in tags.robots.lower():
                 failures.append(f"Robots não indexável: {url} -> {tags.robots or 'ausente'}")
+            if "BreadcrumbList" not in tags.schema_types:
+                failures.append(f"BreadcrumbList ausente: {url}")
         except (urllib.error.URLError, TimeoutError) as exc:
             failures.append(f"Falha ao ler URL live {url}: {exc}")
         report["urls"].append(item)

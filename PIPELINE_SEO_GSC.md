@@ -7,8 +7,8 @@ materialmente uma rota indexável.
 
 1. Publicar a rota, o `sitemap.xml` e qualquer atualização do `llms.txt` no mesmo deploy.
 2. Aguardar a URL pública responder `200`.
-3. Rodar o gate abaixo. Ele valida arquivo local, sitemap, HTTP 200, canonical e
-   `robots=index,follow` antes de qualquer chamada ao Google.
+3. Rodar o gate abaixo. Ele valida arquivo local, sitemap, HTTP 200, canonical,
+   `robots=index,follow` e `BreadcrumbList` antes de qualquer chamada ao Google.
 4. Só se todos os gates passarem, ele reenvia **o sitemap** ao Search Console e
    faz uma leitura do estado de indexação das rotas alteradas.
 5. Registrar o retorno do Google como `reconhecida`, `detectada`, `indexada` ou
