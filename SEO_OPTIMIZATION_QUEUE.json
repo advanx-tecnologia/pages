@@ -2,9 +2,23 @@
   "version": 1,
   "created_at": "2026-09-09",
   "policy": "Uma página existente por execução diária. Só marcar como concluída após publicação, validação pública, sitemap enviado no Search Console e inspeção registrada.",
-  "completed": [],
+  "completed": [
+    {
+      "route": "ia-para-vendas-salvador",
+      "completed_at_brt": "2026-09-10T09:58:55-03:00",
+      "url": "https://advanx.com.br/ia-para-vendas-salvador/",
+      "gate": {
+        "status": "PASS",
+        "live_http": 200,
+        "sitemap_submitted": true,
+        "search_console_verdict": "NEUTRAL",
+        "search_console_coverage": "Detectada, mas não indexada no momento",
+        "google_canonical": "-"
+      }
+    }
+  ],
   "queue": [
-    {"route": "ia-para-vendas-salvador", "status": "pending", "reason": "Página curta e URL ainda desconhecida pelo Google na última inspeção."},
+
     {"route": "automacao-whatsapp-salvador", "status": "pending", "reason": "Página curta e URL ainda desconhecida pelo Google na última inspeção."},
     {"route": "crm-para-empresas-salvador", "status": "pending", "reason": "Página curta e URL ainda desconhecida pelo Google na última inspeção."},
     {"route": "gestor-de-trafego-salvador", "status": "pending", "reason": "Página detectada, ainda não indexada na última inspeção."},
