@@ -15,11 +15,28 @@
         "search_console_coverage": "Detectada, mas não indexada no momento",
         "google_canonical": "-"
       }
+    },
+    {
+      "route": "automacao-whatsapp-salvador",
+      "completed_at_brt": "2026-09-11T13:26:47-03:00",
+      "url": "https://advanx.com.br/automacao-whatsapp-salvador/",
+      "gate": {
+        "status": "PASS",
+        "live_http": 200,
+        "sitemap_submitted": true,
+        "search_console_verdict": "PASS",
+        "search_console_coverage": "Enviada e indexada",
+        "google_canonical": "https://advanx.com.br/automacao-whatsapp-salvador/",
+        "lighthouse_mobile_median": {
+          "performance": 99,
+          "lcp_ms": 1832,
+          "cls": 0,
+          "tbt_ms": 1
+        }
+      }
     }
   ],
   "queue": [
-
-    {"route": "automacao-whatsapp-salvador", "status": "pending", "reason": "Página publicada e gate técnico aprovado, mas a mediana de Lighthouse ainda não foi executada: este ambiente não tem Chrome/Chromium disponível."},
     {"route": "crm-para-empresas-salvador", "status": "pending", "reason": "Página curta e URL ainda desconhecida pelo Google na última inspeção."},
     {"route": "gestor-de-trafego-salvador", "status": "pending", "reason": "Página detectada, ainda não indexada na última inspeção."},
     {"route": "chatbot-whatsapp-salvador", "status": "pending", "reason": "Página detectada, ainda não indexada na última inspeção."},
