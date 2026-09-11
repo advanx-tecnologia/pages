@@ -19,7 +19,7 @@
   ],
   "queue": [
 
-    {"route": "automacao-whatsapp-salvador", "status": "completed", "completed_at_brt": "2026-09-11T09:59:22-03:00", "url": "https://advanx.com.br/automacao-whatsapp-salvador/", "gate": {"status": "PASS", "live_http": 200, "sitemap_submitted": true, "search_console_verdict": "PASS", "search_console_coverage": "Enviada e indexada", "google_canonical": "https://advanx.com.br/automacao-whatsapp-salvador/", "sitemap_pending": true, "sitemap_errors": 0, "sitemap_warnings": 0}},
+    {"route": "automacao-whatsapp-salvador", "status": "pending", "reason": "Página publicada e gate técnico aprovado, mas a mediana de Lighthouse ainda não foi executada: este ambiente não tem Chrome/Chromium disponível."},
     {"route": "crm-para-empresas-salvador", "status": "pending", "reason": "Página curta e URL ainda desconhecida pelo Google na última inspeção."},
     {"route": "gestor-de-trafego-salvador", "status": "pending", "reason": "Página detectada, ainda não indexada na última inspeção."},
     {"route": "chatbot-whatsapp-salvador", "status": "pending", "reason": "Página detectada, ainda não indexada na última inspeção."},
