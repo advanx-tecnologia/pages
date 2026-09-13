@@ -50,11 +50,27 @@
         "sitemap_errors": 0,
         "sitemap_warnings": 0
       }
+    },
+    {
+      "route": "gestor-de-trafego-salvador",
+      "completed_at_brt": "2026-09-13T09:59:12-03:00",
+      "url": "https://advanx.com.br/gestor-de-trafego-salvador/",
+      "gate": {
+        "status": "PASS",
+        "live_http": 200,
+        "sitemap_submitted": true,
+        "sitemap_pending": true,
+        "sitemap_errors": 0,
+        "sitemap_warnings": 0,
+        "search_console_verdict": "PASS",
+        "search_console_coverage": "Enviada e indexada",
+        "google_canonical": "https://advanx.com.br/gestor-de-trafego-salvador/"
+      }
     }
   ],
   "queue": [
 
-    {"route": "gestor-de-trafego-salvador", "status": "pending", "reason": "Página detectada, ainda não indexada na última inspeção."},
+
     {"route": "chatbot-whatsapp-salvador", "status": "pending", "reason": "Página detectada, ainda não indexada na última inspeção."},
     {"route": "social-media-salvador", "status": "pending", "reason": "Página detectada, ainda não indexada na última inspeção."},
     {"route": "empresa-gestao-trafego-pago", "status": "pending", "reason": "Página detectada, ainda não indexada na última inspeção."},
