@@ -20,6 +20,26 @@
         const GA4_MEASUREMENT_ID = 'G-98EL5GXG5F'; // Exemplo: 'G-XXXXXXXXXX'
     </script>
 
+    <!-- Captura do identificador de clique Meta antes do Pixel -->
+    <script>
+        (function persistMetaClickId() {
+            const fbclid = new URLSearchParams(window.location.search).get('fbclid');
+            const hasFbc = /(?:^|;\s*)_fbc=/.test(document.cookie);
+            if (!fbclid || hasFbc) return;
+
+            const expiresInSeconds = 60 * 60 * 24 * 90;
+            const fbc = `fb.1.${Date.now()}.${fbclid}`;
+            document.cookie = [
+                `_fbc=${encodeURIComponent(fbc)}`,
+                'path=/',
+                'domain=.advanx.com.br',
+                `max-age=${expiresInSeconds}`,
+                'SameSite=Lax',
+                'Secure'
+            ].join('; ');
+        })();
+    </script>
+
     <!-- Meta Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s)
@@ -31,7 +51,7 @@
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
 
-        if (typeof META_PIXEL_ID !== 'undefined' && META_PIXEL_ID && META_PIXEL_ID !== '502759528362336') {
+        if (typeof META_PIXEL_ID !== 'undefined' && META_PIXEL_ID) {
             fbq('init', META_PIXEL_ID);
             fbq('track', 'PageView');
         }
@@ -235,7 +255,7 @@
                 hasTrackedContact = true;
 
                 // Disparo no Meta Pixel (silencioso)
-                if (window.fbq && typeof META_PIXEL_ID !== 'undefined' && META_PIXEL_ID !== '502759528362336') {
+                if (window.fbq && typeof META_PIXEL_ID !== 'undefined' && META_PIXEL_ID) {
                     fbq('track', 'Contact', {
                         content_name: 'WhatsApp Redirect Advanx',
                         trigger: triggerType
