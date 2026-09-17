@@ -4,6 +4,25 @@
   "policy": "Uma página existente por execução diária. Só marcar como concluída após publicação, validação pública, sitemap enviado no Search Console e inspeção registrada.",
   "completed": [
     {
+      "route": "empresa-gestao-trafego-pago",
+      "completed_at_brt": "2026-09-17T10:01:01-03:00",
+      "url": "https://advanx.com.br/empresa-gestao-trafego-pago/",
+      "gate": {
+        "status": "PASS",
+        "live_http": 200,
+        "sitemap_submitted": true,
+        "sitemap_pending": true,
+        "sitemap_last_submitted": "2026-09-17T13:00:00.075Z",
+        "sitemap_last_downloaded": "2026-09-17T12:59:13.322Z",
+        "sitemap_errors": 0,
+        "sitemap_warnings": 0,
+        "search_console_verdict": "NEUTRAL",
+        "search_console_coverage": "O Google não reconhece o URL",
+        "google_canonical": "-",
+        "performance_check": "Não concluído: Lighthouse local sem Chrome e PageSpeed API retornou HTTP 429. Não bloqueou o gate técnico de publicação."
+      }
+    },
+    {
       "route": "ia-para-vendas-salvador",
       "completed_at_brt": "2026-09-10T09:58:55-03:00",
       "url": "https://advanx.com.br/ia-para-vendas-salvador/",
@@ -110,7 +129,6 @@
     }
   ],
   "queue": [
-    {"route": "empresa-gestao-trafego-pago", "status": "pending", "reason": "Página detectada, ainda não indexada na última inspeção."},
     {"route": "criacao-de-sites-salvador", "status": "pending", "reason": "Página existente a aprofundar e manter atualizada."},
     {"route": "edicao-de-video-salvador", "status": "pending", "reason": "Página existente a aprofundar e manter atualizada."},
     {"route": "clone-de-ia-salvador", "status": "pending", "reason": "Página existente a aprofundar e manter atualizada."},
