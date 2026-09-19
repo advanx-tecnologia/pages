@@ -160,7 +160,16 @@
         "sitemap_warnings": 0,
         "search_console_verdict": "PASS",
         "search_console_coverage": "Enviada e indexada",
-        "google_canonical": "https://advanx.com.br/edicao-de-video-salvador/"
+        "google_canonical": "https://advanx.com.br/edicao-de-video-salvador/",
+        "lighthouse_mobile_median": {
+          "performance": 98,
+          "accessibility": 100,
+          "best_practices": 96,
+          "seo": 100,
+          "lcp_ms": 1606,
+          "cls": 0,
+          "tbt_ms": 150
+        }
       }
     }
   ],
