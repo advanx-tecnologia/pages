@@ -144,11 +144,36 @@
         "search_console_coverage": "Enviada e indexada",
         "google_canonical": "https://advanx.com.br/criacao-de-sites-salvador/"
       }
+    },
+    {
+      "route": "edicao-de-video-salvador",
+      "completed_at_brt": "2026-09-19T10:00:36-03:00",
+      "url": "https://advanx.com.br/edicao-de-video-salvador/",
+      "gate": {
+        "status": "PASS",
+        "live_http": 200,
+        "sitemap_submitted": true,
+        "sitemap_pending": true,
+        "sitemap_last_submitted": "2026-09-19T13:00:14.716Z",
+        "sitemap_last_downloaded": "2026-09-18T13:00:10.256Z",
+        "sitemap_errors": 0,
+        "sitemap_warnings": 0,
+        "search_console_verdict": "PASS",
+        "search_console_coverage": "Enviada e indexada",
+        "google_canonical": "https://advanx.com.br/edicao-de-video-salvador/"
+      }
     }
   ],
   "queue": [
-    {"route": "edicao-de-video-salvador", "status": "pending", "reason": "Página existente a aprofundar e manter atualizada."},
-    {"route": "clone-de-ia-salvador", "status": "pending", "reason": "Página existente a aprofundar e manter atualizada."},
-    {"route": "agencia-de-marketing-digital-salvador", "status": "pending", "reason": "Página pilar a aprofundar e atualizar depois das páginas de serviço."}
+    {
+      "route": "clone-de-ia-salvador",
+      "status": "pending",
+      "reason": "Página existente a aprofundar e manter atualizada."
+    },
+    {
+      "route": "agencia-de-marketing-digital-salvador",
+      "status": "pending",
+      "reason": "Página pilar a aprofundar e atualizar depois das páginas de serviço."
+    }
   ]
 }
