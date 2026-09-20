@@ -171,14 +171,27 @@
           "tbt_ms": 150
         }
       }
+    },
+    {
+      "route": "clone-de-ia-salvador",
+      "completed_at_brt": "2026-09-20T10:02:06-03:00",
+      "url": "https://advanx.com.br/clone-de-ia-salvador/",
+      "gate": {
+        "status": "PASS",
+        "live_http": 200,
+        "sitemap_submitted": true,
+        "sitemap_pending": true,
+        "sitemap_last_submitted": "2026-09-20T13:01:51.062Z",
+        "sitemap_last_downloaded": "2026-09-20T12:30:12.021Z",
+        "sitemap_errors": 0,
+        "sitemap_warnings": 0,
+        "search_console_verdict": "PASS",
+        "search_console_coverage": "Enviada e indexada",
+        "google_canonical": "https://advanx.com.br/clone-de-ia-salvador/"
+      }
     }
   ],
   "queue": [
-    {
-      "route": "clone-de-ia-salvador",
-      "status": "pending",
-      "reason": "Página existente a aprofundar e manter atualizada."
-    },
     {
       "route": "agencia-de-marketing-digital-salvador",
       "status": "pending",
