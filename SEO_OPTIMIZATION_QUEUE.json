@@ -189,13 +189,25 @@
         "search_console_coverage": "Enviada e indexada",
         "google_canonical": "https://advanx.com.br/clone-de-ia-salvador/"
       }
-    }
-  ],
-  "queue": [
+    },
     {
       "route": "agencia-de-marketing-digital-salvador",
-      "status": "pending",
-      "reason": "Página pilar a aprofundar e atualizar depois das páginas de serviço."
+      "completed_at_brt": "2026-09-21T10:01:39-03:00",
+      "url": "https://advanx.com.br/agencia-de-marketing-digital-salvador/",
+      "gate": {
+        "status": "PASS",
+        "live_http": 200,
+        "sitemap_submitted": true,
+        "sitemap_pending": true,
+        "sitemap_last_submitted": "2026-09-21T13:01:24.692Z",
+        "sitemap_last_downloaded": "2026-09-21T12:07:36.055Z",
+        "sitemap_errors": 0,
+        "sitemap_warnings": 0,
+        "search_console_verdict": "PASS",
+        "search_console_coverage": "Enviada e indexada",
+        "google_canonical": "https://advanx.com.br/agencia-de-marketing-digital-salvador/"
+      }
     }
-  ]
+  ],
+  "queue": []
 }
