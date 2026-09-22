@@ -1,0 +1,1107 @@
+{
+  "source_audit": "/root/.hermes/auditorias/auditoria-total-seo-advanx-20260922.json",
+  "before_counts": {
+    "arquivo_ausente": 0,
+    "noindex": 0,
+    "h1": 0,
+    "headings": 28,
+    "title": 0,
+    "description": 3,
+    "viewport": 0,
+    "og_image": 17,
+    "links_internos": 3,
+    "schema": 5
+  },
+  "target_urls": [
+    "https://advanx.com.br/",
+    "https://advanx.com.br/advogado-lead-v5.html",
+    "https://advanx.com.br/agencia-de-marketing-digital-salvador/",
+    "https://advanx.com.br/automacao-whatsapp-salvador/",
+    "https://advanx.com.br/blog/automacao-escritorio-advocacia-7-processos/",
+    "https://advanx.com.br/blog/captacao-clientes-advocacia-previdenciaria/",
+    "https://advanx.com.br/blog/captacao-clientes-advocacia-trabalhista/",
+    "https://advanx.com.br/blog/captacao-de-clientes-para-advogados-17/",
+    "https://advanx.com.br/blog/captacao-de-clientes-para-advogados-23/",
+    "https://advanx.com.br/blog/chatbot-para-advogados-qualificar-leads-24h/",
+    "https://advanx.com.br/blog/claude-para-advogados-12/",
+    "https://advanx.com.br/blog/claude-para-advogados-24/",
+    "https://advanx.com.br/blog/claude-para-advogados/",
+    "https://advanx.com.br/blog/como-advogados-captam-clientes-ia-2026/",
+    "https://advanx.com.br/blog/como-aumentar-faturamento-escritorio-advocacia/",
+    "https://advanx.com.br/blog/crm-para-advogados-gestao-de-leads/",
+    "https://advanx.com.br/blog/funil-de-vendas-para-advogados/",
+    "https://advanx.com.br/blog/google-ads-para-advogados/",
+    "https://advanx.com.br/blog/ia-de-atendimento-para-advogados-no-whatsapp/",
+    "https://advanx.com.br/blog/instagram-para-advogados-atrair-clientes/",
+    "https://advanx.com.br/blog/landing-page-para-advogados-converter-leads/",
+    "https://advanx.com.br/blog/linkedin-para-advogados-posicionamento/",
+    "https://advanx.com.br/blog/marketing-e-vendas-para-advogados/",
+    "https://advanx.com.br/blog/marketing-juridico-oab-guia-completo/",
+    "https://advanx.com.br/blog/meta-ads-facebook-ads-para-advogados/",
+    "https://advanx.com.br/blog/openclaw-para-advogados-21/",
+    "https://advanx.com.br/blog/seo-para-advogados-aparecer-no-google/",
+    "https://advanx.com.br/blog/sistema-captacao-clientes-previsivel/",
+    "https://advanx.com.br/blog/trafego-pago-para-advogados-guia-completo/",
+    "https://advanx.com.br/blog/vendas-para-advogados-fechar-mais-contratos/",
+    "https://advanx.com.br/blog/whatsapp-ia-para-advogados/",
+    "https://advanx.com.br/blog/whatsapp-para-advogados-atendimento-e-captacao/",
+    "https://advanx.com.br/chatbot-whatsapp-salvador/",
+    "https://advanx.com.br/clone-de-ia-salvador/",
+    "https://advanx.com.br/criacao-de-sites-salvador/",
+    "https://advanx.com.br/crm-para-empresas-salvador/",
+    "https://advanx.com.br/edicao-de-video-salvador/",
+    "https://advanx.com.br/empresa-gestao-trafego-pago/",
+    "https://advanx.com.br/gestor-de-trafego-salvador/",
+    "https://advanx.com.br/google-meu-negocio-salvador/",
+    "https://advanx.com.br/ia-para-vendas-salvador/",
+    "https://advanx.com.br/pagina-obrigado.html",
+    "https://advanx.com.br/privacidade.html",
+    "https://advanx.com.br/social-media-salvador/",
+    "https://advanx.com.br/termos-de-servico.html"
+  ],
+  "changed_files": [
+    "advogado-lead-v5.html",
+    "agencia-de-marketing-digital-salvador/index.html",
+    "automacao-whatsapp-salvador/index.html",
+    "blog/automacao-escritorio-advocacia-7-processos/index.html",
+    "blog/captacao-clientes-advocacia-previdenciaria/index.html",
+    "blog/captacao-clientes-advocacia-trabalhista/index.html",
+    "blog/captacao-de-clientes-para-advogados-17/index.html",
+    "blog/captacao-de-clientes-para-advogados-23/index.html",
+    "blog/chatbot-para-advogados-qualificar-leads-24h/index.html",
+    "blog/claude-para-advogados-12/index.html",
+    "blog/claude-para-advogados-24/index.html",
+    "blog/claude-para-advogados/index.html",
+    "blog/como-advogados-captam-clientes-ia-2026/index.html",
+    "blog/como-aumentar-faturamento-escritorio-advocacia/index.html",
+    "blog/crm-para-advogados-gestao-de-leads/index.html",
+    "blog/funil-de-vendas-para-advogados/index.html",
+    "blog/google-ads-para-advogados/index.html",
+    "blog/ia-de-atendimento-para-advogados-no-whatsapp/index.html",
+    "blog/instagram-para-advogados-atrair-clientes/index.html",
+    "blog/landing-page-para-advogados-converter-leads/index.html",
+    "blog/linkedin-para-advogados-posicionamento/index.html",
+    "blog/marketing-e-vendas-para-advogados/index.html",
+    "blog/marketing-juridico-oab-guia-completo/index.html",
+    "blog/meta-ads-facebook-ads-para-advogados/index.html",
+    "blog/openclaw-para-advogados-21/index.html",
+    "blog/seo-para-advogados-aparecer-no-google/index.html",
+    "blog/sistema-captacao-clientes-previsivel/index.html",
+    "blog/trafego-pago-para-advogados-guia-completo/index.html",
+    "blog/vendas-para-advogados-fechar-mais-contratos/index.html",
+    "blog/whatsapp-ia-para-advogados/index.html",
+    "blog/whatsapp-para-advogados-atendimento-e-captacao/index.html",
+    "chatbot-whatsapp-salvador/index.html",
+    "clone-de-ia-salvador/index.html",
+    "criacao-de-sites-salvador/index.html",
+    "crm-para-empresas-salvador/index.html",
+    "edicao-de-video-salvador/index.html",
+    "empresa-gestao-trafego-pago/index.html",
+    "gestor-de-trafego-salvador/index.html",
+    "google-meu-negocio-salvador/index.html",
+    "ia-para-vendas-salvador/index.html",
+    "index.html",
+    "pagina-obrigado.html",
+    "privacidade.html",
+    "social-media-salvador/index.html",
+    "termos-de-servico.html"
+  ],
+  "modified_on_current_run": [
+    "index.html",
+    "advogado-lead-v5.html",
+    "agencia-de-marketing-digital-salvador/index.html",
+    "automacao-whatsapp-salvador/index.html",
+    "chatbot-whatsapp-salvador/index.html",
+    "clone-de-ia-salvador/index.html",
+    "criacao-de-sites-salvador/index.html",
+    "crm-para-empresas-salvador/index.html",
+    "edicao-de-video-salvador/index.html",
+    "empresa-gestao-trafego-pago/index.html",
+    "gestor-de-trafego-salvador/index.html",
+    "google-meu-negocio-salvador/index.html",
+    "ia-para-vendas-salvador/index.html",
+    "pagina-obrigado.html",
+    "privacidade.html",
+    "social-media-salvador/index.html",
+    "termos-de-servico.html"
+  ],
+  "social_cards": [
+    "assets/social/inicio.svg",
+    "assets/social/advogado-lead-v5-html.svg",
+    "assets/social/agencia-de-marketing-digital-salvador.svg",
+    "assets/social/automacao-whatsapp-salvador.svg",
+    "assets/social/chatbot-whatsapp-salvador.svg",
+    "assets/social/clone-de-ia-salvador.svg",
+    "assets/social/criacao-de-sites-salvador.svg",
+    "assets/social/crm-para-empresas-salvador.svg",
+    "assets/social/edicao-de-video-salvador.svg",
+    "assets/social/empresa-gestao-trafego-pago.svg",
+    "assets/social/gestor-de-trafego-salvador.svg",
+    "assets/social/google-meu-negocio-salvador.svg",
+    "assets/social/ia-para-vendas-salvador.svg",
+    "assets/social/pagina-obrigado-html.svg",
+    "assets/social/privacidade-html.svg",
+    "assets/social/social-media-salvador.svg",
+    "assets/social/termos-de-servico-html.svg"
+  ],
+  "routes": [
+    {
+      "url": "https://advanx.com.br/",
+      "file": "index.html",
+      "findings_before": [
+        "description",
+        "og_image",
+        "links_internos",
+        "schema"
+      ],
+      "changes_applied": [
+        "description",
+        "og_image",
+        "links_internos",
+        "schema"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/advogado-lead-v5.html",
+      "file": "advogado-lead-v5.html",
+      "findings_before": [
+        "description",
+        "og_image",
+        "links_internos",
+        "schema"
+      ],
+      "changes_applied": [
+        "description",
+        "og_image",
+        "links_internos",
+        "schema"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/privacidade.html",
+      "file": "privacidade.html",
+      "findings_before": [
+        "description",
+        "og_image",
+        "links_internos",
+        "schema"
+      ],
+      "changes_applied": [
+        "description",
+        "og_image",
+        "links_internos",
+        "schema"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/pagina-obrigado.html",
+      "file": "pagina-obrigado.html",
+      "findings_before": [
+        "og_image",
+        "schema"
+      ],
+      "changes_applied": [
+        "og_image",
+        "schema"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/gestor-de-trafego-salvador/",
+      "file": "gestor-de-trafego-salvador/index.html",
+      "findings_before": [
+        "og_image"
+      ],
+      "changes_applied": [
+        "og_image"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/criacao-de-sites-salvador/",
+      "file": "criacao-de-sites-salvador/index.html",
+      "findings_before": [
+        "og_image"
+      ],
+      "changes_applied": [
+        "og_image"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/crm-para-empresas-salvador/",
+      "file": "crm-para-empresas-salvador/index.html",
+      "findings_before": [
+        "og_image"
+      ],
+      "changes_applied": [
+        "og_image"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/automacao-whatsapp-salvador/",
+      "file": "automacao-whatsapp-salvador/index.html",
+      "findings_before": [
+        "og_image"
+      ],
+      "changes_applied": [
+        "og_image"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/chatbot-whatsapp-salvador/",
+      "file": "chatbot-whatsapp-salvador/index.html",
+      "findings_before": [
+        "og_image"
+      ],
+      "changes_applied": [
+        "og_image"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/ia-para-vendas-salvador/",
+      "file": "ia-para-vendas-salvador/index.html",
+      "findings_before": [
+        "og_image"
+      ],
+      "changes_applied": [
+        "og_image"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/social-media-salvador/",
+      "file": "social-media-salvador/index.html",
+      "findings_before": [
+        "og_image"
+      ],
+      "changes_applied": [
+        "og_image"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/edicao-de-video-salvador/",
+      "file": "edicao-de-video-salvador/index.html",
+      "findings_before": [
+        "og_image"
+      ],
+      "changes_applied": [
+        "og_image"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/clone-de-ia-salvador/",
+      "file": "clone-de-ia-salvador/index.html",
+      "findings_before": [
+        "og_image"
+      ],
+      "changes_applied": [
+        "og_image"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/empresa-gestao-trafego-pago/",
+      "file": "empresa-gestao-trafego-pago/index.html",
+      "findings_before": [
+        "og_image"
+      ],
+      "changes_applied": [
+        "og_image"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/agencia-de-marketing-digital-salvador/",
+      "file": "agencia-de-marketing-digital-salvador/index.html",
+      "findings_before": [
+        "og_image"
+      ],
+      "changes_applied": [
+        "og_image"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/google-meu-negocio-salvador/",
+      "file": "google-meu-negocio-salvador/index.html",
+      "findings_before": [
+        "og_image"
+      ],
+      "changes_applied": [
+        "og_image"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/termos-de-servico.html",
+      "file": "termos-de-servico.html",
+      "findings_before": [
+        "og_image",
+        "schema"
+      ],
+      "changes_applied": [
+        "og_image",
+        "schema"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/",
+      "file": "blog/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/automacao-escritorio-advocacia-7-processos/",
+      "file": "blog/automacao-escritorio-advocacia-7-processos/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/captacao-clientes-advocacia-previdenciaria/",
+      "file": "blog/captacao-clientes-advocacia-previdenciaria/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/captacao-clientes-advocacia-trabalhista/",
+      "file": "blog/captacao-clientes-advocacia-trabalhista/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/captacao-de-clientes-para-advogados-17/",
+      "file": "blog/captacao-de-clientes-para-advogados-17/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/captacao-de-clientes-para-advogados-23/",
+      "file": "blog/captacao-de-clientes-para-advogados-23/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/chatbot-para-advogados-qualificar-leads-24h/",
+      "file": "blog/chatbot-para-advogados-qualificar-leads-24h/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/claude-para-advogados-12/",
+      "file": "blog/claude-para-advogados-12/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/claude-para-advogados-24/",
+      "file": "blog/claude-para-advogados-24/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/claude-para-advogados/",
+      "file": "blog/claude-para-advogados/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/como-advogados-captam-clientes-ia-2026/",
+      "file": "blog/como-advogados-captam-clientes-ia-2026/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/como-aumentar-faturamento-escritorio-advocacia/",
+      "file": "blog/como-aumentar-faturamento-escritorio-advocacia/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/crm-para-advogados-gestao-de-leads/",
+      "file": "blog/crm-para-advogados-gestao-de-leads/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/funil-de-vendas-para-advogados/",
+      "file": "blog/funil-de-vendas-para-advogados/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/google-ads-para-advogados/",
+      "file": "blog/google-ads-para-advogados/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/ia-de-atendimento-para-advogados-no-whatsapp/",
+      "file": "blog/ia-de-atendimento-para-advogados-no-whatsapp/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/instagram-para-advogados-atrair-clientes/",
+      "file": "blog/instagram-para-advogados-atrair-clientes/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/landing-page-para-advogados-converter-leads/",
+      "file": "blog/landing-page-para-advogados-converter-leads/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/linkedin-para-advogados-posicionamento/",
+      "file": "blog/linkedin-para-advogados-posicionamento/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/marketing-e-vendas-para-advogados/",
+      "file": "blog/marketing-e-vendas-para-advogados/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/marketing-juridico-oab-guia-completo/",
+      "file": "blog/marketing-juridico-oab-guia-completo/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/meta-ads-facebook-ads-para-advogados/",
+      "file": "blog/meta-ads-facebook-ads-para-advogados/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/openclaw-para-advogados-21/",
+      "file": "blog/openclaw-para-advogados-21/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/seo-para-advogados-aparecer-no-google/",
+      "file": "blog/seo-para-advogados-aparecer-no-google/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/sistema-captacao-clientes-previsivel/",
+      "file": "blog/sistema-captacao-clientes-previsivel/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/trafego-pago-para-advogados-guia-completo/",
+      "file": "blog/trafego-pago-para-advogados-guia-completo/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/vendas-para-advogados-fechar-mais-contratos/",
+      "file": "blog/vendas-para-advogados-fechar-mais-contratos/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/whatsapp-ia-para-advogados/",
+      "file": "blog/whatsapp-ia-para-advogados/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/whatsapp-para-advogados-atendimento-e-captacao/",
+      "file": "blog/whatsapp-para-advogados-atendimento-e-captacao/index.html",
+      "findings_before": [
+        "headings"
+      ],
+      "changes_applied": [
+        "headings"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/trafego-pago-para-advogados/",
+      "file": "blog/trafego-pago-para-advogados/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/captacao-de-clientes-para-advogados/",
+      "file": "blog/captacao-de-clientes-para-advogados/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/google-ads-advocacia-qualificacao-de-contatos/",
+      "file": "blog/google-ads-advocacia-qualificacao-de-contatos/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/google-meu-negocio-para-advogados/",
+      "file": "blog/google-meu-negocio-para-advogados/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/seo-aeo-geo-para-advogados/",
+      "file": "blog/seo-aeo-geo-para-advogados/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/ia-para-advogados-na-triagem-de-novos-contatos/",
+      "file": "blog/ia-para-advogados-na-triagem-de-novos-contatos/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/qual-o-melhor-crm-para-advogados/",
+      "file": "blog/qual-o-melhor-crm-para-advogados/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/crm-juridico-integrado-atendimento-contratos-operacao/",
+      "file": "blog/crm-juridico-integrado-atendimento-contratos-operacao/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/funil-de-reativacao-de-contatos-na-advocacia/",
+      "file": "blog/funil-de-reativacao-de-contatos-na-advocacia/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/funil-de-marketing-juridico-para-advogados/",
+      "file": "blog/funil-de-marketing-juridico-para-advogados/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/ia-para-triagem-e-qualificacao-de-clientes-na-advocacia/",
+      "file": "blog/ia-para-triagem-e-qualificacao-de-clientes-na-advocacia/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/triagem-whatsapp-advocacia-trabalhista/",
+      "file": "blog/triagem-whatsapp-advocacia-trabalhista/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/triagem-previdenciaria-whatsapp-consultas-qualificadas/",
+      "file": "blog/triagem-previdenciaria-whatsapp-consultas-qualificadas/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/como-captar-clientes-advocacia-civel/",
+      "file": "blog/como-captar-clientes-advocacia-civel/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/captar-clientes-advocacia-familia-triagem-whatsapp/",
+      "file": "blog/captar-clientes-advocacia-familia-triagem-whatsapp/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/producao-de-conteudo-para-advogados-advanx-posts/",
+      "file": "blog/producao-de-conteudo-para-advogados-advanx-posts/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/funil-atendimento-juridico-primeiro-contato-contratacao/",
+      "file": "blog/funil-atendimento-juridico-primeiro-contato-contratacao/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/posts-para-advogados-instagram-linkedin/",
+      "file": "blog/posts-para-advogados-instagram-linkedin/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/como-criar-conteudo-juridico-com-ia-sem-perder-credibilidade/",
+      "file": "blog/como-criar-conteudo-juridico-com-ia-sem-perder-credibilidade/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/como-transformar-conteudo-juridico-em-consultas-e-oportunidades-comerciais/",
+      "file": "blog/como-transformar-conteudo-juridico-em-consultas-e-oportunidades-comerciais/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/chatbot-para-escritorio-de-advocacia/",
+      "file": "blog/chatbot-para-escritorio-de-advocacia/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/calendario-de-conteudo-para-advogados/",
+      "file": "blog/calendario-de-conteudo-para-advogados/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/planilha-ou-crm-para-escritorio-de-advocacia/",
+      "file": "blog/planilha-ou-crm-para-escritorio-de-advocacia/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/como-organizar-funil-comercial-escritorio-advocacia-crm/",
+      "file": "blog/como-organizar-funil-comercial-escritorio-advocacia-crm/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/posts-para-advogados-50-ideias-por-area-de-atuacao/",
+      "file": "blog/posts-para-advogados-50-ideias-por-area-de-atuacao/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/primeiro-atendimento-na-captacao-juridica/",
+      "file": "blog/primeiro-atendimento-na-captacao-juridica/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/paginas-juridicas-citaveis-google-ia/",
+      "file": "blog/paginas-juridicas-citaveis-google-ia/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/ia-para-advogados-no-follow-up-de-potenciais-clientes/",
+      "file": "blog/ia-para-advogados-no-follow-up-de-potenciais-clientes/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/crm-com-ia-para-advogados-criterios-de-escolha/",
+      "file": "blog/crm-com-ia-para-advogados-criterios-de-escolha/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/crm-para-advogados-recuperar-leads-parados/",
+      "file": "blog/crm-para-advogados-recuperar-leads-parados/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/funil-comercial-advocacia-consultiva-b2b/",
+      "file": "blog/funil-comercial-advocacia-consultiva-b2b/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/metricas-de-marketing-juridico-para-escritorios/",
+      "file": "blog/metricas-de-marketing-juridico-para-escritorios/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/ia-para-triagem-inicial-de-clientes-na-advocacia/",
+      "file": "blog/ia-para-triagem-inicial-de-clientes-na-advocacia/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/triagem-urgencia-clientes-advocacia-trabalhista/",
+      "file": "blog/triagem-urgencia-clientes-advocacia-trabalhista/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/captar-clientes-advocacia-familia-conteudo-momento-decisao/",
+      "file": "blog/captar-clientes-advocacia-familia-conteudo-momento-decisao/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/como-transformar-pautas-juridicas-em-conteudo-com-advanx-posts/",
+      "file": "blog/como-transformar-pautas-juridicas-em-conteudo-com-advanx-posts/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/tempo-de-resposta-na-captacao-juridica/",
+      "file": "blog/tempo-de-resposta-na-captacao-juridica/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/protocolo-revisao-humana-conteudo-juridico-ia/",
+      "file": "blog/protocolo-revisao-humana-conteudo-juridico-ia/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/cta-juridico-do-conteudo-a-consulta-qualificada/",
+      "file": "blog/cta-juridico-do-conteudo-a-consulta-qualificada/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/chatbot-para-escritorio-de-advocacia-fluxos-perguntas-qualificacao/",
+      "file": "blog/chatbot-para-escritorio-de-advocacia-fluxos-perguntas-qualificacao/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/etapas-criterios-avanco-crm-juridico/",
+      "file": "blog/etapas-criterios-avanco-crm-juridico/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/como-captar-clientes-para-advocacia/",
+      "file": "blog/como-captar-clientes-para-advocacia/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/chatbot-para-advogados-ou-atendente-humano/",
+      "file": "blog/chatbot-para-advogados-ou-atendente-humano/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/como-fazer-follow-up-de-potenciais-clientes-na-advocacia/",
+      "file": "blog/como-fazer-follow-up-de-potenciais-clientes-na-advocacia/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/conteudo-para-advogado-por-area-de-atuacao/",
+      "file": "blog/conteudo-para-advogado-por-area-de-atuacao/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/como-transformar-posts-juridicos-em-contatos-qualificados-no-whatsapp/",
+      "file": "blog/como-transformar-posts-juridicos-em-contatos-qualificados-no-whatsapp/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/marketing-de-conteudo-para-advogados-guia-pratico-regras-oab/",
+      "file": "blog/marketing-de-conteudo-para-advogados-guia-pratico-regras-oab/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/atendimento-e-follow-up-na-captacao-juridica/",
+      "file": "blog/atendimento-e-follow-up-na-captacao-juridica/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/ia-para-advogados-analise-organizacao-documentos-juridicos/",
+      "file": "blog/ia-para-advogados-analise-organizacao-documentos-juridicos/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/crm-para-advogados-por-fluxo-de-atendimento/",
+      "file": "blog/crm-para-advogados-por-fluxo-de-atendimento/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/crm-para-advogados-atribuicao-contratos-meta-ads/",
+      "file": "blog/crm-para-advogados-atribuicao-contratos-meta-ads/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/metricas-funil-juridico-etico/",
+      "file": "blog/metricas-funil-juridico-etico/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/ia-para-triagem-e-qualificacao-de-contatos-juridicos/",
+      "file": "blog/ia-para-triagem-e-qualificacao-de-contatos-juridicos/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/calendario-juridico-com-advanx-posts/",
+      "file": "blog/calendario-juridico-com-advanx-posts/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/calendario-editorial-juridico-com-advanx-posts/",
+      "file": "blog/calendario-editorial-juridico-com-advanx-posts/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/chatbot-para-advogados-no-whatsapp/",
+      "file": "blog/chatbot-para-advogados-no-whatsapp/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/fluxo-pos-conteudo-juridico-para-gerar-consultas/",
+      "file": "blog/fluxo-pos-conteudo-juridico-para-gerar-consultas/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/roteiros-chatbot-juridico-triagem-whatsapp-por-area/",
+      "file": "blog/roteiros-chatbot-juridico-triagem-whatsapp-por-area/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    },
+    {
+      "url": "https://advanx.com.br/blog/etapas-criterios-tarefas-funil-juridico-crm/",
+      "file": "blog/etapas-criterios-tarefas-funil-juridico-crm/index.html",
+      "findings_before": [],
+      "changes_applied": [
+        "nenhuma: já conforme no baseline"
+      ]
+    }
+  ],
+  "counts": {
+    "total_sitemap": 105,
+    "target_urls": 45,
+    "changed_files": 45,
+    "social_cards": 17
+  }
+}
