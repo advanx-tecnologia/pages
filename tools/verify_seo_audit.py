@@ -31,6 +31,8 @@ class Tags(HTMLParser):
         if low in {'h1','h2','h3','h4','h5','h6'}:
             self.levels.append(int(low[1]))
             self.h1 += low == 'h1'
+        elif a.get('role', '').lower() == 'heading' and a.get('aria-level', '').isdigit():
+            self.levels.append(int(a['aria-level']))
         if low == 'meta' and a.get('name','').lower() == 'description': self.description = a.get('content','').strip()
         if low == 'meta' and a.get('property','').lower().startswith('og:'): self.og[a['property'].lower()] = a.get('content','').strip()
         if low == 'a' and (a.get('href','').startswith('/') or a.get('href','').startswith('https://advanx.com.br/')): self.links.append(a['href'])

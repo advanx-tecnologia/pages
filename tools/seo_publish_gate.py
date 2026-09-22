@@ -80,6 +80,8 @@ class SeoTags(HTMLParser):
             self._h1_parts = []
         if tag.lower() in {"h1", "h2", "h3", "h4", "h5", "h6"}:
             self.heading_levels.append(int(tag[1]))
+        elif data.get("role", "").lower() == "heading" and data.get("aria-level", "").isdigit():
+            self.heading_levels.append(int(data["aria-level"]))
         if tag.lower() == "a":
             href = data.get("href", "").strip()
             if href.startswith("/") or href.startswith("https://advanx.com.br/"):
