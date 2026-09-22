@@ -129,7 +129,11 @@ def get_sitemap_urls() -> set[str]:
 
 def route_file(url: str) -> Path:
     path = urlparse(url).path.strip("/")
-    return ROOT / path / "index.html" if path else ROOT / "index.html"
+    if not path:
+        return ROOT / "index.html"
+    if Path(path).suffix:
+        return ROOT / path
+    return ROOT / path / "index.html"
 
 
 def fetch_text(url: str) -> tuple[int, str, dict[str, str], str]:
