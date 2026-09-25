@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batalha dos Países: Onde é Mais Fácil Fazer Dinheiro?</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Fredoka & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            fun: ['Fredoka', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              green: '#10B981',
+              yellow: '#F59E0B',
+              red: '#EF4444',
+              blue: '#3B82F6',
+              purple: '#8B5CF6'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .font-fun { font-family: 'Fredoka', cursive, sans-serif; }
+    
+    /* Smooth transitions and hover cards */
+    .card-bounce {
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .card-bounce:hover {
+      transform: translateY(-4px) scale(1.01);
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    
+    .badge-glow {
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.35);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
+
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-white text-xl shadow-md shadow-emerald-500/30">
+          <i class="fa-solid fa-piggy-bank"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl font-fun font-bold text-slate-900 tracking-tight">Batalha dos Países</h1>
+            <span class="px-2 py-0.5 text-xs font-bold rounded-full bg-emerald-100 text-emerald-800">Versão Visual 100% Simples</span>
+          </div>
+          <p class="text-xs text-slate-500 hidden sm:block">Austrália vs. Texas vs. EUA Geral vs. Canadá: Onde o seu dinheiro rende mais?</p>
+        </div>
+      </div>
+
+      <!-- Quick Nav Buttons -->
+      <div class="flex items-center gap-2">
+        <button id="btnCurrency" onclick="toggleCurrency()" class="px-3.5 py-1.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-xs font-semibold text-slate-700 shadow-sm transition flex items-center gap-1.5">
+          <i class="fa-solid fa-repeat text-emerald-600"></i>
+          <span>Exibir em: <strong id="currencyLabel" class="text-emerald-600">R$ (Reais)</strong></span>
+        </button>
+        <a href="#simulador" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition flex items-center gap-1.5">
+          <i class="fa-solid fa-calculator text-amber-400"></i>
+          <span class="hidden sm:inline">Ir ao</span> Simulador
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-10">
+    
+    <!-- Hero Box (Explicação para Crianças) -->
+    <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-900 via-slate-900 to-emerald-950 text-white p-6 sm:p-10 shadow-xl">
+      <div class="relative z-10 max-w-3xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-bold text-emerald-300">
+          <i class="fa-solid fa-sparkles"></i>
+          Explicação em 1 Minuto
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-fun font-bold tracking-tight text-white leading-tight">
+          Se você quer juntar dinheiro sem dor de cabeça, onde ir?
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Imagine que cada país é uma fase de videogame: na <strong class="text-emerald-400 font-bold">Austrália</strong> a regra do jogo te deixa trabalhar e abrir empresa legalmente no mesmo dia, pagando bônus no domingo. No <strong class="text-amber-400 font-bold">Texas</strong> tem muito trabalho, mas o jogo não te dá documento no visto de estudante. No <strong class="text-red-400 font-bold">Canadá</strong> o aluguel congelou sua carteira. Veja os números reais abaixo!
+        </p>
+
+        <!-- Semáforo Rápido -->
+        <div class="pt-2 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-white/10 backdrop-blur rounded-2xl p-3 border border-white/10 text-center">
+            <div class="text-2xl mb-1">🇦🇺</div>
+            <div class="font-bold text-sm text-emerald-400">Austrália</div>
+            <div class="text-xs text-slate-300">🟢 Trabalho Legal + Alto Salário</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur rounded-2xl p-3 border border-white/10 text-center">
+            <div class="text-2xl mb-1">🇺🇸🤠</div>
+            <div class="font-bold text-sm text-amber-400">Texas (EUA)</div>
+            <div class="text-xs text-slate-300">🟡 Venda Alta, Visto Travado</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur rounded-2xl p-3 border border-white/10 text-center">
+            <div class="text-2xl mb-1">🇺🇸🗽</div>
+            <div class="font-bold text-sm text-orange-400">EUA Geral</div>
+            <div class="text-xs text-slate-300">🟠 Custo Alto de Moradia</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur rounded-2xl p-3 border border-white/10 text-center">
+            <div class="text-2xl mb-1">🇨🇦</div>
+            <div class="font-bold text-sm text-rose-400">Canadá</div>
+            <div class="text-xs text-slate-300">🔴 Aluguel Caro + Salário Menor</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Decorative background icon -->
+      <i class="fa-solid fa-earth-americas absolute -right-8 -bottom-10 text-[260px] text-white/[0.04] pointer-events-none"></i>
+    </section>
+
+    <section class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 pb-3">
+        <div>
+          <h3 class="text-2xl font-fun font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-trophy text-amber-500"></i>
+            Quadro Comparativo: Os 4 Competidores
+          </h3>
+          <p class="text-xs text-slate-500">Passe o mouse ou toque nos cartões para ver os detalhes operacionais de cada um.</p>
+        </div>
+        <div class="text-xs text-slate-500 font-medium">
+          *Câmbio base: AUD = R$ 3,70 | USD = R$ 5,50 | CAD = R$ 4,00
+        </div>
+      </div>
+
+      <!-- The 4 Main Competitor Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <!-- CARD 1: AUSTRÁLIA (O CAMPEÃO) -->
+        <div class="card-bounce bg-white rounded-3xl p-5 border-2 border-emerald-500 shadow-lg relative flex flex-col justify-between">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow badge-glow uppercase tracking-wider flex items-center gap-1">
+            <i class="fa-solid fa-crown text-amber-300"></i> O Mais Equilibrado
+          </div>
+
+          <div class="space-y-4 pt-2">
+            <!-- Header -->
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-3xl">🇦🇺</span>
+                <h4 class="text-xl font-fun font-bold text-slate-900">Austrália</h4>
+                <p class="text-xs text-slate-500">Perth / Brisbane / Gold Coast</p>
+              </div>
+              <div class="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex flex-col items-center justify-center">
+                <span class="text-[10px] text-emerald-700 font-bold uppercase">Nota</span>
+                <span class="text-lg font-fun font-bold text-emerald-600">9.5</span>
+              </div>
+            </div>
+
+            <!-- Semáforo Visual -->
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between p-2 rounded-xl bg-emerald-50 text-emerald-900">
+                <span class="font-medium"><i class="fa-solid fa-id-card mr-1 text-emerald-600"></i> Visto de Trabalho</span>
+                <span class="font-bold">🟢 Fácil (Visto 500)</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-xl bg-emerald-50 text-emerald-900">
+                <span class="font-medium"><i class="fa-solid fa-coins mr-1 text-emerald-600"></i> Piso / Hora Inicial</span>
+                <span class="font-bold val-display" data-aud="33.05" data-type="wage">R$ 122/h</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-xl bg-emerald-50 text-emerald-900">
+                <span class="font-medium"><i class="fa-solid fa-briefcase mr-1 text-emerald-600"></i> Empreender (ABN)</span>
+                <span class="font-bold">🟢 Grátis e Imediato</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-xl bg-emerald-50 text-emerald-900">
+                <span class="font-medium"><i class="fa-solid fa-car mr-1 text-emerald-600"></i> CNH Brasileira</span>
+                <span class="font-bold">🟢 Aceita com NAATI</span>
+              </div>
+            </div>
+
+            <!-- Destaque Financeiro -->
+            <div class="p-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white">
+              <span class="text-[11px] block text-emerald-100 uppercase font-semibold">Sobra Líquida no Ano 1</span>
+              <div class="text-2xl font-fun font-bold val-display" data-aud="24020" data-type="savings">
+                R$ 88.800
+              </div>
+              <span class="text-[10px] text-emerald-100 block mt-0.5">Após pagar quarto, comida, curso e carro!</span>
+            </div>
+
+            <p class="text-xs text-slate-600 leading-relaxed">
+              <strong>O Segredo:</strong> Adicionais de 50% a 100% aos domingos e férias de 12 semanas para faturar full-time sem limite de horas.
+            </p>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+            <span>Custo de Entrada:</span>
+            <strong class="text-slate-800 val-display" data-aud="9350" data-type="entry">R$ 34.600</strong>
+          </div>
+        </div>
+
+        <!-- CARD 2: TEXAS (EUA) -->
+        <div class="card-bounce bg-white rounded-3xl p-5 border border-slate-200 shadow-md relative flex flex-col justify-between">
+          <div class="space-y-4 pt-2">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-3xl">🇺🇸🤠</span>
+                <h4 class="text-xl font-fun font-bold text-slate-900">Texas (EUA)</h4>
+                <p class="text-xs text-slate-500">Houston / Dallas / San Antonio</p>
+              </div>
+              <div class="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex flex-col items-center justify-center">
+                <span class="text-[10px] text-amber-700 font-bold uppercase">Nota</span>
+                <span class="text-lg font-fun font-bold text-amber-600">7.0</span>
+              </div>
+            </div>
+
+            <!-- Semáforo Visual -->
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between p-2 rounded-xl bg-rose-50 text-rose-900">
+                <span class="font-medium"><i class="fa-solid fa-id-card mr-1 text-rose-600"></i> Visto de Trabalho</span>
+                <span class="font-bold">🔴 Travado (F-1 proíbe)</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-xl bg-amber-50 text-amber-900">
+                <span class="font-medium"><i class="fa-solid fa-coins mr-1 text-amber-600"></i> Piso / Hora Inicial</span>
+                <span class="font-bold val-display" data-usd="16.00" data-type="wage">R$ 88/h</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-xl bg-emerald-50 text-emerald-900">
+                <span class="font-medium"><i class="fa-solid fa-briefcase mr-1 text-emerald-600"></i> Negócios Subúrbios</span>
+                <span class="font-bold">🟢 Casas Enormes</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-xl bg-rose-50 text-rose-900">
+                <span class="font-medium"><i class="fa-solid fa-car mr-1 text-rose-600"></i> Dependência de Carro</span>
+                <span class="font-bold">🔴 100% Obrigatório</span>
+              </div>
+            </div>
+
+            <!-- Destaque Financeiro -->
+            <div class="p-3 rounded-2xl bg-slate-900 text-white">
+              <span class="text-[11px] block text-slate-400 uppercase font-semibold">Sobra Líquida no Ano 1</span>
+              <div class="text-2xl font-fun font-bold text-amber-400 val-display" data-usd="15000" data-type="savings">
+                R$ 82.500
+              </div>
+              <span class="text-[10px] text-slate-400 block mt-0.5">Se conseguir operar sem trava jurídica</span>
+            </div>
+
+            <p class="text-xs text-slate-600 leading-relaxed">
+              <strong>O Segredo:</strong> Mercado consumidor gigantesco e gasolina barata. Mas o visto de estudante não te dá permissão para trabalhar na rua legalmente.
+            </p>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+            <span>Custo de Entrada:</span>
+            <strong class="text-slate-800 val-display" data-usd="10500" data-type="entry">R$ 57.750</strong>
+          </div>
+        </div>
+
+        <!-- CARD 3: EUA GERAL (CALIFÓRNIA / NY / FLÓRIDA) -->
+        <div class="card-bounce bg-white rounded-3xl p-5 border border-slate-200 shadow-md relative flex flex-col justify-between">
+          <div class="space-y-4 pt-2">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-3xl">🇺🇸🗽</span>
+                <h4 class="text-xl font-fun font-bold text-slate-900">EUA Geral</h4>
+                <p class="text-xs text-slate-500">Flórida / Califórnia / Nova York</p>
+              </div>
+              <div class="w-12 h-12 rounded-2xl bg-orange-50 border border-orange-200 flex flex-col items-center justify-center">
+                <span class="text-[10px] text-orange-700 font-bold uppercase">Nota</span>
+                <span class="text-lg font-fun font-bold text-orange-600">6.0</span>
+              </div>
+            </div>
+
+            <!-- Semáforo Visual -->
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between p-2 rounded-xl bg-rose-50 text-rose-900">
+                <span class="font-medium"><i class="fa-solid fa-id-card mr-1 text-rose-600"></i> Visto de Trabalho</span>
+                <span class="font-bold">🔴 Muito Difícil</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-xl bg-amber-50 text-amber-900">
+                <span class="font-medium"><i class="fa-solid fa-coins mr-1 text-amber-600"></i> Piso / Hora Inicial</span>
+                <span class="font-bold val-display" data-usd="15.00" data-type="wage">R$ 82/h</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-xl bg-rose-50 text-rose-900">
+                <span class="font-medium"><i class="fa-solid fa-house mr-1 text-rose-600"></i> Custo de Aluguel</span>
+                <span class="font-bold">🔴 Caríssimo</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-xl bg-amber-50 text-amber-900">
+                <span class="font-medium"><i class="fa-solid fa-hospital mr-1 text-amber-600"></i> Risco de Saúde</span>
+                <span class="font-bold">🟡 Franquias Altas</span>
+              </div>
+            </div>
+
+            <!-- Destaque Financeiro -->
+            <div class="p-3 rounded-2xl bg-slate-900 text-white">
+              <span class="text-[11px] block text-slate-400 uppercase font-semibold">Sobra Líquida no Ano 1</span>
+              <div class="text-2xl font-fun font-bold text-orange-400 val-display" data-usd="6500" data-type="savings">
+                R$ 35.750
+              </div>
+              <span class="text-[10px] text-slate-400 block mt-0.5">O aluguel elevado consome quase tudo</span>
+            </div>
+
+            <p class="text-xs text-slate-600 leading-relaxed">
+              <strong>O Segredo:</strong> Redes de brasileiros facilitam os primeiros bicos, mas a moradia cara e os impostos estaduais esmagam o que você guarda.
+            </p>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+            <span>Custo de Entrada:</span>
+            <strong class="text-slate-800 val-display" data-usd="11800" data-type="entry">R$ 64.900</strong>
+          </div>
+        </div>
+
+        <!-- CARD 4: CANADÁ -->
+        <div class="card-bounce bg-white rounded-3xl p-5 border border-slate-200 shadow-md relative flex flex-col justify-between">
+          <div class="space-y-4 pt-2">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-3xl">🇨🇦</span>
+                <h4 class="text-xl font-fun font-bold text-slate-900">Canadá</h4>
+                <p class="text-xs text-slate-500">Toronto / Calgary / Vancouver</p>
+              </div>
+              <div class="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 flex flex-col items-center justify-center">
+                <span class="text-[10px] text-rose-700 font-bold uppercase">Nota</span>
+                <span class="text-lg font-fun font-bold text-rose-600">4.5</span>
+              </div>
+            </div>
+
+            <!-- Semáforo Visual -->
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between p-2 rounded-xl bg-amber-50 text-amber-900">
+                <span class="font-medium"><i class="fa-solid fa-id-card mr-1 text-amber-600"></i> Visto de Trabalho</span>
+                <span class="font-bold">🟡 Rígido (Cortes 2024-26)</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-xl bg-rose-50 text-rose-900">
+                <span class="font-medium"><i class="fa-solid fa-coins mr-1 text-rose-600"></i> Piso / Hora Inicial</span>
+                <span class="font-bold val-display" data-cad="16.55" data-type="wage">R$ 66/h</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-xl bg-rose-50 text-rose-900">
+                <span class="font-medium"><i class="fa-solid fa-house-chimney-crack mr-1 text-rose-600"></i> Crise Habitacional</span>
+                <span class="font-bold">🔴 Crítica</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-xl bg-rose-50 text-rose-900">
+                <span class="font-medium"><i class="fa-solid fa-temperature-snowflake mr-1 text-rose-600"></i> Clima de Inverno</span>
+                <span class="font-bold">🔴 Congela Serviços</span>
+              </div>
+            </div>
+
+            <!-- Destaque Financeiro -->
+            <div class="p-3 rounded-2xl bg-slate-900 text-white">
+              <span class="text-[11px] block text-slate-400 uppercase font-semibold">Sobra Líquida no Ano 1</span>
+              <div class="text-2xl font-fun font-bold text-rose-400 val-display" data-cad="2500" data-type="savings">
+                R$ 10.000
+              </div>
+              <span class="text-[10px] text-slate-400 block mt-0.5">Muitos ficam no zero a zero</span>
+            </div>
+
+            <p class="text-xs text-slate-600 leading-relaxed">
+              <strong>O Segredo:</strong> O país fechou as portas e o custo de moradia disparou. Serviços externos (lavagem, grama) param no inverno rigoroso.
+            </p>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+            <span>Custo de Entrada:</span>
+            <strong class="text-slate-800 val-display" data-cad="9800" data-type="entry">R$ 39.200</strong>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="simulador" class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold mb-2">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Simulador Interativo
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-fun font-bold text-slate-900">
+            Quanto Sobra no Seu Bolso por Mês?
+          </h3>
+          <p class="text-sm text-slate-500">
+            Ajuste o seu ritmo de trabalho e veja a barra de moedas de cada país subir ou descer.
+          </p>
+        </div>
+
+        <!-- Preset Buttons -->
+        <div class="flex flex-wrap gap-2">
+          <button onclick="setIntensity('light')" class="preset-btn px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-xs font-semibold text-slate-700 transition" data-mode="light">
+            🐢 Modo Suave (20h/sem)
+          </button>
+          <button onclick="setIntensity('normal')" class="preset-btn px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-semibold shadow transition" data-mode="normal">
+            💼 Modo Equilibrado (35h/sem)
+          </button>
+          <button onclick="setIntensity('beast')" class="preset-btn px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-xs font-semibold text-slate-700 transition" data-mode="beast">
+            🚀 Modo Foguete (ABN / Serviços)
+          </button>
+        </div>
+      </div>
+
+      <!-- Sliders and Inputs -->
+      <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80 space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <div class="flex justify-between items-center mb-1.5">
+              <label class="text-xs font-bold text-slate-700 uppercase tracking-wide">
+                Horas ou Dedicação Semanal
+              </label>
+              <span id="sliderHoursLabel" class="text-sm font-bold text-emerald-600">35 horas / semana</span>
+            </div>
+            <input type="range" id="sliderHours" min="15" max="55" value="35" step="5" oninput="calculateSavings()" class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+            <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+              <span>15h (Leve)</span>
+              <span>35h (Equilibrado)</span>
+              <span>55h (Intenso nas férias)</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-1.5">
+              <label class="text-xs font-bold text-slate-700 uppercase tracking-wide">
+                Foco no Empreendedorismo (Serviços / ABN)
+              </label>
+              <span id="sliderBizLabel" class="text-sm font-bold text-indigo-600">50% Serviços Diretos</span>
+            </div>
+            <input type="range" id="sliderBiz" min="0" max="100" value="50" step="25" oninput="calculateSavings()" class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+            <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+              <span>Só Salário Básico</span>
+              <span>Misto</span>
+              <span>100% Negócio Próprio</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Comparison Progress Bars -->
+      <div class="space-y-4 pt-2">
+        <h4 class="text-sm font-bold uppercase tracking-wider text-slate-500">
+          Resultado da Sobra Mensal Líquida (Depois de Pagar Aluguel e Comida):
+        </h4>
+
+        <!-- Bar 1: Austrália -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center text-sm">
+            <span class="font-bold text-slate-900 flex items-center gap-2">
+              <span class="text-lg">🇦🇺</span> Austrália (Perth / Brisbane)
+              <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">Líder Absoluto</span>
+            </span>
+            <span id="simAus" class="text-base font-fun font-bold text-emerald-600">R$ 9.200 / mês livre</span>
+          </div>
+          <div class="w-full bg-slate-100 h-6 rounded-full overflow-hidden p-1 border border-slate-200">
+            <div id="barAus" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500 flex items-center justify-end pr-2 text-white font-bold text-[10px]" style="width: 95%;">
+              1º Lugar
+            </div>
+          </div>
+        </div>
+
+        <!-- Bar 2: Texas -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center text-sm">
+            <span class="font-bold text-slate-900 flex items-center gap-2">
+              <span class="text-lg">🇺🇸🤠</span> Texas (EUA)
+              <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold">Risco de Visto</span>
+            </span>
+            <span id="simTex" class="text-base font-fun font-bold text-amber-600">R$ 6.800 / mês livre</span>
+          </div>
+          <div class="w-full bg-slate-100 h-6 rounded-full overflow-hidden p-1 border border-slate-200">
+            <div id="barTex" class="bg-gradient-to-r from-amber-500 to-yellow-400 h-full rounded-full transition-all duration-500 flex items-center justify-end pr-2 text-white font-bold text-[10px]" style="width: 70%;">
+              2º Lugar
+            </div>
+          </div>
+        </div>
+
+        <!-- Bar 3: EUA Geral -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center text-sm">
+            <span class="font-bold text-slate-900 flex items-center gap-2">
+              <span class="text-lg">🇺🇸🗽</span> EUA Geral (CA / NY / FL)
+            </span>
+            <span id="simUsa" class="text-base font-fun font-bold text-orange-600">R$ 3.200 / mês livre</span>
+          </div>
+          <div class="w-full bg-slate-100 h-6 rounded-full overflow-hidden p-1 border border-slate-200">
+            <div id="barUsa" class="bg-gradient-to-r from-orange-500 to-orange-400 h-full rounded-full transition-all duration-500 flex items-center justify-end pr-2 text-white font-bold text-[10px]" style="width: 35%;">
+              3º Lugar
+            </div>
+          </div>
+        </div>
+
+        <!-- Bar 4: Canadá -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center text-sm">
+            <span class="font-bold text-slate-900 flex items-center gap-2">
+              <span class="text-lg">🇨🇦</span> Canadá (Toronto / Calgary)
+            </span>
+            <span id="simCan" class="text-base font-fun font-bold text-rose-600">R$ 1.100 / mês livre</span>
+          </div>
+          <div class="w-full bg-slate-100 h-6 rounded-full overflow-hidden p-1 border border-slate-200">
+            <div id="barCan" class="bg-gradient-to-r from-rose-500 to-rose-400 h-full rounded-full transition-all duration-500 flex items-center justify-end pr-2 text-white font-bold text-[10px]" style="width: 15%;">
+              4º Lugar
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+        <div>
+          <h3 class="text-2xl font-fun font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-spray-can-sparkles text-emerald-600"></i>
+            Como Fazer Dinheiro: Os Melhores Negócios de Entrada
+          </h3>
+          <p class="text-xs text-slate-500">
+            Serviços rápidos que não exigem diploma, não dependem de falar muito inglês e cobram alto.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Negócio 1 -->
+        <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm hover:border-emerald-500 transition space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-water"></i>
+          </div>
+          <div class="flex items-center justify-between">
+            <h4 class="text-lg font-fun font-bold text-slate-900">Lavagem de Pressão</h4>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">Campeão 🏆</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Lavar garagens de carros, calçadas e muros com máquina a gasolina e prato giratório. Trabalho 100% externo.
+          </p>
+          <div class="bg-slate-50 p-3 rounded-2xl text-xs space-y-1.5">
+            <div class="flex justify-between">
+              <span class="text-slate-500">Ticket por casa:</span>
+              <strong class="text-slate-800">R$ 800 a R$ 1.500 ($220-$400 AUD)</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Tempo de serviço:</span>
+              <strong class="text-slate-800">1h30 a 2h30</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Exigência de inglês:</span>
+              <strong class="text-emerald-600">Zero (Orçamento por foto)</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Negócio 2 -->
+        <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm hover:border-emerald-500 transition space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-couch"></i>
+          </div>
+          <div class="flex items-center justify-between">
+            <h4 class="text-lg font-fun font-bold text-slate-900">Estofados & Carpetes</h4>
+            <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[10px] font-bold">Alta Demanda</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Higienização com máquina extratora. Essencial na Austrália pois inquilinos são obrigados a limpar carpetes para entregar a casa.
+          </p>
+          <div class="bg-slate-50 p-3 rounded-2xl text-xs space-y-1.5">
+            <div class="flex justify-between">
+              <span class="text-slate-500">Ticket por sofá:</span>
+              <strong class="text-slate-800">R$ 550 a R$ 960 ($150-$260 AUD)</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Tempo de serviço:</span>
+              <strong class="text-slate-800">1 hora a 1h30</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Exigência de inglês:</span>
+              <strong class="text-emerald-600">Básica (Mensagens de texto)</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Negócio 3 -->
+        <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm hover:border-emerald-500 transition space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-car-tunnel"></i>
+          </div>
+          <div class="flex items-center justify-between">
+            <h4 class="text-lg font-fun font-bold text-slate-900">Estética Automotiva</h4>
+            <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold">Muito Lucrativo</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Ir até a casa do cliente para lavar, aspirar e encerar utilitários e 4x4. Australiano e texano amam carros grandes.
+          </p>
+          <div class="bg-slate-50 p-3 rounded-2xl text-xs space-y-1.5">
+            <div class="flex justify-between">
+              <span class="text-slate-500">Ticket por carro:</span>
+              <strong class="text-slate-800">R$ 660 a R$ 1.300 ($180-$350 AUD)</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Tempo de serviço:</span>
+              <strong class="text-slate-800">2h a 3h</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Exigência de inglês:</span>
+              <strong class="text-emerald-600">Mínima</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-5">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-slate-900 text-white flex items-center justify-center text-lg">
+          <i class="fa-solid fa-list-check"></i>
+        </div>
+        <div>
+          <h3 class="text-xl font-fun font-bold text-slate-900">Tabela de Fácil Compreensão</h3>
+          <p class="text-xs text-slate-500">Tudo o que você precisa saber resumido em uma única tela.</p>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 bg-slate-50 text-slate-600">
+              <th class="p-3.5 rounded-l-2xl font-bold">Critério</th>
+              <th class="p-3.5 font-bold text-emerald-800">🇦🇺 Austrália</th>
+              <th class="p-3.5 font-bold text-amber-800">🇺🇸🤠 Texas</th>
+              <th class="p-3.5 font-bold text-orange-800">🇺🇸🗽 EUA Geral</th>
+              <th class="p-3.5 rounded-r-2xl font-bold text-rose-800">🇨🇦 Canadá</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            <tr>
+              <td class="p-3.5 font-semibold text-slate-900">Visto para Trabalhar Legal</td>
+              <td class="p-3.5"><span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs">🟢 Muito Acessível</span></td>
+              <td class="p-3.5"><span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 font-bold text-xs">🔴 Proibido no F-1</span></td>
+              <td class="p-3.5"><span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 font-bold text-xs">🔴 Proibido no F-1</span></td>
+              <td class="p-3.5"><span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 font-bold text-xs">🟡 Rígido (Cortes)</span></td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-semibold text-slate-900">Salário Horário Operacional</td>
+              <td class="p-3.5 font-bold text-emerald-700">R$ 122 a R$ 170/h</td>
+              <td class="p-3.5 font-bold text-amber-700">R$ 88 a R$ 120/h</td>
+              <td class="p-3.5 font-bold text-orange-700">R$ 82 a R$ 110/h</td>
+              <td class="p-3.5 font-bold text-rose-700">R$ 66 a R$ 85/h</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-semibold text-slate-900">Bônus Obrigatório de Domingo</td>
+              <td class="p-3.5 font-bold text-emerald-600">✅ Sim (+75% a +100%)</td>
+              <td class="p-3.5 text-slate-400">❌ Não existe na lei</td>
+              <td class="p-3.5 text-slate-400">❌ Não existe na lei</td>
+              <td class="p-3.5 text-slate-400">❌ Raro na base</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-semibold text-slate-900">Abrir Empresa para Faturar</td>
+              <td class="p-3.5 font-bold text-emerald-600">✅ ABN Grátis e Imediato</td>
+              <td class="p-3.5 text-amber-600">⚠️ LLC não dá residência</td>
+              <td class="p-3.5 text-amber-600">⚠️ LLC não dá residência</td>
+              <td class="p-3.5 text-amber-600">⚠️ Burocrático em vistos</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-semibold text-slate-900">Dirigir com Carteira do Brasil</td>
+              <td class="p-3.5 font-bold text-emerald-600">✅ CNH + Tradução NAATI</td>
+              <td class="p-3.5 text-amber-600">⚠️ Varia por condado (90d)</td>
+              <td class="p-3.5 text-amber-600">⚠️ Curto prazo</td>
+              <td class="p-3.5 text-amber-600">⚠️ Exige troca rápida</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 font-semibold text-slate-900">Sobra Livre Estimada no Ano 1</td>
+              <td class="p-3.5 font-extrabold text-emerald-600 text-base">R$ 88.000 a R$ 95.000</td>
+              <td class="p-3.5 font-bold text-amber-600">R$ 77.000 a R$ 90.000</td>
+              <td class="p-3.5 font-medium text-orange-600">R$ 30.000 a R$ 40.000</td>
+              <td class="p-3.5 font-medium text-rose-600">R$ 5.000 a R$ 15.000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-3xl p-6 sm:p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+      <div class="space-y-1 text-center sm:text-left">
+        <h4 class="text-xl font-fun font-bold">Quer guardar esses dados com você?</h4>
+        <p class="text-xs text-emerald-100 max-w-xl">
+          Você pode salvar esta página inteira como PDF usando o comando de impressão do navegador (Ctrl + P / Cmd + P).
+        </p>
+      </div>
+      <button onclick="window.print()" class="px-5 py-3 rounded-2xl bg-white hover:bg-slate-100 text-emerald-800 text-xs font-bold shadow-md transition flex items-center gap-2">
+        <i class="fa-solid fa-print"></i>
+        <span>Imprimir ou Salvar em PDF</span>
+      </button>
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-400 space-y-1">
+      <p>Batalha dos Países — Ferramenta Visual para Análise de Imigração e Patrimônio.</p>
+      <p>Valores compilados com base nas tabelas do Fair Work Ombudsman, ATO, IRS, USCIS e Statistics Canada.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Rates for conversion
+    const RATES = {
+      AUD_BRL: 3.70,
+      USD_BRL: 5.50,
+      CAD_BRL: 4.00,
+      // Internal normalized display
+      isReais: true
+    };
+
+    // Toggle currency display between R$ and local currencies
+    function toggleCurrency() {
+      RATES.isReais = !RATES.isReais;
+      const label = document.getElementById('currencyLabel');
+      label.textContent = RATES.isReais ? 'R$ (Reais)' : 'Moedas Locais ($)';
+      
+      const elements = document.querySelectorAll('.val-display');
+      elements.forEach(el => {
+        const type = el.getAttribute('data-type');
+        if (el.hasAttribute('data-aud')) {
+          const val = parseFloat(el.getAttribute('data-aud'));
+          if (RATES.isReais) {
+            const brl = Math.round(val * RATES.AUD_BRL);
+            el.textContent = type === 'wage' ? `R$ ${brl}/h` : `R$ ${brl.toLocaleString('pt-BR')}`;
+          } else {
+            el.textContent = type === 'wage' ? `$ ${val.toFixed(2)} AUD/h` : `$ ${val.toLocaleString('pt-BR')} AUD`;
+          }
+        } else if (el.hasAttribute('data-usd')) {
+          const val = parseFloat(el.getAttribute('data-usd'));
+          if (RATES.isReais) {
+            const brl = Math.round(val * RATES.USD_BRL);
+            el.textContent = type === 'wage' ? `R$ ${brl}/h` : `R$ ${brl.toLocaleString('pt-BR')}`;
+          } else {
+            el.textContent = type === 'wage' ? `$ ${val.toFixed(2)} USD/h` : `$ ${val.toLocaleString('pt-BR')} USD`;
+          }
+        } else if (el.hasAttribute('data-cad')) {
+          const val = parseFloat(el.getAttribute('data-cad'));
+          if (RATES.isReais) {
+            const brl = Math.round(val * RATES.CAD_BRL);
+            el.textContent = type === 'wage' ? `R$ ${brl}/h` : `R$ ${brl.toLocaleString('pt-BR')}`;
+          } else {
+            el.textContent = type === 'wage' ? `$ ${val.toFixed(2)} CAD/h` : `$ ${val.toLocaleString('pt-BR')} CAD`;
+          }
+        }
+      });
+
+      calculateSavings();
+    }
+
+    // Quick presets
+    function setIntensity(mode) {
+      const sliderH = document.getElementById('sliderHours');
+      const sliderB = document.getElementById('sliderBiz');
+      
+      document.querySelectorAll('.preset-btn').forEach(b => {
+        b.classList.remove('bg-emerald-600', 'text-white', 'shadow');
+        b.classList.add('border-slate-200', 'text-slate-700');
+      });
+
+      const activeBtn = document.querySelector(`.preset-btn[data-mode="${mode}"]`);
+      if (activeBtn) {
+        activeBtn.classList.remove('border-slate-200', 'text-slate-700');
+        activeBtn.classList.add('bg-emerald-600', 'text-white', 'shadow');
+      }
+
+      if (mode === 'light') {
+        sliderH.value = 20;
+        sliderB.value = 0;
+      } else if (mode === 'normal') {
+        sliderH.value = 35;
+        sliderB.value = 50;
+      } else if (mode === 'beast') {
+        sliderH.value = 50;
+        sliderB.value = 100;
+      }
+
+      calculateSavings();
+    }
+
+    // Dynamic savings formula
+    function calculateSavings() {
+      const hours = parseInt(document.getElementById('sliderHours').value);
+      const bizPercent = parseInt(document.getElementById('sliderBiz').value) / 100;
+
+      // Update labels
+      document.getElementById('sliderHoursLabel').textContent = `${hours} horas / semana`;
+      document.getElementById('sliderBizLabel').textContent = `${bizPercent * 100}% Serviços Próprios`;
+
+      // 1. Austrália
+      // Base wage casual = $35 AUD/h. Business wage effective = $95 AUD/h.
+      // Living cost per month = $2,700 AUD (including course).
+      const audHourly = (35 * (1 - bizPercent)) + (95 * bizPercent);
+      const audGrossMonthly = (hours * audHourly * 4.33);
+      const audNetMonthly = audGrossMonthly * 0.82; // taxes
+      const audSavingsMonthly = Math.max(0, audNetMonthly - 2700);
+
+      // 2. Texas
+      // Base wage = $16 USD/h. Biz wage = $75 USD/h.
+      // Living cost = $2,000 USD.
+      const texHourly = (16 * (1 - bizPercent)) + (75 * bizPercent);
+      const texGrossMonthly = (hours * texHourly * 4.33);
+      const texNetMonthly = texGrossMonthly * 0.85;
+      const texSavingsMonthly = Math.max(0, texNetMonthly - 2000);
+
+      // 3. USA Geral
+      // Higher living cost = $2,750 USD.
+      const usaSavingsMonthly = Math.max(0, texNetMonthly - 2750);
+
+      // 4. Canadá
+      // Base wage = $17 CAD/h. Biz wage = $50 CAD/h.
+      // Living cost = $2,500 CAD.
+      const canHourly = (17 * (1 - bizPercent)) + (50 * bizPercent);
+      const canGrossMonthly = (hours * canHourly * 4.33);
+      const canNetMonthly = canGrossMonthly * 0.80;
+      const canSavingsMonthly = Math.max(0, canNetMonthly - 2500);
+
+      // Convert to display currency
+      let dAus, dTex, dUsa, dCan;
+      if (RATES.isReais) {
+        dAus = Math.round(audSavingsMonthly * RATES.AUD_BRL);
+        dTex = Math.round(texSavingsMonthly * RATES.USD_BRL);
+        dUsa = Math.round(usaSavingsMonthly * RATES.USD_BRL);
+        dCan = Math.round(canSavingsMonthly * RATES.CAD_BRL);
+
+        document.getElementById('simAus').textContent = `R$ ${dAus.toLocaleString('pt-BR')} / mês livre`;
+        document.getElementById('simTex').textContent = `R$ ${dTex.toLocaleString('pt-BR')} / mês livre`;
+        document.getElementById('simUsa').textContent = `R$ ${dUsa.toLocaleString('pt-BR')} / mês livre`;
+        document.getElementById('simCan').textContent = `R$ ${dCan.toLocaleString('pt-BR')} / mês livre`;
+      } else {
+        dAus = Math.round(audSavingsMonthly);
+        dTex = Math.round(texSavingsMonthly);
+        dUsa = Math.round(usaSavingsMonthly);
+        dCan = Math.round(canSavingsMonthly);
+
+        document.getElementById('simAus').textContent = `$ ${dAus.toLocaleString('pt-BR')} AUD / mês livre`;
+        document.getElementById('simTex').textContent = `$ ${dTex.toLocaleString('pt-BR')} USD / mês livre`;
+        document.getElementById('simUsa').textContent = `$ ${dUsa.toLocaleString('pt-BR')} USD / mês livre`;
+        document.getElementById('simCan').textContent = `$ ${dCan.toLocaleString('pt-BR')} CAD / mês livre`;
+      }
+
+      // Progress bars relative to top earner
+      const maxVal = Math.max(dAus, dTex, dUsa, dCan, 1000);
+      document.getElementById('barAus').style.width = `${Math.min(100, Math.max(12, (dAus / maxVal) * 100))}%`;
+      document.getElementById('barTex').style.width = `${Math.min(100, Math.max(12, (dTex / maxVal) * 100))}%`;
+      document.getElementById('barUsa').style.width = `${Math.min(100, Math.max(12, (dUsa / maxVal) * 100))}%`;
+      document.getElementById('barCan').style.width = `${Math.min(100, Math.max(12, (dCan / maxVal) * 100))}%`;
+    }
+
+    // Initialize values on window load
+    window.onload = function() {
+      calculateSavings();
+    };
+  </script>
+</body>
+</html>
