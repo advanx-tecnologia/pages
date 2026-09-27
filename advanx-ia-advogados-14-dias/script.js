@@ -16,7 +16,7 @@
   const emit = (event, extra = {}) => {
     window.advanxLandingEvents.push({
       event,
-      page: 'advfunnel-advogados-14-dias',
+      page: 'advanx-ia-advogados-14-dias',
       timestamp: new Date().toISOString(),
       attribution,
       ...extra
