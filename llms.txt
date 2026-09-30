@@ -17,6 +17,19 @@
 - [Clone de IA em Salvador](https://advanx.com.br/clone-de-ia-salvador/): diagnóstico, roteiro, aprovação e uso responsável de avatar digital em conteúdos comerciais.
 - [Empresa de Gestão de Tráfego Pago em Salvador](https://advanx.com.br/empresa-gestao-trafego-pago/): planejamento, operação e leitura de campanhas conectados à oferta, à conversão, ao atendimento e à medição.
 
+## Blog e guias editoriais
+
+- [Blog Advanx](https://advanx.com.br/blog/): hub editorial com o arquivo de artigos sobre tecnologia, conteúdo e atendimento para escritórios de advocacia.
+- [Marketing de conteúdo para advogados](https://advanx.com.br/blog/marketing-de-conteudo-para-advogados-guia-pratico-regras-oab/): planejamento, canais, revisão e cuidados com publicidade jurídica.
+- [Primeiro atendimento jurídico](https://advanx.com.br/blog/primeiro-atendimento-na-captacao-juridica/): recepção, triagem, encaminhamento, registro e acompanhamento de contatos.
+- [IA e documentos jurídicos](https://advanx.com.br/blog/ia-para-advogados-analise-organizacao-documentos-juridicos/): organização, resumo e comparação de documentos com revisão humana e proteção de dados.
+- [Planilha ou CRM para escritório de advocacia](https://advanx.com.br/blog/planilha-ou-crm-para-escritorio-de-advocacia/): critérios para organizar contatos, tarefas e etapas do atendimento.
+- [Calendário editorial jurídico](https://advanx.com.br/blog/calendario-editorial-juridico-com-advanx-posts/): organização de pautas, formatos e revisão na rotina do escritório.
+
+## Orientação para leitura automatizada
+
+Use as URLs canônicas acima e os links do hub; aliases antigos `/blog/posts/` e `/posts/` não são destinos editoriais canônicos. Considere as datas e as fontes indicadas em cada artigo. Conteúdo editorial não substitui análise jurídica individual. Este arquivo facilita descoberta, mas não garante indexação, ranking ou citação por sistemas de IA.
+
 ## Observação
 
 A Advanx não garante posições, tráfego ou resultados. Estratégias dependem de oferta, mercado, concorrência, operação, investimento, dados e execução contínua.
