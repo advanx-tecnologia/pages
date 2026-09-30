@@ -20,7 +20,7 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quanto preciso investir para ter um sistema de captação funcionando?","acceptedAnswer":{"@type":"Answer","text":"Para um sistema básico funcional: R$1.500-3.000 de setup e R$800-2.000/mês em manutenção + verba de anúncios. Para um sistema completo com IA: a partir de R$3.000. O ROI tipicamente aparece no 2º ou 3º mês."}},{"@type":"Question","name":"Em quanto tempo o sistema começa a gerar resultados?","acceptedAnswer":{"@type":"Answer","text":"Os primeiros leads chegam em 7-14 dias após ativar anúncios. Leads qualificados e conversões em clientes geralmente aparecem entre 30 e 60 dias. A Advanx trabalha com prazo de 41 dias para resultados mensuráveis."}},{"@type":"Question","name":"Esse sistema funciona para qualquer área do Direito?","acceptedAnswer":{"@type":"Answer","text":"Sim, com adaptações. Direito Trabalhista, Consumidor, Família e Previdenciário têm maior volume de busca online. Direito Empresarial e Tributário têm ciclos mais longos mas ticket mais alto."}},{"@type":"Question","name":"Preciso de equipe para gerir o sistema?","acceptedAnswer":{"@type":"Answer","text":"Não necessariamente. Com automação, um advogado solo consegue gerir o funil. Sistemas bem configurados funcionam de forma quase autônoma — o advogado intervem apenas no contato consultivo final."}}]}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,600;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','502759528362336');fbq('track','PageView');</script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/></noscript>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
@@ -117,6 +117,7 @@
     .btn-cta{background:var(--accent);color:#fff;font-weight:600;font-size:.875rem;padding:12px 20px;border-radius:10px;text-decoration:none;white-space:nowrap;transition:opacity .2s;border:none;cursor:pointer;font-family:'Inter',sans-serif;}
     .btn-cta:hover{opacity:.88;}
   </style>
+  <link rel="stylesheet" href="/blog/assets/design-system-advanx.css" />
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -149,7 +150,7 @@
   <div class="rp" id="rp"></div>
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="/blog/"><img src="https://res.cloudinary.com/dmf4bqbdd/image/upload/v1784400742/Logo_Advanx_IA_Transparante_v3_kgirrz.png" alt="Advanx" class="nav-logo"/></a>
+      <a href="/blog/"><img src="/blog/assets/advanx-logo-light.png" alt="Advanx" class="nav-logo"/></a>
       <div class="nav-links"><a href="/blog/">Blog</a><a href="/blog/#posts">Artigos</a><a href="/blog/#newsletter">Newsletter</a><a href="https://advanx.com.br" target="_blank">Advanx.com.br</a></div>
       <div style="display:flex;align-items:center;gap:10px;">
         <button onclick="openModal()" class="nav-btn">Falar com Especialista</button>
@@ -295,7 +296,7 @@
       </div>
     </div>
   </section>
-  <footer><div class="footer-inner"><a href="/blog/"><img src="https://res.cloudinary.com/dmf4bqbdd/image/upload/v1784400742/Logo_Advanx_IA_Transparante_v3_kgirrz.png" alt="Advanx" style="height:26px;"/></a><div class="footer-links"><a href="https://instagram.com/advanxtecnologia" target="_blank">Instagram</a><a href="https://linkedin.com/company/advanx-tecnologia" target="_blank">LinkedIn</a><a href="https://youtube.com/@advanxtecnologia" target="_blank">YouTube</a><a href="https://wa.advanx.com.br/r" target="_blank">WhatsApp</a></div><p class="footer-copy">© 2026 Advanx Tecnologia</p></div></footer>
+  <footer><div class="footer-inner"><a href="/blog/"><img src="/blog/assets/advanx-logo-light.png" alt="Advanx" style="height:26px;"/></a><div class="footer-links"><a href="https://instagram.com/advanxtecnologia" target="_blank">Instagram</a><a href="https://linkedin.com/company/advanx-tecnologia" target="_blank">LinkedIn</a><a href="https://youtube.com/@advanxtecnologia" target="_blank">YouTube</a><a href="https://wa.advanx.com.br/r" target="_blank">WhatsApp</a></div><p class="footer-copy">© 2026 Advanx Tecnologia</p></div></footer>
   <script>
 
     window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);const h=document.documentElement.scrollHeight-document.documentElement.clientHeight;document.getElementById('rp').style.width=(document.documentElement.scrollTop/h*100)+'%';});
