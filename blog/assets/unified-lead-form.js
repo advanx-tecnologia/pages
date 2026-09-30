@@ -10,6 +10,51 @@
 
   var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'];
   var UTM_STORAGE_KEY = 'advanx_blog_attribution_v1';
+  var ACCESS_STORAGE_KEY = 'advanx_blog_article_access_v1';
+  var ACCESS_TTL = 30 * 24 * 60 * 60 * 1000;
+  var gateActive = false;
+  var previousFocus = null;
+  var previousOverflow = '';
+  var inertElements = [];
+
+  function hasArticleAccess() {
+    try {
+      var entries = JSON.parse(localStorage.getItem(ACCESS_STORAGE_KEY) || '{}');
+      var expires = entries[currentArticle().url];
+      return typeof expires === 'number' && expires > Date.now() && expires <= Date.now() + ACCESS_TTL;
+    } catch (_) { return false; }
+  }
+
+  function rememberArticleAccess() {
+    try {
+      var entries = JSON.parse(localStorage.getItem(ACCESS_STORAGE_KEY) || '{}');
+      Object.keys(entries).forEach(function (url) { if (entries[url] <= Date.now()) delete entries[url]; });
+      entries[currentArticle().url] = Date.now() + ACCESS_TTL;
+      localStorage.setItem(ACCESS_STORAGE_KEY, JSON.stringify(entries));
+    } catch (_) { /* The successful submission still releases this page when storage is unavailable. */ }
+  }
+
+  function configureForm() {
+    var overlay = document.getElementById('auf-overlay');
+    overlay.querySelector('h2').textContent = gateActive ? 'Conteúdo gratuito' : 'Fale com um Especialista Advanx';
+    overlay.querySelector('.auf-sub').textContent = gateActive ? 'Preencha para liberar o seu material' : 'Preencha seus dados. Depois do registro, você continuará a conversa no WhatsApp oficial da Advanx IA.';
+    overlay.querySelector('.auf-note').textContent = gateActive ? 'Após preencher, o acesso é liberado ao artigo. Sem spam. Sem custos.' : 'Seus dados serão registrados com a origem deste artigo e suas UTMs.';
+    overlay.classList.toggle('article-gate', gateActive);
+    overlay.querySelector('.auf-close').hidden = gateActive;
+    overlay.querySelector('.auf-back').hidden = !gateActive;
+    overlay.querySelector('.auf-specialty').hidden = !gateActive;
+    overlay.querySelector('#auf-specialty').required = gateActive;
+    overlay.querySelector('#auf-other').required = gateActive && overlay.querySelector('#auf-specialty').value === 'Outro';
+    overlay.querySelector('.auf-other').hidden = !overlay.querySelector('#auf-other').required;
+    overlay.querySelector('#auf-submit').textContent = gateActive ? 'Liberar material' : 'Quero conhecer as soluções →';
+  }
+
+  function installArticleGate() {
+    if (!isArticle() || !isTouchReader() || /bot|crawler|spider|lighthouse|headless/i.test(navigator.userAgent) || hasArticleAccess()) return;
+    gateActive = true;
+    configureForm();
+    openForm();
+  }
 
   function cleanText(value, max) {
     return String(value || '').trim().replace(/\s+/g, ' ').slice(0, max || 300);
@@ -34,7 +79,7 @@
   function isTouchReader() {
     return /Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(navigator.userAgent) ||
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) ||
-      (navigator.maxTouchPoints > 0 && matchMedia('(any-pointer: coarse)').matches && Math.min(screen.width, screen.height) <= 1280);
+      (navigator.maxTouchPoints > 0 && matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) <= 1280);
   }
 
   function commercialUrl() {
@@ -82,7 +127,8 @@
       '#auf-overlay.open{display:flex}.auf-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-xl);padding:32px;width:min(500px,100%);max-height:calc(100dvh - 32px);overflow:auto;box-sizing:border-box;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.35);font-family:var(--font-body)}' +
       '.auf-close{position:absolute;right:8px;top:8px;min-width:44px;min-height:44px;border:0;background:none;font-size:23px;color:var(--muted);cursor:pointer}.auf-box h2{font-family:var(--font-display);font-size:1.3rem;margin:0 32px 7px 0;color:var(--text)}.auf-sub{margin:0 0 20px;color:var(--text-soft);font-size:1rem;line-height:1.55}' +
       '.auf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.auf-field:first-child{grid-column:1/-1}.auf-field span{display:block;font-size:.875rem;font-weight:600;color:var(--text-soft);margin-bottom:5px}' +
-      '.auf-field input{width:100%;padding:11px 13px;border:1.5px solid var(--input-border);border-radius:var(--radius-md);font:inherit;font-size:16px;color:var(--text);background:var(--input-bg);box-sizing:border-box}.auf-field input:focus{border-color:var(--focus)}' +
+      '.auf-field input,.auf-field select{width:100%;padding:11px 13px;border:1.5px solid var(--input-border);border-radius:var(--radius-md);font:inherit;font-size:16px;color:var(--text);background:var(--input-bg);box-sizing:border-box}.auf-field input:focus,.auf-field select:focus{border-color:var(--focus)}' +
+      '#auf-overlay [hidden]{display:none!important}.auf-specialty,.auf-other{grid-column:1/-1}.article-gate .auf-note{color:var(--focus)}.auf-back{display:inline-block;color:var(--text-soft);font-size:.875rem;min-height:44px;margin-top:12px}.auf-field [aria-invalid="true"]{border-color:var(--danger)}' +
       '.auf-submit{width:100%;margin-top:14px;padding:14px;border:0;border-radius:var(--radius-md);background:var(--button-primary-bg);color:var(--button-primary-fg);font-weight:700;font-size:1rem;cursor:pointer}.auf-submit[disabled]{opacity:.65;cursor:wait}' +
       '.auf-note{text-align:center;color:var(--muted);font-size:.8rem;margin:9px 0 0}.auf-error{display:none;margin-top:12px;padding:10px 12px;border:1px solid var(--danger);border-radius:var(--radius-sm);background:var(--surface-raised);color:var(--danger);font-size:.875rem}' +
       '.auf-inline{display:flex;justify-content:center;align-items:center;min-height:54px}.auf-open{border:0;border-radius:var(--radius-md);background:var(--button-primary-bg);color:var(--button-primary-fg);padding:13px 20px;font:600 16px var(--font-body);cursor:pointer}' +
@@ -98,15 +144,18 @@
     overlay.id = 'auf-overlay';
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-modal', 'true');
-    overlay.setAttribute('aria-label', 'Fale com um especialista Advanx');
+    overlay.setAttribute('aria-labelledby', 'auf-title');
+    overlay.setAttribute('aria-describedby', 'auf-subtitle');
     overlay.innerHTML = '<div class="auf-box"><button class="auf-close" type="button" aria-label="Fechar">×</button>' +
-      '<h2>Fale com um Especialista Advanx</h2><p class="auf-sub">Preencha seus dados. Depois do registro, você continuará a conversa no WhatsApp oficial da Advanx IA.</p>' +
+      '<h2 id="auf-title">Fale com um Especialista Advanx</h2><p id="auf-subtitle" class="auf-sub">Preencha seus dados. Depois do registro, você continuará a conversa no WhatsApp oficial da Advanx IA.</p>' +
       '<form id="auf-form"><div class="auf-grid">' +
       field('Nome completo', 'auf-name', 'text', true, 'Seu nome') +
       field('WhatsApp', 'auf-phone', 'tel', true, '(71) 99999-9999') +
       field('E-mail', 'auf-email', 'email', true, 'seu@email.com') +
-      '</div><div id="auf-error" class="auf-error"></div><button id="auf-submit" class="auf-submit" type="submit">Quero conhecer as soluções →</button>' +
-      '<p class="auf-note">Seus dados serão registrados com a origem deste artigo e suas UTMs.</p></form></div>';
+      '<label class="auf-field auf-specialty" hidden><span>Especialidade *</span><select id="auf-specialty"><option value="">Selecione sua especialidade</option><option>Cível</option><option>Trabalhista</option><option>Previdenciário</option><option>Família e Sucessões</option><option>Empresarial</option><option>Penal</option><option>Tributário</option><option>Consumidor</option><option>Outro</option></select></label>' +
+      '<label class="auf-field auf-other" hidden><span>Qual especialidade? *</span><input id="auf-other" type="text" maxlength="120" placeholder="Informe sua especialidade"></label>' +
+      '</div><div id="auf-error" class="auf-error" role="alert" tabindex="-1"></div><button id="auf-submit" class="auf-submit" type="submit">Quero conhecer as soluções →</button>' +
+      '<p class="auf-note">Seus dados serão registrados com a origem deste artigo e suas UTMs.</p></form><a class="auf-back" href="/blog/" hidden>Voltar ao blog</a></div>';
     document.body.appendChild(overlay);
     overlay.querySelector('.auf-close').addEventListener('click', closeForm);
     overlay.addEventListener('click', function (event) { if (event.target === overlay) closeForm(); });
@@ -117,21 +166,43 @@
       else if (v) v = '(' + v;
       this.value = v;
     });
+    overlay.querySelector('#auf-specialty').addEventListener('change', function () {
+      var other = gateActive && this.value === 'Outro';
+      overlay.querySelector('.auf-other').hidden = !other;
+      overlay.querySelector('#auf-other').required = other;
+      if (other) overlay.querySelector('#auf-other').focus();
+    });
+    overlay.querySelectorAll('input,select').forEach(function (input) {
+      input.addEventListener('blur', function () { this.setAttribute('aria-invalid', String(!this.checkValidity())); });
+      input.addEventListener('input', function () { if (this.checkValidity()) this.removeAttribute('aria-invalid'); });
+      input.addEventListener('invalid', function () { this.setAttribute('aria-invalid', 'true'); });
+    });
     overlay.querySelector('#auf-form').addEventListener('submit', submitLead);
   }
 
   function openForm(event) {
     if (event) { event.preventDefault(); event.stopImmediatePropagation(); }
     var overlay = document.getElementById('auf-overlay');
+    if (!overlay.classList.contains('open')) {
+      previousFocus = document.activeElement;
+      previousOverflow = document.body.style.overflow;
+      inertElements = Array.from(document.body.children).filter(function (element) { return element !== overlay && !element.inert; });
+      inertElements.forEach(function (element) { element.inert = true; });
+    }
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
     setTimeout(function () { document.getElementById('auf-name').focus(); }, 30);
   }
 
   function closeForm() {
+    if (gateActive) return;
     var overlay = document.getElementById('auf-overlay');
-    if (overlay) overlay.classList.remove('open');
-    document.body.style.overflow = '';
+    if (!overlay || !overlay.classList.contains('open')) return;
+    overlay.classList.remove('open');
+    inertElements.forEach(function (element) { element.inert = false; });
+    inertElements = [];
+    document.body.style.overflow = previousOverflow;
+    if (previousFocus && previousFocus.isConnected) previousFocus.focus();
   }
 
   function replaceOtherForms() {
@@ -152,13 +223,17 @@
     var email = cleanText(document.getElementById('auf-email').value, 180).toLowerCase();
     var error = document.getElementById('auf-error');
     var button = document.getElementById('auf-submit');
-    if (!name || phone.length < 10 || !/^\S+@\S+\.\S+$/.test(email)) {
-      error.textContent = 'Preencha nome, WhatsApp e e-mail válidos.';
+    if (button.disabled) return;
+    var specialty = gateActive ? cleanText(document.getElementById('auf-specialty').value, 120) : '';
+    if (specialty === 'Outro') specialty = cleanText(document.getElementById('auf-other').value, 120);
+    if (name.length < 2 || !/^[1-9]{2}\d{8,9}$/.test(phone) || /^(\d)\1+$/.test(phone) || !/^\S+@\S+\.\S+$/.test(email) || (gateActive && !specialty)) {
+      error.textContent = gateActive ? 'Preencha nome, WhatsApp, e-mail e especialidade válidos.' : 'Preencha nome, WhatsApp e e-mail válidos.';
       error.style.display = 'block';
       return;
     }
     error.style.display = 'none';
     button.disabled = true;
+    button.setAttribute('aria-busy', 'true');
     button.textContent = 'Registrando...';
 
     var article = currentArticle();
@@ -179,30 +254,48 @@
       posicionamento: utm.utm_term || article.url,
       utm_medium: utm.utm_medium || null,
       submission_id: submissionId,
-      comentario: 'Artigo de origem: ' + article.title + ' | URL: ' + article.url + (utm.fbclid ? ' | fbclid: ' + utm.fbclid : '')
+      // Existing CRM schema has no especialidade column; retain the answer in its documented comment field.
+      comentario: 'Artigo de origem: ' + article.title + ' | URL: ' + article.url + (specialty ? ' | Especialidade: ' + specialty : '') + (utm.fbclid ? ' | fbclid: ' + utm.fbclid : '')
     };
 
+    var controller = new AbortController();
+    var timeout = setTimeout(function () { controller.abort(); }, 20000);
     try {
       var response = await fetch(LEAD_ENDPOINT, {
         method: 'POST',
+        signal: controller.signal,
         headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY, Prefer: 'return=minimal' },
         body: JSON.stringify(payload)
       });
       if (!response.ok) throw new Error('Falha ao registrar o lead (' + response.status + ')');
 
-      if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: article.title, content_category: 'Blog Advanx' });
-      if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { event_category: 'blog_unified_form', article_slug: article.slug });
+      try {
+        if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: article.title, content_category: 'Blog Advanx' });
+        if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { event_category: 'blog_unified_form', article_slug: article.slug });
+      } catch (_) { /* Analytics failure must not invalidate the saved submission. */ }
 
       var notification = 'Novo lead do Blog Advanx\n\nNome: ' + name + '\nWhatsApp: ' + phone + '\nE-mail: ' + email + '\nArtigo: ' + article.title + '\nURL: ' + article.url;
       fetch(NOTIFICATION_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mensagem_formatada: notification }) }).catch(function () {});
 
-      var message = 'Oi, me chamo ' + name + ', quero conhecer mais as soluções da Advanx IA, vim do artigo ' + article.title + ', pode me ajudar?';
+      if (gateActive) {
+        rememberArticleAccess();
+        gateActive = false;
+        closeForm();
+        configureForm();
+        var heading = document.querySelector('h1');
+        if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true }); }
+        return;
+      }
       location.href = 'https://wa.advanx.com.br/r';
     } catch (ex) {
-      error.textContent = ex && ex.message ? ex.message + '. Tente novamente.' : 'Não foi possível registrar seus dados. Tente novamente.';
+      error.textContent = ex && ex.name === 'AbortError' ? 'O envio demorou demais. Verifique sua conexão e tente novamente.' : (ex && ex.message ? ex.message + '. Tente novamente.' : 'Não foi possível registrar seus dados. Tente novamente.');
       error.style.display = 'block';
+      error.focus();
+    } finally {
+      clearTimeout(timeout);
       button.disabled = false;
-      button.textContent = 'Quero conhecer as soluções →';
+      button.removeAttribute('aria-busy');
+      button.textContent = gateActive ? 'Liberar material' : 'Quero conhecer as soluções →';
     }
   }
 
@@ -218,7 +311,18 @@
         openForm(event);
       }
     }, true);
-    document.addEventListener('keydown', function (event) { if (event.key === 'Escape') closeForm(); });
+    document.addEventListener('keydown', function (event) {
+      var overlay = document.getElementById('auf-overlay');
+      if (!overlay.classList.contains('open')) return;
+      if (event.key === 'Escape') { event.preventDefault(); closeForm(); }
+      if (event.key === 'Tab') {
+        var controls = Array.from(overlay.querySelectorAll('button,input,select,a[href]')).filter(function (element) { return !element.disabled && element.getClientRects().length; });
+        var first = controls[0];
+        var last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    });
   }
 
   function init() {
@@ -228,6 +332,7 @@
     replaceOtherForms();
     bindUnifiedEntryPoints();
     installDesktopWhatsApp();
+    installArticleGate();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
