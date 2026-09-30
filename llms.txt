@@ -1,30 +1,49 @@
 # Advanx
 
-> Agência de marketing digital para empresas em Salvador, com atuação em estratégia, tráfego pago, sites, CRM, automação de WhatsApp e IA para vendas.
+> Tecnologia e marketing para escritórios de advocacia: captação ética de clientes (dentro das regras da OAB), atendimento com IA no WhatsApp, CRM jurídico e conteúdo. Sede em Salvador (BA), atendimento em todo o Brasil.
 
-## Páginas principais
+## Para escritórios de advocacia
 
-- [Agência de Marketing Digital em Salvador](https://advanx.com.br/agencia-de-marketing-digital-salvador/): diagnóstico e priorização de oferta, canais, páginas, atendimento e medição para empresas em Salvador.
-- [Google Meu Negócio em Salvador](https://advanx.com.br/google-meu-negocio-salvador/): diagnóstico e otimização do Perfil da Empresa no Google para descoberta local responsável.
-- [Gestão de Tráfego Pago em Salvador](https://advanx.com.br/gestor-de-trafego-salvador/): planejamento de Google Ads e Meta Ads conectado à oferta, ao atendimento e à medição de contatos.
-- [Criação de Sites em Salvador](https://advanx.com.br/criacao-de-sites-salvador/): estratégia, conteúdo, desenvolvimento, rastreamento e caminhos de conversão para sites profissionais.
-- [CRM para Empresas em Salvador](https://advanx.com.br/crm-para-empresas-salvador/): diagnóstico de processo comercial, funil, dados, rotina e implantação de CRM.
-- [Automação de WhatsApp em Salvador](https://advanx.com.br/automacao-whatsapp-salvador/): organização da entrada comercial, qualificação de conversas, handoff humano e rastreabilidade.
-- [Chatbot para WhatsApp em Salvador](https://advanx.com.br/chatbot-whatsapp-salvador/): diagnóstico, fluxo, base de conhecimento, limites de resposta, handoff humano e testes do primeiro atendimento.
-- [IA para Vendas em Salvador](https://advanx.com.br/ia-para-vendas-salvador/): uso de IA no processo comercial.
-- [Social Media em Salvador](https://advanx.com.br/social-media-salvador/): estratégia de conteúdo, posicionamento, processo editorial, distribuição e conexão com a jornada comercial.
-- [Edição de Vídeo em Salvador](https://advanx.com.br/edicao-de-video-salvador/): edição de Reels, anúncios e vídeos comerciais, com definição de objetivo, formatos, processo de aprovação e limites de escopo.
-- [Clone de IA em Salvador](https://advanx.com.br/clone-de-ia-salvador/): diagnóstico, roteiro, aprovação e uso responsável de avatar digital em conteúdos comerciais.
-- [Empresa de Gestão de Tráfego Pago em Salvador](https://advanx.com.br/empresa-gestao-trafego-pago/): planejamento, operação e leitura de campanhas conectados à oferta, à conversão, ao atendimento e à medição.
+- [Advanx IA para advogados](https://advanx.com.br/advanx-ia-advogados-14-dias/): IA de atendimento no WhatsApp para triagem, qualificação e follow-up de potenciais clientes, com teste de 14 dias.
+- [Blog Advanx](https://advanx.com.br/blog/): hub editorial com tutoriais práticos para advogados, organizados em quatro pilares: IA para Advogados, Captação de Clientes, Automação Jurídica e Marketing Jurídico.
 
-## Blog e guias editoriais
+## Pilar: Captação de clientes
 
-- [Blog Advanx](https://advanx.com.br/blog/): hub editorial com o arquivo de artigos sobre tecnologia, conteúdo e atendimento para escritórios de advocacia.
-- [Marketing de conteúdo para advogados](https://advanx.com.br/blog/marketing-de-conteudo-para-advogados-guia-pratico-regras-oab/): planejamento, canais, revisão e cuidados com publicidade jurídica.
-- [Primeiro atendimento jurídico](https://advanx.com.br/blog/primeiro-atendimento-na-captacao-juridica/): recepção, triagem, encaminhamento, registro e acompanhamento de contatos.
+- [Captação de clientes para advogados](https://advanx.com.br/blog/captacao-de-clientes-para-advogados/): como atrair oportunidades dentro das regras da OAB.
+- [Como advogados podem captar clientes com IA](https://advanx.com.br/blog/como-advogados-captam-clientes-ia-2026/): uso ético de IA na captação.
+- [Captação na advocacia trabalhista](https://advanx.com.br/blog/captacao-clientes-advocacia-trabalhista/): estratégias específicas para a área trabalhista.
+- [Captação na advocacia previdenciária](https://advanx.com.br/blog/captacao-clientes-advocacia-previdenciaria/): atração de clientes para revisão de benefícios e aposentadoria.
+- [Captação na advocacia cível](https://advanx.com.br/blog/como-captar-clientes-advocacia-civel/): estratégias para a área cível.
+- [Follow-up de potenciais clientes](https://advanx.com.br/blog/como-fazer-follow-up-de-potenciais-clientes-na-advocacia/): cadência, abordagem ética e registro no CRM.
+
+## Pilar: IA e atendimento no WhatsApp
+
+- [Chatbot para advogados no WhatsApp](https://advanx.com.br/blog/chatbot-para-advogados-no-whatsapp/): benefícios, exemplos e implementação.
+- [IA de atendimento para advogados no WhatsApp](https://advanx.com.br/blog/ia-de-atendimento-para-advogados-no-whatsapp/): triagem de contatos e encaminhamento humano.
+- [Claude para advogados](https://advanx.com.br/blog/claude-para-advogados/): uso do Claude na rotina do escritório.
 - [IA e documentos jurídicos](https://advanx.com.br/blog/ia-para-advogados-analise-organizacao-documentos-juridicos/): organização, resumo e comparação de documentos com revisão humana e proteção de dados.
+
+## Pilar: Automação e CRM jurídico
+
+- [7 processos para automatizar no escritório](https://advanx.com.br/blog/automacao-escritorio-advocacia-7-processos/): tarefas repetitivas que mais impactam a rotina.
+- [Funil comercial do escritório com CRM](https://advanx.com.br/blog/como-organizar-funil-comercial-escritorio-advocacia-crm/): etapas, dados e rotina comercial.
 - [Planilha ou CRM para escritório de advocacia](https://advanx.com.br/blog/planilha-ou-crm-para-escritorio-de-advocacia/): critérios para organizar contatos, tarefas e etapas do atendimento.
-- [Calendário editorial jurídico](https://advanx.com.br/blog/calendario-editorial-juridico-com-advanx-posts/): organização de pautas, formatos e revisão na rotina do escritório.
+
+## Pilar: Marketing jurídico e conteúdo
+
+- [Marketing de conteúdo para advogados](https://advanx.com.br/blog/marketing-de-conteudo-para-advogados-guia-pratico-regras-oab/): planejamento, canais, revisão e cuidados com publicidade jurídica.
+- [50 ideias de posts para advogados](https://advanx.com.br/blog/posts-para-advogados-50-ideias-por-area-de-atuacao/): pautas por área de atuação.
+- [Calendário de conteúdo para advogados](https://advanx.com.br/blog/calendario-de-conteudo-para-advogados/): organização de pautas e formatos.
+- [Primeiro atendimento jurídico](https://advanx.com.br/blog/primeiro-atendimento-na-captacao-juridica/): recepção, triagem, encaminhamento, registro e acompanhamento de contatos.
+
+## Outros serviços (empresas em Salvador)
+
+- [Agência de Marketing Digital em Salvador](https://advanx.com.br/agencia-de-marketing-digital-salvador/): diagnóstico e priorização de oferta, canais, páginas, atendimento e medição.
+- [Gestão de Tráfego Pago em Salvador](https://advanx.com.br/gestor-de-trafego-salvador/): Google Ads e Meta Ads conectados à oferta, ao atendimento e à medição de contatos.
+- [CRM para Empresas em Salvador](https://advanx.com.br/crm-para-empresas-salvador/): diagnóstico de processo comercial, funil, dados, rotina e implantação de CRM.
+- [Automação de WhatsApp em Salvador](https://advanx.com.br/automacao-whatsapp-salvador/): entrada comercial, qualificação de conversas e handoff humano.
+- [Chatbot para WhatsApp em Salvador](https://advanx.com.br/chatbot-whatsapp-salvador/): fluxo, base de conhecimento, limites de resposta e handoff humano.
+- [Criação de Sites em Salvador](https://advanx.com.br/criacao-de-sites-salvador/), [Google Meu Negócio](https://advanx.com.br/google-meu-negocio-salvador/), [Social Media](https://advanx.com.br/social-media-salvador/), [Edição de Vídeo](https://advanx.com.br/edicao-de-video-salvador/), [IA para Vendas](https://advanx.com.br/ia-para-vendas-salvador/), [Clone de IA](https://advanx.com.br/clone-de-ia-salvador/).
 
 ## Orientação para leitura automatizada
 
