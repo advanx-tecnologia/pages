@@ -136,7 +136,7 @@
       <p style="color:var(--ink-2);font-size:.875rem;line-height:1.65;margin-bottom:24px;">Descubra como a Advanx pode ajudar seu escritório a captar mais clientes com IA.</p>
       <form id="cta-form" onsubmit="submitCTA(event)">
         <div style="margin-bottom:14px;"><label class="nl-label">Nome</label><input type="text" id="cta-nome" placeholder="Seu nome" class="nl-input" required/></div>
-        <div style="margin-bottom:14px;"><label class="nl-label">WhatsApp</label><input type="tel" id="cta-telefone" placeholder="(71) 99999-9999" class="nl-input" maxlength="15" required/></div>
+        <div style="margin-bottom:14px;"><label class="nl-label" for="nl-telefone">WhatsApp (opcional)</label><input type="tel" id="cta-telefone" placeholder="(71) 99999-9999" class="nl-input" maxlength="15" required/></div>
         <div style="margin-bottom:14px;"><label class="nl-label">E-mail</label><input type="email" id="cta-email" placeholder="seu@email.com" class="nl-input" required/></div>
         <button type="submit" id="cta-btn" class="nl-submit">Quero falar com um especialista</button>
       </form>
@@ -287,9 +287,9 @@
       <p class="nl-sub">Uma tática de captação, um case real, uma ferramenta de IA para advogados. Zero spam.</p>
       <div class="nl-card">
         <form id="nl-form" onsubmit="submitNewsletter(event)">
-          <div class="nl-row"><div><label class="nl-label">Nome</label><input type="text" id="nl-nome" placeholder="Seu nome" class="nl-input" required/></div><div><label class="nl-label">WhatsApp</label><input type="tel" id="nl-telefone" placeholder="(71) 99999-9999" class="nl-input" maxlength="15" required/></div></div>
+          <div class="nl-row"><div><label class="nl-label">Nome</label><input type="text" id="nl-nome" placeholder="Seu nome" class="nl-input" required/></div><div><label class="nl-label" for="nl-telefone">WhatsApp (opcional)</label><input type="tel" id="nl-telefone" placeholder="(71) 99999-9999" class="nl-input" maxlength="15" autocomplete="tel"/></div></div>
           <div style="margin-bottom:14px;"><label class="nl-label">E-mail</label><input type="email" id="nl-email" placeholder="seu@email.com" class="nl-input" required/></div>
-          <button type="submit" id="nl-btn" class="nl-submit">Quero Receber Estratégias Gratuitas</button>
+          <button type="submit" id="nl-btn" class="nl-submit">Receber estratégias por e-mail</button>
           <p class="nl-note">Sem spam. Cancele quando quiser.</p>
         </form>
         <div id="nl-success" style="display:none;text-align:center;padding:32px 0;"><div style="font-size:2.5rem;margin-bottom:12px;">🎯</div><h3 style="font-family:'Lora',serif;font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:8px;">Você está dentro!</h3><p style="color:var(--ink-2);font-size:14px;">Verifique seu e-mail. Boas estratégias a caminho.</p></div>
@@ -336,7 +336,7 @@
       }catch(err){btn.disabled=false;btn.textContent='Quero falar com um especialista';}
     }
     async function submitNewsletter(e){e.preventDefault();const btn=document.getElementById('nl-btn');btn.textContent='Enviando...';btn.disabled=true;try{const respostaNewsletter=await fetch(`${SU}/rest/v1/dados_cliente`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SK,'Authorization':`Bearer ${SK}`,'Prefer':'return=minimal'},body:JSON.stringify({nome:document.getElementById('nl-nome').value.trim(),telefone:document.getElementById('nl-telefone').value.replace(/\D/g,''),email:document.getElementById('nl-email').value.trim(),kanban_stage:'Novo Lead',pipeline_type:'inbound',funil_lead:'Advanx',empresa_fonte:'Advanx',...getUTMs()})});
-if(!respostaNewsletter.ok)throw new Error('Falha ao registrar formulário');if(typeof fbq!=='undefined')fbq('track','Lead',{content_name:'Newsletter Blog'});if(typeof gtag!=='undefined')gtag('event','generate_lead',{event_category:'newsletter'});document.getElementById('nl-form').style.display='none';document.getElementById('nl-success').style.display='block';}catch{btn.textContent='Quero Receber Estratégias Gratuitas';btn.disabled=false;}}
+if(!respostaNewsletter.ok)throw new Error('Falha ao registrar formulário');if(typeof fbq!=='undefined')fbq('track','Lead',{content_name:'Newsletter Blog'});if(typeof gtag!=='undefined')gtag('event','generate_lead',{event_category:'newsletter'});document.getElementById('nl-form').style.display='none';document.getElementById('nl-success').style.display='block';}catch{btn.textContent='Receber estratégias por e-mail';btn.disabled=false;}}
     let vcFired=false;window.addEventListener('scroll',()=>{if(!vcFired&&window.scrollY/(document.body.scrollHeight-window.innerHeight)>=0.5){vcFired=true;if(typeof fbq!=='undefined')fbq('track','ViewContent');}});
   </script>
 <!-- ── Advanx Contact Modal ── -->
