@@ -168,6 +168,18 @@ footer { background:var(--bg2); border-top-color:var(--border); }
 #auf-overlay .auf-close { color:var(--muted) !important; min-width:44px; min-height:44px; }
 #auf-overlay .auf-close:focus-visible { outline:2px solid var(--focus); outline-offset:2px; }
 #auf-overlay .auf-note { color:var(--muted) !important; font-size:14px !important; }
+#auf-overlay.article-gate .auf-note { color:var(--focus) !important; font-size:13px !important; }
+
+/* Related titles share a scale regardless of legacy h3/h4 markup. */
+.related-grid { min-width:0; }
+.related-grid .related-card { min-width:0; }
+.related-card .related-body { min-width:0; }
+.related-card .related-body .cat-tag { display:block; margin:0 0 8px; line-height:1.3; }
+.related-card .related-body .related-title {
+  font-family:var(--font-display) !important; font-size:14px; font-weight:600;
+  line-height:1.4; letter-spacing:-.01em; margin:0; color:var(--text);
+  overflow-wrap:anywhere;
+}
 #auf-overlay .auf-error {
   background:var(--surface-raised) !important; color:var(--danger) !important;
   border-color:var(--danger) !important;

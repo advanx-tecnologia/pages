@@ -10,8 +10,7 @@
 
   var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'];
   var UTM_STORAGE_KEY = 'advanx_blog_attribution_v1';
-  var ACCESS_STORAGE_KEY = 'advanx_blog_article_access_v1';
-  var ACCESS_TTL = 30 * 24 * 60 * 60 * 1000;
+  var ACCESS_STORAGE_KEY = 'advanx_blog_article_session_access_v2';
   var gateActive = false;
   var previousFocus = null;
   var previousOverflow = '';
@@ -19,26 +18,24 @@
 
   function hasArticleAccess() {
     try {
-      var entries = JSON.parse(localStorage.getItem(ACCESS_STORAGE_KEY) || '{}');
-      var expires = entries[currentArticle().url];
-      return typeof expires === 'number' && expires > Date.now() && expires <= Date.now() + ACCESS_TTL;
+      var entries = JSON.parse(sessionStorage.getItem(ACCESS_STORAGE_KEY) || '{}');
+      return entries[currentArticle().url] === true;
     } catch (_) { return false; }
   }
 
   function rememberArticleAccess() {
     try {
-      var entries = JSON.parse(localStorage.getItem(ACCESS_STORAGE_KEY) || '{}');
-      Object.keys(entries).forEach(function (url) { if (entries[url] <= Date.now()) delete entries[url]; });
-      entries[currentArticle().url] = Date.now() + ACCESS_TTL;
-      localStorage.setItem(ACCESS_STORAGE_KEY, JSON.stringify(entries));
+      var entries = JSON.parse(sessionStorage.getItem(ACCESS_STORAGE_KEY) || '{}');
+      entries[currentArticle().url] = true;
+      sessionStorage.setItem(ACCESS_STORAGE_KEY, JSON.stringify(entries));
     } catch (_) { /* The successful submission still releases this page when storage is unavailable. */ }
   }
 
   function configureForm() {
     var overlay = document.getElementById('auf-overlay');
     overlay.querySelector('h2').textContent = gateActive ? 'Conteúdo gratuito' : 'Fale com um Especialista Advanx';
-    overlay.querySelector('.auf-sub').textContent = gateActive ? 'Preencha para liberar o seu material' : 'Preencha seus dados. Depois do registro, você continuará a conversa no WhatsApp oficial da Advanx IA.';
-    overlay.querySelector('.auf-note').textContent = gateActive ? 'Após preencher, o acesso é liberado ao artigo. Sem spam. Sem custos.' : 'Seus dados serão registrados com a origem deste artigo e suas UTMs.';
+    overlay.querySelector('.auf-sub').textContent = gateActive ? 'Preencha para liberar o seu material' : 'Preencha para conversar com nossa equipe.';
+    overlay.querySelector('.auf-note').textContent = gateActive ? 'Após preencher, o acesso é liberado ao artigo. Sem spam. Sem custos.' : '';
     overlay.classList.toggle('article-gate', gateActive);
     overlay.querySelector('.auf-close').hidden = gateActive;
     overlay.querySelector('.auf-back').hidden = !gateActive;
@@ -50,7 +47,7 @@
   }
 
   function installArticleGate() {
-    if (!isArticle() || !isTouchReader() || /bot|crawler|spider|lighthouse|headless/i.test(navigator.userAgent) || hasArticleAccess()) return;
+    if (!isArticle() || !isTouchReader() || /bot|crawler|spider|lighthouse/i.test(navigator.userAgent) || hasArticleAccess()) return;
     gateActive = true;
     configureForm();
     openForm();
@@ -95,7 +92,7 @@
     var button = document.createElement('a');
     button.id = 'auf-whatsapp';
     button.href = commercialUrl();
-    button.textContent = 'WhatsApp comercial';
+    button.innerHTML = '<svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.52 3.48A11.89 11.89 0 0 0 12.05 0C5.46 0 .1 5.36.1 11.95c0 2.11.55 4.17 1.6 5.98L0 24l6.24-1.64a11.94 11.94 0 0 0 5.8 1.48h.01c6.59 0 11.95-5.36 11.95-11.95 0-3.19-1.24-6.18-3.48-8.41ZM12.05 21.82h-.01a9.91 9.91 0 0 1-5.05-1.38l-.36-.21-3.7.97.99-3.61-.24-.37a9.89 9.89 0 0 1-1.51-5.27c0-5.48 4.46-9.94 9.94-9.94a9.88 9.88 0 0 1 7.03 2.91 9.88 9.88 0 0 1 2.9 7.04c0 5.48-4.46 9.94-9.99 9.94Zm5.45-7.44c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.3 1.27.49 1.7.63.71.22 1.35.19 1.86.11.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/></svg>';
     button.setAttribute('aria-label', 'Conversar no WhatsApp comercial sobre este artigo');
     button.setAttribute('data-commercial-direct', 'true');
     document.body.appendChild(button);
@@ -130,9 +127,9 @@
       '.auf-field input,.auf-field select{width:100%;padding:11px 13px;border:1.5px solid var(--input-border);border-radius:var(--radius-md);font:inherit;font-size:16px;color:var(--text);background:var(--input-bg);box-sizing:border-box}.auf-field input:focus,.auf-field select:focus{border-color:var(--focus)}' +
       '#auf-overlay [hidden]{display:none!important}.auf-specialty,.auf-other{grid-column:1/-1}.article-gate .auf-note{color:var(--focus)}.auf-back{display:inline-block;color:var(--text-soft);font-size:.875rem;min-height:44px;margin-top:12px}.auf-field [aria-invalid="true"]{border-color:var(--danger)}' +
       '.auf-submit{width:100%;margin-top:14px;padding:14px;border:0;border-radius:var(--radius-md);background:var(--button-primary-bg);color:var(--button-primary-fg);font-weight:700;font-size:1rem;cursor:pointer}.auf-submit[disabled]{opacity:.65;cursor:wait}' +
-      '.auf-note{text-align:center;color:var(--muted);font-size:.8rem;margin:9px 0 0}.auf-error{display:none;margin-top:12px;padding:10px 12px;border:1px solid var(--danger);border-radius:var(--radius-sm);background:var(--surface-raised);color:var(--danger);font-size:.875rem}' +
+      '.auf-note{text-align:left;color:var(--muted);font-size:.8rem;margin:0 0 20px;line-height:1.5}.auf-note:empty{display:none}.article-gate .auf-sub{margin-bottom:8px}.article-gate .auf-grid{grid-template-columns:1fr}.auf-error{display:none;margin-top:12px;padding:10px 12px;border:1px solid var(--danger);border-radius:var(--radius-sm);background:var(--surface-raised);color:var(--danger);font-size:.875rem}' +
       '.auf-inline{display:flex;justify-content:center;align-items:center;min-height:54px}.auf-open{border:0;border-radius:var(--radius-md);background:var(--button-primary-bg);color:var(--button-primary-fg);padding:13px 20px;font:600 16px var(--font-body);cursor:pointer}' +
-      '#auf-whatsapp{position:fixed;right:24px;bottom:24px;z-index:9990;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--button-primary-bg);color:var(--button-primary-fg);font:600 16px var(--font-body);text-decoration:none;box-shadow:0 8px 28px rgba(0,0,0,.25)}#auf-whatsapp:hover{background:var(--button-primary-hover-bg)}' +
+      '#auf-whatsapp{position:fixed;right:24px;bottom:24px;z-index:9990;display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--button-primary-bg);color:var(--button-primary-fg);text-decoration:none;box-shadow:0 8px 28px rgba(0,0,0,.25);animation:auf-whatsapp-pulse 2.6s ease-in-out infinite}#auf-whatsapp:hover{background:var(--button-primary-hover-bg)}@keyframes auf-whatsapp-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}@media(prefers-reduced-motion:reduce){#auf-whatsapp{animation:none;transform:none}}' +
       '@media(max-width:560px){.auf-grid{grid-template-columns:1fr}.auf-field:first-child{grid-column:auto}.auf-box{padding:28px 20px}}';
     document.head.appendChild(style);
   }
@@ -147,15 +144,15 @@
     overlay.setAttribute('aria-labelledby', 'auf-title');
     overlay.setAttribute('aria-describedby', 'auf-subtitle');
     overlay.innerHTML = '<div class="auf-box"><button class="auf-close" type="button" aria-label="Fechar">×</button>' +
-      '<h2 id="auf-title">Fale com um Especialista Advanx</h2><p id="auf-subtitle" class="auf-sub">Preencha seus dados. Depois do registro, você continuará a conversa no WhatsApp oficial da Advanx IA.</p>' +
+      '<h2 id="auf-title">Fale com um Especialista Advanx</h2><p id="auf-subtitle" class="auf-sub">Preencha para conversar com nossa equipe.</p><p class="auf-note"></p>' +
       '<form id="auf-form"><div class="auf-grid">' +
       field('Nome completo', 'auf-name', 'text', true, 'Seu nome') +
-      field('WhatsApp', 'auf-phone', 'tel', true, '(71) 99999-9999') +
       field('E-mail', 'auf-email', 'email', true, 'seu@email.com') +
+      field('WhatsApp', 'auf-phone', 'tel', true, '(71) 99999-9999') +
       '<label class="auf-field auf-specialty" hidden><span>Especialidade *</span><select id="auf-specialty"><option value="">Selecione sua especialidade</option><option>Cível</option><option>Trabalhista</option><option>Previdenciário</option><option>Família e Sucessões</option><option>Empresarial</option><option>Penal</option><option>Tributário</option><option>Consumidor</option><option>Outro</option></select></label>' +
       '<label class="auf-field auf-other" hidden><span>Qual especialidade? *</span><input id="auf-other" type="text" maxlength="120" placeholder="Informe sua especialidade"></label>' +
       '</div><div id="auf-error" class="auf-error" role="alert" tabindex="-1"></div><button id="auf-submit" class="auf-submit" type="submit">Quero conhecer as soluções →</button>' +
-      '<p class="auf-note">Seus dados serão registrados com a origem deste artigo e suas UTMs.</p></form><a class="auf-back" href="/blog/" hidden>Voltar ao blog</a></div>';
+      '</form><a class="auf-back" href="/blog/" hidden>Voltar ao blog</a></div>';
     document.body.appendChild(overlay);
     overlay.querySelector('.auf-close').addEventListener('click', closeForm);
     overlay.addEventListener('click', function (event) { if (event.target === overlay) closeForm(); });
@@ -286,7 +283,7 @@
         if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true }); }
         return;
       }
-      location.href = 'https://wa.advanx.com.br/r';
+      location.href = commercialUrl();
     } catch (ex) {
       error.textContent = ex && ex.name === 'AbortError' ? 'O envio demorou demais. Verifique sua conexão e tente novamente.' : (ex && ex.message ? ex.message + '. Tente novamente.' : 'Não foi possível registrar seus dados. Tente novamente.');
       error.style.display = 'block';
