@@ -26,6 +26,36 @@
     return { title: title || 'Blog Advanx', url: url, slug: slug };
   }
 
+  function isArticle() {
+    return /^\/blog\/[^/]+\/?$/.test(location.pathname) && !!document.querySelector('.art-body') &&
+      !/^\/blog\/(categories|tags|guia|template)\/?$/.test(location.pathname);
+  }
+
+  function isTouchReader() {
+    return /Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) ||
+      (navigator.maxTouchPoints > 0 && matchMedia('(any-pointer: coarse)').matches && Math.min(screen.width, screen.height) <= 1280);
+  }
+
+  function commercialUrl() {
+    var url = new URL('https://wa.advanx.com.br/r');
+    url.searchParams.set('text', 'Olá, vim do blog ' + currentArticle().title + '. Preciso automatizar ou de atendimento.');
+    var utm = attribution();
+    UTM_KEYS.forEach(function (key) { if (utm[key]) url.searchParams.set(key, utm[key]); });
+    return url.href;
+  }
+
+  function installDesktopWhatsApp() {
+    if (!isArticle() || isTouchReader()) return;
+    var button = document.createElement('a');
+    button.id = 'auf-whatsapp';
+    button.href = commercialUrl();
+    button.textContent = 'WhatsApp comercial';
+    button.setAttribute('aria-label', 'Conversar no WhatsApp comercial sobre este artigo');
+    button.setAttribute('data-commercial-direct', 'true');
+    document.body.appendChild(button);
+  }
+
   function attribution() {
     var query = new URLSearchParams(location.search);
     var saved = {};
@@ -56,6 +86,7 @@
       '.auf-submit{width:100%;margin-top:14px;padding:14px;border:0;border-radius:var(--radius-md);background:var(--button-primary-bg);color:var(--button-primary-fg);font-weight:700;font-size:1rem;cursor:pointer}.auf-submit[disabled]{opacity:.65;cursor:wait}' +
       '.auf-note{text-align:center;color:var(--muted);font-size:.8rem;margin:9px 0 0}.auf-error{display:none;margin-top:12px;padding:10px 12px;border:1px solid var(--danger);border-radius:var(--radius-sm);background:var(--surface-raised);color:var(--danger);font-size:.875rem}' +
       '.auf-inline{display:flex;justify-content:center;align-items:center;min-height:54px}.auf-open{border:0;border-radius:var(--radius-md);background:var(--button-primary-bg);color:var(--button-primary-fg);padding:13px 20px;font:600 16px var(--font-body);cursor:pointer}' +
+      '#auf-whatsapp{position:fixed;right:24px;bottom:24px;z-index:9990;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--button-primary-bg);color:var(--button-primary-fg);font:600 16px var(--font-body);text-decoration:none;box-shadow:0 8px 28px rgba(0,0,0,.25)}#auf-whatsapp:hover{background:var(--button-primary-hover-bg)}' +
       '@media(max-width:560px){.auf-grid{grid-template-columns:1fr}.auf-field:first-child{grid-column:auto}.auf-box{padding:28px 20px}}';
     document.head.appendChild(style);
   }
@@ -179,7 +210,7 @@
     window.acmOpen = openForm;
     document.addEventListener('click', function (event) {
       var target = event.target.closest('a,button');
-      if (!target) return;
+      if (!target || target.hasAttribute('data-commercial-direct')) return;
       var href = target.getAttribute('href') || '';
       var onclick = target.getAttribute('onclick') || '';
       var text = cleanText(target.textContent, 100).toLowerCase();
@@ -196,6 +227,7 @@
     installModal();
     replaceOtherForms();
     bindUnifiedEntryPoints();
+    installDesktopWhatsApp();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
