@@ -14,10 +14,11 @@ import sys
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
+from functools import lru_cache
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import parse_qs, urlparse, urlunparse
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -87,7 +88,7 @@ class SeoTags(HTMLParser):
             if href.startswith("/") or href.startswith("https://advanx.com.br/"):
                 self.internal_links.append(href)
         if tag.lower() == "img":
-            self.images.append({key: data.get(key, "") for key in ("src", "width", "height", "loading")})
+            self.images.append({key: data.get(key, "") for key in ("src", "width", "height", "loading", "style")})
         if tag.lower() == "script" and data.get("type", "").lower() == "application/ld+json":
             self._inside_jsonld = True
             self._jsonld_parts = []
@@ -162,13 +163,38 @@ def heading_hierarchy_valid(levels: list[int]) -> bool:
     return bool(levels) and levels[0] == 1 and all(current <= previous + 1 for previous, current in zip(levels, levels[1:]))
 
 
+def tracking_pixel(image: dict[str, str]) -> bool:
+    """Only the hidden 1x1 Meta tracking endpoint, never editorial photos."""
+    parsed = urlparse(image.get("src", ""))
+    styles = dict(part.split(":", 1) for part in image.get("style", "").lower().replace(" ", "").split(";") if ":" in part)
+    return (parsed.scheme == "https" and parsed.hostname == "www.facebook.com"
+            and parsed.path == "/tr" and image.get("width") == "1"
+            and image.get("height") == "1" and styles.get("display") == "none")
+
+
+@lru_cache(maxsize=256)
 def optimized_image(src: str) -> bool:
     clean = src.lower().split("?", 1)[0]
     if clean.endswith((".webp", ".avif", ".svg")):
         return True
     if "res.cloudinary.com" in clean and ("/f_auto" in clean or "f_auto," in clean):
         return True
-    return src.startswith("data:image/")
+    if src.startswith("data:image/"):
+        return True
+    parsed = urlparse(src)
+    params = parse_qs(parsed.query)
+    if parsed.scheme == "https" and parsed.hostname == "images.unsplash.com" and params.get("auto") == ["format"]:
+        # Negotiated URLs have no extension: verify actual MIME AND magic bytes.
+        request = urllib.request.Request(src, headers={"Accept": "image/avif,image/webp,image/*,*/*;q=0.8", "User-Agent": "AdvanxSeoPublishGate/1.0"})
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                mime = response.headers.get("Content-Type", "").split(";", 1)[0].lower()
+                head = response.read(32)
+            return ((mime == "image/webp" and head[:4] == b"RIFF" and head[8:12] == b"WEBP")
+                    or (mime == "image/avif" and head[4:8] == b"ftyp" and b"avif" in head[8:32]))
+        except (urllib.error.URLError, TimeoutError):
+            return False
+    return False
 
 
 def parse_robots_groups(text: str) -> list[tuple[list[str], list[str]]]:
@@ -286,7 +312,8 @@ def main() -> None:
             if tags.canonical != url:
                 failures.append(f"Canonical divergente: {url} -> {tags.canonical or 'ausente'}")
             robots_value = f"{tags.robots},{headers.get('x-robots-tag', '')}".lower()
-            if "noindex" in robots_value or "nofollow" in robots_value or "index" not in tags.robots.lower() or "follow" not in tags.robots.lower():
+            editorial = urlparse(url).path == "/blog/" or urlparse(url).path.startswith("/blog/")
+            if "noindex" in robots_value or "nofollow" in robots_value or (not editorial and ("index" not in tags.robots.lower() or "follow" not in tags.robots.lower())):
                 failures.append(f"Robots não indexável: {url} -> {tags.robots or 'ausente'}")
             if not tags.title or not tags.description:
                 failures.append(f"Title ou meta description ausente: {url}")
@@ -302,14 +329,20 @@ def main() -> None:
                 failures.append(f"Open Graph incompleto em {url}: {', '.join(missing_og)}")
             if not tags.internal_links:
                 failures.append(f"Links internos contextuais ausentes: {url}")
-            required_schema = {"Service", "WebPage", "BreadcrumbList"}
+            # Blog content uses its existing truthful schema, not LP Service markup.
+            if urlparse(url).path == "/blog/":
+                required_schema = {"Blog", "BreadcrumbList"}
+            elif editorial:
+                required_schema = {"BlogPosting", "BreadcrumbList"}
+            else:
+                required_schema = {"Service", "WebPage", "BreadcrumbList"}
             missing_schema = sorted(required_schema - tags.schema_types)
             if missing_schema:
                 failures.append(f"Schemas obrigatórios ausentes em {url}: {', '.join(missing_schema)}")
             images_without_dimensions = [image["src"] for image in tags.images if not image["width"] or not image["height"]]
             if images_without_dimensions:
                 failures.append(f"Imagens sem width/height em {url}: {images_without_dimensions}")
-            unoptimized_images = [image["src"] for image in tags.images if image["src"] and not optimized_image(image["src"])]
+            unoptimized_images = [image["src"] for image in tags.images if not tracking_pixel(image) and not optimized_image(image["src"])]
             if unoptimized_images:
                 failures.append(f"Imagens sem formato/transformação otimizada em {url}: {unoptimized_images}")
             if url not in live_sitemap_urls:
