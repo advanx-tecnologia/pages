@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -151,7 +152,24 @@ def fetch_live(url: str) -> tuple[int, str, dict[str, str], SeoTags]:
     status, final_url, headers, body = fetch_text(url)
     tags = SeoTags()
     tags.feed(body)
+    tags.html = body
     return status, final_url, headers, tags
+
+
+GTM_ID = "GTM-KXPZNRHK"  # carrega GA4, Meta Pixel e Plausible; scripts soltos ficam fora do painel
+
+
+def tracking_and_speed_failures(url: str, html: str) -> list[str]:
+    """GTM obrigatório (snippet padrão ou carregamento atrasado) e nenhum <script src> bloqueante no <head>."""
+    failures = []
+    if f"'{GTM_ID}'" not in html or "googletagmanager.com/gtm.js?id=" not in html:
+        failures.append(f"GTM {GTM_ID} ausente: {url}")
+    head = html.split("</head>", 1)[0]
+    blocking = [src for tag, src in re.findall(r'(<script\b[^>]*\bsrc="([^"]+)"[^>]*>)', head)
+                if not re.search(r"\b(async|defer)\b|type=\"module\"", tag)]
+    if blocking:
+        failures.append(f"Script bloqueando renderização no <head> (use defer/async): {url} -> {blocking}")
+    return failures
 
 
 def http_url(url: str) -> str:
@@ -329,6 +347,7 @@ def main() -> None:
                 failures.append(f"Open Graph incompleto em {url}: {', '.join(missing_og)}")
             if not tags.internal_links:
                 failures.append(f"Links internos contextuais ausentes: {url}")
+            failures.extend(tracking_and_speed_failures(url, tags.html))
             # Blog content uses its existing truthful schema, not LP Service markup.
             if urlparse(url).path == "/blog/":
                 required_schema = {"Blog", "BreadcrumbList"}
