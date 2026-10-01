@@ -7,6 +7,7 @@
   var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10';
   var LEAD_ENDPOINT = SUPABASE_URL + '/rest/v1/dados_cliente';
   var NOTIFICATION_ENDPOINT = 'https://n8n.advfunnel.com.br/webhook/lead-funil-41d-comercial-efc4f106bbae40dcb0f4a2fc7bebe72c';
+  var CRM_ENDPOINT = 'https://crm.advanx.com.br/api/v1/webhooks/in/F40oWYZi8ZbIU6fns-xwDmtHF6o5rLCY';
 
   var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'];
   var UTM_STORAGE_KEY = 'advanx_blog_attribution_v1';
@@ -273,6 +274,8 @@
 
       var notification = 'Novo lead do Blog Advanx\n\nNome: ' + name + '\nWhatsApp: ' + phone + '\nE-mail: ' + email + '\nArtigo: ' + article.title + '\nURL: ' + article.url;
       fetch(NOTIFICATION_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mensagem_formatada: notification }) }).catch(function () {});
+      // CRM sem CORS: POST de formulário simples (no-cors); keepalive porque o redirect ao WhatsApp vem logo em seguida.
+      fetch(CRM_ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, body: new URLSearchParams({ nome: name, telefone: phone, email: email }) }).catch(function () {});
 
       if (gateActive) {
         rememberArticleAccess();
