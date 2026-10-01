@@ -35,16 +35,15 @@
   function configureForm() {
     var overlay = document.getElementById('auf-overlay');
     overlay.querySelector('h2').textContent = gateActive ? 'Conteúdo gratuito' : 'Fale com um Especialista Advanx';
-    overlay.querySelector('.auf-sub').textContent = gateActive ? 'Preencha para liberar o seu material' : 'Preencha para conversar com nossa equipe.';
-    overlay.querySelector('.auf-note').textContent = gateActive ? 'Após preencher, o acesso é liberado ao artigo. Sem spam. Sem custos.' : '';
+    overlay.querySelector('.auf-sub').textContent = gateActive ? 'Preencha para continuar pelo WhatsApp.' : 'Preencha para conversar com nossa equipe.';
+    overlay.querySelector('.auf-note').textContent = gateActive ? 'Após preencher, você será direcionado ao WhatsApp. Sem spam. Sem custos.' : '';
     overlay.classList.toggle('article-gate', gateActive);
     overlay.querySelector('.auf-close').hidden = gateActive;
-    overlay.querySelector('.auf-back').hidden = !gateActive;
     overlay.querySelector('.auf-specialty').hidden = !gateActive;
     overlay.querySelector('#auf-specialty').required = gateActive;
     overlay.querySelector('#auf-other').required = gateActive && overlay.querySelector('#auf-specialty').value === 'Outro';
     overlay.querySelector('.auf-other').hidden = !overlay.querySelector('#auf-other').required;
-    overlay.querySelector('#auf-submit').textContent = gateActive ? 'Liberar material' : 'Quero conhecer as soluções →';
+    overlay.querySelector('#auf-submit').textContent = gateActive ? 'Continuar no WhatsApp' : 'Quero conhecer as soluções →';
   }
 
   function installArticleGate() {
@@ -80,9 +79,9 @@
       (navigator.maxTouchPoints > 0 && matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) <= 1280);
   }
 
-  function commercialUrl() {
+  function commercialUrl(leadName) {
     var url = new URL('https://wa.advanx.com.br/r');
-    url.searchParams.set('text', 'Olá, vim do blog ' + currentArticle().title + '. Preciso automatizar ou de atendimento.');
+    url.searchParams.set('text', 'Olá, ' + (leadName ? 'sou ' + leadName + ' e ' : '') + 'vim do blog ' + currentArticle().title + '. Preciso automatizar ou de atendimento.');
     var utm = attribution();
     UTM_KEYS.forEach(function (key) { if (utm[key]) url.searchParams.set(key, utm[key]); });
     return url.href;
@@ -112,9 +111,9 @@
   }
 
   function field(label, id, type, required, placeholder) {
-    return '<label class="auf-field"><span>' + label + (required ? ' *' : '') + '</span>' +
+    return '<div class="auf-field">' +
       '<input id="' + id + '" type="' + type + '" ' + (required ? 'required ' : '') +
-      'placeholder="' + placeholder + '" autocomplete="' + (type === 'email' ? 'email' : type === 'tel' ? 'tel' : 'name') + '"></label>';
+      'placeholder="' + placeholder + '" aria-label="' + label + (required ? ' obrigatório' : '') + '" autocomplete="' + (type === 'email' ? 'email' : type === 'tel' ? 'tel' : 'name') + '"></div>';
   }
 
   function installStyles() {
@@ -124,9 +123,9 @@
       '#auf-overlay{display:none;position:fixed;inset:0;z-index:100000;background:rgba(13,13,18,.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:16px}' +
       '#auf-overlay.open{display:flex}.auf-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-xl);padding:32px;width:min(500px,100%);max-height:calc(100dvh - 32px);overflow:auto;box-sizing:border-box;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.35);font-family:var(--font-body)}' +
       '.auf-close{position:absolute;right:8px;top:8px;min-width:44px;min-height:44px;border:0;background:none;font-size:23px;color:var(--muted);cursor:pointer}.auf-box h2{font-family:var(--font-display);font-size:1.3rem;margin:0 32px 7px 0;color:var(--text)}.auf-sub{margin:0 0 20px;color:var(--text-soft);font-size:1rem;line-height:1.55}' +
-      '.auf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.auf-field:first-child{grid-column:1/-1}.auf-field span{display:block;font-size:.875rem;font-weight:600;color:var(--text-soft);margin-bottom:5px}' +
+      '.auf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.auf-field:first-child{grid-column:1/-1}' +
       '.auf-field input,.auf-field select{width:100%;padding:11px 13px;border:1.5px solid var(--input-border);border-radius:var(--radius-md);font:inherit;font-size:16px;color:var(--text);background:var(--input-bg);box-sizing:border-box}.auf-field input:focus,.auf-field select:focus{border-color:var(--focus)}' +
-      '#auf-overlay [hidden]{display:none!important}.auf-specialty,.auf-other{grid-column:1/-1}.article-gate .auf-note{color:var(--focus)}.auf-back{display:inline-block;color:var(--text-soft);font-size:.875rem;min-height:44px;margin-top:12px}.auf-field [aria-invalid="true"]{border-color:var(--danger)}' +
+      '#auf-overlay [hidden]{display:none!important}.auf-specialty,.auf-other{grid-column:1/-1}.article-gate .auf-note{color:var(--focus)}.auf-field [aria-invalid="true"]{border-color:var(--danger)}' +
       '.auf-submit{width:100%;margin-top:14px;padding:14px;border:0;border-radius:var(--radius-md);background:var(--button-primary-bg);color:var(--button-primary-fg);font-weight:700;font-size:1rem;cursor:pointer}.auf-submit[disabled]{opacity:.65;cursor:wait}' +
       '.auf-note{text-align:left;color:var(--muted);font-size:.8rem;margin:0 0 20px;line-height:1.5}.auf-note:empty{display:none}.article-gate .auf-sub{margin-bottom:8px}.article-gate .auf-grid{grid-template-columns:1fr}.auf-error{display:none;margin-top:12px;padding:10px 12px;border:1px solid var(--danger);border-radius:var(--radius-sm);background:var(--surface-raised);color:var(--danger);font-size:.875rem}' +
       '.auf-inline{display:flex;justify-content:center;align-items:center;min-height:54px}.auf-open{border:0;border-radius:var(--radius-md);background:var(--button-primary-bg);color:var(--button-primary-fg);padding:13px 20px;font:600 16px var(--font-body);cursor:pointer}' +
@@ -150,10 +149,10 @@
       field('Nome completo', 'auf-name', 'text', true, 'Seu nome') +
       field('E-mail', 'auf-email', 'email', true, 'seu@email.com') +
       field('WhatsApp', 'auf-phone', 'tel', true, '(71) 99999-9999') +
-      '<label class="auf-field auf-specialty" hidden><span>Especialidade *</span><select id="auf-specialty"><option value="">Selecione sua especialidade</option><option>Cível</option><option>Trabalhista</option><option>Previdenciário</option><option>Família e Sucessões</option><option>Empresarial</option><option>Penal</option><option>Tributário</option><option>Consumidor</option><option>Outro</option></select></label>' +
-      '<label class="auf-field auf-other" hidden><span>Qual especialidade? *</span><input id="auf-other" type="text" maxlength="120" placeholder="Informe sua especialidade"></label>' +
+      '<div class="auf-field auf-specialty" hidden><select id="auf-specialty" aria-label="Especialidade obrigatória"><option value="">Selecione sua especialidade</option><option>Cível</option><option>Trabalhista</option><option>Previdenciário</option><option>Família e Sucessões</option><option>Empresarial</option><option>Penal</option><option>Tributário</option><option>Consumidor</option><option>Outro</option></select></div>' +
+      '<div class="auf-field auf-other" hidden><input id="auf-other" type="text" maxlength="120" placeholder="Informe sua especialidade" aria-label="Qual especialidade? Obrigatório"></div>' +
       '</div><div id="auf-error" class="auf-error" role="alert" tabindex="-1"></div><button id="auf-submit" class="auf-submit" type="submit">Quero conhecer as soluções →</button>' +
-      '</form><a class="auf-back" href="/blog/" hidden>Voltar ao blog</a></div>';
+      '</form></div>';
     document.body.appendChild(overlay);
     overlay.querySelector('.auf-close').addEventListener('click', closeForm);
     overlay.addEventListener('click', function (event) { if (event.target === overlay) closeForm(); });
@@ -280,13 +279,8 @@
       if (gateActive) {
         rememberArticleAccess();
         gateActive = false;
-        closeForm();
-        configureForm();
-        var heading = document.querySelector('h1');
-        if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true }); }
-        return;
       }
-      location.href = commercialUrl();
+      location.href = commercialUrl(name);
     } catch (ex) {
       error.textContent = ex && ex.name === 'AbortError' ? 'O envio demorou demais. Verifique sua conexão e tente novamente.' : (ex && ex.message ? ex.message + '. Tente novamente.' : 'Não foi possível registrar seus dados. Tente novamente.');
       error.style.display = 'block';
@@ -295,7 +289,7 @@
       clearTimeout(timeout);
       button.disabled = false;
       button.removeAttribute('aria-busy');
-      button.textContent = gateActive ? 'Liberar material' : 'Quero conhecer as soluções →';
+      button.textContent = gateActive ? 'Continuar no WhatsApp' : 'Quero conhecer as soluções →';
     }
   }
 
