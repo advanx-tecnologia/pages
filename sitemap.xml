@@ -17,7 +17,7 @@
   <url><loc>https://advanx.com.br/agencia-de-marketing-digital-salvador/</loc><lastmod>2026-09-21</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://advanx.com.br/google-meu-negocio-salvador/</loc><lastmod>2026-09-09</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://advanx.com.br/termos-de-servico.html</loc><lastmod>2026-09-08</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://advanx.com.br/blog/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://advanx.com.br/blog/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://advanx.com.br/blog/automacao-escritorio-advocacia-7-processos/</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://advanx.com.br/blog/captacao-clientes-advocacia-previdenciaria/</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://advanx.com.br/blog/captacao-clientes-advocacia-trabalhista/</loc><lastmod>2026-09-30</lastmod></url>
@@ -104,6 +104,12 @@
   <url>
     <loc>https://advanx.com.br/blog/chatbot-para-advogados-criterios-encaminhamento-humano/</loc>
     <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://advanx.com.br/blog/como-avaliar-resultados-de-um-chatbot-para-advogados/</loc>
+    <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
