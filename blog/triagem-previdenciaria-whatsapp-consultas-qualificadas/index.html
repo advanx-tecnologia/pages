@@ -151,7 +151,219 @@
     .btn-cta{background:var(--accent);color:#fff;font-weight:600;font-size:.875rem;padding:12px 20px;border-radius:10px;text-decoration:none;white-space:nowrap;transition:opacity .2s;border:none;cursor:pointer;font-family:'Inter',sans-serif;}
     .btn-cta:hover{opacity:.88;}
   </style>
-  <link rel="stylesheet" href="/blog/assets/design-system-advanx.css" />
+  <style data-src="/blog/assets/design-system-advanx.css">/* Advanx IA — Design System 1.0 (canônico: /root/advanx-pages-work/design-system/DESIGN-SYSTEM.md)
+   Camada de override carregada depois do CSS legado de cada página. */
+
+:root {
+  /* Tokens congelados literalmente de design-system/index.html, tema dark. */
+  --blue-300:#7dd3fc; --blue-400:#38bdf8; --blue-500:#0ea5e9; --blue-600:#0284c7; --blue-700:#0369a1;
+  --ink-950:#050b14; --ink-900:#091321; --ink-850:#0d1a2b; --ink-800:#132238;
+  --white:#ffffff; --slate-50:#f7fafc; --slate-100:#eef3f8; --slate-300:#c6d1de; --slate-400:#96a8bb; --slate-500:#6b7f94;
+  --green-400:#54d39d; --amber-400:#f9c66b; --red-400:#fb7c83;
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-6:24px; --space-8:32px; --space-12:48px; --space-16:64px; --space-24:96px;
+  --radius-sm:8px; --radius-md:12px; --radius-lg:16px; --radius-xl:24px;
+  --font-display:"Instrument Sans",system-ui,sans-serif; --font-body:"Manrope",system-ui,sans-serif; --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --duration-fast:160ms; --duration-base:220ms; --duration-slow:340ms; --ease-out:cubic-bezier(.16,1,.3,1);
+  --canvas:var(--ink-950); --surface:var(--ink-900); --surface-raised:var(--ink-850); --surface-strong:var(--ink-800);
+  --text:var(--slate-50); --text-soft:var(--slate-300); --muted:var(--slate-400); --line:#1b3048; --action:var(--blue-400); --action-ink:var(--ink-950);
+  --focus:var(--blue-300); --success:var(--green-400); --warning:var(--amber-400); --danger:var(--red-400);
+  --button-primary-bg:var(--white); --button-primary-hover-bg:var(--slate-100); --button-primary-fg:var(--ink-950); --button-secondary-bg:var(--surface-raised); --button-secondary-fg:var(--text);
+  --card-bg:var(--surface); --card-border:var(--line); --card-radius:var(--radius-lg); --input-bg:var(--surface-raised); --input-border:var(--line);
+  /* Aliases exclusivamente para os seletores existentes do blog. */
+  --bg:var(--canvas); --bg2:var(--surface); --surface-2:var(--surface-raised);
+  --ink:var(--text); --ink-2:var(--text-soft); --ink-3:var(--muted);
+  --border:var(--line); --accent:var(--action); --accent-soft:var(--surface-raised);
+  --accent-mid:color-mix(in srgb,var(--action) 12%,transparent);
+  --fonte-display:var(--font-display); --fonte-corpo:var(--font-body); --fonte-dados:var(--font-mono);
+}
+html { color-scheme:dark; }
+body {
+  background:var(--bg); color:var(--ink); font-family:var(--fonte-corpo);
+  line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+::selection { background:var(--accent); color:var(--action-ink); }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-thumb { background:var(--muted); border-radius:2px; }
+
+/* Tipografia */
+.hero-headline,.art-title,.nl-headline,.section-title,.featured-title,
+.ed-main-title,.card-title,.card-sm-title,.stat-num,
+.art-body h2,.art-body h3 {
+  font-family:var(--fonte-display) !important; font-weight:600;
+  letter-spacing:-.03em; color:var(--ink);
+}
+[style*="Lora"] { font-family:var(--font-display) !important; }
+[style*="JetBrains Mono"] { font-family:var(--font-mono) !important; }
+.hero-headline { font-size:clamp(2.4rem,4.6vw,3.4rem); line-height:1.08; }
+.art-title { font-size:clamp(2rem,3.8vw,2.8rem); line-height:1.1; }
+.nl-headline { font-size:clamp(1.75rem,3vw,2.1rem); }
+.art-body h2 { font-size:clamp(1.5rem,2.6vw,2rem); line-height:1.14; border-top-color:var(--border); }
+.art-body h3 { font-size:clamp(1.375rem,1.8vw,1.5rem); line-height:1.22; }
+.stat-num { font-size:1.6rem; }
+.hero-kicker,.cat-tag,.section-label,.post-meta,.art-meta,.breadcrumb,
+.sidebar-label,.nl-label,.footer-links a,.footer-copy,.stat-label {
+  font-family:var(--fonte-dados);
+}
+.hero-kicker,.cat-tag,.sidebar-label,.faq-chevron { color:var(--accent); }
+.section-label,.post-meta,.art-meta,.breadcrumb,.footer-copy,.nl-note,.stat-label { color:var(--ink-3); }
+.dot { color:var(--muted) !important; }
+/* Legado: imagens de artigos relacionados sem src não têm asset para carregar.
+   Ocultar somente o placeholder vazio, sem modificar URLs ou dados do post. */
+img[src=""] { visibility:hidden; }
+
+/* Texto */
+.hero-sub,.featured-excerpt,.card-excerpt,.ed-main-excerpt,.nl-sub,
+.art-body p,.art-body ul,.art-body ol,.faq-body { color:var(--ink-2); }
+.featured-excerpt,.card-excerpt,.ed-main-excerpt,.nl-sub,.faq-body { font-size:16px; }
+.art-body p,.art-body ul,.art-body ol { line-height:1.72; }
+.art-body p.lead,.art-body blockquote p,.art-body strong { color:var(--ink); }
+.art-body a { color:var(--focus); text-decoration-color:var(--action); }
+.art-body a:hover { color:var(--text); }
+.toc-link { color:var(--ink-3); }
+.toc-link:hover,.toc-link.active { color:var(--focus); border-left-color:var(--accent); }
+
+/* Navegação */
+.nav { background:var(--canvas); border-bottom-color:transparent; backdrop-filter:none; -webkit-backdrop-filter:none; }
+.nav.scrolled { border-bottom-color:var(--border); }
+.nav-logo { height:32px; width:auto; object-fit:contain; }
+.footer-inner img[alt="Advanx"] { width:auto; height:32px !important; object-fit:contain; }
+.nav-links a { color:var(--ink-2); }
+.nav-links a:hover { color:var(--ink); }
+.ham { color:var(--ink-2); min-width:44px; min-height:44px; align-items:center; justify-content:center; }
+.mob-nav { border-top-color:var(--border); }
+.rp { background:var(--accent); }
+
+/* Botões: primário branco no dark; azul fica como foco e sinal. */
+.nav-btn,.btn-primary,.btn-accent,.btn-cta,.nl-submit {
+  background:var(--button-primary-bg) !important; color:var(--button-primary-fg) !important; border-radius:var(--radius-md);
+  font-family:var(--fonte-corpo); font-weight:600; min-height:44px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border:1px solid transparent; transition:background var(--duration-fast),transform var(--duration-fast);
+}
+.nav-btn:hover,.btn-primary:hover,.btn-accent:hover,.btn-cta:hover,.nl-submit:hover {
+  background:var(--button-primary-hover-bg) !important; color:var(--button-primary-fg) !important; opacity:1; transform:translateY(-1px);
+}
+.btn-ghost,.fpill {
+  background:transparent; border:1px solid var(--border); color:var(--ink-2);
+  border-radius:var(--radius-md); font-family:var(--fonte-corpo); min-height:44px;
+}
+.btn-ghost:hover,.fpill:hover { border-color:var(--accent); color:var(--focus); }
+.fpill.active { background:var(--button-primary-bg); border-color:var(--button-primary-bg); color:var(--button-primary-fg); }
+:where(a,button,input,select,textarea,summary):focus-visible {
+  outline:2px solid var(--focus); outline-offset:3px;
+}
+
+/* Superfícies */
+.featured,.card,.ed-main,.card-sm,.stats-bar,.sidebar-box,
+.faq-item,.related-card,.nl-card,.modal-box {
+  background:var(--surface) !important; border-color:var(--border);
+  border-radius:var(--card-radius); box-shadow:none;
+}
+.nl-card { border-radius:var(--radius-xl); }
+.featured:hover,.card:hover,.ed-main:hover,.card-sm:hover,.related-card:hover,.faq-item[open] {
+  box-shadow:none; border-color:var(--muted);
+}
+.cta-inline,.sidebar-cta { background:var(--surface-2); border-color:var(--border); }
+.art-body blockquote { background:var(--surface-2); border-left-color:var(--accent); }
+.nl-section { background:var(--bg2); border-top-color:var(--border); }
+footer { background:var(--bg2); border-top-color:var(--border); }
+.footer-links a { color:var(--ink-3); }
+.footer-links a:hover { color:var(--focus); }
+.footer-links { flex-wrap:wrap; }
+.section-divider { background:var(--border); }
+.stat,.stat:last-child { border-color:var(--border); }
+.faq-item summary { color:var(--ink); }
+.faq-chevron { color:var(--accent); }
+.art-hero-img img,.card-img img,.ed-main-img img,.featured-img img { border-radius:12px; }
+
+/* Formulário */
+.nl-input,.nl-card input,.nl-card select,.nl-card textarea {
+  background:var(--surface-2); color:var(--ink); border-color:var(--border);
+  border-radius:var(--radius-md); font-family:var(--fonte-corpo); min-height:44px; font-size:16px;
+}
+.nl-input::placeholder { color:var(--ink-3); }
+.nl-input:focus,.nl-card input:focus,.nl-card select:focus {
+  border-color:var(--focus); box-shadow:0 0 0 3px var(--accent-mid); outline:2px solid var(--focus); outline-offset:2px;
+}
+.nl-label { color:var(--ink-2); }
+
+/* Modal */
+.modal-overlay { background:color-mix(in srgb,var(--canvas) 82%,transparent); backdrop-filter:none; }
+.modal-box { padding:32px; }
+.modal-box h3,.modal-box p { color:var(--ink); }
+.modal-close { color:var(--ink-3); }
+.modal-close:hover { background:var(--surface-2); color:var(--ink); }
+
+/* Formulário único realmente instalado pelo JS existente.
+   !important limita o override visual ao CSS injetado depois desta folha.
+   Nenhum campo, handler, endpoint, copy ou estado de captação é alterado. */
+#auf-overlay {
+  background:color-mix(in srgb,var(--canvas) 88%,transparent) !important;
+  backdrop-filter:none !important;
+}
+#auf-overlay .auf-box {
+  background:var(--surface) !important; color:var(--text);
+  border:1px solid var(--line); border-radius:var(--radius-xl) !important;
+  font-family:var(--font-body) !important;
+}
+#auf-overlay .auf-box h2 { color:var(--text) !important; font-family:var(--font-display); }
+#auf-overlay .auf-sub { color:var(--text-soft) !important; font-size:16px !important; }
+#auf-overlay .auf-field span { color:var(--text-soft) !important; font-size:14px !important; }
+#auf-overlay .auf-field input {
+  background:var(--input-bg) !important; color:var(--text) !important;
+  border-color:var(--muted) !important; border-radius:var(--radius-md) !important;
+  min-height:44px; font-size:16px;
+}
+#auf-overlay .auf-field input::placeholder { color:var(--muted); }
+#auf-overlay .auf-field input:focus {
+  border-color:var(--focus) !important; outline:2px solid var(--focus) !important; outline-offset:2px;
+}
+#auf-overlay .auf-close { color:var(--muted) !important; min-width:44px; min-height:44px; }
+#auf-overlay .auf-close:focus-visible { outline:2px solid var(--focus); outline-offset:2px; }
+#auf-overlay .auf-note { color:var(--muted) !important; font-size:14px !important; }
+#auf-overlay.article-gate .auf-note { color:var(--focus) !important; font-size:13px !important; }
+
+/* Related titles share a scale regardless of legacy h3/h4 markup. */
+.related-grid { min-width:0; }
+.related-grid .related-card { min-width:0; }
+.related-card .related-body { min-width:0; }
+.related-card .related-body .cat-tag { display:block; margin:0 0 8px; line-height:1.3; }
+.related-card .related-body .related-title {
+  font-family:var(--font-display) !important; font-size:14px; font-weight:600;
+  line-height:1.4; letter-spacing:-.01em; margin:0; color:var(--text);
+  overflow-wrap:anywhere;
+}
+#auf-overlay .auf-error {
+  background:var(--surface-raised) !important; color:var(--danger) !important;
+  border-color:var(--danger) !important;
+}
+#auf-overlay .auf-submit,.nl-card .auf-open {
+  background:var(--button-primary-bg) !important; color:var(--button-primary-fg) !important;
+  font-family:var(--font-body) !important; border-radius:var(--radius-md) !important; min-height:44px;
+}
+#auf-overlay .auf-submit:hover,.nl-card .auf-open:hover { background:var(--button-primary-hover-bg) !important; }
+
+/* Redução de movimento cobre também transforms definidos pelo JS legado. */
+@media(prefers-reduced-motion:reduce) {
+  .reveal-up,.art-body h2,.card:hover,.ed-main:hover,.card-sm:hover,
+  .featured:hover img,.card:hover img,.ed-main:hover img,.card-sm:hover img,
+  .nav-btn:hover,.btn-primary:hover,.btn-accent:hover,.btn-cta:hover,.nl-submit:hover {
+    transform:none !important; opacity:1 !important;
+  }
+}
+
+@media(max-width:640px) {
+  .modal-box { padding:24px 20px; }
+  .nl-card { padding:24px 20px; }
+}
+@media(hover:none) {
+  .nav-btn:hover,.btn-primary:hover,.btn-accent:hover,.btn-cta:hover,.nl-submit:hover { transform:none; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  *,*::before,*::after { transition-duration:.01ms !important; animation-duration:.01ms !important; }
+  .reveal-up { opacity:1; transform:none; }
+}</style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Advanx","item":"https://advanx.com.br/"},{"@type":"ListItem","position":2,"name":"Blog Advanx","item":"https://advanx.com.br/blog/"},{"@type":"ListItem","position":3,"name":"Triagem previdenciária no WhatsApp: como transformar contatos em consultas qualificadas","item":"https://advanx.com.br/blog/triagem-previdenciaria-whatsapp-consultas-qualificadas/"}]}</script>
 </head>
 <body>
