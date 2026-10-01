@@ -524,7 +524,7 @@ footer { background:var(--bg2); border-top-color:var(--border); }
       const respostaNewsletter=await fetch(`${SU}/rest/v1/dados_cliente`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SK,'Authorization':'Bearer '+SK,'Prefer':'return=minimal'},
         body:JSON.stringify({nome:document.getElementById('nl-nome').value.trim(),telefone:document.getElementById('nl-telefone').value.replace(/\D/g,''),email:document.getElementById('nl-email').value.trim(),kanban_stage:'Novo Lead',pipeline_type:'inbound',funil_lead:'Advanx',empresa_fonte:'Advanx',...getUTMs()})});
       if(!respostaNewsletter.ok)throw new Error('Falha ao registrar formulário');
-      if(typeof fbq!=='undefined')fbq('track','Lead',{content_name:'Newsletter Blog'});
+      (window.dataLayer=window.dataLayer||[]).push({event:'generate_lead',form_name:'Newsletter Blog'});
       if(typeof gtag!=='undefined')gtag('event','generate_lead',{event_category:'newsletter'});
       document.getElementById('nl-form').style.display='none';
       document.getElementById('nl-success').style.display='block';

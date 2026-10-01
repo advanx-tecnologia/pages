@@ -648,7 +648,7 @@ footer { background:var(--bg2); border-top-color:var(--border); }
         const respostaCTA=await fetch(`${SU}/rest/v1/dados_cliente`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SK,'Authorization':'Bearer '+SK,'Prefer':'return=minimal'},
           body:JSON.stringify({nome:document.getElementById('cta-nome').value.trim(),telefone:document.getElementById('cta-telefone').value.replace(/\D/g,''),email:document.getElementById('cta-email').value.trim(),kanban_stage:'Novo Lead',pipeline_type:'inbound',funil_lead:'CTA Blog',empresa_fonte:'Advanx',...getUTMs()})});
         if(!respostaCTA.ok)throw new Error('Falha ao registrar formulário');
-        if(typeof fbq!=='undefined')fbq('track','Lead',{content_name:'CTA Blog'});
+        (window.dataLayer=window.dataLayer||[]).push({event:'generate_lead',form_name:'CTA Blog'});
         if(typeof gtag!=='undefined')gtag('event','generate_lead',{event_category:'cta_blog'});
         document.getElementById('cta-form').style.display='none';
         document.getElementById('cta-success').style.display='block';
@@ -658,7 +658,7 @@ footer { background:var(--bg2); border-top-color:var(--border); }
       e.preventDefault();const btn=document.getElementById('nl-btn');btn.textContent='Enviando...';btn.disabled=true;
       try{const respostaNewsletter=await fetch(`${SU}/rest/v1/dados_cliente`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SK,'Authorization':`Bearer ${SK}`,'Prefer':'return=minimal'},body:JSON.stringify({nome:document.getElementById('nl-nome').value.trim(),telefone:document.getElementById('nl-telefone').value.replace(/\D/g,''),email:document.getElementById('nl-email').value.trim(),kanban_stage:'Novo Lead',pipeline_type:'inbound',funil_lead:'Advanx',empresa_fonte:'Advanx',...getUTMs()})});
       if(!respostaNewsletter.ok)throw new Error('Falha ao registrar formulário');
-      if(typeof fbq!=='undefined')fbq('track','Lead',{content_name:'Newsletter Blog'});
+      (window.dataLayer=window.dataLayer||[]).push({event:'generate_lead',form_name:'Newsletter Blog'});
       if(typeof gtag!=='undefined')gtag('event','generate_lead',{event_category:'newsletter'});
       document.getElementById('nl-form').style.display='none';document.getElementById('nl-success').style.display='block';
       }catch{btn.textContent='Receber estratégias por e-mail';btn.disabled=false;}
@@ -840,7 +840,7 @@ footer { background:var(--bg2); border-top-color:var(--border); }
         headers:{'Content-Type':'application/json','apikey':SK,'Authorization':`Bearer ${SK}`,'Prefer':'return=minimal'},
         body:JSON.stringify(payload)
       });
-      if(typeof fbq!=='undefined')fbq('track','Lead',{content_name:'Fale com Especialista'});
+      (window.dataLayer=window.dataLayer||[]).push({event:'generate_lead',form_name:'Fale com Especialista'});
       if(typeof gtag!=='undefined')gtag('event','generate_lead',{event_category:'acm_form'});
     }catch(ex){/* segue pro WhatsApp mesmo se o insert falhar */}
 
