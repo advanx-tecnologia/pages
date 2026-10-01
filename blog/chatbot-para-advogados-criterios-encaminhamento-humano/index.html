@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KXPZNRHK');</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});(function(w,d,i){var loaded=false;function load(){if(loaded)return;loaded=true;var s=d.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtm.js?id='+i;d.head.appendChild(s);['pointerdown','touchstart','keydown','scroll'].forEach(function(e){w.removeEventListener(e,load)});}['pointerdown','touchstart','keydown','scroll'].forEach(function(e){w.addEventListener(e,load,{once:true,passive:true})});w.addEventListener('load',function(){w.setTimeout(load,3500)},{once:true});})(window,document,'GTM-KXPZNRHK');</script>
 <!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,15 +19,7 @@
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "O chatbot pode dar orientação jurídica ao contato?", "acceptedAnswer": {"@type": "Answer", "text": "Use o chatbot para receber informações, explicar como funciona o atendimento e encaminhar o contato. A análise do caso e a orientação jurídica devem ficar com o profissional responsável."}}, {"@type": "Question", "name": "Quais dados o chatbot deve pedir primeiro?", "acceptedAnswer": {"@type": "Answer", "text": "Nome, meio de retorno, assunto em poucas palavras e existência de prazo próximo costumam bastar para a triagem inicial. Peça documentos e detalhes sensíveis apenas quando houver necessidade definida."}}, {"@type": "Question", "name": "Quando o contato deve ser encaminhado a uma pessoa?", "acceptedAnswer": {"@type": "Answer", "text": "Encaminhe quando houver prazo próximo, pedido de análise do caso, dificuldade para responder à triagem, dúvida que o fluxo não cobre ou solicitação expressa de atendimento humano."}}, {"@type": "Question", "name": "É preciso usar um CRM jurídico?", "acceptedAnswer": {"@type": "Answer", "text": "Não. Uma caixa de entrada organizada já permite começar. Um CRM jurídico ajuda quando o escritório precisa atribuir responsáveis, acompanhar contatos pendentes e evitar que uma conversa fique sem retorno."}}]}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <!-- Meta Pixel -->
-  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','502759528362336');fbq('track','PageView');</script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=502759528362336&ev=PageView&noscript=1"/></noscript>
-  <!-- GA4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-98EL5GXG5F"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-98EL5GXG5F');</script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/></noscript>
   <style>
     :root{
       --bg:#F6F1E8;
@@ -147,7 +139,7 @@
     .footer-links a:hover{color:var(--accent);}
     .footer-copy{font-size:12px;color:var(--ink-3);font-family:'JetBrains Mono',monospace;}
 
-    .reveal-up{opacity:0;transform:translateY(20px);}
+    
     @media(max-width:640px){.art-layout{padding:0 20px 64px;}.nav-inner{padding:0 20px;}}
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
     .modal-overlay.open{display:flex;}
@@ -304,19 +296,12 @@
   </footer>
 
   <script>
-    gsap.registerPlugin(ScrollTrigger);
     window.addEventListener('scroll',()=>{
       document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);
       const h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
       document.getElementById('rp').style.width=(document.documentElement.scrollTop/h*100)+'%';
     });
     function toggleMob(){document.getElementById('mob-nav').classList.toggle('open');}
-
-    gsap.to('.reveal-up',{opacity:1,y:0,duration:.7,stagger:.1,ease:'power2.out',delay:.05});
-
-    gsap.utils.toArray('.art-body h2').forEach(el=>{
-      ScrollTrigger.create({trigger:el,start:'top 88%',once:true,onEnter:()=>gsap.fromTo(el,{opacity:0,y:16},{opacity:1,y:0,duration:.6,ease:'power2.out'})});
-    });
 
     // TOC active
     const tocLinks=document.querySelectorAll('.toc-link');
