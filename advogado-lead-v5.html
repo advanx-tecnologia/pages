@@ -439,7 +439,7 @@
     </div>
 
     <script>
-        const WA_NUMBER = '5571982470873';
+        const WA_LINK = 'https://wa.advanx.com.br/r';
         const WEBHOOK_URL = 'https://n8n.advfunnel.com.br/webhook/cb33d994-f6ab-446a-9ba7-fc6f4fd24e0e/:leads';
         
         let viewContentFired = false;
@@ -528,7 +528,7 @@
             const msg = `Olá, vim da página Advanx IA.\n\n*Dados do Lead:*\nNome: ${finalData.nome}\nTelefone: ${finalData.telefone}\nÁrea: ${finalData.area_direito}\nFaturamento: ${finalData.faturamento}\nUrgência: ${urgency}\n\n${utmMsg}`;
             
             setTimeout(() => {
-                window.location.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+                window.location.href = `${WA_LINK}?text=${encodeURIComponent(msg)}`;
             }, 1200);
         }
 
