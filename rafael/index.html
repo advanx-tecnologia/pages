@@ -4,137 +4,91 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1B0F09">
-  <meta name="description" content="Rafael Valente: serviços de marketing, prospecção, sistemas e inteligência artificial, aprendizado e redes sociais.">
+  <meta name="description" content="Links de Rafael Valente: serviços, aprendizado e redes sociais.">
   <meta property="og:type" content="profile">
-  <meta property="og:title" content="Rafael Valente | Ideias que viram operação">
-  <meta property="og:description" content="Serviços, aprendizado e redes sociais em um só lugar.">
+  <meta property="og:title" content="Rafael Valente | Links">
+  <meta property="og:description" content="Serviços, aprendizado e redes sociais.">
   <meta property="og:image" content="https://advanx.com.br/rafael/assets/rafael-2026.webp">
-  <title>Rafael Valente | Serviços, aprendizado e redes</title>
+  <title>Rafael Valente | Links</title>
   <link rel="canonical" href="https://advanx.com.br/rafael/">
   <link rel="preload" href="assets/Geist.woff2" as="font" type="font/woff2" crossorigin>
   <style>
     @font-face{font-family:Geist;src:url('assets/Geist.woff2') format('woff2');font-weight:100 900;font-display:swap}
-    @font-face{font-family:'Geist Mono';src:url('assets/GeistMono.woff2') format('woff2');font-weight:100 900;font-display:swap}
-    @font-face{font-family:Fraunces;src:url('assets/Fraunces-Italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
-    :root{color-scheme:dark;--bg:#1B0F09;--surface:#2A1D14;--raised:#352218;--text:#EFE9DF;--muted:#C7BDB1;--subtle:#A39A8F;--line:#5B4534;--gold:#F7CE4A;--focus:#EFE9DF;--ease:cubic-bezier(.16,1,.3,1)}
+    :root{color-scheme:dark;--fundo:#1B0F09;--superficie:#2A1D14;--texto:#EFE9DF;--secundario:#C7BDB1;--borda:#5B4534;--ouro:#F7CE4A}
     *,*::before,*::after{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;min-width:320px;background:var(--bg);color:var(--text);font:400 16px/1.5 Geist,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-    a{color:inherit;text-decoration:none}button{font:inherit}
-    a:focus-visible,summary:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
-    ::selection{background:var(--gold);color:var(--bg)}
-    .noise{position:fixed;inset:0;pointer-events:none;z-index:0;background:url('assets/grain-advanx.webp') repeat;opacity:.075}
-    .light{position:fixed;pointer-events:none;z-index:0;width:clamp(320px,48vmin,520px);aspect-ratio:1;left:var(--px,72%);top:var(--py,20%);transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(199,112,58,.17),rgba(173,83,43,.06) 43%,transparent 70%);filter:blur(18px)}
-    .shell{position:relative;z-index:1;max-width:1230px;margin:auto;padding:0 36px 32px}
-    .masthead{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:24px 0;font:500 11px/1.3 'Geist Mono',monospace;letter-spacing:.12em;text-transform:uppercase}
-    .masthead .mark{display:flex;align-items:center;gap:12px;color:var(--text)}
-    .masthead .right{color:var(--subtle)}
-    .layout{display:grid;grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:clamp(40px,7vw,110px);align-items:start;padding-top:58px}
-    .identity{position:sticky;top:42px;min-width:0}
-    .photo-wrap{position:relative;width:min(100%,470px);aspect-ratio:1/1.02;isolation:isolate}
-    .photo-wrap::before,.photo-wrap::after{content:"";position:absolute;z-index:2;width:38px;height:38px;border-color:var(--gold);border-style:solid;pointer-events:none}
-    .photo-wrap::before{top:-10px;left:-10px;border-width:1px 0 0 1px}.photo-wrap::after{right:-10px;bottom:-10px;border-width:0 1px 1px 0}
-    .photo-wrap img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 40%;filter:saturate(.86);border:1px solid var(--line)}
-    .photo-wrap .index{position:absolute;z-index:2;bottom:0;left:0;padding:9px 14px;background:var(--bg);border-top:1px solid var(--line);border-right:1px solid var(--line);font:500 11px 'Geist Mono',monospace;color:var(--gold);letter-spacing:.1em}
-    .eyebrow{display:flex;align-items:center;gap:12px;color:var(--gold);font:500 11px/1.3 'Geist Mono',monospace;letter-spacing:.14em;text-transform:uppercase}
-    .eyebrow::before{content:"";width:25px;height:1px;background:currentColor}
-    .identity .eyebrow{margin-top:32px}
-    h1{margin:14px 0 12px;max-width:570px;font:800 clamp(45px,5.5vw,82px)/.99 Geist,sans-serif;letter-spacing:-.07em;text-transform:uppercase}
-    h1 em{font:600 .82em/1 Fraunces,Georgia,serif;letter-spacing:-.055em;text-transform:none;color:var(--gold)}
-    .identity p{max-width:470px;margin:0;color:var(--muted);font-size:17px;line-height:1.6}
-    .handle{margin-top:18px;color:var(--subtle);font:500 12px 'Geist Mono',monospace}
-    .content{padding:4px 0 0;min-width:0}
-    .chapter{display:flex;align-items:center;gap:14px;color:var(--subtle);font:500 11px 'Geist Mono',monospace;letter-spacing:.13em;text-transform:uppercase}
-    .chapter::after{content:"";height:1px;flex:1;background:var(--line)}
-    .lead{max-width:520px;margin:22px 0 30px;color:var(--text);font-size:clamp(23px,2.6vw,34px);font-weight:600;line-height:1.22;letter-spacing:-.035em}
-    .lead span{color:var(--gold)}
-    .collection{display:grid;gap:10px}
-    details{border:1px solid var(--line);background:rgba(42,29,20,.86);transition:border-color .22s var(--ease),background .22s var(--ease)}
-    details[open]{border-color:#927641;background:var(--surface)}
-    summary{list-style:none;cursor:pointer;min-height:88px;display:flex;align-items:center;gap:18px;padding:17px 22px;user-select:none}
+    body{margin:0;min-width:320px;background:var(--fundo);color:var(--texto);font:400 16px/1.45 Geist,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    a:focus-visible,summary:focus-visible{outline:2px solid var(--ouro);outline-offset:3px}
+    .pagina{width:min(100% - 36px,520px);margin:0 auto;padding:clamp(32px,6vw,70px) 0 48px}
+    .perfil{text-align:center}
+    .retrato{display:block;width:132px;height:132px;margin:0 auto 20px;object-fit:contain;border:1px solid var(--borda);background:var(--superficie)}
+    h1{font-size:clamp(27px,6vw,33px);line-height:1.15;letter-spacing:-.045em;margin:0;font-weight:750}
+    .apresentacao{max-width:380px;margin:10px auto 0;color:var(--secundario);font-size:15px;line-height:1.5}
+    .atalhos{margin-top:36px;display:grid;gap:12px}
+    details{background:var(--superficie);border:1px solid var(--borda)}
+    details[open]{border-color:var(--ouro)}
+    summary{min-height:62px;display:flex;align-items:center;gap:14px;padding:14px 18px;list-style:none;cursor:pointer;font-size:17px;font-weight:650;user-select:none}
     summary::-webkit-details-marker{display:none}
-    summary .serial{align-self:flex-start;padding-top:7px;color:var(--gold);font:500 11px 'Geist Mono',monospace}
-    summary .label{flex:1;display:grid;gap:3px}
-    summary strong{font-size:21px;font-weight:650;line-height:1.12;letter-spacing:-.035em;text-transform:uppercase}
-    summary small{color:var(--muted);font-size:13px;line-height:1.4}
-    summary .toggle{width:32px;height:32px;flex:none;border:1px solid var(--line);display:grid;place-items:center;color:var(--gold);font:400 23px/1 Geist;transition:transform .22s var(--ease),border-color .22s}
-    details[open] .toggle{transform:rotate(45deg);border-color:var(--gold)}
-    .items{padding:0 18px 18px;display:grid;gap:1px}
-    .item{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;min-height:56px;padding:12px 9px;border-top:1px solid var(--line);transition:background .2s,padding .2s}
-    .item:hover{background:var(--raised);padding-left:16px}
-    .item strong{font-size:15px;font-weight:550;line-height:1.3}
-    .item small{display:block;margin-top:3px;color:var(--subtle);font-size:12px}
-    .item .arrow{color:var(--gold);font-size:19px;transition:transform .22s var(--ease)}
-    .item:hover .arrow{transform:translate(3px,-3px)}
-    .social-title{margin:48px 0 15px}
-    .social-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-    .social-grid a{min-width:0;min-height:64px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--bg);font:500 12px 'Geist Mono',monospace;transition:background .2s,color .2s}
-    .social-grid a:hover{background:var(--gold);color:var(--bg)}
-    .social-grid svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
-    .note{margin:16px 0 0;color:var(--subtle);font:400 11px/1.55 'Geist Mono',monospace}
-    footer{display:flex;justify-content:space-between;gap:15px;border-top:1px solid var(--line);margin-top:80px;padding-top:22px;color:var(--subtle);font:500 11px/1.5 'Geist Mono',monospace}
-    .enter{animation:enter .65s var(--ease) both;animation-delay:var(--delay,0ms)}
-    @keyframes enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-    @media(max-width:850px){.shell{padding:0 20px 22px}.masthead{padding:17px 0}.masthead .right{display:none}.layout{display:block;padding-top:30px}.identity{position:static;display:grid;grid-template-columns:112px minmax(0,1fr);column-gap:21px;align-items:center}.photo-wrap{width:112px;height:132px;grid-row:1/5}.photo-wrap::before,.photo-wrap::after{width:20px;height:20px}.photo-wrap .index{font-size:8px;padding:4px 6px}.identity .eyebrow{margin:0;font-size:9px}.identity .eyebrow::before{width:12px}h1{font-size:clamp(36px,8vw,55px);margin:6px 0;letter-spacing:-.065em}.identity p{font-size:13px;line-height:1.38}.handle{margin-top:5px;font-size:10px}.content{margin-top:38px}.lead{margin:14px 0 24px;font-size:clamp(25px,5.8vw,33px)}footer{margin-top:55px}}
-    @media(max-width:430px){.identity{grid-template-columns:100px minmax(0,1fr);gap:0 16px}.photo-wrap{width:100px;height:126px}.photo-wrap img{object-position:center}.identity .eyebrow{font-size:9px;letter-spacing:.08em}h1{font-size:clamp(32px,9vw,39px)}.identity p{font-size:13px}.handle{font-size:10px}.content{margin-top:34px}summary{padding:16px;min-height:80px;gap:12px}summary strong{font-size:19px}.social-grid{grid-template-columns:repeat(2,1fr)}footer{display:grid;gap:6px}}
-    @media(max-width:360px){.identity{display:block}.photo-wrap{width:148px;height:158px;margin-bottom:25px}h1{font-size:42px;max-width:280px;margin:10px 0}.identity p{font-size:14px}.handle{margin-top:10px}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.enter{animation:none}.item,.item .arrow,details,summary .toggle,.social-grid a{transition:none}.light{display:none}}
+    summary span:first-child{flex:1}
+    .sinal{width:22px;height:22px;display:grid;place-items:center;flex:none;color:var(--ouro);font-size:22px;font-weight:300;line-height:1;transition:transform .22s ease}
+    details[open] .sinal{transform:rotate(45deg)}
+    .opcoes{padding:0 12px 12px}
+    .opcao{min-height:52px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 7px;border-top:1px solid var(--borda);font-size:15px;line-height:1.3;transition:color .18s,transform .18s}
+    .opcao:hover{color:var(--ouro);transform:translateX(3px)}
+    .seta{flex:none;color:var(--ouro);font-size:17px}
+    .redes{display:flex;justify-content:center;gap:10px;margin-top:32px}
+    .redes a{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--borda);background:var(--superficie);transition:background .2s,color .2s,border-color .2s}
+    .redes a:hover{background:var(--ouro);color:var(--fundo);border-color:var(--ouro)}
+    .redes svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    @media(prefers-reduced-motion:no-preference){.perfil,.atalhos,.redes{animation:entrar .45s cubic-bezier(.16,1,.3,1) both}.atalhos{animation-delay:.08s}.redes{animation-delay:.16s}}
+    @keyframes entrar{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    @media(max-width:360px){.pagina{width:calc(100% - 28px);padding-top:28px}.retrato{width:120px;height:120px}summary{padding:12px 15px}.opcao{font-size:14px}}
+    @media(prefers-reduced-motion:reduce){.sinal,.opcao,.redes a{transition:none}}
   </style>
 </head>
 <body>
-  <div class="noise" aria-hidden="true"></div><div class="light" aria-hidden="true"></div>
-  <div class="shell">
-    <header class="masthead"><div class="mark">Rafael Valente <span aria-hidden="true">/</span> Advanx IA</div><span class="right">Ideias → sistemas → resultados</span></header>
-    <main class="layout">
-      <section class="identity" aria-labelledby="nome">
-        <div class="photo-wrap enter" style="--delay:60ms"><picture><source media="(max-width:850px)" srcset="assets/rafael-2026-mobile.webp"><img src="assets/rafael-2026.webp" width="920" height="920" alt="Retrato de Rafael Valente" fetchpriority="high"></picture><span class="index">FIG. 01 / RAFAEL</span></div>
-        <div class="eyebrow enter" style="--delay:120ms">Prazer, sou o Rafael</div>
-        <h1 class="enter" id="nome" style="--delay:170ms">Tecnologia<br>com <em>direção.</em></h1>
-        <p class="enter" style="--delay:220ms">Marketing, prospecção e IA para transformar boas ideias em operação.</p>
-        <div class="handle enter" style="--delay:260ms">@eusourafaelvalente</div>
-      </section>
-      <div class="content">
-        <div class="chapter enter" style="--delay:100ms">01 / Escolha seu próximo passo</div>
-        <p class="lead enter" style="--delay:180ms">O próximo movimento da sua empresa <span>começa aqui.</span></p>
-        <div class="collection">
-          <details class="enter" style="--delay:240ms" id="servicos">
-            <summary><span class="serial">01</span><span class="label"><strong>Serviços</strong><small>Marketing, sistemas e automação</small></span><span class="toggle" aria-hidden="true">+</span></summary>
-            <div class="items">
-              <a class="item" data-oferta="marketing-prospeccao" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20Marketing%20e%20Prospec%C3%A7%C3%A3o."><span><strong>Marketing e Prospecção</strong><small>Converse sobre sua operação</small></span><span class="arrow" aria-hidden="true">↗</span></a>
-              <a class="item" data-oferta="primeira-pagina-google" href="https://form.advanx.com.br/google-local/"><span><strong>Primeira página do Google</strong><small>Veja como funciona</small></span><span class="arrow" aria-hidden="true">↗</span></a>
-              <a class="item" data-oferta="sistema-sob-medida" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20um%20sistema%20feito%20sob%20medida."><span><strong>Seu sistema feito sob medida</strong><small>Conte o que você precisa construir</small></span><span class="arrow" aria-hidden="true">↗</span></a>
-              <a class="item" data-oferta="automatize-operacao" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20automatizar%20minha%20opera%C3%A7%C3%A3o."><span><strong>Automatize sua operação em até 30d</strong><small>Converse sobre processos e IA</small></span><span class="arrow" aria-hidden="true">↗</span></a>
-              <a class="item" data-oferta="maquina-conteudo" href="https://advanx.com.br/maquina-de-conteudos.html"><span><strong>Máquina de conteúdo</strong><small>Conheça a solução</small></span><span class="arrow" aria-hidden="true">↗</span></a>
-            </div>
-          </details>
-          <details class="enter" style="--delay:300ms" id="aprenda">
-            <summary><span class="serial">02</span><span class="label"><strong>Aprenda</strong><small>Orientação prática para aplicar</small></span><span class="toggle" aria-hidden="true">+</span></summary>
-            <div class="items">
-              <a class="item" data-oferta="mentoria" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20saber%20sobre%20a%20mentoria."><span><strong>Mentoria</strong><small>Fale comigo para saber mais</small></span><span class="arrow" aria-hidden="true">↗</span></a>
-              <a class="item" data-oferta="consultoria-1h" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20saber%20sobre%20a%20consultoria%20de%201h."><span><strong>Consultoria de 1h</strong><small>Fale comigo para saber mais</small></span><span class="arrow" aria-hidden="true">↗</span></a>
-              <a class="item" data-oferta="clones-ia" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20aprender%20a%20criar%20clones%20de%20IA%20que%20vendem."><span><strong>Crie clones de IA que vendem por você</strong><small>Fale comigo para saber mais</small></span><span class="arrow" aria-hidden="true">↗</span></a>
-            </div>
-          </details>
-        </div>
-        <div class="chapter social-title">02 / Me acompanhe</div>
-        <nav class="social-grid" aria-label="Redes sociais de Rafael Valente">
-          <a href="https://www.instagram.com/eusourafaelvalente/" target="_blank" rel="noopener noreferrer" aria-label="Instagram, abre em nova aba"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg>Instagram</a>
-          <a href="https://www.tiktok.com/@eusourafaelvalente" target="_blank" rel="noopener noreferrer" aria-label="TikTok, abre em nova aba"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.3a4.3 4.3 0 1 1-4-4.3M14 3c.6 3.4 2.5 5 6 5"/></svg>TikTok</a>
-          <a href="https://www.youtube.com/@eusourafaelvalente" target="_blank" rel="noopener noreferrer" aria-label="YouTube, abre em nova aba"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="m10 9 5 3-5 3z"/></svg>YouTube</a>
-          <a href="https://www.linkedin.com/in/eusourafaelvalente/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn, abre em nova aba"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.1M12 17v-7h3a2 2 0 0 1 2 2v5"/></svg>LinkedIn</a>
+  <main class="pagina">
+    <header class="perfil">
+      <picture><source media="(max-width:850px)" srcset="assets/rafael-2026-mobile.webp"><img class="retrato" src="assets/rafael-2026.webp" width="132" height="132" alt="Foto de Rafael" fetchpriority="high"></picture>
+      <h1>Rafael Valente</h1>
+      <p class="apresentacao">Ajudo você a atrair clientes e simplificar sua operação com tecnologia.</p>
+    </header>
+    <div class="atalhos">
+      <details id="servicos" open>
+        <summary><span>Serviços</span><span class="sinal" aria-hidden="true">+</span></summary>
+        <nav class="opcoes" aria-label="Serviços">
+          <a class="opcao" data-oferta="marketing-prospeccao" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20Marketing%20e%20Prospec%C3%A7%C3%A3o.">Marketing e Prospecção <span class="seta" aria-hidden="true">↗</span></a>
+          <a class="opcao" data-oferta="primeira-pagina-google" href="https://form.advanx.com.br/google-local/">Primeira página do Google <span class="seta" aria-hidden="true">↗</span></a>
+          <a class="opcao" data-oferta="sistema-sob-medida" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20um%20sistema%20feito%20sob%20medida.">Seu sistema feito sob medida <span class="seta" aria-hidden="true">↗</span></a>
+          <a class="opcao" data-oferta="automatize-operacao" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20automatizar%20minha%20opera%C3%A7%C3%A3o.">Automatize sua operação em até 30d <span class="seta" aria-hidden="true">↗</span></a>
+          <a class="opcao" data-oferta="maquina-conteudo" href="https://advanx.com.br/maquina-de-conteudos.html">Máquina de conteúdo <span class="seta" aria-hidden="true">↗</span></a>
+          <a class="opcao" data-oferta="pare-de-perder-clientes" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20parar%20de%20perder%20clientes.">Pare de perder clientes <span class="seta" aria-hidden="true">↗</span></a>
+          <a class="opcao" data-oferta="secretaria-24h" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20saber%20sobre%20a%20secret%C3%A1ria%20que%20atende%2024h.">Tenha uma secretária que atende 24h <span class="seta" aria-hidden="true">↗</span></a>
         </nav>
-        <p class="note">Links externos abrem em nova aba. Atendimento e disponibilidade são confirmados na conversa.</p>
-      </div>
-    </main>
-    <footer><span>Rafael Valente / Advanx IA</span><span>Construir. Testar. Evoluir. ↗</span></footer>
-  </div>
+      </details>
+      <details id="aprenda">
+        <summary><span>Aprenda</span><span class="sinal" aria-hidden="true">+</span></summary>
+        <nav class="opcoes" aria-label="Aprenda">
+          <a class="opcao" data-oferta="mentoria" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20saber%20sobre%20a%20mentoria.">Mentoria <span class="seta" aria-hidden="true">↗</span></a>
+          <a class="opcao" data-oferta="consultoria-1h" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20saber%20sobre%20a%20consultoria%20de%201h.">Consultoria de 1h <span class="seta" aria-hidden="true">↗</span></a>
+          <a class="opcao" data-oferta="clones-ia" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20aprender%20a%20criar%20clones%20de%20IA%20que%20vendem.">Crie clones de IA que vendem por você <span class="seta" aria-hidden="true">↗</span></a>
+        </nav>
+      </details>
+    </div>
+    <nav class="redes" aria-label="Redes sociais de Rafael">
+      <a href="https://www.instagram.com/eusourafaelvalente/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg></a>
+      <a href="https://www.tiktok.com/@eusourafaelvalente" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.3a4.3 4.3 0 1 1-4-4.3M14 3c.6 3.4 2.5 5 6 5"/></svg></a>
+      <a href="https://www.youtube.com/@eusourafaelvalente" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="m10 9 5 3-5 3z"/></svg></a>
+      <a href="https://www.linkedin.com/in/eusourafaelvalente/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.1M12 17v-7h3a2 2 0 0 1 2 2v5"/></svg></a>
+    </nav>
+  </main>
   <script>
     (() => {
       const chaves = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','src','fbclid','gclid'];
       const entrada = new URLSearchParams(location.search);
-      const atuais = Object.fromEntries(chaves.filter(k => entrada.has(k) && entrada.get(k)).map(k => [k, entrada.get(k).slice(0, 180)]));
+      const atuais = Object.fromEntries(chaves.filter(k => entrada.has(k) && entrada.get(k)).map(k => [k, entrada.get(k).replace(/[\r\n\t]/g, ' ').slice(0, 180)]));
       let salvos = {};
-      try { salvos = JSON.parse(sessionStorage.getItem('rafael_atribuicao') || '{}'); } catch (_) { /* modo privado: links continuam funcionando */ }
+      try { salvos = JSON.parse(sessionStorage.getItem('rafael_atribuicao') || '{}'); } catch (_) { /* links seguem funcionando */ }
       const atribuicao = { ...salvos, ...atuais };
       if (Object.keys(atuais).length) {
         try { sessionStorage.setItem('rafael_atribuicao', JSON.stringify(atribuicao)); } catch (_) { /* armazenamento indisponível */ }
@@ -153,16 +107,6 @@
         url.search = parametros.toString();
         a.href = url.toString();
       });
-      const luz = document.querySelector('.light');
-      if (matchMedia('(hover:hover) and (prefers-reduced-motion:no-preference)').matches) {
-        let quadro = 0, x = innerWidth * .72, y = innerHeight * .2;
-        document.addEventListener('pointermove', e => {
-          x = e.clientX; y = e.clientY;
-          if (!quadro) quadro = requestAnimationFrame(() => {
-            luz.style.setProperty('--px', `${x}px`); luz.style.setProperty('--py', `${y}px`); quadro = 0;
-          });
-        }, { passive: true });
-      }
     })();
   </script>
 </body>
