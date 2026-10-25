@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Rafael Valente. Descubra o melhor caminho para simplificar sua operação ou aprender IA na prática.">
+  <title>Rafael Valente | Simplificar e aprender</title>
+  <link rel="preload" href="/rafael/assets/Geist.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    @font-face{font-family:Geist;src:url('/rafael/assets/Geist.woff2') format('woff2');font-weight:100 900;font-display:swap}
+    @font-face{font-family:Fraunces;src:url('/rafael/assets/Fraunces-Italic.woff2') format('woff2');font-style:italic;font-weight:100 900;font-display:swap}
+    :root{color-scheme:light;--papel:#FFFFFF;--superficie:#F7F7F5;--texto:#1B0F09;--muted:#5E5954;--linha:#8A8178;--ouro:#F7CE4A;--cobre:#C88046;--curva:cubic-bezier(.2,0,0,1)}
+    *,*::before,*::after{box-sizing:border-box}
+    html{min-height:100%;background:var(--papel)}
+    body{min-width:320px;min-height:100vh;min-height:100svh;margin:0;background:var(--papel);color:var(--texto);font:400 16px/1.5 Geist,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;background:url('/rafael/assets/grain-white-advanx.png') repeat;mix-blend-mode:multiply;opacity:.22}
+    button,textarea{font:inherit}
+    button{cursor:pointer}
+    button:focus-visible,a:focus-visible,textarea:focus-visible,[tabindex="-1"]:focus-visible{outline:2px solid var(--texto);outline-offset:3px}
+    a{color:inherit;text-decoration:none}
+    [hidden]{display:none!important}
+    main{position:relative;width:min(100% - 36px,490px);min-height:100vh;min-height:100svh;margin:auto;padding:clamp(36px,6vh,60px) 0 40px;display:flex;flex-direction:column;justify-content:flex-start}
+    .perfil{text-align:center}
+    .moldura{width:168px;height:168px;margin:0 auto 19px;padding:5px;background:var(--texto);box-shadow:0 12px 30px rgba(27,15,9,.12)}
+    .foto{display:block;width:100%;height:100%;object-fit:contain;background:#141518}
+    h1{font-size:clamp(31px,7vw,39px);line-height:1.16;letter-spacing:-.055em;margin:0;font-weight:650}
+    h1 em{display:inline-block;padding:2px 8px 4px;margin-left:3px;background:var(--texto);color:var(--ouro);font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:450;letter-spacing:-.05em}
+    .intro{max-width:360px;margin:13px auto 0;color:var(--muted);font-size:15px}
+    .menu{display:grid;gap:11px;margin-top:30px}
+    .escolha,.resposta{width:100%;min-height:62px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 17px;border:1px solid var(--linha);background:var(--superficie);color:var(--texto);text-align:left;transition:transform .18s var(--curva),background .18s var(--curva),border-color .18s var(--curva)}
+    .escolha:hover,.resposta:hover{transform:translateY(-2px);border-color:var(--texto);background:#F0F0ED}
+    .escolha b{font-size:18px;font-weight:650}
+    .escolha small{display:block;margin-top:2px;color:var(--muted);font-size:13px}
+    .seta{flex:none;font-size:20px}
+    .primaria{background:var(--texto);color:#FFFFFF;border-color:var(--texto)}
+    .primaria small{color:#E8DDD0}
+    .primaria .seta{color:var(--ouro)}
+    .primaria:hover{background:#2A1D14;color:#FFFFFF}
+    .redes{display:flex;justify-content:center;gap:12px;margin-top:26px}
+    .redes a{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--linha);background:var(--superficie)}
+    .redes a:hover{border-color:var(--texto);background:var(--ouro)}
+    .redes svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .fluxo{width:100%;max-width:490px;margin:0 auto}
+    .voltar,.sair{min-height:44px;padding:9px 0;border:0;background:transparent;color:var(--muted);font-size:14px}
+    .sair{float:right}
+    .voltar:hover,.sair:hover{text-decoration:underline;color:var(--texto)}
+    .progresso{clear:both;margin:30px 0 10px;color:var(--muted);font-size:13px;font-weight:600;letter-spacing:.03em}
+    h2{margin:0 0 10px;font-size:clamp(26px,6vw,34px);line-height:1.15;letter-spacing:-.045em}
+    .ajuda{margin:0 0 20px;color:var(--muted);font-size:15px}
+    .opcoes{display:grid;gap:10px}
+    .resposta{min-height:52px;justify-content:flex-start;line-height:1.35}
+    .resposta::before{content:"";width:10px;height:10px;flex:none;background:var(--ouro);border:1px solid var(--texto)}
+    .campo{width:100%;min-height:110px;resize:vertical;padding:12px;border:1px solid var(--linha);background:var(--superficie);color:var(--texto)}
+    .campo::placeholder{color:var(--muted)}
+    .acoes{display:grid;gap:10px;margin-top:18px}
+    .acao{width:100%;min-height:50px;padding:10px 14px;border:1px solid var(--texto);background:var(--texto);color:var(--ouro);font-weight:650;text-align:center;display:grid;place-items:center}
+    .acao:hover{background:#2A1D14}
+    .acao-secundaria{border-color:var(--linha);background:var(--superficie);color:var(--texto)}
+    .acao-secundaria:hover{background:#F0F0ED}
+    .resumo{padding:16px;background:var(--superficie);border:1px solid var(--linha);white-space:pre-wrap;overflow-wrap:anywhere}
+    .aviso{margin:10px 0 0;color:var(--muted);font-size:13px}
+    @media(max-width:480px){main{justify-content:flex-start;padding-top:36px}.moldura{width:144px;height:144px}.menu{margin-top:25px}h1{font-size:33px}}
+    @media(prefers-reduced-motion:reduce){.escolha,.resposta{transition:none}.escolha:hover,.resposta:hover{transform:none}}
+  </style>
+</head>
+<body>
+<main>
+  <section id="inicio" aria-label="Página inicial">
+    <header class="perfil">
+      <div class="moldura"><img class="foto" src="/rafael/assets/rafael-2026.webp" width="920" height="920" alt="Retrato de Rafael Valente" fetchpriority="high"></div>
+      <h1>Rafael <em>Valente</em></h1>
+      <p class="intro">Ajudo você a atrair clientes e simplificar sua operação com tecnologia.</p>
+    </header>
+    <div class="menu">
+      <button class="escolha primaria" type="button" data-iniciar="simplificar"><span><b>Simplificar</b><small>Descubra o que faz sentido para sua operação</small></span><span class="seta" aria-hidden="true">↗</span></button>
+      <button class="escolha" type="button" data-iniciar="aprenda"><span><b>Aprenda</b><small>Mentoria, consultoria ou IA para conteúdo</small></span><span class="seta" aria-hidden="true">↗</span></button>
+    </div>
+    <nav class="redes" aria-label="Redes sociais de Rafael">
+      <a href="https://www.instagram.com/eusourafaelvalente/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg></a>
+      <a href="https://www.tiktok.com/@rafaelbatistazz" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.3a4.3 4.3 0 1 1-4-4.3M14 3c.6 3.4 2.5 5 6 5"/></svg></a>
+      <a href="https://www.linkedin.com/in/rafaelbatistaz" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.1M12 17v-7h3a2 2 0 0 1 2 2v5"/></svg></a>
+    </nav>
+    <noscript><style>.menu{display:none}</style><p class="aviso">Para responder às perguntas, ative o JavaScript. Você também pode <a href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%2C%20Rafael%21%20Vim%20da%20sua%20bio%20e%20quero%20conversar.">conversar diretamente no WhatsApp</a>.</p></noscript>
+  </section>
+  <section id="fluxo" class="fluxo" aria-label="Jornada de descoberta" hidden>
+    <button class="voltar" id="voltar" type="button">← Voltar</button>
+    <button class="sair" id="sair" type="button">Agora não</button>
+    <p class="progresso" id="progresso" aria-live="polite"></p>
+    <h2 id="pergunta" tabindex="-1"></h2>
+    <p class="ajuda" id="ajuda"></p>
+    <div class="opcoes" id="opcoes"></div>
+    <div class="acoes" id="acoes"></div>
+  </section>
+</main>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const inicio = $('inicio'), fluxo = $('fluxo'), titulo = $('pergunta'), ajuda = $('ajuda');
+  const opcoes = $('opcoes'), acoes = $('acoes'), progresso = $('progresso');
+  let rota = '', etapa = '', origem = null, historico = [], respostas = {};
+  const chaves = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','src','fbclid','gclid'];
+  const campanha = new URLSearchParams(location.search);
+  const atribuicao = Object.fromEntries(chaves.filter(k => campanha.has(k)).map(k => [k, (campanha.get(k) || '').replace(/[\r\n\t]/g, ' ').slice(0,180)]));
+  const ofertas = {
+    atrair: 'Atrair clientes', atender: 'Não perder contatos e atendimentos', automatizar: 'Automatizar a operação',
+    sistema: 'Criar um sistema sob medida', conteudo: 'Produzir conteúdo', indefinido: 'Descobrir o caminho'
+  };
+  const texto = (elemento, valor) => { elemento.textContent = valor; };
+  function botao(label, valor, classe = 'resposta') {
+    const el = document.createElement('button'); el.type = 'button'; el.className = classe;
+    el.textContent = label; el.dataset.valor = valor; opcoes.append(el); return el;
+  }
+  function acao(label, valor, classe = 'acao') {
+    const el = document.createElement('button'); el.type = 'button'; el.className = classe;
+    el.textContent = label; el.dataset.acao = valor; acoes.append(el); return el;
+  }
+  function campo(placeholder) {
+    const el = document.createElement('textarea'); el.className = 'campo'; el.maxLength = 240;
+    el.placeholder = placeholder; el.setAttribute('aria-label', placeholder); opcoes.append(el); return el;
+  }
+  function avancar(proxima) { historico.push({ etapa, respostas: {...respostas} }); etapa = proxima; renderizar(); }
+  function exibirInicial() { fluxo.hidden = true; inicio.hidden = false; rota = ''; etapa = ''; historico = []; respostas = {}; window.scrollTo(0,0); origem?.focus(); }
+  function finalizarSemContato() {
+    etapa = 'encerrado'; historico = []; renderizar();
+  }
+  function mostrarResumo(tituloResumo, linhas, msg, oferta) {
+    texto(titulo, tituloResumo);
+    const quadro = document.createElement('div'); quadro.className = 'resumo';
+    quadro.textContent = linhas.join('\n'); opcoes.append(quadro);
+    const url = new URL('https://wa.advanx.com.br/r');
+    url.searchParams.set('src', atribuicao.src || atribuicao.utm_source || 'rafael_instagram');
+    url.searchParams.set('origem_pagina', 'rafael');
+    url.searchParams.set('oferta', oferta);
+    for (const chave of chaves) if (atribuicao[chave]) url.searchParams.set(chave, atribuicao[chave]);
+    url.searchParams.set('text', msg);
+    const link = document.createElement('a'); link.className = 'acao'; link.href = url.toString();
+    link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = 'Conversar no WhatsApp';
+    acoes.append(link);
+    const copiar = acao('Copiar mensagem', 'copiar', 'acao acao-secundaria');
+    copiar.dataset.mensagem = msg;
+    const aviso = document.createElement('p'); aviso.className = 'aviso';
+    aviso.textContent = 'A mensagem só será enviada se você confirmar no WhatsApp.'; acoes.append(aviso);
+  }
+  function renderizar() {
+    inicio.hidden = true; fluxo.hidden = false;
+    opcoes.replaceChildren(); acoes.replaceChildren();
+    texto(ajuda, '');
+    $('voltar').hidden = etapa === 'encerrado';
+    $('sair').hidden = etapa === 'encerrado';
+    if (etapa === 'entrada-aprenda') {
+      texto(progresso, 'Escolha um caminho'); texto(titulo, 'Como você quer aprender?');
+      texto(ajuda, 'Na prática e com um próximo passo claro.');
+      botao('Mentoria: aplicar IA e automação na sua operação', 'mentoria');
+      botao('Consultoria: resolver um problema em 1 hora', 'consultoria');
+      botao('IA para Vídeos que Vendem: criar conteúdo com IA', 'curso');
+    } else if (etapa === 's-necessidade') {
+      texto(progresso, 'Pergunta 1 de 3'); texto(titulo, 'O que você mais precisa resolver?');
+      texto(ajuda, 'Escolha o ponto que está pesando mais agora.');
+      Object.entries(ofertas).forEach(([valor, nome]) => botao(nome, valor));
+    } else if (etapa === 's-contexto') {
+      texto(progresso, 'Pergunta 2 de 3'); texto(titulo, 'O que acontece hoje?');
+      texto(ajuda, 'Se quiser, conte em uma frase. Você pode pular.');
+      const el = campo('Descreva seu maior desafio, se quiser'); el.value = respostas.contexto || '';
+      acao('Continuar', 'contexto');
+    } else if (etapa === 's-prazo') {
+      texto(progresso, 'Pergunta 3 de 3'); texto(titulo, 'Quando você quer começar?');
+      ['Agora', 'Nos próximos 30 dias', 'Ainda estou pesquisando'].forEach((nome,i) => botao(nome, String(i)));
+    } else if (etapa === 's-resumo') {
+      texto(progresso, 'Seu resumo'); texto(ajuda, 'Confira antes de iniciar a conversa.');
+      const linhas = ['Preciso: ' + ofertas[respostas.necessidade], 'Contexto: ' + (respostas.contexto || 'não informado'), 'Momento: ' + respostas.prazo];
+      mostrarResumo('Este é o seu ponto de partida', linhas, 'Olá, Rafael! Vim da sua bio e quero simplificar minha operação.\n' + linhas.join('\n'), 'diagnostico-simplificar');
+    } else if (etapa === 'm-interesse') {
+      texto(progresso, 'Mentoria · 1 de 2'); texto(titulo, 'É isso que você busca?');
+      texto(ajuda, 'Em até 30 dias, entendemos sua operação e criamos juntos uma aplicação prática de IA ou automação. Sem cursos nem treinamentos.');
+      botao('Sim', 'sim'); botao('Não', 'nao'); botao('Outra coisa', 'outro');
+    } else if (etapa === 'm-outro') {
+      texto(progresso, 'Mentoria · complemento'); texto(titulo, 'O que você busca?');
+      texto(ajuda, 'Conte em poucas palavras para Rafael entender seu caso.');
+      const el = campo('Escreva o que você procura'); el.value = respostas.outro || '';
+      acao('Continuar', 'outro');
+    } else if (etapa === 'm-preco') {
+      texto(progresso, 'Mentoria · 2 de 2'); texto(titulo, 'É seu momento de iniciar?');
+      texto(ajuda, 'A mentoria começa em R$ 1.997 ou 12 parcelas de R$ 197.');
+      botao('Sim, quero conversar', 'sim'); botao('Não é meu momento', 'nao');
+    } else if (etapa === 'm-resumo') {
+      texto(progresso, 'Seu resumo'); texto(ajuda, 'Confira antes de iniciar a conversa.');
+      const linhas = ['Interesse: ' + (respostas.interesse === 'outro' ? 'Outra necessidade: ' + respostas.outro : 'IA e automação na prática em até 30 dias'), 'Investimento apresentado: R$ 1.997 ou 12x de R$ 197'];
+      mostrarResumo('Vamos conversar sobre a mentoria', linhas, 'Olá, Rafael! Vim da sua bio e quero conversar sobre a mentoria.\n' + linhas.join('\n'), 'mentoria');
+    } else if (etapa === 'c-interesse') {
+      texto(progresso, 'Consultoria · 1 de 2'); texto(titulo, 'Uma conversa de 1 hora resolve o que você busca?');
+      texto(ajuda, 'Você conversa com um especialista para trabalhar seu problema específico.');
+      botao('Sim', 'sim'); botao('Não', 'nao');
+    } else if (etapa === 'c-preco') {
+      texto(progresso, 'Consultoria · 2 de 2'); texto(titulo, 'É seu momento de começar?');
+      texto(ajuda, 'A consultoria de 1 hora custa R$ 197 ou 12 parcelas de R$ 19,70.');
+      botao('Sim, quero conversar', 'sim'); botao('Não é meu momento', 'nao');
+    } else if (etapa === 'c-resumo') {
+      texto(progresso, 'Seu resumo'); texto(ajuda, 'Confira antes de iniciar a conversa.');
+      const linhas = ['Formato: conversa de 1 hora com um especialista', 'Investimento apresentado: R$ 197 ou 12x de R$ 19,70'];
+      mostrarResumo('Vamos conversar sobre a consultoria', linhas, 'Olá, Rafael! Vim da sua bio e quero conversar sobre a consultoria.\n' + linhas.join('\n'), 'consultoria-1h');
+    } else if (etapa === 'v-formato') {
+      texto(progresso, 'Conteúdo com IA · 1 de 2'); texto(titulo, 'O que você quer criar primeiro?');
+      texto(ajuda, 'Aprenda a criar modelos realistas de IA e produzir vídeos UGC e conteúdos voltados para vendas.');
+      botao('Vídeos UGC para apresentar produtos', 'Vídeos UGC');
+      botao('Conteúdo para vender nas redes', 'Conteúdo para redes');
+      botao('Ainda quero descobrir as possibilidades', 'Quero explorar');
+    } else if (etapa === 'v-canal') {
+      texto(progresso, 'Conteúdo com IA · 2 de 2'); texto(titulo, 'Onde você pretende publicar?');
+      texto(ajuda, 'Escolha o canal que faz mais sentido hoje.');
+      ['TikTok Shop', 'Shopee', 'Mercado Livre', 'Redes sociais', 'Ainda não sei'].forEach(nome => botao(nome, nome));
+    } else if (etapa === 'v-resumo') {
+      texto(progresso, 'Seu resumo'); texto(ajuda, 'Ainda não há checkout nesta página. Você pode conversar sobre o curso.');
+      const linhas = ['Quero criar: ' + respostas.formato, 'Canal: ' + respostas.canal];
+      mostrarResumo('IA para Vídeos que Vendem', linhas, 'Olá, Rafael! Vim da sua bio e quero saber sobre o curso IA para Vídeos que Vendem.\n' + linhas.join('\n'), 'ia-videos-vendas');
+    } else if (etapa === 'encerrado') {
+      texto(progresso, 'Tudo bem'); texto(titulo, 'Talvez em outro momento.');
+      texto(ajuda, 'Nenhuma mensagem foi enviada. Você pode voltar para a página inicial.');
+      acao('Voltar ao início', 'inicio', 'acao acao-secundaria');
+    }
+    titulo.focus({preventScroll:true}); fluxo.scrollIntoView({block:'start',behavior:'instant'});
+  }
+  document.querySelectorAll('[data-iniciar]').forEach(el => el.addEventListener('click', () => {
+    origem = el; rota = el.dataset.iniciar; historico = []; respostas = {};
+    etapa = rota === 'simplificar' ? 's-necessidade' : 'entrada-aprenda'; renderizar();
+  }));
+  $('sair').addEventListener('click', exibirInicial);
+  $('voltar').addEventListener('click', () => {
+    const anterior = historico.pop(); if (!anterior) return exibirInicial();
+    etapa = anterior.etapa; respostas = anterior.respostas; renderizar();
+  });
+  opcoes.addEventListener('click', evento => {
+    const el = evento.target.closest('button[data-valor]'); if (!el) return;
+    const valor = el.dataset.valor;
+    if (etapa === 'entrada-aprenda') { rota = valor; avancar({mentoria:'m-interesse',consultoria:'c-interesse',curso:'v-formato'}[valor]); }
+    else if (etapa === 's-necessidade') { respostas.necessidade = valor; avancar('s-contexto'); }
+    else if (etapa === 's-prazo') { respostas.prazo = ['Agora','Nos próximos 30 dias','Ainda estou pesquisando'][Number(valor)]; avancar('s-resumo'); }
+    else if (etapa === 'm-interesse') { if (valor === 'nao') return finalizarSemContato(); respostas.interesse = valor; avancar(valor === 'outro' ? 'm-outro' : 'm-preco'); }
+    else if (etapa === 'm-preco') { if (valor === 'nao') return finalizarSemContato(); avancar('m-resumo'); }
+    else if (etapa === 'c-interesse') { if (valor === 'nao') return finalizarSemContato(); avancar('c-preco'); }
+    else if (etapa === 'c-preco') { if (valor === 'nao') return finalizarSemContato(); avancar('c-resumo'); }
+    else if (etapa === 'v-formato') { respostas.formato = valor; avancar('v-canal'); }
+    else if (etapa === 'v-canal') { respostas.canal = valor; avancar('v-resumo'); }
+  });
+  acoes.addEventListener('click', async evento => {
+    const el = evento.target.closest('[data-acao]'); if (!el) return;
+    if (el.dataset.acao === 'inicio') return exibirInicial();
+    if (el.dataset.acao === 'contexto') { respostas.contexto = opcoes.querySelector('textarea').value.trim(); avancar('s-prazo'); }
+    if (el.dataset.acao === 'outro') {
+      const valor = opcoes.querySelector('textarea').value.trim();
+      if (!valor) { opcoes.querySelector('textarea').focus(); return; }
+      respostas.outro = valor; avancar('m-preco');
+    }
+    if (el.dataset.acao === 'copiar') {
+      try { await navigator.clipboard.writeText(el.dataset.mensagem); el.textContent = 'Mensagem copiada'; }
+      catch (_) { el.textContent = 'Não foi possível copiar. Use o botão do WhatsApp.'; }
+    }
+  });
+})();
+</script>
+</body>
+</html>
