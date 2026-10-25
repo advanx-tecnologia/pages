@@ -4,15 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#FFFFFF">
-  <script>
-    document.documentElement.classList.add('js');
-    try {
-      if (localStorage.getItem('rafael_tema') === 'preto') {
-        document.documentElement.dataset.tema = 'preto';
-        document.querySelector('meta[name="theme-color"]').content = '#090A0C';
-      }
-    } catch (_) { /* Sem armazenamento, permanece branco. */ }
-  </script>
   <meta name="description" content="Links de Rafael Valente: serviços, aprendizado e redes sociais.">
   <meta property="og:type" content="profile">
   <meta property="og:title" content="Rafael Valente | Links">
@@ -26,7 +17,6 @@
     @font-face{font-family:Fraunces;src:url('assets/Fraunces-Italic.woff2') format('woff2');font-style:italic;font-weight:100 900;font-display:swap}
     @font-face{font-family:Geist Mono;src:url('assets/GeistMono.woff2') format('woff2');font-weight:100 900;font-display:swap}
     :root{color-scheme:light;--fundo:#FFFFFF;--superficie:#F7F7F5;--elevado:#F0F0ED;--texto:#1B0F09;--secundario:#5E5954;--borda:#D8D4CE;--controle:#8A8178;--ouro:#F7CE4A;--destaque:#1B0F09;--foco:#1B0F09;--grao:url('assets/grain-white-advanx.png');--grao-mistura:multiply;--grao-opacidade:.22;--tempo:220ms;--curva:cubic-bezier(.2,0,0,1)}
-    [data-tema=preto]{color-scheme:dark;--fundo:#090A0C;--superficie:#141518;--elevado:#1C1E22;--texto:#F4F4F2;--secundario:#C1C2C5;--borda:#34363B;--controle:#92959C;--destaque:#F7CE4A;--foco:#F4F4F2;--grao:url('assets/grain-advanx.webp');--grao-mistura:normal;--grao-opacidade:.045}
     *,*::before,*::after{box-sizing:border-box}
     html{min-height:100%;background:var(--fundo)}
     body{margin:0;min-width:320px;min-height:100vh;min-height:100svh;background:var(--fundo);color:var(--texto);font:400 16px/1.5 Geist,Arial,sans-serif;-webkit-font-smoothing:antialiased;transition:background var(--tempo) var(--curva),color var(--tempo) var(--curva)}
@@ -34,14 +24,11 @@
     .luz{position:fixed;left:72vw;top:32vh;z-index:0;width:clamp(560px,82vmin,920px);aspect-ratio:1;pointer-events:none;border-radius:50%;transform:translate3d(-50%,-50%,0);background:radial-gradient(circle,rgba(200,128,70,.34) 0%,rgba(200,128,70,.28) 12%,rgba(200,128,70,.18) 28%,rgba(200,128,70,.1) 45%,rgba(200,128,70,.04) 65%,rgba(200,128,70,.008) 85%,transparent 100%);opacity:.16;transition:left .35s ease-out,top .35s ease-out}
     a{color:inherit;text-decoration:none}
     a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--foco);outline-offset:3px}
-    .pagina{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;min-height:100vh;min-height:100svh;width:min(100% - 40px,486px);margin:0 auto;padding:clamp(58px,6vw,70px) 0 max(40px,env(safe-area-inset-bottom))}
-    .tema{display:none;position:absolute;right:0;top:10px;min-height:44px;padding:0 12px;border:1px solid var(--controle);border-top:3px solid var(--ouro);background:var(--superficie);color:var(--texto);font:500 12px/1 Geist,Arial,sans-serif;cursor:pointer;transition:background var(--tempo) var(--curva),border-color var(--tempo) var(--curva),transform var(--tempo) var(--curva)}
-    .js .tema{display:block}
-    .tema:hover{background:var(--elevado);transform:translateY(-2px)}
+    .pagina{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-start;min-height:100vh;min-height:100svh;width:min(100% - 40px,486px);margin:0 auto;padding:clamp(36px,6vh,60px) 0 max(40px,env(safe-area-inset-bottom))}
     .perfil{text-align:center;animation:entrada 420ms cubic-bezier(.16,1,.3,1) both}
-    .retrato{display:block;width:124px;height:124px;margin:0 auto 18px;object-fit:cover;border:1px solid var(--borda);background:var(--superficie)}
+    .retrato{display:block;width:168px;height:168px;margin:0 auto 18px;padding:5px;object-fit:contain;border:1px solid var(--borda);background:var(--texto)}
     h1{font-size:clamp(31px,7vw,39px);line-height:1.12;letter-spacing:-.055em;margin:0;font-weight:650}
-    h1 em{font-family:Fraunces,Georgia,serif;font-weight:450;letter-spacing:-.05em;color:var(--destaque)}
+    h1 em{display:inline-block;padding:2px 8px 4px;margin-left:3px;background:var(--texto);color:var(--ouro);font-family:Fraunces,Georgia,serif;font-weight:450;letter-spacing:-.05em}
     .apresentacao{max-width:350px;margin:10px auto 0;color:var(--secundario);font-size:15px;line-height:1.5}
     .atalhos{margin-top:30px;border-top:1px solid var(--borda);animation:entrada 420ms 70ms cubic-bezier(.16,1,.3,1) both}
     details{border-bottom:1px solid var(--borda)}
@@ -59,16 +46,16 @@
     .redes a:hover{background:var(--ouro);color:#1B0F09;border-color:#1B0F09;transform:translateY(-2px)}
     .redes svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
     @keyframes entrada{from{opacity:.7;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    @media(max-width:360px){.pagina{width:calc(100% - 28px)}.retrato{width:112px;height:112px}.opcao{font-size:14px}}
-    @media(prefers-reduced-motion:reduce){.perfil,.atalhos,.redes{animation:none}.luz{transition:none}.sinal,.opcao,.redes a,.tema,body{transition:none}.opcao:hover,.redes a:hover,.tema:hover{transform:none}}
+    @media(max-width:480px){.retrato{width:144px;height:144px}}
+    @media(max-width:360px){.pagina{width:calc(100% - 28px)}.opcao{font-size:14px}}
+    @media(prefers-reduced-motion:reduce){.perfil,.atalhos,.redes{animation:none}.luz{transition:none}.sinal,.opcao,.redes a,body{transition:none}.opcao:hover,.redes a:hover{transform:none}}
   </style>
 </head>
 <body>
   <div class="luz" aria-hidden="true"></div>
   <main class="pagina">
-    <button class="tema" id="alternar-tema" type="button" aria-label="Ativar tema preto">Ver no preto</button>
     <header class="perfil">
-      <img class="retrato" src="assets/rafael-2026.webp" width="124" height="124" alt="Rafael Valente" fetchpriority="high">
+      <img class="retrato" src="assets/rafael-2026.webp" width="168" height="168" alt="Rafael Valente" fetchpriority="high">
       <h1>Rafael <em>Valente</em></h1>
       <p class="apresentacao">Ajudo você a atrair clientes e simplificar sua operação com tecnologia.</p>
     </header>
@@ -95,32 +82,15 @@
     </div>
     <nav class="redes" aria-label="Redes sociais de Rafael">
       <a href="https://www.instagram.com/eusourafaelvalente/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg></a>
-      <a href="https://www.tiktok.com/@eusourafaelvalente" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.3a4.3 4.3 0 1 1-4-4.3M14 3c.6 3.4 2.5 5 6 5"/></svg></a>
-      <a href="https://www.youtube.com/@eusourafaelvalente" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="m10 9 5 3-5 3z"/></svg></a>
-      <a href="https://www.linkedin.com/in/eusourafaelvalente/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.1M12 17v-7h3a2 2 0 0 1 2 2v5"/></svg></a>
+      <a href="https://www.tiktok.com/@rafaelbatistazz" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.3a4.3 4.3 0 1 1-4-4.3M14 3c.6 3.4 2.5 5 6 5"/></svg></a>
+      <a href="https://www.linkedin.com/in/rafaelbatistaz" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.1M12 17v-7h3a2 2 0 0 1 2 2v5"/></svg></a>
     </nav>
   </main>
   <script>
     (() => {
-      const botao = document.getElementById('alternar-tema');
-      const raiz = document.documentElement;
-      const corNavegador = document.querySelector('meta[name="theme-color"]');
       const luz = document.querySelector('.luz');
       const movimento = matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
       let quadro = 0;
-      function atualizarBotao() {
-        const preto = raiz.dataset.tema === 'preto';
-        botao.textContent = preto ? 'Ver no branco' : 'Ver no preto';
-        botao.setAttribute('aria-label', preto ? 'Ativar tema branco' : 'Ativar tema preto');
-      }
-      atualizarBotao();
-      botao.addEventListener('click', () => {
-        const preto = raiz.dataset.tema !== 'preto';
-        raiz.dataset.tema = preto ? 'preto' : 'branco';
-        corNavegador.content = preto ? '#090A0C' : '#FFFFFF';
-        try { localStorage.setItem('rafael_tema', raiz.dataset.tema); } catch (_) { /* Tema permanece funcional. */ }
-        atualizarBotao();
-      });
       document.addEventListener('pointermove', evento => {
         if (!movimento.matches || document.hidden || evento.pointerType !== 'mouse') return;
         const x = evento.clientX;
