@@ -16,26 +16,25 @@
     @font-face{font-family:Geist;src:url('assets/Geist.woff2') format('woff2');font-weight:100 900;font-display:swap}
     @font-face{font-family:Fraunces;src:url('assets/Fraunces-Italic.woff2') format('woff2');font-style:italic;font-weight:100 900;font-display:swap}
     @font-face{font-family:Geist Mono;src:url('assets/GeistMono.woff2') format('woff2');font-weight:100 900;font-display:swap}
-    :root{color-scheme:light;--fundo:#FFFFFF;--superficie:#F7F7F5;--elevado:#F0F0ED;--texto:#1B0F09;--secundario:#5E5954;--borda:#D8D4CE;--controle:#8A8178;--ouro:#F7CE4A;--destaque:#1B0F09;--foco:#1B0F09;--grao:url('assets/grain-white-advanx.png');--grao-mistura:multiply;--grao-opacidade:.22;--tempo:220ms;--curva:cubic-bezier(.2,0,0,1)}
+    :root{color-scheme:light;--fundo:#FFFFFF;--superficie:#F7F7F5;--elevado:#F0F0ED;--texto:#111215;--secundario:#55585E;--borda:#D6D8DC;--controle:#80858E;--ouro:#F7CE4A;--destaque:#111215;--foco:#111215;--grao:url('assets/grain-white-advanx.png');--grao-mistura:multiply;--grao-opacidade:.22;--tempo:220ms;--curva:cubic-bezier(.2,0,0,1)}
     *,*::before,*::after{box-sizing:border-box}
     html{min-height:100%;background:var(--fundo)}
     body{margin:0;min-width:320px;min-height:100vh;min-height:100svh;background:var(--fundo);color:var(--texto);font:400 16px/1.5 Geist,Arial,sans-serif;-webkit-font-smoothing:antialiased;transition:background var(--tempo) var(--curva),color var(--tempo) var(--curva)}
     body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--grao) repeat;mix-blend-mode:var(--grao-mistura);opacity:var(--grao-opacidade)}
-    .luz{position:fixed;left:72vw;top:32vh;z-index:0;width:clamp(560px,82vmin,920px);aspect-ratio:1;pointer-events:none;border-radius:50%;transform:translate3d(-50%,-50%,0);background:radial-gradient(circle,rgba(200,128,70,.34) 0%,rgba(200,128,70,.28) 12%,rgba(200,128,70,.18) 28%,rgba(200,128,70,.1) 45%,rgba(200,128,70,.04) 65%,rgba(200,128,70,.008) 85%,transparent 100%);opacity:.16;transition:left .35s ease-out,top .35s ease-out}
     a{color:inherit;text-decoration:none}
     a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--foco);outline-offset:3px}
     .pagina{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-start;min-height:100vh;min-height:100svh;width:min(100% - 40px,486px);margin:0 auto;padding:clamp(36px,6vh,60px) 0 max(40px,env(safe-area-inset-bottom))}
     .perfil{text-align:center;animation:entrada 420ms cubic-bezier(.16,1,.3,1) both}
-    .retrato{display:block;width:168px;height:168px;margin:0 auto 18px;padding:5px;object-fit:contain;border:1px solid var(--borda);background:var(--texto)}
+    .retrato{display:block;width:168px;height:168px;margin:0 auto 18px;object-fit:contain;background:#141518}
     h1{font-size:clamp(31px,7vw,39px);line-height:1.12;letter-spacing:-.055em;margin:0;font-weight:650}
-    h1 em{display:inline-block;padding:2px 8px 4px;margin-left:3px;background:var(--texto);color:var(--ouro);font-family:Fraunces,Georgia,serif;font-weight:450;letter-spacing:-.05em}
+    h1 em{display:inline-block;padding:0 7px 3px;margin-left:2px;background:#090A0C;color:var(--ouro);font-family:Fraunces,Georgia,serif;font-weight:450;letter-spacing:-.05em}
     .apresentacao{max-width:350px;margin:10px auto 0;color:var(--secundario);font-size:15px;line-height:1.5}
     .atalhos{margin-top:30px;border-top:1px solid var(--borda);animation:entrada 420ms 70ms cubic-bezier(.16,1,.3,1) both}
     details{border-bottom:1px solid var(--borda)}
     summary{min-height:64px;display:flex;align-items:center;gap:12px;padding:12px 0;list-style:none;cursor:pointer;font-size:18px;font-weight:630;user-select:none}
     summary::-webkit-details-marker{display:none}
     summary span:first-child{flex:1}
-    .sinal{width:28px;height:28px;display:grid;place-items:center;flex:none;border:1px solid var(--controle);background:var(--ouro);color:#1B0F09;font-size:22px;font-weight:400;line-height:1;transition:transform var(--tempo) var(--curva)}
+    .sinal{width:28px;height:28px;display:grid;place-items:center;flex:none;border:1px solid var(--controle);background:var(--ouro);color:#090A0C;font-size:22px;font-weight:400;line-height:1;transition:transform var(--tempo) var(--curva)}
     details[open] .sinal{transform:rotate(45deg)}
     .opcoes{padding:0 0 15px}
     .opcao{min-height:51px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 14px;margin-top:7px;border:1px solid var(--borda);background:var(--superficie);font-size:15px;line-height:1.35;transition:border-color var(--tempo) var(--curva),background var(--tempo) var(--curva),transform var(--tempo) var(--curva)}
@@ -43,16 +42,15 @@
     .seta{flex:none;color:var(--destaque);font-size:18px;line-height:1}
     .redes{display:flex;justify-content:center;gap:12px;margin-top:28px;animation:entrada 420ms 140ms cubic-bezier(.16,1,.3,1) both}
     .redes a{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--controle);background:var(--superficie);transition:background var(--tempo) var(--curva),color var(--tempo) var(--curva),border-color var(--tempo) var(--curva),transform var(--tempo) var(--curva)}
-    .redes a:hover{background:var(--ouro);color:#1B0F09;border-color:#1B0F09;transform:translateY(-2px)}
+    .redes a:hover{background:var(--ouro);color:#090A0C;border-color:#090A0C;transform:translateY(-2px)}
     .redes svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
     @keyframes entrada{from{opacity:.7;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     @media(max-width:480px){.retrato{width:144px;height:144px}}
     @media(max-width:360px){.pagina{width:calc(100% - 28px)}.opcao{font-size:14px}}
-    @media(prefers-reduced-motion:reduce){.perfil,.atalhos,.redes{animation:none}.luz{transition:none}.sinal,.opcao,.redes a,body{transition:none}.opcao:hover,.redes a:hover{transform:none}}
+    @media(prefers-reduced-motion:reduce){.perfil,.atalhos,.redes{animation:none}.sinal,.opcao,.redes a,body{transition:none}.opcao:hover,.redes a:hover{transform:none}}
   </style>
 </head>
 <body>
-  <div class="luz" aria-hidden="true"></div>
   <main class="pagina">
     <header class="perfil">
       <img class="retrato" src="assets/rafael-2026.webp" width="168" height="168" alt="Rafael Valente" fetchpriority="high">
@@ -61,7 +59,7 @@
     </header>
     <div class="atalhos">
       <details id="servicos">
-        <summary><span>Serviços</span><span class="sinal" aria-hidden="true">+</span></summary>
+        <summary><span>Conheça nossos serviços</span><span class="sinal" aria-hidden="true">+</span></summary>
         <nav class="opcoes" aria-label="Serviços">
           <a class="opcao" data-oferta="marketing-prospeccao" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20Marketing%20e%20Prospec%C3%A7%C3%A3o.">Marketing e Prospecção <span class="seta" aria-hidden="true">↗</span></a>
           <a class="opcao" data-oferta="sistema-sob-medida" href="https://wa.advanx.com.br/r?src=rafael&amp;text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20um%20sistema%20feito%20sob%20medida.">Seu sistema feito sob medida <span class="seta" aria-hidden="true">↗</span></a>
@@ -86,27 +84,6 @@
       <a href="https://www.linkedin.com/in/rafaelbatistaz" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.1M12 17v-7h3a2 2 0 0 1 2 2v5"/></svg></a>
     </nav>
   </main>
-  <script>
-    (() => {
-      const luz = document.querySelector('.luz');
-      const movimento = matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
-      let quadro = 0;
-      document.addEventListener('pointermove', evento => {
-        if (!movimento.matches || document.hidden || evento.pointerType !== 'mouse') return;
-        const x = evento.clientX;
-        const y = evento.clientY;
-        if (quadro) cancelAnimationFrame(quadro);
-        quadro = requestAnimationFrame(() => {
-          luz.style.left = `${x}px`;
-          luz.style.top = `${y}px`;
-          quadro = 0;
-        });
-      }, { passive: true });
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden && quadro) { cancelAnimationFrame(quadro); quadro = 0; }
-      });
-    })();
-  </script>
   <script>
     (() => {
       const chaves = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','src','fbclid','gclid'];
