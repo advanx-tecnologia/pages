@@ -40,13 +40,11 @@ let token = sessionStorage.getItem('ia-session');
 let state = {answers: {}};
 let busy = false;
 
+// GA4, Meta and Plausible read these dataLayer events through GTM tags (no direct gtag/fbq here, or they count twice).
+// generate_lead and schedule carry the event_id that the server also sends to the Conversions API.
 function track(event, extra = {}) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({event, form_name: 'implementacao_ia', ...extra});
-  // GA4: the gtag loaded by GTM only reads gtag() commands, not plain dataLayer objects.
-  // Meta and Plausible already read the dataLayer event above (GTM), so they are not called here.
-  // form_start is skipped: GA4 enhanced measurement already sends it on its own.
-  if (event !== 'form_start' && typeof window.gtag === 'function') window.gtag('event', event, {form_name: 'implementacao_ia', ...extra});
 }
 function once(name, fn) {
   const key = 'ia-ev-' + name;
@@ -100,6 +98,14 @@ function friendly(key, value, serverMsg) {
 }
 
 class SendError extends Error {}
+// Meta cookies (sent as they are) and the page URL, for the server copy of Lead and Schedule.
+function metaContext() {
+  const c = Object.fromEntries(document.cookie.split('; ').map(x => x.split('=')).filter(([k]) => k === '_fbp' || k === '_fbc'));
+  const fbclid = new URLSearchParams(location.search).get('fbclid');
+  const fbc = c._fbc || (fbclid ? 'fb.1.' + Date.now() + '.' + fbclid.slice(0, 400) : undefined);
+  return {fbp: c._fbp, fbc, url: location.origin + location.pathname + location.search};
+}
+
 async function api(route, payload) {
   let r;
   try {
@@ -242,9 +248,9 @@ function ask(key) {
     chain = chain.then(async () => {
       if (gen !== generation) return;
       try {
-        const j = await api('answer', {key, value});
+        const j = await api('answer', {key, value, context: metaContext()});
         once('form_start', () => track('form_start'));
-        if (j.lead_event) once('generate_lead', () => track('generate_lead', {event_id: j.event_id}));
+        if (j.lead_event) once('generate_lead', () => track('generate_lead', {event_id: j.event_ids?.lead}));
         confirmed = j;
         state = {...state, event_id: j.event_id, persisted: j.persisted};
       } catch (e) {
@@ -361,8 +367,8 @@ async function calendar() {
           confirm.disabled = true;
           status.replaceChildren(el('span', 'Marcando…'));
           try {
-            const r = await api('book', {start: chosen});
-            once('schedule', () => track('schedule', {event_id: state.event_id}));
+            const r = await api('book', {start: chosen, context: metaContext()});
+            once('schedule', () => track('schedule', {event_id: r.schedule_event_id}));
             status.replaceChildren();
             booked(r.start);
           } catch (e) {
