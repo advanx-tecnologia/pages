@@ -96,3 +96,9 @@
 #h-times:focus{outline:none}
 #h-times:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
 .times__acao{margin-top:var(--s6)}
+
+/* Ono 18/11: dados da empresa no rodapé (mesmo texto do rodapé de advanx-ia-advogados-14-dias) */
+.rodape__dados{margin-top:var(--s5);display:grid;gap:var(--s2);font-size:var(--t-small);line-height:1.55;color:var(--fg-2);max-width:var(--read)}
+.rodape__dados p,.rodape__dados address{margin:0;font-style:normal;overflow-wrap:anywhere}
+.rodape__dados a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.rodape__dados a:hover{color:var(--fg)}

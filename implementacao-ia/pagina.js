@@ -6,3 +6,5 @@ for(const a of document.querySelectorAll('a[href^="https://form.advanx.com.br/im
 // Top button scrolls to the teams section (no form visit counted); focus moves to its heading for screen readers.
 const cta=document.getElementById('cta'),times=document.getElementById('times'),title=document.getElementById('h-times');
 if(cta&&times&&title){title.tabIndex=-1;cta.addEventListener('click',e=>{e.preventDefault();const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;times.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});title.focus({preventScroll:true});history.replaceState(null,'','#times');});}
+
+for(const y of document.querySelectorAll('.rodape .ano'))y.textContent=String(new Date().getFullYear());
