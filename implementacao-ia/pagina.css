@@ -90,3 +90,9 @@
 .foto picture{display:block;height:100%}
 /* Ono: barra do celular fixa (não ocupa espaço no fim da página quando escondida) */
 @media (max-width:720px){.barra-acao{position:fixed;left:0;right:0}}
+
+/* Ono 18/11: botão do topo desce até os times; botão para o formulário depois da lista */
+#times{scroll-margin-top:var(--s4)}
+#h-times:focus{outline:none}
+#h-times:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+.times__acao{margin-top:var(--s6)}
