@@ -43,6 +43,10 @@ let busy = false;
 function track(event, extra = {}) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({event, form_name: 'implementacao_ia', ...extra});
+  // GA4: the gtag loaded by GTM only reads gtag() commands, not plain dataLayer objects.
+  // Meta and Plausible already read the dataLayer event above (GTM), so they are not called here.
+  // form_start is skipped: GA4 enhanced measurement already sends it on its own.
+  if (event !== 'form_start' && typeof window.gtag === 'function') window.gtag('event', event, {form_name: 'implementacao_ia', ...extra});
 }
 function once(name, fn) {
   const key = 'ia-ev-' + name;
