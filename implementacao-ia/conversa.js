@@ -40,11 +40,14 @@ let token = sessionStorage.getItem('ia-session');
 let state = {answers: {}};
 let busy = false;
 
-// GA4, Meta and Plausible read these dataLayer events through GTM tags (no direct gtag/fbq here, or they count twice).
-// generate_lead and schedule carry the event_id that the server also sends to the Conversions API.
+// Meta and Plausible read these dataLayer events through GTM tags; generate_lead and schedule carry the
+// event_id that the server also sends to the Conversions API.
 function track(event, extra = {}) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({event, form_name: 'implementacao_ia', ...extra});
+  // GA4: the gtag loaded by GTM only reads gtag() commands, not plain dataLayer objects (no GA4 event tags in GTM).
+  // form_start is skipped: GA4 enhanced measurement already sends it on its own.
+  if (event !== 'form_start' && typeof window.gtag === 'function') window.gtag('event', event, {form_name: 'implementacao_ia', ...extra});
 }
 function once(name, fn) {
   const key = 'ia-ev-' + name;
