@@ -1,7 +1,7 @@
 // Conversation integrated in the page (#conversa card in #diagnostico, visual v3). Same logic as the form route:
 // one question at a time. The server validates and
 // saves every answer; the browser holds no credentials and pushes only events without personal data to GTM.
-import {questions, opening, next, path, validate} from './flow.js';
+import {questions, opening, next, path, validate, firstName} from './flow.js';
 
 const API = document.querySelector('meta[name="ia-api"]')?.content || '/api/implementacao-ia/';
 const WHATSAPP = 'https://wa.advanx.com.br/r';
@@ -67,7 +67,23 @@ function icon(id) {
 }
 function bot(text) { const b = el('div', undefined, 'balao balao--bot'); for (const [i, part] of String(text).split('\n\n').entries()) { if (i) b.append(document.createElement('br'), document.createElement('br')); b.append(part); } return b; }
 const say = (q, a) => typeof q.text === 'function' ? q.text(a) : q.text;
-const first = name => String(name || '').trim().split(/\s+/)[0];
+const first = firstName;
+// (DD) 9XXXX-XXXX while typing; at most 11 digits; a pasted +55 is dropped.
+// DDD 55 exists, so the country code is only dropped when the person starts with "+" (or pastes 13 digits).
+function maskPhone(raw, intl = false) {
+  let d = String(raw).replace(/\D/g, '');
+  if (intl || String(raw).trim().startsWith('+')) { if (d.startsWith('55')) d = d.slice(2); else if (d === '5') d = ''; }
+  else if (d.length > 11 && d.startsWith('55')) d = d.slice(2);
+  d = d.slice(0, 11);
+  if (d.length <= 2) return d.length ? '(' + d : '';
+  if (d.length <= 7) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+}
+// Optimistic flow: the next question shows at once; answers are saved in order behind it.
+let confirmed = null;          // last state confirmed by the server
+let chain = Promise.resolve(); // pending saves, in order
+let generation = 0;            // bumps when a save fails, so the queued ones are dropped
+const drafts = {};             // value to refill when a save fails
 
 function friendly(key, value, serverMsg) {
   const blank = Array.isArray(value) ? !value.length : !String(value ?? '').trim();
@@ -195,9 +211,11 @@ function ask(key) {
     if (q.type !== 'textarea') field.type = q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'text';
     field.placeholder = q.placeholder;
     field.setAttribute('aria-labelledby', 'pergunta');
-    field.maxLength = key === 'pain' ? 2000 : 200;
+    field.maxLength = key === 'pain' ? 2000 : key === 'phone' ? 20 : 200;
+    if (drafts[key] !== undefined && !Array.isArray(drafts[key])) field.value = key === 'phone' ? maskPhone(drafts[key]) : drafts[key];
     if (q.autocomplete) field.autocomplete = q.autocomplete;
-    if (key === 'phone') field.inputMode = 'tel';
+    let intl = false;
+    if (key === 'phone') { field.inputMode = 'tel'; field.addEventListener('input', () => { const end = field.selectionStart === field.value.length; if (!field.value.replace(/\D/g, '')) intl = field.value.trim().startsWith('+'); else if (field.value.trim().startsWith('+')) intl = true; field.value = maskPhone(field.value, intl); if (end) field.setSelectionRange(field.value.length, field.value.length); }); }
     if (key === 'email') field.inputMode = 'email';
     if (key === 'personal' || key === 'business') { field.autocapitalize = 'none'; field.spellcheck = false; }
     field.oninput = () => { field.removeAttribute('aria-invalid'); };
@@ -206,29 +224,37 @@ function ask(key) {
     box.append(button);
   }
 
-  async function submit() {
+  function submit() {
     if (busy) return;
     const raw = q.options ? (q.multi ? selected : selected[0]) : field.value;
     let value;
     try { value = validate(key, raw); } catch (e) { showError(friendly(key, raw, e.message), field); return; }
-    busy = true;
-    button.disabled = true;
-    status.replaceChildren(el('span', 'Salvando…'));
-    try {
-      interacted = true;
-      const j = await api('answer', {key, value});
-      once('form_start', () => track('form_start'));
-      if (j.lead_event) once('generate_lead', () => track('generate_lead', {event_id: j.event_id}));
-      state = j;
-      render();
-    } catch (e) {
-      showError(e instanceof SendError ? MSG.send : (e.message || MSG.send));
-      if (!token) { const again = el('button', 'Começar de novo', 'btn btn--primary btn--block'); again.type = 'button'; again.onclick = () => location.reload(); box.append(again); }
-      if (!q.multi && q.options) group_reset();
-    } finally {
-      busy = false;
-      button.disabled = false;
-    }
+    interacted = true;
+    delete drafts[key];
+    const gen = generation;
+    const answers = {...state.answers, [key]: value};
+    state = {...state, answers, next: next(answers)};
+    // Queue the save before drawing the next step: the agenda waits for this chain.
+    chain = chain.then(async () => {
+      if (gen !== generation) return;
+      try {
+        const j = await api('answer', {key, value});
+        once('form_start', () => track('form_start'));
+        if (j.lead_event) once('generate_lead', () => track('generate_lead', {event_id: j.event_id}));
+        confirmed = j;
+        state = {...state, event_id: j.event_id, persisted: j.persisted};
+      } catch (e) {
+        if (gen !== generation) return;
+        generation++;
+        drafts[key] = value;
+        state = confirmed || {answers: {}};
+        render();
+        showError(e instanceof SendError ? MSG.send : (e.message || MSG.send));
+        if (!token) { const again = el('button', 'Começar de novo', 'btn btn--primary btn--block'); again.type = 'button'; again.onclick = () => location.reload(); box.append(again); }
+        throw e;
+      }
+    }).catch(() => {});
+    render();
   }
   function group_reset() { box.querySelectorAll('input[type=radio]').forEach(i => { i.checked = false; }); selected = []; }
 
@@ -277,6 +303,10 @@ async function calendar() {
   box.append(cal);
   reveal(intro);
   let j;
+  const gen = generation;
+  status.replaceChildren();
+  await chain;
+  if (gen !== generation || !cal.isConnected) return;
   try { j = await api('slots'); } catch {
     cal.remove();
     showError(MSG.agenda, null, box);
@@ -362,6 +392,7 @@ async function boot() {
     const j = token ? await api('session', {}) : await api('session', {attribution});
     if (j.token) { token = j.token; sessionStorage.setItem('ia-session', token); }
     state = j;
+    confirmed = j;
     render();
   } catch (e) {
     if (had && !token) return boot(); // expired or invalid session: start a fresh one
