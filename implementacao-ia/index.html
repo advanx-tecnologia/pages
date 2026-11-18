@@ -14,7 +14,9 @@
 <link rel="stylesheet" href="componentes.css">
 <link rel="stylesheet" href="pagina.css">
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KXPZNRHK');</script>
+<meta name="ia-api" content="https://cs.advanx.com.br/api/implementacao-ia/">
 <script src="pagina.js" defer></script>
+<script src="conversa.js" type="module"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://advanx.com.br/#organization","name":"Advanx","url":"https://advanx.com.br/"},{"@type":"Service","@id":"https://advanx.com.br/implementacao-ia/#service","name":"Implementação de IA","serviceType":"Implementação de times de agentes de IA","provider":{"@id":"https://advanx.com.br/#organization"},"url":"https://advanx.com.br/implementacao-ia/"},{"@type":"WebPage","@id":"https://advanx.com.br/implementacao-ia/#webpage","url":"https://advanx.com.br/implementacao-ia/","name":"Implementação de IA | Advanx","description":"Você escolhe a parte que mais pesa no seu dia a dia, e a gente monta com você um time de agentes de IA.","about":{"@id":"https://advanx.com.br/implementacao-ia/#service"},"inLanguage":"pt-BR","breadcrumb":{"@id":"https://advanx.com.br/implementacao-ia/#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://advanx.com.br/implementacao-ia/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Início","item":"https://advanx.com.br/"},{"@type":"ListItem","position":2,"name":"Implementação de IA","item":"https://advanx.com.br/implementacao-ia/"}]}]}</script>
 </head>
 <body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXPZNRHK" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
@@ -23,6 +25,7 @@
   <symbol id="i-menos" viewBox="0 0 24 24"><path d="M5 12h14" stroke-linecap="square"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5l5 5 10-11" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="square"/></symbol>
+  <symbol id="i-alerta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.75"/><path d="M12 7.5v5.5M12 16.2v.3" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"/></symbol>
   <symbol id="i-seta" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
 </svg>
 
@@ -38,7 +41,7 @@
   <div class="wrap">
     <h1 class="display" id="h1">Você quer usar IA, mas não sabe <span class="mark mark--junto">por onde começar?</span></h1>
     <p class="lead">Você escolhe a parte que mais pesa no seu dia a dia, e a gente monta com você um time de agentes de IA que faz esse trabalho sozinho, todo dia. Mais lucro, menos custo e o seu tempo de volta. Você começa por um time e soma outros quando quiser. Em 4 encontros, pronto em 30 dias, ou o seu dinheiro de volta.</p>
-    <div class="hero__acoes"><a class="btn btn--primary" id="cta" href="#times">Quero meu diagnóstico gratuito <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-seta"/></svg></a></div>
+    <div class="hero__acoes"><a class="btn btn--primary" id="cta" href="#times">Quero meu diagnóstico gratuito <svg class="baixo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-seta"/></svg></a></div>
   </div>
 </section>
 
@@ -172,7 +175,7 @@
       </ul>
 
       <div class="nota-fim" style="margin-top:var(--s8);padding-top:var(--s4);border-top:1px dashed var(--ctl);max-width:var(--read)"><p class="small" style="margin:0">Você não precisa de todos os times. Começa por um, o time ou a solução avulsa que mais pesa hoje, e soma outros quando fizer sentido. O diagnóstico mostra por qual começar.</p></div>
-      <div class="times__acao"><a class="btn btn--primary" href="https://form.advanx.com.br/implementacao-ia/">Quero meu diagnóstico gratuito <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-seta"/></svg></a></div>
+      <div class="times__acao"><a class="btn btn--primary" href="#conversa">Quero meu diagnóstico gratuito <svg class="baixo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-seta"/></svg></a></div>
   </div>
 </div></section>
 
@@ -240,16 +243,19 @@
 </div></section>
 
 <!-- 11. Fecho -->
-<section class="secao fecho noite" id="diagnostico" aria-labelledby="h-fecho"><div class="wrap">
-  <h2 class="h2" id="h-fecho">Comece pelo diagnóstico</h2>
-  <p class="lead">Em uma conversa, você descobre qual time faz mais diferença para você agora. Começa por ele e soma outros quando quiser.</p>
-  <div class="cta"><a class="btn btn--primary" href="https://form.advanx.com.br/implementacao-ia/">Quero meu diagnóstico gratuito <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-seta"/></svg></a><small>Gratuito. Por vídeo. Você sai sabendo por onde começar.</small></div>
+<section class="secao fecho noite" id="diagnostico" aria-labelledby="h-fecho"><div class="wrap fecho__grade">
+  <div class="fecho__texto">
+    <h2 class="h2" id="h-fecho">Comece pelo diagnóstico</h2>
+    <p class="lead">Em uma conversa, você descobre qual time faz mais diferença para você agora. Começa por ele e soma outros quando quiser.</p>
+    <div class="cta"><a class="btn btn--primary" href="#conversa" data-abrir-conversa>Quero meu diagnóstico gratuito <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-seta"/></svg></a><small>Gratuito. Por vídeo. Você sai sabendo por onde começar.</small></div>
+  </div>
+  <div class="conv" id="conversa" role="region" aria-label="Conversa do diagnóstico gratuito"><div class="conversa" id="conversa-fio"><div id="history" class="historico" aria-live="polite"></div><form id="conversation" class="entrada" novalidate></form><div id="status" class="status" role="status"></div></div></div>
 </div></section>
 </main>
 
 <footer class="rodape"><div class="wrap"><a class="logo" href="/" aria-label="Advanx IA"><i aria-hidden="true"></i><span>Advanx IA</span></a><div class="rodape__dados"><p>Advanx IA · CNPJ 46.150.151/0001-27</p><address>Alameda Salvador, 1057, salas 911 e 912, Caminho das Árvores, Salvador/BA · CEP 41820-790</address><p><a href="mailto:contato@advanx.com.br">contato@advanx.com.br</a> · <a href="https://wa.advanx.com.br/r" target="_blank" rel="noopener noreferrer">WhatsApp +55 71 98189-7865</a></p><p>© <span class="ano">2026</span> Advanx IA.</p></div></div></footer>
 
-<div class="barra-acao oculta" id="barra" role="complementary" aria-label="Atalho para o diagnóstico"><a class="btn btn--primary btn--block" href="https://form.advanx.com.br/implementacao-ia/">Quero meu diagnóstico gratuito</a></div>
+<div class="barra-acao oculta" id="barra" role="complementary" aria-label="Atalho para o diagnóstico"><a class="btn btn--primary btn--block" href="#conversa">Quero meu diagnóstico gratuito</a></div>
 <script>
   /* barra fixa do celular: aparece depois que o botão do topo sai da tela e some quando o fecho está visível */
   (function(){var b=document.getElementById("barra"),t=document.getElementById("cta"),f=document.getElementById("diagnostico");
