@@ -1,0 +1,92 @@
+/* Página "Implementação de IA" | pele DS v2 "Papel e tinta" | protótipo visual (Nala, 18/11/2026)
+   Usa tokens.css + componentes.css do DS v2. Aqui só o que é específico da página. Não é o código final: o Ono recodifica. */
+
+/* topo */
+.hero{position:relative;overflow:hidden;padding:clamp(48px,8vw,104px) 0 clamp(56px,8vw,112px)}
+.hero .wrap{display:grid;gap:var(--s8);position:relative}
+.hero .display{max-width:15ch}
+.hero__acoes{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:center;margin-top:var(--s2)}
+.marca-agua{display:none}
+@media (min-width:900px){.hero .wrap{background:linear-gradient(var(--line),var(--line)) 0 0/1px 100% no-repeat,linear-gradient(var(--line),var(--line)) 100% 0/1px 100% no-repeat;padding-top:var(--s8);padding-bottom:var(--s8)}.hero .display{max-width:13ch}}
+@media (min-width:1240px){.marca-agua{display:block;width:640px;right:-70px;top:24px}}
+
+/* faixa clara alternada e faixas noite */
+.alt{background:var(--bg-2)}
+.noite .h2,.noite .h3{color:var(--fg)}
+
+/* 2. Você conhece esse dia */
+.dia .wrap{max-width:calc(820px + var(--gutter)*2)}
+.dia .h2{margin-bottom:var(--s8)}
+.dia p{font-size:clamp(20px,2.2vw,26px);line-height:1.5;margin:0 0 var(--s6);color:var(--fg)}
+.dia p:nth-of-type(2){color:var(--fg-2)}
+.dia p:last-child{margin-bottom:0}
+
+/* 3. Marque */
+.marque .opcoes{gap:0;border-top:1px solid var(--fg)}
+.marque .opcao{border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:18px 4px;box-shadow:none!important}
+.marque .opcao:hover{background:var(--bg-2)}
+.marque .opcao span:last-child{font-size:18px;line-height:1.4}
+.marque .fecho{margin-top:var(--s8);display:grid;gap:var(--s4)}
+.marque .virada{margin:0;padding:var(--s6);border:1px solid var(--fg);border-radius:var(--r-card);background:var(--surface);max-width:var(--read)}
+.marque .virada b{font-weight:600}
+
+/* 4. Curso + agente */
+.curso .secao__grade{align-items:start}
+.curso .lead{margin-bottom:var(--s3)}
+.agente{margin-top:var(--s8);padding-top:var(--s6);border-top:1px solid var(--fg)}
+.agente .h3{margin-bottom:var(--s3)}
+.foto{margin:0;border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;background:var(--surface);aspect-ratio:4/5}
+.foto img{width:100%;height:100%;object-fit:cover}
+@media (min-width:900px){.curso .secao__grade{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}}
+
+/* 6. Isso é para você */
+.para .cols{display:grid;gap:var(--s10);grid-template-columns:1fr;margin-top:var(--s10)}
+@media (min-width:800px){.para .cols{grid-template-columns:1fr 1fr;gap:var(--s16)}}
+.para h3{margin-bottom:var(--s4);padding-bottom:var(--s3);border-bottom:1px solid var(--fg)}
+.para ul{list-style:none;margin:0;padding:0}
+.para li{display:grid;grid-template-columns:24px 1fr;gap:var(--s3);padding:var(--s3) 0;border-bottom:1px dashed var(--line)}
+.para li svg{width:20px;height:20px;margin-top:3px;fill:none;stroke-width:1.75;stroke:var(--link)}
+.para .nao li{color:var(--fg-2)}
+.para .nao li svg{stroke:var(--fg-2)}
+
+/* 7. Como funciona */
+.como .rota{margin-top:var(--s10);border-top:1px solid var(--fg)}
+.passo{display:grid;grid-template-columns:56px 1fr;gap:var(--s4);padding:var(--s6) 0;border-bottom:1px solid var(--line)}
+.passo .n{font:400 clamp(44px,6vw,72px)/0.9 var(--f-display);color:var(--fg);letter-spacing:-.02em}
+.passo .h3{margin-bottom:var(--s2)}
+.passo p{margin:0;color:var(--fg-2);max-width:var(--read)}
+.depois{margin:var(--s6) 0 0;font-weight:600}
+@media (min-width:900px){.passo{grid-template-columns:110px minmax(0,5fr) minmax(0,6fr);align-items:start}.passo .h3{margin:6px 0 0}.passo p{padding-top:10px}}
+
+/* 8. Garantia */
+.garantia{text-align:left}
+.garantia .big{font:400 clamp(34px,5.6vw,64px)/1.06 var(--f-display);letter-spacing:-.012em;margin:var(--s6) 0 0;max-width:20ch;text-wrap:balance}
+
+/* 9. Advanx funciona assim */
+.adx .prose{margin-bottom:var(--s4)}
+
+/* 10. FAQ */
+.faq details{border-bottom:1px solid var(--line)}
+.faq .perguntas{border-top:1px solid var(--fg);margin-top:var(--s10)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:var(--s4);min-height:var(--hit);padding:var(--s5) 0;font-size:19px;font-weight:600;line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .time__mais{margin:0}
+.faq details[open] .time__mais .mais{display:none}.faq details[open] .time__mais .menos{display:block}
+.faq details p{margin:0 0 var(--s6);color:var(--fg-2);max-width:var(--read)}
+.faq summary:hover .time__mais{background:var(--bg-2)}
+
+/* 11. Fecho */
+.fecho .cta{display:grid;gap:var(--s4);justify-items:start;margin-top:var(--s8)}
+.fecho .lead{margin-top:var(--s6)}
+.fecho small{font-size:15px;color:var(--fg-2)}
+.rodape{border-top:1px solid var(--line);padding:var(--s8) 0 calc(var(--s8) + 72px)}
+@media (min-width:721px){.rodape{padding-bottom:var(--s8)}}
+.dia-faixa{display:none}
+/* garantia: o marca-texto cheio fica em um bloco só no desktop; no celular quebra normalmente */
+@media (min-width:900px){.mark--desk{white-space:nowrap}.garantia .big{max-width:24ch}}
+@media (max-width:899px){.passo p{grid-column:2}}
+.faq summary .time__mais{flex:none;width:var(--hit)}
+
+.foto picture{display:block;height:100%}
+/* Ono: barra do celular fixa (não ocupa espaço no fim da página quando escondida) */
+@media (max-width:720px){.barra-acao{position:fixed;left:0;right:0}}
