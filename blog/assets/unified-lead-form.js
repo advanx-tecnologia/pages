@@ -3,15 +3,16 @@
 (function () {
   'use strict';
 
-  var SUPABASE_URL = 'https://lhbwfbquxkutcyqazpnw.supabase.co';
-  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYndmYnF1eGt1dGN5cWF6cG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1Mjc5MTksImV4cCI6MjA2NjEwMzkxOX0.Tk6O2kpzTWcce9laIancu-lMFATLYkaTvgLBiRMsa10';
-  var LEAD_ENDPOINT = SUPABASE_URL + '/rest/v1/dados_cliente';
-  var NOTIFICATION_ENDPOINT = 'https://n8n.advfunnel.com.br/webhook/lead-funil-41d-comercial-efc4f106bbae40dcb0f4a2fc7bebe72c';
-  var CRM_ENDPOINT = 'https://crm.advanx.com.br/api/v1/webhooks/in/F40oWYZi8ZbIU6fns-xwDmtHF6o5rLCY';
+  var RECEIVER_ENDPOINT = 'https://form.advanx.com.br/api/blog-leads'; // Worker na Cloudflare (o apex é GitHub Pages), recibo persistente no servidor
 
-  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'];
+  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'];
   var UTM_STORAGE_KEY = 'advanx_blog_attribution_v1';
   var ACCESS_STORAGE_KEY = 'advanx_blog_article_session_access_v2';
+  var PENDING_STORAGE_KEY = 'advanx_blog_pending_leads_v1';
+  // Textos e lista aprovados (form-textos.md, Sarabi, 20/11).
+  var AREAS_NEGOCIO = ['Saúde e estética', 'Advocacia', 'Contabilidade e consultoria', 'Loja física ou online', 'Restaurante e alimentação', 'Educação e cursos', 'Imóveis', 'Agência e tecnologia', 'Outro'];
+  var WHATSAPP_OFICIAL = '5571981897865'; // API oficial (pedido do Rafael, 20/11)
+  var OPT_IN_TEXTO ='Quer receber um diagnóstico de onde aplicar IA no seu negócio, com garantia?';
   var gateActive = false;
   var previousFocus = null;
   var previousOverflow = '';
@@ -32,18 +33,39 @@
     } catch (_) { /* The successful submission still releases this page when storage is unavailable. */ }
   }
 
+  // Página de entrega (tutorial de material prometido em post): <meta name="advanx:entrega" content="URL do material">.
+  function entregaMaterial() {
+    var meta = document.querySelector('meta[name="advanx:entrega"]');
+    return meta ? cleanText(meta.getAttribute('content'), 300) : '';
+  }
+
   function configureForm() {
     var overlay = document.getElementById('auf-overlay');
-    overlay.querySelector('h2').textContent = gateActive ? 'Conteúdo gratuito' : 'Fale com um Especialista Advanx';
-    overlay.querySelector('.auf-sub').textContent = gateActive ? 'Preencha para continuar pelo WhatsApp.' : 'Preencha para conversar com nossa equipe.';
-    overlay.querySelector('.auf-note').textContent = gateActive ? 'Após preencher, você será direcionado ao WhatsApp. Sem spam. Sem custos.' : '';
+    var entrega = gateActive && !!entregaMaterial();
+    overlay.querySelector('h2').textContent = entrega ? 'Falta um passo para ver o tutorial' : gateActive ? 'Conteúdo gratuito' : 'Fale com um Especialista Advanx';
+    overlay.querySelector('.auf-sub').textContent = entrega ? 'Com o seu contato, o passo a passo abre aqui mesmo, nesta página.' : gateActive ? 'Preencha para continuar pelo WhatsApp.' : 'Preencha para conversar com nossa equipe.';
+    overlay.querySelector('.auf-note').textContent = entrega ? '' : gateActive ? 'Após preencher, você será direcionado ao WhatsApp. Sem spam. Sem custos.' : '';
+    var select = overlay.querySelector('#auf-specialty');
+    if (entrega && select.getAttribute('data-kind') !== 'area') {
+      select.setAttribute('data-kind', 'area');
+      select.setAttribute('aria-label', 'Área do seu negócio obrigatória');
+      select.innerHTML = '<option value="">Qual é a área do seu negócio?</option>' + AREAS_NEGOCIO.map(function (a) { return '<option>' + a + '</option>'; }).join('');
+      overlay.querySelector('#auf-other').placeholder = 'Ex.: oficina, pet shop, academia';
+      overlay.querySelector('#auf-other').setAttribute('aria-label', 'Qual área? Obrigatório');
+    }
+    // Opt-in só na entrega: desmarcado por padrão, não obrigatório (LGPD: consentimento livre).
+    overlay.querySelector('.auf-optin').hidden = !entrega;
     overlay.classList.toggle('article-gate', gateActive);
     overlay.querySelector('.auf-close').hidden = gateActive;
     overlay.querySelector('.auf-specialty').hidden = !gateActive;
     overlay.querySelector('#auf-specialty').required = gateActive;
     overlay.querySelector('#auf-other').required = gateActive && overlay.querySelector('#auf-specialty').value === 'Outro';
     overlay.querySelector('.auf-other').hidden = !overlay.querySelector('#auf-other').required;
-    overlay.querySelector('#auf-submit').textContent = gateActive ? 'Continuar no WhatsApp' : 'Quero conhecer as soluções →';
+    overlay.querySelector('#auf-submit').textContent = submitLabel();
+  }
+
+  function submitLabel() {
+    return gateActive ? (entregaMaterial() ? 'Quero ver o tutorial' : 'Continuar no WhatsApp') : 'Quero conhecer as soluções →';
   }
 
   function installArticleGate() {
@@ -79,11 +101,14 @@
       (navigator.maxTouchPoints > 0 && matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) <= 1280);
   }
 
-  function commercialUrl(leadName) {
-    var url = new URL('https://wa.advanx.com.br/r');
-    url.searchParams.set('text', 'Olá, ' + (leadName ? 'sou ' + leadName + ' e ' : '') + 'vim do blog ' + currentArticle().title + '. Preciso automatizar ou de atendimento.');
-    var utm = attribution();
-    UTM_KEYS.forEach(function (key) { if (utm[key]) url.searchParams.set(key, utm[key]); });
+  // Depois do formulário (fora da página de entrega): WhatsApp da API oficial, com as respostas na mensagem.
+  // O botão flutuante sem formulário (leadName vazio) usa o mesmo número.
+  function commercialUrl(leadName, answer) {
+    var url = new URL('https://wa.me/' + WHATSAPP_OFICIAL);
+    var lines = ['Olá! ' + (leadName ? 'Sou ' + leadName + '. ' : '') + 'Vim pelo artigo "' + currentArticle().title + '" do blog da Advanx.'];
+    if (answer) lines.push('Especialidade: ' + answer);
+    lines.push('Quero conhecer as soluções.');
+    url.searchParams.set('text', lines.join('\n'));
     return url.href;
   }
 
@@ -125,7 +150,7 @@
       '.auf-close{position:absolute;right:8px;top:8px;min-width:44px;min-height:44px;border:0;background:none;font-size:23px;color:var(--muted);cursor:pointer}.auf-box h2{font-family:var(--font-display);font-size:1.3rem;margin:0 32px 7px 0;color:var(--text)}.auf-sub{margin:0 0 20px;color:var(--text-soft);font-size:1rem;line-height:1.55}' +
       '.auf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.auf-field:first-child{grid-column:1/-1}' +
       '.auf-field input,.auf-field select{width:100%;padding:11px 13px;border:1.5px solid var(--input-border);border-radius:var(--radius-md);font:inherit;font-size:16px;color:var(--text);background:var(--input-bg);box-sizing:border-box}.auf-field input:focus,.auf-field select:focus{border-color:var(--focus)}' +
-      '#auf-overlay [hidden]{display:none!important}.auf-specialty,.auf-other{grid-column:1/-1}.article-gate .auf-note{color:var(--focus)}.auf-field [aria-invalid="true"]{border-color:var(--danger)}' +
+      '#auf-overlay [hidden]{display:none!important}.auf-specialty,.auf-other,.auf-optin{grid-column:1/-1}.auf-optin{display:flex;gap:10px;align-items:flex-start;min-height:44px;color:var(--text-soft);font-size:.9rem;line-height:1.4;cursor:pointer}.auf-optin input{width:20px;height:20px;margin:1px 0 0;flex:none}.article-gate .auf-note{color:var(--focus)}.auf-field [aria-invalid="true"]{border-color:var(--danger)}' +
       '.auf-submit{width:100%;margin-top:14px;padding:14px;border:0;border-radius:var(--radius-md);background:var(--button-primary-bg);color:var(--button-primary-fg);font-weight:700;font-size:1rem;cursor:pointer}.auf-submit[disabled]{opacity:.65;cursor:wait}' +
       '.auf-note{text-align:left;color:var(--muted);font-size:.8rem;margin:0 0 20px;line-height:1.5}.auf-note:empty{display:none}.article-gate .auf-sub{margin-bottom:8px}.article-gate .auf-grid{grid-template-columns:1fr}.auf-error{display:none;margin-top:12px;padding:10px 12px;border:1px solid var(--danger);border-radius:var(--radius-sm);background:var(--surface-raised);color:var(--danger);font-size:.875rem}' +
       '.auf-inline{display:flex;justify-content:center;align-items:center;min-height:54px}.auf-open{border:0;border-radius:var(--radius-md);background:var(--button-primary-bg);color:var(--button-primary-fg);padding:13px 20px;font:600 16px var(--font-body);cursor:pointer}' +
@@ -149,6 +174,7 @@
       field('Nome completo', 'auf-name', 'text', true, 'Seu nome') +
       field('E-mail', 'auf-email', 'email', true, 'seu@email.com') +
       field('WhatsApp', 'auf-phone', 'tel', true, '(71) 99999-9999') +
+      '<label class="auf-optin" hidden><input id="auf-optin" type="checkbox"> <span>' + OPT_IN_TEXTO + '</span></label>' +
       '<div class="auf-field auf-specialty" hidden><select id="auf-specialty" aria-label="Especialidade obrigatória"><option value="">Selecione sua especialidade</option><option>Cível</option><option>Trabalhista</option><option>Previdenciário</option><option>Família e Sucessões</option><option>Empresarial</option><option>Penal</option><option>Tributário</option><option>Consumidor</option><option>Outro</option></select></div>' +
       '<div class="auf-field auf-other" hidden><input id="auf-other" type="text" maxlength="120" placeholder="Informe sua especialidade" aria-label="Qual especialidade? Obrigatório"></div>' +
       '</div><div id="auf-error" class="auf-error" role="alert" tabindex="-1"></div><button id="auf-submit" class="auf-submit" type="submit">Quero conhecer as soluções →</button>' +
@@ -156,13 +182,42 @@
     document.body.appendChild(overlay);
     overlay.querySelector('.auf-close').addEventListener('click', closeForm);
     overlay.addEventListener('click', function (event) { if (event.target === overlay) closeForm(); });
-    overlay.querySelector('#auf-phone').addEventListener('input', function () {
-      var v = this.value.replace(/\D/g, '').slice(0, 11);
+    overlay.querySelector('#auf-phone').addEventListener('input', function (event) {
+      var digits = this.value.replace(/\D/g, '');
+      // Digitando "+55..." tecla por tecla: fica sem máscara até ter DDI + DDD + 9 dígitos (13).
+      if (/^\s*\+/.test(this.value) && digits.length < 13) {
+        this.value = '+' + digits;
+        this.dataset.prev = '';
+        this.setCustomValidity(isMobile(normalizePhone(digits)) ? '' : 'Confira o celular com DDD. Ex.: (11) 91234-5678');
+        return;
+      }
+      // Autopreenchimento e sugestão do teclado ("+55 71 91234-5678", "071...") chegam por input: normaliza aqui.
+      // Digitar além de um número completo não troca o que já está certo.
+      // Digitação incremental de "0DD...": não normalizar com ≤2 dígitos (o 0 sumiria antes de o DDD aparecer).
+      var typing = event && event.inputType === 'insertText';
+      var v = typing && digits.length > 11 && this.dataset.prev
+        ? this.dataset.prev
+        : typing && digits.length <= 2 && digits.charAt(0) === '0'
+          ? digits
+          : normalizePhone(this.value);
+      this.dataset.prev = v;
       if (v.length > 7) v = '(' + v.slice(0, 2) + ') ' + v.slice(2, 7) + '-' + v.slice(7);
       else if (v.length > 2) v = '(' + v.slice(0, 2) + ') ' + v.slice(2);
       else if (v) v = '(' + v;
       this.value = v;
+      // Só celular: DDD + 9 + 8 dígitos.
+      this.setCustomValidity(v && !isMobile(this.value.replace(/\D/g, '')) ? 'Confira o celular com DDD. Ex.: (11) 91234-5678' : '');
     });
+    // Colar "+55 71 99999-9999" ou "071 99999-9999": troca o campo inteiro pelo número colado.
+    overlay.querySelector('#auf-phone').addEventListener('paste', function (event) {
+      var text = (event.clipboardData || window.clipboardData).getData('text') || '';
+      event.preventDefault();
+      this.value = normalizePhone(text);
+      this.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    // Folga para "+55 (71) 91234-5678" chegar inteiro; o handler de input limita a 11 dígitos.
+    overlay.querySelector('#auf-phone').setAttribute('maxlength', '24');
+    overlay.querySelector('#auf-phone').setAttribute('inputmode', 'numeric');
     overlay.querySelector('#auf-specialty').addEventListener('change', function () {
       var other = gateActive && this.value === 'Outro';
       overlay.querySelector('.auf-other').hidden = !other;
@@ -180,6 +235,8 @@
   function openForm(event) {
     if (event) { event.preventDefault(); event.stopImmediatePropagation(); }
     var overlay = document.getElementById('auf-overlay');
+    // Reaberto depois de liberar o tutorial (gateActive false): volta aos textos padrão, sem área nem opt-in.
+    configureForm();
     if (!overlay.classList.contains('open')) {
       previousFocus = document.activeElement;
       previousOverflow = document.body.style.overflow;
@@ -213,18 +270,116 @@
     });
   }
 
+  function isMobile(phone) {
+    return '11 12 13 14 15 16 17 18 19 21 22 24 27 28 31 32 33 34 35 37 38 41 42 43 44 45 46 47 48 49 51 53 54 55 61 62 63 64 65 66 67 68 69 71 73 74 75 77 79 81 82 83 84 85 86 87 88 89 91 92 93 94 95 96 97 98 99'.split(' ').indexOf(phone.slice(0, 2)) !== -1 && /^[1-9]{2}9\d{8}$/.test(phone) && !/^(\d)\1+$/.test(phone.slice(2));
+  }
+
+  // Só dígitos; tira +55 e o 0 de longa distância. Fica com no máximo 11 dígitos.
+  function normalizePhone(text) {
+    var d = String(text || '').replace(/\D/g, '');
+    if (d.length >= 12 && d.slice(0, 2) === '55') d = d.slice(2);
+    if (d.charAt(0) === '0') d = d.slice(1);
+    return d.slice(0, 11);
+  }
+
+  // Lead atual deste formulário: "tentar de novo" reusa o mesmo submission_id.
+  var currentJob = null;
+
+  // Campos que vão ao CRM (Deskcomm). A entrada "Blog" guarda chaves extras em custom_fields e utm_* em
+  // source_metadata, mesmo com field_map e form_fields vazios (teste de 20/11).
+  function crmFields(lead, article, utm, extra) {
+    var f = { nome: lead.nome, telefone: "55" + lead.telefone, email: lead.email, submission_id: lead.submission_id,
+      artigo_slug: article.slug, artigo_url: article.url, artigo_titulo: article.title };
+    UTM_KEYS.forEach(function (key) { if (utm[key]) f[key] = utm[key]; });
+    if (extra.especialidade) f.especialidade = extra.especialidade;
+    if (extra.entregavel) {
+      f.origem_lead = 'entrega';
+      f.entregavel = extra.entregavel;
+      f.area_negocio = extra.area_negocio || '';
+      f.opt_in_contato = extra.opt_in ? 'sim' : 'nao';
+      // O link da DM leva utm_medium=dm-openreply, utm_content=<palavra> e utm_term=<código do post>.
+      if (utm.utm_medium === 'dm-openreply') {
+        if (utm.utm_content) f.palavra_chave = utm.utm_content;
+        if (utm.utm_term) f.post_instagram = utm.utm_term;
+      }
+    }
+    return f;
+  }
+
+  // O servidor deduplica pelo mesmo submission_id. Aceite202 não significa entrega no CRM.
+  // POST repetido recupera o recibo; após receipt conhecido usamos apenas GET.
+  function savePending(job) {
+    var id = job.supabase.submission_id;
+    pending(function (list) { return list.map(function (j) { return j.supabase.submission_id === id ? job : j; }); });
+  }
+  function sendLead(job) {
+    var id = job.supabase.submission_id;
+    var receipt = job.receipt;
+    return fetch(RECEIVER_ENDPOINT + (receipt ? '/' + encodeURIComponent(id) : ''), {
+      method: receipt ? 'GET' : 'POST', keepalive: true,
+      headers: receipt ? undefined : { 'Content-Type': 'text/plain;charset=UTF-8' }, // envio simples, sem pré-checagem CORS
+      body: receipt ? undefined : JSON.stringify({ crm: job.crm, supabase: job.supabase })
+    }).then(function (r) {
+      // 409/422: o servidor nunca vai aceitar este pacote; não insistir a cada página.
+      if (r.status === 409 || r.status === 422) tirarDaFila(job);
+      if (!r.ok) throw new Error('receiver ' + r.status);
+      return r.json();
+    }).then(function (r) {
+      if (r.submission_id !== id || r.accepted !== true || typeof r.receipt !== 'string' ||
+          (receipt && receipt !== r.receipt)) throw new Error('recibo inválido');
+      job.receipt = r.receipt;
+      job.destinations = r.destinations;
+      savePending(job);
+      // Sai da fila só quando o servidor CONFIRMOU o CRM por leitura (ou desistiu e guardou para conciliação).
+      // Supabase/aviso são do servidor: o navegador nunca reenvia nada depois do recibo, só consulta (GET).
+      var crm = r.destinations && r.destinations.crm;
+      if (crm !== 'delivered' && crm !== 'failed') throw new Error('CRM ainda não confirmado');
+    });
+  }
+
+  function tirarDaFila(job) {
+    var id = job.supabase.submission_id;
+    pending(function (l) { return l.filter(function (j) { return j.supabase.submission_id !== id; }); });
+  }
+
+  // Lead que não confirmou fica guardado neste navegador e é reenviado na próxima página (mesmo submission_id).
+  function pending(update) {
+    var list = [];
+    try { list = JSON.parse(localStorage.getItem(PENDING_STORAGE_KEY) || '[]'); } catch (_) {}
+    list = update(list).slice(-5);
+    try { localStorage.setItem(PENDING_STORAGE_KEY, JSON.stringify(list)); } catch (_) {}
+  }
+
+  var PENDING_MAX_AGE = 7 * 24 * 3600 * 1000; // mesma janela de conferência do servidor
+  function retryPending() {
+    var list = [];
+    try { list = JSON.parse(localStorage.getItem(PENDING_STORAGE_KEY) || '[]'); } catch (_) {}
+    var now = Date.now();
+    list.forEach(function (job) {
+      if (job.created && now - job.created > PENDING_MAX_AGE) { tirarDaFila(job); return; }
+      sendLead(job).then(function () { tirarDaFila(job); }).catch(function () {});
+    });
+  }
+
+  // A MESMA regra do receptor (lead_receiver.EMAIL_RE): e-mail que passa aqui não leva 422 lá.
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   async function submitLead(event) {
     event.preventDefault();
     var name = cleanText(document.getElementById('auf-name').value, 120);
-    var phone = document.getElementById('auf-phone').value.replace(/\D/g, '').slice(0, 13);
+    var phone = normalizePhone(document.getElementById('auf-phone').value);
     var email = cleanText(document.getElementById('auf-email').value, 180).toLowerCase();
     var error = document.getElementById('auf-error');
     var button = document.getElementById('auf-submit');
     if (button.disabled) return;
+    var entregavel = gateActive ? entregaMaterial() : '';
     var specialty = gateActive ? cleanText(document.getElementById('auf-specialty').value, 120) : '';
     if (specialty === 'Outro') specialty = cleanText(document.getElementById('auf-other').value, 120);
-    if (name.length < 2 || !/^[1-9]{2}\d{8,9}$/.test(phone) || /^(\d)\1+$/.test(phone) || !/^\S+@\S+\.\S+$/.test(email) || (gateActive && !specialty)) {
-      error.textContent = gateActive ? 'Preencha nome, WhatsApp, e-mail e especialidade válidos.' : 'Preencha nome, WhatsApp e e-mail válidos.';
+    var campo = entregavel ? 'área do negócio' : 'especialidade';
+    if (name.length < 2 || !isMobile(phone) || !EMAIL_RE.test(email) || (gateActive && !specialty)) {
+      error.textContent = !isMobile(phone) && phone ? 'Confira o celular com DDD. Ex.: (11) 91234-5678'
+        : entregavel ? 'Falta algum dado. Confira nome, WhatsApp, e-mail e área do negócio.'
+        : gateActive ? 'Preencha nome, WhatsApp, e-mail e ' + campo + ' válidos.' : 'Preencha nome, WhatsApp e e-mail válidos.';
       error.style.display = 'block';
       return;
     }
@@ -235,62 +390,81 @@
 
     var article = currentArticle();
     var utm = attribution();
-    var submissionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + '-' + Math.random().toString(16).slice(2);
-    var payload = {
-      nome: name,
-      telefone: phone,
-      email: email,
-      kanban_stage: 'Novo Lead',
-      pipeline_type: 'inbound',
-      funil_lead: 'Blog Advanx - Formulário único',
-      empresa_fonte: 'Advanx',
-      origem: utm.utm_source || 'blog',
-      campanha: utm.utm_campaign || article.slug,
-      conjunto: utm.utm_medium || 'organico',
-      anuncio: utm.utm_content || article.title,
-      posicionamento: utm.utm_term || article.url,
-      utm_medium: utm.utm_medium || null,
-      submission_id: submissionId,
-      // Existing CRM schema has no especialidade column; retain the answer in its documented comment field.
-      comentario: 'Artigo de origem: ' + article.title + ' | URL: ' + article.url + (specialty ? ' | Especialidade: ' + specialty : '') + (utm.fbclid ? ' | fbclid: ' + utm.fbclid : '')
-    };
-
-    var controller = new AbortController();
-    var timeout = setTimeout(function () { controller.abort(); }, 20000);
+    var optIn = !!entregavel && document.getElementById('auf-optin').checked;
+    var extra = entregavel ? { entregavel: entregavel, area_negocio: specialty, opt_in: optIn } : { especialidade: specialty };
+    // Após reload/timeout, o mesmo formulário reaproveita a intenção pendente; nunca cria outro id às cegas.
+    var reusable = null;
     try {
-      var response = await fetch(LEAD_ENDPOINT, {
-        method: 'POST',
-        signal: controller.signal,
-        headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY, Prefer: 'return=minimal' },
-        body: JSON.stringify(payload)
-      });
-      if (!response.ok) throw new Error('Falha ao registrar o lead (' + response.status + ')');
+      var previousJobs = JSON.parse(localStorage.getItem(PENDING_STORAGE_KEY) || '[]');
+      reusable = previousJobs.find(function (j) {
+        var c = j.crm || {};
+        return c.nome === name && c.email === email && c.telefone === '55' + phone &&
+          c.artigo_url === article.url && (!gateActive || (c.area_negocio || c.especialidade || '') === specialty) &&
+          (c.entregavel || '') === entregavel && (!entregavel || c.opt_in_contato === (optIn ? 'sim' : 'nao'));
+      }) || null;
+    } catch (_) {}
+    var submissionId = reusable ? reusable.supabase.submission_id
+      : (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + '-' + Math.random().toString(16).slice(2);
+    var crm = crmFields({ nome: name, telefone: phone, email: email, submission_id: submissionId }, article, utm, extra);
+    var job = {
+      supabase: {
+        nome: name,
+        telefone: phone,
+        email: email,
+        kanban_stage: 'Novo Lead',
+        pipeline_type: 'inbound',
+        funil_lead: 'Blog Advanx - Formulário único', // mesma entrada para entrega (decisão do Rafael, 20/11)
+        empresa_fonte: 'Advanx',
+        origem: utm.utm_source || 'blog',
+        campanha: utm.utm_campaign || article.slug,
+        conjunto: utm.utm_medium || 'organico',
+        anuncio: utm.utm_content || article.title,
+        posicionamento: utm.utm_term || article.url,
+        utm_medium: utm.utm_medium || null,
+        submission_id: submissionId,
+        // Existing CRM schema has no especialidade column; retain the answer in its documented comment field.
+        comentario: 'Artigo de origem: ' + article.title + ' | URL: ' + article.url +
+          (entregavel ? ' | Entregável: ' + entregavel + (specialty ? ' | Área do negócio: ' + specialty : '') + ' | Opt-in contato IA: ' + (optIn ? 'sim' : 'não') :(specialty ? ' | Especialidade: ' + specialty : '')) +
+          (utm.fbclid ? ' | fbclid: ' + utm.fbclid : '') + (utm.gclid ? ' | gclid: ' + utm.gclid : '')
+      },
+      crm: crm,
+      created: Date.now()
+    }; // o aviso interno é montado no servidor
 
-      try {
-        if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: article.title, content_category: 'Blog Advanx' });
-        if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { event_category: 'blog_unified_form', article_slug: article.slug });
-      } catch (_) { /* Analytics failure must not invalidate the saved submission. */ }
+    if (reusable) {
+      job = reusable;
+      specialty = job.crm.area_negocio || job.crm.especialidade || specialty;
+    }
+    currentJob = job;
+    // Guarda antes de enviar: se a página fechar ou o envio falhar, o lead sai na próxima visita.
+    pending(function (l) { return l.filter(function (j) { return j.supabase.submission_id !== submissionId; }).concat([job]); });
+    var sent = sendLead(job).then(function () {
+      tirarDaFila(job);
+      if (currentJob === job) currentJob = null;
+      return true;
+    }, function () { return false; });
+    // Avança imediatamente; confirmação e reenvio seguem por trás.
+    // Mesmo com falha, segue para o WhatsApp; destinos pendentes ficam na fila.
+    // Mantém a identidade da tentativa até o recibo confirmar entrega.
 
-      var notification = 'Novo lead do Blog Advanx\n\nNome: ' + name + '\nWhatsApp: ' + phone + '\nE-mail: ' + email + '\nArtigo: ' + article.title + '\nURL: ' + article.url;
-      fetch(NOTIFICATION_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mensagem_formatada: notification }) }).catch(function () {});
-      // CRM sem CORS: POST de formulário simples (no-cors); keepalive porque o redirect ao WhatsApp vem logo em seguida.
-      fetch(CRM_ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, body: new URLSearchParams({ nome: name, telefone: phone, email: email }) }).catch(function () {});
+    try {
+      if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: article.title, content_category: 'Blog Advanx' });
+      if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { event_category: entregavel ? 'blog_entrega' : 'blog_unified_form', article_slug: article.slug });
+    } catch (_) { /* Analytics failure must not invalidate the saved submission. */ }
 
-      if (gateActive) {
-        rememberArticleAccess();
-        gateActive = false;
-      }
-      location.href = commercialUrl(name);
-    } catch (ex) {
-      error.textContent = ex && ex.name === 'AbortError' ? 'O envio demorou demais. Verifique sua conexão e tente novamente.' : (ex && ex.message ? ex.message + '. Tente novamente.' : 'Não foi possível registrar seus dados. Tente novamente.');
-      error.style.display = 'block';
-      error.focus();
-    } finally {
-      clearTimeout(timeout);
+    if (gateActive) {
+      rememberArticleAccess();
+      gateActive = false;
+    }
+    if (entregavel) {
+      // Página de entrega: libera o tutorial aqui mesmo, sem mandar ao WhatsApp.
+      closeForm();
       button.disabled = false;
       button.removeAttribute('aria-busy');
-      button.textContent = gateActive ? 'Continuar no WhatsApp' : 'Quero conhecer as soluções →';
+      button.textContent = submitLabel();
+      return;
     }
+    location.href = commercialUrl(name, specialty);
   }
 
   function bindUnifiedEntryPoints() {
@@ -327,6 +501,7 @@
     bindUnifiedEntryPoints();
     installDesktopWhatsApp();
     installArticleGate();
+    retryPending();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
