@@ -150,6 +150,26 @@
     return null;
   }
 
+  // Máscaras (Rafael 23/11): telefone, CPF/CNPJ e CEP formatados enquanto digita.
+  const so = (v, n) => String(v || '').replace(/\D/g, '').slice(0, n);
+  function mTel(v) { let d = so(v, 13); if (d.length > 11 && d.startsWith('55')) d = d.slice(2); d = d.slice(0, 11);
+    if (d.length <= 2) return d ? '(' + d : ''; if (d.length <= 6) return '(' + d.slice(0,2) + ') ' + d.slice(2);
+    if (d.length <= 10) return '(' + d.slice(0,2) + ') ' + d.slice(2,6) + '-' + d.slice(6);
+    return '(' + d.slice(0,2) + ') ' + d.slice(2,7) + '-' + d.slice(7); }
+  function mDoc(v) { const d = so(v, 14);
+    if (d.length <= 11) return d.replace(/^(\d{3})(\d)/, '$1.$2').replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3').replace(/\.(\d{3})(\d{1,2})$/, '.$1-$2');
+    return d.replace(/^(\d{2})(\d)/, '$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3').replace(/\.(\d{3})(\d)/, '.$1/$2').replace(/(\d{4})(\d{1,2})$/, '$1-$2'); }
+  function mCep(v) { const d = so(v, 8); return d.length > 5 ? d.slice(0,5) + '-' + d.slice(5) : d; }
+  const MASC = { telefone: mTel, telefone_leads: mTel, cpf_cnpj: mDoc, anunciante_documento: mDoc, cep: mCep };
+  function mascarar() {
+    card.querySelectorAll('[data-k], [data-r$=":telefone"]').forEach((el) => {
+      const f = el.dataset.r ? mTel : MASC[el.dataset.k]; if (!f) return;
+      el.setAttribute('inputmode', 'numeric');
+      if (el.value) el.value = f(el.value);
+      el.addEventListener('input', () => { el.value = f(el.value); });
+    });
+  }
+
   function campo(c) {
     const v = esc(dados[c.k] || '');
     const ctl = c.g
@@ -179,6 +199,7 @@
       <button type="submit" class="btn pri" id="ir"${enviando ? ' disabled' : ''}>${etapa < ETAPAS.length - 1 ? 'Continuar →' : (enviando ? 'Enviando…' : 'Enviar cadastro')}</button>
     </div></form>`;
     card.innerHTML = html;
+    mascarar();
     const f = card.querySelector('#f');
     f.addEventListener('submit', enviar);
     card.querySelector('#voltar')?.addEventListener('click', () => { lerTela(); ir(etapa - 1); });
