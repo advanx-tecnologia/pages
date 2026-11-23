@@ -22,6 +22,6 @@ export function path(a){return ['name','phone','teams',...(a.teams?.includes(tea
 export function next(a){return path(a).find(k=>a[k]===undefined)??(a.investment===investment[1]&&revenue.slice(0,2).includes(a.revenue)?'end':'calendar');}
 export function validate(k,v){const q=questions[k];if(!q)throw Error('Campo inválido.');if(q.multi){if(!Array.isArray(v)||!v.length||v.length>8||new Set(v).size!==v.length||v.some(x=>!q.options.includes(x)))throw Error('Escolha pelo menos uma opção.');return v;}
  if(typeof v!=='string')throw Error('Resposta inválida.');v=v.trim();if(!v||v.length>(k==='pain'?2000:200))throw Error('Confira sua resposta.');if(q.options&&!q.options.includes(v))throw Error('Escolha uma opção.');
- if(k==='phone'){v=v.replace(/\D/g,'').replace(/^55(?=\d{11}$)/,'');if(!/^[1-9]{2}9\d{8}$/.test(v))throw Error('Informe o WhatsApp com DDD.');}
+ if(k==='phone'){v=v.replace(/\D/g,'').replace(/^55(?=\d{11}$)/,'');if(!/^[1-9]{2}9\d{8}$/.test(v)||!'11 12 13 14 15 16 17 18 19 21 22 24 27 28 31 32 33 34 35 37 38 41 42 43 44 45 46 47 48 49 51 53 54 55 61 62 63 64 65 66 67 68 69 71 73 74 75 77 79 81 82 83 84 85 86 87 88 89 91 92 93 94 95 96 97 98 99'.split(' ').includes(v.slice(0,2))||/^(\d)\1+$/.test(v.slice(2)))throw Error('Informe o WhatsApp com DDD.');}
  if(['personal','business'].includes(k)){v=v.replace(/^@/,'');if(!/^[A-Za-z0-9._]{1,30}$/.test(v))throw Error('Informe o @ do perfil.');v='@'+v;}
  if(k==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))throw Error('Confira seu e-mail.');return v;}

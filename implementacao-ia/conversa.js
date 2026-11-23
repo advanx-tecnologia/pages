@@ -5,6 +5,17 @@ import {questions, opening, next, path, validate, firstName} from './flow.js';
 
 const API = document.querySelector('meta[name="ia-api"]')?.content || '/api/implementacao-ia/';
 const WHATSAPP = 'https://wa.advanx.com.br/r';
+// Cópia no banco Advanx gestão (edge function pública, sem credencial). Nunca segura a conversa: falha só fica no console.
+const LEAD_ENDPOINT = 'https://rbhdpchaawbclzjcwkoe.supabase.co/functions/v1/receber-lead';
+const leadSid = sessionStorage.getItem('ia-gestao-sid') || (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(16).slice(2));
+sessionStorage.setItem('ia-gestao-sid', leadSid);
+function copiaGestao(a) {
+  if (!a.name || !a.phone) return;
+  const {name, phone, email, business, revenue, ...resto} = a;
+  const body = {formulario: 'Implementação IA (conversa)', nome: name, telefone: phone, email: email || null, instagram: business || null, faturamento: revenue || null,
+    ...attribution, submission_id: leadSid, respostas: {...resto, pagina: location.pathname}};
+  try { fetch(LEAD_ENDPOINT, {method: 'POST', keepalive: true, headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}).catch(() => {}); } catch { /* nunca trava a conversa */ }
+}
 const box = document.querySelector('#conversation');
 const history = document.querySelector('#history');
 const status = document.querySelector('#status');
@@ -255,6 +266,7 @@ function ask(key) {
         once('form_start', () => track('form_start'));
         if (j.lead_event) once('generate_lead', () => track('generate_lead', {event_id: j.event_ids?.lead}));
         confirmed = j;
+        copiaGestao(answers);
         state = {...state, event_id: j.event_id, persisted: j.persisted};
       } catch (e) {
         if (gen !== generation) return;
