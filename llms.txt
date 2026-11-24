@@ -50,6 +50,7 @@
 Tutoriais para donos de negócio: o que é cada material (repositório, skill ou documento), para que serve e como instalar e usar.
 
 - [O mapa do comercial de um escritório de contabilidade com IA](https://advanx.com.br/blog/mapa-comercial-escritorio-contabilidade-ia/): Um mapa em sete cartões mostra quando a IA entra no comercial de um escritório de contabilidade e traz as mensagens para cada situação.
+- [A pergunta e as mensagens](https://advanx.com.br/blog/pergunta-mensagens-whatsapp-studio/): Material para studios com uma pergunta de permissão e cinco mensagens de WhatsApp para responder a contatos, retomar conversas e avisar sobre novas turmas.
 
 ## Mais artigos do blog
 
