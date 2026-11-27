@@ -6,24 +6,27 @@
 <meta name="robots" content="noindex">
 <title>Cadastro do cliente — Advanx</title>
 <style>
-  :root { --p:#2563eb; --p10:#2563eb1a; --bg:#f7f8fb; --card:#fff; --tx:#0f172a; --mu:#64748b; --bd:#e2e8f0; --er:#dc2626; }
+  @font-face{font-family:"Sora";font-weight:200 700;font-display:swap;src:url("../blog/assets/sora.woff2") format("woff2")}
+  @font-face{font-family:"JetBrains Mono";font-weight:400 600;font-display:swap;src:url("../blog/assets/jetbrains-mono.woff2") format("woff2")}
+  /* Cores e fontes da bio no ar (Rafael 27/11): preto e branco, Sora + JetBrains Mono */
+  :root { --p:#0A0A0A; --p10:rgba(10,10,10,.08); --bg:#F7F6F3; --card:#fff; --tx:#0A0A0A; --mu:#585856; --bd:rgba(10,10,10,.14); --er:#dc2626; --mono:"JetBrains Mono",ui-monospace,monospace; }
   * { box-sizing:border-box; }
-  body { margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--tx);
-    background:linear-gradient(180deg,var(--p10),var(--bg) 40%); min-height:100vh; padding:32px 16px; }
+  body { margin:0; font-family:"Sora",ui-sans-serif,system-ui,sans-serif; color:var(--tx);
+    background:var(--bg); min-height:100vh; padding:32px 16px; }
   .wrap { max-width:672px; margin:0 auto; }
   .topo { text-align:center; margin-bottom:24px; }
   .topo img { height:40px; margin-bottom:12px; }
   h1 { font-size:24px; margin:0; font-weight:600; }
   .sub { color:var(--mu); font-size:14px; margin-top:4px; }
-  .card { background:var(--card); border:1px solid var(--bd); border-radius:16px; padding:20px; box-shadow:0 10px 30px #0f172a14; }
+  .card { background:var(--card); border:1px solid var(--bd); border-radius:16px; padding:20px; box-shadow:0 10px 30px rgba(10,10,10,.06); }
   @media (min-width:640px){ .card{ padding:32px; } }
-  .prog-info { display:flex; justify-content:space-between; font-size:12px; color:var(--mu); margin-bottom:8px; }
+  .prog-info { display:flex; font-family:var(--mono); justify-content:space-between; font-size:12px; color:var(--mu); margin-bottom:8px; }
   .barra { height:8px; background:var(--bd); border-radius:99px; overflow:hidden; }
   .barra i { display:block; height:100%; background:var(--p); transition:width .2s; }
   .passos { display:none; gap:8px; margin-top:12px; }
   @media (min-width:640px){ .passos{ display:flex; } }
-  .passos span { flex:1; text-align:center; font-size:12px; padding:4px 8px; border-radius:99px; background:#f1f5f9; color:var(--mu); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .passos span.at { background:var(--p); color:#fff; } .passos span.ok { background:var(--p10); color:var(--p); }
+  .passos span { flex:1; font-family:var(--mono); text-align:center; font-size:12px; padding:4px 8px; border-radius:99px; background:var(--p10); color:var(--mu); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .passos span.at { background:var(--p); color:#fff; } .passos span.ok { background:#fff; color:var(--p); box-shadow:inset 0 0 0 1px var(--p); }
   h2 { font-size:18px; margin:24px 0 2px; font-weight:600; }
   .desc { color:var(--mu); font-size:14px; margin:0 0 20px; }
   .grade { display:grid; gap:16px; grid-template-columns:1fr; }
@@ -32,7 +35,10 @@
   input, textarea { width:100%; font:inherit; font-size:15px; padding:9px 12px; border:1px solid var(--bd); border-radius:8px; background:#fff; color:var(--tx); }
   input:focus, textarea:focus { outline:2px solid var(--p10); border-color:var(--p); }
   textarea { resize:vertical; min-height:76px; }
-  .resp { border:1px solid var(--bd); background:#f8fafc; border-radius:12px; padding:16px; margin-top:12px; }
+  .pre { display:flex; }
+  .pre span { padding:9px 10px; border:1px solid var(--bd); border-right:0; border-radius:8px 0 0 8px; background:var(--bg); color:var(--mu); font-family:var(--mono); font-size:15px; }
+  .pre input { border-radius:0 8px 8px 0; min-width:0; }
+  .resp { border:1px solid var(--bd); background:var(--bg); border-radius:12px; padding:16px; margin-top:12px; }
   .resp .cab { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:14px; font-weight:500; }
   .btn { font:inherit; font-size:15px; border-radius:8px; padding:10px 16px; cursor:pointer; border:1px solid var(--bd); background:#fff; color:var(--tx); }
   .btn.pri { background:var(--p); border-color:var(--p); color:#fff; flex:1; font-weight:500; }
@@ -98,7 +104,7 @@
       { k: 'anunciante_documento', l: 'CPF ou CNPJ do anunciante', m: 1 },
       { k: 'objetivo', l: 'Principal objetivo com os anúncios', g: 1 },
       { k: 'verba_ads', l: 'Verba mensal para anúncios (R$)', p: 'Ex.: 1500', m: 1 },
-      { k: 'conta_anuncio_meta', l: 'Já tem conta de anúncios na Meta? Se sim, cole o ID (ex.: act_123… ou só os números)', p: 'act_123456789', m: 1 },
+      { k: 'conta_anuncio_meta', l: 'Já tem conta de anúncios na Meta? Se sim, cole o número da conta', p: '123456789', pre: 'act_', m: 1 },
       { k: 'servicos_prioridade', l: 'Quais serviços/teses quer anunciar primeiro? Em ordem de prioridade', g: 1 },
       { k: 'observacoes', l: 'Algo mais que devemos saber?', g: 1 },
     ]},
@@ -149,9 +155,9 @@
       const d = dados.anunciante_documento.replace(/\D/g, '');
       if (d.length !== 11 && d.length !== 14) return 'CPF ou CNPJ do anunciante inválido.';
     }
-    // Mesma regra da função: "act_" opcional e só dígitos
-    if (etapa === 3 && (dados.conta_anuncio_meta || '').trim() && !/^(act_)?\d{6,20}$/i.test(dados.conta_anuncio_meta.replace(/\s/g, ''))) {
-      return 'ID da conta de anúncios inválido. Use act_ seguido dos números, ou só os números.';
+    // A máscara já tira "act_" e espaços; a função aplica a mesma regra
+    if (etapa === 3 && (dados.conta_anuncio_meta || '').trim() && !/^\d{6,20}$/.test(dados.conta_anuncio_meta)) {
+      return 'Número da conta de anúncios inválido. Use só os números da conta.';
     }
     return null;
   }
@@ -166,7 +172,7 @@
     if (d.length <= 11) return d.replace(/^(\d{3})(\d)/, '$1.$2').replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3').replace(/\.(\d{3})(\d{1,2})$/, '.$1-$2');
     return d.replace(/^(\d{2})(\d)/, '$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3').replace(/\.(\d{3})(\d)/, '.$1/$2').replace(/(\d{4})(\d{1,2})$/, '$1-$2'); }
   function mCep(v) { const d = so(v, 8); return d.length > 5 ? d.slice(0,5) + '-' + d.slice(5) : d; }
-  const MASC = { telefone: mTel, telefone_leads: mTel, cpf_cnpj: mDoc, anunciante_documento: mDoc, cep: mCep };
+  const MASC = { telefone: mTel, telefone_leads: mTel, cpf_cnpj: mDoc, anunciante_documento: mDoc, cep: mCep, conta_anuncio_meta: (v) => String(v || '').replace(/act_|\s/gi, '') };
   function mascarar() {
     card.querySelectorAll('[data-k], [data-r$=":telefone"]').forEach((el) => {
       const f = el.dataset.r ? mTel : MASC[el.dataset.k]; if (!f) return;
@@ -181,7 +187,7 @@
     const ctl = c.g
       ? `<textarea id="${c.k}" data-k="${c.k}" maxlength="1000" rows="3">${v}</textarea>`
       : `<input id="${c.k}" data-k="${c.k}" type="${c.t || 'text'}" placeholder="${esc(c.p || '')}" maxlength="300" value="${v}">`;
-    return `<div class="${c.m ? '' : 'inteiro'}"><label for="${c.k}">${esc(c.l)}</label>${ctl}</div>`;
+    return `<div class="${c.m ? '' : 'inteiro'}"><label for="${c.k}">${esc(c.l)}</label>${c.pre ? `<div class="pre"><span aria-hidden="true">${esc(c.pre)}</span>${ctl}</div>` : ctl}</div>`;
   }
 
   function desenhar() {
