@@ -17,9 +17,6 @@
   <meta property="og:image" content="https://advanx.com.br/blog/assets/blog-images/como-automatizar-respostas-no-whatsapp-para-empresa-em-salvador.webp" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Como automatizar respostas no whatsapp para empresa em salvador: tutorial prático","description":"Veja como automatizar respostas no whatsapp para empresa em salvador, configurar horários, criar atalhos e organizar o encaminhamento das conversas.","image":"https://advanx.com.br/blog/assets/blog-images/como-automatizar-respostas-no-whatsapp-para-empresa-em-salvador.webp","datePublished":"2026-10-09","dateModified":"2026-10-09","author":{"@type":"Organization","name":"Advanx Tecnologia","url":"https://advanx.com.br"},"publisher":{"@type":"Organization","name":"Advanx Tecnologia","logo":{"@type":"ImageObject","url":"https://res.cloudinary.com/dmf4bqbdd/image/upload/v1784400742/Logo_Advanx_IA_Transparante_v3_kgirrz.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://advanx.com.br/blog/como-automatizar-respostas-no-whatsapp-para-empresa-em-salvador/"}}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Dá para automatizar respostas no WhatsApp Business gratuito?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. O aplicativo permite configurar mensagens automáticas de saudação e ausência. As respostas rápidas são atalhos que um atendente seleciona e envia manualmente."}}, {"@type": "Question", "name": "Como configurar uma resposta fora do horário de atendimento?", "acceptedAnswer": {"@type": "Answer", "text": "Cadastre primeiro os horários no perfil comercial. Depois, em Ferramentas > Mensagem de ausência, ative o envio e selecione a opção para responder fora do horário de atendimento."}}, {"@type": "Question", "name": "O WhatsApp Business encaminha conversas automaticamente para cada funcionário?", "acceptedAnswer": {"@type": "Answer", "text": "As ferramentas básicas do aplicativo ajudam a identificar e organizar conversas, mas o encaminhamento por assunto exige uma rotina da equipe. Para distribuir atendimentos automaticamente, avalie uma solução conectada à Plataforma do WhatsApp Business."}}, {"@type": "Question", "name": "Qual mensagem automática uma empresa de Salvador deve usar?", "acceptedAnswer": {"@type": "Answer", "text": "Uma mensagem curta deve identificar a empresa, informar o horário de atendimento e pedir apenas o dado necessário para direcionar a conversa, como bairro, serviço desejado ou número do pedido."}}]}</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/></noscript>
   <style>
     :root{
       --bg:#F6F1E8;
@@ -150,32 +147,30 @@
     .btn-cta{background:var(--accent);color:#fff;font-weight:600;font-size:.875rem;padding:12px 20px;border-radius:10px;text-decoration:none;white-space:nowrap;transition:opacity .2s;border:none;cursor:pointer;font-family:'Inter',sans-serif;}
     .btn-cta:hover{opacity:.88;}
   </style>
-  <style data-src="/blog/assets/design-system-advanx.css">/* Advanx IA — Design System 1.0 (canônico: /root/advanx-pages-work/design-system/DESIGN-SYSTEM.md)
-   Camada de override carregada depois do CSS legado de cada página. */
-
+  <style data-src="/blog/assets/design-system-advanx.css">/* Advanx IA — blog, tema claro (T83, 27/11). Camada única carregada depois do CSS legado de cada página.
+   Fonte: design system 2026-10-29-premium, tokens claros da Nala (Shared/marca/paginas/blog-t83-ds-20261126/ENTREGA.md). */
+@font-face{font-family:Geist;src:url("/blog/assets/geist.woff2") format("woff2");font-weight:100 900;font-display:swap}
 :root {
-  /* Tokens congelados literalmente de design-system/index.html, tema dark. */
-  --blue-300:#7dd3fc; --blue-400:#38bdf8; --blue-500:#0ea5e9; --blue-600:#0284c7; --blue-700:#0369a1;
-  --ink-950:#050b14; --ink-900:#091321; --ink-850:#0d1a2b; --ink-800:#132238;
-  --white:#ffffff; --slate-50:#f7fafc; --slate-100:#eef3f8; --slate-300:#c6d1de; --slate-400:#96a8bb; --slate-500:#6b7f94;
-  --green-400:#54d39d; --amber-400:#f9c66b; --red-400:#fb7c83;
+  /* Tema claro, tokens da Nala (T83, ENTREGA.md "Tokens que valem para o Ono"). */
   --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-6:24px; --space-8:32px; --space-12:48px; --space-16:64px; --space-24:96px;
-  --radius-sm:8px; --radius-md:12px; --radius-lg:16px; --radius-xl:24px;
-  --font-display:"Instrument Sans",system-ui,sans-serif; --font-body:"Manrope",system-ui,sans-serif; --font-mono:"IBM Plex Mono",ui-monospace,monospace;
-  --duration-fast:160ms; --duration-base:220ms; --duration-slow:340ms; --ease-out:cubic-bezier(.16,1,.3,1);
-  --canvas:var(--ink-950); --surface:var(--ink-900); --surface-raised:var(--ink-850); --surface-strong:var(--ink-800);
-  --text:var(--slate-50); --text-soft:var(--slate-300); --muted:var(--slate-400); --line:#1b3048; --action:var(--blue-400); --action-ink:var(--ink-950);
-  --focus:var(--blue-300); --success:var(--green-400); --warning:var(--amber-400); --danger:var(--red-400);
-  --button-primary-bg:var(--white); --button-primary-hover-bg:var(--slate-100); --button-primary-fg:var(--ink-950); --button-secondary-bg:var(--surface-raised); --button-secondary-fg:var(--text);
-  --card-bg:var(--surface); --card-border:var(--line); --card-radius:var(--radius-lg); --input-bg:var(--surface-raised); --input-border:var(--line);
+  --radius-sm:10px; --radius-md:11px; --radius-lg:18px; --radius-xl:24px;
+  --font-display:Geist,Arial,sans-serif; --font-body:Geist,Arial,sans-serif; --font-mono:"Geist Mono",ui-monospace,monospace;
+  --duration-fast:160ms; --duration-base:260ms; --duration-slow:480ms; --ease-out:cubic-bezier(.16,1,.3,1);
+  --canvas:#FAFAFA; --surface:#FFFFFF; --surface-raised:#EEEEF0; --surface-strong:#EEEEF0;
+  --text:#161719; --text-soft:#62646C; --muted:#62646C; --line:#DEDEE3; --control-line:#7A7D86;
+  --action:#F7CE4A; --action-ink:#171407; --focus:#161719; --success:#465C31; --warning:#8A5A00; --danger:#993C2B;
+  --glass:rgba(255,255,255,.78);
+  --button-primary-bg:var(--action); --button-primary-hover-bg:#FADA72; --button-primary-fg:var(--action-ink);
+  --button-secondary-bg:var(--surface); --button-secondary-fg:var(--text);
+  --card-bg:var(--surface); --card-border:var(--line); --card-radius:18px; --input-bg:var(--canvas); --input-border:var(--control-line);
   /* Aliases exclusivamente para os seletores existentes do blog. */
   --bg:var(--canvas); --bg2:var(--surface); --surface-2:var(--surface-raised);
   --ink:var(--text); --ink-2:var(--text-soft); --ink-3:var(--muted);
   --border:var(--line); --accent:var(--action); --accent-soft:var(--surface-raised);
   --accent-mid:color-mix(in srgb,var(--action) 12%,transparent);
-  --fonte-display:var(--font-display); --fonte-corpo:var(--font-body); --fonte-dados:var(--font-mono);
+  --fonte-display:var(--font-display); --fonte-corpo:var(--font-body); --fonte-dados:var(--font-body);
 }
-html { color-scheme:dark; }
+html { color-scheme:light; }
 body {
   background:var(--bg); color:var(--ink); font-family:var(--fonte-corpo);
   line-height:1.6; -webkit-font-smoothing:antialiased;
@@ -362,7 +357,129 @@ footer { background:var(--bg2); border-top-color:var(--border); }
   html { scroll-behavior:auto; }
   *,*::before,*::after { transition-duration:.01ms !important; animation-duration:.01ms !important; }
   .reveal-up { opacity:1; transform:none; }
-}</style>
+}
+
+/* Regras do protótipo claro da Nala */
+body,input,button,select,textarea,.art-body p,.hero-sub{font-family:var(--font-body)!important}
+[style*="Lora"],[style*="JetBrains Mono"]{font-family:var(--font-body)!important}
+::selection{background:var(--action);color:var(--action-ink)}
+
+/* cabeçalho */
+.nav{background:var(--glass)!important;backdrop-filter:blur(24px)!important;-webkit-backdrop-filter:blur(24px)!important}
+@supports not (backdrop-filter:blur(1px)){.nav{background:var(--surface)!important}}
+.nav-inner{height:64px}
+.nav-links a{font-size:14px;color:var(--text-soft)}
+.marca{display:inline-flex;align-items:center;gap:10px;color:var(--text);font-weight:600;font-size:16px;letter-spacing:-.02em;white-space:nowrap}
+.marca i{width:20px;height:30px;background:var(--action);-webkit-mask:url("/blog/assets/advanx-simbolo.png") center/46px 46px no-repeat;mask:url("/blog/assets/advanx-simbolo.png") center/46px 46px no-repeat}
+.nav-btn{padding:0 18px;font-size:14px}
+
+/* títulos */
+.hero-headline,.art-title,.nl-headline,.section-title,.featured-title,.ed-main-title,.card-title,.card-sm-title,.art-body h2,.art-body h3,.nl-section h2{font-family:var(--font-display)!important;text-wrap:balance}
+.hero-headline{font-size:56px;font-weight:500;letter-spacing:-.055em;line-height:1.08;max-width:780px}
+.hero-headline em{font-style:normal!important;color:var(--action)!important}
+.art-title{font-size:48px;font-weight:550;letter-spacing:-.045em;line-height:1.12}
+.section-title{font-size:30px;font-weight:600;letter-spacing:-.035em}
+.nl-headline{font-size:30px;font-weight:600;letter-spacing:-.035em}
+.featured-title{font-size:28px;font-weight:600;letter-spacing:-.035em;line-height:1.18}
+.ed-main-title{font-size:24px;font-weight:600;letter-spacing:-.025em;line-height:1.25}
+.card-title,.card-sm-title{font-weight:600;letter-spacing:-.015em;line-height:1.35}
+.card-title{font-size:18px}.card-sm-title{font-size:16px}
+.art-body h2{font-size:28px;font-weight:600;letter-spacing:-.03em;line-height:1.2;margin:56px 0 16px;padding-top:32px}
+.art-body h3{font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.3;margin:32px 0 12px}
+
+/* texto e metadados: Geist, sem caixa alta */
+.hero-sub{font-size:18px;line-height:1.65;max-width:560px}
+.art-body{max-width:620px;width:100%}
+.art-hero,.art-hero-img,.art-layout{max-width:1020px}
+.art-title{max-width:820px}
+@media(min-width:1025px){.art-layout{grid-template-columns:minmax(0,620px) 280px;justify-content:space-between}}
+@media(max-width:1024px){.art-body{margin-inline:auto}}
+.art-body p,.art-body ul,.art-body ol{font-size:17px;line-height:1.75}
+.art-body p.lead{font-size:19px;line-height:1.65}
+.hero-kicker,.cat-tag,.section-label,.post-meta,.art-meta,.breadcrumb,.sidebar-label,.nl-label,.footer-links a,.footer-copy,.post-count{font-family:var(--font-body)!important;text-transform:none;letter-spacing:0}
+.hero-kicker,.section-label{font-size:13px;font-weight:500;color:var(--text-soft)}
+.cat-tag,.card .cat-tag{background:none!important;padding:0;border-radius:0;font-size:12px;font-weight:500;color:var(--text-soft)!important}
+.post-meta,.art-meta,.breadcrumb,.footer-copy,.post-count{font-size:13px}
+.sidebar-label{font-size:13px;font-weight:600;color:var(--text)}
+.post-meta span.dot,.dot{color:var(--control-line)!important}
+span[style*="color:var(--accent)"]{color:var(--text)!important}
+
+/* botões e filtros */
+.nav-btn,.btn-primary,.btn-accent,.btn-cta,.nl-submit,.btn-ghost{border-radius:11px;font-weight:600;min-height:44px}
+.btn-primary,.btn-ghost{display:inline-flex;align-items:center;justify-content:center;padding:0 22px;font-size:15px}
+.btn-ghost{background:var(--surface);border:1px solid var(--control-line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--text);color:var(--text)}
+.fpill{border-radius:999px;border:1px solid var(--line);font-size:14px;padding:0 16px}
+.fpill:hover{border-color:var(--control-line);color:var(--text)}
+.fpill.active{background:var(--surface-raised)!important;border-color:var(--control-line)!important;color:var(--text)!important}
+.post-search{background:var(--canvas)!important;border:1px solid var(--control-line)!important;border-radius:11px;min-height:44px;font-size:16px}
+.post-pager button{border:1px solid var(--control-line);border-radius:11px;min-height:44px}
+
+/* superfícies: só destaque, formulário e lateral têm caixa */
+.hero{padding-top:128px}
+.hero-actions{margin-bottom:56px}
+.featured{border-radius:24px!important;border:1px solid var(--line)}
+.featured-img img{border-radius:0!important}
+.card,.ed-main{background:transparent!important;border:0!important;border-radius:0!important}
+.card-img,.ed-main-img{border-radius:18px;background:var(--surface-raised)}
+.card-img img,.ed-main-img img{border-radius:0!important}
+.card-body,.ed-main-body{padding:16px 0 0!important}
+.card-sm{background:transparent!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;padding-bottom:16px;grid-template-columns:120px 1fr}
+.card-sm-img{border-radius:12px;height:104px}
+.card-sm-img img{min-height:0;border-radius:0}
+.card-sm-body{padding:0 0 0 16px}
+.card:hover .card-title,.ed-main:hover .ed-main-title,.card-sm:hover .card-sm-title{text-decoration:underline;text-decoration-color:var(--action);text-underline-offset:4px}
+.card:hover,.ed-main:hover,.card-sm:hover{transform:none}
+.grid-3{gap:40px 24px}
+section[style]{padding-top:64px!important;padding-bottom:64px!important}
+.art-hero{padding-top:128px}
+.art-hero-img img{border-radius:24px!important}
+.sidebar-box,.faq-item{border-radius:18px!important}
+.cta-inline,.sidebar-cta{background:var(--surface)!important;border:1px solid var(--line);border-radius:18px}
+.art-body blockquote{background:var(--surface);border-left:2px solid var(--action);border-radius:0 12px 12px 0}
+.art-body a{color:var(--text);text-decoration-color:var(--action)}
+.toc-link:hover,.toc-link.active{color:var(--text);border-left-color:var(--action)}
+.nl-section{background:var(--surface)}
+.nl-card{background:var(--surface-raised)!important;border-radius:24px!important}
+footer{background:var(--canvas)}
+
+@media(max-width:640px){
+  .hero{padding:104px 20px 48px}
+  .hero-headline{font-size:40px;line-height:1.1}
+  .hero-sub{font-size:17px}
+  .hero-actions{flex-direction:column;gap:12px;margin-bottom:40px}
+  .art-hero{padding:96px 20px 24px}
+  .art-title{font-size:37px;line-height:1.12}
+  .art-hero-img{padding:0 20px}
+  .art-hero-img img{border-radius:18px!important}
+  .featured-body{padding:24px 20px}
+  .featured-title{font-size:24px}
+  .art-body h2{font-size:25px}.art-body h3{font-size:20px}
+  .art-body p.lead{font-size:18px}
+  .card-sm{grid-template-columns:96px 1fr}
+  .card-sm-img{height:96px}.card-sm-img img{min-height:0}
+  .card-sm-body{padding:0 0 0 12px}
+  section[style]{padding:56px 20px!important}
+  .nav-btn{padding:0 12px;font-size:13px}
+  .marca{font-size:15px;gap:8px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media(max-width:640px){.footer-links a{display:inline-flex;align-items:center;min-height:44px}}
+@media(max-width:359px){.marca{font-size:0;gap:0}}
+.art-body>p,.art-body>ul>li,.art-body>ol>li{color:var(--text)}
+.art-body .cta-inline h3{margin-top:0}
+.art-body a.related-card{text-decoration:none;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+.related-card img{border-radius:18px}
+.related-body{padding:16px 0 0!important}
+.related-title{font-family:var(--font-display)!important;font-weight:600}
+.related-card:hover .related-title{text-decoration:underline;text-decoration-color:var(--action);text-underline-offset:4px}
+.related-card:hover{transform:none}
+span[style*="uppercase"]{font:500 13px/1.4 var(--font-body)!important;text-transform:none!important;letter-spacing:0!important;color:var(--text-soft)!important}
+.hero-headline em{color:var(--text)!important;background:linear-gradient(transparent 62%,var(--action) 62%)}
+.marca i{background:#161719}
+.art-body a{text-decoration-color:var(--control-line)}
+.art-body a:hover{text-decoration-color:var(--text);text-decoration-thickness:2px}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -372,7 +489,7 @@ footer { background:var(--bg2); border-top-color:var(--border); }
 
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="/"><img style="width:auto;" src="/blog/assets/advanx-logo-light.webp" alt="Advanx" class="nav-logo" width="128" height="128"/></a>
+      <a href="/"><span class="marca"><i aria-hidden="true"></i>Advanx IA</span></a>
       <div class="nav-links">
         <a href="/">Blog</a>
         <a href="/#posts">Artigos</a>
@@ -494,7 +611,7 @@ footer { background:var(--bg2); border-top-color:var(--border); }
 
   <footer>
     <div class="footer-inner">
-      <a href="/"><img src="/blog/assets/advanx-logo-light.webp" alt="Advanx" style="height:26px;width:auto;" width="128" height="128"/></a>
+      <a href="/"><span class="marca"><i aria-hidden="true"></i>Advanx IA</span></a>
       <div class="footer-links">
         <a href="https://instagram.com/advanxia" target="_blank">Instagram</a>
         <a href="https://www.facebook.com/advanxia" target="_blank">Facebook</a>
