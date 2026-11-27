@@ -98,6 +98,8 @@
       { k: 'anunciante_documento', l: 'CPF ou CNPJ do anunciante', m: 1 },
       { k: 'objetivo', l: 'Principal objetivo com os anúncios', g: 1 },
       { k: 'verba_ads', l: 'Verba mensal para anúncios (R$)', p: 'Ex.: 1500', m: 1 },
+      { k: 'conta_anuncio_meta', l: 'Já tem conta de anúncios na Meta? Se sim, cole o ID (ex.: act_123… ou só os números)', p: 'act_123456789', m: 1 },
+      { k: 'servicos_prioridade', l: 'Quais serviços/teses quer anunciar primeiro? Em ordem de prioridade', g: 1 },
       { k: 'observacoes', l: 'Algo mais que devemos saber?', g: 1 },
     ]},
   ];
@@ -146,6 +148,10 @@
     if (etapa === 3 && (dados.anunciante_documento || '').trim()) {
       const d = dados.anunciante_documento.replace(/\D/g, '');
       if (d.length !== 11 && d.length !== 14) return 'CPF ou CNPJ do anunciante inválido.';
+    }
+    // Mesma regra da função: "act_" opcional e só dígitos
+    if (etapa === 3 && (dados.conta_anuncio_meta || '').trim() && !/^(act_)?\d{6,20}$/i.test(dados.conta_anuncio_meta.replace(/\s/g, ''))) {
+      return 'ID da conta de anúncios inválido. Use act_ seguido dos números, ou só os números.';
     }
     return null;
   }
