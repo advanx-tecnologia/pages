@@ -308,8 +308,9 @@ button{cursor:pointer;border:0;background:none;-webkit-user-select:none;user-sel
 
 </main>
 <script>
-/* Bio A · formulários (Implementar IA e Funil) e movimento. Produção (T37): ao confirmar, as respostas vão por trás ao
-   receptor T41 (form.advanx.com.br/api/blog-leads → CRM + Supabase). A pessoa nunca espera o envio. */
+/* Bio A · formulários (Implementar IA e Funil) e movimento. Implementar IA (T95, 26/11): nome, telefone e Instagram →
+   Supabase "Advanx gestão" → WhatsApp da API oficial. Funil (T37): receptor T41 (form.advanx.com.br/api/blog-leads → CRM + Supabase).
+   A pessoa nunca espera o envio. */
 (function(){
 'use strict';
 var tela=document.querySelector('.screen'), base=document.querySelector('.tela-base');
@@ -324,31 +325,23 @@ var ERR={nome:'Faltou o seu nome, para sabermos com quem falamos.',
   tel:'Esse número parece incompleto. Precisamos dele com DDD, como (11) 99999-8888.',
   email:'Esse e-mail parece incompleto, como nome@empresa.com.br.',
   texto:'Falta só contar o principal problema, mesmo em poucas palavras.',
+  insta:'Confira o seu Instagram, como @seuperfil.',
   opcao:'Uma das opções acima resolve este passo.'};
 var NOME={id:'nome',tipo:'nome',label:'Seu nome',auto:'name'};
-var TEL={id:'tel',tipo:'tel',label:'WhatsApp com DDD',auto:'tel'};
-var EMAIL={id:'email',tipo:'email',label:'Seu melhor e-mail',auto:'email'};
+var TEL={id:'tel',tipo:'tel',label:'WhatsApp com DDD',auto:'tel'}; /* telefone = WhatsApp (regra do Rafael, 26/11): nunca pedir os dois */
+var INSTA={id:'insta',tipo:'insta',label:'Seu Instagram'};
 function o(t,d){return {t:t,d:d||''}}
 var WA_URL='https://wa.me/5571993485126?text=';
+/* Implementar IA: número da API oficial (Meta, "Advanx IA", +55 71 8189-7865, conferido em 26/11). */
+var WA_OFICIAL='https://wa.me/557181897865?text=';
 var FLUXOS={
-  ia:{rotulo:'Implementar IA',nota:'',
-    final:{texto:'Vamos ler as suas respostas com calma e falar com você pelo WhatsApp com o caminho que faz sentido para o seu negócio.',
+  ia:{rotulo:'Implementar IA',nota:'',wa:WA_OFICIAL,redireciona:true,
+    final:{texto:'Abrindo o WhatsApp com a mensagem pronta. Se não abrir, toque no botão abaixo.',
       botao:'Falar agora no WhatsApp',tag:'Você revisa a mensagem no WhatsApp antes de enviar.',
-      msg:function(){return 'Oi, acabei de responder o formulário Implementar IA.'}},
+      msg:function(){return 'Rafael, quero implementar IA, como seria?'}},
     passos:[
-    {rot:'Quem é você',q:'Para começar, como podemos te chamar?',campos:[NOME]},
-    {rot:'O problema',q:'{nome}, qual é o principal problema do seu negócio hoje?',
-      aj:'Pode ser atender rápido no WhatsApp, organizar os contatos, ganhar tempo no repetitivo, ter mais clientes chegando…',
-      campos:[{id:'problema',tipo:'texto',label:'Escreva com as suas palavras',max:500}]},
-    {rot:'Investimento por mês',id:'invest',q:'Quanto você está pronto para investir por mês para resolver isso?',aj:'Isso só nos ajuda a indicar o formato certo.',
-      opcoes:[o('Até R$ 500'),o('De R$ 500 a R$ 1.000'),o('De R$ 1.000 a R$ 2.000'),o('De R$ 2.000 a R$ 5.000'),o('Acima de R$ 5.000')]},
-    {rot:'Formato',id:'formato',q:'Qual formato combina mais com você?',
-      opcoes:[o('Construímos por você.','A gente monta e entrega funcionando.'),o('Construímos juntos.','A sua equipe aprende fazendo com a gente.'),
-        o('Aprender em comunidade.','Você aprende em grupo e monta a sua.'),o('Não sei ainda, preciso de ajuda.','A gente te ajuda a decidir.')]},
-    {rot:'Quando começar',id:'quando',q:'Quando você pretende começar?',
-      opcoes:[o('Agora, este mês'),o('Nos próximos 30 dias'),o('Em 2 a 3 meses'),o('Ainda estou pesquisando')]},
-    {rot:'Contato',q:'Último passo: onde a gente fala com você?',campos:[NOME,TEL,EMAIL],botao:'Quero receber o meu caminho',
-      nota:'Sem spam. Só falamos com você sobre o que respondeu aqui.'}
+    {rot:'Contato',q:'Como a gente fala com você?',campos:[NOME,TEL,INSTA],botao:'Falar no WhatsApp',
+      nota:'Sem spam. Só falamos com você sobre Implementar IA.'}
   ]},
   funil:{rotulo:'Funil de aquisição',nota:'',
     final:{texto:'O WhatsApp abre com a mensagem pronta. Você revisa antes de enviar.',botao:'Abrir o WhatsApp',
@@ -386,8 +379,15 @@ var VAL={
   nome:function(v){return v.trim().length>=2},
   tel:function(v){var d=digitos(v);return /^[1-9]{2}9\d{8}$/.test(d)&&DDDS.indexOf(d.slice(0,2))>-1&&!/^(\d)\1+$/.test(d.slice(2))},
   email:function(v){return /^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/i.test(v.trim())},
-  texto:function(v){return v.trim().length>=5}
+  texto:function(v){return v.trim().length>=5},
+  insta:function(v){return !!instaUser(v)}
 };
+/* Mesma regra do servidor (receber-lead/lib.ts, instagram()): aceita @perfil, perfil ou link do perfil. */
+function instaUser(v){
+  /* aceita @perfil, perfil ou link do perfil (com ou sem https/www); recusa outro site, post, espaço e ponto inválido (regra do Instagram) */
+  var m=String(v||'').trim().slice(0,200).match(/^(?:(?:https?:\/\/)?(?:www\.|m\.)?instagram\.com\/)?@?([a-z0-9._]{1,30})\/?(?:[?#].*)?$/i);
+  var s=m?m[1].toLowerCase():'';
+  return s&&!/^\.|\.$|\.\.|instagram\.com/.test(s)&&!/^(p|reel|reels|stories|explore|tv|accounts)$/.test(s)?s:''}
 function vibra(ms){try{if(!reduz.matches&&navigator.vibrate)navigator.vibrate(ms)}catch(e){}}
 function reflow(el){void el.offsetWidth}
 
@@ -433,6 +433,7 @@ function montaPainel(id,f){
         } else {
           var attrs=c.tipo==='tel'?' type="tel" inputmode="tel" autocomplete="tel" maxlength="20" enterkeyhint="'+(j===ps.campos.length-1?'done':'next')+'"'
             :c.tipo==='email'?' type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" enterkeyhint="'+(j===ps.campos.length-1?'done':'next')+'"'
+            :c.tipo==='insta'?' type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="200" enterkeyhint="'+(j===ps.campos.length-1?'done':'next')+'"'
             :' type="text" autocomplete="name" autocapitalize="words" enterkeyhint="'+(j===ps.campos.length-1?'done':'next')+'"';
           h+='<div class="fld stg" style="--k:'+kk+'" data-c="'+c.id+'" data-t="'+c.tipo+'"><input id="'+fid+'"'+attrs+' placeholder=" "><label for="'+fid+'">'+esc(c.label)+'</label><span class="ok" aria-hidden="true">'+CHECK+'</span></div>';
         }
@@ -506,7 +507,7 @@ function prepara(p,i){
     else {var t=ps.q.replace('{nome}, ','');q.textContent=t.charAt(0).toUpperCase()+t.slice(1)}}
   if(i===p.__n){var nn=s.querySelector('.n'); nn.textContent=(p.__r.nome||'').split(/\s+/)[0]||'tudo certo';
     if(!(p.__r.nome||'').length) s.querySelector('.q').innerHTML='Recebemos tudo.';
-    var mm=p.__f.final.msg(p.__r); s.querySelector('pre').textContent=mm; p.__fim.setAttribute('href',WA_URL+encodeURIComponent(mm))}
+    var mm=p.__f.final.msg(p.__r); s.querySelector('pre').textContent=mm; p.__fim.setAttribute('href',(p.__f.wa||WA_URL)+encodeURIComponent(mm))}
   if(ps&&ps.campos&&ps.campos.length>1){ /* contato: traz o nome já digitado, editável */
     var fn=s.querySelector('.fld[data-c=nome] input'); if(fn&&!fn.value&&p.__r.nome){fn.value=p.__r.nome; sinc(fn.parentNode)}}
 }
@@ -576,6 +577,15 @@ function fechar(p){
 }
 window.__fecharPaineis=function(){[].forEach.call(document.querySelectorAll('.painel.aberto'),fechar)};
 
+/* Abre o WhatsApp depois de gravar, ou em 1,5 s com o Supabase lento ou fora: o lead nunca fica parado aqui.
+   Mínimo de 0,9 s para a tela de confirmação aparecer. O botão da tela final continua como reserva. */
+function redireciona(p,gravou){
+  var foi=false, t0=Date.now();
+  function vaiWa(){if(foi||!p.classList.contains('aberto')) return; foi=true;
+    setTimeout(function(){location.href=p.__fim.getAttribute('href')},Math.max(0,900-(Date.now()-t0)))}
+  setTimeout(vaiWa,1500);
+  Promise.resolve(gravou).then(vaiWa,vaiWa);
+}
 function ligaEventos(p){
   p.querySelector('.voltar').addEventListener('click',function(){
     if(p.__busy) return; if(p.__i===0||p.__i>=p.__n) fechar(p); else {guarda(p,p.__i);vai(p,p.__i-1,-1)}});
@@ -583,8 +593,9 @@ function ligaEventos(p){
     if(p.__busy) return; var er=checa(p,p.__i);
     if(er){mostraErro(p,er);return}
     guarda(p,p.__i);
-    if(p.__i===p.__n-1) Envio.confirma(p.__id,p.__r); /* por trás: a tela final abre na hora */
+    var gravou=p.__i===p.__n-1?Envio.confirma(p.__id,p.__r):null; /* por trás: a tela final abre na hora */
     vai(p,p.__i+1,1);
+    if(gravou&&p.__f.redireciona) redireciona(p,gravou);
   });
   p.addEventListener('click',function(e){
     var b=e.target.closest('.opcao'); if(!b) return;
@@ -676,22 +687,63 @@ var Envio=(function(){
       if(k<ESPERAS.length) setTimeout(function(){var j=le(CHAVE).filter(function(x){return x.crm.submission_id===id})[0]; if(j) tenta(j,k+1)},ESPERAS[k]);
     });
   }
+  /* Implementar IA → Supabase "Advanx gestão" (edge receber-lead), direto, sem CRM (pedido do Rafael, 26/11).
+     O pacote fica na fila deste navegador ANTES do envio e só sai com 200 ok. 400 = o servidor nunca aceitará: sai.
+     Outra falha (rede, 403, 5xx) fica na fila com o código do erro e volta a tentar ao reabrir a bio ou voltar a rede.
+     atalho: o erro fica só neste navegador; se a pessoa não voltar, o lead chega só pela conversa no WhatsApp oficial. */
+  var URL_SB='https://rbhdpchaawbclzjcwkoe.supabase.co/functions/v1/receber-lead', CHAVE_SB='advanx_bio_supa_pendentes_v1';
+  function filaSb(f){grava(CHAVE_SB,f(le(CHAVE_SB)).slice(-5))}
+  function montaSupa(r){
+    var u=utm(), c={formulario:'bio',nome:corta(r.nome,120),telefone:'55'+digitos(r.tel||''),instagram:instaUser(r.insta)};
+    Object.keys(u).forEach(function(k){c[k]=u[k]});
+    c.submission_id=idPara({sb:c});
+    c.respostas={fluxo:'implementar-ia',pagina:location.origin+location.pathname,referrer:corta(document.referrer,300),enviado_em:new Date().toISOString()};
+    return c;
+  }
+  function mandaSupa(c){
+    var id=c.submission_id;
+    return fetch(URL_SB,{method:'POST',keepalive:true,credentials:'omit',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify(c,function(k,v){return this===c&&(k==='created'||k==='erro'||k==='erro_em')?undefined:v})})
+      .then(function(r){return r.json().catch(function(){return {}}).then(function(j){
+        if(r.ok&&j.ok===true){filaSb(function(l){return l.filter(function(x){return x.submission_id!==id})});return true}
+        if(r.status===400) filaSb(function(l){return l.filter(function(x){return x.submission_id!==id})});
+        throw new Error('sb '+r.status+(j.erro?' '+j.erro:''));
+      })})
+      .catch(function(e){
+        var cod=String(e&&e.message||'rede').slice(0,60);
+        filaSb(function(l){return l.map(function(x){if(x.submission_id===id){x.erro=cod;x.erro_em=Date.now()}return x})});
+        try{console.warn('[bio] gravação no Supabase falhou: '+cod)}catch(_){} /* só o código, sem dado pessoal */
+        return false;
+      });
+  }
+  function supa(r){
+    var c=montaSupa(r), id=c.submission_id;
+    var velho=le(CHAVE_SB).filter(function(x){return x.submission_id===id})[0];
+    if(velho) c=velho; else {c.created=Date.now(); filaSb(function(l){return l.concat([c])})}
+    return mandaSupa(c);
+  }
+  function retomaSupa(){
+    var agora=Date.now();
+    le(CHAVE_SB).forEach(function(c){if(!c||!c.submission_id) return;
+      if(c.created&&agora-c.created>IDADE){filaSb(function(l){return l.filter(function(x){return x.submission_id!==c.submission_id})});return}
+      mandaSupa(c)});
+  }
   function confirma(fluxo,r){
     try{
+      if(fluxo==='ia') return supa(r);
       if(!ORIGEM[fluxo]) return;
       var job=monta(fluxo,r), id=idPara(job);
       job.crm.submission_id=id; job.supabase.submission_id=id;
       var velho=le(CHAVE).filter(function(j){return j.crm.submission_id===id})[0];
       if(velho) job=velho; else {job.created=Date.now(); fila(function(l){return l.concat([job])})}
       tenta(job,0);
-    }catch(e){} /* falha aqui nunca impede a tela final nem o WhatsApp */
+    }catch(e){return Promise.resolve(false)} /* falha aqui nunca impede a tela final nem o WhatsApp */
   }
   function retoma(){
     var agora=Date.now();
     le(CHAVE).forEach(function(j){if(!j||!j.crm||(j.created&&agora-j.created>IDADE)){if(j&&j.crm)tira(j.crm.submission_id);return} tenta(j,0)});
   }
-  window.addEventListener('online',retoma);
-  return {confirma:confirma,retoma:retoma};
+  window.addEventListener('online',function(){retoma();retomaSupa()});
+  return {confirma:confirma,retoma:function(){retoma();retomaSupa()}};
 })();
 
 Object.keys(FLUXOS).forEach(function(id){montaPainel(id,FLUXOS[id])});
